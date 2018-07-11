@@ -1,0 +1,41 @@
+1961                (|ComplexIntegerSolveLinearPolynomialEquation| R CR)
+|package|
+(((|ComplexIntegerSolveLinearPolynomialEquation| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |solveLinearPolynomialEquation|
+    ((|Union| (|List| (|SparseUnivariatePolynomial| |#2|)) "failed")
+     (|List| (|SparseUnivariatePolynomial| |#2|))
+     (|SparseUnivariatePolynomial| |#2|))))
+  (|IntegerNumberSystem|) (|ComplexCategory| |#1|))
+ (T |ComplexIntegerSolveLinearPolynomialEquation|))
+(CATEGORY |package|
+ (SIGNATURE |solveLinearPolynomialEquation|
+  ((|Union| (|List| (|SparseUnivariatePolynomial| |#2|)) "failed")
+   (|List| (|SparseUnivariatePolynomial| |#2|))
+   (|SparseUnivariatePolynomial| |#2|))))
+"/git/fricas/src/algebra/CINTSLPE.spad"
+((|solveLinearPolynomialEquation| (*1 *2 *2 *3)
+  (|partial| AND (|isDomain| *2 (|List| (|SparseUnivariatePolynomial| *5)))
+   (|isDomain| *3 (|SparseUnivariatePolynomial| *5))
+   (|ofCategory| *5 (|ComplexCategory| *4))
+   (|ofCategory| *4 (|IntegerNumberSystem|))
+   (|isDomain| *1 (|ComplexIntegerSolveLinearPolynomialEquation| *4 *5)))))
+((|solveLinearPolynomialEquation|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#2|)) "failed")
+    (|List| (|SparseUnivariatePolynomial| |#2|))
+    (|SparseUnivariatePolynomial| |#2|))
+   31)))
+CINTSLPE
+((|constructor|
+  (NIL
+   "This package provides the generalized euclidean algorithm which is needed as the basic step for factoring polynomials."))
+ (|solveLinearPolynomialEquation|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#2|)) "failed")
+    (|List| (|SparseUnivariatePolynomial| |#2|))
+    (|SparseUnivariatePolynomial| |#2|))
+   "\\spad{solveLinearPolynomialEquation([f1,{} ...,{} fn],{} g)} where (\\spad{fi} relatively prime to each other) returns a list of \\spad{ai} such that \\spad{g} = sum \\spad{ai} prod \\spad{fj} (\\spad{j} \\spad{\\=} \\spad{i}) or equivalently g/prod \\spad{fj} = sum (ai/fi) or returns \"failed\" if no such list exists")))
+(("documentation" 0 1291) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1282) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1081) ("modemaps" 0 739) ("sourceFile" 0 699)
+ ("constructorCategory" 0 478) ("constructorModemap" 0 83)
+ ("constructorKind" 0 73) ("constructorForm" 0 20))

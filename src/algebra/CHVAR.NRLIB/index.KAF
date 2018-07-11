@@ -1,0 +1,176 @@
+8652                (|ChangeOfVariable| F UP UPUP)
+|package|
+(((|ChangeOfVariable| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |mkIntegral|
+    ((|Record| (|:| |coef| (|Fraction| |#2|)) (|:| |poly| |#3|)) |#3|))
+   (SIGNATURE |radPoly|
+    ((|Union|
+      (|Record| (|:| |radicand| (|Fraction| |#2|))
+                (|:| |deg| (|NonNegativeInteger|)))
+      "failed")
+     |#3|))
+   (SIGNATURE |rootPoly|
+    ((|Record| (|:| |exponent| (|NonNegativeInteger|))
+               (|:| |coef| (|Fraction| |#2|)) (|:| |radicand| |#2|))
+     (|Fraction| |#2|) (|NonNegativeInteger|)))
+   (SIGNATURE |goodPoint| (|#1| (|List| |#3|) |#3|))
+   (SIGNATURE |eval| (|#3| |#3| (|Fraction| |#2|) (|Fraction| |#2|)))
+   (SIGNATURE |chvar|
+    ((|Record| (|:| |func| |#3|) (|:| |poly| |#3|) (|:| |c1| (|Fraction| |#2|))
+               (|:| |c2| (|Fraction| |#2|)) (|:| |deg| (|NonNegativeInteger|)))
+     |#3| |#3|))
+   (SIGNATURE |chvar|
+    ((|Record| (|:| |func| (|List| |#3|)) (|:| |poly| |#3|)
+               (|:| |c1| (|Fraction| |#2|)) (|:| |c2| (|Fraction| |#2|))
+               (|:| |deg| (|NonNegativeInteger|)))
+     (|List| |#3|) |#3|)))
+  (|UniqueFactorizationDomain|) (|UnivariatePolynomialCategory| |#1|)
+  (|UnivariatePolynomialCategory| (|Fraction| |#2|)))
+ (T |ChangeOfVariable|))
+(CATEGORY |package|
+ (SIGNATURE |mkIntegral|
+  ((|Record| (|:| |coef| (|Fraction| |#2|)) (|:| |poly| |#3|)) |#3|))
+ (SIGNATURE |radPoly|
+  ((|Union|
+    (|Record| (|:| |radicand| (|Fraction| |#2|))
+              (|:| |deg| (|NonNegativeInteger|)))
+    "failed")
+   |#3|))
+ (SIGNATURE |rootPoly|
+  ((|Record| (|:| |exponent| (|NonNegativeInteger|))
+             (|:| |coef| (|Fraction| |#2|)) (|:| |radicand| |#2|))
+   (|Fraction| |#2|) (|NonNegativeInteger|)))
+ (SIGNATURE |goodPoint| (|#1| (|List| |#3|) |#3|))
+ (SIGNATURE |eval| (|#3| |#3| (|Fraction| |#2|) (|Fraction| |#2|)))
+ (SIGNATURE |chvar|
+  ((|Record| (|:| |func| |#3|) (|:| |poly| |#3|) (|:| |c1| (|Fraction| |#2|))
+             (|:| |c2| (|Fraction| |#2|)) (|:| |deg| (|NonNegativeInteger|)))
+   |#3| |#3|))
+ (SIGNATURE |chvar|
+  ((|Record| (|:| |func| (|List| |#3|)) (|:| |poly| |#3|)
+             (|:| |c1| (|Fraction| |#2|)) (|:| |c2| (|Fraction| |#2|))
+             (|:| |deg| (|NonNegativeInteger|)))
+   (|List| |#3|) |#3|)))
+"/git/fricas/src/algebra/CHVAR.spad"
+((|chvar| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *4))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Fraction| *6)))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5 (|UniqueFactorizationDomain|))
+       (|isDomain| *2
+                   (|Record| (|:| |func| (|List| *4)) (|:| |poly| *4)
+                             (|:| |c1| (|Fraction| *6))
+                             (|:| |c2| (|Fraction| *6))
+                             (|:| |deg| (|NonNegativeInteger|))))
+       (|isDomain| *1 (|ChangeOfVariable| *5 *6 *4))))
+ (|chvar| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|UniqueFactorizationDomain|))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+       (|isDomain| *2
+                   (|Record| (|:| |func| *3) (|:| |poly| *3)
+                             (|:| |c1| (|Fraction| *5))
+                             (|:| |c2| (|Fraction| *5))
+                             (|:| |deg| (|NonNegativeInteger|))))
+       (|isDomain| *1 (|ChangeOfVariable| *4 *5 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Fraction| *5)))))
+ (|eval| (*1 *2 *2 *3 *3)
+         (AND (|isDomain| *3 (|Fraction| *5))
+              (|ofCategory| *4 (|UniqueFactorizationDomain|))
+              (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+              (|isDomain| *1 (|ChangeOfVariable| *4 *5 *2))
+              (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|goodPoint| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *4))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Fraction| *5)))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *2))
+       (|ofCategory| *2 (|UniqueFactorizationDomain|))
+       (|isDomain| *1 (|ChangeOfVariable| *2 *5 *4))))
+ (|rootPoly| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *3 (|Fraction| *6))
+       (|ofCategory| *5 (|UniqueFactorizationDomain|))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|isDomain| *2
+                   (|Record| (|:| |exponent| (|NonNegativeInteger|))
+                             (|:| |coef| (|Fraction| *6)) (|:| |radicand| *6)))
+       (|isDomain| *1 (|ChangeOfVariable| *5 *6 *7))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| *3))))
+ (|radPoly| (*1 *2 *3)
+  (|partial| AND (|ofCategory| *4 (|UniqueFactorizationDomain|))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+   (|isDomain| *2
+               (|Record| (|:| |radicand| (|Fraction| *5))
+                         (|:| |deg| (|NonNegativeInteger|))))
+   (|isDomain| *1 (|ChangeOfVariable| *4 *5 *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Fraction| *5)))))
+ (|mkIntegral| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|UniqueFactorizationDomain|))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+       (|isDomain| *2 (|Record| (|:| |coef| (|Fraction| *5)) (|:| |poly| *3)))
+       (|isDomain| *1 (|ChangeOfVariable| *4 *5 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Fraction| *5))))))
+((|rootPoly|
+  (((|Record| (|:| |exponent| (|NonNegativeInteger|))
+              (|:| |coef| (|Fraction| |#2|)) (|:| |radicand| |#2|))
+    (|Fraction| |#2|) (|NonNegativeInteger|))
+   74))
+ (|radPoly|
+  (((|Union|
+     (|Record| (|:| |radicand| (|Fraction| |#2|))
+               (|:| |deg| (|NonNegativeInteger|)))
+     "failed")
+    |#3|)
+   58))
+ (|mkIntegral|
+  (((|Record| (|:| |coef| (|Fraction| |#2|)) (|:| |poly| |#3|)) |#3|) 36))
+ (|goodPoint| ((|#1| (|List| |#3|) |#3|) 44))
+ (|eval| ((|#3| |#3| (|Fraction| |#2|) (|Fraction| |#2|)) 19))
+ (|chvar|
+  (((|Record| (|:| |func| (|List| |#3|)) (|:| |poly| |#3|)
+              (|:| |c1| (|Fraction| |#2|)) (|:| |c2| (|Fraction| |#2|))
+              (|:| |deg| (|NonNegativeInteger|)))
+    (|List| |#3|) |#3|)
+   53)
+  (((|Record| (|:| |func| |#3|) (|:| |poly| |#3|) (|:| |c1| (|Fraction| |#2|))
+              (|:| |c2| (|Fraction| |#2|)) (|:| |deg| (|NonNegativeInteger|)))
+    |#3| |#3|)
+   55)))
+CHVAR
+((|constructor|
+  (NIL "Tools to send a point to infinity on an algebraic curve."))
+ (|chvar|
+  (((|Record| (|:| |func| (|List| |#3|)) (|:| |poly| |#3|)
+              (|:| |c1| (|Fraction| |#2|)) (|:| |c2| (|Fraction| |#2|))
+              (|:| |deg| (|NonNegativeInteger|)))
+    (|List| |#3|) |#3|)
+   "\\spad{chvar(lf,{} p)} is like chvar(\\spad{f},{} \\spad{p}) but handles list of functions")
+  (((|Record| (|:| |func| |#3|) (|:| |poly| |#3|) (|:| |c1| (|Fraction| |#2|))
+              (|:| |c2| (|Fraction| |#2|)) (|:| |deg| (|NonNegativeInteger|)))
+    |#3| |#3|)
+   "\\spad{chvar(f(x,{} y),{} p(x,{} y))} returns \\spad{[g(z,{} t),{} q(z,{} t),{} c1(x),{} c2(x),{} n]} such that under the change of variable \\spad{z = c1(x)},{} \\spad{t = y * c2(x)},{} one gets \\spad{f(x,{} y) = c1'(x)g(c1(x),{} c2(x)y)} The algebraic relation between \\spad{x} and \\spad{y} is \\spad{p(x,{} y) = 0}. The algebraic relation between \\spad{z} and \\spad{t} is \\spad{q(z,{} t) = 0}."))
+ (|eval|
+  ((|#3| |#3| (|Fraction| |#2|) (|Fraction| |#2|))
+   "\\spad{eval(p(x,{} y),{} f(x),{} g(x))} returns \\spad{p(f(x),{} y * g(x))}."))
+ (|goodPoint|
+  ((|#1| (|List| |#3|) |#3|)
+   "\\spad{goodPoint([p1,{} ...,{} pn],{} q)} returns an integer a such that a is neither a pole of \\spad{\\spad{pi}(x,{} y)} for some \\spad{i} nor a branch point of \\spad{q(x,{} y) = 0}."))
+ (|rootPoly|
+  (((|Record| (|:| |exponent| (|NonNegativeInteger|))
+              (|:| |coef| (|Fraction| |#2|)) (|:| |radicand| |#2|))
+    (|Fraction| |#2|) (|NonNegativeInteger|))
+   "\\spad{rootPoly(g,{} n)} returns \\spad{[m,{} c,{} P]} such that \\spad{c * g ^ (1/n) = P ^ (1/m)} thus if \\spad{y^n = g},{} then \\spad{z^m = P} where \\spad{z = c * y}."))
+ (|radPoly|
+  (((|Union|
+     (|Record| (|:| |radicand| (|Fraction| |#2|))
+               (|:| |deg| (|NonNegativeInteger|)))
+     "failed")
+    |#3|)
+   "\\spad{radPoly(p(x,{} y))} returns \\spad{[c(x),{} n]} if \\spad{p} is of the form \\spad{y^n - c(x)},{} \"failed\" otherwise."))
+ (|mkIntegral|
+  (((|Record| (|:| |coef| (|Fraction| |#2|)) (|:| |poly| |#3|)) |#3|)
+   "\\spad{mkIntegral(p(x,{} y))} returns \\spad{[c(x),{} q(x,{} z)]} such that \\spad{z = c * y} is integral. The algebraic relation between \\spad{x} and \\spad{y} is \\spad{p(x,{} y) = 0}. The algebraic relation between \\spad{x} and \\spad{z} is \\spad{q(x,{} z) = 0}.")))
+(("documentation" 0 6285) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 6279) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5328) ("modemaps" 0 2321) ("sourceFile" 0 2284)
+ ("constructorCategory" 0 1290) ("constructorModemap" 0 61)
+ ("constructorKind" 0 51) ("constructorForm" 0 20))

@@ -1,0 +1,300 @@
+12334               (|RealZeroPackage| |Pol|)
+|package|
+(((|RealZeroPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |realZeros|
+    ((|List|
+      (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                (|:| |right| (|Fraction| (|Integer|)))))
+     |#1|))
+   (SIGNATURE |realZeros|
+    ((|List|
+      (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                (|:| |right| (|Fraction| (|Integer|)))))
+     |#1|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|))))))
+   (SIGNATURE |realZeros|
+    ((|List|
+      (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                (|:| |right| (|Fraction| (|Integer|)))))
+     |#1| (|Fraction| (|Integer|))))
+   (SIGNATURE |realZeros|
+    ((|List|
+      (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                (|:| |right| (|Fraction| (|Integer|)))))
+     |#1|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|))))
+     (|Fraction| (|Integer|))))
+   (SIGNATURE |refine|
+    ((|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|))))
+     |#1|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|))))
+     (|Fraction| (|Integer|))))
+   (SIGNATURE |refine|
+    ((|Union|
+      (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                (|:| |right| (|Fraction| (|Integer|))))
+      "failed")
+     |#1|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|))))
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|))))))
+   (SIGNATURE |midpoint|
+    ((|Fraction| (|Integer|))
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|))))))
+   (SIGNATURE |midpoints|
+    ((|List| (|Fraction| (|Integer|)))
+     (|List|
+      (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                (|:| |right| (|Fraction| (|Integer|))))))))
+  (|UnivariatePolynomialCategory| (|Integer|)))
+ (T |RealZeroPackage|))
+(CATEGORY |package|
+ (SIGNATURE |realZeros|
+  ((|List|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|)))))
+   |#1|))
+ (SIGNATURE |realZeros|
+  ((|List|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|)))))
+   |#1|
+   (|Record| (|:| |left| (|Fraction| (|Integer|)))
+             (|:| |right| (|Fraction| (|Integer|))))))
+ (SIGNATURE |realZeros|
+  ((|List|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|)))))
+   |#1| (|Fraction| (|Integer|))))
+ (SIGNATURE |realZeros|
+  ((|List|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|)))))
+   |#1|
+   (|Record| (|:| |left| (|Fraction| (|Integer|)))
+             (|:| |right| (|Fraction| (|Integer|))))
+   (|Fraction| (|Integer|))))
+ (SIGNATURE |refine|
+  ((|Record| (|:| |left| (|Fraction| (|Integer|)))
+             (|:| |right| (|Fraction| (|Integer|))))
+   |#1|
+   (|Record| (|:| |left| (|Fraction| (|Integer|)))
+             (|:| |right| (|Fraction| (|Integer|))))
+   (|Fraction| (|Integer|))))
+ (SIGNATURE |refine|
+  ((|Union|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|))))
+    "failed")
+   |#1|
+   (|Record| (|:| |left| (|Fraction| (|Integer|)))
+             (|:| |right| (|Fraction| (|Integer|))))
+   (|Record| (|:| |left| (|Fraction| (|Integer|)))
+             (|:| |right| (|Fraction| (|Integer|))))))
+ (SIGNATURE |midpoint|
+  ((|Fraction| (|Integer|))
+   (|Record| (|:| |left| (|Fraction| (|Integer|)))
+             (|:| |right| (|Fraction| (|Integer|))))))
+ (SIGNATURE |midpoints|
+  ((|List| (|Fraction| (|Integer|)))
+   (|List|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|))))))))
+"/git/fricas/src/algebra/REAL0.spad"
+((|midpoints| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                          (|:| |right| (|Fraction| (|Integer|))))))
+   (|isDomain| *2 (|List| (|Fraction| (|Integer|))))
+   (|isDomain| *1 (|RealZeroPackage| *4))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|midpoint| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                         (|:| |right| (|Fraction| (|Integer|)))))
+   (|isDomain| *2 (|Fraction| (|Integer|)))
+   (|isDomain| *1 (|RealZeroPackage| *4))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|refine| (*1 *2 *3 *2 *2)
+  (|partial| AND
+   (|isDomain| *2
+               (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                         (|:| |right| (|Fraction| (|Integer|)))))
+   (|isDomain| *1 (|RealZeroPackage| *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|refine| (*1 *2 *3 *2 *4)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                         (|:| |right| (|Fraction| (|Integer|)))))
+   (|isDomain| *4 (|Fraction| (|Integer|)))
+   (|isDomain| *1 (|RealZeroPackage| *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|realZeros| (*1 *2 *3 *4 *5)
+  (AND
+   (|isDomain| *4
+               (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                         (|:| |right| (|Fraction| (|Integer|)))))
+   (|isDomain| *5 (|Fraction| (|Integer|)))
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                          (|:| |right| (|Fraction| (|Integer|))))))
+   (|isDomain| *1 (|RealZeroPackage| *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|realZeros| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Fraction| (|Integer|)))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                              (|:| |right| (|Fraction| (|Integer|))))))
+       (|isDomain| *1 (|RealZeroPackage| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|realZeros| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *4
+               (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                         (|:| |right| (|Fraction| (|Integer|)))))
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                          (|:| |right| (|Fraction| (|Integer|))))))
+   (|isDomain| *1 (|RealZeroPackage| *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|realZeros| (*1 *2 *3)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |left| (|Fraction| (|Integer|)))
+                          (|:| |right| (|Fraction| (|Integer|))))))
+   (|isDomain| *1 (|RealZeroPackage| *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|))))))
+((|refine|
+  (((|Union|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|))))
+     "failed")
+    |#1|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|))))
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|)))))
+   32)
+  (((|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|))))
+    |#1|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|))))
+    (|Fraction| (|Integer|)))
+   29))
+ (|realZeros|
+  (((|List|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|)))))
+    |#1|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|))))
+    (|Fraction| (|Integer|)))
+   34)
+  (((|List|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|)))))
+    |#1| (|Fraction| (|Integer|)))
+   30)
+  (((|List|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|)))))
+    |#1|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|)))))
+   33)
+  (((|List|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|)))))
+    |#1|)
+   28))
+ (|midpoints|
+  (((|List| (|Fraction| (|Integer|)))
+    (|List|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|))))))
+   19))
+ (|midpoint|
+  (((|Fraction| (|Integer|))
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|)))))
+   16)))
+REAL0
+((|constructor|
+  (NIL
+   "\\indented{2}{This package provides functions for finding the real zeros} of univariate polynomials over the integers to arbitrary user-specified precision. The results are returned as a list of isolating intervals which are expressed as records with \"left\" and \"right\" rational number components."))
+ (|midpoints|
+  (((|List| (|Fraction| (|Integer|)))
+    (|List|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|))))))
+   "\\spad{midpoints(isolist)} returns the list of midpoints for the list of intervals \\spad{isolist}."))
+ (|midpoint|
+  (((|Fraction| (|Integer|))
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|)))))
+   "\\spad{midpoint(int)} returns the midpoint of the interval \\spad{int}."))
+ (|refine|
+  (((|Union|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|))))
+     "failed")
+    |#1|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|))))
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|)))))
+   "\\spad{refine(pol,{} int,{} range)} takes a univariate polynomial \\spad{pol} and and isolating interval \\spad{int} containing exactly one real root of \\spad{pol}; the operation returns an isolating interval which is contained within range,{} or \"failed\" if no such isolating interval exists.")
+  (((|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|))))
+    |#1|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|))))
+    (|Fraction| (|Integer|)))
+   "\\spad{refine(pol,{} int,{} eps)} refines the interval \\spad{int} containing exactly one root of the univariate polynomial \\spad{pol} to size less than the rational number eps."))
+ (|realZeros|
+  (((|List|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|)))))
+    |#1|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|))))
+    (|Fraction| (|Integer|)))
+   "\\spad{realZeros(pol,{} int,{} eps)} returns a list of intervals of length less than the rational number eps for all the real roots of the polynomial \\spad{pol} which lie in the interval expressed by the record \\spad{int}.")
+  (((|List|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|)))))
+    |#1| (|Fraction| (|Integer|)))
+   "\\spad{realZeros(pol,{} eps)} returns a list of intervals of length less than the rational number eps for all the real roots of the polynomial \\spad{pol}.")
+  (((|List|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|)))))
+    |#1|
+    (|Record| (|:| |left| (|Fraction| (|Integer|)))
+              (|:| |right| (|Fraction| (|Integer|)))))
+   "\\spad{realZeros(pol,{} range)} returns a list of isolating intervals for all the real zeros of the univariate polynomial \\spad{pol} which lie in the interval expressed by the record range.")
+  (((|List|
+     (|Record| (|:| |left| (|Fraction| (|Integer|)))
+               (|:| |right| (|Fraction| (|Integer|)))))
+    |#1|)
+   "\\spad{realZeros(pol)} returns a list of isolating intervals for all the real zeros of the univariate polynomial \\spad{pol}.")))
+(("documentation" 0 8856) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 8850) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 7042) ("modemaps" 0 4028) ("sourceFile" 0 3991)
+ ("constructorCategory" 0 2125) ("constructorModemap" 0 56)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))

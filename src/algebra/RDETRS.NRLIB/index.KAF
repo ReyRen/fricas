@@ -1,0 +1,86 @@
+3892                (|TranscendentalRischDESystem| F UP)
+|package|
+(((|TranscendentalRischDESystem| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |monomRDEsys|
+    ((|Union|
+      (|Record| (|:| |a| |#2|) (|:| |b| (|Fraction| |#2|)) (|:| |h| |#2|)
+                (|:| |c1| (|Fraction| |#2|)) (|:| |c2| (|Fraction| |#2|))
+                (|:| |t| |#2|))
+      "failed")
+     (|Fraction| |#2|) (|Fraction| |#2|) (|Fraction| |#2|)
+     (|Mapping| |#2| |#2|)))
+   (SIGNATURE |baseRDEsys|
+    ((|Union| (|List| (|Fraction| |#2|)) "failed") (|Fraction| |#2|)
+     (|Fraction| |#2|) (|Fraction| |#2|))))
+  (|Join| (|Field|) (|CharacteristicZero|) (|RetractableTo| (|Integer|)))
+  (|UnivariatePolynomialCategory| |#1|))
+ (T |TranscendentalRischDESystem|))
+(CATEGORY |package|
+ (SIGNATURE |monomRDEsys|
+  ((|Union|
+    (|Record| (|:| |a| |#2|) (|:| |b| (|Fraction| |#2|)) (|:| |h| |#2|)
+              (|:| |c1| (|Fraction| |#2|)) (|:| |c2| (|Fraction| |#2|))
+              (|:| |t| |#2|))
+    "failed")
+   (|Fraction| |#2|) (|Fraction| |#2|) (|Fraction| |#2|)
+   (|Mapping| |#2| |#2|)))
+ (SIGNATURE |baseRDEsys|
+  ((|Union| (|List| (|Fraction| |#2|)) "failed") (|Fraction| |#2|)
+   (|Fraction| |#2|) (|Fraction| |#2|))))
+"/git/fricas/src/algebra/RDETRS.spad"
+((|baseRDEsys| (*1 *2 *3 *3 *3)
+  (|partial| AND (|isDomain| *3 (|Fraction| *5))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+   (|ofCategory| *4
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))))
+   (|isDomain| *2 (|List| (|Fraction| *5)))
+   (|isDomain| *1 (|TranscendentalRischDESystem| *4 *5))))
+ (|monomRDEsys| (*1 *2 *3 *3 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Fraction| *6))
+   (|isDomain| *4 (|Mapping| *6 *6))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+   (|ofCategory| *5
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))))
+   (|isDomain| *2
+               (|Record| (|:| |a| *6) (|:| |b| (|Fraction| *6)) (|:| |h| *6)
+                         (|:| |c1| (|Fraction| *6)) (|:| |c2| (|Fraction| *6))
+                         (|:| |t| *6)))
+   (|isDomain| *1 (|TranscendentalRischDESystem| *5 *6)))))
+((|monomRDEsys|
+  (((|Union|
+     (|Record| (|:| |a| |#2|) (|:| |b| (|Fraction| |#2|)) (|:| |h| |#2|)
+               (|:| |c1| (|Fraction| |#2|)) (|:| |c2| (|Fraction| |#2|))
+               (|:| |t| |#2|))
+     "failed")
+    (|Fraction| |#2|) (|Fraction| |#2|) (|Fraction| |#2|)
+    (|Mapping| |#2| |#2|))
+   22))
+ (|baseRDEsys|
+  (((|Union| (|List| (|Fraction| |#2|)) "failed") (|Fraction| |#2|)
+    (|Fraction| |#2|) (|Fraction| |#2|))
+   32)))
+RDETRS
+((|constructor|
+  (NIL
+   "\\indented{1}{Risch differential equation system,{} transcendental case.} Author: Manuel Bronstein Date Created: 17 August 1992"))
+ (|baseRDEsys|
+  (((|Union| (|List| (|Fraction| |#2|)) "failed") (|Fraction| |#2|)
+    (|Fraction| |#2|) (|Fraction| |#2|))
+   "\\spad{baseRDEsys(f,{} g1,{} g2)} returns fractions \\spad{y_1.y_2} such that \\spad{(y1',{} y2') + ((0,{} -f),{} (f,{} 0)) (y1,{} y2) = (g1,{} g2)} if \\spad{y_1,{}y_2} exist,{} \"failed\" otherwise."))
+ (|monomRDEsys|
+  (((|Union|
+     (|Record| (|:| |a| |#2|) (|:| |b| (|Fraction| |#2|)) (|:| |h| |#2|)
+               (|:| |c1| (|Fraction| |#2|)) (|:| |c2| (|Fraction| |#2|))
+               (|:| |t| |#2|))
+     "failed")
+    (|Fraction| |#2|) (|Fraction| |#2|) (|Fraction| |#2|)
+    (|Mapping| |#2| |#2|))
+   "\\spad{monomRDEsys(f,{} g1,{} g2,{} D)} returns \\spad{[A,{} B,{} H,{} C1,{} C2,{} T]} such that \\spad{(y1',{} y2') + ((0,{} -f),{} (f,{} 0)) (y1,{} y2) = (g1,{} g2)} has a solution if and only if \\spad{y1 = Q1 / T,{} y2 = Q2 / T},{} where \\spad{B,{} C1,{} C2,{} Q1,{} Q2} have no normal poles and satisfy A \\spad{(Q1',{} Q2') + ((H,{} -B),{} (B,{} H)) (Q1,{} Q2) = (C1,{} C2)} \\spad{D} is the derivation to use.")))
+(("documentation" 0 2670) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2663) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2216) ("modemaps" 0 1252) ("sourceFile" 0 1214)
+ ("constructorCategory" 0 750) ("constructorModemap" 0 67)
+ ("constructorKind" 0 57) ("constructorForm" 0 20))

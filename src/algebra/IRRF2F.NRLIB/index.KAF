@@ -1,0 +1,130 @@
+6249                (|IntegrationResultRFToFunction| R)
+|package|
+(((|IntegrationResultRFToFunction| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |split|
+    ((|IntegrationResult| (|Fraction| (|Polynomial| |#1|)))
+     (|IntegrationResult| (|Fraction| (|Polynomial| |#1|)))))
+   (SIGNATURE |expand|
+    ((|List| (|Expression| |#1|))
+     (|IntegrationResult| (|Fraction| (|Polynomial| |#1|))) (|Symbol|)))
+   (SIGNATURE |complexExpand|
+    ((|Expression| |#1|)
+     (|IntegrationResult| (|Fraction| (|Polynomial| |#1|)))))
+   (IF (|has| |#1| (|CharacteristicZero|))
+       (PROGN
+        (SIGNATURE |integrate|
+         ((|Union| (|Expression| |#1|) (|List| (|Expression| |#1|)))
+          (|Fraction| (|Polynomial| |#1|)) (|Symbol|)))
+        (SIGNATURE |complexIntegrate|
+         ((|Expression| |#1|) (|Fraction| (|Polynomial| |#1|)) (|Symbol|))))
+       |noBranch|))
+  (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|)) (|Comparable|)
+          (|LinearlyExplicitOver| (|Integer|))))
+ (T |IntegrationResultRFToFunction|))
+(CATEGORY |package|
+ (SIGNATURE |split|
+  ((|IntegrationResult| (|Fraction| (|Polynomial| |#1|)))
+   (|IntegrationResult| (|Fraction| (|Polynomial| |#1|)))))
+ (SIGNATURE |expand|
+  ((|List| (|Expression| |#1|))
+   (|IntegrationResult| (|Fraction| (|Polynomial| |#1|))) (|Symbol|)))
+ (SIGNATURE |complexExpand|
+  ((|Expression| |#1|) (|IntegrationResult| (|Fraction| (|Polynomial| |#1|)))))
+ (IF (|has| |#1| (|CharacteristicZero|))
+     (PROGN
+      (SIGNATURE |integrate|
+       ((|Union| (|Expression| |#1|) (|List| (|Expression| |#1|)))
+        (|Fraction| (|Polynomial| |#1|)) (|Symbol|)))
+      (SIGNATURE |complexIntegrate|
+       ((|Expression| |#1|) (|Fraction| (|Polynomial| |#1|)) (|Symbol|))))
+     |noBranch|))
+"/git/fricas/src/algebra/IRRF2F.spad"
+((|complexIntegrate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+       (|isDomain| *4 (|Symbol|)) (|ofCategory| *5 (|CharacteristicZero|))
+       (|ofCategory| *5
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2 (|Expression| *5))
+       (|isDomain| *1 (|IntegrationResultRFToFunction| *5))))
+ (|integrate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+       (|isDomain| *4 (|Symbol|)) (|ofCategory| *5 (|CharacteristicZero|))
+       (|ofCategory| *5
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2 (|Union| (|Expression| *5) (|List| (|Expression| *5))))
+       (|isDomain| *1 (|IntegrationResultRFToFunction| *5))))
+ (|complexExpand| (*1 *2 *3)
+  (AND (|isDomain| *3 (|IntegrationResult| (|Fraction| (|Polynomial| *4))))
+       (|ofCategory| *4
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2 (|Expression| *4))
+       (|isDomain| *1 (|IntegrationResultRFToFunction| *4))))
+ (|expand| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|IntegrationResult| (|Fraction| (|Polynomial| *5))))
+       (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *5
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| *5)))
+       (|isDomain| *1 (|IntegrationResultRFToFunction| *5))))
+ (|split| (*1 *2 *2)
+  (AND (|isDomain| *2 (|IntegrationResult| (|Fraction| (|Polynomial| *3))))
+       (|ofCategory| *3
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *1 (|IntegrationResultRFToFunction| *3)))))
+((|split|
+  (((|IntegrationResult| (|Fraction| (|Polynomial| |#1|)))
+    (|IntegrationResult| (|Fraction| (|Polynomial| |#1|))))
+   27))
+ (|integrate|
+  (((|Union| (|Expression| |#1|) (|List| (|Expression| |#1|)))
+    (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   32 (|has| |#1| (|CharacteristicZero|))))
+ (|expand|
+  (((|List| (|Expression| |#1|))
+    (|IntegrationResult| (|Fraction| (|Polynomial| |#1|))) (|Symbol|))
+   19))
+ (|complexIntegrate|
+  (((|Expression| |#1|) (|Fraction| (|Polynomial| |#1|)) (|Symbol|)) 30
+   (|has| |#1| (|CharacteristicZero|))))
+ (|complexExpand|
+  (((|Expression| |#1|) (|IntegrationResult| (|Fraction| (|Polynomial| |#1|))))
+   21)))
+((|HasCategory| |#1| '(|CharacteristicZero|)))
+IRRF2F
+((|constructor|
+  (NIL
+   "\\indented{2}{This package allows a sum of logs over the roots of a polynomial} \\indented{2}{to be expressed as explicit logarithms and arc tangents,{} provided} \\indented{2}{that the indexing polynomial can be factored into quadratics.} Date Created: 21 August 1988"))
+ (|complexIntegrate|
+  (((|Expression| |#1|) (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   "\\spad{complexIntegrate(f,{} x)} returns the integral of \\spad{f(x)dx} where \\spad{x} is viewed as a complex variable."))
+ (|integrate|
+  (((|Union| (|Expression| |#1|) (|List| (|Expression| |#1|)))
+    (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   "\\spad{integrate(f,{} x)} returns the integral of \\spad{f(x)dx} where \\spad{x} is viewed as a real variable."))
+ (|complexExpand|
+  (((|Expression| |#1|) (|IntegrationResult| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{complexExpand(i)} returns the expanded complex function corresponding to \\spad{i}."))
+ (|expand|
+  (((|List| (|Expression| |#1|))
+    (|IntegrationResult| (|Fraction| (|Polynomial| |#1|))) (|Symbol|))
+   "\\spad{expand(i,{} x)} returns the list of possible real functions of \\spad{x} corresponding to \\spad{i}."))
+ (|split|
+  (((|IntegrationResult| (|Fraction| (|Polynomial| |#1|)))
+    (|IntegrationResult| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{split(u(x) + sum_{P(a)=0} Q(a,{} x))} returns \\spad{u(x) + sum_{P1(a)=0} Q(a,{} x) + ... + sum_{Pn(a)=0} Q(a,{} x)} where \\spad{P1},{} ...,{} \\spad{Pn} are the factors of \\spad{P}.")))
+(("documentation" 0 4733) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4726) ("predicates" 0 4679) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4008) ("modemaps" 0 1784) ("sourceFile" 0 1746)
+ ("constructorCategory" 0 1024) ("constructorModemap" 0 66)
+ ("constructorKind" 0 56) ("constructorForm" 0 20))

@@ -1,0 +1,35 @@
+1508                (|SimpleFortranProgram| R FS)
+|domain|
+(((|SimpleFortranProgram| |#1| |#2|)
+  (|Join| (|FortranProgramCategory|)
+          (CATEGORY |domain|
+           (SIGNATURE |fortran| ($ (|Symbol|) (|FortranScalarType|) |#2|))))
+  (|OrderedSet|) (|FunctionSpace| |#1|))
+ (T |SimpleFortranProgram|))
+(|Join| (|FortranProgramCategory|)
+        (CATEGORY |domain|
+         (SIGNATURE |fortran| ($ (|Symbol|) (|FortranScalarType|) |#2|))))
+"/git/fricas/src/algebra/SFORT.spad"
+((|fortran| (*1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Symbol|)) (|isDomain| *3 (|FortranScalarType|))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|isDomain| *1 (|SimpleFortranProgram| *5 *4))
+       (|ofCategory| *4 (|FunctionSpace| *5)))))
+((|outputAsFortran| (((|Void|) $) 29))
+ (|fortran| (($ (|Symbol|) (|FortranScalarType|) |#2|) 11))
+ (|coerce| (((|OutputForm|) $) 16)))
+SFORT
+(((|FortranProgramCategory|) . T))
+(((|CoercibleTo| (|OutputForm|)) . T) ((|FortranProgramCategory|) . T)
+ ((|Type|) . T))
+((|constructor|
+  (NIL
+   "\\spadtype{SimpleFortranProgram} provides a simple model of some FORTRAN subprograms,{} making it possible to coerce objects of various domains into a FORTRAN subprogram called \\spad{f}. These can then be translated into legal FORTRAN code."))
+ (|fortran|
+  (($ (|Symbol|) (|FortranScalarType|) |#2|)
+   "\\spad{fortran(fname,{} ftype,{} body)} builds an object of type \\spadtype{FortranProgramCategory}. The three arguments specify the name,{} the type and the body of the program.")))
+(("documentation" 0 992) ("ancestors" 0 904) ("parents" 0 869)
+ ("abbreviation" 0 863) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 727) ("modemaps" 0 483) ("sourceFile" 0 446)
+ ("constructorCategory" 0 309) ("constructorModemap" 0 59)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

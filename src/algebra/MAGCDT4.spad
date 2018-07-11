@@ -1,0 +1,40 @@
+)abbrev package MAGCDT4 ModularAlgebraicGcdTools4
+-- Support for modular algebraic GCD, case of multiple extensions
+-- and fractional coefficients.
+ModularAlgebraicGcdTools4 : Exports == Implementation where
+  FP ==> FakePolynomial
+  MP ==> Polynomial Integer
+  MD ==> Record(svz : List(Symbol), sm : List(MP), msizes : List(Integer),
+                sp : Integer)
+  MPU ==> SparseUnivariatePolynomial(MP)
+  PA ==> U32Vector
+
+  MOP3 ==> ModularAlgebraicGcdTools3
+
+  Exports ==> ModularAlgebraicGcdOperations(FP, MPU, MD)
+
+  Implementation ==> MOP3 add
+
+    RF ==> Fraction(MP)
+
+    FrP ==> Record(numer : MP, denom : MP)
+
+    FP_to_MP(p : FP) : MP ==
+        p2 := ground(p)
+        not(p2.denom = 1) => error "FP_to_MP: denom(p2) = 1"
+        p2.numer
+
+    pack_modulus(lm : List(FP), lvz : List(Symbol), p : Integer
+                ) : Union(MD, "failed") ==
+        lm2 : List(MP) := [FP_to_MP(m) for m in lm]
+        pack_modulus(lm2, lvz, p)$MOP3
+
+    FrP_to_MP(c : FrP, mu : MD) : Union(MP, "failed") ==
+        p1 := monomial(c.denom, 1)$MPU + c.numer::MPU
+        res1 := canonicalIfCan(p1, mu)$MOP3
+        res1 case "failed" => "failed"
+        coefficient(res1, 0)
+
+    MPtoMPT(p : FP, ivx : Symbol, ivz : List(Symbol), mu : MD
+           ) : Union(MPU, "failed") ==
+        map((c : FrP) : Union(MP, "failed") +-> FrP_to_MP(c, mu), p)

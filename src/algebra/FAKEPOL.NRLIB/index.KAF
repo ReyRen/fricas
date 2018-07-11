@@ -1,0 +1,128 @@
+5375                (MAKEPROP '|FakePolynomial| 'NILADIC T)
+(|FakePolynomial|)
+|domain|
+(((|FakePolynomial|)
+  (CATEGORY |domain| (SIGNATURE |degree| ((|NonNegativeInteger|) $ (|Symbol|)))
+   (SIGNATURE |ground|
+    ((|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+               (|:| |denom| (|Polynomial| (|Integer|))))
+     $))
+   (SIGNATURE |map|
+    ($ (|Mapping| (|Polynomial| (|Integer|)) (|Polynomial| (|Integer|))) $))
+   (SIGNATURE |map|
+    ($ (|Mapping| (|Polynomial| (|Integer|)) (|Polynomial| (|Integer|)))
+     (|Record| (|:| |var| (|Symbol|))
+               (|:| |coef|
+                    (|SparseUnivariatePolynomial|
+                     (|Fraction| (|Polynomial| (|Integer|))))))))
+   (SIGNATURE |map|
+    ((|Union| (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))
+              "failed")
+     (|Mapping| (|Union| (|Polynomial| (|Integer|)) "failed")
+                (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+                          (|:| |denom| (|Polynomial| (|Integer|)))))
+     $))
+   (SIGNATURE |subst_var| ($ $ (|List| (|Symbol|)) (|List| (|Symbol|))))
+   (SIGNATURE |to_UP|
+    ((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| (|Integer|))))
+     $))))
+ (T |FakePolynomial|))
+(CATEGORY |domain| (SIGNATURE |degree| ((|NonNegativeInteger|) $ (|Symbol|)))
+ (SIGNATURE |ground|
+  ((|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+             (|:| |denom| (|Polynomial| (|Integer|))))
+   $))
+ (SIGNATURE |map|
+  ($ (|Mapping| (|Polynomial| (|Integer|)) (|Polynomial| (|Integer|))) $))
+ (SIGNATURE |map|
+  ($ (|Mapping| (|Polynomial| (|Integer|)) (|Polynomial| (|Integer|)))
+   (|Record| (|:| |var| (|Symbol|))
+             (|:| |coef|
+                  (|SparseUnivariatePolynomial|
+                   (|Fraction| (|Polynomial| (|Integer|))))))))
+ (SIGNATURE |map|
+  ((|Union| (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))) "failed")
+   (|Mapping| (|Union| (|Polynomial| (|Integer|)) "failed")
+              (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+                        (|:| |denom| (|Polynomial| (|Integer|)))))
+   $))
+ (SIGNATURE |subst_var| ($ $ (|List| (|Symbol|)) (|List| (|Symbol|))))
+ (SIGNATURE |to_UP|
+  ((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| (|Integer|)))) $)))
+"/git/fricas/src/algebra/FAKEPOL.spad"
+((|to_UP| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|SparseUnivariatePolynomial|
+                (|Fraction| (|Polynomial| (|Integer|)))))
+   (|isDomain| *1 (|FakePolynomial|))))
+ (|subst_var| (*1 *1 *1 *2 *2)
+  (AND (|isDomain| *2 (|List| (|Symbol|))) (|isDomain| *1 (|FakePolynomial|))))
+ (|map| (*1 *2 *3 *1)
+  (|partial| AND
+   (|isDomain| *3
+               (|Mapping| (|Union| (|Polynomial| (|Integer|)) "failed")
+                          (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+                                    (|:| |denom| (|Polynomial| (|Integer|))))))
+   (|isDomain| *2 (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))))
+   (|isDomain| *1 (|FakePolynomial|))))
+ (|map| (*1 *1 *2 *3)
+  (AND
+   (|isDomain| *2
+               (|Mapping| (|Polynomial| (|Integer|))
+                          (|Polynomial| (|Integer|))))
+   (|isDomain| *3
+               (|Record| (|:| |var| (|Symbol|))
+                         (|:| |coef|
+                              (|SparseUnivariatePolynomial|
+                               (|Fraction| (|Polynomial| (|Integer|)))))))
+   (|isDomain| *1 (|FakePolynomial|))))
+ (|map| (*1 *1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|Mapping| (|Polynomial| (|Integer|))
+                          (|Polynomial| (|Integer|))))
+   (|isDomain| *1 (|FakePolynomial|))))
+ (|ground| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+                         (|:| |denom| (|Polynomial| (|Integer|)))))
+   (|isDomain| *1 (|FakePolynomial|))))
+ (|degree| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|FakePolynomial|)))))
+((|to_UP|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| (|Integer|)))) $)
+   43))
+ (|subst_var| (($ $ (|List| (|Symbol|)) (|List| (|Symbol|))) 45))
+ (|map|
+  (((|Union| (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))
+             "failed")
+    (|Mapping| (|Union| (|Polynomial| (|Integer|)) "failed")
+               (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+                         (|:| |denom| (|Polynomial| (|Integer|)))))
+    $)
+   35)
+  (($ (|Mapping| (|Polynomial| (|Integer|)) (|Polynomial| (|Integer|)))
+    (|Record| (|:| |var| (|Symbol|))
+              (|:| |coef|
+                   (|SparseUnivariatePolynomial|
+                    (|Fraction| (|Polynomial| (|Integer|)))))))
+   27)
+  (($ (|Mapping| (|Polynomial| (|Integer|)) (|Polynomial| (|Integer|))) $) 15))
+ (|ground|
+  (((|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+              (|:| |denom| (|Polynomial| (|Integer|))))
+    $)
+   11))
+ (|degree| (((|NonNegativeInteger|) $ (|Symbol|)) 39)))
+FAKEPOL
+((|constructor|
+  (NIL
+   "FakePolynomial is a domain of univariate polynomials \\indented{1}{with coefficients being fractions of multivariate integer} \\indented{1}{polynomials.\\space{2}Coefficients are kept in unsimplified form.} \\indented{1}{This domain exists to avoid cost of recursive \\spad{GCD} calls} \\indented{1}{during polynomial evaluation.}")))
+(("documentation" 0 5013) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 5005) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4004) ("modemaps" 0 2309) ("sourceFile" 0 2270)
+ ("constructorCategory" 0 1233) ("constructorModemap" 0 88)
+ ("constructorKind" 0 79) ("constructorForm" 0 60) ("NILADIC" 0 20))

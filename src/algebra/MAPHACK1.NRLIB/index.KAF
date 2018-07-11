@@ -1,0 +1,43 @@
+1626                (|MappingPackageInternalHacks1| A)
+|package|
+(((|MappingPackageInternalHacks1| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |iter| (|#1| (|Mapping| |#1| |#1|) (|NonNegativeInteger|) |#1|))
+   (SIGNATURE |recur|
+    (|#1| (|Mapping| |#1| (|NonNegativeInteger|) |#1|) (|NonNegativeInteger|)
+     |#1|)))
+  (|SetCategory|))
+ (T |MappingPackageInternalHacks1|))
+(CATEGORY |package|
+ (SIGNATURE |iter| (|#1| (|Mapping| |#1| |#1|) (|NonNegativeInteger|) |#1|))
+ (SIGNATURE |recur|
+  (|#1| (|Mapping| |#1| (|NonNegativeInteger|) |#1|) (|NonNegativeInteger|)
+   |#1|)))
+"/git/fricas/src/algebra/MAPHACK1.spad"
+((|recur| (*1 *2 *3 *4 *2)
+  (AND (|isDomain| *3 (|Mapping| *2 (|NonNegativeInteger|) *2))
+       (|isDomain| *4 (|NonNegativeInteger|)) (|ofCategory| *2 (|SetCategory|))
+       (|isDomain| *1 (|MappingPackageInternalHacks1| *2))))
+ (|iter| (*1 *2 *3 *4 *2)
+  (AND (|isDomain| *3 (|Mapping| *2 *2)) (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *2 (|SetCategory|))
+       (|isDomain| *1 (|MappingPackageInternalHacks1| *2)))))
+((|recur|
+  ((|#1| (|Mapping| |#1| (|NonNegativeInteger|) |#1|) (|NonNegativeInteger|)
+    |#1|)
+   11))
+ (|iter| ((|#1| (|Mapping| |#1| |#1|) (|NonNegativeInteger|) |#1|) 9)))
+MAPHACK1
+((|constructor| (NIL "various Currying operations."))
+ (|recur|
+  ((|#1| (|Mapping| |#1| (|NonNegativeInteger|) |#1|) (|NonNegativeInteger|)
+    |#1|)
+   "\\spad{recur(g,{} n,{} x)} is \\spad{g(n,{} g(n-1,{} ..g(1,{} x)..))}."))
+ (|iter|
+  ((|#1| (|Mapping| |#1| |#1|) (|NonNegativeInteger|) |#1|)
+   "\\spad{iter(f,{} n,{} x)} applies \\spad{f} \\spad{n} times to \\spad{x}.")))
+(("documentation" 0 1246) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1237) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1060) ("modemaps" 0 619) ("sourceFile" 0 579)
+ ("constructorCategory" 0 375) ("constructorModemap" 0 65)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

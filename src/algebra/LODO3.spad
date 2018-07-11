@@ -1,0 +1,13 @@
+)abbrev domain LODO3 LinearOrdinaryDifferentialOperator3
+++ Description: \spad{LinearOrdinaryDifferentialOperator3} is a ring
+++  differential operators with coefficients in a differential ring R.
+++  Basic derivative is derivative in R times variable (monomial
+++  of degree 1).
+LinearOrdinaryDifferentialOperator3(Coeff : Ring,
+      A : AbelianMonoidRing(Coeff, NonNegativeInteger),
+      R : Join(DifferentialRing, LeftModule(A))
+    ) ==
+  LinearOrdinaryDifferentialOperator(R,
+        delta_deriv$LinearOrdinaryDifferentialOperator3Aux(Coeff, A, R))
+
+

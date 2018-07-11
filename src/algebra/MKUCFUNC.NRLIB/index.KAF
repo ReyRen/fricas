@@ -1,0 +1,37 @@
+1711                (|MakeUnaryCompiledFunction| S D I)
+|package|
+(((|MakeUnaryCompiledFunction| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |unaryFunction| ((|Mapping| |#3| |#2|) (|Symbol|)))
+   (SIGNATURE |compiledFunction| ((|Mapping| |#3| |#2|) |#1| (|Symbol|))))
+  (|ConvertibleTo| (|InputForm|)) (|Type|) (|Type|))
+ (T |MakeUnaryCompiledFunction|))
+(CATEGORY |package|
+ (SIGNATURE |unaryFunction| ((|Mapping| |#3| |#2|) (|Symbol|)))
+ (SIGNATURE |compiledFunction| ((|Mapping| |#3| |#2|) |#1| (|Symbol|))))
+"/git/fricas/src/algebra/MKUCFUNC.spad"
+((|compiledFunction| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Symbol|)) (|isDomain| *2 (|Mapping| *6 *5))
+       (|isDomain| *1 (|MakeUnaryCompiledFunction| *3 *5 *6))
+       (|ofCategory| *3 (|ConvertibleTo| (|InputForm|)))
+       (|ofCategory| *5 (|Type|)) (|ofCategory| *6 (|Type|))))
+ (|unaryFunction| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *2 (|Mapping| *6 *5))
+       (|isDomain| *1 (|MakeUnaryCompiledFunction| *4 *5 *6))
+       (|ofCategory| *4 (|ConvertibleTo| (|InputForm|)))
+       (|ofCategory| *5 (|Type|)) (|ofCategory| *6 (|Type|)))))
+((|unaryFunction| (((|Mapping| |#3| |#2|) (|Symbol|)) 11))
+ (|compiledFunction| (((|Mapping| |#3| |#2|) |#1| (|Symbol|)) 21)))
+MKUCFUNC
+((|constructor| (NIL "transforms top-level objects into compiled functions."))
+ (|compiledFunction|
+  (((|Mapping| |#3| |#2|) |#1| (|Symbol|))
+   "\\spad{compiledFunction(expr,{} x)} returns a function \\spad{f: D -> I} defined by \\spad{f(x) == expr}. Function \\spad{f} is compiled and directly applicable to objects of type \\spad{D}."))
+ (|unaryFunction|
+  (((|Mapping| |#3| |#2|) (|Symbol|))
+   "\\spad{unaryFunction(a)} is a local function")))
+(("documentation" 0 1261) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1252) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1125) ("modemaps" 0 560) ("sourceFile" 0 520)
+ ("constructorCategory" 0 363) ("constructorModemap" 0 66)
+ ("constructorKind" 0 56) ("constructorForm" 0 20))

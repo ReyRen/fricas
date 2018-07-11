@@ -1,0 +1,56 @@
+)abbrev category FLALG FreeLieAlgebra
+++ Author: Michel Petitot (petitot@lifl.fr)
+++ Date Created: 91
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ The category of free Lie algebras.
+++ It is used by domains of non-commutative algebra:
+++ \spadtype{LiePolynomial} and
+++ \spadtype{XPBWPolynomial}. \newline Author: Michel Petitot (petitot@lifl.fr)
+
+FreeLieAlgebra(VarSet : OrderedSet, R : CommutativeRing) : Category == CatDef where
+   XRPOLY  ==> XRecursivePolynomial(VarSet, R)
+   XDPOLY  ==> XDistributedPolynomial(VarSet, R)
+   RN      ==> Fraction Integer
+   LWORD   ==> LyndonWord(VarSet)
+
+   CatDef ==  Join(LieAlgebra(R)) with
+      coef      : (XRPOLY, %) -> R
+         ++ \spad{coef(x, y)} returns the scalar product of \spad{x} by \spad{y},
+         ++ the set of words being regarded as an orthogonal basis.
+      coerce    : VarSet -> %
+         ++ \spad{coerce(x)} returns \spad{x} as a Lie polynomial.
+      coerce    : % -> XDPOLY
+         ++ \spad{coerce(x)} returns \spad{x} as distributed polynomial.
+      coerce    : % -> XRPOLY
+         ++ \spad{coerce(x)} returns \spad{x} as a recursive polynomial.
+      degree    : % -> NonNegativeInteger
+         ++ \spad{degree(x)} returns the greatest length of a word in the support of \spad{x}.
+      --if R has Module(RN) then
+      --  Hausdorff : (%, %, PositiveInteger) -> %
+      lquo      : (XRPOLY, %) -> XRPOLY
+         ++ \spad{lquo(x, y)} returns the left simplification of \spad{x} by \spad{y}.
+      rquo      : (XRPOLY, %) -> XRPOLY
+         ++ \spad{rquo(x, y)} returns the right simplification of \spad{x} by \spad{y}.
+      LiePoly   : LWORD -> %
+         ++ \spad{LiePoly(l)} returns the bracketed form of \spad{l} as a Lie polynomial.
+      mirror    : % -> %
+         ++ \spad{mirror(x)} returns \spad{Sum(r_i mirror(w_i))}
+         ++ if \spad{x} is \spad{Sum(r_i w_i)}.
+      trunc     : (%, NonNegativeInteger) -> %
+         ++ \spad{trunc(p, n)} returns the polynomial \spad{p}
+         ++ truncated at order \spad{n}.
+      varList   : % -> List VarSet
+         ++ \spad{varList(x)} returns the list of distinct entries of \spad{x}.
+      eval      : (%, VarSet, %) -> %
+         ++ \spad{eval(p, x, v)} replaces \spad{x} by \spad{v}  in \spad{p}.
+      eval      : (%, List VarSet, List %) -> %
+         ++ \spad{eval(p, [x1, ..., xn], [v1, ..., vn])} replaces \spad{xi} by \spad{vi}
+         ++ in \spad{p}.
+
+

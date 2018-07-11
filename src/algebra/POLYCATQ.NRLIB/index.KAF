@@ -1,0 +1,201 @@
+9899                (|PolynomialCategoryQuotientFunctions| E V R P F)
+|package|
+(((|PolynomialCategoryQuotientFunctions| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package| (SIGNATURE |variables| ((|List| |#2|) |#5|))
+   (SIGNATURE |mainVariable| ((|Union| |#2| "failed") |#5|))
+   (SIGNATURE |univariate|
+    ((|Fraction| (|SparseUnivariatePolynomial| |#5|)) |#5| |#2|))
+   (SIGNATURE |multivariate|
+    (|#5| (|Fraction| (|SparseUnivariatePolynomial| |#5|)) |#2|))
+   (SIGNATURE |univariate|
+    ((|SparseUnivariatePolynomial| |#5|) |#5| |#2|
+     (|SparseUnivariatePolynomial| |#5|)))
+   (SIGNATURE |isPlus| ((|Union| (|List| |#5|) "failed") |#5|))
+   (SIGNATURE |isTimes| ((|Union| (|List| |#5|) "failed") |#5|))
+   (SIGNATURE |isExpt|
+    ((|Union| (|Record| (|:| |var| |#2|) (|:| |exponent| (|Integer|)))
+              "failed")
+     |#5|))
+   (SIGNATURE |isPower|
+    ((|Union| (|Record| (|:| |val| |#5|) (|:| |exponent| (|Integer|)))
+              "failed")
+     |#5|)))
+  (|OrderedAbelianMonoidSup|) (|OrderedSet|) (|Ring|)
+  (|PolynomialCategory| |#3| |#1| |#2|)
+  (|Join| (|Field|)
+          (CATEGORY |domain| (SIGNATURE |coerce| ($ |#4|))
+           (SIGNATURE |numer| (|#4| $)) (SIGNATURE |denom| (|#4| $)))))
+ (T |PolynomialCategoryQuotientFunctions|))
+(CATEGORY |package| (SIGNATURE |variables| ((|List| |#2|) |#5|))
+ (SIGNATURE |mainVariable| ((|Union| |#2| "failed") |#5|))
+ (SIGNATURE |univariate|
+  ((|Fraction| (|SparseUnivariatePolynomial| |#5|)) |#5| |#2|))
+ (SIGNATURE |multivariate|
+  (|#5| (|Fraction| (|SparseUnivariatePolynomial| |#5|)) |#2|))
+ (SIGNATURE |univariate|
+  ((|SparseUnivariatePolynomial| |#5|) |#5| |#2|
+   (|SparseUnivariatePolynomial| |#5|)))
+ (SIGNATURE |isPlus| ((|Union| (|List| |#5|) "failed") |#5|))
+ (SIGNATURE |isTimes| ((|Union| (|List| |#5|) "failed") |#5|))
+ (SIGNATURE |isExpt|
+  ((|Union| (|Record| (|:| |var| |#2|) (|:| |exponent| (|Integer|))) "failed")
+   |#5|))
+ (SIGNATURE |isPower|
+  ((|Union| (|Record| (|:| |val| |#5|) (|:| |exponent| (|Integer|))) "failed")
+   |#5|)))
+"/git/fricas/src/algebra/POLYCATQ.spad"
+((|isPower| (*1 *2 *3)
+  (|partial| AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *5 (|OrderedSet|)) (|ofCategory| *6 (|Ring|))
+   (|ofCategory| *7 (|PolynomialCategory| *6 *4 *5))
+   (|isDomain| *2 (|Record| (|:| |val| *3) (|:| |exponent| (|Integer|))))
+   (|isDomain| *1 (|PolynomialCategoryQuotientFunctions| *4 *5 *6 *7 *3))
+   (|ofCategory| *3
+                 (|Join| (|Field|)
+                         (CATEGORY |domain| (SIGNATURE |coerce| ($ *7))
+                          (SIGNATURE |numer| (*7 $))
+                          (SIGNATURE |denom| (*7 $)))))))
+ (|isExpt| (*1 *2 *3)
+  (|partial| AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *5 (|OrderedSet|)) (|ofCategory| *6 (|Ring|))
+   (|ofCategory| *7 (|PolynomialCategory| *6 *4 *5))
+   (|isDomain| *2 (|Record| (|:| |var| *5) (|:| |exponent| (|Integer|))))
+   (|isDomain| *1 (|PolynomialCategoryQuotientFunctions| *4 *5 *6 *7 *3))
+   (|ofCategory| *3
+                 (|Join| (|Field|)
+                         (CATEGORY |domain| (SIGNATURE |coerce| ($ *7))
+                          (SIGNATURE |numer| (*7 $))
+                          (SIGNATURE |denom| (*7 $)))))))
+ (|isTimes| (*1 *2 *3)
+  (|partial| AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *5 (|OrderedSet|)) (|ofCategory| *6 (|Ring|))
+   (|ofCategory| *7 (|PolynomialCategory| *6 *4 *5))
+   (|isDomain| *2 (|List| *3))
+   (|isDomain| *1 (|PolynomialCategoryQuotientFunctions| *4 *5 *6 *7 *3))
+   (|ofCategory| *3
+                 (|Join| (|Field|)
+                         (CATEGORY |domain| (SIGNATURE |coerce| ($ *7))
+                          (SIGNATURE |numer| (*7 $))
+                          (SIGNATURE |denom| (*7 $)))))))
+ (|isPlus| (*1 *2 *3)
+  (|partial| AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *5 (|OrderedSet|)) (|ofCategory| *6 (|Ring|))
+   (|ofCategory| *7 (|PolynomialCategory| *6 *4 *5))
+   (|isDomain| *2 (|List| *3))
+   (|isDomain| *1 (|PolynomialCategoryQuotientFunctions| *4 *5 *6 *7 *3))
+   (|ofCategory| *3
+                 (|Join| (|Field|)
+                         (CATEGORY |domain| (SIGNATURE |coerce| ($ *7))
+                          (SIGNATURE |numer| (*7 $))
+                          (SIGNATURE |denom| (*7 $)))))))
+ (|univariate| (*1 *2 *3 *4 *2)
+  (AND (|isDomain| *2 (|SparseUnivariatePolynomial| *3))
+       (|ofCategory| *3
+                     (|Join| (|Field|)
+                             (CATEGORY |domain| (SIGNATURE |coerce| ($ *7))
+                              (SIGNATURE |numer| (*7 $))
+                              (SIGNATURE |denom| (*7 $)))))
+       (|ofCategory| *7 (|PolynomialCategory| *6 *5 *4))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *4 (|OrderedSet|)) (|ofCategory| *6 (|Ring|))
+       (|isDomain| *1 (|PolynomialCategoryQuotientFunctions| *5 *4 *6 *7 *3))))
+ (|multivariate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|SparseUnivariatePolynomial| *2)))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *4 (|OrderedSet|)) (|ofCategory| *6 (|Ring|))
+       (|ofCategory| *2
+                     (|Join| (|Field|)
+                             (CATEGORY |domain| (SIGNATURE |coerce| ($ *7))
+                              (SIGNATURE |numer| (*7 $))
+                              (SIGNATURE |denom| (*7 $)))))
+       (|isDomain| *1 (|PolynomialCategoryQuotientFunctions| *5 *4 *6 *7 *2))
+       (|ofCategory| *7 (|PolynomialCategory| *6 *5 *4))))
+ (|univariate| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *4 (|OrderedSet|)) (|ofCategory| *6 (|Ring|))
+       (|ofCategory| *7 (|PolynomialCategory| *6 *5 *4))
+       (|isDomain| *2 (|Fraction| (|SparseUnivariatePolynomial| *3)))
+       (|isDomain| *1 (|PolynomialCategoryQuotientFunctions| *5 *4 *6 *7 *3))
+       (|ofCategory| *3
+                     (|Join| (|Field|)
+                             (CATEGORY |domain| (SIGNATURE |coerce| ($ *7))
+                              (SIGNATURE |numer| (*7 $))
+                              (SIGNATURE |denom| (*7 $)))))))
+ (|mainVariable| (*1 *2 *3)
+  (|partial| AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *5 (|Ring|)) (|ofCategory| *6 (|PolynomialCategory| *5 *4 *2))
+   (|ofCategory| *2 (|OrderedSet|))
+   (|isDomain| *1 (|PolynomialCategoryQuotientFunctions| *4 *2 *5 *6 *3))
+   (|ofCategory| *3
+                 (|Join| (|Field|)
+                         (CATEGORY |domain| (SIGNATURE |coerce| ($ *6))
+                          (SIGNATURE |numer| (*6 $))
+                          (SIGNATURE |denom| (*6 $)))))))
+ (|variables| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5 (|OrderedSet|)) (|ofCategory| *6 (|Ring|))
+       (|ofCategory| *7 (|PolynomialCategory| *6 *4 *5))
+       (|isDomain| *2 (|List| *5))
+       (|isDomain| *1 (|PolynomialCategoryQuotientFunctions| *4 *5 *6 *7 *3))
+       (|ofCategory| *3
+                     (|Join| (|Field|)
+                             (CATEGORY |domain| (SIGNATURE |coerce| ($ *7))
+                              (SIGNATURE |numer| (*7 $))
+                              (SIGNATURE |denom| (*7 $))))))))
+((|variables| (((|List| |#2|) |#5|) 65))
+ (|univariate|
+  (((|SparseUnivariatePolynomial| |#5|) |#5| |#2|
+    (|SparseUnivariatePolynomial| |#5|))
+   54)
+  (((|Fraction| (|SparseUnivariatePolynomial| |#5|)) |#5| |#2|) 16))
+ (|multivariate|
+  ((|#5| (|Fraction| (|SparseUnivariatePolynomial| |#5|)) |#2|) 60))
+ (|mainVariable| (((|Union| |#2| "failed") |#5|) 89))
+ (|isTimes| (((|Union| (|List| |#5|) "failed") |#5|) 83))
+ (|isPower|
+  (((|Union| (|Record| (|:| |val| |#5|) (|:| |exponent| (|Integer|))) "failed")
+    |#5|)
+   72))
+ (|isPlus| (((|Union| (|List| |#5|) "failed") |#5|) 85))
+ (|isExpt|
+  (((|Union| (|Record| (|:| |var| |#2|) (|:| |exponent| (|Integer|))) "failed")
+    |#5|)
+   76)))
+POLYCATQ
+((|constructor|
+  (NIL
+   "This package transforms multivariate polynomials or fractions into univariate polynomials or fractions,{} and back."))
+ (|isPower|
+  (((|Union| (|Record| (|:| |val| |#5|) (|:| |exponent| (|Integer|))) "failed")
+    |#5|)
+   "\\spad{isPower(p)} returns \\spad{[x,{} n]} if \\spad{p = x^n} and \\spad{n ~= 0},{} \"failed\" otherwise."))
+ (|isExpt|
+  (((|Union| (|Record| (|:| |var| |#2|) (|:| |exponent| (|Integer|))) "failed")
+    |#5|)
+   "\\spad{isExpt(p)} returns \\spad{[x,{} n]} if \\spad{p = x^n} and \\spad{n ~= 0},{} \"failed\" otherwise."))
+ (|isTimes|
+  (((|Union| (|List| |#5|) "failed") |#5|)
+   "\\spad{isTimes(p)} returns \\spad{[a1,{} ...,{} an]} if \\spad{p = a1 ... an} and \\spad{n > 1},{} \"failed\" otherwise."))
+ (|isPlus|
+  (((|Union| (|List| |#5|) "failed") |#5|)
+   "\\spad{isPlus(p)} returns [\\spad{m1},{} ...,{} \\spad{mn}] if \\spad{p = m1 + ... + mn} and \\spad{n > 1},{} \"failed\" otherwise."))
+ (|multivariate|
+  ((|#5| (|Fraction| (|SparseUnivariatePolynomial| |#5|)) |#2|)
+   "\\spad{multivariate(f,{} v)} applies both the numerator and denominator of \\spad{f} to \\spad{v}."))
+ (|univariate|
+  (((|SparseUnivariatePolynomial| |#5|) |#5| |#2|
+    (|SparseUnivariatePolynomial| |#5|))
+   "\\spad{univariate(f,{} x,{} p)} returns \\spad{f} viewed as a univariate polynomial in \\spad{x},{} using the side-condition \\spad{p(x) = 0}.")
+  (((|Fraction| (|SparseUnivariatePolynomial| |#5|)) |#5| |#2|)
+   "\\spad{univariate(f,{} v)} returns \\spad{f} viewed as a univariate rational function in \\spad{v}."))
+ (|mainVariable|
+  (((|Union| |#2| "failed") |#5|)
+   "\\spad{mainVariable(f)} returns the highest variable appearing in the numerator or the denominator of \\spad{f},{} \"failed\" if \\spad{f} has no variables."))
+ (|variables|
+  (((|List| |#2|) |#5|)
+   "\\spad{variables(f)} returns the list of variables appearing in the numerator or the denominator of \\spad{f}.")))
+(("documentation" 0 7962) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 7953) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 7255) ("modemaps" 0 2070) ("sourceFile" 0 2030)
+ ("constructorCategory" 0 1264) ("constructorModemap" 0 80)
+ ("constructorKind" 0 70) ("constructorForm" 0 20))

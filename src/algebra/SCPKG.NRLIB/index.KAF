@@ -1,0 +1,78 @@
+4607                (|StructuralConstantsPackage| R)
+|package|
+(((|StructuralConstantsPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |structuralConstants|
+    ((|Vector| (|Matrix| (|Fraction| (|Polynomial| |#1|)))) (|List| (|Symbol|))
+     (|Matrix| (|Fraction| (|Polynomial| |#1|)))))
+   (SIGNATURE |structuralConstants|
+    ((|Vector| (|Matrix| (|Polynomial| |#1|))) (|List| (|Symbol|))
+     (|Matrix| (|Polynomial| |#1|))))
+   (SIGNATURE |structuralConstants|
+    ((|Vector| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))))
+   (SIGNATURE |coordinates|
+    ((|Vector| |#1|) (|Matrix| |#1|) (|List| (|Matrix| |#1|)))))
+  (|Field|))
+ (T |StructuralConstantsPackage|))
+(CATEGORY |package|
+ (SIGNATURE |structuralConstants|
+  ((|Vector| (|Matrix| (|Fraction| (|Polynomial| |#1|)))) (|List| (|Symbol|))
+   (|Matrix| (|Fraction| (|Polynomial| |#1|)))))
+ (SIGNATURE |structuralConstants|
+  ((|Vector| (|Matrix| (|Polynomial| |#1|))) (|List| (|Symbol|))
+   (|Matrix| (|Polynomial| |#1|))))
+ (SIGNATURE |structuralConstants|
+  ((|Vector| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))))
+ (SIGNATURE |coordinates|
+  ((|Vector| |#1|) (|Matrix| |#1|) (|List| (|Matrix| |#1|)))))
+"/git/fricas/src/algebra/SCPKG.spad"
+((|coordinates| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|List| (|Matrix| *5))) (|isDomain| *3 (|Matrix| *5))
+       (|ofCategory| *5 (|Field|)) (|isDomain| *2 (|Vector| *5))
+       (|isDomain| *1 (|StructuralConstantsPackage| *5))))
+ (|structuralConstants| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Matrix| *4))) (|ofCategory| *4 (|Field|))
+       (|isDomain| *2 (|Vector| (|Matrix| *4)))
+       (|isDomain| *1 (|StructuralConstantsPackage| *4))))
+ (|structuralConstants| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Symbol|)))
+       (|isDomain| *4 (|Matrix| (|Polynomial| *5))) (|ofCategory| *5 (|Field|))
+       (|isDomain| *2 (|Vector| (|Matrix| (|Polynomial| *5))))
+       (|isDomain| *1 (|StructuralConstantsPackage| *5))))
+ (|structuralConstants| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Symbol|)))
+       (|isDomain| *4 (|Matrix| (|Fraction| (|Polynomial| *5))))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2 (|Vector| (|Matrix| (|Fraction| (|Polynomial| *5)))))
+       (|isDomain| *1 (|StructuralConstantsPackage| *5)))))
+((|structuralConstants|
+  (((|Vector| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))) 33)
+  (((|Vector| (|Matrix| (|Polynomial| |#1|))) (|List| (|Symbol|))
+    (|Matrix| (|Polynomial| |#1|)))
+   50)
+  (((|Vector| (|Matrix| (|Fraction| (|Polynomial| |#1|)))) (|List| (|Symbol|))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   60))
+ (|coordinates|
+  (((|Vector| |#1|) (|Matrix| |#1|) (|List| (|Matrix| |#1|))) 27)))
+SCPKG
+((|constructor|
+  (NIL
+   "StructuralConstantsPackage provides functions creating structural constants from a multiplication tables or a basis of a matrix algebra and other useful functions in this context."))
+ (|coordinates|
+  (((|Vector| |#1|) (|Matrix| |#1|) (|List| (|Matrix| |#1|)))
+   "\\spad{coordinates(a,{} [v1,{} ...,{} vn])} returns the coordinates of \\spad{a} with respect to the \\spad{R}-module basis \\spad{v1},{} ...,{} \\spad{vn}."))
+ (|structuralConstants|
+  (((|Vector| (|Matrix| |#1|)) (|List| (|Matrix| |#1|)))
+   "\\spad{structuralConstants(basis)} takes the \\spad{basis} of a matrix algebra,{} \\spadignore{e.g.} the result of \\spadfun{basisOfCentroid} and calculates the structural constants. Note,{} that the it is not checked,{} whether \\spad{basis} really is a \\spad{basis} of a matrix algebra.")
+  (((|Vector| (|Matrix| (|Polynomial| |#1|))) (|List| (|Symbol|))
+    (|Matrix| (|Polynomial| |#1|)))
+   "\\spad{structuralConstants(ls,{} mt)} determines the structural constants of an algebra with generators \\spad{ls} and multiplication table \\spad{mt},{} the entries of which must be given as linear polynomials in the indeterminates given by \\spad{ls}. The result is in particular useful \\indented{1}{as fourth argument for \\spadtype{AlgebraGivenByStructuralConstants}} \\indented{1}{and \\spadtype{GenericNonAssociativeAlgebra}.}")
+  (((|Vector| (|Matrix| (|Fraction| (|Polynomial| |#1|)))) (|List| (|Symbol|))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{structuralConstants(ls,{} mt)} determines the structural constants of an algebra with generators \\spad{ls} and multiplication table \\spad{mt},{} the entries of which must be given as linear polynomials in the indeterminates given by \\spad{ls}. The result is in particular useful \\indented{1}{as fourth argument for \\spadtype{AlgebraGivenByStructuralConstants}} \\indented{1}{and \\spadtype{GenericNonAssociativeAlgebra}.}")))
+(("documentation" 0 2666) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2660) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2246) ("modemaps" 0 1200) ("sourceFile" 0 1163)
+ ("constructorCategory" 0 667) ("constructorModemap" 0 63)
+ ("constructorKind" 0 53) ("constructorForm" 0 20))

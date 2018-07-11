@@ -1,0 +1,175 @@
+)abbrev package INTAF AlgebraicIntegration
+++ Mixed algebraic integration;
+++ Author: Manuel Bronstein
+++ Date Created: 12 October 1988
+++ Description:
+++ This package provides functions for the integration of
+++ algebraic integrands over transcendental functions;
+AlgebraicIntegration(R, F) : Exports == Implementation where
+  R : Join(Comparable, IntegralDomain)
+  F : Join(AlgebraicallyClosedField, FunctionSpace R)
+
+  SY  ==> Symbol
+  N   ==> NonNegativeInteger
+  K   ==> Kernel F
+  P   ==> SparseMultivariatePolynomial(R, K)
+  UP  ==> SparseUnivariatePolynomial F
+  RF  ==> Fraction UP
+  UPUP==> SparseUnivariatePolynomial RF
+  IR  ==> IntegrationResult F
+  IR2 ==> IntegrationResultFunctions2(curve, F)
+  Param_Rec_F ==> Record(ratpart : F, coeffs : Vector F)
+  L_Param_F ==> List Param_Rec_F
+  Param_Rec_Q ==> Record(ratpart : RF, coeffs : Vector(F))
+  L_Param_Q ==> List Param_Rec_Q
+  ALG ==> AlgebraicIntegrate(R, F, UP, UPUP, curve)
+  FAIL==> error "failed - cannot handle that integrand"
+
+  Exports ==> with
+    algint : (F, K, K, UP -> UP) -> IR
+      ++ algint(f, x, y, d) returns the integral of \spad{f(x, y)dx}
+      ++ where y is an algebraic function of x;
+      ++ d is the derivation to use on \spad{k[x]}.
+    algextint : (K, K, UP -> UP, List(RF) -> L_Param_Q,
+                   (RF,  List(RF)) -> L_Param_Q,
+                   Matrix F -> List Vector F, List(F)) -> L_Param_F
+      ++ algextint(x, y, d, ext, rde, csolve, [g1, ..., gn]) returns
+      ++ \spad{[h, [c1, ..., cn]]} such that \spad{f = dh/dx + sum(ci gi)}
+      ++ and dci/dx = 0, if such \spad{[h, [c1, ..., cn]]} exist,
+      ++ "failed" otherwise.
+    algextint_base : (K, K, UP -> UP,
+                      Matrix F -> List Vector F, List(F)) -> L_Param_F
+      ++ algextint_base(x, y, d, csolve, [g1, ..., gn]) is like
+      ++ algextint but assumes that y and gi-s are purely algebraic
+
+  Implementation ==> add
+    import from ChangeOfVariable(F, UP, UPUP)
+    import from PolynomialCategoryQuotientFunctions(IndexedExponents K,
+                                                        K, R, P, F)
+
+    rootintegrate : (F, K, K, UP -> UP) -> IR
+    algintegrate : (F, K, K, UP -> UP) -> IR
+    UPUP2F       : (UPUP, RF, K, K) -> F
+    F2UPUP       : (F, K, K, UP) -> UPUP
+    UP2UPUP      : (UP, K) -> UPUP
+    UPUP2F1      : (UPUP, RF, RF, K, K) -> F
+    UPUP2F0      : (UPUP, K, K) -> F
+
+    UPUP2F1(p, t, cf, kx, k) == UPUP2F0(eval(p, t, cf), kx, k)
+    UPUP2F0(p, kx, k)        ==
+        (map((x1 : RF) : F+->multivariate(x1, kx),
+           p)$SparseUnivariatePolynomialFunctions2(RF, F))
+              (k::F)
+
+    F2UPUP(f, kx, k, p) == UP2UPUP(univariate(f, k, p), kx)
+
+    rootintegrate(f, t, k, derivation) ==
+      r1     := mkIntegral(modulus := UP2UPUP(p := minPoly k, t))
+      f1     := F2UPUP(f, t, k, p) monomial(inv(r1.coef), 1)
+      r      := radPoly(r1.poly)::Record(radicand : RF, deg : N)
+      q      := retract(r.radicand)
+      curve  := RadicalFunctionField(F, UP, UPUP, q::RF, r.deg)
+      map(x1+->UPUP2F(lift x1, r1.coef, t, k),
+                            algintegrate(reduce f1, derivation)$ALG)$IR2
+
+    algintegrate(f, t, k, derivation) ==
+      r1     := mkIntegral(modulus := UP2UPUP(p := minPoly k, t))
+      f1     := F2UPUP(f, t, k, p) monomial(inv(r1.coef), 1)
+      modulus := UP2UPUP(p := minPoly k, t)
+      curve  := AlgebraicFunctionField(F, UP, UPUP, r1.poly)
+      map(x1+->UPUP2F(lift x1, r1.coef, t, k),
+                            algintegrate(reduce f1, derivation)$ALG)$IR2
+
+    Curv_Rec ==> Record(funs : List(UPUP),
+                   irec : Record(coef : Fraction(UP), poly : UPUP),
+                   curve_dom : FunctionFieldCategory(F, UP, UPUP))
+
+    rootcurve(lf : List(F), t : K, k : K, derivation : UP -> UP
+             ) : Curv_Rec ==
+        r1 := mkIntegral(modulus := UP2UPUP(p := minPoly k, t))
+        mon1 := monomial(inv(r1.coef), 1)$UPUP
+        lf1 := [F2UPUP(f, t, k, p) mon1 for f in lf]$List(UPUP)
+        r      := radPoly(r1.poly)::Record(radicand : RF, deg : N)
+        q      := retract(r.radicand)
+        curve  := RadicalFunctionField(F, UP, UPUP, q::RF, r.deg)
+        [lf1, r1, curve]$Curv_Rec
+
+    algcurve(lf : List(F), t : K, k : K, derivation : UP -> UP
+             ) : Curv_Rec ==
+        r1 := mkIntegral(modulus := UP2UPUP(p := minPoly k, t))
+        mon1 := monomial(inv(r1.coef), 1)$UPUP
+        lf1 := [F2UPUP(f, t, k, p) mon1 for f in lf]$List(UPUP)
+        curve  := AlgebraicFunctionField(F, UP, UPUP, r1.poly)
+        [lf1, r1, curve]$Curv_Rec
+
+    algextint(t, y, der, ext, rde, csolve, lg) ==
+        c_rec :=
+            is?(y, 'nthRoot) => rootcurve(lg, t, y, der)
+            is?(y, 'rootOf)  => algcurve(lg, t, y, der)
+            FAIL
+        curve := c_rec.curve_dom
+        red : UPUP -> curve:= reduce$curve
+        cc := c_rec.irec.coef
+        res1 := algextint(der, ext, rde, csolve, [red(f) for f in c_rec.funs]
+                         )$AlgebraicIntegrate2(R, F, curve)
+        [[UPUP2F(lift(be.ratpart), cc, t, y), be.coeffs] for be in res1]
+
+    algextint_base(x, y, der, csolve, lg) ==
+        p := minPoly y
+        lg1 := [F2UPUP(g, x, y, p) for g in lg]
+        cv     := chvar(lg1, UP2UPUP(p, x))
+        curve : FunctionFieldCategory(F, UP, UPUP) :=
+            is?(y, 'rootOf)  => AlgebraicFunctionField(F, UP, UPUP, cv.poly)
+            is?(y, 'nthRoot) =>
+                r := radPoly(cv.poly)::Record(radicand : RF, deg : N)
+                RadicalFunctionField(F, UP, UPUP, r.radicand, r.deg)
+            FAIL
+        red : UPUP -> curve:= reduce$curve
+        res1 := algextint_base(der, csolve, [red(f) for f in cv.func]
+                         )$AlgebraicIntegrate2(R, F, curve)
+        [[UPUP2F1(lift(be.ratpart), cv.c1, cv.c2, x, y), be.coeffs]
+            for be in res1]
+
+    UP2UPUP(p, k) ==
+      map(x1+->univariate(x1, k), p)$SparseUnivariatePolynomialFunctions2(F, RF)
+
+    UPUP2F(p, cf, t, k) ==
+      map((x1 : RF) : F+->multivariate(x1, t),
+         p)$SparseUnivariatePolynomialFunctions2(RF, F)
+                                            (multivariate(cf, t) * k::F)
+
+    algint(f, t, y, derivation) ==
+      is?(y, 'nthRoot) => rootintegrate(f, t, y, derivation)
+      is?(y, 'rootOf)  => algintegrate(f, t, y, derivation)
+      FAIL
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

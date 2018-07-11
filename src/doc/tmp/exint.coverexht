@@ -1,0 +1,26 @@
+\begin{page}{Menuexint}{Integration}
+\beginscroll\beginmenu
+\menudownlink{Integral of a Rational Function}{ExIntRationalFunction}
+\spadpaste{integrate((x^2+2*x+1)/((x+1)^6+1),x)}
+\spadpaste{ii := integrate(1/(x^3+x+1),x) \bound{ii}}
+\spadpaste{definingPolynomial(tower(ii).3::EXPR INT) \free{ii}}
+\menudownlink{Integral of a Rational Function with a Real Parameter}{ExIntRationalWithRealParameter}
+\spadpaste{integrate(1/(x^2 + a),x)}
+\menudownlink{Integral of a Rational Function with a Complex Parameter}{ExIntRationalWithComplexParameter}
+\spadpaste{complexIntegrate(1/(x^2 + a),x)}
+\menudownlink{Two Similar Integrands Producing Very Different Results}{ExIntTwoSimilarIntegrands}
+\spadpaste{integrate(x^3 / (a+b*x)^(1/3),x)}
+\spadpaste{integrate(1 / (x^3 * (a+b*x)^(1/3)),x)}
+\menudownlink{An Integral Which Does Not Exist}{ExIntNoSolution}
+\spadpaste{integrate(log(1 + sqrt(a*x + b)) / x,x)}
+\menudownlink{A Trigonometric Function of a Quadratic}{ExIntTrig}
+\spadpaste{integrate((sinh(1+sqrt(x+b))+2*sqrt(x+b))/(sqrt(x+b)*(x+cosh(1+sqrt(x+b)))),x)}
+\menudownlink{Integrating a Function with a Hidden Algebraic Relation}{ExIntAlgebraicRelation}
+\spadpaste{integrate(tan(atan(x)/3),x)}
+\menudownlink{Details for integrating a function wiht a Hidden Algebraic Relation}{ExIntAlgebraicRelationExplain}
+\menudownlink{An Integral Involving a Root of a Transcendental Function}{ExIntRadicalOfTranscendental}
+\spadpaste{integrate((x + 1) / (x * (x + log x)^(3/2)),x)}
+\menudownlink{An Integral of a Non-elementary Function}{ExIntNonElementary}
+\spadpaste{integrate(exp(-x^2) * erf(x) / (erf(x)^3 - erf(x)^2 - erf(x) + 1),x)}
+\endmenu\endscroll\end{page}
+

@@ -1,0 +1,75 @@
+)abbrev domain SEQU Sequence
+++ Author: Franz Lehner lehner@math.tugraz.at
+++ Date Created: 2008
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   A domain for infinite sequences over a commutative ring.
+++   It is implemented as stream with arithmetics.
+Sequence(R : CommutativeRing) : SequenceCategory(R) == Implementation where
+  Implementation ==> Stream(R) add
+    Rep := Stream R
+    rep(x : %) : Rep == x :: Rep
+    per(r : Rep) : % == r :: %
+
+    0 == per repeating([0$R])$Rep
+
+    elt(mm : %, n : Integer) : R ==
+        n < 1 => error "no such element"
+        (elt$Rep)(rep mm, n)
+
+    apply(mm : %, pi : Partition) : R ==
+        pil : List Integer := convert pi
+        import from List R
+        reduce(_*, [mm k for k in pil])
+
+    cons(r : R, s : %) : % ==
+        per cons(r, rep s)$Rep
+
+-- module operations
+
+    _+(x : %, y : %) : % ==
+        per map((s : R, t : R) : R +-> s+t, rep x, rep y)
+
+    _-(x : %) : % ==
+        per map((s : R) : R +-> -s, rep x)
+
+    multiply : (%, %) -> %
+
+    multiply(x : %, y : %) : % ==
+            per map((s : R, t : R) : R +-> s*t, rep x, rep y)
+
+    _*(x : R, y : %) : % ==
+        per map((t : R) : R +-> x*t, rep y)
+
+    _=(x : %, y : %) : Boolean ==
+        rep x = rep y
+
+    coerce(x : Stream R) : % == per x
+
+    sequence(x : Stream R) : % == per x
+
+    stream(x : %) : Stream R == rep x
+
+    first(x : %, n : NonNegativeInteger) : % == per(first(rep x, n)$Rep)
+
+    firstn(x : %, n : NonNegativeInteger) : List R ==
+        entries complete first(rep x, n)$Rep
+
+    -- generator
+    sequence(f : R -> R, r : R) : % ==
+             per (stream(f, r)$Rep )
+
+    -- output
+    coerce(mm : %) : OutputForm ==
+            coerce(rep mm)$Rep --$
+
+    dilate(a : R, mm : %) : % ==
+            apow : % := sequence( (x : R) : R +-> x*a, a)
+            multiply(apow, mm)
+
+

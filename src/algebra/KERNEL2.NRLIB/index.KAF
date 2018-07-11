@@ -1,0 +1,32 @@
+1264                (|KernelFunctions2| R S)
+|package|
+(((|KernelFunctions2| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |constantKernel| ((|Kernel| |#2|) |#1|))
+   (SIGNATURE |constantIfCan| ((|Union| |#1| "failed") (|Kernel| |#2|))))
+  (|Comparable|) (|Comparable|))
+ (T |KernelFunctions2|))
+(CATEGORY |package| (SIGNATURE |constantKernel| ((|Kernel| |#2|) |#1|))
+ (SIGNATURE |constantIfCan| ((|Union| |#1| "failed") (|Kernel| |#2|))))
+"/git/fricas/src/algebra/KERNEL2.spad"
+((|constantIfCan| (*1 *2 *3)
+  (|partial| AND (|isDomain| *3 (|Kernel| *4)) (|ofCategory| *4 (|Comparable|))
+   (|ofCategory| *2 (|Comparable|))
+   (|isDomain| *1 (|KernelFunctions2| *2 *4))))
+ (|constantKernel| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Kernel| *4)) (|isDomain| *1 (|KernelFunctions2| *3 *4))
+       (|ofCategory| *3 (|Comparable|)) (|ofCategory| *4 (|Comparable|)))))
+((|constantKernel| (((|Kernel| |#2|) |#1|) 15))
+ (|constantIfCan| (((|Union| |#1| "failed") (|Kernel| |#2|)) 19)))
+KERNEL2
+((|constructor|
+  (NIL "This package exports some auxiliary functions on kernels"))
+ (|constantIfCan|
+  (((|Union| |#1| "failed") (|Kernel| |#2|))
+   "\\spad{constantIfCan(k)} \\undocumented"))
+ (|constantKernel|
+  (((|Kernel| |#2|) |#1|) "\\spad{constantKernel(r)} \\undocumented")))
+(("documentation" 0 979) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 971) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 856) ("modemaps" 0 477) ("sourceFile" 0 438)
+ ("constructorCategory" 0 294) ("constructorModemap" 0 55)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

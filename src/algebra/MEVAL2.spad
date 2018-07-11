@@ -1,0 +1,68 @@
+)abbrev package MEVAL2 ModularEvaluation2
+ModularEvaluation2() : Exports == Implementation where
+  MP ==> Polynomial(Integer)
+  RF ==> Fraction(MP)
+  UP ==> SparseUnivariatePolynomial(RF)
+  PT ==> Record(var : Symbol, coef : UP)
+  FP ==> FakePolynomial
+  Exports ==> ModularEvaluationCategory(PT, FP)
+  Implementation ==> add
+
+    PE ==> PolynomialEvaluationUtilities
+
+    degree(p : FP, s : Symbol) == degree(p, s)$FP
+    ldegree(p : PT, s : Symbol) ==
+        s = p.var => error "ldegree: s = p.var"
+        p1 := p.coef
+        degree(p1) > 0 => error "ldegree: degree(p1) > 0"
+        p2 : RF := ground(p1)
+        np2 : MP := numer(p2)$RF
+        dp2 : MP := denom(p2)$RF
+        degree(dp2, s) > 0 =>
+            error "ldegree: degree(dp2, s) > 0"
+        degree(np2, s)$MP
+
+    eval1(p, v, pt, s) ==
+        map((c : MP) : MP +-> eval1(c, v, pt, s)$PE, p)$FP
+
+    modpreduction(p, q) ==
+        map((c : MP) : MP +-> modpreduction(c, q)$PE, p)$FP
+
+    subst_vars(p, ls1, ls2) ==
+        lm := [monomial(1$MP, v, 1) for v in ls2]
+        res1 := map((c : MP) : MP +-> eval(c, ls1, lm), p)
+        subst_var(res1, ls1, ls2)
+
+    Qfun ==> PolynomialCategoryQuotientFunctions(IndexedExponents Symbol,
+               Symbol, Integer, MP, RF)
+
+    sas := create()$SingletonAsOrderedSet
+
+    -- remove algebraics from denominator
+    m_reduc(x1 : RF, lmu : List(UP), ls : List(Symbol)) : RF ==
+        for s in ls for m in lmu repeat
+            q := univariate(x1, s, m)$Qfun
+            x1 := retract(eval(q, sas, s::MP::RF::UP))@RF
+        x1
+
+    trial_division(p, g, lm, v, ls) ==
+        gu1 := univariate(g, v)
+        gu := map((c : MP) : RF +-> c::RF, gu1
+                 )$SparseUnivariatePolynomialFunctions2(MP, RF)
+        pu := to_UP(p)
+        lcg := leadingCoefficient(gu)
+        dg := degree(gu)
+        rgu := reductum(gu)
+        lmu := [numer(univariate(ground(to_UP(m)$FP), s)$Qfun)
+                 for m in lm for s in ls]
+        while not((dp := degree(pu)) < dg or pu = 0) repeat
+            lcp := leadingCoefficient(pu)
+            c1 := m_reduc(lcp/lcg, lmu, ls)
+            pu := reductum(pu) -
+                    monomial(c1, (dp - dg)::NonNegativeInteger)*rgu
+        while not(pu = 0) repeat
+            lcp := leadingCoefficient(pu)
+            c1 := m_reduc(lcp, lmu, ls)
+            not(c1 = 0) => return false
+            pu := reductum(pu)
+        true

@@ -1,0 +1,72 @@
+3171                (|ModularDistinctDegreeFactorizer| U)
+|package|
+(((|ModularDistinctDegreeFactorizer| |#1|)
+  (CATEGORY |package| (SIGNATURE |gcd| (|#1| |#1| |#1| (|Integer|)))
+   (SIGNATURE |ddFact|
+    ((|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|)))) |#1|
+     (|Integer|)))
+   (SIGNATURE |separateFactors|
+    ((|List| |#1|)
+     (|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|))))
+     (|Integer|))))
+  (|UnivariatePolynomialCategory| (|Integer|)))
+ (T |ModularDistinctDegreeFactorizer|))
+(CATEGORY |package| (SIGNATURE |gcd| (|#1| |#1| |#1| (|Integer|)))
+ (SIGNATURE |ddFact|
+  ((|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|)))) |#1|
+   (|Integer|)))
+ (SIGNATURE |separateFactors|
+  ((|List| |#1|)
+   (|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|))))
+   (|Integer|))))
+"/git/fricas/src/algebra/MDDFACT.spad"
+((|separateFactors| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |factor| *5) (|:| |degree| (|Integer|)))))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+   (|isDomain| *4 (|Integer|)) (|isDomain| *2 (|List| *5))
+   (|isDomain| *1 (|ModularDistinctDegreeFactorizer| *5))))
+ (|ddFact| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Integer|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |factor| *3) (|:| |degree| (|Integer|)))))
+       (|isDomain| *1 (|ModularDistinctDegreeFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|gcd| (*1 *2 *2 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *1 (|ModularDistinctDegreeFactorizer| *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3)))))
+((|separateFactors|
+  (((|List| |#1|)
+    (|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|))))
+    (|Integer|))
+   46))
+ (|gcd| ((|#1| |#1| |#1| (|Integer|)) 36))
+ (|ddFact|
+  (((|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|)))) |#1|
+    (|Integer|))
+   42)))
+MDDFACT
+((|constructor|
+  (NIL
+   "This package supports factorization and gcds of univariate polynomials over the integers modulo different primes. The inputs are given as polynomials over the integers with the prime passed explicitly as an extra argument."))
+ (|separateFactors|
+  (((|List| |#1|)
+    (|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|))))
+    (|Integer|))
+   "\\spad{separateFactors(ddl,{} p)} refines the distinct degree factorization produced by \\spadfunFrom{ddFact}{ModularDistinctDegreeFactorizer} to give a complete list of factors."))
+ (|ddFact|
+  (((|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|)))) |#1|
+    (|Integer|))
+   "\\spad{ddFact(f,{} p)} computes a distinct degree factorization of the polynomial \\spad{f} modulo the prime \\spad{p},{} \\spadignore{i.e.} such that each factor is a product of irreducibles of the same degrees. The input polynomial \\spad{f} is assumed to be square-free modulo \\spad{p}."))
+ (|gcd|
+  ((|#1| |#1| |#1| (|Integer|))
+   "\\spad{gcd(f1,{} f2,{} p)} computes the \\spad{gcd} of the univariate polynomials \\spad{f1} and \\spad{f2} modulo the integer prime \\spad{p}.")))
+(("documentation" 0 2012) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2004) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1714) ("modemaps" 0 884) ("sourceFile" 0 845)
+ ("constructorCategory" 0 530) ("constructorModemap" 0 68)
+ ("constructorKind" 0 58) ("constructorForm" 0 20))

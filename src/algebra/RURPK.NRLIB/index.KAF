@@ -1,0 +1,116 @@
+6442                (|RationalUnivariateRepresentationPackage| R |ls|)
+|package|
+(((|RationalUnivariateRepresentationPackage| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |rur|
+    ((|List|
+      (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+                (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+     (|List| (|Polynomial| |#1|)) (|Boolean|)))
+   (SIGNATURE |rur|
+    ((|List|
+      (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+                (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+     (|List| (|Polynomial| |#1|))))
+   (SIGNATURE |rur|
+    ((|List|
+      (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+                (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+     (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|))))
+  (|Join| (|PolynomialFactorizationExplicit|) (|CharacteristicZero|))
+  (|List| (|Symbol|)))
+ (T |RationalUnivariateRepresentationPackage|))
+(CATEGORY |package|
+ (SIGNATURE |rur|
+  ((|List|
+    (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+              (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+   (|List| (|Polynomial| |#1|)) (|Boolean|)))
+ (SIGNATURE |rur|
+  ((|List|
+    (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+              (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+   (|List| (|Polynomial| |#1|))))
+ (SIGNATURE |rur|
+  ((|List|
+    (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+              (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+   (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|))))
+"/git/fricas/src/algebra/RURPK.spad"
+((|rur| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5))) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |complexRoots| (|SparseUnivariatePolynomial| *5))
+                     (|:| |coordinates| (|List| (|Polynomial| *5))))))
+       (|isDomain| *1 (|RationalUnivariateRepresentationPackage| *5 *6))
+       (|ofType| *6 (|List| (|Symbol|)))))
+ (|rur| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *4)))
+       (|ofCategory| *4
+                     (|Join| (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |complexRoots| (|SparseUnivariatePolynomial| *4))
+                     (|:| |coordinates| (|List| (|Polynomial| *4))))))
+       (|isDomain| *1 (|RationalUnivariateRepresentationPackage| *4 *5))
+       (|ofType| *5 (|List| (|Symbol|)))))
+ (|rur| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5))) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |complexRoots| (|SparseUnivariatePolynomial| *5))
+                     (|:| |coordinates| (|List| (|Polynomial| *5))))))
+       (|isDomain| *1 (|RationalUnivariateRepresentationPackage| *5 *6))
+       (|ofType| *6 (|List| (|Symbol|))))))
+((|rur|
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|))
+   73)
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)))
+   75)
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|))
+   74)))
+RURPK
+((|constructor|
+  (NIL
+   "\\indented{1}{A package for computing the rational univariate representation} \\indented{1}{of a zero-dimensional algebraic variety given by a regular} \\indented{1}{triangular set. This package is essentially an interface for the} \\spadtype{InternalRationalUnivariateRepresentationPackage} constructor. It is used in the \\spadtype{ZeroDimensionalSolvePackage} for solving polynomial systems with finitely many solutions."))
+ (|rur|
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|))
+   "\\spad{rur(lp,{} univ?,{} check?)} returns the same as \\spad{rur(lp,{} true)}. Moreover,{} if \\spad{check?} is \\spad{true} then the result is checked.")
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)))
+   "\\spad{rur(lp)} returns the same as \\spad{rur(lp,{} true)}")
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|))
+   "\\spad{rur(lp,{} univ?)} returns a rational univariate representation of \\spad{lp}. This assumes that \\spad{lp} defines a regular triangular \\spad{ts} whose associated variety is zero-dimensional over \\spad{R}. \\spad{rur(lp,{} univ?)} returns a list of items \\spad{[u,{} lc]} where \\spad{u} is an irreducible univariate polynomial and each \\spad{c} in \\spad{lc} involves two variables: one from \\spad{ls},{} called the coordinate of \\spad{c},{} and an extra variable which represents any root of \\spad{u}. Every root of \\spad{u} leads to a tuple of values for the coordinates of \\spad{lc}. Moreover,{} a point \\spad{x} belongs to the variety associated with \\spad{lp} iff there exists an item \\spad{[u,{} lc]} in \\spad{rur(lp,{} univ?)} and a root \\spad{r} of \\spad{u} such that \\spad{x} is given by the tuple of values for the coordinates of \\spad{lc} evaluated at \\spad{r}. If \\spad{univ?} is \\spad{true} then each polynomial \\spad{c} will have a constant leading coefficient \\spad{w}.\\spad{r}.\\spad{t}. its coordinate. See the example which illustrates the \\spadtype{ZeroDimensionalSolvePackage} package constructor.")))
+(("documentation" 0 4008) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4002) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3383) ("modemaps" 0 1655) ("sourceFile" 0 1618)
+ ("constructorCategory" 0 964) ("constructorModemap" 0 81)
+ ("constructorKind" 0 71) ("constructorForm" 0 20))

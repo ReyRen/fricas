@@ -1,0 +1,80 @@
+)abbrev category SRAGG StringAggregate
+++ Author: Stephen Watt and Michael Monagan. revised by Manuel Bronstein and Richard Jenks
+++ Date Created: August 87 through August 88
+++ Basic Operations:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ A string aggregate is a category for strings, that is,
+++ one dimensional arrays of characters.
+StringAggregate : Category == OneDimensionalArrayAggregate Character with
+    lowerCase : % -> %
+      ++ lowerCase(s) returns the string with all characters in lower case.
+    lowerCase! : % -> %
+      ++ lowerCase!(s) destructively replaces the alphabetic characters
+      ++ in s by lower case.
+    upperCase : % -> %
+      ++ upperCase(s) returns the string with all characters in upper case.
+    upperCase! : % -> %
+      ++ upperCase!(s) destructively replaces the alphabetic characters
+      ++ in s by corresponding upper case characters.
+    prefix? : (%, %) -> Boolean
+      ++ prefix?(s, t) tests if the string s is the initial substring of t.
+      ++ Note: \spad{prefix?(s, t) = reduce(and, [s.i = t.i for i in indices s])}.
+    suffix? : (%, %) -> Boolean
+      ++ suffix?(s, t) tests if the string s is the final substring of t.
+      ++ Note: \spad{suffix?(s, t) = reduce(and, [s.i = t.(n - m + i) for i indices s])}
+      ++ where m and n denote the maxIndex of s and t respectively.
+    substring? : (%, %, Integer) -> Boolean
+      ++ substring?(s, t, i) tests if s is a substring of t beginning at
+      ++ index i.
+      ++ Note: \spad{substring?(s, t, 0) = prefix?(s, t)}.
+    match? : (%, %, Character) -> Boolean
+      ++ match?(s, t, c) tests if s matches t except perhaps for
+      ++ multiple and consecutive occurrences of character c.
+      ++ Typically c is the blank character.
+    replace : (%, UniversalSegment(Integer), %) -> %
+      ++ replace(s, i..j, t) replaces the substring \spad{s(i..j)} of s by string t.
+    position : (%, %, Integer) -> Integer
+      ++ position(s, t, i) returns the position j of the substring s in
+      ++ string t, beginning at index i.
+      ++ Returns \spad{minIndex(s) - 1} if there is no such j.
+    position : (CharacterClass, %, Integer) -> Integer
+      ++ position(cc, t, i) returns the position j in string t of
+      ++ the first character belonging to cc, beginning at index i.
+      ++ Returns \spad{minIndex(t) - 1} if there is no such j.
+    coerce : Character -> %
+      ++ coerce(c) returns c as a string s with the character c.
+
+    split : (%, Character) -> List %
+      ++ split(s, c) returns a list of substrings delimited by character c.
+    split : (%, CharacterClass) -> List %
+      ++ split(s, cc) returns a list of substrings delimited by characters in cc.
+
+    trim : (%, CharacterClass) -> %
+      ++ trim(s, cc) returns s with all characters in cc deleted from right
+      ++ and left ends.
+      ++ For example, \spad{trim("(abc)", charClass "()")} returns \spad{"abc"}.
+    leftTrim : (%, CharacterClass) -> %
+      ++ leftTrim(s, cc) returns s with all leading characters in cc deleted.
+      ++ For example, \spad{leftTrim("(abc)", charClass "()")} returns \spad{"abc)"}.
+    rightTrim : (%, CharacterClass) -> %
+      ++ rightTrim(s, cc) returns s with all trailing occurrences of
+      ++ characters in cc deleted.
+      ++ For example, \spad{rightTrim("(abc)", charClass "()")} returns \spad{"(abc"}.
+    elt : (%, %) -> %
+      ++ elt(s, t) returns the concatenation of s and t. It is provided to
+      ++ allow juxtaposition of strings to work as concatenation.
+      ++ For example, \spad{"smoo" "shed"} returns \spad{"smooshed"}.
+ add
+   trim(s : %, cc : CharacterClass) == leftTrim(rightTrim(s, cc), cc)
+
+   lowerCase s == lowerCase! copy s
+   upperCase s == upperCase! copy s
+   prefix?(s, t) == substring?(s, t, minIndex t)
+   coerce(c : Character) : % == new(1, c)
+   elt(s : %, t : %) : % == concat(s, t)$%
+

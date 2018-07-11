@@ -1,0 +1,99 @@
+3906                (|ElementaryRischDESystem| R F)
+|package|
+(((|ElementaryRischDESystem| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |rischDEsys|
+    ((|Union| (|List| |#2|) "failed") (|Integer|) |#2| |#2| |#2| (|Symbol|)
+     (|Mapping|
+      (|Union|
+       (|Record| (|:| |mainpart| |#2|)
+                 (|:| |limitedlogs|
+                      (|List|
+                       (|Record| (|:| |coeff| |#2|) (|:| |logand| |#2|)))))
+       "failed")
+      |#2| (|List| |#2|))
+     (|Mapping|
+      (|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeff| |#2|)) "failed")
+      |#2| |#2|))))
+  (|Join| (|GcdDomain|) (|Comparable|) (|CharacteristicZero|)
+          (|RetractableTo| (|Integer|)) (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|TranscendentalFunctionCategory|) (|AlgebraicallyClosedField|)
+          (|FunctionSpace| |#1|)))
+ (T |ElementaryRischDESystem|))
+(CATEGORY |package|
+ (SIGNATURE |rischDEsys|
+  ((|Union| (|List| |#2|) "failed") (|Integer|) |#2| |#2| |#2| (|Symbol|)
+   (|Mapping|
+    (|Union|
+     (|Record| (|:| |mainpart| |#2|)
+               (|:| |limitedlogs|
+                    (|List|
+                     (|Record| (|:| |coeff| |#2|) (|:| |logand| |#2|)))))
+     "failed")
+    |#2| (|List| |#2|))
+   (|Mapping|
+    (|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeff| |#2|)) "failed") |#2|
+    |#2|))))
+"/git/fricas/src/algebra/RDEEFS.spad"
+((|rischDEsys| (*1 *2 *3 *4 *4 *4 *5 *6 *7)
+  (|partial| AND (|isDomain| *5 (|Symbol|))
+   (|isDomain| *6
+               (|Mapping|
+                (|Union|
+                 (|Record| (|:| |mainpart| *4)
+                           (|:| |limitedlogs|
+                                (|List|
+                                 (|Record| (|:| |coeff| *4)
+                                           (|:| |logand| *4)))))
+                 "failed")
+                *4 (|List| *4)))
+   (|isDomain| *7
+               (|Mapping|
+                (|Union| (|Record| (|:| |ratpart| *4) (|:| |coeff| *4))
+                         "failed")
+                *4 *4))
+   (|ofCategory| *4
+                 (|Join| (|TranscendentalFunctionCategory|)
+                         (|AlgebraicallyClosedField|) (|FunctionSpace| *8)))
+   (|ofCategory| *8
+                 (|Join| (|GcdDomain|) (|Comparable|) (|CharacteristicZero|)
+                         (|RetractableTo| *3) (|LinearlyExplicitOver| *3)))
+   (|isDomain| *3 (|Integer|)) (|isDomain| *2 (|List| *4))
+   (|isDomain| *1 (|ElementaryRischDESystem| *8 *4)))))
+((|rischDEsys|
+  (((|Union| (|List| |#2|) "failed") (|Integer|) |#2| |#2| |#2| (|Symbol|)
+    (|Mapping|
+     (|Union|
+      (|Record| (|:| |mainpart| |#2|)
+                (|:| |limitedlogs|
+                     (|List|
+                      (|Record| (|:| |coeff| |#2|) (|:| |logand| |#2|)))))
+      "failed")
+     |#2| (|List| |#2|))
+    (|Mapping|
+     (|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeff| |#2|)) "failed") |#2|
+     |#2|))
+   47)))
+RDEEFS
+((|constructor|
+  (NIL
+   "\\indented{1}{Risch differential equation,{} elementary case.} Author: Manuel Bronstein Date Created: 12 August 1992 Keywords: elementary,{} function,{} integration."))
+ (|rischDEsys|
+  (((|Union| (|List| |#2|) "failed") (|Integer|) |#2| |#2| |#2| (|Symbol|)
+    (|Mapping|
+     (|Union|
+      (|Record| (|:| |mainpart| |#2|)
+                (|:| |limitedlogs|
+                     (|List|
+                      (|Record| (|:| |coeff| |#2|) (|:| |logand| |#2|)))))
+      "failed")
+     |#2| (|List| |#2|))
+    (|Mapping|
+     (|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeff| |#2|)) "failed") |#2|
+     |#2|))
+   "\\spad{rischDEsys(n,{} f,{} g_1,{} g_2,{} x,{} lim,{} ext)} returns \\spad{y_1.y_2} such that \\spad{(dy1/dx,{} dy2/dx) + ((0,{} - n df/dx),{} (n df/dx,{} 0)) (y1,{} y2) = (g1,{} g2)} if \\spad{y_1,{}y_2} exist,{} \"failed\" otherwise. \\spad{lim} is a limited integration function,{} ext is an extended integration function.")))
+(("documentation" 0 2932) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2925) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2472) ("modemaps" 0 1377) ("sourceFile" 0 1339)
+ ("constructorCategory" 0 875) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

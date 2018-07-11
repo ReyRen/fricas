@@ -1,0 +1,25 @@
+980                 (MAKEPROP '|OutputFormatterCategory| 'NILADIC T)
+(|OutputFormatterCategory|)
+|category|
+(((|OutputFormatterCategory|) (|Category|)) (T |OutputFormatterCategory|))
+(|Join|
+ (CATEGORY |domain| (SIGNATURE |convert| ($ (|OutputForm|) (|Integer|)))
+  (SIGNATURE |display| ((|Void|) $))))
+"/git/fricas/src/algebra/FORMCAT.spad"
+((|display| (*1 *2 *1)
+            (AND (|ofCategory| *1 (|OutputFormatterCategory|))
+                 (|isDomain| *2 (|Void|))))
+ (|convert| (*1 *1 *2 *3)
+            (AND (|isDomain| *2 (|OutputForm|)) (|isDomain| *3 (|Integer|))
+                 (|ofCategory| *1 (|OutputFormatterCategory|)))))
+((|display| (((|Void|) $) 6)) (|convert| (($ (|OutputForm|) (|Integer|)) 6)))
+FORMCAT
+((|display| (((|Void|) $) "\\spad{display(t)} outputs the formatted code"))
+ (|convert|
+  (($ (|OutputForm|) (|Integer|))
+   "\\spad{convert(o,{} step)} changes \\spad{o} in standard output format to given format and also adds the given step number.")))
+(("documentation" 0 726) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 718) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 640) ("modemaps" 0 342) ("sourceFile" 0 303)
+ ("constructorCategory" 0 183) ("constructorModemap" 0 108)
+ ("constructorKind" 0 97) ("constructorForm" 0 69) ("NILADIC" 0 20))

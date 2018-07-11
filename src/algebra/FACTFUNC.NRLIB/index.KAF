@@ -1,0 +1,62 @@
+2678                (|FactoredFunctions| M)
+|package|
+(((|FactoredFunctions| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |nthRoot|
+    ((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#1|)
+               (|:| |radicand| (|List| |#1|)))
+     (|Factored| |#1|) (|NonNegativeInteger|)))
+   (SIGNATURE |log|
+    ((|List|
+      (|Record| (|:| |coef| (|NonNegativeInteger|)) (|:| |logand| |#1|)))
+     (|Factored| |#1|))))
+  (|IntegralDomain|))
+ (T |FactoredFunctions|))
+(CATEGORY |package|
+ (SIGNATURE |nthRoot|
+  ((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#1|)
+             (|:| |radicand| (|List| |#1|)))
+   (|Factored| |#1|) (|NonNegativeInteger|)))
+ (SIGNATURE |log|
+  ((|List| (|Record| (|:| |coef| (|NonNegativeInteger|)) (|:| |logand| |#1|)))
+   (|Factored| |#1|))))
+"/git/fricas/src/algebra/FACTFUNC.spad"
+((|log| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Factored| *4)) (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |coef| (|NonNegativeInteger|))
+                              (|:| |logand| *4))))
+       (|isDomain| *1 (|FactoredFunctions| *4))))
+ (|nthRoot| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Factored| *5)) (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record| (|:| |exponent| (|NonNegativeInteger|))
+                             (|:| |coef| *5) (|:| |radicand| (|List| *5))))
+       (|isDomain| *1 (|FactoredFunctions| *5)))))
+((|nthRoot|
+  (((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#1|)
+              (|:| |radicand| (|List| |#1|)))
+    (|Factored| |#1|) (|NonNegativeInteger|))
+   25))
+ (|log|
+  (((|List| (|Record| (|:| |coef| (|NonNegativeInteger|)) (|:| |logand| |#1|)))
+    (|Factored| |#1|))
+   29)))
+FACTFUNC
+((|constructor| (NIL "computes various functions on factored arguments."))
+ (|log|
+  (((|List| (|Record| (|:| |coef| (|NonNegativeInteger|)) (|:| |logand| |#1|)))
+    (|Factored| |#1|))
+   "\\spad{log(f)} returns \\spad{[(a1,{} b1),{} ...,{} (am,{} bm)]} such that the logarithm of \\spad{f} is equal to \\spad{a1*log(b1) + ... + am*log(bm)}."))
+ (|nthRoot|
+  (((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#1|)
+              (|:| |radicand| (|List| |#1|)))
+    (|Factored| |#1|) (|NonNegativeInteger|))
+   "\\spad{nthRoot(f,{} n)} returns \\spad{(p,{} r,{} [r1,{} ...,{} rm])} such that the \\spad{n}th-root of \\spad{f} is equal to \\spad{r * \\spad{p}th-root(r1 * ... * rm)},{} where \\spad{r1},{} ...,{} \\spad{rm} are distinct factors of \\spad{f},{} each of which has an exponent smaller than \\spad{p} in \\spad{f}.")))
+(("documentation" 0 1833) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1824) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1520) ("modemaps" 0 843) ("sourceFile" 0 803)
+ ("constructorCategory" 0 478) ("constructorModemap" 0 54)
+ ("constructorKind" 0 44) ("constructorForm" 0 20))

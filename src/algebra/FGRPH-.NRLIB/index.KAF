@@ -1,0 +1,501 @@
+31496               (|FiniteGraph&| A S)
+|domain|
+(((|FiniteGraph&| |#1| |#2|)
+  (CATEGORY |domain| (SIGNATURE |looseEquals| ((|Boolean|) |#1| |#1|))
+   (SIGNATURE |createY|
+    ((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |createX|
+    ((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |createWidth| ((|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |diagramHeight| ((|NonNegativeInteger|) |#1|))
+   (SIGNATURE |diagramWidth| ((|NonNegativeInteger|) |#1|))
+   (SIGNATURE |deepDiagramSvg| ((|Void|) (|String|) |#1| (|Boolean|)))
+   (SIGNATURE |diagramsSvg| ((|Void|) (|String|) (|List| |#1|) (|Boolean|)))
+   (SIGNATURE |diagramSvg| ((|Void|) (|String|) |#1| (|Boolean|)))
+   (SIGNATURE |subdiagramSvg|
+    ((|Void|) (|Scene| (|SCartesian| 2)) |#1| (|Boolean|) (|Boolean|)))
+   (SIGNATURE |isDirected?| ((|Boolean|)))
+   (SIGNATURE |isFunctional?| ((|Boolean|) |#1|))
+   (SIGNATURE |distanceMatrix| ((|Matrix| (|Integer|)) |#1|))
+   (SIGNATURE |laplacianMatrix| ((|Matrix| (|Integer|)) |#1|))
+   (SIGNATURE |adjacencyMatrix| ((|Matrix| (|NonNegativeInteger|)) |#1|))
+   (SIGNATURE |incidenceMatrix| ((|Matrix| (|Integer|)) |#1|))
+   (SIGNATURE |isAcyclic?| ((|Boolean|) |#1|))
+   (SIGNATURE |loopsArrows| ((|List| (|Loop|)) |#1|))
+   (SIGNATURE |loopsAtNode| ((|List| (|Loop|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |loopsNodes| ((|List| (|Loop|)) |#1|))
+   (SIGNATURE |spanningForestNode| ((|List| (|Tree| (|Integer|))) |#1|))
+   (SIGNATURE |spanningTreeNode|
+    ((|Tree| (|Integer|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |spanningForestArrow| ((|List| (|Tree| (|Integer|))) |#1|))
+   (SIGNATURE |spanningTreeArrow|
+    ((|Tree| (|Integer|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |distance|
+    ((|Integer|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |routeArrows|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)
+     (|NonNegativeInteger|)))
+   (SIGNATURE |routeNodes|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)
+     (|NonNegativeInteger|)))
+   (SIGNATURE |arrowsToArrow|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |arrowsFromArrow|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |nodeToArrow|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |nodeFromArrow|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |arrowsToNode|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |arrowsFromNode|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |nodeToNode|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |nodeFromNode|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |outDegree| ((|NonNegativeInteger|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |inDegree| ((|NonNegativeInteger|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |getArrowIndex|
+    ((|NonNegativeInteger|) |#1| (|NonNegativeInteger|)
+     (|NonNegativeInteger|)))
+   (SIGNATURE |arrowName|
+    ((|String|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |isFixPoint?| ((|Boolean|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |min|
+    ((|NonNegativeInteger|) |#1| (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |min| ((|NonNegativeInteger|) |#1|))
+   (SIGNATURE |max|
+    ((|NonNegativeInteger|) |#1| (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |max| ((|NonNegativeInteger|) |#1|))
+   (SIGNATURE |isGreaterThan?|
+    ((|Boolean|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |isDirectSuccessor?|
+    ((|Boolean|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |getVertexIndex| ((|NonNegativeInteger|) |#1| |#2|))
+   (SIGNATURE |addArrow!| (|#1| |#1| (|String|) |#2| |#2|))
+   (SIGNATURE |addArrow!|
+    (|#1| |#1| (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)
+     (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |addArrow!|
+    (|#1| |#1| (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |addArrow!|
+    (|#1| |#1|
+     (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+               (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+               (|:| |yOffset| (|Integer|))
+               (|:| |map| (|List| (|NonNegativeInteger|))))))
+   (SIGNATURE |latex| ((|String|) |#1|))
+   (SIGNATURE |hash| ((|SingleInteger|) |#1|))
+   (SIGNATURE |coerce| ((|OutputForm|) |#1|))
+   (SIGNATURE = ((|Boolean|) |#1| |#1|))
+   (SIGNATURE ~= ((|Boolean|) |#1| |#1|)))
+  (|FiniteGraph| |#2|) (|SetCategory|))
+ (T |FiniteGraph&|))
+(CATEGORY |domain| (SIGNATURE |looseEquals| ((|Boolean|) |#1| |#1|))
+ (SIGNATURE |createY|
+  ((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |createX|
+  ((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |createWidth| ((|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |diagramHeight| ((|NonNegativeInteger|) |#1|))
+ (SIGNATURE |diagramWidth| ((|NonNegativeInteger|) |#1|))
+ (SIGNATURE |deepDiagramSvg| ((|Void|) (|String|) |#1| (|Boolean|)))
+ (SIGNATURE |diagramsSvg| ((|Void|) (|String|) (|List| |#1|) (|Boolean|)))
+ (SIGNATURE |diagramSvg| ((|Void|) (|String|) |#1| (|Boolean|)))
+ (SIGNATURE |subdiagramSvg|
+  ((|Void|) (|Scene| (|SCartesian| 2)) |#1| (|Boolean|) (|Boolean|)))
+ (SIGNATURE |isDirected?| ((|Boolean|)))
+ (SIGNATURE |isFunctional?| ((|Boolean|) |#1|))
+ (SIGNATURE |distanceMatrix| ((|Matrix| (|Integer|)) |#1|))
+ (SIGNATURE |laplacianMatrix| ((|Matrix| (|Integer|)) |#1|))
+ (SIGNATURE |adjacencyMatrix| ((|Matrix| (|NonNegativeInteger|)) |#1|))
+ (SIGNATURE |incidenceMatrix| ((|Matrix| (|Integer|)) |#1|))
+ (SIGNATURE |isAcyclic?| ((|Boolean|) |#1|))
+ (SIGNATURE |loopsArrows| ((|List| (|Loop|)) |#1|))
+ (SIGNATURE |loopsAtNode| ((|List| (|Loop|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |loopsNodes| ((|List| (|Loop|)) |#1|))
+ (SIGNATURE |spanningForestNode| ((|List| (|Tree| (|Integer|))) |#1|))
+ (SIGNATURE |spanningTreeNode|
+  ((|Tree| (|Integer|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |spanningForestArrow| ((|List| (|Tree| (|Integer|))) |#1|))
+ (SIGNATURE |spanningTreeArrow|
+  ((|Tree| (|Integer|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |distance|
+  ((|Integer|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |routeArrows|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)
+   (|NonNegativeInteger|)))
+ (SIGNATURE |routeNodes|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)
+   (|NonNegativeInteger|)))
+ (SIGNATURE |arrowsToArrow|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |arrowsFromArrow|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |nodeToArrow|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |nodeFromArrow|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |arrowsToNode|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |arrowsFromNode|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |nodeToNode|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |nodeFromNode|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |outDegree| ((|NonNegativeInteger|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |inDegree| ((|NonNegativeInteger|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |getArrowIndex|
+  ((|NonNegativeInteger|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |arrowName|
+  ((|String|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |isFixPoint?| ((|Boolean|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |min|
+  ((|NonNegativeInteger|) |#1| (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |min| ((|NonNegativeInteger|) |#1|))
+ (SIGNATURE |max|
+  ((|NonNegativeInteger|) |#1| (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |max| ((|NonNegativeInteger|) |#1|))
+ (SIGNATURE |isGreaterThan?|
+  ((|Boolean|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |isDirectSuccessor?|
+  ((|Boolean|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |getVertexIndex| ((|NonNegativeInteger|) |#1| |#2|))
+ (SIGNATURE |addArrow!| (|#1| |#1| (|String|) |#2| |#2|))
+ (SIGNATURE |addArrow!|
+  (|#1| |#1| (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)
+   (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |addArrow!|
+  (|#1| |#1| (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |addArrow!|
+  (|#1| |#1|
+   (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+             (|:| |fromOb| (|NonNegativeInteger|))
+             (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+             (|:| |yOffset| (|Integer|))
+             (|:| |map| (|List| (|NonNegativeInteger|))))))
+ (SIGNATURE |latex| ((|String|) |#1|))
+ (SIGNATURE |hash| ((|SingleInteger|) |#1|))
+ (SIGNATURE |coerce| ((|OutputForm|) |#1|))
+ (SIGNATURE = ((|Boolean|) |#1| |#1|)) (SIGNATURE ~= ((|Boolean|) |#1| |#1|)))
+"/git/fricas/src/algebra/FGRPH.spad"
+((|isDirected?| (*1 *2)
+  (AND (|ofCategory| *4 (|SetCategory|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|FiniteGraph&| *3 *4))
+       (|ofCategory| *3 (|FiniteGraph| *4))))
+ (|createWidth| (*1 *2 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|)) (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|FiniteGraph&| *3 *4))
+       (|ofCategory| *3 (|FiniteGraph| *4))))
+ (|createX| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|)) (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|FiniteGraph&| *3 *4))
+       (|ofCategory| *3 (|FiniteGraph| *4))))
+ (|createY| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|)) (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|FiniteGraph&| *3 *4))
+       (|ofCategory| *3 (|FiniteGraph| *4)))))
+((~= (((|Boolean|) $ $) 182))
+ (|subdiagramSvg|
+  (((|Void|) (|Scene| (|SCartesian| 2)) $ (|Boolean|) (|Boolean|)) 159))
+ (|spanningTreeNode| (((|Tree| (|Integer|)) $ (|NonNegativeInteger|)) 60))
+ (|spanningTreeArrow| (((|Tree| (|Integer|)) $ (|NonNegativeInteger|)) 54))
+ (|spanningForestNode| (((|List| (|Tree| (|Integer|))) $) 62))
+ (|spanningForestArrow| (((|List| (|Tree| (|Integer|))) $) 56))
+ (|routeNodes|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   99))
+ (|routeArrows|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   102))
+ (|outDegree| (((|NonNegativeInteger|) $ (|NonNegativeInteger|)) 87))
+ (|nodeToNode| (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 89))
+ (|nodeToArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 93))
+ (|nodeFromNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 88))
+ (|nodeFromArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 92))
+ (|min| (((|NonNegativeInteger|) $) 107)
+  (((|NonNegativeInteger|) $ (|List| (|NonNegativeInteger|))) 108))
+ (|max| (((|NonNegativeInteger|) $) 105)
+  (((|NonNegativeInteger|) $ (|List| (|NonNegativeInteger|))) 106))
+ (|looseEquals| (((|Boolean|) $ $) 171))
+ (|loopsNodes| (((|List| (|Loop|)) $) 74))
+ (|loopsAtNode| (((|List| (|Loop|)) $ (|NonNegativeInteger|)) 75))
+ (|loopsArrows| (((|List| (|Loop|)) $) 77)) (|latex| (((|String|) $) 177))
+ (|laplacianMatrix| (((|Matrix| (|Integer|)) $) 37))
+ (|isGreaterThan?|
+  (((|Boolean|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 103))
+ (|isFunctional?| (((|Boolean|) $) 112))
+ (|isFixPoint?| (((|Boolean|) $ (|NonNegativeInteger|)) 82))
+ (|isDirected?| (((|Boolean|)) 19))
+ (|isDirectSuccessor?|
+  (((|Boolean|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 81))
+ (|isAcyclic?| (((|Boolean|) $) 80))
+ (|incidenceMatrix| (((|Matrix| (|Integer|)) $) 28))
+ (|inDegree| (((|NonNegativeInteger|) $ (|NonNegativeInteger|)) 86))
+ (|hash| (((|SingleInteger|) $) 173))
+ (|getVertexIndex| (((|NonNegativeInteger|) $ |#2|) 14))
+ (|getArrowIndex|
+  (((|NonNegativeInteger|) $ (|NonNegativeInteger|) (|NonNegativeInteger|))
+   84))
+ (|distanceMatrix| (((|Matrix| (|Integer|)) $) 39))
+ (|distance|
+  (((|Integer|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 109))
+ (|diagramsSvg| (((|Void|) (|String|) (|List| $) (|Boolean|)) 167))
+ (|diagramWidth| (((|NonNegativeInteger|) $) 169))
+ (|diagramSvg| (((|Void|) (|String|) $ (|Boolean|)) 166))
+ (|diagramHeight| (((|NonNegativeInteger|) $) 170))
+ (|deepDiagramSvg| (((|Void|) (|String|) $ (|Boolean|)) 168))
+ (|createY|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)) 118))
+ (|createX|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)) 117))
+ (|createWidth| (((|NonNegativeInteger|) (|NonNegativeInteger|)) 113))
+ (|coerce| (((|OutputForm|) $) 192))
+ (|arrowsToNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 91))
+ (|arrowsToArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 95))
+ (|arrowsFromNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 90))
+ (|arrowsFromArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 94))
+ (|arrowName|
+  (((|String|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 85))
+ (|adjacencyMatrix| (((|Matrix| (|NonNegativeInteger|)) $) 33))
+ (|addArrow!|
+  (($ $
+    (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+              (|:| |fromOb| (|NonNegativeInteger|))
+              (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+              (|:| |yOffset| (|Integer|))
+              (|:| |map| (|List| (|NonNegativeInteger|)))))
+   NIL)
+  (($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)) NIL)
+  (($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|List| (|NonNegativeInteger|)))
+   NIL)
+  (($ $ (|String|) |#2| |#2|) 18))
+ (= (((|Boolean|) $ $) 180)))
+FGRPH-
+((|constructor|
+  (NIL
+   "Category of finite graphs,{} allows us to model graph theory \\blankline"))
+ (|mapContra|
+  (($ $ (|List| (|NonNegativeInteger|)) (|List| |#2|) (|Integer|) (|Integer|))
+   "\\spad{mapContra(s,{} m,{} newOb,{} offsetX,{} offsetY)} is similar to map function but reverses the directions of the arrows"))
+ (|map|
+  (($ $ (|List| (|NonNegativeInteger|)) (|List| |#2|) (|Integer|) (|Integer|))
+   "\\spad{map(s,{} m,{} newOb,{} offsetX,{} offsetY)} creates a new graph by mapping from this one \\spad{newOb} should contain the new list of vertices. \\spad{m} should contain a NNI value for each vertex,{} this is the new index into \\spad{newOb}. It is allowed that \\spad{newOb} may contain less objects than \\spad{s} (for surjective mapping) or more objects than \\spad{s} (for injective mapping)"))
+ (|looseEquals|
+  (((|Boolean|) $ $)
+   "\\spad{looseEquals(x,{} y)} is \\spad{true} if \\spad{x} 'equals' \\spad{y} this is a looser version of equality test but is not as general as isomorphism. it only requires the same number of vertices but does not require the objects themselves being equal. the arrows must be the same,{} that is it may return \\spad{false} if the order of vertices is changed so this is not isomorphism test."))
+ (|createY|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{createY(x,{} n)} can be used by domains which extend graph to help in creating the \\spad{y} coordinate for objects in a graph"))
+ (|createX|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{createX(x,{} n)} can be used by domains which extend graph to help in creating the \\spad{x} coordinate for objects in a graph"))
+ (|createWidth|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{createWidth(x)} can be used by domains which extend graph to help in creating coordinates for objects in a graph"))
+ (|diagramHeight|
+  (((|NonNegativeInteger|) $)
+   "\\spad{diagramHeight(s)} returns the height of the diagram that will be generated by diagramSvg. This is the maximum posY of all vertices in graph \\spad{s}"))
+ (|diagramWidth|
+  (((|NonNegativeInteger|) $)
+   "\\spad{diagramWidth(s)} returns the width of the diagram that will be generated by diagramSvg. This is the maximum posX of all vertices in graph \\spad{s}"))
+ (|diagramsSvg|
+  (((|Void|) (|String|) (|List| $) (|Boolean|))
+   "creates \\spad{SVG} diagram containing multiple graphs fileName: String is the name of the \\spad{SVG} file that will be created \\spad{ln:} List \\% is list of graphs that will be written dispArrowName: Boolean is \\spad{true} to include the name of each arrow"))
+ (|diagramSvg|
+  (((|Void|) (|String|) $ (|Boolean|))
+   "\\spad{diagramSvg(fileName,{} n,{} dispArrowName)} creates an \\spad{SVG} diagram fileName: String is the name of the \\spad{SVG} file that will be created \\spad{n:} \\% is the graph that will be written dispArrowName: Boolean is \\spad{true} to include the name of each arrow"))
+ (|subdiagramSvg|
+  (((|Void|) (|Scene| (|SCartesian| 2)) $ (|Boolean|) (|Boolean|))
+   "\\spad{subdiagramSvg(sc,{} n,{} dispArrowName,{} deep)} creates a branch of an \\spad{SVG} diagram diagram under an already existing scene node \\spad{sc}. \\spad{n:} \\% is the graph that will be written dispArrowName: Boolean is \\spad{true} to include the name of each arrow"))
+ (|isDirected?|
+  (((|Boolean|))
+   "isDirected? is \\spad{true} iff \\% is domain consisting of directed graphs,{} \\spad{false} for undirected graphs."))
+ (|isFunctional?|
+  (((|Boolean|) $)
+   "\\spad{isFunctional?(s)} returns \\spad{true} if \\spad{s} is a functional graph,{} that is a directed graph in which each vertex has a single outgoing arrow."))
+ (|distanceMatrix|
+  (((|Matrix| (|Integer|)) $)
+   "\\spad{distanceMatrix(s)} gives matrix of distances between vertices. Element a_{\\spad{i},{} \\spad{j}} is the distance from \\spad{i} to \\spad{j}. Distance matrices are related to adjacency matrices,{} with the differences that: a. the latter only provides the information which vertices are connected \\indented{3}{but does not tell about costs or distances between the vertices} \\spad{b}. adjacency matrix only tells us about directly connected \\indented{3}{vertices while distance matrix also considers indirect connections.}"))
+ (|laplacianMatrix|
+  (((|Matrix| (|Integer|)) $)
+   "\\spad{laplacianMatrix(s)} returns matrix also known as \"Kirchhoff matrix\" or \"Admittance matrix\" where: entry [\\spad{i},{} \\spad{j}] = inDegree(\\spad{vi}) if \\spad{i} = \\spad{j} (number of incoming links) \\spad{-1} if \\spad{i} not = \\spad{j} and \\spad{vi} is adjacent to \\spad{vj} 0 otherwise Alternatively this is defined as \\spad{D} - A,{} where \\spad{D} is the diagonal degree matrix. It contains both adjacency information and degree information. There are other,{} similar matrices,{} that are also called \"Laplacian matrices\" of a graph."))
+ (|adjacencyMatrix|
+  (((|Matrix| (|NonNegativeInteger|)) $)
+   "\\spad{adjacencyMatrix(s)} returns an \\spad{n} by \\spad{n} matrix A,{} where \\spad{n} is the number of vertices in the graph. If there is an edge from a vertex \\spad{x} to a vertex \\spad{y},{} then the element ax,{} \\spad{y} is 1 (or in general the number of xy edges),{} otherwise it is 0. In computing,{} this matrix makes it easy to find subgraphs,{} and to reverse a directed graph."))
+ (|incidenceMatrix|
+  (((|Matrix| (|Integer|)) $)
+   "\\spad{incidenceMatrix(s)} represents graph \\spad{s} by a matrix of size \\spad{|V|} by |E| where: V=number of vertices E=number of edges entry [vertex,{} arrow] = arrow endpoint data (undirected case case: 1 - incident,{} 0 - not incident,{} directed case: \\spad{-1} - start,{} 1 - end,{} 0 - not incident)."))
+ (|isAcyclic?|
+  (((|Boolean|) $)
+   "\\spad{isAcyclic?(s)} returns \\spad{true} if there are no loops"))
+ (|loopsArrows|
+  (((|List| (|Loop|)) $)
+   "\\spad{loopsArrows(s)} returns a list of loops for this graph in this case the loop is represented by the indexes of the sequence of nodes passed through. to-do: it would be better to use a more efficient algorithm,{} currently the code calls spanningForestArrow and traverses the result for loops,{} it might be more efficient to use Floyds algorithm."))
+ (|loopsAtNode|
+  (((|List| (|Loop|)) $ (|NonNegativeInteger|))
+   "\\spad{loopsAtNode(s,{} a)} returns a list of loops for this graph that pass through vertex index 'a'"))
+ (|loopsNodes|
+  (((|List| (|Loop|)) $)
+   "\\spad{loopsNodes(s)} returns a list of loops for this graph in this case the loop is represented by the indexes of the sequence of nodes passed through."))
+ (|spanningForestNode|
+  (((|List| (|Tree| (|Integer|))) $)
+   "\\spad{spanningForestNode(s)} constructs a spanning tree for every vertex."))
+ (|spanningTreeNode|
+  (((|Tree| (|Integer|)) $ (|NonNegativeInteger|))
+   "\\spad{spanningTreeNode(s,{} i)} constructs a spanning tree for graph \\spad{'s'} rooted at the node indexed by 'i'. The tree will expand out from 'i' only stopping when reaching a vertex that has already been visited (that is: loop detected). Elements in the tree are Integer,{} a positive Integer represents a vertex and a negative Integer represents a repeated vertex."))
+ (|spanningForestArrow|
+  (((|List| (|Tree| (|Integer|))) $)
+   "\\spad{spanningForestArrow(s)} constructs a spanning tree for every arrow."))
+ (|spanningTreeArrow|
+  (((|Tree| (|Integer|)) $ (|NonNegativeInteger|))
+   "\\spad{spanningTreeArrow(s,{} i)} constructs a spanning tree for graph \\spad{'s'} rooted at the arrow indexed by 'i'. The tree will expand out from 'i' only stopping when reaching a arrow that has already been visited (that is: loop detected). Elements in the tree are Integer,{} a positive Integer represents a arrow and a negative Integer represents a repeated arrow. note: it is possible that nodes may be visited many times,{} only arrows must not be re-visited."))
+ (|merge|
+  (($ $ $)
+   "\\spad{merge(a,{} b)} returns sum : union (not necessarily disjoint) of nodes with arrows merged in from appropriate input,{} if arrow exists from both inputs then it will be duplicated."))
+ (+
+  (($ $ $) "sum : disjoint union of nodes with arrows from appropriate input"))
+ (|distance|
+  (((|Integer|) $ (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{distance(s,{} a,{} b)} gives the shortest distance between nodes 'a' and \\spad{'b'} as a number of hops. 0 if 'a' = \\spad{'b'},{} \\spad{-1} if it is not possible to go from 'a' to \\spad{'b'}"))
+ (|routeArrows|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   "\\spad{routeArrows(s,{} a,{} b)} gives the shortest route between nodes 'a' and \\spad{'b'} as a sequence of arrow indexes. [] if 'a' = \\spad{'b'} [0] if it is not possible to go from 'a' to \\spad{'b'}"))
+ (|routeNodes|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   "\\spad{routeNodes(s,{} a,{} b)} gives the shortest route between nodes 'a' and \\spad{'b'} as a sequence of node indexes. [a] if 'a' = \\spad{'b'} [] if it is not possible to go from 'a' to \\spad{'b'}"))
+ (|arrowsToArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|))
+   "arrowsToArrow: (\\spad{s:} \\%,{} a: NNI) returns index of all arrows leading from a given arrow"))
+ (|arrowsFromArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|))
+   "index of all arrows leading to a given arrow"))
+ (|nodeToArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|))
+   "\\spad{nodeToArrow(s,{} a)} returns index of all nodes with a direct arrow leading out of arrow 'a' in graph \\spad{'s'}"))
+ (|nodeFromArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|))
+   "\\spad{nodeFromArrow(s,{} a)} returns index of all nodes with a direct arrow leading in to arrow 'a' in graph \\spad{'s'}"))
+ (|arrowsToNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|))
+   "\\spad{arrowsToNode(s,{} a)} gives list of all arrows leading from a given node"))
+ (|arrowsFromNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|))
+   "\\spad{arrowsFromNode(s,{} a)} gives list of all arrows leading to a given node"))
+ (|nodeToNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|))
+   "\\spad{nodeToNode(s,{} a)} gives list of all nodes with a direct arrow leading out of node 'a' in graph \\spad{'s'}"))
+ (|nodeFromNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|))
+   "\\spad{nodeFromNode(s,{} a)} gives list of all nodes with a direct arrow leading in to node 'a' in graph \\spad{'s'}"))
+ (|outDegree|
+  (((|NonNegativeInteger|) $ (|NonNegativeInteger|))
+   "\\spad{outDegree(s,{} a)} gives the number of arrows leading out of node 'a' in graph \\spad{'s'}"))
+ (|inDegree|
+  (((|NonNegativeInteger|) $ (|NonNegativeInteger|))
+   "\\spad{inDegree(s,{} a)} gives the number of arrows leading in to node 'a' in graph \\spad{'s'}"))
+ (|getArrowIndex|
+  (((|NonNegativeInteger|) $ (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{getArrowIndex(s,{} a,{} b)} retrieves arrow index of the arrow form a to \\spad{b}"))
+ (|arrowName|
+  (((|String|) $ (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{arrowName(s,{} a,{} b)} retrieves the name of arrow a-\\spad{>b} if it does not exist then return \\spad{\"?\"}"))
+ (|isFixPoint?|
+  (((|Boolean|) $ (|NonNegativeInteger|))
+   "\\spad{isFixPoint?(s,{} a)} is \\spad{true} if 'a' has an arrow to itself"))
+ (|min|
+  (((|NonNegativeInteger|) $ (|List| (|NonNegativeInteger|)))
+   "\\spad{min(s,{} sub)} returns index of the vertex which can reach to a given subset of the vertices. Gives 0 if no such node exists or if it is not unique,{} if there is a loop for instance.")
+  (((|NonNegativeInteger|) $)
+   "\\spad{min(s)} returns index of the vertex which can reach to all other vertices. Gives 0 if no such node exists or if it is not unique,{} if there is a loop for instance."))
+ (|max|
+  (((|NonNegativeInteger|) $ (|List| (|NonNegativeInteger|)))
+   "\\spad{max(s,{} sub)} returns index of the vertex which can be reached from a given subset of the vertices. Gives 0 if no such node exists or if it is not unique,{} if there is a loop for instance.")
+  (((|NonNegativeInteger|) $)
+   "\\spad{max(s)} returns index of the vertex which can be reached from all other vertices. Gives 0 if no such node exists or if it is not unique,{} if there is a loop for instance."))
+ (|isGreaterThan?|
+  (((|Boolean|) $ (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{isGreaterThan?(s,{} a,{} b)} is \\spad{true} if we can get from vertex 'a' to \\spad{'b'} through a sequence of arrows but we can\\spad{'t} go in the opposite direction from \\spad{'b'} to 'a'"))
+ (|isDirectSuccessor?|
+  (((|Boolean|) $ (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{isDirectSuccessor?(s,{} a,{} b)} is \\spad{true} if \\spad{'b'} is a direct successor of 'a' that is,{} if there is a direct arrow from 'a' to \\spad{'b'}"))
+ (|kgraph|
+  (($ (|List| |#2|) (|String|))
+   "\\spad{kgraph(objs,{} arrowName)} constructs a graph with vertices (from \\spad{objs}) and fully connected arrows,{} that is,{} each object has an arrow to every other object except itself. arrowName is a prefix for all arrow names,{} this will be followed by a number starting at 1 and incremented for each arrow"))
+ (|unit|
+  (($ (|List| |#2|) (|String|))
+   "\\spad{unit(objs,{} arrowName)} constructs a graph with vertices (from \\spad{objs}) and arrows from each object to itself. arrowName is a prefix for all arrow names,{} this will be followed by a number starting at 1 and incremented for each arrow"))
+ (|cycleClosed|
+  (($ (|List| |#2|) (|String|))
+   "cycleClosed: (objs: List \\spad{S},{} arrowName: String) constructs a graph with vertices (from objs) connected in a cycle. arrowName is a prefix for all arrow names,{} this will be followed by a number starting at 1 and incremented for each arrow"))
+ (|cycleOpen|
+  (($ (|List| |#2|) (|String|))
+   "\\spad{cycleOpen(objs,{} arrowName)} constructs a graph with vertices (from \\spad{objs}) connected in a cycle but with one gap. The last vertex in the sequence loops back to itself so all vertices have one outgoing arrow. arrowName is a prefix for all arrow names,{} this will be followed by a number starting at 1 and incremented for each arrow"))
+ (|terminal|
+  (($ |#2|)
+   "\\spad{terminal(a)} constructs a graph over a with a single vertex and a single loop"))
+ (|initial|
+  (($) "\\spad{initial constructs} a graph without vertices or edges"))
+ (|flatten|
+  (($ (|DirectedGraph| $))
+   "\\spad{flatten(n)} takes a second order graph,{} that is a graph whose elements are themselves graphs and create a first order graph whose vertices are the vertices of the inner graphs."))
+ (|getArrows|
+  (((|List|
+     (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+               (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+               (|:| |yOffset| (|Integer|))
+               (|:| |map| (|List| (|NonNegativeInteger|)))))
+    $)
+   "\\spad{getArrows(s)} returns a list of all the arrows (or edges)"))
+ (|getVertexIndex|
+  (((|NonNegativeInteger|) $ |#2|)
+   "\\spad{getVertexIndex(s,{} o)} gives index of object \\spad{o}. returns 0 if not found"))
+ (|getVertices|
+  (((|List|
+     (|Record| (|:| |value| |#2|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|))))
+    $)
+   "\\spad{getVertices(s)} returns a list of all the vertices (or objects) of the graph \\spad{s}."))
+ (|addArrow!|
+  (($ $ (|String|) |#2| |#2|)
+   "\\spad{addArrow!(s,{} nm,{} o1,{} o2)} adds an arrow to the graph \\spad{s},{} where: \\spad{nm} is the name of the arrow \\spad{o1} is the start object \\spad{o2} is the end object")
+  (($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|List| (|NonNegativeInteger|)))
+   "\\spad{addArrow!(s,{} nm,{} n1,{} n2,{} mp)} adds an arrow to the graph \\spad{s},{} where: \\spad{nm} is the name of the arrow \\spad{n1} is the index of the start object \\spad{n2} is the index of the end object \\spad{mp} is a map represented by this arrow")
+  (($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{addArrow!(s,{} nm,{} n1,{} n2)} adds an arrow to the graph \\spad{s},{} where: \\spad{nm} is the name of the arrow \\spad{n1} is the index of the start object \\spad{n2} is the index of the end object")
+  (($ $
+    (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+              (|:| |fromOb| (|NonNegativeInteger|))
+              (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+              (|:| |yOffset| (|Integer|))
+              (|:| |map| (|List| (|NonNegativeInteger|)))))
+   "\\spad{addArrow!(s,{} ar)} adds an arrow ar to the graph \\spad{s}"))
+ (|addObject!|
+  (($ $
+    (|Record| (|:| |value| |#2|) (|:| |posX| (|NonNegativeInteger|))
+              (|:| |posY| (|NonNegativeInteger|))))
+   "\\spad{addObject!(s,{} n)} adds object with coordinates \\spad{n} to the graph \\spad{s}.")
+  (($ $ |#2|)
+   "\\spad{addObject!(s,{} n)} adds object \\spad{n} to the graph \\spad{s}. Use this version if you don\\spad{'t} intend to create diagrams and therefore don\\spad{'t} care about \\spad{x},{} \\spad{y} coordinates.")))
+(("documentation" 0 14117) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 14110) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 10116) ("modemaps" 0 9335) ("sourceFile" 0 9298)
+ ("constructorCategory" 0 4811) ("constructorModemap" 0 50)
+ ("constructorKind" 0 41) ("constructorForm" 0 20))

@@ -1,0 +1,95 @@
+)abbrev package PARRPKG PathArrayPackage
+++ Author: Franz Lehner lehner@math.tugraz.at
+++ Date Created: 15 April 2011
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   A package for weighted Motzkin paths over a ring.
+PathArrayPackage(R : Ring) : Exports == Implementation where
+  S==> List R
+  Exports ==> with
+    motzkinPathArray : (Stream R, Stream R, Stream R) -> Stream S
+      ++ \spad{motzkinPathArray([a0, a1, ...], [b0, b1, ...], [c1, c2, ...])}
+      ++ computes Flajolet's Motzkin
+      ++ path array from the sequences ai, bi, ci.
+    jacobiPathArray : (Stream R, Stream R) -> Stream S
+      ++ \spad{jacobiPathArray([b0, b1, ...], [c1, c2, ...])}
+      ++ computes Flajolet's Motzkin
+      ++ path array from the sequences [1, 1, ...], bi, ci.
+    bottom : Stream S -> Stream R
+      ++ bottom(x) returns the bottom entry of each column.
+  Implementation ==> add
+
+    -- function to compute next row
+    nextMotzkinRow(vv : S, aa : Stream R, bb : Stream R, cc : Stream R
+                  ) : S ==
+        -- build a new list
+        vvnew : S := empty()
+        vva := cons(0, vv)
+        aa := cons(0, aa)
+        vvb := vv
+        vvc := rest vv
+        while not empty? vvc repeat
+            vi : R := first vva*first aa + first vvb*first bb +
+                      first vvc*first cc
+            vvnew := cons(vi, vvnew)
+            vva := rest vva
+            vvb := rest vvb
+            vvc := rest vvc
+            aa := rest aa
+            bb := rest bb
+            cc := rest cc
+        vi := first vva*first aa + first vvb*first bb
+        vvnew := cons(vi, vvnew)
+        vva := rest vva
+        aa := rest aa
+        vvnew := cons(first vva*first aa, vvnew)
+        vvnew := reverse! vvnew
+
+    nextJacobiRow(vv : S, bb : Stream R, cc : Stream R) : S ==
+        -- build a new list
+        vvnew : S := empty()
+        vva := cons(0, vv)
+        vvb := vv
+        vvc := rest vv
+        while not empty? vvc repeat
+            vi : R := first vva + first vvb*first bb +first vvc*first cc
+            vvnew := cons(vi, vvnew)
+            vva := rest vva
+            vvb := rest vvb
+            vvc := rest vvc
+            bb := rest bb
+            cc := rest cc
+        vi := first vva + first vvb*first bb
+        vvnew := cons(vi, vvnew)
+        vva := rest vva
+        vvnew := cons(first vva, vvnew)
+        vvnew := reverse! vvnew
+
+    motzkinPathArray(aa : Stream R, bb : Stream R, cc : Stream R
+                    ) : Stream S ==
+        start : S := [1]
+        stream( (vv : S) : S +-> nextMotzkinRow(vv, aa, bb, cc), start)
+
+    jacobiPathArray(bb : Stream R, cc : Stream R) : Stream S ==
+        start : S := [1]
+        stream( (vv : S) : S +-> nextJacobiRow(vv, bb, cc), start)
+
+    bottom(x : Stream S) : Stream R ==
+        map(first$S, x)$StreamFunctions2(S, R)
+
+
+)if false
+\section{package MOMPKG MomentPackage}
+This package contains the core transformations between moments
+and various cumulants.
+When possible, the power series stream operations
+from the packages  \spad{StreamTaylorSeriesOperations}
+and \spad{StreamExponentialSeriesOperations}
+(e.g., for $\log$, $\exp$ and Lagrange inversion) are used.
+)endif
+

@@ -1,0 +1,115 @@
+5104                (|Localize| M R)
+|domain|
+(((|Localize| |#1| |#2|)
+  (|Join| (|Module| |#2|)
+          (CATEGORY |domain|
+           (IF (|has| |#1| (|OrderedAbelianGroup|))
+               (ATTRIBUTE (|OrderedAbelianGroup|))
+               |noBranch|)
+           (SIGNATURE / ($ $ |#2|)) (SIGNATURE / ($ |#1| |#2|))
+           (SIGNATURE |numer| (|#1| $)) (SIGNATURE |denom| (|#2| $))))
+  (|Module| |#2|) (|CommutativeRing|))
+ (T |Localize|))
+(|Join| (|Module| |#2|)
+        (CATEGORY |domain|
+         (IF (|has| |#1| (|OrderedAbelianGroup|))
+             (ATTRIBUTE (|OrderedAbelianGroup|))
+             |noBranch|)
+         (SIGNATURE / ($ $ |#2|)) (SIGNATURE / ($ |#1| |#2|))
+         (SIGNATURE |numer| (|#1| $)) (SIGNATURE |denom| (|#2| $))))
+"/git/fricas/src/algebra/LO.spad"
+((/ (*1 *1 *1 *2)
+    (AND (|ofCategory| *2 (|CommutativeRing|))
+         (|isDomain| *1 (|Localize| *3 *2)) (|ofCategory| *3 (|Module| *2))))
+ (/ (*1 *1 *2 *3)
+    (AND (|ofCategory| *3 (|CommutativeRing|))
+         (|isDomain| *1 (|Localize| *2 *3)) (|ofCategory| *2 (|Module| *3))))
+ (|numer| (*1 *2 *1)
+  (AND (|ofCategory| *2 (|Module| *3)) (|isDomain| *1 (|Localize| *2 *3))
+       (|ofCategory| *3 (|CommutativeRing|))))
+ (|denom| (*1 *2 *1)
+  (AND (|ofCategory| *2 (|CommutativeRing|)) (|isDomain| *1 (|Localize| *3 *2))
+       (|ofCategory| *3 (|Module| *2)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|zero?|
+  (((|Boolean|) $) 14
+   (OR (|has| |#1| (|OrderedAbelianGroup|)) (|has| |#2| (|AbelianMonoid|)))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) NIL
+   (OR (|has| |#1| (|OrderedAbelianGroup|)) (|has| |#2| (|AbelianGroup|)))))
+ (|smaller?| (((|Boolean|) $ $) NIL (|has| |#1| (|OrderedAbelianGroup|))))
+ (|sample|
+  (($) NIL
+   (OR (|has| |#1| (|OrderedAbelianGroup|)) (|has| |#2| (|AbelianMonoid|)))
+   CONST))
+ (|opposite?|
+  (((|Boolean|) $ $) NIL
+   (OR (|has| |#1| (|OrderedAbelianGroup|)) (|has| |#2| (|AbelianMonoid|)))))
+ (|numer| ((|#1| $) 20))
+ (|min| (($ $ $) NIL (|has| |#1| (|OrderedAbelianGroup|))))
+ (|max| (($ $ $) NIL (|has| |#1| (|OrderedAbelianGroup|))))
+ (|latex| (((|String|) $) 43))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|denom| ((|#2| $) 21))
+ (|coerce| (((|OutputForm|) $) 39))
+ (|Zero|
+  (($) 9
+   (OR (|has| |#1| (|OrderedAbelianGroup|)) (|has| |#2| (|AbelianMonoid|)))
+   CONST))
+ (>= (((|Boolean|) $ $) NIL (|has| |#1| (|OrderedAbelianGroup|))))
+ (> (((|Boolean|) $ $) NIL (|has| |#1| (|OrderedAbelianGroup|))))
+ (= (((|Boolean|) $ $) 19))
+ (<= (((|Boolean|) $ $) NIL (|has| |#1| (|OrderedAbelianGroup|))))
+ (< (((|Boolean|) $ $) 23 (|has| |#1| (|OrderedAbelianGroup|))))
+ (/ (($ $ |#2|) 33) (($ |#1| |#2|) 34))
+ (-
+  (($ $ $) NIL
+   (OR (|has| |#1| (|OrderedAbelianGroup|)) (|has| |#2| (|AbelianGroup|))))
+  (($ $) 16
+   (OR (|has| |#1| (|OrderedAbelianGroup|)) (|has| |#2| (|AbelianGroup|)))))
+ (+ (($ $ $) 26))
+ (* (($ (|PositiveInteger|) $) NIL) (($ |#2| $) 31) (($ $ |#2|) NIL)
+    (($ (|NonNegativeInteger|) $) NIL
+     (OR (|has| |#1| (|OrderedAbelianGroup|)) (|has| |#2| (|AbelianMonoid|))))
+    (($ (|Integer|) $) 29
+     (OR (|has| |#1| (|OrderedAbelianGroup|)) (|has| |#2| (|AbelianGroup|))))))
+((|HasCategory| |#1| '(|OrderedAbelianGroup|))
+ (OR (|HasCategory| |#1| '(|OrderedAbelianGroup|))
+     (|HasCategory| |#2| '(|AbelianGroup|))
+     (|HasCategory| |#2| '(|AbelianMonoid|)))
+ (OR (|HasCategory| |#1| '(|OrderedAbelianGroup|))
+     (|HasCategory| |#2| '(|AbelianGroup|)))
+ (OR (|HasCategory| |#1| '(|OrderedAbelianGroup|))
+     (|HasCategory| |#2| '(|AbelianMonoid|))))
+LO
+(((|Module| |#2|) . T)
+ ((|OrderedAbelianGroup|) |has| |#1| (|OrderedAbelianGroup|)))
+(((|AbelianGroup|) OR (|has| |t#1| (|AbelianGroup|))
+  (|has| |#1| (|OrderedAbelianGroup|)))
+ ((|AbelianMonoid|) OR (|has| |t#1| (|AbelianMonoid|))
+  (|has| |#1| (|OrderedAbelianGroup|)))
+ ((|AbelianSemiGroup|) . T) ((|BasicType|) . T) ((|BiModule| |t#1| |t#1|) . T)
+ ((|CancellationAbelianMonoid|) OR (|has| |t#1| (|AbelianGroup|))
+  (|has| |#1| (|OrderedAbelianGroup|)))
+ ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|Comparable|) |has| |#1| (|OrderedAbelianGroup|)) ((|LeftModule| |t#1|) . T)
+ ((|Module| |#2|) . T)
+ ((|OrderedAbelianGroup|) |has| |#1| (|OrderedAbelianGroup|))
+ ((|OrderedAbelianMonoid|) |has| |#1| (|OrderedAbelianGroup|))
+ ((|OrderedAbelianSemiGroup|) |has| |#1| (|OrderedAbelianGroup|))
+ ((|OrderedCancellationAbelianMonoid|) |has| |#1| (|OrderedAbelianGroup|))
+ ((|OrderedSet|) |has| |#1| (|OrderedAbelianGroup|))
+ ((|PartialOrder|) |has| |#1| (|OrderedAbelianGroup|))
+ ((|RightModule| |t#2|) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "Localize(\\spad{M},{} \\spad{R}) produces fractions with numerators from an \\spad{R} module \\spad{M} and denominators being the nonzero elements of \\spad{R}."))
+ (|denom| ((|#2| $) "\\spad{denom x} returns the denominator of \\spad{x}."))
+ (|numer| ((|#1| $) "\\spad{numer x} returns the numerator of \\spad{x}."))
+ (/ (($ |#1| |#2|) "\\spad{m / d} divides the element \\spad{m} by \\spad{d}.")
+    (($ $ |#2|) "\\spad{x / d} divides the element \\spad{x} by \\spad{d}.")))
+(("documentation" 0 4600) ("ancestors" 0 3660) ("parents" 0 3574)
+ ("abbreviation" 0 3571) ("predicates" 0 3189) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1358) ("modemaps" 0 787) ("sourceFile" 0 753)
+ ("constructorCategory" 0 447) ("constructorModemap" 0 46)
+ ("constructorKind" 0 37) ("constructorForm" 0 20))

@@ -1,0 +1,204 @@
+9419                (|PureAlgebraicIntegration| R F L)
+|package|
+(((|PureAlgebraicIntegration| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |palgint|
+    ((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|)))
+   (SIGNATURE |palgRDE|
+    ((|Union| |#2| #1="failed") |#2| |#2| |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+     (|Mapping| (|Union| |#2| #1#) |#2| |#2| (|Symbol|))))
+   (SIGNATURE |param_RDE|
+    ((|Record|
+      (|:| |particular|
+           (|List|
+            (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))))
+      (|:| |basis| (|List| |#2|)))
+     |#2| (|List| |#2|) (|Kernel| |#2|) (|Kernel| |#2|)))
+   (SIGNATURE |param_LODE|
+    ((|Record|
+      (|:| |particular|
+           (|List|
+            (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))))
+      (|:| |basis| (|List| |#2|)))
+     (|List| |#2|) (|List| |#2|) (|Kernel| |#2|) (|Kernel| |#2|)))
+   (IF (|has| |#3| (|LinearOrdinaryDifferentialOperatorCategory| |#2|))
+       (SIGNATURE |palgLODE|
+        ((|Record| (|:| |particular| (|Union| |#2| #1#))
+                   (|:| |basis| (|List| |#2|)))
+         |#3| |#2| (|Kernel| |#2|) (|Kernel| |#2|) (|Symbol|)))
+       |noBranch|))
+  (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|)) (|Comparable|)
+          (|CharacteristicZero|) (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|FunctionSpace| |#1|) (|AlgebraicallyClosedField|)
+          (|TranscendentalFunctionCategory|))
+  (|SetCategory|))
+ (T |PureAlgebraicIntegration|))
+(CATEGORY |package|
+ (SIGNATURE |palgint|
+  ((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|)))
+ (SIGNATURE |palgRDE|
+  ((|Union| |#2| #1="failed") |#2| |#2| |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+   (|Mapping| (|Union| |#2| #1#) |#2| |#2| (|Symbol|))))
+ (SIGNATURE |param_RDE|
+  ((|Record|
+    (|:| |particular|
+         (|List|
+          (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))))
+    (|:| |basis| (|List| |#2|)))
+   |#2| (|List| |#2|) (|Kernel| |#2|) (|Kernel| |#2|)))
+ (SIGNATURE |param_LODE|
+  ((|Record|
+    (|:| |particular|
+         (|List|
+          (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))))
+    (|:| |basis| (|List| |#2|)))
+   (|List| |#2|) (|List| |#2|) (|Kernel| |#2|) (|Kernel| |#2|)))
+ (IF (|has| |#3| (|LinearOrdinaryDifferentialOperatorCategory| |#2|))
+     (SIGNATURE |palgLODE|
+      ((|Record| (|:| |particular| (|Union| |#2| #1#))
+                 (|:| |basis| (|List| |#2|)))
+       |#3| |#2| (|Kernel| |#2|) (|Kernel| |#2|) (|Symbol|)))
+     |noBranch|))
+"/git/fricas/src/algebra/INTPAF.spad"
+((|palgLODE| (*1 *2 *3 *4 *5 *5 *6)
+  (AND (|isDomain| *5 (|Kernel| *4)) (|isDomain| *6 (|Symbol|))
+       (|ofCategory| *4
+                     (|Join| (|FunctionSpace| *7) (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *7
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|) (|CharacteristicZero|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Record| (|:| |particular| (|Union| *4 #1="failed"))
+                             (|:| |basis| (|List| *4))))
+       (|isDomain| *1 (|PureAlgebraicIntegration| *7 *4 *3))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *4))
+       (|ofCategory| *3 (|SetCategory|))))
+ (|param_LODE| (*1 *2 *3 *3 *4 *4)
+  (AND (|isDomain| *3 (|List| *6)) (|isDomain| *4 (|Kernel| *6))
+       (|ofCategory| *6
+                     (|Join| (|FunctionSpace| *5) (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *5
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|) (|CharacteristicZero|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular|
+                         (|List|
+                          (|Record| (|:| |ratpart| *6)
+                                    (|:| |coeffs| (|Vector| *6)))))
+                    (|:| |basis| (|List| *6))))
+       (|isDomain| *1 (|PureAlgebraicIntegration| *5 *6 *7))
+       (|ofCategory| *7 (|SetCategory|))))
+ (|param_RDE| (*1 *2 *3 *4 *5 *5)
+  (AND (|isDomain| *4 (|List| *3)) (|isDomain| *5 (|Kernel| *3))
+       (|ofCategory| *3
+                     (|Join| (|FunctionSpace| *6) (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|) (|CharacteristicZero|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular|
+                         (|List|
+                          (|Record| (|:| |ratpart| *3)
+                                    (|:| |coeffs| (|Vector| *3)))))
+                    (|:| |basis| (|List| *3))))
+       (|isDomain| *1 (|PureAlgebraicIntegration| *6 *3 *7))
+       (|ofCategory| *7 (|SetCategory|))))
+ (|palgRDE| (*1 *2 *2 *2 *2 *3 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Kernel| *2))
+   (|isDomain| *4 (|Mapping| (|Union| *2 #1#) *2 *2 (|Symbol|)))
+   (|ofCategory| *2
+                 (|Join| (|FunctionSpace| *5) (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)))
+   (|ofCategory| *5
+                 (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                         (|Comparable|) (|CharacteristicZero|)
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *1 (|PureAlgebraicIntegration| *5 *2 *6))
+   (|ofCategory| *6 (|SetCategory|))))
+ (|palgint| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *4 (|Kernel| *3))
+       (|ofCategory| *3
+                     (|Join| (|FunctionSpace| *5) (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *5
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|) (|CharacteristicZero|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2 (|IntegrationResult| *3))
+       (|isDomain| *1 (|PureAlgebraicIntegration| *5 *3 *6))
+       (|ofCategory| *6 (|SetCategory|)))))
+((|param_RDE|
+  (((|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))))
+     (|:| |basis| (|List| |#2|)))
+    |#2| (|List| |#2|) (|Kernel| |#2|) (|Kernel| |#2|))
+   172))
+ (|param_LODE|
+  (((|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))))
+     (|:| |basis| (|List| |#2|)))
+    (|List| |#2|) (|List| |#2|) (|Kernel| |#2|) (|Kernel| |#2|))
+   171))
+ (|palgint|
+  (((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|)) 118))
+ (|palgRDE|
+  (((|Union| |#2| #1="failed") |#2| |#2| |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Mapping| (|Union| |#2| #1#) |#2| |#2| (|Symbol|)))
+   185))
+ (|palgLODE|
+  (((|Record| (|:| |particular| (|Union| |#2| #1#))
+              (|:| |basis| (|List| |#2|)))
+    |#3| |#2| (|Kernel| |#2|) (|Kernel| |#2|) (|Symbol|))
+   193 (|has| |#3| (|LinearOrdinaryDifferentialOperatorCategory| |#2|)))))
+((|HasCategory| |#3|
+                (LIST '|LinearOrdinaryDifferentialOperatorCategory|
+                      (|devaluate| |#2|))))
+INTPAF
+((|constructor|
+  (NIL
+   "This package provides functions for integration,{} limited integration,{} extended integration and the risch differential equation for pure algebraic integrands."))
+ (|palgLODE|
+  (((|Record| (|:| |particular| (|Union| |#2| #1="failed"))
+              (|:| |basis| (|List| |#2|)))
+    |#3| |#2| (|Kernel| |#2|) (|Kernel| |#2|) (|Symbol|))
+   "\\spad{palgLODE(op,{} g,{} kx,{} y,{} x)} returns the solution of \\spad{op f = g}. \\spad{y} is an algebraic function of \\spad{x}."))
+ (|param_LODE|
+  (((|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))))
+     (|:| |basis| (|List| |#2|)))
+    (|List| |#2|) (|List| |#2|) (|Kernel| |#2|) (|Kernel| |#2|))
+   "\\spad{param_LODE(eq,{} lg,{} x,{} y)}"))
+ (|param_RDE|
+  (((|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))))
+     (|:| |basis| (|List| |#2|)))
+    |#2| (|List| |#2|) (|Kernel| |#2|) (|Kernel| |#2|))
+   "\\spad{param_RDE(fp,{} lg,{} x,{} y)}"))
+ (|palgRDE|
+  (((|Union| |#2| #1#) |#2| |#2| |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Mapping| (|Union| |#2| #1#) |#2| |#2| (|Symbol|)))
+   "\\spad{palgRDE(nfp,{} f,{} g,{} x,{} y,{} foo)} returns a function \\spad{z(x,{} y)} such that \\spad{dz/dx + n * df/dx z(x,{} y) = g(x,{} y)} if such a \\spad{z} exists,{} \"failed\" otherwise; \\spad{y} is an algebraic function of \\spad{x}; \\spad{foo(a,{} b,{} x)} is a function that solves \\spad{du/dx + n * da/dx u(x) = u(x)} for an unknown \\spad{u(x)} not involving \\spad{y}. \\spad{nfp} is \\spad{n * df/dx}."))
+ (|palgint|
+  (((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|))
+   "\\spad{palgint(f,{} x,{} y)} returns the integral of \\spad{f(x,{} y)dx} where \\spad{y} is an algebraic function of \\spad{x}.")))
+(("documentation" 0 7559) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 7552) ("predicates" 0 7419) ("superDomain" 0 NIL)
+ ("operationAlist" 0 6437) ("modemaps" 0 2571) ("sourceFile" 0 2533)
+ ("constructorCategory" 0 1498) ("constructorModemap" 0 65)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

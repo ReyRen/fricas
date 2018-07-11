@@ -1,0 +1,74 @@
+3871                (|NPCoef| BP E OV R P)
+|package|
+(((|NPCoef| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package|
+   (SIGNATURE |npcoef|
+    ((|Record| (|:| |deter| (|List| (|SparseUnivariatePolynomial| |#5|)))
+               (|:| |dterm|
+                    (|List|
+                     (|List|
+                      (|Record| (|:| |expt| (|NonNegativeInteger|))
+                                (|:| |pcoef| |#5|)))))
+               (|:| |nfacts| (|List| |#1|)) (|:| |nlead| (|List| |#5|)))
+     (|SparseUnivariatePolynomial| |#5|) (|List| |#1|) (|List| |#5|))))
+  (|UnivariatePolynomialCategory| |#4|) (|OrderedAbelianMonoidSup|)
+  (|OrderedSet|) (|IntegralDomain|) (|PolynomialCategory| |#4| |#2| |#3|))
+ (T |NPCoef|))
+(CATEGORY |package|
+ (SIGNATURE |npcoef|
+  ((|Record| (|:| |deter| (|List| (|SparseUnivariatePolynomial| |#5|)))
+             (|:| |dterm|
+                  (|List|
+                   (|List|
+                    (|Record| (|:| |expt| (|NonNegativeInteger|))
+                              (|:| |pcoef| |#5|)))))
+             (|:| |nfacts| (|List| |#1|)) (|:| |nlead| (|List| |#5|)))
+   (|SparseUnivariatePolynomial| |#5|) (|List| |#1|) (|List| |#5|))))
+"/git/fricas/src/algebra/NPCOEF.spad"
+((|npcoef| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *10))
+       (|isDomain| *4 (|List| *6)) (|isDomain| *5 (|List| *10))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *9))
+       (|ofCategory| *9 (|IntegralDomain|))
+       (|ofCategory| *10 (|PolynomialCategory| *9 *7 *8))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *8 (|OrderedSet|))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |deter| (|List| (|SparseUnivariatePolynomial| *10)))
+                    (|:| |dterm|
+                         (|List|
+                          (|List|
+                           (|Record| (|:| |expt| (|NonNegativeInteger|))
+                                     (|:| |pcoef| *10)))))
+                    (|:| |nfacts| (|List| *6)) (|:| |nlead| (|List| *10))))
+       (|isDomain| *1 (|NPCoef| *6 *7 *8 *9 *10)))))
+((|npcoef|
+  (((|Record| (|:| |deter| (|List| (|SparseUnivariatePolynomial| |#5|)))
+              (|:| |dterm|
+                   (|List|
+                    (|List|
+                     (|Record| (|:| |expt| (|NonNegativeInteger|))
+                               (|:| |pcoef| |#5|)))))
+              (|:| |nfacts| (|List| |#1|)) (|:| |nlead| (|List| |#5|)))
+    (|SparseUnivariatePolynomial| |#5|) (|List| |#1|) (|List| |#5|))
+   51)))
+NPCOEF
+((|constructor|
+  (NIL
+   "Package for the determination of the coefficients in the lifting process. Used by \\spadtype{MultivariateLifting}. This package will work for every integral domain \\spad{R} which has property \\spad{F},{} \\spadignore{i.e.} there exists a factor operation in \\spad{R[x]}."))
+ (|npcoef|
+  (((|Record| (|:| |deter| (|List| (|SparseUnivariatePolynomial| |#5|)))
+              (|:| |dterm|
+                   (|List|
+                    (|List|
+                     (|Record| (|:| |expt| (|NonNegativeInteger|))
+                               (|:| |pcoef| |#5|)))))
+              (|:| |nfacts| (|List| |#1|)) (|:| |nlead| (|List| |#5|)))
+    (|SparseUnivariatePolynomial| |#5|) (|List| |#1|) (|List| |#5|))
+   "\\spad{npcoef(p,{} lmf,{} lcf)} tries to determine some coefficients of factors of \\spad{p} assuming that \\spad{lcf} gives \\spad{true} leading coefficients of the factors and that sparsity pattern of modular factors \\spad{lmf} is the same as sparsity pattern of \\spad{true} factors. If \\spad{res} is the result,{} then \\spad{res.deter} gives fully determined factors,{} \\spad{res.dterm} gives determined terms of partially determinaed factors,{} \\spad{res.nfacts} and \\spad{res.nlead} give modular factors and leading coefficients corresponding to undetermined factors.")))
+(("documentation" 0 2551) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2544) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2107) ("modemaps" 0 1211) ("sourceFile" 0 1173)
+ ("constructorCategory" 0 721) ("constructorModemap" 0 53)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

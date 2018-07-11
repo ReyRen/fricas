@@ -1,0 +1,51 @@
+2988                (|SortedCache| S)
+|package|
+(((|SortedCache| |#1|)
+  (CATEGORY |package| (SIGNATURE |clearCache| ((|Void|)))
+   (SIGNATURE |enterInCache| (|#1| |#1| (|Mapping| (|Boolean|) |#1|)))
+   (SIGNATURE |linearSearch|
+    ((|Union| |#1| "failed") |#1| (|Mapping| (|Boolean|) |#1|)))
+   (SIGNATURE |enterInCache| (|#1| |#1| (|Mapping| (|Integer|) |#1| |#1|))))
+  (|CachableSet|))
+ (T |SortedCache|))
+(CATEGORY |package| (SIGNATURE |clearCache| ((|Void|)))
+ (SIGNATURE |enterInCache| (|#1| |#1| (|Mapping| (|Boolean|) |#1|)))
+ (SIGNATURE |linearSearch|
+  ((|Union| |#1| "failed") |#1| (|Mapping| (|Boolean|) |#1|)))
+ (SIGNATURE |enterInCache| (|#1| |#1| (|Mapping| (|Integer|) |#1| |#1|))))
+"/git/fricas/src/algebra/SCACHE.spad"
+((|enterInCache| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Mapping| (|Integer|) *2 *2))
+       (|ofCategory| *2 (|CachableSet|)) (|isDomain| *1 (|SortedCache| *2))))
+ (|linearSearch| (*1 *2 *2 *3)
+  (|partial| AND (|isDomain| *3 (|Mapping| (|Boolean|) *2))
+   (|ofCategory| *2 (|CachableSet|)) (|isDomain| *1 (|SortedCache| *2))))
+ (|enterInCache| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Mapping| (|Boolean|) *2))
+       (|ofCategory| *2 (|CachableSet|)) (|isDomain| *1 (|SortedCache| *2))))
+ (|clearCache| (*1 *2)
+               (AND (|isDomain| *2 (|Void|)) (|isDomain| *1 (|SortedCache| *3))
+                    (|ofCategory| *3 (|CachableSet|)))))
+((|linearSearch|
+  (((|Union| |#1| "failed") |#1| (|Mapping| (|Boolean|) |#1|)) 20))
+ (|enterInCache| ((|#1| |#1| (|Mapping| (|Integer|) |#1| |#1|)) 23)
+  ((|#1| |#1| (|Mapping| (|Boolean|) |#1|)) 21))
+ (|clearCache| (((|Void|)) 17)))
+SCACHE
+((|constructor|
+  (NIL
+   "A sorted cache of a cachable set \\spad{S} is a dynamic structure that keeps the elements of \\spad{S} sorted and assigns an integer to each element of \\spad{S} once it is in the cache. This way,{} equality and ordering on \\spad{S} are tested directly on the integers associated with the elements of \\spad{S},{} once they have been entered in the cache."))
+ (|linearSearch|
+  (((|Union| |#1| "failed") |#1| (|Mapping| (|Boolean|) |#1|))
+   "\\spad{linearSearch(x,{} f)} searches \\spad{x} in the cache,{} calling \\spad{f(y)} to determine whether \\spad{x} is equal to \\spad{y}. It returns \\spad{y} from cache such that \\spad{f}(\\spad{y}) or failed is no such \\spad{y} exists."))
+ (|enterInCache|
+  ((|#1| |#1| (|Mapping| (|Integer|) |#1| |#1|))
+   "\\spad{enterInCache(x,{} f)} enters \\spad{x} in the cache,{} calling \\spad{f(x,{} y)} to determine whether \\spad{x < y (f(x,{} y) < 0),{} x = y (f(x,{} y) = 0)},{} or \\spad{x > y (f(x,{} y) > 0)}. It returns \\spad{x} with an integer associated with it.")
+  ((|#1| |#1| (|Mapping| (|Boolean|) |#1|))
+   "\\spad{enterInCache(x,{} f)} enters \\spad{x} in the cache,{} calling \\spad{f(y)} to determine whether \\spad{x} is equal to \\spad{y}. It returns \\spad{x} with an integer associated with it."))
+ (|clearCache| (((|Void|)) "\\spad{clearCache()} empties the cache.")))
+(("documentation" 0 1626) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1619) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1384) ("modemaps" 0 738) ("sourceFile" 0 700)
+ ("constructorCategory" 0 410) ("constructorModemap" 0 48)
+ ("constructorKind" 0 38) ("constructorForm" 0 20))

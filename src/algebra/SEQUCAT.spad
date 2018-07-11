@@ -1,0 +1,39 @@
+)abbrev category SEQUCAT SequenceCategory
+++ Author: Franz Lehner lehner@math.tugraz.at
+++ Date Created: 2008
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   A category for infinite sequences over a commutative ring.
+++   It is a stream with arithmetics.
+SequenceCategory(R : CommutativeRing) : Category == Exports where
+  Exports ==> Join(LazyStreamAggregate(R), Module(R)) with
+    elt : (%, Integer) -> R
+      ++ \spad{elt(mm, n)} returns the nth element of a sequence.
+    apply : (%, Partition) -> R
+      ++ \spad{elt(mm, pi)} returns the product of the entries indexed
+      ++ by the integer partition pi (as in partitionend moments)
+    cons : (R, %) -> %
+      ++ \spad{cons(r, s)} prepends \spad{r} to the stream \spad{s}
+    coerce : Stream R -> %
+      ++ \spad{coerce(x)} creation of elements
+    sequence : Stream R -> %
+      ++ \spad{sequence(x)} turns the stream x into a sequence
+    stream : % -> Stream R
+      ++ \spad{stream(x)} returns stream of entries
+    first : (%, NonNegativeInteger) -> %
+      ++ \spad{first(x, n)} returns the sequence of the first n entries
+    firstn : (%, NonNegativeInteger) -> List R
+      ++ \spad{firstn(x, n)} returns a list of the first n entries
+    dilate : (R, %) -> %
+      ++ \spad{dilate(a, x)} returns the sequence $a^n x_n$
+      ++ (starting at $n=1$)
+    sequence : (R -> R, R) -> %
+      ++ sequence(f, s0) generates a stream recursively
+      ++ by applying the function f: S -> S to the last
+      ++ computed value.
+

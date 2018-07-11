@@ -1,0 +1,110 @@
+5586                (|SetOfMIntegersInOneToN| |m| |n|)
+|domain|
+(((|SetOfMIntegersInOneToN| |#1| |#2|)
+  (|Join| (|Finite|)
+          (CATEGORY |domain|
+           (SIGNATURE |incrementKthElement|
+            ((|Union| $ #1="failed") $ (|PositiveInteger|)))
+           (SIGNATURE |replaceKthElement|
+            ((|Union| $ #1#) $ (|PositiveInteger|) (|PositiveInteger|)))
+           (SIGNATURE |elements| ((|List| (|PositiveInteger|)) $))
+           (SIGNATURE |setOfMinN| ($ (|List| (|PositiveInteger|))))
+           (SIGNATURE |enumerate| ((|Vector| $)))
+           (SIGNATURE |member?| ((|Boolean|) (|PositiveInteger|) $))
+           (SIGNATURE |delta|
+            ((|NonNegativeInteger|) $ (|PositiveInteger|)
+             (|PositiveInteger|)))))
+  (|PositiveInteger|) (|PositiveInteger|))
+ (T |SetOfMIntegersInOneToN|))
+(|Join| (|Finite|)
+        (CATEGORY |domain|
+         (SIGNATURE |incrementKthElement|
+          ((|Union| $ #1="failed") $ (|PositiveInteger|)))
+         (SIGNATURE |replaceKthElement|
+          ((|Union| $ #1#) $ (|PositiveInteger|) (|PositiveInteger|)))
+         (SIGNATURE |elements| ((|List| (|PositiveInteger|)) $))
+         (SIGNATURE |setOfMinN| ($ (|List| (|PositiveInteger|))))
+         (SIGNATURE |enumerate| ((|Vector| $)))
+         (SIGNATURE |member?| ((|Boolean|) (|PositiveInteger|) $))
+         (SIGNATURE |delta|
+          ((|NonNegativeInteger|) $ (|PositiveInteger|) (|PositiveInteger|)))))
+"/git/fricas/src/algebra/SETMN.spad"
+((|incrementKthElement| (*1 *1 *1 *2)
+  (|partial| AND (|isDomain| *2 (|PositiveInteger|))
+   (|isDomain| *1 (|SetOfMIntegersInOneToN| *3 *4)) (|ofType| *3 *2)
+   (|ofType| *4 *2)))
+ (|replaceKthElement| (*1 *1 *1 *2 *2)
+  (|partial| AND (|isDomain| *2 (|PositiveInteger|))
+   (|isDomain| *1 (|SetOfMIntegersInOneToN| *3 *4)) (|ofType| *3 *2)
+   (|ofType| *4 *2)))
+ (|elements| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|PositiveInteger|)))
+       (|isDomain| *1 (|SetOfMIntegersInOneToN| *3 *4))
+       (|ofType| *3 (|PositiveInteger|)) (|ofType| *4 (|PositiveInteger|))))
+ (|setOfMinN| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|PositiveInteger|)))
+       (|isDomain| *1 (|SetOfMIntegersInOneToN| *3 *4))
+       (|ofType| *3 (|PositiveInteger|)) (|ofType| *4 (|PositiveInteger|))))
+ (|enumerate| (*1 *2)
+  (AND (|isDomain| *2 (|Vector| (|SetOfMIntegersInOneToN| *3 *4)))
+       (|isDomain| *1 (|SetOfMIntegersInOneToN| *3 *4))
+       (|ofType| *3 (|PositiveInteger|)) (|ofType| *4 (|PositiveInteger|))))
+ (|member?| (*1 *2 *3 *1)
+  (AND (|isDomain| *3 (|PositiveInteger|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|SetOfMIntegersInOneToN| *4 *5)) (|ofType| *4 *3)
+       (|ofType| *5 *3)))
+ (|delta| (*1 *2 *1 *3 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|SetOfMIntegersInOneToN| *4 *5)) (|ofType| *4 *3)
+       (|ofType| *5 *3))))
+((~= (((|Boolean|) $ $) NIL)) (|smaller?| (((|Boolean|) $ $) NIL))
+ (|size| (((|NonNegativeInteger|)) 46))
+ (|setOfMinN| (($ (|List| (|PositiveInteger|))) 53))
+ (|replaceKthElement|
+  (((|Union| $ #1="failed") $ (|PositiveInteger|) (|PositiveInteger|)) 59))
+ (|random| (($) NIL)) (|member?| (((|Boolean|) (|PositiveInteger|) $) 32))
+ (|lookup| (((|PositiveInteger|) $) 48)) (|latex| (((|String|) $) NIL))
+ (|index| (($ (|PositiveInteger|)) 51))
+ (|incrementKthElement| (((|Union| $ #1#) $ (|PositiveInteger|)) 56))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|enumerate| (((|List| $)) NIL) (((|Vector| $)) 37))
+ (|elements| (((|List| (|PositiveInteger|)) $) 23))
+ (|delta|
+  (((|NonNegativeInteger|) $ (|PositiveInteger|) (|PositiveInteger|)) 57))
+ (|convert| (((|InputForm|) $) NIL)) (|coerce| (((|OutputForm|) $) 29))
+ (= (((|Boolean|) $ $) 21)))
+SETMN
+(((|Finite|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|Comparable|) . T)
+ ((|ConvertibleTo| (|InputForm|)) . T) ((|Finite|) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "\\spadtype{SetOfMIntegersInOneToN} implements the subsets of \\spad{M} integers in the interval \\spad{[1..n]}"))
+ (|delta|
+  (((|NonNegativeInteger|) $ (|PositiveInteger|) (|PositiveInteger|))
+   "\\spad{delta(S,{} k,{} p)} returns the number of elements of \\spad{S} which are strictly between \\spad{p} and the \\spad{k^}{th} element of \\spad{S}."))
+ (|member?|
+  (((|Boolean|) (|PositiveInteger|) $)
+   "\\spad{member?(p,{} s)} returns \\spad{true} is \\spad{p} is in \\spad{s},{} \\spad{false} otherwise."))
+ (|enumerate|
+  (((|Vector| $))
+   "\\spad{enumerate()} returns a vector of all the sets of \\spad{M} integers in \\spad{1..n}."))
+ (|setOfMinN|
+  (($ (|List| (|PositiveInteger|)))
+   "\\spad{setOfMinN([a_1,{} ...,{} a_m])} returns the set {\\spad{a_1},{} ...,{} a_m}. Error if {\\spad{a_1},{} ...,{} a_m} is not a set of \\spad{M} integers in \\spad{1..n}."))
+ (|elements|
+  (((|List| (|PositiveInteger|)) $)
+   "\\spad{elements(S)} returns the list of the elements of \\spad{S} in increasing order."))
+ (|replaceKthElement|
+  (((|Union| $ #1="failed") $ (|PositiveInteger|) (|PositiveInteger|))
+   "\\spad{replaceKthElement(S,{} k,{} p)} replaces the \\spad{k^}{th} element of \\spad{S} by \\spad{p},{} and returns \"failed\" if the result is not a set of \\spad{M} integers in \\spad{1..n} any more."))
+ (|incrementKthElement|
+  (((|Union| $ #1#) $ (|PositiveInteger|))
+   "\\spad{incrementKthElement(S,{} k)} increments the \\spad{k^}{th} element of \\spad{S},{} and returns \"failed\" if the result is not a set of \\spad{M} integers in \\spad{1..n} any more.")))
+(("documentation" 0 3976) ("ancestors" 0 3818) ("parents" 0 3799)
+ ("abbreviation" 0 3793) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2893) ("modemaps" 0 1475) ("sourceFile" 0 1438)
+ ("constructorCategory" 0 826) ("constructorModemap" 0 64)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

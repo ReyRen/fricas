@@ -1,0 +1,332 @@
+16756               (|IndexedDirectProductCategory| A S)
+|category|
+(((|IndexedDirectProductCategory| |#1| |#2|) (|Category|) (|SetCategory|)
+  (|SetCategory|))
+ (T |IndexedDirectProductCategory|))
+(|Join| (|AbelianProductCategory| |t#1|)
+        (CATEGORY |domain|
+         (IF (|has| |t#1| (|Comparable|))
+             (IF (|has| |t#2| (|Comparable|))
+                 (ATTRIBUTE (|Comparable|))
+                 |noBranch|)
+             |noBranch|)
+         (IF (|has| |t#2| (|OrderedSet|))
+             (PROGN
+              (IF (|has| |t#1| (|OrderedAbelianMonoid|))
+                  (ATTRIBUTE (|OrderedAbelianMonoid|))
+                  |noBranch|)
+              (IF (|has| |t#1| (|OrderedAbelianMonoidSup|))
+                  (ATTRIBUTE (|OrderedAbelianMonoidSup|))
+                  |noBranch|))
+             |noBranch|)
+         (SIGNATURE |map| ($ (|Mapping| |t#1| |t#1|) $))
+         (SIGNATURE |monomial| ($ |t#1| |t#2|))
+         (SIGNATURE |monomial?| ((|Boolean|) $))
+         (SIGNATURE |construct|
+          ($ (|List| (|Record| (|:| |k| |t#2|) (|:| |c| |t#1|)))))
+         (SIGNATURE |listOfTerms|
+          ((|List| (|Record| (|:| |k| |t#2|) (|:| |c| |t#1|))) $))
+         (SIGNATURE |numberOfMonomials| ((|NonNegativeInteger|) $))
+         (IF (|has| |t#2| (|Comparable|))
+             (PROGN
+              (SIGNATURE |leadingMonomial| ($ $))
+              (SIGNATURE |leadingCoefficient| (|t#1| $))
+              (SIGNATURE |leadingSupport| (|t#2| $))
+              (SIGNATURE |reductum| ($ $))
+              (SIGNATURE |constructOrdered|
+               ($ (|List| (|Record| (|:| |k| |t#2|) (|:| |c| |t#1|)))))
+              (SIGNATURE |leadingTerm|
+               ((|Record| (|:| |k| |t#2|) (|:| |c| |t#1|)) $)))
+             |noBranch|)))
+"/git/fricas/src/algebra/IDPC.spad"
+((|map| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|Mapping| *3 *3))
+       (|ofCategory| *1 (|IndexedDirectProductCategory| *3 *4))
+       (|ofCategory| *3 (|SetCategory|)) (|ofCategory| *4 (|SetCategory|))))
+ (|monomial| (*1 *1 *2 *3)
+  (AND (|ofCategory| *1 (|IndexedDirectProductCategory| *2 *3))
+       (|ofCategory| *2 (|SetCategory|)) (|ofCategory| *3 (|SetCategory|))))
+ (|monomial?| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|IndexedDirectProductCategory| *3 *4))
+       (|ofCategory| *3 (|SetCategory|)) (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *2 (|Boolean|))))
+ (|construct| (*1 *1 *2)
+              (AND
+               (|isDomain| *2 (|List| (|Record| (|:| |k| *4) (|:| |c| *3))))
+               (|ofCategory| *3 (|SetCategory|))
+               (|ofCategory| *4 (|SetCategory|))
+               (|ofCategory| *1 (|IndexedDirectProductCategory| *3 *4))))
+ (|listOfTerms| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|IndexedDirectProductCategory| *3 *4))
+       (|ofCategory| *3 (|SetCategory|)) (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *2 (|List| (|Record| (|:| |k| *4) (|:| |c| *3))))))
+ (|numberOfMonomials| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|IndexedDirectProductCategory| *3 *4))
+       (|ofCategory| *3 (|SetCategory|)) (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *2 (|NonNegativeInteger|))))
+ (|leadingMonomial| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|IndexedDirectProductCategory| *2 *3))
+       (|ofCategory| *2 (|SetCategory|)) (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *3 (|Comparable|))))
+ (|leadingCoefficient| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|IndexedDirectProductCategory| *2 *3))
+       (|ofCategory| *3 (|SetCategory|)) (|ofCategory| *3 (|Comparable|))
+       (|ofCategory| *2 (|SetCategory|))))
+ (|leadingSupport| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|IndexedDirectProductCategory| *3 *2))
+       (|ofCategory| *3 (|SetCategory|)) (|ofCategory| *2 (|SetCategory|))
+       (|ofCategory| *2 (|Comparable|))))
+ (|reductum| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|IndexedDirectProductCategory| *2 *3))
+       (|ofCategory| *2 (|SetCategory|)) (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *3 (|Comparable|))))
+ (|constructOrdered| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|Record| (|:| |k| *4) (|:| |c| *3))))
+       (|ofCategory| *4 (|Comparable|)) (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *4 (|SetCategory|))
+       (|ofCategory| *1 (|IndexedDirectProductCategory| *3 *4))))
+ (|leadingTerm| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|IndexedDirectProductCategory| *3 *4))
+       (|ofCategory| *3 (|SetCategory|)) (|ofCategory| *4 (|SetCategory|))
+       (|ofCategory| *4 (|Comparable|))
+       (|isDomain| *2 (|Record| (|:| |k| *4) (|:| |c| *3))))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#2| (|Comparable|)) (|has| |#1| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|)))
+       (|has| |#1| (|AbelianMonoid|)))))
+ (|zero?|
+  (((|Boolean|) $) 6
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|)))
+       (|has| |#1| (|AbelianMonoid|)))))
+ (|sup|
+  (($ $ $) 6
+   (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) 6
+   (OR
+    (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))
+    (|has| |#1| (|CancellationAbelianMonoid|)))))
+ (|smaller?|
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#2| (|Comparable|)) (|has| |#1| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|sample|
+  (($) 6
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|)))
+       (|has| |#1| (|AbelianMonoid|)))
+   CONST))
+ (|reductum| (($ $) 6 (|has| |#2| (|Comparable|))))
+ (|opposite?|
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|)))
+       (|has| |#1| (|AbelianMonoid|)))))
+ (|numberOfMonomials| (((|NonNegativeInteger|) $) 6))
+ (|monomial?| (((|Boolean|) $) 6)) (|monomial| (($ |#1| |#2|) 6))
+ (|min|
+  (($ $ $) 6
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|max|
+  (($ $ $) 6
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|listOfTerms| (((|List| (|Record| (|:| |k| |#2|) (|:| |c| |#1|))) $) 6))
+ (|leadingTerm|
+  (((|Record| (|:| |k| |#2|) (|:| |c| |#1|)) $) 6 (|has| |#2| (|Comparable|))))
+ (|leadingSupport| ((|#2| $) 6 (|has| |#2| (|Comparable|))))
+ (|leadingMonomial| (($ $) 6 (|has| |#2| (|Comparable|))))
+ (|leadingCoefficient| ((|#1| $) 6 (|has| |#2| (|Comparable|))))
+ (|latex|
+  (((|String|) $) 6
+   (OR (AND (|has| |#2| (|Comparable|)) (|has| |#1| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|)))
+       (|has| |#1| (|AbelianMonoid|)))))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6
+   (OR (AND (|has| |#2| (|Comparable|)) (|has| |#1| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|)))
+       (|has| |#1| (|AbelianMonoid|)))))
+ (|hash|
+  (((|SingleInteger|) $) 6
+   (OR (AND (|has| |#2| (|Comparable|)) (|has| |#1| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|)))
+       (|has| |#1| (|AbelianMonoid|)))))
+ (|constructOrdered|
+  (($ (|List| (|Record| (|:| |k| |#2|) (|:| |c| |#1|)))) 6
+   (|has| |#2| (|Comparable|))))
+ (|construct| (($ (|List| (|Record| (|:| |k| |#2|) (|:| |c| |#1|)))) 6))
+ (|coerce|
+  (((|OutputForm|) $) 6
+   (OR (AND (|has| |#2| (|Comparable|)) (|has| |#1| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|)))
+       (|has| |#1| (|AbelianMonoid|)))))
+ (|Zero|
+  (($) 6
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|)))
+       (|has| |#1| (|AbelianMonoid|)))
+   CONST))
+ (>=
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (>
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#2| (|Comparable|)) (|has| |#1| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|)))
+       (|has| |#1| (|AbelianMonoid|)))))
+ (<=
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (<
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (- (($ $ $) 6 (|has| |#1| (|AbelianGroup|)))
+    (($ $) 6 (|has| |#1| (|AbelianGroup|))))
+ (+
+  (($ $ $) 6
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|)))
+       (|has| |#1| (|AbelianMonoid|)))))
+ (* (($ (|Integer|) $) 6 (|has| |#1| (|AbelianGroup|)))
+    (($ (|NonNegativeInteger|) $) 6
+     (OR
+      (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+      (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+           (|has| |#2| (|OrderedSet|)))
+      (|has| |#1| (|AbelianMonoid|))))
+    (($ (|PositiveInteger|) $) 6
+     (OR
+      (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+      (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+           (|has| |#2| (|OrderedSet|)))
+      (|has| |#1| (|AbelianMonoid|))))))
+IDPC
+(((|AbelianProductCategory| |#1|) . T)
+ ((|Comparable|) AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|)))
+ ((|OrderedAbelianMonoidSup|) AND (|has| |#2| (|OrderedSet|))
+  (|has| |#1| (|OrderedAbelianMonoidSup|)))
+ ((|OrderedAbelianMonoid|) AND (|has| |#2| (|OrderedSet|))
+  (|has| |#1| (|OrderedAbelianMonoid|))))
+(((|AbelianGroup|) |has| |t#1| (|AbelianGroup|))
+ ((|AbelianMonoid|) OR (|has| |t#1| (|AbelianMonoid|))
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|))))
+ ((|AbelianProductCategory| |#1|) . T)
+ ((|AbelianSemiGroup|) OR (|has| |t#1| (|AbelianMonoid|))
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|))))
+ ((|BasicType|) OR (|has| |t#1| (|AbelianMonoid|))
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|))))
+ ((|CancellationAbelianMonoid|) OR (|has| |t#1| (|CancellationAbelianMonoid|))
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|))))
+ ((|CoercibleTo| (|OutputForm|)) OR (|has| |t#1| (|AbelianMonoid|))
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|))))
+ ((|Comparable|) OR
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|))))
+ ((|OrderedAbelianMonoid|) OR
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|))))
+ ((|OrderedAbelianMonoidSup|) AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+  (|has| |#2| (|OrderedSet|)))
+ ((|OrderedAbelianSemiGroup|) OR
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|))))
+ ((|OrderedCancellationAbelianMonoid|) AND
+  (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))
+ ((|OrderedSet|) OR
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|))))
+ ((|PartialOrder|) OR
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|))))
+ ((|SetCategory|) OR (|has| |t#1| (|AbelianMonoid|))
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|)))))
+((|constructor|
+  (NIL
+   "This category represents the direct product of some set with respect to an ordered indexing set. The ordered set \\spad{S} is considered as the ``basis elements\\spad{''} and the elements from \\spad{A} as ``coefficients\\spad{''}."))
+ (|leadingTerm|
+  (((|Record| (|:| |k| |#2|) (|:| |c| |#1|)) $)
+   "\\spad{leadingTerm(x)} returns the leading (with respect to the ordering on the indexing set) term of \\spad{z}. Error: if \\spad{z} has no support."))
+ (|constructOrdered|
+  (($ (|List| (|Record| (|:| |k| |#2|) (|:| |c| |#1|))))
+   "\\spad{constructOrdered(l)} takes a list of terms and creates the object with these components. The list is assumed to be sorted (in reverse order) with respect to the ordering of \\spad{S}. If \\spad{R} is a monoid,{} then the list is assumend to contain no zero elements. Caution: No checking is performed,{} so this should only be used in cases where those conditions are assured. If in doubt use \\spad{construct}."))
+ (|reductum|
+  (($ $)
+   "\\spad{reductum(z)} returns a new element created by removing the leading coefficient/support pair from the element \\spad{z}. Error: if \\spad{z} has no support."))
+ (|leadingSupport|
+  ((|#2| $)
+   "\\spad{leadingSupport(z)} returns the index of leading (with respect to the ordering on the indexing set) monomial of \\spad{z}. Error: if \\spad{z} has no support."))
+ (|leadingCoefficient|
+  ((|#1| $)
+   "\\spad{leadingCoefficient(z)} returns the coefficient of the leading (with respect to the ordering on the indexing set) monomial of \\spad{z}. Error: if \\spad{z} has no support."))
+ (|leadingMonomial|
+  (($ $)
+   "\\spad{leadingMonomial(x)} returns the monomial supported by the first element from \\spad{S}. Error: if \\spad{x} has no support."))
+ (|numberOfMonomials|
+  (((|NonNegativeInteger|) $)
+   "\\spad{numberOfMonomials(x)} returns the number of monomials of \\spad{x}."))
+ (|listOfTerms|
+  (((|List| (|Record| (|:| |k| |#2|) (|:| |c| |#1|))) $)
+   "\\spad{listOfTerms(x)} returns a list \\spad{lt} of terms with type \\spad{Record(k: S,{} c: R)} such that \\spad{x} equals \\spad{construct(lt)}. If \\spad{S has Comparable} than \\spad{x} equals \\spad{constructOrdered(lt)}."))
+ (|construct|
+  (($ (|List| (|Record| (|:| |k| |#2|) (|:| |c| |#1|))))
+   "\\spad{construct(l)} takes a list of terms and creates the object with these components. First components of elements of \\spad{l} should be different."))
+ (|monomial?|
+  (((|Boolean|) $)
+   "\\spad{monomial?(x)} returns \\spad{true} if \\spad{x} is a single monomial,{} that is support of \\spad{x} consists of a single element."))
+ (|monomial|
+  (($ |#1| |#2|)
+   "\\spad{monomial(a,{} s)} constructs a direct product element with the \\spad{s} component set to \\spad{a}"))
+ (|map|
+  (($ (|Mapping| |#1| |#1|) $)
+   "\\spad{map(f,{} z)} returns the new element created by applying the function \\spad{f} to each component of the direct product element \\spad{z}.")))
+(("documentation" 0 13801) ("ancestors" 0 11148) ("parents" 0 10824)
+ ("abbreviation" 0 10819) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4516) ("modemaps" 0 1799) ("sourceFile" 0 1763)
+ ("constructorCategory" 0 198) ("constructorModemap" 0 68)
+ ("constructorKind" 0 57) ("constructorForm" 0 20))

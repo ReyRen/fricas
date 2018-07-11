@@ -1,0 +1,225 @@
+)abbrev package MAGCDT3 ModularAlgebraicGcdTools3
+-- Support for modular algebraic GCD, case of multiple extensions.
+ModularAlgebraicGcdTools3 : Exports == Implementation where
+  MP ==> Polynomial Integer
+  MD ==> Record(svz : List(Symbol), sm : List(MP), msizes : List(Integer),
+                sp : Integer)
+  MPU ==> SparseUnivariatePolynomial(MP)
+  PA ==> U32Vector
+  Exports ==> ModularAlgebraicGcdOperations(MP, MPU, MD) with
+      m_inverse : (MP, List(MP), List(Symbol), Integer) -> Union(MP, "failed")
+        ++ m_inverse(x, lm, lv, p) computes inverse of x in algebraic
+        ++ extension defined by lm.
+      pack_exps0 : (SortedExponentVector, List(Integer), Integer,
+                    Integer) -> Void
+        ++ pack_exps0(exps, sizes, ns, start) is used by
+        ++ pack_exps.
+
+  Implementation ==> add
+
+    modInverse ==> invmod
+
+    mreduction1 : (MP, List(MP), List(Symbol), Integer) -> MP
+
+    pack_modulus1(lm : List(MP), lvz : List(Symbol), p : Integer
+                 ) : Union(List(MP), "failed") ==
+        v1 := first(lvz)
+        m1 := first(lm)
+        #lm = 1 =>
+            mm := univariate(m1)
+            cc := leadingCoefficient(mm)
+            cc = 0 => "failed"
+            icc := modInverse(cc, p)
+            resu := map((c : Integer) : Integer +-> positiveRemainder(c, p),
+                        icc*mm)
+            [multivariate(resu, v1)]
+        lv1 := rest(lvz)
+        lm1u := pack_modulus1(rest(lm), lv1, p)
+        lm1u case "failed" => "failed"
+        lm1 := lm1u::List(MP)
+        m1u := univariate(first(lm), v1)
+        c0 := leadingCoefficient(m1u)
+        ic0u := m_inverse(c0, lm1, lv1, p)
+        ic0u case "failed" => "failed"
+        ic0 := ic0u::MP
+        res1u := map((c : MP) : MP +-> mreduction1(c, lm1, lv1, p), ic0*m1u)
+        cons(multivariate(res1u, v1), lm1)
+
+    pack_modulus(lm : List(MP), lvz : List(Symbol), p : Integer
+                ) : Union(MD, "failed") ==
+        #lvz ~= #lm => error("pack_modulus: #lvz ~= #lm")
+        nlmu := pack_modulus1(lm, lvz, p)
+        nlmu case "failed" => "failed"
+        ldeg := [degree(m, v) for m in lm for v in lvz]
+        sizes : List(Integer) := []
+        msize := 1$Integer
+        for deg in reverse(ldeg) repeat
+            msize := deg*msize
+            sizes := cons(msize, sizes)
+        [lvz, nlmu::List(MP), sizes, p]
+
+    pack_exps0(exps : SortedExponentVector, sizes : List(Integer),
+               ns : Integer, start : Integer) : Void ==
+        rsiz := rest(sizes)
+        do_rec := not(empty?(rsiz))
+        size1 := first(sizes)
+        msize :=
+            do_rec => first(rsiz)
+            1
+        deg := size1 quo msize
+        for i in 0..(deg - 1) repeat
+            nstart := start + ns*i*msize
+            for j in 0..(msize - 1) repeat
+                exps(nstart+j*ns) := i
+            if do_rec then
+                pack_exps0(exps, rsiz, ns, nstart + 1)
+
+    pack_exps(dg : Integer, msize : Integer, mu : MD
+             ) : SortedExponentVector ==
+        sizes := mu.msizes
+        msize := first(sizes)
+        size0 := (dg + 1)*msize
+        ns := #sizes+1
+        nsize := qcoerce(ns*size0)@NonNegativeInteger
+        exps := new(nsize, 0)$SortedExponentVector
+        pack_exps0(exps, cons(size0, sizes), ns, 0)
+        exps
+
+
+    repack0(res0 : MPU, coeffs : PA, start : Integer, lv : List(Symbol),
+            sizes : List(Integer)) : Void ==
+        empty?(lv) =>
+            while not(res0 = 0) repeat
+                j := degree(res0)
+                cc := ground(leadingCoefficient(res0))
+                coeffs(start + j) := cc
+                res0 := reductum(res0)
+            void()
+        v1 := first(lv)
+        nlv := rest(lv)
+        msize := first(sizes)
+        nsizes := rest(sizes)
+        while not(res0 = 0) repeat
+            j := degree(res0)
+            repack0(univariate(leadingCoefficient(res0), v1), coeffs,
+                    start + j*msize, nlv, nsizes)
+            res0 := reductum(res0)
+
+    repack1(res00 : MPU, coeffs : PA, dg : Integer, mu : MD) : Void ==
+        lv := mu.svz
+        sizes := mu.msizes
+        msize := first(sizes)
+        for i in 0..((dg+1)*msize - 1) repeat
+            coeffs(i) := 0
+        repack0(res00, coeffs, 0, lv, sizes)
+
+    MPtoMPT(x : MP, ivx : Symbol, ivz : List(Symbol), mu : MD
+           ) : Union(MPU, "failed") ==
+        univariate(x, ivx)
+
+    zero?(x : MPU) : Boolean == x = 0
+
+    degree(x : MPU) : Integer == degree(x)$MPU
+
+    -- reduce x with respect to the triangular system lm
+    mreduction1(x : MP, lm : List(MP), lv : List(Symbol), p : Integer) : MP ==
+        empty?(lm) =>
+            cc := ground(x)
+            positiveRemainder(cc, p)::MP
+        m1 := first(lm)
+        v1 := first(lv)
+        um1 := univariate(m1, v1)
+        rm := reductum(um1)
+        dm1 := degree(um1)
+        ux := univariate(x, v1)
+        dx : Integer
+        while not((dx := degree(ux)) < dm1) repeat
+            c := leadingCoefficient(ux)
+            c := mreduction1(c, rest(lm), rest(lv), p)
+            ux := reductum(ux) -
+                    monomial(c, qcoerce(dx - dm1)@NonNegativeInteger)*rm
+        ux := map((c : MP) : MP +-> mreduction1(c, rest(lm), rest(lv), p), ux)
+        multivariate(ux, v1)
+
+    mreduction(x : MPU, mu : MD) : MPU ==
+        lm := mu.sm
+        lv := mu.svz
+        p := mu.sp
+        map((c : MP) : MP +-> mreduction1(c, lm, lv, p), x)
+
+    extended_gcd(x : MPU, y : MPU, lm : List(MP), lv : List(Symbol),
+                 p : Integer) : List(MPU) ==
+        -- invariant r0 = s0*x + t0*y, r1 = s1*x + t1*y
+        r0 := map((c : MP) : MP +-> mreduction1(c, lm, lv, p), x)
+        s0 := 1$MPU
+        t0 := 0$MPU
+        r1 := map((c : MP) : MP +-> mreduction1(c, lm, lv, p), y)
+        s1 := 0$MPU
+        t1 := 1$MPU
+        while (dr1 := degree(r1)) > 0 repeat
+            c1 := leadingCoefficient(r1)
+            while (dr0 := degree(r0)) >= dr1 repeat
+                c0 := leadingCoefficient(r0)
+                c0 := mreduction1(c0, lm, lv, p)
+                cm := monomial(c0, qcoerce(dr0 - dr1)@NonNegativeInteger)$MPU
+                r0 := c1*reductum(r0) - cm*reductum(r1)
+                s0 := c1*s0 - cm*s1
+                t0 := c1*t0 - cm*t1
+            r0 := map((c : MP) : MP +-> mreduction1(c, lm, lv, p), r0)
+            s0 := map((c : MP) : MP +-> mreduction1(c, lm, lv, p), s0)
+            t0 := map((c : MP) : MP +-> mreduction1(c, lm, lv, p), r0)
+            (r0, r1) := (r1, r0)
+            (s0, s1) := (s1, s0)
+            (t0, t1) := (t1, t0)
+        r1 = 0 => return [r0, s0, t0]
+        return [r1, s1, t1]
+
+    m_inverse(x : MP, lm : List(MP), lv : List(Symbol), p : Integer
+             ) : Union(MP, "failed") ==
+        empty?(lm) =>
+            cc : Integer := ground(x)
+            cc = 0 => "failed"
+            modInverse(cc, p)::MP
+        m1 := first(lm)
+        v1 := first(lv)
+        lm1 := rest(lm)
+        lv1 := rest(lv)
+        um1 := univariate(m1, v1)
+        ux := univariate(x, v1)
+        ee := extended_gcd(ux, um1, lm1, lv1, p)
+        c0 := ee(1)
+        degree(c0) > 0 => "failed"
+        ic0u := m_inverse(ground(c0), lm1, lv1, p)
+        ic0u case "failed" => "failed"
+        ic0 := ic0u::MP
+        res1 := multivariate(ic0*ee(2), v1)
+        mreduction1(res1, lm, lv, p)
+
+    canonicalIfCan(x : MPU, mu : MD) : Union(MPU, "failed") ==
+        lm := mu.sm
+        lv := mu.svz
+        p := mu.sp
+        cl : MP := leadingCoefficient(x)
+        rr := m_inverse(cl, lm, lv, p)
+        rr case "failed" => "failed"
+        mreduction((rr::MP)*x, mu)
+
+    pseudoRem(x : MPU, y : MPU, mu : MD) : MPU ==
+        i : Integer := degree(x)
+        j : Integer := degree(y)
+        j = 0 => 0
+        i < j => x
+        cy : MP := leadingCoefficient(y)
+        c := leadingCoefficient(x)
+        cm := c*monomial(1, qcoerce(i - j)@NonNegativeInteger)
+        if i > j then
+            ccx := leadingCoefficient(reductum(x))
+            cmm := monomial(1, qcoerce(i - j - 1)@NonNegativeInteger)
+            ccy := leadingCoefficient(reductum(y))
+            c2 := cy*ccx - c*ccy
+            cm := mreduction(cy*cm + c2*cmm, mu)
+            cy := mreduction1(cy*cy, mu.sm, mu.svz, mu.sp)
+        x := cy*x - cm*y
+        mreduction(x, mu)
+
+

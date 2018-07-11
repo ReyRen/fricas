@@ -1,0 +1,46 @@
+2100                (MAKEPROP '|GaussianFactorizationPackage| 'NILADIC T)
+(|GaussianFactorizationPackage|)
+|package|
+(((|GaussianFactorizationPackage|)
+  (CATEGORY |package|
+   (SIGNATURE |factor|
+    ((|Factored| (|Complex| (|Integer|))) (|Complex| (|Integer|))))
+   (SIGNATURE |sumSquares| ((|List| (|Integer|)) (|Integer|)))
+   (SIGNATURE |prime?| ((|Boolean|) (|Complex| (|Integer|))))))
+ (T |GaussianFactorizationPackage|))
+(CATEGORY |package|
+ (SIGNATURE |factor|
+  ((|Factored| (|Complex| (|Integer|))) (|Complex| (|Integer|))))
+ (SIGNATURE |sumSquares| ((|List| (|Integer|)) (|Integer|)))
+ (SIGNATURE |prime?| ((|Boolean|) (|Complex| (|Integer|)))))
+"/git/fricas/src/algebra/GAUSSFAC.spad"
+((|prime?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Complex| (|Integer|))) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|GaussianFactorizationPackage|))))
+ (|sumSquares| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|)) (|isDomain| *2 (|List| (|Integer|)))
+       (|isDomain| *1 (|GaussianFactorizationPackage|))))
+ (|factor| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Complex| (|Integer|)))
+       (|isDomain| *2 (|Factored| (|Complex| (|Integer|))))
+       (|isDomain| *1 (|GaussianFactorizationPackage|)))))
+((|sumSquares| (((|List| (|Integer|)) (|Integer|)) 61))
+ (|prime?| (((|Boolean|) (|Complex| (|Integer|))) 65))
+ (|factor| (((|Factored| (|Complex| (|Integer|))) (|Complex| (|Integer|))) 60)))
+GAUSSFAC
+((|constructor|
+  (NIL "Package for the factorization of complex or gaussian integers."))
+ (|prime?|
+  (((|Boolean|) (|Complex| (|Integer|)))
+   "\\spad{prime?(\\spad{zi})} tests if the complex integer \\spad{zi} is prime."))
+ (|sumSquares|
+  (((|List| (|Integer|)) (|Integer|))
+   "\\spad{sumSquares(p)} construct \\spad{a} and \\spad{b} such that \\spad{a^2+b^2} is equal to the integer prime \\spad{p},{} and otherwise returns an error. It will succeed if the prime number \\spad{p} is 2 or congruent to 1 mod 4."))
+ (|factor|
+  (((|Factored| (|Complex| (|Integer|))) (|Complex| (|Integer|)))
+   "\\spad{factor(\\spad{zi})} produces the complete factorization of the complex integer \\spad{zi}.")))
+(("documentation" 0 1398) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1389) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1197) ("modemaps" 0 698) ("sourceFile" 0 658)
+ ("constructorCategory" 0 429) ("constructorModemap" 0 117)
+ ("constructorKind" 0 107) ("constructorForm" 0 74) ("NILADIC" 0 20))

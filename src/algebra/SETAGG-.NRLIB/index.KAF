@@ -1,0 +1,54 @@
+3633                (|SetAggregate&| A S)
+|domain|
+(((|SetAggregate&| |#1| |#2|)
+  (CATEGORY |domain| (SIGNATURE |union| (|#1| |#2| |#1|))
+   (SIGNATURE |union| (|#1| |#1| |#2|)) (SIGNATURE |union| (|#1| |#1| |#1|))
+   (SIGNATURE |symmetricDifference| (|#1| |#1| |#1|))
+   (SIGNATURE |difference| (|#1| |#1| |#2|))
+   (SIGNATURE |difference| (|#1| |#1| |#1|)))
+  (|SetAggregate| |#2|) (|SetCategory|))
+ (T |SetAggregate&|))
+(CATEGORY |domain| (SIGNATURE |union| (|#1| |#2| |#1|))
+ (SIGNATURE |union| (|#1| |#1| |#2|)) (SIGNATURE |union| (|#1| |#1| |#1|))
+ (SIGNATURE |symmetricDifference| (|#1| |#1| |#1|))
+ (SIGNATURE |difference| (|#1| |#1| |#2|))
+ (SIGNATURE |difference| (|#1| |#1| |#1|)))
+"/git/fricas/src/algebra/SETAGG.spad"
+((|union| (($ $ $) NIL) (($ $ |#2|) 13) (($ |#2| $) 14))
+ (|symmetricDifference| (($ $ $) 10))
+ (|difference| (($ $ $) NIL) (($ $ |#2|) 15)))
+SETAGG-
+((|constructor|
+  (NIL
+   "A set category lists a collection of set-theoretic operations useful for both finite sets and multisets. Note however that finite sets are distinct from multisets. Although the operations defined for set categories are common to both,{} the relationship between the two cannot be described by inclusion or inheritance."))
+ (|union|
+  (($ |#2| $)
+   "\\spad{union(x,{} u)} returns the set aggregate \\spad{u} with the element \\spad{x} added. If \\spad{u} already contains \\spad{x},{} \\spad{union(x,{} u)} returns a copy of \\spad{u}.")
+  (($ $ |#2|)
+   "\\spad{union(u,{} x)} returns the set aggregate \\spad{u} with the element \\spad{x} added. If \\spad{u} already contains \\spad{x},{} \\spad{union(u,{} x)} returns a copy of \\spad{u}.")
+  (($ $ $)
+   "\\spad{union(u,{} v)} returns the set aggregate of elements which are members of either set aggregate \\spad{u} or \\spad{v}."))
+ (|subset?|
+  (((|Boolean|) $ $)
+   "\\spad{subset?(u,{} v)} tests if \\spad{u} is a subset of \\spad{v}. Note: equivalent to \\spad{reduce(and,{} [member?(x,{} v) for x in members(u)],{} true,{} false)}."))
+ (|symmetricDifference|
+  (($ $ $)
+   "\\spad{symmetricDifference(u,{} v)} returns the set aggregate of elements \\spad{x} which are members of set aggregate \\spad{u} or set aggregate \\spad{v} but not both. If \\spad{u} and \\spad{v} have no elements in common,{} \\spad{symmetricDifference(u,{} v)} returns a copy of \\spad{u}. Note: \\spad{symmetricDifference(u,{} v) = union(difference(u,{} v),{} difference(v,{} u))}"))
+ (|difference|
+  (($ $ |#2|)
+   "\\spad{difference(u,{} x)} returns the set aggregate \\spad{u} with element \\spad{x} removed. If \\spad{u} does not contain \\spad{x},{} a copy of \\spad{u} is returned. Note: \\spad{difference(s,{} x) = difference(s,{} set [x])}.")
+  (($ $ $)
+   "\\spad{difference(u,{} v)} returns the set aggregate \\spad{w} consisting of elements in set aggregate \\spad{u} but not in set aggregate \\spad{v}. If \\spad{u} and \\spad{v} have no elements in common,{} \\spad{difference(u,{} v)} returns a copy of \\spad{u}. Note: equivalent to the notation (not currently supported) \\spad{[x for x in u | not member?(x,{} v)]}."))
+ (|intersect|
+  (($ $ $)
+   "\\spad{intersect(u,{} v)} returns the set aggregate \\spad{w} consisting of elements common to both set aggregates \\spad{u} and \\spad{v}. Note: equivalent to the notation (not currently supported) [\\spad{x} for \\spad{x} in \\spad{u} | member?(\\spad{x},{} \\spad{v})]."))
+ (|set|
+  (($ (|List| |#2|))
+   "\\spad{set([x,{} y,{} ...,{} z])} creates a set aggregate containing items \\spad{x},{} \\spad{y},{} ...,{} \\spad{z}.")
+  (($)
+   "\\spad{set()}\\$\\spad{D} creates an empty set aggregate of type \\spad{D}.")))
+(("documentation" 0 882) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 874) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 732) ("modemaps" 0 NIL) ("sourceFile" 0 694)
+ ("constructorCategory" 0 424) ("constructorModemap" 0 51)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

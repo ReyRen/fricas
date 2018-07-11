@@ -1,0 +1,98 @@
+4891                (|MonomialExtensionTools| F UP)
+|package|
+(((|MonomialExtensionTools| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |split|
+    ((|Record| (|:| |normal| |#2|) (|:| |special| |#2|)) |#2|
+     (|Mapping| |#2| |#2|)))
+   (SIGNATURE |splitSquarefree|
+    ((|Record| (|:| |normal| (|Factored| |#2|))
+               (|:| |special| (|Factored| |#2|)))
+     |#2| (|Mapping| |#2| |#2|)))
+   (SIGNATURE |normalDenom| (|#2| (|Fraction| |#2|) (|Mapping| |#2| |#2|)))
+   (SIGNATURE |decompose|
+    ((|Record| (|:| |poly| |#2|) (|:| |normal| (|Fraction| |#2|))
+               (|:| |special| (|Fraction| |#2|)))
+     (|Fraction| |#2|) (|Mapping| |#2| |#2|))))
+  (|Field|) (|UnivariatePolynomialCategory| |#1|))
+ (T |MonomialExtensionTools|))
+(CATEGORY |package|
+ (SIGNATURE |split|
+  ((|Record| (|:| |normal| |#2|) (|:| |special| |#2|)) |#2|
+   (|Mapping| |#2| |#2|)))
+ (SIGNATURE |splitSquarefree|
+  ((|Record| (|:| |normal| (|Factored| |#2|))
+             (|:| |special| (|Factored| |#2|)))
+   |#2| (|Mapping| |#2| |#2|)))
+ (SIGNATURE |normalDenom| (|#2| (|Fraction| |#2|) (|Mapping| |#2| |#2|)))
+ (SIGNATURE |decompose|
+  ((|Record| (|:| |poly| |#2|) (|:| |normal| (|Fraction| |#2|))
+             (|:| |special| (|Fraction| |#2|)))
+   (|Fraction| |#2|) (|Mapping| |#2| |#2|))))
+"/git/fricas/src/algebra/MONOTOOL.spad"
+((|decompose| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| *6)) (|isDomain| *4 (|Mapping| *6 *6))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2
+                   (|Record| (|:| |poly| *6) (|:| |normal| (|Fraction| *6))
+                             (|:| |special| (|Fraction| *6))))
+       (|isDomain| *1 (|MonomialExtensionTools| *5 *6))))
+ (|normalDenom| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| *2)) (|isDomain| *4 (|Mapping| *2 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *5))
+       (|isDomain| *1 (|MonomialExtensionTools| *5 *2))
+       (|ofCategory| *5 (|Field|))))
+ (|splitSquarefree| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Mapping| *3 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2
+                   (|Record| (|:| |normal| (|Factored| *3))
+                             (|:| |special| (|Factored| *3))))
+       (|isDomain| *1 (|MonomialExtensionTools| *5 *3))))
+ (|split| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Mapping| *3 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2 (|Record| (|:| |normal| *3) (|:| |special| *3)))
+       (|isDomain| *1 (|MonomialExtensionTools| *5 *3)))))
+((|splitSquarefree|
+  (((|Record| (|:| |normal| (|Factored| |#2|))
+              (|:| |special| (|Factored| |#2|)))
+    |#2| (|Mapping| |#2| |#2|))
+   38))
+ (|split|
+  (((|Record| (|:| |normal| |#2|) (|:| |special| |#2|)) |#2|
+    (|Mapping| |#2| |#2|))
+   12))
+ (|normalDenom| ((|#2| (|Fraction| |#2|) (|Mapping| |#2| |#2|)) 13))
+ (|decompose|
+  (((|Record| (|:| |poly| |#2|) (|:| |normal| (|Fraction| |#2|))
+              (|:| |special| (|Fraction| |#2|)))
+    (|Fraction| |#2|) (|Mapping| |#2| |#2|))
+   47)))
+MONOTOOL
+((|constructor| (NIL "Tools for handling monomial extensions."))
+ (|decompose|
+  (((|Record| (|:| |poly| |#2|) (|:| |normal| (|Fraction| |#2|))
+              (|:| |special| (|Fraction| |#2|)))
+    (|Fraction| |#2|) (|Mapping| |#2| |#2|))
+   "\\spad{decompose(f,{} D)} returns \\spad{[p,{} n,{} s]} such that \\spad{f = p+n+s},{} all the squarefree factors of \\spad{denom(n)} are normal \\spad{w}.\\spad{r}.\\spad{t}. \\spad{D},{} \\spad{denom(s)} is special \\spad{w}.\\spad{r}.\\spad{t}. \\spad{D},{} and \\spad{n} and \\spad{s} are proper fractions (no pole at infinity). \\spad{D} is the derivation to use."))
+ (|normalDenom|
+  ((|#2| (|Fraction| |#2|) (|Mapping| |#2| |#2|))
+   "\\spad{normalDenom(f,{} D)} returns the product of all the normal factors of \\spad{denom(f)}. \\spad{D} is the derivation to use."))
+ (|splitSquarefree|
+  (((|Record| (|:| |normal| (|Factored| |#2|))
+              (|:| |special| (|Factored| |#2|)))
+    |#2| (|Mapping| |#2| |#2|))
+   "\\spad{splitSquarefree(p,{} D)} returns \\spad{[n_1 n_2\\^2 ... n_m\\^m,{} s_1 s_2\\^2 ... s_q\\^q]} such that \\spad{p = n_1 n_2\\^2 ... n_m\\^m s_1 s_2\\^2 ... s_q\\^q},{} each \\spad{n_i} is normal \\spad{w}.\\spad{r}.\\spad{t}. \\spad{D} and each \\spad{s_i} is special \\spad{w}.\\spad{r}.\\spad{t} \\spad{D}. \\spad{D} is the derivation to use."))
+ (|split|
+  (((|Record| (|:| |normal| |#2|) (|:| |special| |#2|)) |#2|
+    (|Mapping| |#2| |#2|))
+   "\\spad{split(p,{} D)} returns \\spad{[n,{} s]} such that \\spad{p = n s},{} all the squarefree factors of \\spad{n} are normal \\spad{w}.\\spad{r}.\\spad{t}. \\spad{D},{} and \\spad{s} is special \\spad{w}.\\spad{r}.\\spad{t}. \\spad{D}. \\spad{D} is the derivation to use.")))
+(("documentation" 0 3187) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3178) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2665) ("modemaps" 0 1327) ("sourceFile" 0 1287)
+ ("constructorCategory" 0 748) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

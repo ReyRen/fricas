@@ -1,0 +1,144 @@
+)abbrev package LINCOMB LinearCombinationUtilities
+LinearCombinationUtilities(F, UP) : Exports == Implementation where
+  F  : Field
+  UP : UnivariatePolynomialCategory F
+
+  N   ==> NonNegativeInteger
+  RF  ==> Fraction UP
+  GP  ==> LaurentPolynomial(F, UP)
+  Param_Rec_F ==> Record(ratpart : F, coeffs : Vector F)
+  L_Param_F ==> List Param_Rec_F
+  Partial_F ==>  Union(Param_Rec_F, "failed")
+  Both_F ==> Record(particular : Partial_F, basis : L_Param_F)
+  Q ==> Fraction(Integer)
+  Param_Rec_Q2 ==> Record(ratpart : F, coeffs : Vector Q)
+  L_Param_Q2 ==> List Param_Rec_Q2
+  Partial_Q2 ==> Union(Param_Rec_Q2, "failed")
+  Both_Q2 ==> Record(particular : Partial_Q2, basis : L_Param_Q2)
+
+  Exports ==> with
+
+    dehomogenize : L_Param_F -> Both_F
+      ++ dehomogenize(ls) converts list of solutions
+      ++ (a, [c0, c1, ..., cn]) to homogeneous equation
+      ++ L(a) + c0 f + c1 g1 + ... + cn gn = 0 into list of
+      ++ solutions of inhomogeneous equation
+      ++ L(a) + f + c1 g1 + ... + cn gn = 0.  This transformation
+      ++ works the same for all equations, so we only
+      ++ need list of solutions as argument
+    lin_comb : (Vector F, List(F)) -> F
+      ++ lin_comb(v, [f1, ..., fn]) computes linear combination
+      ++ v(1) f1 + ... v(n) fn.  Vector v and list [f1, ..., fn]
+      ++ must be of equal length.
+    lin_comb : (Vector Q, List(F)) -> F
+      ++ lin_comb(v, [f1, ..., fn]) computes linear combination
+      ++ v(1) f1 + ... v(n) fn.  Vector v and list [f1, ..., fn]
+      ++ must be of equal length.
+    lin_comb! : (Vector F, Vector F, List(Vector F)) -> Vector F
+      ++ lin_comb!(v, w, [f1, ..., fn]) computes linear combination
+      ++ w + v(1) f1 + ... v(n) fn by modifying w in place.
+      ++ Vector v and list [f1, ..., fn] must be of equal length.
+    lin_comb : (Vector F, List(Vector F)) -> Vector F
+      ++ lin_comb(v, [f1, ..., fn]) computes linear combination
+      ++ v(1) f1 + ... v(n) fn.  Vector v and list [f1, ..., fn]
+      ++ must be of equal positive length.
+    lin_comb : (Vector F, List(RF)) -> RF
+      ++ lin_comb(v, [f1, ..., fn]) computes linear combination
+      ++ v(1) f1 + ... v(n) fn.  Vector v and list [f1, ..., fn]
+      ++ must be of equal length.
+    lin_comb : (Vector Q, List(RF)) -> RF
+      ++ lin_comb(v, [f1, ..., fn]) computes linear combination
+      ++ v(1) f1 + ... v(n) fn.  Vector v and list [f1, ..., fn]
+      ++ must be of equal length.
+    lin_comb : (Vector F, List(GP)) -> GP
+      ++ lin_comb(v, [f1, ..., fn]) computes linear combination
+      ++ v(1) f1 + ... v(n) fn.  Vector v and list [f1, ..., fn]
+      ++ must be of equal length.
+    lin_comb : (Vector F, List(UP)) -> UP
+      ++ lin_comb(v, [f1, ..., fn]) computes linear combination
+      ++ v(1) f1 + ... v(n) fn.  Vector v and list [f1, ..., fn]
+      ++ must be of equal length.
+
+  Implementation ==> add
+
+    dehomogenize_body(Lpar, Par) ==>
+        empty?(ls) => ["failed", []]
+        nn := #(ls(1).coeffs)
+        be1 : Par
+        found : Boolean := false
+        res2 : Lpar := []
+        for be in ls repeat
+            c := (be.coeffs)(1)
+            c = 0 or found => res2 := cons(be, res2)
+            be1 := be
+            found := true
+        not(found) => ["failed", []]
+        c1inv := 1/(be1.coeffs)(1)
+        ppa := c1inv*be1.ratpart
+        ppv := (c1inv*be1.coeffs)(2..nn)
+        res3 : Lpar := []
+        for be in res2 repeat
+            c := (be.coeffs)(1)
+            bv := (be.coeffs)(2..nn)
+            rp := be.ratpart
+            if c ~= 0 then
+                rp := rp - c*ppa
+                bv := bv - c*ppv
+            res3 := cons([rp, bv], res3)
+        [[ppa, ppv], res3]
+
+    dehomogenize(ls : L_Param_F) : Both_F ==
+        dehomogenize_body(L_Param_F, Param_Rec_F)
+
+
+    lin_comb(v : Vector F, lf : List(F)) : F ==
+        res : F := 0
+        for i in 1..#v for f in lf repeat
+            res := res + v(i)*f
+        res
+
+    lin_comb(v : Vector Q, lf : List(F)) : F ==
+        res : F := 0
+        for i in 1..#v for f in lf repeat
+            res := res + v(i)::F*f
+        res
+
+    lin_comb!(u : Vector F, v : Vector F,
+              lw : List(Vector F)) : Vector F ==
+        res := v
+        n := #res
+        for i in 1..#u for w in lw repeat
+            c := u(i)
+            for j in 1..n repeat
+                res(j) := res(j) + c*w(j)
+        res
+
+    lin_comb(u : Vector F, lw : List(Vector F)) : Vector F ==
+        n := #first(lw)
+        lin_comb!(u, new(n, 0)$Vector(F), lw)
+
+    lin_comb(v : Vector F, lf : List(RF)) : RF ==
+        res : RF := 0
+        for i in 1..#v for f in lf repeat
+            res := res + v(i)::UP*f
+        res
+
+    lin_comb(v : Vector Q, lg : List RF) : RF ==
+        res : RF := 0
+        for i in 1..#v for g in lg repeat
+            res := res + v(i)::F::UP::RF*g
+        res
+
+    lin_comb(v : Vector F, lf : List(GP)) : GP ==
+        res : GP := 0
+        for i in 1..#v for f in lf repeat
+            res := res + v(i)::GP*f
+        res
+
+    lin_comb(v : Vector F, lf : List(UP)) : UP ==
+        res : UP := 0
+        for i in 1..#v for f in lf repeat
+            res := res + v(i)*f
+        res
+
+

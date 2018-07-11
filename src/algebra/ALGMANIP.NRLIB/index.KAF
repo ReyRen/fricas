@@ -1,0 +1,371 @@
+19506               (|AlgebraicManipulations| R F)
+|package|
+(((|AlgebraicManipulations| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |rootSplit| (|#2| |#2|))
+   (SIGNATURE |ratDenom| (|#2| |#2|)) (SIGNATURE |ratDenom| (|#2| |#2| |#2|))
+   (SIGNATURE |ratDenom| (|#2| |#2| (|List| |#2|)))
+   (SIGNATURE |ratDenom| (|#2| |#2| (|List| (|Kernel| |#2|))))
+   (SIGNATURE |ratPoly| ((|SparseUnivariatePolynomial| |#2|) |#2|))
+   (IF (|has| |#1| (|Comparable|))
+       (IF (|has| |#1| (|GcdDomain|))
+           (IF (|has| |#1| (|RetractableTo| (|Integer|)))
+               (IF (|has| |#2| (|FunctionSpace| |#1|))
+                   (PROGN
+                    (IF (|has| |#1| (|UniqueFactorizationDomain|))
+                        (SIGNATURE |rootFactor| (|#2| |#2|))
+                        |noBranch|)
+                    (SIGNATURE |rootPower| (|#2| |#2|))
+                    (SIGNATURE |rootProduct| (|#2| |#2|))
+                    (SIGNATURE |rootSimp| (|#2| |#2|))
+                    (SIGNATURE |rootKerSimp|
+                     (|#2| (|BasicOperator|) |#2| (|NonNegativeInteger|))))
+                   |noBranch|)
+               |noBranch|)
+           |noBranch|)
+       |noBranch|))
+  (|IntegralDomain|)
+  (|Join| (|Field|) (|ExpressionSpace|)
+          (CATEGORY |domain|
+           (SIGNATURE |numer|
+            ((|SparseMultivariatePolynomial| |#1| (|Kernel| $)) $))
+           (SIGNATURE |denom|
+            ((|SparseMultivariatePolynomial| |#1| (|Kernel| $)) $))
+           (SIGNATURE |coerce|
+            ($ (|SparseMultivariatePolynomial| |#1| (|Kernel| $)))))))
+ (T |AlgebraicManipulations|))
+(CATEGORY |package| (SIGNATURE |rootSplit| (|#2| |#2|))
+ (SIGNATURE |ratDenom| (|#2| |#2|)) (SIGNATURE |ratDenom| (|#2| |#2| |#2|))
+ (SIGNATURE |ratDenom| (|#2| |#2| (|List| |#2|)))
+ (SIGNATURE |ratDenom| (|#2| |#2| (|List| (|Kernel| |#2|))))
+ (SIGNATURE |ratPoly| ((|SparseUnivariatePolynomial| |#2|) |#2|))
+ (IF (|has| |#1| (|Comparable|))
+     (IF (|has| |#1| (|GcdDomain|))
+         (IF (|has| |#1| (|RetractableTo| (|Integer|)))
+             (IF (|has| |#2| (|FunctionSpace| |#1|))
+                 (PROGN
+                  (IF (|has| |#1| (|UniqueFactorizationDomain|))
+                      (SIGNATURE |rootFactor| (|#2| |#2|))
+                      |noBranch|)
+                  (SIGNATURE |rootPower| (|#2| |#2|))
+                  (SIGNATURE |rootProduct| (|#2| |#2|))
+                  (SIGNATURE |rootSimp| (|#2| |#2|))
+                  (SIGNATURE |rootKerSimp|
+                   (|#2| (|BasicOperator|) |#2| (|NonNegativeInteger|))))
+                 |noBranch|)
+             |noBranch|)
+         |noBranch|)
+     |noBranch|))
+"/git/fricas/src/algebra/ALGMANIP.spad"
+((|rootKerSimp| (*1 *2 *3 *2 *4)
+  (AND (|isDomain| *3 (|BasicOperator|)) (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|Comparable|)) (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *5 (|RetractableTo| (|Integer|)))
+       (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *1 (|AlgebraicManipulations| *5 *2))
+       (|ofCategory| *2 (|FunctionSpace| *5))
+       (|ofCategory| *2
+                     (|Join| (|Field|) (|ExpressionSpace|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |numer|
+                               ((|SparseMultivariatePolynomial| *5
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |denom|
+                               ((|SparseMultivariatePolynomial| *5
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |coerce|
+                               ($
+                                (|SparseMultivariatePolynomial| *5
+                                                                (|Kernel|
+                                                                 $)))))))))
+ (|rootSimp| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|Comparable|)) (|ofCategory| *3 (|GcdDomain|))
+       (|ofCategory| *3 (|RetractableTo| (|Integer|)))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|AlgebraicManipulations| *3 *2))
+       (|ofCategory| *2 (|FunctionSpace| *3))
+       (|ofCategory| *2
+                     (|Join| (|Field|) (|ExpressionSpace|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |numer|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |denom|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |coerce|
+                               ($
+                                (|SparseMultivariatePolynomial| *3
+                                                                (|Kernel|
+                                                                 $)))))))))
+ (|rootProduct| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|Comparable|)) (|ofCategory| *3 (|GcdDomain|))
+       (|ofCategory| *3 (|RetractableTo| (|Integer|)))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|AlgebraicManipulations| *3 *2))
+       (|ofCategory| *2 (|FunctionSpace| *3))
+       (|ofCategory| *2
+                     (|Join| (|Field|) (|ExpressionSpace|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |numer|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |denom|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |coerce|
+                               ($
+                                (|SparseMultivariatePolynomial| *3
+                                                                (|Kernel|
+                                                                 $)))))))))
+ (|rootPower| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|Comparable|)) (|ofCategory| *3 (|GcdDomain|))
+       (|ofCategory| *3 (|RetractableTo| (|Integer|)))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|AlgebraicManipulations| *3 *2))
+       (|ofCategory| *2 (|FunctionSpace| *3))
+       (|ofCategory| *2
+                     (|Join| (|Field|) (|ExpressionSpace|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |numer|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |denom|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |coerce|
+                               ($
+                                (|SparseMultivariatePolynomial| *3
+                                                                (|Kernel|
+                                                                 $)))))))))
+ (|rootFactor| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|Comparable|)) (|ofCategory| *3 (|GcdDomain|))
+       (|ofCategory| *3 (|RetractableTo| (|Integer|)))
+       (|ofCategory| *3 (|UniqueFactorizationDomain|))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|AlgebraicManipulations| *3 *2))
+       (|ofCategory| *2 (|FunctionSpace| *3))
+       (|ofCategory| *2
+                     (|Join| (|Field|) (|ExpressionSpace|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |numer|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |denom|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |coerce|
+                               ($
+                                (|SparseMultivariatePolynomial| *3
+                                                                (|Kernel|
+                                                                 $)))))))))
+ (|ratPoly| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *3))
+       (|isDomain| *1 (|AlgebraicManipulations| *4 *3))
+       (|ofCategory| *3
+                     (|Join| (|Field|) (|ExpressionSpace|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |numer|
+                               ((|SparseMultivariatePolynomial| *4
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |denom|
+                               ((|SparseMultivariatePolynomial| *4
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |coerce|
+                               ($
+                                (|SparseMultivariatePolynomial| *4
+                                                                (|Kernel|
+                                                                 $)))))))))
+ (|ratDenom| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Kernel| *2)))
+       (|ofCategory| *2
+                     (|Join| (|Field|) (|ExpressionSpace|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |numer|
+                               ((|SparseMultivariatePolynomial| *4
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |denom|
+                               ((|SparseMultivariatePolynomial| *4
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |coerce|
+                               ($
+                                (|SparseMultivariatePolynomial| *4
+                                                                (|Kernel|
+                                                                 $)))))))
+       (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *1 (|AlgebraicManipulations| *4 *2))))
+ (|ratDenom| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|List| *2))
+       (|ofCategory| *2
+                     (|Join| (|Field|) (|ExpressionSpace|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |numer|
+                               ((|SparseMultivariatePolynomial| *4
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |denom|
+                               ((|SparseMultivariatePolynomial| *4
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |coerce|
+                               ($
+                                (|SparseMultivariatePolynomial| *4
+                                                                (|Kernel|
+                                                                 $)))))))
+       (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *1 (|AlgebraicManipulations| *4 *2))))
+ (|ratDenom| (*1 *2 *2 *2)
+  (AND (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|AlgebraicManipulations| *3 *2))
+       (|ofCategory| *2
+                     (|Join| (|Field|) (|ExpressionSpace|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |numer|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |denom|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |coerce|
+                               ($
+                                (|SparseMultivariatePolynomial| *3
+                                                                (|Kernel|
+                                                                 $)))))))))
+ (|ratDenom| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|AlgebraicManipulations| *3 *2))
+       (|ofCategory| *2
+                     (|Join| (|Field|) (|ExpressionSpace|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |numer|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |denom|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |coerce|
+                               ($
+                                (|SparseMultivariatePolynomial| *3
+                                                                (|Kernel|
+                                                                 $)))))))))
+ (|rootSplit| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|AlgebraicManipulations| *3 *2))
+       (|ofCategory| *2
+                     (|Join| (|Field|) (|ExpressionSpace|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |numer|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |denom|
+                               ((|SparseMultivariatePolynomial| *3
+                                                                (|Kernel| $))
+                                $))
+                              (SIGNATURE |coerce|
+                               ($
+                                (|SparseMultivariatePolynomial| *3
+                                                                (|Kernel|
+                                                                 $))))))))))
+((|rootSplit| ((|#2| |#2|) 47))
+ (|rootSimp|
+  ((|#2| |#2|) 144
+   (AND (|has| |#2| (|FunctionSpace| |#1|)) (|has| |#1| (|Comparable|))
+        (|has| |#1| (|GcdDomain|))
+        (|has| |#1| (|RetractableTo| (|Integer|))))))
+ (|rootProduct|
+  ((|#2| |#2|) 112
+   (AND (|has| |#2| (|FunctionSpace| |#1|)) (|has| |#1| (|Comparable|))
+        (|has| |#1| (|GcdDomain|))
+        (|has| |#1| (|RetractableTo| (|Integer|))))))
+ (|rootPower|
+  ((|#2| |#2|) 111
+   (AND (|has| |#2| (|FunctionSpace| |#1|)) (|has| |#1| (|Comparable|))
+        (|has| |#1| (|GcdDomain|))
+        (|has| |#1| (|RetractableTo| (|Integer|))))))
+ (|rootKerSimp|
+  ((|#2| (|BasicOperator|) |#2| (|NonNegativeInteger|)) 104
+   (AND (|has| |#2| (|FunctionSpace| |#1|)) (|has| |#1| (|Comparable|))
+        (|has| |#1| (|GcdDomain|))
+        (|has| |#1| (|RetractableTo| (|Integer|))))))
+ (|rootFactor|
+  ((|#2| |#2|) 100
+   (AND (|has| |#2| (|FunctionSpace| |#1|)) (|has| |#1| (|Comparable|))
+        (|has| |#1| (|GcdDomain|)) (|has| |#1| (|RetractableTo| (|Integer|)))
+        (|has| |#1| (|UniqueFactorizationDomain|)))))
+ (|ratPoly| (((|SparseUnivariatePolynomial| |#2|) |#2|) 44))
+ (|ratDenom| ((|#2| |#2| (|List| (|Kernel| |#2|))) 18)
+  ((|#2| |#2| (|List| |#2|)) 20) ((|#2| |#2| |#2|) 21) ((|#2| |#2|) 16)))
+((AND (|HasCategory| |#1| (LIST '|RetractableTo| '(|Integer|)))
+      (|HasCategory| |#1| '(|Comparable|)) (|HasCategory| |#1| '(|GcdDomain|))
+      (|HasCategory| |#2| (LIST '|FunctionSpace| (|devaluate| |#1|))))
+ (AND (|HasCategory| |#1| (LIST '|RetractableTo| '(|Integer|)))
+      (|HasCategory| |#1| '(|Comparable|)) (|HasCategory| |#1| '(|GcdDomain|))
+      (|HasCategory| |#1| '(|UniqueFactorizationDomain|))
+      (|HasCategory| |#2| (LIST '|FunctionSpace| (|devaluate| |#1|)))))
+ALGMANIP
+((|constructor|
+  (NIL
+   "AlgebraicManipulations provides functions to simplify and expand expressions involving algebraic operators."))
+ (|rootKerSimp|
+  ((|#2| (|BasicOperator|) |#2| (|NonNegativeInteger|))
+   "\\spad{rootKerSimp(op,{} f,{} n)} should be local but conditional."))
+ (|rootSimp|
+  ((|#2| |#2|)
+   "\\spad{rootSimp(f)} transforms every radical of the form \\spad{(a * b^(q*n+r))^(1/n)} appearing in \\spad{f} into \\spad{b^q * (a * b^r)^(1/n)}. This transformation is not in general valid for all complex numbers \\spad{b}."))
+ (|rootProduct|
+  ((|#2| |#2|)
+   "\\spad{rootProduct(f)} combines every product of the form \\spad{(a^(1/n))^m * (a^(1/s))^t} into a single power of a root of \\spad{a},{} and transforms every radical power of the form \\spad{(a^(1/n))^m} into a simpler form."))
+ (|rootPower|
+  ((|#2| |#2|)
+   "\\spad{rootPower(f)} transforms every radical power of the form \\spad{(a^(1/n))^m} into a simpler form if \\spad{m} and \\spad{n} have a common factor."))
+ (|rootFactor|
+  ((|#2| |#2|)
+   "\\spad{rootFactor(f)} transforms every radical of the form \\spad{(a1*...*am)^(1/n)} appearing in \\spad{f} into \\spad{a^(1/n)*...*am^(1/n)}. This transformation is not in general valid for all complex numbers \\spad{a} and \\spad{b}."))
+ (|ratPoly|
+  (((|SparseUnivariatePolynomial| |#2|) |#2|)
+   "\\spad{ratPoly(f)} returns a polynomial \\spad{p} such that \\spad{p} has no algebraic coefficients,{} and \\spad{p(f) = 0}."))
+ (|ratDenom|
+  ((|#2| |#2| (|List| (|Kernel| |#2|)))
+   "\\spad{ratDenom(f,{} [a1,{} ...,{} an])} removes the \\spad{ai}\\spad{'s} which are algebraic from the denominators in \\spad{f}.")
+  ((|#2| |#2| (|List| |#2|))
+   "\\spad{ratDenom(f,{} [a1,{} ...,{} an])} removes the \\spad{ai}\\spad{'s} which are algebraic kernels from the denominators in \\spad{f}.")
+  ((|#2| |#2| |#2|)
+   "\\spad{ratDenom(f,{} a)} removes \\spad{a} from the denominators in \\spad{f} if \\spad{a} is an algebraic kernel.")
+  ((|#2| |#2|)
+   "\\spad{ratDenom(f)} rationalizes the denominators appearing in \\spad{f} by moving all the algebraic quantities into the numerators."))
+ (|rootSplit|
+  ((|#2| |#2|)
+   "\\spad{rootSplit(f)} transforms every radical of the form \\spad{(a/b)^(1/n)} appearing in \\spad{f} into \\spad{a^(1/n) / b^(1/n)}. This transformation is not in general valid for all complex numbers \\spad{a} and \\spad{b}."))
+ (|coerce|
+  (($ (|SparseMultivariatePolynomial| |#1| (|Kernel| $)))
+   "\\spad{coerce(x)} \\undocumented"))
+ (|denom|
+  (((|SparseMultivariatePolynomial| |#1| (|Kernel| $)) $)
+   "\\spad{denom(x)} \\undocumented"))
+ (|numer|
+  (((|SparseMultivariatePolynomial| |#1| (|Kernel| $)) $)
+   "\\spad{numer(x)} \\undocumented")))
+(("documentation" 0 16802) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 16793) ("predicates" 0 16306) ("superDomain" 0 NIL)
+ ("operationAlist" 0 15026) ("modemaps" 0 2687) ("sourceFile" 0 2647)
+ ("constructorCategory" 0 1605) ("constructorModemap" 0 61)
+ ("constructorKind" 0 51) ("constructorForm" 0 20))

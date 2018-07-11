@@ -1,0 +1,156 @@
+7861                (|MPolyCatRationalFunctionFactorizer| E OV R PRF)
+|package|
+(((|MPolyCatRationalFunctionFactorizer| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |totalfract|
+    ((|Record| (|:| |sup| (|Polynomial| |#3|)) (|:| |inf| (|Polynomial| |#3|)))
+     |#4|))
+   (SIGNATURE |pushdown| (|#4| |#4| |#2|))
+   (SIGNATURE |pushdterm| (|#4| (|SparseUnivariatePolynomial| |#4|) |#2|))
+   (SIGNATURE |pushup| (|#4| |#4| |#2|))
+   (SIGNATURE |pushucoef|
+    (|#4| (|SparseUnivariatePolynomial| (|Polynomial| |#3|)) |#2|))
+   (SIGNATURE |pushuconst| (|#4| (|Fraction| (|Polynomial| |#3|)) |#2|))
+   (SIGNATURE |factor| ((|Factored| |#4|) |#4|)))
+  (|OrderedAbelianMonoidSup|)
+  (|Join| (|OrderedSet|)
+          (CATEGORY |domain| (SIGNATURE |convert| ((|Symbol|) $))))
+  (|IntegralDomain|)
+  (|PolynomialCategory| (|Fraction| (|Polynomial| |#3|)) |#1| |#2|))
+ (T |MPolyCatRationalFunctionFactorizer|))
+(CATEGORY |package|
+ (SIGNATURE |totalfract|
+  ((|Record| (|:| |sup| (|Polynomial| |#3|)) (|:| |inf| (|Polynomial| |#3|)))
+   |#4|))
+ (SIGNATURE |pushdown| (|#4| |#4| |#2|))
+ (SIGNATURE |pushdterm| (|#4| (|SparseUnivariatePolynomial| |#4|) |#2|))
+ (SIGNATURE |pushup| (|#4| |#4| |#2|))
+ (SIGNATURE |pushucoef|
+  (|#4| (|SparseUnivariatePolynomial| (|Polynomial| |#3|)) |#2|))
+ (SIGNATURE |pushuconst| (|#4| (|Fraction| (|Polynomial| |#3|)) |#2|))
+ (SIGNATURE |factor| ((|Factored| |#4|) |#4|)))
+"/git/fricas/src/algebra/MPRFF.spad"
+((|factor| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |convert| ((|Symbol|) $)))))
+       (|ofCategory| *6 (|IntegralDomain|)) (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|MPolyCatRationalFunctionFactorizer| *4 *5 *6 *3))
+       (|ofCategory| *3
+                     (|PolynomialCategory| (|Fraction| (|Polynomial| *6)) *4
+                                           *5))))
+ (|pushuconst| (*1 *2 *3 *4)
+  (AND (|ofCategory| *6 (|IntegralDomain|))
+       (|ofCategory| *2 (|PolynomialCategory| *3 *5 *4))
+       (|isDomain| *1 (|MPolyCatRationalFunctionFactorizer| *5 *4 *6 *2))
+       (|isDomain| *3 (|Fraction| (|Polynomial| *6)))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *4
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |convert| ((|Symbol|) $)))))))
+ (|pushucoef| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| (|Polynomial| *6)))
+       (|ofCategory| *6 (|IntegralDomain|))
+       (|ofCategory| *2
+                     (|PolynomialCategory| (|Fraction| (|Polynomial| *6)) *5
+                                           *4))
+       (|isDomain| *1 (|MPolyCatRationalFunctionFactorizer| *5 *4 *6 *2))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *4
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |convert| ((|Symbol|) $)))))))
+ (|pushup| (*1 *2 *2 *3)
+  (AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *3
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |convert| ((|Symbol|) $)))))
+       (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *1 (|MPolyCatRationalFunctionFactorizer| *4 *3 *5 *2))
+       (|ofCategory| *2
+                     (|PolynomialCategory| (|Fraction| (|Polynomial| *5)) *4
+                                           *3))))
+ (|pushdterm| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *2))
+       (|ofCategory| *2
+                     (|PolynomialCategory| (|Fraction| (|Polynomial| *6)) *5
+                                           *4))
+       (|isDomain| *1 (|MPolyCatRationalFunctionFactorizer| *5 *4 *6 *2))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *4
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |convert| ((|Symbol|) $)))))
+       (|ofCategory| *6 (|IntegralDomain|))))
+ (|pushdown| (*1 *2 *2 *3)
+  (AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *3
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |convert| ((|Symbol|) $)))))
+       (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *1 (|MPolyCatRationalFunctionFactorizer| *4 *3 *5 *2))
+       (|ofCategory| *2
+                     (|PolynomialCategory| (|Fraction| (|Polynomial| *5)) *4
+                                           *3))))
+ (|totalfract| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |convert| ((|Symbol|) $)))))
+       (|ofCategory| *6 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record| (|:| |sup| (|Polynomial| *6))
+                             (|:| |inf| (|Polynomial| *6))))
+       (|isDomain| *1 (|MPolyCatRationalFunctionFactorizer| *4 *5 *6 *3))
+       (|ofCategory| *3
+                     (|PolynomialCategory| (|Fraction| (|Polynomial| *6)) *4
+                                           *5)))))
+((|totalfract|
+  (((|Record| (|:| |sup| (|Polynomial| |#3|)) (|:| |inf| (|Polynomial| |#3|)))
+    |#4|)
+   13))
+ (|pushup| ((|#4| |#4| |#2|) 31))
+ (|pushuconst| ((|#4| (|Fraction| (|Polynomial| |#3|)) |#2|) 63))
+ (|pushucoef|
+  ((|#4| (|SparseUnivariatePolynomial| (|Polynomial| |#3|)) |#2|) 75))
+ (|pushdterm| ((|#4| (|SparseUnivariatePolynomial| |#4|) |#2|) 50))
+ (|pushdown| ((|#4| |#4| |#2|) 53)) (|factor| (((|Factored| |#4|) |#4|) 39)))
+MPRFF
+((|constructor|
+  (NIL
+   "\\indented{3}{This package exports a factor operation for multivariate polynomials} with coefficients which are rational functions over some ring \\spad{R} over which we can factor. It is used internally by packages such as primary decomposition which need to work with polynomials with rational function coefficients,{} \\spadignore{i.e.} themselves fractions of polynomials."))
+ (|factor|
+  (((|Factored| |#4|) |#4|)
+   "\\spad{factor(prf)} factors a polynomial with rational function coefficients."))
+ (|pushuconst|
+  ((|#4| (|Fraction| (|Polynomial| |#3|)) |#2|)
+   "\\spad{pushuconst(r,{} var)} takes a rational function and raises all occurances of the variable var to the polynomial level."))
+ (|pushucoef|
+  ((|#4| (|SparseUnivariatePolynomial| (|Polynomial| |#3|)) |#2|)
+   "\\spad{pushucoef(upoly,{} var)} converts the anonymous univariate polynomial \\spad{upoly} to a polynomial in var over rational functions."))
+ (|pushup|
+  ((|#4| |#4| |#2|)
+   "\\spad{pushup(prf,{} var)} raises all occurences of the variable var in the coefficients of the polynomial \\spad{prf} back to the polynomial level."))
+ (|pushdterm|
+  ((|#4| (|SparseUnivariatePolynomial| |#4|) |#2|)
+   "\\spad{pushdterm(monom,{} var)} pushes all top level occurences of the variable var into the coefficient domain for the monomial \\spad{monom}."))
+ (|pushdown|
+  ((|#4| |#4| |#2|)
+   "\\spad{pushdown(prf,{} var)} pushes all top level occurences of the variable var into the coefficient domain for the polynomial \\spad{prf}."))
+ (|totalfract|
+  (((|Record| (|:| |sup| (|Polynomial| |#3|)) (|:| |inf| (|Polynomial| |#3|)))
+    |#4|)
+   "\\spad{totalfract(prf)} takes a polynomial whose coefficients are themselves fractions of polynomials and returns a record containing the numerator and denominator resulting from putting \\spad{prf} over a common denominator."))
+ (|convert|
+  (((|Symbol|) $) "\\spad{convert(x)} converts \\spad{x} to a symbol")))
+(("documentation" 0 5902) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 5896) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5453) ("modemaps" 0 1446) ("sourceFile" 0 1409)
+ ("constructorCategory" 0 914) ("constructorModemap" 0 80)
+ ("constructorKind" 0 70) ("constructorForm" 0 20))

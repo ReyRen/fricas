@@ -1,0 +1,17 @@
+
+-- Input for page LieExponentialsXmpPage
+)clear all
+
+a: Symbol := 'a
+b: Symbol := 'b
+coef := Fraction(Integer)
+group := LieExponentials(Symbol, coef, 3)
+lpoly := LiePolynomial(Symbol, coef)
+poly := XPBWPolynomial(Symbol, coef)
+ea := exp(a::lpoly)$group
+eb := exp(b::lpoly)$group
+g: group := ea*eb
+g :: poly
+log(g)$group
+g1: group := inv(g)
+g*g1

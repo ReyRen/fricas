@@ -1,0 +1,41 @@
+2066                (|FullyRetractableTo| S)
+|category|
+(((|FullyRetractableTo| |#1|) (|Category|) (|Type|)) (T |FullyRetractableTo|))
+(|Join| (|RetractableTo| |t#1|)
+        (CATEGORY |package|
+         (IF (|has| |t#1| (|RetractableTo| (|Integer|)))
+             (ATTRIBUTE (|RetractableTo| (|Integer|)))
+             |noBranch|)
+         (IF (|has| |t#1| (|RetractableTo| (|Fraction| (|Integer|))))
+             (ATTRIBUTE (|RetractableTo| (|Fraction| (|Integer|))))
+             |noBranch|)))
+"/git/fricas/src/algebra/FRETRCT.spad"
+((|retractIfCan| (((|Union| |#1| #1="failed") $) 6)
+  (((|Union| (|Fraction| (|Integer|)) #1#) $) 6
+   (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|)))))
+  (((|Union| (|Integer|) #1#) $) 6 (|has| |#1| (|RetractableTo| (|Integer|)))))
+ (|retract| ((|#1| $) 6)
+            (((|Fraction| (|Integer|)) $) 6
+             (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|)))))
+            (((|Integer|) $) 6 (|has| |#1| (|RetractableTo| (|Integer|)))))
+ (|coerce| (($ |#1|) 6)
+           (($ (|Fraction| (|Integer|))) 6
+            (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|)))))
+           (($ (|Integer|)) 6 (|has| |#1| (|RetractableTo| (|Integer|))))))
+FRETRCT
+(((|RetractableTo| |#1|) . T)
+ ((|RetractableTo| (|Integer|)) |has| |#1| (|RetractableTo| (|Integer|)))
+ ((|RetractableTo| (|Fraction| (|Integer|))) |has| |#1|
+  (|RetractableTo| (|Fraction| (|Integer|)))))
+(((|RetractableTo| (|Fraction| (|Integer|))) |has| |#1|
+  (|RetractableTo| (|Fraction| (|Integer|))))
+ ((|RetractableTo| (|Integer|)) |has| |#1| (|RetractableTo| (|Integer|)))
+ ((|RetractableTo| |#1|) . T))
+((|constructor|
+  (NIL
+   "\\indented{2}{A is fully retractable to \\spad{B} means that A is retractable to \\spad{B},{} and,{}} \\indented{2}{in addition,{} if \\spad{B} is retractable to the integers or rational} \\indented{2}{numbers then so is A.} \\indented{2}{In particular,{} what we are asserting is that there are no integers} \\indented{2}{(rationals) in A which don\\spad{'t} retract into \\spad{B}.} Date Created: March 1990")))
+(("documentation" 0 1625) ("ancestors" 0 1418) ("parents" 0 1211)
+ ("abbreviation" 0 1203) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 536) ("modemaps" 0 NIL) ("sourceFile" 0 497)
+ ("constructorCategory" 0 135) ("constructorModemap" 0 56)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

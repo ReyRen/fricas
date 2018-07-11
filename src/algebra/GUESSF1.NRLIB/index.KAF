@@ -1,0 +1,33 @@
+1228                (|GuessFiniteFunctions| F)
+|package|
+(((|GuessFiniteFunctions| |#1|)
+  (CATEGORY |package| (SIGNATURE F2EXPRR ((|Expression| (|Integer|)) |#1|))
+   (SIGNATURE EXPRR2F (|#1| (|Expression| (|Integer|)))))
+  (|Join| (|FiniteFieldCategory|) (|ConvertibleTo| (|Integer|))))
+ (T |GuessFiniteFunctions|))
+(CATEGORY |package| (SIGNATURE F2EXPRR ((|Expression| (|Integer|)) |#1|))
+ (SIGNATURE EXPRR2F (|#1| (|Expression| (|Integer|)))))
+"/git/fricas/src/algebra/GUESSF1.spad"
+((EXPRR2F (*1 *2 *3)
+  (AND (|isDomain| *3 (|Expression| (|Integer|)))
+       (|isDomain| *1 (|GuessFiniteFunctions| *2))
+       (|ofCategory| *2
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))))
+ (F2EXPRR (*1 *2 *3)
+  (AND (|isDomain| *2 (|Expression| (|Integer|)))
+       (|isDomain| *1 (|GuessFiniteFunctions| *3))
+       (|ofCategory| *3
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|)))))))
+((F2EXPRR (((|Expression| (|Integer|)) |#1|) 11))
+ (EXPRR2F ((|#1| (|Expression| (|Integer|))) 15)))
+GUESSF1
+((|constructor|
+  (NIL
+   "This package exports coercion and retraction from EXPR INT to finite fields")))
+(("documentation" 0 1121) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1113) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1012) ("modemaps" 0 487) ("sourceFile" 0 448)
+ ("constructorCategory" 0 318) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

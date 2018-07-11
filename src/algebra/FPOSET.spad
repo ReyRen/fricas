@@ -1,0 +1,95 @@
+)abbrev domain FPOSET FinitePoset
+++ Author: Martin Baker
+++ Description: holds a complete set together with a structure to codify
+++   the partial order.
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+++ Date Created: Aug 2015
+++ Basic Operations:
+++ Related packages: UserDefinedPartialOrdering in setorder.spad
+++ Related categories: PartialOrder in catdef.spad
+++ Related Domains: DirectedGraph in graph.spad
+++ Also See:
+++ AMS Classifications:
+++ Keywords: poset partial order
+++ Examples: power set structure
+++ References:
+++ Axiom: reflexivity forall(x): x<=x
+++ Axiom: antisymmetry forall(x, y): x<=y and y<=x iff x=y
+++ Axiom: transitivity forall(x, y, z): x<=y and y<=z implies x<=z
+
+FinitePoset(S) : Exports == Impl where
+    S : SetCategory
+    PI ==> PositiveInteger
+    NNI ==> NonNegativeInteger
+    SINT ==> SingleInteger
+    OBJT ==> Record(value : S, posX : NNI, posY : NNI)
+    ARROW ==> Record(name : String, arrType : NNI, fromOb : NNI, toOb : NNI,
+                     xOffset : Integer, yOffset : Integer, map : List NNI)
+
+    Exports ==> Poset(S)
+
+    Impl ==> add
+
+      -- This holds a complete set together with a structure to codify
+      -- the partial order. The elements are put in a list so they
+      -- can be enumerated and linked to the structure.
+      -- The structure is a two dimensional array to determine
+      -- is each element is connected to each other element.
+      Rep := Record(set1 : List S, struct1 : List List Boolean)
+
+      -- constructor where the set and structure is supplied
+      finitePoset(carrier : List S, struct1 : List List Boolean) : % ==
+          [carrier, struct1]
+
+      -- constructor where the set and structure is supplied.
+      -- The structure is supplied as a predicate function.
+      finitePoset(carrier : List S, pred : ((S, S) -> Boolean)) : % ==
+          struct1 : List(List(Boolean)) := _
+              [[pred(x, y) for x in carrier] for y in carrier]
+          [carrier, struct1]
+
+      -- returns a list of all the vertices (or objects)
+      getVert(s : %) : List S ==
+          s.set1
+
+      -- returns a list of all the arrows (or edges)
+      getArr(s : %) : List List Boolean ==
+          s.struct1
+
+      -- sets the list of all vertices (or objects)
+      setVert(s : %, v : List S) : Void ==
+          s.set1 := v
+          void
+
+      -- sets the list of all arrows (or edges)
+      setArr(s : %, v : List List Boolean) : Void ==
+          s.struct1 := v
+          void
+
+)if false
+\section{Complete Partial Order}
+Complete partial orders are partial orders which are guaranteed to have meets
+and/or joins depending on type of CPO. The terminology around this is not
+always consistent so I will use the following terminology.
+
+A DCPO, or directed-complete partial order, is a poset where joins (or
+supremum or least upper bound) are defined. That is join is a complete
+or closed function, not a partial function.
+Often a DCPO is required to have a bottom element; then it is called a
+pointed DCPO or a CPO.
+
+Finite DCPOs are pointed DCPOs, we can get the bottom element just by
+taking the join of all the elements, this is not true of infinite DCPOs.
+
+As an example consider the integers, any finite set of integers has a
+minimum element but the set of all integers does not (minus infinity is
+not an integer).
+
+Another example, more applicable to topology, is subsets of line segments.
+
+The examples below only model finite DCPOs. TODO: I want to model infinite
+DCPOs, we obvously cant do this by using a list of all the elements
+(as below). We need to define the elements, and their order, recursively.
+)endif
+

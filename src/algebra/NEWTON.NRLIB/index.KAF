@@ -1,0 +1,27 @@
+1244                (|NewtonInterpolation| F)
+|package|
+(((|NewtonInterpolation| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |newton| ((|SparseUnivariatePolynomial| |#1|) (|List| |#1|))))
+  (|IntegralDomain|))
+ (T |NewtonInterpolation|))
+(CATEGORY |package|
+ (SIGNATURE |newton| ((|SparseUnivariatePolynomial| |#1|) (|List| |#1|))))
+"/git/fricas/src/algebra/NEWTON.spad"
+((|newton| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4)) (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|NewtonInterpolation| *4)))))
+((|newton| (((|SparseUnivariatePolynomial| |#1|) (|List| |#1|)) 25)))
+NEWTON
+((|constructor|
+  (NIL
+   "This package exports Newton interpolation for the special case where the result is known to be in the original integral domain"))
+ (|newton|
+  (((|SparseUnivariatePolynomial| |#1|) (|List| |#1|))
+   "\\spad{newton}(\\spad{l}) returns the interpolating polynomial for the values \\spad{l},{} where the \\spad{x}-coordinates are assumed to be [1,{} 2,{} 3,{} ...,{} \\spad{n}] and the coefficients of the interpolating polynomial are known to be in the domain \\spad{F}. \\spad{I}.\\spad{e}.,{} it is a very streamlined version for a special case of interpolation.")))
+(("documentation" 0 650) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 643) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 573) ("modemaps" 0 369) ("sourceFile" 0 331)
+ ("constructorCategory" 0 236) ("constructorModemap" 0 56)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))

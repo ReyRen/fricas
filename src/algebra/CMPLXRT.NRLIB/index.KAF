@@ -1,0 +1,30 @@
+1470                (|ComplexRootPackage| UP |Par|)
+|package|
+(((|ComplexRootPackage| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |complexZeros| ((|List| (|Complex| |#2|)) |#1| |#2|)))
+  (|UnivariatePolynomialCategory| (|Complex| (|Integer|)))
+  (|Join| (|Field|) (|OrderedRing|)))
+ (T |ComplexRootPackage|))
+(CATEGORY |package|
+ (SIGNATURE |complexZeros| ((|List| (|Complex| |#2|)) |#1| |#2|)))
+"/git/fricas/src/algebra/CMPLXRT.spad"
+((|complexZeros| (*1 *2 *3 *4)
+  (AND (|isDomain| *2 (|List| (|Complex| *4)))
+       (|isDomain| *1 (|ComplexRootPackage| *3 *4))
+       (|ofCategory| *3
+                     (|UnivariatePolynomialCategory| (|Complex| (|Integer|))))
+       (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|))))))
+((|complexZeros| (((|List| (|Complex| |#2|)) |#1| |#2|) 48)))
+CMPLXRT
+((|constructor|
+  (NIL
+   "\\indented{2}{This package provides functions complexZeros} for finding the complex zeros of univariate polynomials with complex rational number coefficients. The results are to any user specified precision and are returned as either complex rational number or complex floating point numbers depending on the type of the second argument which specifies the precision."))
+ (|complexZeros|
+  (((|List| (|Complex| |#2|)) |#1| |#2|)
+   "\\spad{complexZeros(poly,{} eps)} finds the complex zeros of the univariate polynomial \\spad{poly} to precision eps with solutions returned as complex floats or rationals depending on the type of eps.")))
+(("documentation" 0 804) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 796) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 734) ("modemaps" 0 438) ("sourceFile" 0 399)
+ ("constructorCategory" 0 312) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

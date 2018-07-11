@@ -1,0 +1,33 @@
+1415                (|FieldOfPrimeCharacteristic&| S)
+|domain|
+(((|FieldOfPrimeCharacteristic&| |#1|)
+  (CATEGORY |domain|
+   (SIGNATURE |primeFrobenius| (|#1| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |primeFrobenius| (|#1| |#1|)))
+  (|FieldOfPrimeCharacteristic|))
+ (T |FieldOfPrimeCharacteristic&|))
+(CATEGORY |domain|
+ (SIGNATURE |primeFrobenius| (|#1| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |primeFrobenius| (|#1| |#1|)))
+"/git/fricas/src/algebra/FPC.spad"
+((|primeFrobenius| (($ $) 10) (($ $ (|NonNegativeInteger|)) 11)))
+FPC-
+((|constructor|
+  (NIL
+   "FieldOfPrimeCharacteristic is the category of fields of prime characteristic,{} \\spadignore{e.g.} finite fields,{} algebraic closures of fields of prime characteristic,{} transcendental extensions of of fields of prime characteristic."))
+ (|primeFrobenius|
+  (($ $ (|NonNegativeInteger|))
+   "\\spad{primeFrobenius(a,{} s)} returns \\spad{a^(p^s)} where \\spad{p} is the characteristic.")
+  (($ $)
+   "\\spad{primeFrobenius(a)} returns \\spad{a ^ p} where \\spad{p} is the characteristic."))
+ (|discreteLog|
+  (((|Union| (|NonNegativeInteger|) "failed") $ $)
+   "\\spad{discreteLog(b,{} a)} computes \\spad{s} with \\spad{b^s = a} if such an \\spad{s} exists."))
+ (|order|
+  (((|OnePointCompletion| (|PositiveInteger|)) $)
+   "\\spad{order(a)} computes the order of an element in the multiplicative group of the field. Error: if \\spad{a} is 0.")))
+(("documentation" 0 538) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 533) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 467) ("modemaps" 0 NIL) ("sourceFile" 0 432)
+ ("constructorCategory" 0 305) ("constructorModemap" 0 63)
+ ("constructorKind" 0 54) ("constructorForm" 0 20))

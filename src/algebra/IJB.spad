@@ -1,0 +1,142 @@
+)abbrev domain IJB IndexedJetBundle
+++ Description:
+++ \spadtype{JetBundle} provides the standard implementation for a jet bundle
+++ with a given number of dependent and independent variables.
+
+IndexedJetBundle(x, u, p, n, m) : Cat == Def where
+
+  V    ==> Vector
+  B    ==> Boolean
+  Sy   ==> Symbol
+  BOP  ==> BasicOperator
+  I    ==> Integer
+  PI   ==> PositiveInteger
+  NNI  ==> NonNegativeInteger
+  L    ==> List
+  EI   ==> Expression Integer
+  OUT  ==> OutputForm
+  JBC  ==> JetBundleCategory
+
+  Const    ==> "Const"::Sy
+  Indep    ==> "Indep"::Sy
+  Dep      ==> "Dep"::Sy
+  Deriv    ==> "Deriv"::Sy
+  Multi    ==> "Multi"::Sy
+  Repeated ==> "Repeated"::Sy
+  DerMode  ==> [Multi, Repeated]@L Sy
+
+  x, u, p : Sy
+  m, n   : PI
+
+  Cat ==> JBC
+
+  Def ==> add
+
+    errmsg1  ==> "Improper multi-index"
+    errmsg2  ==> "Improper upper index"
+
+    Rep := L NNI
+      -- The list has length 2 for independent variables, length n+2 for
+      -- derivatives and dependent variables. The first entry is zero for 1,
+      -- one for independent, two for dependent variables and three for
+      -- derivatives.  The second entry is the upper index, the rest the
+      -- multi-index.
+
+    notation : Sy := Repeated
+      -- Global variable for notation.
+
+    setNotation(s : Sy) : Sy ==
+        not member?(s, DerMode) => error "Unknown notation"
+        t := notation
+        notation := s
+        t
+
+    getNotation() : Sy == notation
+
+    multiIndex(jv : %) : L NNI == copy rest rest jv::Rep
+
+    index(jv : %) : PI == first(rest jv)::PI
+
+    type(jv : %) : Sy ==
+        t := first jv
+        zero? t => Const
+        one? t => Indep
+        t = 2 => Dep
+        Deriv
+
+    CheckZeroIndex(il : L NNI) : B ==
+        -- Local function; checks, whether multi-index is zero.
+        for i in il repeat
+            if not zero? i then return false
+        true
+
+    X(up : PI) : % ==
+        up > n => error errmsg2
+        [1, up::NNI]
+
+    U(up : PI) : % ==
+        up > m => error errmsg2
+        cons(2, cons(up::NNI, [0$NNI  for i in 1..n]))
+
+    Pm(up : PI, lo : L NNI) : % ==
+        up > m => error errmsg2
+        #lo ~= n => error errmsg1
+        CheckZeroIndex(lo) => U(up)
+        cons(3, cons(up::NNI, lo))
+
+    1 : % == [0, 1]
+
+    numIndVar() : PI == n
+
+    numDepVar() : PI == m
+
+    -- ----------- --
+    -- Output Form --
+    -- ----------- --
+
+    name(jv : %) : Sy ==
+        (jt := type(jv)) = Const => "1"::Sy
+        jt = Indep =>
+            n > 1 => superscript(x, [index(jv)::OUT])
+            x
+        jt = Dep =>
+            m > 1 => superscript(u, [index(jv)::OUT])
+            u
+        getNotation() = Multi =>
+            m > 1 => script(p, _
+                   [[bracket [i::OUT  for i in multiIndex jv]], _
+                    [index(jv)::OUT], [], [], []])
+            subscript(p, _
+                      [bracket [i::OUT  for i in multiIndex jv]])
+        m > 1 => script(p, _
+                   [[blankSeparate [j::OUT  for j in repeatedIndex jv]], _
+                    [index(jv)::OUT], [], [], []])
+        subscript(p, [blankSeparate [j::OUT  for j in repeatedIndex jv]])
+
+    -- Coerce to Symbol looses all information; therefore
+    -- all important data like type and indices are saved
+    -- as arguments of an operator
+
+    opdisp(l : L OUT) : OUT == first l
+
+    coerce(jv : %) : EI ==
+        -- Name of operator must be unique and the same as jv::Sy
+        -- to allow to differentiate and substitute in EI.
+        type(jv) = Const => 1
+        opname : Sy := name jv
+        jop := operator(opname)$BOP
+        display(jop, opdisp)
+        tmp : None := coerce(jv)$NoneFunctions1(%)
+        jop := setProperty(jop, "%symbol"::Symbol, tmp)$BOP
+        tmp := coerce(weight(jv))$NoneFunctions1(NNI)
+        jop := setProperty(jop, "%weight"::Symbol, tmp)$BOP
+        tmp := coerce(type(jv))$NoneFunctions1(Sy)
+        jop := setProperty(jop, "%jet"::Symbol, tmp)$BOP
+        if getNotation() = Multi then
+            arg := [i::EI  for i in multiIndex jv]
+        else
+            arg := [j::EI  for j in repeatedIndex jv]
+        arg := concat!([opname::EI, index(jv)::EI], arg)
+        kernel(jop, arg)
+
+

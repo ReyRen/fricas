@@ -1,0 +1,29 @@
+)abbrev package TSEREXPL TaylorSeriesExpansionLaurent
+TaylorSeriesExpansionLaurent(Coef : Algebra(Fraction(Integer)),
+    UTS : UnivariateTaylorSeriesCategory Coef,
+    ULS : UnivariateLaurentSeriesConstructorCategory(Coef, UTS)
+    ) : Exports == Implementation
+  where
+    TET ==> TaylorSeriesExpansionTaylor(Coef, UTS)
+    Exports ==> TaylorSeriesExpansion(Coef, Integer,
+                                      SingletonAsOrderedSet, ULS, UTS)
+    Implementation ==> add
+
+        taylor_via_deriv(f : ULS, lx : List ULS,
+                         ld : List (Coef -> Coef)) : ULS ==
+            ft := taylor(f)
+            lxt := [taylor(x) for x in lx]
+            (taylor_via_deriv(ft, lxt, ld)$TET) :: ULS
+
+        taylor_via_lode(la : List UTS, z : ULS, lc : List Coef) : ULS ==
+            zt := taylor(z)
+            (taylor_via_lode(la, zt, lc)$TET)::ULS
+
+        applyTaylor(g, f) ==
+            (applyTaylor(g, taylor(f))$TET) :: ULS
+
+        apply_taylor(g, f) ==
+            (apply_taylor(g, taylor(f))$TET)::ULS
+
+
+

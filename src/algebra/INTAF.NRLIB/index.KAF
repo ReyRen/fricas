@@ -1,0 +1,198 @@
+9157                (|AlgebraicIntegration| R F)
+|package|
+(((|AlgebraicIntegration| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |algint|
+    ((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+     (|Mapping| (|SparseUnivariatePolynomial| |#2|)
+                (|SparseUnivariatePolynomial| |#2|))))
+   (SIGNATURE |algextint|
+    ((|List| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))
+     (|Kernel| |#2|) (|Kernel| |#2|)
+     (|Mapping| (|SparseUnivariatePolynomial| |#2|)
+                (|SparseUnivariatePolynomial| |#2|))
+     (|Mapping|
+      (|List|
+       (|Record|
+        (|:| |ratpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+        (|:| |coeffs| (|Vector| |#2|))))
+      (|List| (|Fraction| (|SparseUnivariatePolynomial| |#2|))))
+     (|Mapping|
+      (|List|
+       (|Record|
+        (|:| |ratpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+        (|:| |coeffs| (|Vector| |#2|))))
+      (|Fraction| (|SparseUnivariatePolynomial| |#2|))
+      (|List| (|Fraction| (|SparseUnivariatePolynomial| |#2|))))
+     (|Mapping| (|List| (|Vector| |#2|)) (|Matrix| |#2|)) (|List| |#2|)))
+   (SIGNATURE |algextint_base|
+    ((|List| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))
+     (|Kernel| |#2|) (|Kernel| |#2|)
+     (|Mapping| (|SparseUnivariatePolynomial| |#2|)
+                (|SparseUnivariatePolynomial| |#2|))
+     (|Mapping| (|List| (|Vector| |#2|)) (|Matrix| |#2|)) (|List| |#2|))))
+  (|Join| (|Comparable|) (|IntegralDomain|))
+  (|Join| (|AlgebraicallyClosedField|) (|FunctionSpace| |#1|)))
+ (T |AlgebraicIntegration|))
+(CATEGORY |package|
+ (SIGNATURE |algint|
+  ((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+   (|Mapping| (|SparseUnivariatePolynomial| |#2|)
+              (|SparseUnivariatePolynomial| |#2|))))
+ (SIGNATURE |algextint|
+  ((|List| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))
+   (|Kernel| |#2|) (|Kernel| |#2|)
+   (|Mapping| (|SparseUnivariatePolynomial| |#2|)
+              (|SparseUnivariatePolynomial| |#2|))
+   (|Mapping|
+    (|List|
+     (|Record| (|:| |ratpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+               (|:| |coeffs| (|Vector| |#2|))))
+    (|List| (|Fraction| (|SparseUnivariatePolynomial| |#2|))))
+   (|Mapping|
+    (|List|
+     (|Record| (|:| |ratpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+               (|:| |coeffs| (|Vector| |#2|))))
+    (|Fraction| (|SparseUnivariatePolynomial| |#2|))
+    (|List| (|Fraction| (|SparseUnivariatePolynomial| |#2|))))
+   (|Mapping| (|List| (|Vector| |#2|)) (|Matrix| |#2|)) (|List| |#2|)))
+ (SIGNATURE |algextint_base|
+  ((|List| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))
+   (|Kernel| |#2|) (|Kernel| |#2|)
+   (|Mapping| (|SparseUnivariatePolynomial| |#2|)
+              (|SparseUnivariatePolynomial| |#2|))
+   (|Mapping| (|List| (|Vector| |#2|)) (|Matrix| |#2|)) (|List| |#2|))))
+"/git/fricas/src/algebra/INTAF.spad"
+((|algextint_base| (*1 *2 *3 *3 *4 *5 *6)
+  (AND (|isDomain| *3 (|Kernel| *8))
+       (|isDomain| *4
+                   (|Mapping| (|SparseUnivariatePolynomial| *8)
+                              (|SparseUnivariatePolynomial| *8)))
+       (|isDomain| *5 (|Mapping| (|List| (|Vector| *8)) (|Matrix| *8)))
+       (|isDomain| *6 (|List| *8))
+       (|ofCategory| *8
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|FunctionSpace| *7)))
+       (|ofCategory| *7 (|Join| (|Comparable|) (|IntegralDomain|)))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |ratpart| *8)
+                              (|:| |coeffs| (|Vector| *8)))))
+       (|isDomain| *1 (|AlgebraicIntegration| *7 *8))))
+ (|algextint| (*1 *2 *3 *3 *4 *5 *6 *7 *8)
+  (AND (|isDomain| *3 (|Kernel| *10))
+       (|isDomain| *4
+                   (|Mapping| (|SparseUnivariatePolynomial| *10)
+                              (|SparseUnivariatePolynomial| *10)))
+       (|isDomain| *5
+                   (|Mapping|
+                    (|List|
+                     (|Record|
+                      (|:| |ratpart|
+                           (|Fraction| (|SparseUnivariatePolynomial| *10)))
+                      (|:| |coeffs| (|Vector| *10))))
+                    (|List| (|Fraction| (|SparseUnivariatePolynomial| *10)))))
+       (|isDomain| *6
+                   (|Mapping|
+                    (|List|
+                     (|Record|
+                      (|:| |ratpart|
+                           (|Fraction| (|SparseUnivariatePolynomial| *10)))
+                      (|:| |coeffs| (|Vector| *10))))
+                    (|Fraction| (|SparseUnivariatePolynomial| *10))
+                    (|List| (|Fraction| (|SparseUnivariatePolynomial| *10)))))
+       (|isDomain| *7 (|Mapping| (|List| (|Vector| *10)) (|Matrix| *10)))
+       (|isDomain| *8 (|List| *10))
+       (|ofCategory| *10
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|FunctionSpace| *9)))
+       (|ofCategory| *9 (|Join| (|Comparable|) (|IntegralDomain|)))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |ratpart| *10)
+                              (|:| |coeffs| (|Vector| *10)))))
+       (|isDomain| *1 (|AlgebraicIntegration| *9 *10))))
+ (|algint| (*1 *2 *3 *4 *4 *5)
+  (AND (|isDomain| *4 (|Kernel| *3))
+       (|isDomain| *5
+                   (|Mapping| (|SparseUnivariatePolynomial| *3)
+                              (|SparseUnivariatePolynomial| *3)))
+       (|ofCategory| *3
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|FunctionSpace| *6)))
+       (|ofCategory| *6 (|Join| (|Comparable|) (|IntegralDomain|)))
+       (|isDomain| *2 (|IntegrationResult| *3))
+       (|isDomain| *1 (|AlgebraicIntegration| *6 *3)))))
+((|algint|
+  (((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Mapping| (|SparseUnivariatePolynomial| |#2|)
+               (|SparseUnivariatePolynomial| |#2|)))
+   60))
+ (|algextint_base|
+  (((|List| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))
+    (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Mapping| (|SparseUnivariatePolynomial| |#2|)
+               (|SparseUnivariatePolynomial| |#2|))
+    (|Mapping| (|List| (|Vector| |#2|)) (|Matrix| |#2|)) (|List| |#2|))
+   52))
+ (|algextint|
+  (((|List| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))
+    (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Mapping| (|SparseUnivariatePolynomial| |#2|)
+               (|SparseUnivariatePolynomial| |#2|))
+    (|Mapping|
+     (|List|
+      (|Record|
+       (|:| |ratpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+       (|:| |coeffs| (|Vector| |#2|))))
+     (|List| (|Fraction| (|SparseUnivariatePolynomial| |#2|))))
+    (|Mapping|
+     (|List|
+      (|Record|
+       (|:| |ratpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+       (|:| |coeffs| (|Vector| |#2|))))
+     (|Fraction| (|SparseUnivariatePolynomial| |#2|))
+     (|List| (|Fraction| (|SparseUnivariatePolynomial| |#2|))))
+    (|Mapping| (|List| (|Vector| |#2|)) (|Matrix| |#2|)) (|List| |#2|))
+   48)))
+INTAF
+((|constructor|
+  (NIL
+   "This package provides functions for the integration of algebraic integrands over transcendental functions."))
+ (|algextint_base|
+  (((|List| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))
+    (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Mapping| (|SparseUnivariatePolynomial| |#2|)
+               (|SparseUnivariatePolynomial| |#2|))
+    (|Mapping| (|List| (|Vector| |#2|)) (|Matrix| |#2|)) (|List| |#2|))
+   "\\spad{algextint_base(x,{} y,{} d,{} csolve,{} [g1,{} ...,{} gn])} is like algextint but assumes that \\spad{y} and \\spad{gi}-\\spad{s} are purely algebraic"))
+ (|algextint|
+  (((|List| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))
+    (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Mapping| (|SparseUnivariatePolynomial| |#2|)
+               (|SparseUnivariatePolynomial| |#2|))
+    (|Mapping|
+     (|List|
+      (|Record|
+       (|:| |ratpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+       (|:| |coeffs| (|Vector| |#2|))))
+     (|List| (|Fraction| (|SparseUnivariatePolynomial| |#2|))))
+    (|Mapping|
+     (|List|
+      (|Record|
+       (|:| |ratpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+       (|:| |coeffs| (|Vector| |#2|))))
+     (|Fraction| (|SparseUnivariatePolynomial| |#2|))
+     (|List| (|Fraction| (|SparseUnivariatePolynomial| |#2|))))
+    (|Mapping| (|List| (|Vector| |#2|)) (|Matrix| |#2|)) (|List| |#2|))
+   "\\spad{algextint(x,{} y,{} d,{} ext,{} rde,{} csolve,{} [g1,{} ...,{} gn])} returns \\spad{[h,{} [c1,{} ...,{} cn]]} such that \\spad{f = dh/dx + sum(\\spad{ci} \\spad{gi})} and dci/dx = 0,{} if such \\spad{[h,{} [c1,{} ...,{} cn]]} exist,{} \"failed\" otherwise."))
+ (|algint|
+  (((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Mapping| (|SparseUnivariatePolynomial| |#2|)
+               (|SparseUnivariatePolynomial| |#2|)))
+   "\\spad{algint(f,{} x,{} y,{} d)} returns the integral of \\spad{f(x,{} y)dx} where \\spad{y} is an algebraic function of \\spad{x}; \\spad{d} is the derivation to use on \\spad{k[x]}.")))
+(("documentation" 0 7108) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 7102) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5793) ("modemaps" 0 2961) ("sourceFile" 0 2924)
+ ("constructorCategory" 0 1606) ("constructorModemap" 0 59)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

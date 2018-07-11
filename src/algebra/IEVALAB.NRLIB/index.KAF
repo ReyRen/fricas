@@ -1,0 +1,30 @@
+1381                (|InnerEvalable| A B)
+|category|
+(((|InnerEvalable| |#1| |#2|) (|Category|) (|SetCategory|) (|Type|))
+ (T |InnerEvalable|))
+(|Join|
+ (CATEGORY |domain| (SIGNATURE |eval| ($ $ |t#1| |t#2|))
+  (SIGNATURE |eval| ($ $ (|List| |t#1|) (|List| |t#2|)))))
+"/git/fricas/src/algebra/IEVALAB.spad"
+((|eval| (*1 *1 *1 *2 *3)
+         (AND (|isDomain| *2 (|List| *4)) (|isDomain| *3 (|List| *5))
+              (|ofCategory| *1 (|InnerEvalable| *4 *5))
+              (|ofCategory| *4 (|SetCategory|)) (|ofCategory| *5 (|Type|))))
+ (|eval| (*1 *1 *1 *2 *3)
+         (AND (|ofCategory| *1 (|InnerEvalable| *2 *3))
+              (|ofCategory| *2 (|SetCategory|)) (|ofCategory| *3 (|Type|)))))
+((|eval| (($ $ (|List| |#1|) (|List| |#2|)) 6) (($ $ |#1| |#2|) 6)))
+IEVALAB
+((|constructor|
+  (NIL
+   "This category provides \\spadfun{eval} operations. A domain may belong to this category if it is possible to make ``evaluation\\spad{''} substitutions. The difference between this and \\spadtype{Evalable} is that the operations in this category specify the substitution as a pair of arguments rather than as an equation."))
+ (|eval|
+  (($ $ (|List| |#1|) (|List| |#2|))
+   "\\spad{eval(f,{} [x1,{} ...,{} xn],{} [v1,{} ...,{} vn])} replaces \\spad{xi} by \\spad{vi} in \\spad{f}.")
+  (($ $ |#1| |#2|)
+   "\\spad{eval(f,{} x,{} v)} replaces \\spad{x} by \\spad{v} in \\spad{f}.")))
+(("documentation" 0 773) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 765) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 696) ("modemaps" 0 307) ("sourceFile" 0 268)
+ ("constructorCategory" 0 144) ("constructorModemap" 0 53)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

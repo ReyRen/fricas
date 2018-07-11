@@ -1,0 +1,53 @@
+3096                (MAKEPROP '|HallBasis| 'NILADIC T)
+(|HallBasis|)
+|package|
+(((|HallBasis|)
+  (CATEGORY |package| (SIGNATURE |lfunc| ((|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |inHallBasis?|
+    ((|Boolean|) (|Integer|) (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |basis|
+    ((|Vector| (|List| (|Integer|))) (|NonNegativeInteger|)
+     (|NonNegativeInteger|)))))
+ (T |HallBasis|))
+(CATEGORY |package| (SIGNATURE |lfunc| ((|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |inHallBasis?|
+  ((|Boolean|) (|Integer|) (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |basis|
+  ((|Vector| (|List| (|Integer|))) (|NonNegativeInteger|)
+   (|NonNegativeInteger|))))
+"/git/fricas/src/algebra/HB.spad"
+((|basis| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *2 (|Vector| (|List| (|Integer|))))
+       (|isDomain| *1 (|HallBasis|))))
+ (|inHallBasis?| (*1 *2 *3 *3 *3 *3)
+  (AND (|isDomain| *3 (|Integer|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|HallBasis|))))
+ (|lfunc| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|HallBasis|)))))
+((|lfunc| (((|Integer|) (|Integer|) (|Integer|)) 7))
+ (|inHallBasis?|
+  (((|Boolean|) (|Integer|) (|Integer|) (|Integer|) (|Integer|)) 12))
+ (|basis|
+  (((|Vector| (|List| (|Integer|))) (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   22)))
+HB
+((|constructor|
+  (NIL
+   "\\indented{1}{Author : Larry Lambe} Date Created : August 1988 Related Constructors: OrderedSetInts,{} Commutator,{} FreeNilpotentLie AMS Classification: Primary 17B05,{} 17B30; Secondary 17A50 Keywords: free Lie algebra,{} Hall basis,{} basic commutators Description : Generate a basis for the free Lie algebra on \\spad{n} generators over a ring \\spad{R} with identity up to basic commutators of length \\spad{c} using the algorithm of \\spad{P}. Hall as given in Serre\\spad{'s} book Lie Groups \\spad{--} Lie Algebras"))
+ (|basis|
+  (((|Vector| (|List| (|Integer|))) (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   "\\spad{basis(numberOfGens,{} maximalWeight)} generates a vector of elements of the form [left,{} weight,{} right] which represents a \\spad{P}. Hall basis element for the free lie algebra on \\spad{numberOfGens} generators. We only generate those basis elements of weight less than or equal to maximalWeight"))
+ (|inHallBasis?|
+  (((|Boolean|) (|Integer|) (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{inHallBasis?(numberOfGens,{} leftCandidate,{} rightCandidate,{} left)} tests to see if a new element should be added to the \\spad{P}. Hall basis being constructed. The list \\spad{[leftCandidate,{} wt,{} rightCandidate]} is included in the basis if in the unique factorization of \\spad{rightCandidate},{} we have left factor leftOfRight,{} and leftOfRight \\spad{<=} \\spad{leftCandidate}"))
+ (|lfunc|
+  (((|Integer|) (|Integer|) (|Integer|))
+   "\\spad{lfunc(d,{} n)} computes the rank of the \\spad{n}th factor in the lower central series of the free \\spad{d}-generated free Lie algebra; This rank is \\spad{d} if \\spad{n} = 1 and binom(\\spad{d},{} 2) if \\spad{n} = 2")))
+(("documentation" 0 1358) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1355) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1109) ("modemaps" 0 714) ("sourceFile" 0 680)
+ ("constructorCategory" 0 403) ("constructorModemap" 0 79)
+ ("constructorKind" 0 69) ("constructorForm" 0 55) ("NILADIC" 0 20))

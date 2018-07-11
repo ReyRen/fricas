@@ -1,0 +1,34 @@
+)abbrev package MULDEP MultiplicativeDependence
+MultiplicativeDependence() :  Exports == Implementation where
+    FI ==> Fraction Integer
+    VZ ==> Vector Integer
+    RU ==> Union(Vector FI, "failed")
+
+    Exports ==> with
+        logDependenceQ : (List FI, FI) -> RU
+            ++ logDependenceQ([q1, ..., qn], q0) finds rational
+            ++ constants \spad{c1, ...cn} such that
+            ++ \spad{q1^c1*...*qn^cn=u*q0} where \spad{u} is a unit
+    Implementation ==> add
+
+
+        import from GcdBasis(Integer)
+
+        solveOverQ(m : Matrix FI , v : Vector FI) : RU ==
+            particularSolution(m, v)$(LinearSystemMatrixPackage(FI,
+                               Vector FI, Vector FI, Matrix FI))
+
+        logDependenceQ(lq : List FI, q : FI) : RU ==
+            empty?(lq) => "failed"
+            n := #lq
+            v := vector(concat(lq, [q]))$(Vector FI)
+            dr := gcdDecomposition(v)
+            bas := dr.basis
+            k0 := #bas
+            li := [i for i in 1..k0 | not(unit?(bas(i)))]
+            empty?(li) => "failed"
+            tm := dr.transform
+            -- k := nrows(tm)
+            m := matrix([[(tm(i, j))::FI for j in 1..n] for i in li])$(Matrix FI)
+            qv := vector([(tm(i, n+1))::FI for i in li])$(Vector FI)
+            solveOverQ(m, qv)

@@ -1,0 +1,811 @@
+)abbrev domain JDE JetDifferentialEquation
+++ Description:
+++ \spadtype{JetDifferentialEquation} provides the basic data structures and
+++ procedures for differential equations as needed in the geometric theory.
+++ Differential equation means here always a submanifold in the jet bundle.
+++ The concrete equations which define this submanifold are called system.
+++ In an object of the type \spadtype{JetDifferentialEquation} much more than
+++ only the system is stored. \spad{D} denotes the class of functions allowed
+++ as equations. It is assumed that the \spad{simplify} procedure of \spad{D}
+++ returns only independent equations and a system with symbol in row echelon
+++ form.
+
+JetDifferentialEquation(JB : JBC, D : JBFC) : Cat == Def where
+
+  B    ==> Boolean
+  Sy   ==> Symbol
+  I    ==> Integer
+  PI   ==> PositiveInteger
+  NNI  ==> NonNegativeInteger
+  EQ   ==> Equation
+  L    ==> List
+  V    ==> Vector
+  M    ==> Matrix
+  VD   ==> V D
+  MD   ==> M D
+  OUT  ==> OutputForm
+  JBC  ==> JetBundleCategory
+  JBFC ==> JetBundleFunctionCategory JB
+  SEM  ==> SparseEchelonMatrix(JB, D)
+  DIFF ==> JetDifferential(JB, D)
+
+  MVREC  ==> Record(Rank : NNI, NumMultVar : NNI, Betas : L NNI)
+  SREC   ==> Record(SDe : %, IC : L D)
+
+  Cat ==> with
+
+    order : % -> NNI
+      ++ \spad{order(de)} yields the order of the differential equation
+      ++ \spad{de}.
+
+    coerce : % -> OUT
+      ++ \spad{coerce(de)} transforms the differential equation \spad{de}
+      ++ to \spadtype{OutputForm}.
+
+    printSys : L D -> OUT
+      ++ \spad{printSys(sys)} writes a list of functions as a vector of
+      ++ equations (with right hand side 0) and coerces the result to
+      ++ \spadtype{OutputForm}.
+
+    display : % -> Void
+      ++ \spad{display(de)} prints all information stored about the
+      ++ differential equation \spad{de}. This comprises the system
+      ++ ordered by the order of the equations, the Jacobi matrices
+      ++ separately  for each order and the index of the independent
+      ++ variable with respect to which the equation was lastly
+      ++ differentiated (1 for not prolonged equations).
+
+    copy : % -> %
+      ++ \spad{copy(De)} returns a copy of the equation \spad{De}.
+
+    retract : % -> L D
+      ++ \spad{retract(de)} returns the system defining the differential
+      ++ equation \spad{de}.
+
+    jacobiMatrix : % -> L SEM
+      ++ \spad{jacobiMatrix(De)} returns a list of Jacobi matrices sorted
+      ++ by the order of the equations.
+
+    makeSystem : L D -> %
+      ++ \spad{makeSystem(sys)} creates a differential equation from a system.
+
+    join : (%, %) -> %
+      ++ \spad{join(de1, de2)} combines \spad{de1} and \spad{de2}
+      ++ to a single differential equation.
+
+    insert : (L D, %) -> %
+      ++ \spad{insert(sys, de)} adds the system \spad{sys = 0}
+      ++ to the differential equation \spad{de}.
+
+    dimension : (%, NNI) -> NNI
+      ++ \spad{dimension(de, q)} computes the dimension of the differential
+      ++ equation \spad{de} as a submanifold of the \spad{q}-th order jet
+      ++ bundle. The result is correct only, if \spad{de} is simplified.
+
+    setSimpMode : NNI -> NNI
+      ++ \spad{setSimpMode(i)} sets the flag controlling the used
+      ++ simplifications and returns the old value. Current values are:
+      ++ \spad{i = 0} -> No simplification modulo lower order equations.
+      ++ \spad{i = 1} -> Simplification modulo lower order equations.
+      ++ Default is 0.
+
+    simplify : % -> SREC
+      ++ \spad{simplify(de)} simplifies the equations of each order separately
+      ++ using the procedure \spad{simplify} from \spad{D}. Found
+      ++ integrability conditions are also returned separately.
+
+    extractSymbol : (%, B) -> SEM
+      ++ \spad{extractSymbol(de, solved?)} computes the symbol of the
+      ++ differential equation \spad{de}. If \spad{solved?} is true,
+      ++ the row echelon form of the symbol is computed at once.
+
+    analyseSymbol : SEM -> MVREC
+      ++ \spad{analyseSymbol(symb)} computes the multiplicative variables of
+      ++ the symbol \spad{symb}.
+
+    prolongSymbol : SEM -> SEM
+      ++ \spad{prolongSymbol(symb)} prolongs directly the symbol \spad{symb}.
+
+    prolongMV : MVREC -> MVREC
+      ++ \spad{prolongMV(mv)} calculates the number of multiplicative variables
+      ++ for the prolongation of an involutive symbol.
+
+    project : (%, NNI) -> %
+      ++ \spad{project(de, q)} projects the differential equation \spad{de}
+      ++ of order higher than \spad{q} into the \spad{q}-th order jet bundle.
+
+    prolong : % -> SREC
+      ++ \spad{prolong(de)} prolongs the differential equation \spad{de}.
+      ++ Additionally the arising integrability conditions are returned.
+
+    prolong : (%, NNI) -> SREC
+      ++ \spad{prolong(de, q)} is like \spad{prolong(de)}. However, only
+      ++ equations of lower order than \spad{q} are prolonged.
+
+    tableau : (SEM, DIFF) -> SEM
+      ++ \spad{tableau(symb, chi)} computes the tableau parametrized by a given
+      ++ one-form.
+
+    tableau : (SEM, L DIFF) -> SEM
+      ++ \spad{tableau(symb, lchi)} computes the extended tableau parametrized
+      ++ by a given list of one-forms.
+
+  Def ==> add
+
+    nn : PI := numIndVar()$JB
+    mm : PI := numDepVar()$JB
+      -- global variables for the number of independent and dependent
+      -- variables in JB
+
+    simpMode : NNI := 0        -- global flag for simplification mode
+
+    setSimpMode(i : NNI) : NNI ==
+        j := simpMode
+        simpMode := i
+        j
+
+    adapt(der : L NNI, pro? : L B, dep : Union("failed", L L NNI)) : _
+          Record(Der : L NNI, Pro? : L B) ==
+        -- Adapts Deriv and Prolonged? after simplification.
+        -- Local function.
+        dep case "failed" => [[1 for i in der], [false for i in der]]
+        resDer : L NNI := empty
+        resPro? : L B := empty
+        for d in dep::L L NNI repeat
+            if one?(#d) then
+                resDer := cons(qelt(der, first d), resDer)
+                resPro? := cons(qelt(pro?, first d), resPro?)
+            else
+                j : NNI := reduce(min, [qelt(der, i)  for i in d])
+                b : B := reduce("and", [qelt(pro?, i)  for i in d])
+                resDer := cons(j, resDer)
+                resPro? := cons(b, resPro?)
+        [reverse! resDer, reverse! resPro?]
+
+    -- -------------- --
+    -- Representation --
+    -- -------------- --
+
+    SysRec := Record(Eqs : L D, JM : SEM, Deriv : L NNI, Prolonged? : L B, _
+                           Simp? : B, Dim? : B, Dim : NNI)
+    Rep := Record(Sys : L SysRec, Order : L NNI)
+    -- The equations in Sys are stored order by order. Order contains for
+    -- each sublist the order. The first list contains the equations of
+    -- highest order. The Jacobi matrix for each subsystem is in JM.
+    -- Deriv tells for each equation the index of the independent variable
+    -- with respect to which it was last differentiated. For new equations
+    -- that is always one. Simp? contains flags whether the subsystems have
+    -- already been simplified, Dim? whether the dimension at this order has
+    -- already been computed. Dim contains the dimension. Prolonged? tells
+    -- whether or not an equation has already been prolonged.
+
+    copy(De : %) : % ==
+        newSys : L SysRec := [[copy sys.Eqs, copy sys.JM, copy sys.Deriv, _
+                      copy sys.Prolonged?, sys.Simp?, sys.Dim?, sys.Dim] _
+                      for sys in De.Sys]
+        newOrd := copy De.Order
+        [newSys, newOrd]
+
+    order(De : %) : NNI ==
+        empty? De.Order => 0
+        first De.Order
+
+    retract(De : %) : L D ==
+        LSys := [sys.Eqs  for sys in De.Sys]
+        reduce(append, LSys, empty)
+
+    jacobiMatrix(De : %) : L SEM == [sys.JM  for sys in De.Sys]
+
+    printSys(sys : L D) : OUT ==
+        -- Prints system as "vector" of equations
+        empty? sys => empty
+        leq : L EQ D := [eq = 0  for eq in sys]
+        tmp : L OUT := empty
+        for eq in leq repeat
+            tmp := cons(eq::OUT, cons(message(" "), tmp))
+        vconcat reverse tmp
+
+    coerce(De : %) : OUT == printSys retract De
+
+    display(De : %) : Void ==
+        for sys in De.Sys  for ord in De.Order repeat
+            print(hconcat(message("Order: "), ord::OUT))$OUT
+            print(message("  System:"))$OUT
+            print(hconcat(message("    "), printSys(sys.Eqs)))$OUT
+            if sys.Simp? then
+                print(message("    (system simplified)"))$OUT
+            if sys.Dim? then
+                print(hconcat(message("  Dimension: "), sys.Dim::OUT))$OUT
+            print(message("  Jacobi matrix:"))$OUT
+            print(hconcat(message("    "), sys.JM::OUT))$OUT
+            print(hconcat(message("    "), allIndices(sys.JM)::OUT))$OUT
+            print(message("  Last derivations:"))$OUT
+            print(hconcat(message("    "), sys.Deriv::OUT))$OUT
+        void
+
+    -- --------------------------- --
+    -- Basic Operations on Systems --
+    -- --------------------------- --
+
+    makeSystem2(sys : L D, jm : SEM, der : L NNI) : % ==
+        -- Equations are sorted by order.
+        -- No check for empty system.
+        -- Local function.
+        lord : L NNI := [order first row(jm, i).Indices  for i in 1..nrows(jm)]
+        resOrd := reverse sort removeDuplicates lord
+        nord := #resOrd
+        inds := allIndices jm
+        ljm : L SEM := empty
+        for q in resOrd  repeat
+            while order(first inds) > q repeat
+                inds := rest inds
+            ljm := cons(new(inds, 1), ljm)
+
+        vsys : V L D := new(nord, empty)
+        vder : V L NNI := new(nord, empty)
+        vjm : V SEM := construct reverse! ljm
+        for eq in reverse sys  for i in reverse der  for q in reverse lord _
+                for j in nrows(jm)..1 by -1 repeat
+            pos := position(q, resOrd)+1-minIndex(resOrd)
+            if empty? qelt(vsys, pos) then
+                qsetelt!(vsys, pos, [eq])
+                setRow!(qelt(vjm, pos), 1, row(jm, j))
+                qsetelt!(vder, pos, [i])
+            else
+                qsetelt!(vsys, pos, cons(eq, qelt(vsys, pos)))
+                consRow!(qelt(vjm, pos), row(jm, j))
+                qsetelt!(vder, pos, cons(i, qelt(vder, pos)))
+
+        --for j in minIndex(vjm)..maxIndex(vjm) repeat
+        --  elimZeroCols! qelt(vjm, i)
+        resSys : L SysRec := empty
+        for ord in resOrd  for i in minIndex(vsys).. repeat
+            rec : SysRec := [qelt(vsys, i), qelt(vjm, i), qelt(vder, i), _
+                             new(#qelt(vder, i), false), false, false, 0]
+            resSys := cons(rec, resSys)
+        [reverse! resSys, resOrd]
+
+    makeSystem(sys : L D) : % ==
+        empty? sys => [[], []]
+        nsys := [numerator eq  for eq in sys]
+        der : L NNI := [1  for eq in nsys]
+        jm : SEM := jacobiMatrix nsys
+        makeSystem2(nsys, jm, der)
+
+    join(De1 : %, De2 : %) : % ==
+        cDe1 := copy De1; cDe2 := copy De2
+        sys1 := cDe1.Sys; sys2 := cDe2.Sys
+        ord1 := cDe1.Order; ord2 := cDe2.Order
+        resSys : L SysRec := empty
+        resOrd : L NNI := empty
+
+        while not(empty? ord1 and empty? ord2) repeat
+            if empty? ord1 then
+                resSys := concat!(reverse! sys2, resSys)
+                resOrd := concat!(reverse! ord2, resOrd)
+                ord2 := empty
+            else if empty? ord2 then
+                resSys := concat!(reverse! sys1, resSys)
+                resOrd := concat!(reverse! ord1, resOrd)
+                ord1 := empty
+            else
+                o1 := first ord1
+                o2 := first ord2
+                if o1 > o2 then
+                    resSys := cons(first sys1, resSys)
+                    resOrd := cons(o1, resOrd)
+                    sys1 := rest sys1
+                    ord1 := rest ord1
+                else if o2 > o1 then
+                    resSys := cons(first sys2, resSys)
+                    resOrd := cons(o2, resOrd)
+                    sys2 := rest sys2
+                    ord2 := rest ord2
+                else
+                    rec1 := first sys1; rec2 := first sys2
+                    rec : SysRec := [concat!(rec1.Eqs, rec2.Eqs), _
+                            join(rec1.JM, rec2.JM), _
+                            concat!(rec1.Deriv, rec2.Deriv), _
+                            concat!(rec1.Prolonged?, rec2.Prolonged?), _
+                            false, false, 0]
+                    resSys := cons(rec, resSys)
+                    resOrd := cons(o1, resOrd)
+                    sys1 := rest sys1; sys2 := rest sys2
+                    ord1 := rest ord1; ord2 := rest ord2
+
+        [reverse! resSys, reverse! resOrd]
+
+    insert(sys : L D, De : %) : % ==
+        newDe : % := makeSystem sys
+        join(De, newDe)
+
+    dimension(De : %, q : NNI) : NNI ==
+        -- The dimension is computed order by order
+        -- Caution: Dim and Dim? are changed in De!
+        empty? De.Order => dimJ(q)$JB
+        simp? := true$B
+
+        tsys := copy De.Sys
+        tord := copy De.Order
+        resSys := empty()$L(SysRec)
+
+        while first(tord) > q repeat
+            resSys := cons(first tsys, resSys)
+            tsys := rest tsys
+            tord := rest tord
+
+        qq := q::I
+        res := 0$NNI
+
+        for sys in tsys  for ord in tord repeat
+            for j in ord+1..qq repeat
+                res := res + dimS(j)$JB
+            qq := ord-1
+
+            simp? := simp? and sys.Simp?
+            if sys.Dim? then
+                res := res + sys.Dim
+            else
+                d := orderDim(sys.Eqs, sys.JM, ord)$D
+                res := res + d
+                sys.Dim? := true
+                sys.Dim := d
+            resSys := cons(sys, resSys)
+
+        if not simp? then
+            print(message(
+              "***** Warning: system not simplified in dimension"))$OUT
+        if qq >= 0 then
+            res := res + dimJ(qq::NNI)$JB
+        De.Sys := reverse! resSys
+        res
+
+    -- -------------- --
+    -- Simplification --
+    -- -------------- --
+
+    simplify(De : %) : SREC ==
+        -- Simplification is performed order by order, starting with the highest
+        -- order. If equations of lower order are generated, they are moved into
+        -- the corresponding subsystem.
+        resSys := empty()$L(SysRec)
+        resOrd := empty()$L(NNI)
+        ICs := empty()$L(D)
+
+        cDe := copy De
+        tsys := cDe.Sys
+        tord := cDe.Order
+
+        AllEqs := empty()$L(D)
+
+        if simpMode > 0 then
+            AllEqs := retract cDe
+
+        while not empty? tord repeat
+            q := first tord
+            sys := first tsys
+            if sys.Simp? then                      -- already simplified
+                resSys := cons(sys, resSys)
+                resOrd := cons(q, resOrd)
+            else                                    -- not yet simplified
+                if simpMode > 0 then
+                    while not(empty?(AllEqs) or _
+                          (order(first AllEqs) < q)) repeat
+                        AllEqs := rest AllEqs
+
+                -- simplify equations of highest order
+                if simpMode > 0 then
+                    tmp := simpMod(sys.Eqs, sys.JM, AllEqs)$D
+                    tmp := simplify(tmp.Sys, tmp.JM)$D
+                else
+                    tmp := simplify(sys.Eqs, sys.JM)$D
+                newEqs := tmp.Sys
+                newJM := tmp.JM
+                ad := adapt(sys.Deriv, sys.Prolonged?, tmp.Depend)
+                newDer := ad.Der
+                newPro? := ad.Pro?
+
+                -- check for equations of lower order
+                j : NNI := 0
+                for eq in newEqs  for pro? in newPro?  for i in 1.. repeat
+                    o := order first row(newJM, i-j).Indices
+                    o > q => error "order raised in simplify"
+                    if o < q then
+                        ICs := cons(eq, ICs)
+                        j := j+1
+                        pos1 := i-j+1
+                        pos2 := i-j+minIndex(newEqs)
+                        newEqs := delete(newEqs, pos2)
+                        newDer := delete(newDer, pos2)
+                        newPro? := delete(newPro?, pos2)
+                        djm : SEM := extract(newJM, pos1, pos1)
+                        sortedPurge!(djm, order(#1) > o)
+                        deleteRow!(newJM, pos1)
+
+                        pos := position(o, tord)
+                        if pos >= minIndex(tord) then
+                            rec : SysRec := qelt(tsys, pos)
+                            concat!(rec.Eqs, eq)
+                            appendRow!(rec.JM, row(djm, 1))
+                            concat!(rec.Deriv, 1)
+                            concat!(rec.Prolonged?, pro?)
+                            rec.Simp? := false
+                            rec.Dim? := false
+                            rec.Dim := 0
+                            qsetelt!(tsys, pos, rec)
+                        else
+                            rec : SysRec := [[eq], djm, [1], [pro?], _
+                                             false, false, 0]
+                            hord : L NNI := empty
+                            pos := minIndex(tord) - 1
+                            while not empty? tord and first(tord) > o repeat
+                                hord := cons(first tord, hord)
+                                tord := rest tord
+                                pos := pos + 1
+                            if empty? tord then
+                                tord := reverse! cons(o, hord)
+                                concat!(tsys, rec)
+                            else
+                                tord := concat!(reverse! hord, cons(o, tord))
+                                tsys := insert!(rec, tsys, pos)
+
+                rec : SysRec := [newEqs, newJM, newDer, newPro?, true, false, 0]
+                resSys := cons(rec, resSys)
+                resOrd := cons(q, resOrd)
+
+            tsys := rest tsys
+            tord := rest tord
+
+        -- check for inconsistencies or conditions on independent variables
+        if zero? q then                        -- algebraic equations
+            jm0 := first(resSys).JM
+            for eq in first(resSys).Eqs  for i in 1.. repeat
+                lj := row(jm0, i).Indices
+                empty? lj => error "inconsistent system"
+                u? : B := false
+                for j in 1..mm  until u? repeat
+                    u? := member?(U(j::PI)$JB, lj)
+                not u? => error "independent variables not independent"
+
+        [[reverse! resSys, reverse! resOrd], reverse! ICs]
+
+    -- --------------------------- --
+    -- Prolongation and Projection --
+    -- --------------------------- --
+
+    project(De : %, q : NNI) : % ==
+        cDe := copy De
+        q >= order De => cDe
+        resSys := cDe.Sys
+        resOrd := cDe.Order
+        check : B := true
+
+        while not empty? resOrd and first(resOrd) > q repeat
+            check := check and first(resSys).Simp?
+            resSys := rest resSys
+            resOrd := rest resOrd
+
+        if not check then
+            print(message(
+              "***** Warning: projection of not simplified system"))$OUT
+        [resSys, resOrd]
+
+    prolong(De : %) : SREC ==
+        -- Prolonged equations are at once simplified. This yields the
+        -- integrability conditions.
+
+        -- prolong equations of highest order
+        pEqs : L D := empty
+        pDer : L NNI := empty
+        pJV : L L JB := empty
+        pIC : L D := empty
+        rec := first De.Sys
+        q := first De.Order
+        for eq in rec.Eqs  for j in rec.Deriv  for k in 1.. repeat
+            jmeq := extract(rec.JM, k, k)
+            for i in nn..j by -1 repeat
+                FDiff := formalDiff2(eq, i::PI, jmeq)
+                pEqs := cons(FDiff.DPhi, pEqs)
+                pDer := cons(i::NNI, pDer)
+                pJV := cons(FDiff.JVars, pJV)
+        pEqs := reverse! pEqs
+        pJV := reverse! pJV
+        pDer := reverse! pDer
+        pJM := jacobiMatrix(pEqs, pJV)
+
+        pRec : SysRec := [pEqs, pJM, pDer, [false for i in pDer], _
+                          false, false, 0]
+        pSys : L SysRec := [pRec]
+        pOrd : L NNI := [q + 1]
+
+        -- prolong remaining equations, if necessary
+        -- this yields additional integrability conditions
+        lastRec := copy rec
+        lastRec.Prolonged? := [true  for j in rec.Deriv]
+        lastOrd := q
+        for rec in rest De.Sys  for ord in rest De.Order repeat
+            pEqs := empty
+            pDer := empty
+            pJV := empty
+            for eq in rec.Eqs  for j in rec.Deriv  for pro? in rec.Prolonged? _
+                    for k in 1.. repeat
+                if not pro? then
+                    jmeq := extract(rec.JM, k, k)
+                    for i in nn..j by -1 repeat
+                        FDiff := formalDiff2(eq, i::PI, jmeq)
+                        pEqs := cons(FDiff.DPhi, pEqs)
+                        pDer := cons(i::NNI, pDer)
+                        pJV := cons(FDiff.JVars, pJV)
+            if empty? pEqs then
+                pSys := cons(lastRec, pSys)
+                pOrd := cons(lastOrd, pOrd)
+            else
+                pIC := append(pIC, pEqs)
+                pJM := jacobiMatrix(pEqs, pJV)
+                if ord+1 < lastOrd then
+                    pRec := [pEqs, pJM, pDer, [false for i in pDer], _
+                             false, false, 0]
+                    pSys := cons(pRec, cons(lastRec, pSys))
+                    pOrd := cons(ord + 1, cons(lastOrd, pOrd))
+                else
+                    pRec := [append(lastRec.Eqs, pEqs), _
+                        join(lastRec.JM, pJM), append(lastRec.Deriv, pDer), _
+                        append(lastRec.Prolonged?, [false for i in pDer]), _
+                        false, false, 0]
+                    pSys := cons(pRec, pSys)
+                    pOrd := cons(lastOrd, pOrd)
+            lastRec := copy rec
+            lastRec.Prolonged? := [true  for j in rec.Deriv]
+            lastOrd := ord
+
+        pSys := cons(lastRec, pSys)
+        pOrd := cons(lastOrd, pOrd)
+        res : % := [reverse! pSys, reverse! pOrd]
+        tmp := simplify res
+        [tmp.SDe, concat!(pIC, tmp.IC)]
+
+    prolong(De : %, q : NNI) : SREC ==
+        -- Prolongs only equations of order lower than q.
+        -- Prolonged equations are at once simplified. This yields the
+        -- integrability conditions.
+        cDe := copy De
+        tsys := cDe.Sys
+        tord := cDe.Order
+        pSys : L SysRec := empty
+        pOrd : L NNI := empty
+        pIC : L D := empty
+
+        while first(tord) > q repeat
+            pSys := cons(first tsys, pSys)
+            pOrd := cons(first tord, pOrd)
+            tsys := rest tsys
+            tord := rest tord
+
+        if not first(tord) = q then
+
+            -- prolong equations of highest order (< q)
+            pEqs : L D := empty
+            pDer : L NNI := empty
+            pJV : L L JB := empty
+            rec := first tsys
+            ord := first tord
+            for eq in rec.Eqs  for j in rec.Deriv  for k in 1.. repeat
+                jmeq := extract(rec.JM, k, k)
+                for i in nn..j by -1 repeat
+                    FDiff := formalDiff2(eq, i::PI, jmeq)
+                    pEqs := cons(FDiff.DPhi, pEqs)
+                    pDer := cons(i::NNI, pDer)
+                    pJV := cons(FDiff.JVars, pJV)
+            pEqs := reverse! pEqs
+            pJV := reverse! pJV
+            pDer := reverse! pDer
+            pJM := jacobiMatrix(pEqs, pJV)
+            pIC := pEqs
+
+            pRec : SysRec := [pEqs, pJM, pDer, [false for i in pDer], _
+                              false, false, 0]
+            pSys := cons(pRec, pSys)
+            pOrd := cons(ord + 1, pOrd)
+
+        lastRec := first tsys
+        lastOrd := first tord
+
+        -- prolong remaining equations, if necessary
+        for rec in rest tsys  for ord in rest tord repeat
+            pEqs : L D := empty
+            pDer : L NNI := empty
+            pJV : L L JB := empty
+            for eq in rec.Eqs  for j in rec.Deriv  for pro? in rec.Prolonged? _
+                    for k in 1.. repeat
+                if not pro? then
+                    jmeq := extract(rec.JM, k, k)
+                    for i in nn..j by -1 repeat
+                        FDiff := formalDiff2(eq, i::PI, jmeq)
+                        pEqs := cons(FDiff.DPhi, pEqs)
+                        pDer := cons(i::NNI, pDer)
+                        pJV := cons(FDiff.JVars, pJV)
+            if empty? pEqs then
+                pSys := cons(lastRec, pSys)
+                pOrd := cons(lastOrd, pOrd)
+            else
+                pEqs := reverse! pEqs
+                pJV := reverse! pJV
+                pDer := reverse! pDer
+                pJM := jacobiMatrix(pEqs, pJV)
+                pIC := append(pIC, pEqs)
+                if (ord+1) < lastOrd then
+                    pRec : SysRec := [pEqs, pJM, pDer, [false for i in pDer], _
+                                      false, false, 0]
+                    pSys := cons(pRec, cons(lastRec, pSys))
+                    pOrd := cons(ord + 1, cons(lastOrd, pOrd))
+                else
+                    pRec : SysRec := [concat!(lastRec.Eqs, pEqs), _
+                        join(lastRec.JM, pJM), concat!(lastRec.Deriv, pDer), _
+                        concat!(lastRec.Prolonged?, [false for i in pDer]), _
+                        false, false, 0]
+                    pSys := cons(pRec, pSys)
+                    pOrd := cons(lastOrd, pOrd)
+                rec.Prolonged? := [true  for j in rec.Deriv]
+            lastRec := rec
+            lastOrd := ord
+
+        pSys := cons(lastRec, pSys)
+        pOrd := cons(lastOrd, pOrd)
+        res : % := [reverse! pSys, reverse! pOrd]
+        tmp := simplify res
+        [tmp.SDe, concat!(pIC, tmp.IC)]
+
+    -- --------------------- --
+    -- Operations on Symbols --
+    -- --------------------- --
+
+    extractSymbol(De : %, solved? : B) : SEM ==
+        res := extractSymbol(first(De.Sys).JM)$D
+        if solved? then
+            res := rowEchelon(res).Ech
+        res
+
+    analyseSymbol(Symb : SEM) : MVREC ==
+        tmp := rowEchelon Symb
+        ech := tmp.Ech
+
+        pivs := pivots ech
+        MSum := 0$NNI
+        BetaI := 0$NNI
+        LastClass : NNI := nn
+        LBeta : L NNI := empty
+
+        for jv in pivs.Indices repeat
+            CurClass := class jv
+            if CurClass = LastClass then
+                BetaI := BetaI + 1
+            else
+                LBeta := cons(BetaI, LBeta)
+                MSum := MSum + BetaI*LastClass
+                for k in 2..LastClass-CurClass repeat
+                    LBeta := cons(0, LBeta)
+                BetaI := 1
+                LastClass := CurClass
+
+        LBeta := cons(BetaI, LBeta)
+        MSum := MSum + BetaI*LastClass
+        for k in 2..LastClass repeat
+            LBeta := cons(0, LBeta)
+        [tmp.Rank, MSum, LBeta]
+
+    prolongSymbol(Symb : SEM) : SEM ==
+        -- Direct prolongation of a symbol without differentiation.
+        oldInds := allIndices Symb
+        newInds : L JB := empty
+        for jv in reverse oldInds repeat
+            for i in 1..nn repeat
+                newInds := cons(differentiate(jv, i::PI)::JB, newInds)
+        newInds := sort!((x, y) +-> y < x, removeDuplicates! newInds)
+        res : SEM := new(newInds, nn*nrows Symb)
+        for j in 1..nrows(Symb) repeat
+            r := row(Symb, j)
+            for i in nn..1 by -1 repeat
+                ninds := [differentiate(jv, i::PI)::JB  for jv in r.Indices]
+                setRow!(res, nn*j-i+1, ninds, r.Entries)
+        res
+
+    prolongMV(mv : MVREC) : MVREC ==
+        oldBeta := reverse mv.Betas
+        newBeta : L NNI := empty
+        sum : NNI := 0
+        rank : NNI := 0
+        msum : NNI := 0
+        for beta in oldBeta  for k in nn..1 by -1 repeat
+            sum := sum + beta
+            rank := rank + sum
+            msum := msum + k*sum
+            newBeta := cons(sum, newBeta)
+        [rank, msum, reverse! newBeta]
+
+    -- ---------------------- --
+    -- Operations on Tableaux --
+    -- ---------------------- --
+
+    power(lc : L D, mu : L NNI, mask : L PI) : D ==
+        -- local function to compute the monomial generated by the
+        -- one-form with coefficients lc and the multi-index mu.
+        -- mask tells which coefficients are not zero.
+        res : D := 1
+        k : PI := 1
+        while not empty? mask repeat
+            while k < first(mask) repeat
+                mu := rest mu
+                k := k + 1
+            res := res * first(lc)^first(mu)
+            lc := rest lc
+            mask := rest mask
+            mu := rest mu
+            k := k + 1
+        res
+
+    extPower(llc : MD, mu : L NNI, nu : L NNI) : D ==
+        -- the rows of the matrix llc contain the coefficients of the one-forms
+        -- nu determines the repeated indices; mu the exponents
+        snu := allRepeated(nu)$JB
+        rmu := m2r(mu)$JB
+        q := #first(snu)
+        res : D := 0
+        for s in snu repeat
+            prod : D := 1
+            for si in s  for mi in rmu repeat
+                prod := prod * qelt(llc, nn-si+1, mi)
+            res := res + prod
+        res
+
+    tableau(Symb : SEM, chi : DIFF) : SEM ==
+        diffs := differentials chi
+        last(diffs) > X(nn)$JB => error "illegal differential in tableau"
+        coeffs := coefficients chi
+        cinds := [index d  for d in diffs]
+        res : SEM := new([U(i::PI)  for i in mm..1 by -1], nrows(Symb))
+
+        for k in 1..nrows(Symb) repeat
+            r := row(Symb, k)
+            sum : VD := new(mm, 0)
+            for jv in r.Indices   for ent in r.Entries repeat
+                a := index jv
+                mu := multiIndex jv
+                qsetelt!(sum, a, qelt(sum, a) + ent*power(coeffs, mu, cinds))
+            li : L JB := empty
+            le : L D := empty
+            for i in 1..mm  for s in entries sum repeat
+                if not zero? s then
+                    li := cons(U(i::PI), li)
+                    le := cons(s, le)
+            setRow!(res, k, li, le)
+
+        res
+
+    tableau(Symb : SEM, lchi : L DIFF) : SEM ==
+        q := order first allIndices Symb
+        inds := variables(q, (nn-#lchi+1)::PI)$JB
+        mco : MD := new(#lchi, nn, 0)
+        for i in 1..  for chi in lchi repeat
+            for j in 1..nn repeat
+                qsetelt!(mco, i, j, coefficient(chi, X(j::PI)$JB))
+        res : SEM := new(inds, nrows(Symb))
+
+        for vv in reverse inds repeat
+            a := index vv
+            nu := multiIndex vv
+            for k in 1..nrows(Symb) repeat
+                r := row(Symb, k)
+                s : D := 0
+                for jv in r.Indices  for ent in r.Entries repeat
+                    if index(jv) = a then
+                        mu := multiIndex jv
+                        s := s + ent*extPower(mco, mu, nu)
+                if not zero? s then
+                    rres := row(res, k)
+                    rres.Indices := cons(vv, rres.Indices)
+                    rres.Entries := cons(s, rres.Entries)
+                    setRow!(res, k, rres)
+
+        res
+
+

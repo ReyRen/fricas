@@ -1,0 +1,140 @@
+)abbrev package MAGCDT2 ModularAlgebraicGcdTools2
+-- Support for modular algebraic GCD, case of single extension
+-- using U32VectorPolynomialOperations
+ModularAlgebraicGcdTools2 : Exports == Implementation where
+  MP ==> Polynomial Integer
+  PA ==> U32Vector
+  MD ==> Record(svz : Symbol, sm : PA, sp : Integer)
+  PPA ==> PrimitiveArray(PA)
+  Exports ==> ModularAlgebraicGcdOperations(MP, PPA, MD)
+  Implementation ==> add
+
+    import from U32VectorPolynomialOperations
+
+    pack_modulus(lm : List(MP), lvz : List(Symbol), p : Integer
+                ) : Union(MD, "failed") ==
+        #lvz ~= 1 => error("unsupported")
+        #lvz ~= #lm => error("pack_modulus: #lvz ~= #lm")
+        vz := first(lvz)
+        m := to_mod_pa(univariate(first(lm)), p)
+        [vz, m, p]
+
+    pack_exps(dg : Integer, msize : Integer, mu : MD
+             ) : SortedExponentVector ==
+        nsize := qcoerce((dg + 1)*msize)@NonNegativeInteger
+        exps := new(2*nsize, 0)$SortedExponentVector
+        for i in 0..dg repeat
+            for j in 0..(msize - 1) repeat
+                ii := i*msize + j
+                exps(2*ii) := i
+                exps(2*ii + 1) := j
+        exps
+
+    repack1(res0 : PPA, coeffs : PA, dg : Integer, mu : MD) : Void ==
+        vz := mu.svz
+        msize := degree(mu.sm)
+        for i in 0..dg repeat
+            ci := res0(i)
+            di := degree(ci)
+            for j in 0..(msize - 1) repeat
+                ii := i*msize + j
+                j <= di => coeffs(ii) := ci(j)
+                coeffs(ii) := 0
+
+    MPtoMPT(x : MP, ivx : Symbol, ivz : List(Symbol), mu : MD
+           ) : Union(PPA, "failed") ==
+        vz : Symbol := mu.svz
+        p := mu.sp
+        xu : SparseUnivariatePolynomial(MP) := univariate(x, ivx)$MP
+        zz := new(1, 0)$PA
+        res : PPA := new(degree(xu) + 1, zz)
+        while xu ~= 0 repeat
+            cl := leadingCoefficient(xu)
+            k := degree(xu)
+            res(k) := to_mod_pa(univariate(cl), p)
+            xu := reductum xu
+        res
+
+    is_zero?(v : PA) : Boolean ==
+        n := #v
+        for i in (n - 1)..0 by -1 repeat
+            v(i) ~= 0 => return false
+        true
+
+    zero?(v : PPA) : Boolean == degree(v) = -1
+
+    degree(v : PPA) : Integer ==
+        n := #v
+        for i in (n - 1)..0 by -1 repeat
+            not(is_zero?(v(i))) => return i
+        -1
+
+    leadingCoefficient(v : PPA) : PA ==
+        n := #v
+        for i in (n - 1)..0 by -1 repeat
+            not(is_zero?(pp := v(i))) => return(pp)
+        new(1, 0)$PA
+
+    canonicalIfCan(x : PPA, mu : MD) : Union(PPA, "failed") ==
+        m := mu.sm
+        p := mu.sp
+        cl := leadingCoefficient(x)
+        rr := extended_gcd(cl, m, p)
+        rr1 := first(rr)
+        degree(rr1) ~= 0 => "failed"
+        rr1(0) ~= 1 => "failed"
+        icl := rr(2)
+        dx := degree(x)
+        res := new(qcoerce(dx + 1)@NonNegativeInteger, x(0))$PPA
+        for l in 0..(dx - 1) repeat
+            pp := mul(icl, x(l), p)
+            remainder!(pp, m, p)
+            dpp := degree(pp)
+            dnpp : Integer := (dpp < 0 => 0; dpp)
+            npp := new(qcoerce(dnpp + 1)@NonNegativeInteger, 0)$PA
+            copy_first(npp, pp, dpp + 1)
+            res(l) := npp
+        res(dx) := new(1, 1)$PA
+        res
+
+    pseudoRem(x : PPA, y : PPA, mu : MD) : PPA ==
+      i : Integer := degree(x)
+      j : Integer := degree(y)
+      j = 0 => new(1, new(1, 0)$PA)$PPA
+      i < j => x
+      cy := leadingCoefficient(y)
+      c := leadingCoefficient(x)
+      i1 := qcoerce(i - 1)@NonNegativeInteger
+      res := new(i1 + 1, qelt(x, 0))$PPA
+      m := mu.sm
+      p := mu.sp
+      del := qcoerce(i - j)@NonNegativeInteger
+      for l in 0..(del - 1) repeat
+          pp1 := mul(cy, x(l), p)
+          remainder!(pp1, m, p)
+          degpp1 := degree(pp1)
+          degnpp1 : Integer := (degpp1 < 0 => 0; degpp1)
+          npp1 := new(qcoerce(degnpp1 + 1)@NonNegativeInteger, 0)$PA
+          copy_first(npp1, pp1, degpp1 + 1)
+          res(l) := npp1
+      for l in 0..(j - 1) repeat
+          l1 := l + del
+          pp1 := mul(cy, x(l1), p)
+          pp2 := mul(c, y(l), p)
+          dp1 := degree(pp1)
+          dp2 := degree(pp2)
+          if dp1 >= dp2 then
+              vector_add_mul(pp1, pp2, 0, dp2, p - 1, p)
+          else
+              vector_add_mul(pp2, pp1, 0, dp1, p - 1, p)
+              mul_by_scalar(pp2, dp2, p - 1, p)
+              pp1 := pp2
+          remainder!(pp1, m, p)
+          degpp1 := degree(pp1)
+          degnpp1 : Integer := (degpp1 < 0 => 0; degpp1)
+          npp1 := new(qcoerce(degnpp1 + 1)@NonNegativeInteger, 0)$PA
+          copy_first(npp1, pp1, degpp1 + 1)
+          res(l1) := npp1
+      res
+
+

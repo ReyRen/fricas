@@ -1,0 +1,1483 @@
+88426               (|Scene| PT)
+|domain|
+(((|Scene| |#1|)
+  (CATEGORY |domain| (SIGNATURE |createSceneRoot| ($))
+   (SIGNATURE |createSceneRoot| ($ (|SBoundary| |#1|)))
+   (SIGNATURE |createSceneRoot|
+    ($ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+   (SIGNATURE |createSceneRoot|
+    ($ (|Integer|) (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |createSceneGroup| ($)) (SIGNATURE |addSceneGroup| ($ $))
+   (SIGNATURE |createSceneLine| ($ (|List| |#1|)))
+   (SIGNATURE |addSceneLine| ($ $ (|List| |#1|)))
+   (SIGNATURE |createSceneLine| ($ $ $ (|DoubleFloat|)))
+   (SIGNATURE |addSceneLine| ($ $ $ $ (|DoubleFloat|)))
+   (SIGNATURE |createSceneLine| ($ $ $ (|DoubleFloat|) (|Boolean|)))
+   (SIGNATURE |addSceneLine| ($ $ $ $ (|DoubleFloat|) (|Boolean|)))
+   (SIGNATURE |createSceneLines| ($ (|List| (|List| |#1|))))
+   (SIGNATURE |addSceneLines| ($ $ (|List| (|List| |#1|))))
+   (SIGNATURE |createSceneShape|
+    ($
+     (|Record| (|:| |shptype| (|Symbol|)) (|:| |centre| |#1|) (|:| |size| |#1|)
+               (|:| |fill| (|Boolean|)))))
+   (SIGNATURE |addSceneShape|
+    ($ $
+     (|Record| (|:| |shptype| (|Symbol|)) (|:| |centre| |#1|) (|:| |size| |#1|)
+               (|:| |fill| (|Boolean|)))))
+   (SIGNATURE |createSceneShape| ($ (|SBoundary| |#1|)))
+   (SIGNATURE |addSceneShape| ($ $ (|SBoundary| |#1|)))
+   (SIGNATURE |createSceneDef| ($ (|String|) $))
+   (SIGNATURE |addSceneDef| ($ $ (|String|) $))
+   (SIGNATURE |createSceneUse| ($ (|String|)))
+   (SIGNATURE |addSceneUse| ($ $ (|String|)))
+   (SIGNATURE |createSceneArrows|
+    ($ (|List| (|List| |#1|)) (|Symbol|) (|DoubleFloat|)))
+   (SIGNATURE |addSceneArrows|
+    ($ $ (|List| (|List| |#1|)) (|Symbol|) (|DoubleFloat|)))
+   (SIGNATURE |createSceneArrow|
+    ($ (|String|) (|String|) |#1| (|Symbol|) (|DoubleFloat|)))
+   (SIGNATURE |addSceneArrow|
+    ($ $ (|String|) (|String|) |#1| (|Symbol|) (|DoubleFloat|)))
+   (SIGNATURE |createSceneArrow|
+    ($ $ $ |#1| (|Symbol|) (|DoubleFloat|) (|DoubleFloat|)))
+   (SIGNATURE |addSceneArrow|
+    ($ $ $ $ |#1| (|Symbol|) (|DoubleFloat|) (|DoubleFloat|)))
+   (SIGNATURE |createSceneNamedPoints| ($ (|SceneNamedPoints| |#1|)))
+   (SIGNATURE |addSceneNamedPoints| ($ $ (|SceneNamedPoints| |#1|)))
+   (SIGNATURE |createSceneIFS|
+    ($ (|List| (|List| (|NonNegativeInteger|))) (|List| |#1|)))
+   (SIGNATURE |addSceneIFS|
+    ($ $ (|List| (|List| (|NonNegativeInteger|))) (|List| |#1|)))
+   (SIGNATURE |createSceneIFS| ($ (|SceneIFS| |#1|)))
+   (SIGNATURE |addSceneIFS| ($ $ (|SceneIFS| |#1|)))
+   (SIGNATURE |createSceneBox| ($ (|DoubleFloat|)))
+   (SIGNATURE |addSceneBox| ($ $ (|DoubleFloat|)))
+   (SIGNATURE |createSceneText|
+    ($
+     (|Record| (|:| |txt| (|String|)) (|:| |siz| (|NonNegativeInteger|))
+               (|:| |pos| |#1|) (|:| |np| (|List| (|String|))))))
+   (SIGNATURE |addSceneText|
+    ($ $
+     (|Record| (|:| |txt| (|String|)) (|:| |siz| (|NonNegativeInteger|))
+               (|:| |pos| |#1|) (|:| |np| (|List| (|String|))))))
+   (SIGNATURE |createSceneText| ($ (|String|) (|NonNegativeInteger|) |#1|))
+   (SIGNATURE |addSceneText| ($ $ (|String|) (|NonNegativeInteger|) |#1|))
+   (SIGNATURE |createSceneText|
+    ($ (|List| (|String|)) (|NonNegativeInteger|) |#1|))
+   (SIGNATURE |addSceneText|
+    ($ $ (|List| (|String|)) (|NonNegativeInteger|) |#1|))
+   (SIGNATURE |createSceneClip| ($ (|SBoundary| |#1|)))
+   (SIGNATURE |addSceneClip| ($ $ (|SBoundary| |#1|)))
+   (SIGNATURE |createSceneClip|
+    ($ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+   (SIGNATURE |addSceneClip|
+    ($ $ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+   (SIGNATURE |createSceneGrid| ($ (|DoubleFloat|) (|SBoundary| |#1|)))
+   (SIGNATURE |addSceneGrid| ($ $ (|DoubleFloat|) (|SBoundary| |#1|)))
+   (SIGNATURE |createSceneGrid|
+    ($ (|DoubleFloat|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+   (SIGNATURE |addSceneGrid|
+    ($ $ (|DoubleFloat|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+   (SIGNATURE |createSceneGrid| ($ (|SBoundary| |#1|)))
+   (SIGNATURE |addSceneGrid| ($ $ (|SBoundary| |#1|)))
+   (SIGNATURE |createSceneGrid|
+    ($ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+   (SIGNATURE |addSceneGrid|
+    ($ $ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+   (SIGNATURE |createScenePattern|
+    ($ (|Symbol|) (|NonNegativeInteger|) (|SBoundary| |#1|)))
+   (SIGNATURE |addScenePattern|
+    ($ $ (|Symbol|) (|NonNegativeInteger|) (|SBoundary| |#1|)))
+   (SIGNATURE |createScenePattern|
+    ($ (|Symbol|) (|NonNegativeInteger|)
+     (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+   (SIGNATURE |addScenePattern|
+    ($ $ (|Symbol|) (|NonNegativeInteger|)
+     (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+   (SIGNATURE |createSceneRuler| ($ (|Symbol|) |#1| (|SBoundary| |#1|)))
+   (SIGNATURE |addSceneRuler| ($ $ (|Symbol|) |#1| (|SBoundary| |#1|)))
+   (SIGNATURE |createSceneRuler|
+    ($ (|Symbol|) |#1| (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+   (SIGNATURE |addSceneRuler|
+    ($ $ (|Symbol|) |#1| (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+   (SIGNATURE |createSceneGraph|
+    ($ (|DirectedGraph| (|String|)) (|NonNegativeInteger|)
+     (|NonNegativeInteger|) (|Boolean|)))
+   (SIGNATURE |addSceneGraph|
+    ($ $ (|DirectedGraph| (|String|)) (|NonNegativeInteger|)
+     (|NonNegativeInteger|) (|Boolean|)))
+   (SIGNATURE |createSceneMaterial|
+    ($
+     (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+               (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))))
+   (SIGNATURE |addSceneMaterial|
+    ($ $
+     (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+               (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))))
+   (SIGNATURE |createSceneMaterial| ($ (|DoubleFloat|) (|String|) (|String|)))
+   (SIGNATURE |addSceneMaterial| ($ $ (|DoubleFloat|) (|String|) (|String|)))
+   (SIGNATURE |createSceneTransform| ($ (|STransform| |#1|)))
+   (SIGNATURE |addSceneTransform| ($ $ (|STransform| |#1|)))
+   (SIGNATURE |createPlot1Din2D|
+    ($ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |addPlot1Din2D|
+    ($ $ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |createPlot1Din2D|
+    ($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |addPlot1Din2D|
+    ($ $ (|Mapping| (|DoubleFloat|) (|DoubleFloat|))
+     (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|)))
+   (SIGNATURE |createPlot1Din2Dparametric|
+    ($ (|ParametricPlaneCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+     (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|)))
+   (SIGNATURE |addPlot1Din2Dparametric|
+    ($ $ (|ParametricPlaneCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+     (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|)))
+   (SIGNATURE |createPlot1Din3Dparametric|
+    ($ (|ParametricSpaceCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+     (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|)))
+   (SIGNATURE |addPlot1Din3Dparametric|
+    ($ $ (|ParametricSpaceCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+     (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|)))
+   (SIGNATURE |createPlot1Din3Dparametric|
+    ($ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |addPlot1Din3Dparametric|
+    ($ $ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |createPlot2Din3D|
+    ($ (|Mapping| |#1| (|DoubleFloat|) (|DoubleFloat|))
+     (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |createPlot2Din3D|
+    ($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|))
+     (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |addPlot2Din3D|
+    ($ $ (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|))
+     (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |createPlot2Din3Dparametric|
+    ($ (|Mapping| |#1| (|DoubleFloat|) (|DoubleFloat|))
+     (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |addPlot2Din3Dparametric|
+    ($ $ (|Mapping| |#1| (|DoubleFloat|) (|DoubleFloat|))
+     (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |createPlot2Din3Dparametric|
+    ($
+     (|ParametricSurface|
+      (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)))
+     (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |addPlot2Din3Dparametric|
+    ($ $
+     (|ParametricSurface|
+      (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)))
+     (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |createArrows2Din2D|
+    ($ (|Mapping| |#1| |#1|) (|Segment| (|DoubleFloat|))
+     (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|)))
+   (SIGNATURE |addArrows2Din2D|
+    ($ $ (|Mapping| |#1| |#1|) (|Segment| (|DoubleFloat|))
+     (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|)))
+   (SIGNATURE |boundary| ((|SBoundary| |#1|) $ (|DoubleFloat|)))
+   (SIGNATURE |addChild!| ((|Void|) $ $))
+   (SIGNATURE |removeChild!| ((|Void|) $ $))
+   (SIGNATURE |setTransform!| ((|Void|) $ (|STransform| |#1|)))
+   (SIGNATURE |toSVG|
+    ((|XmlElement|) $
+     (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+               (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+     (|STransform| |#1|) (|SBoundary| |#1|) (|DoubleFloat|) (|Boolean|)
+     (|Boolean|) (|SceneNamedPoints| |#1|)))
+   (SIGNATURE |toSVG|
+    ((|XmlElement|) $
+     (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+               (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+     (|STransform| |#1|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))
+     (|DoubleFloat|) (|Boolean|) (|Boolean|) (|SceneNamedPoints| |#1|)))
+   (SIGNATURE |toX3D|
+    ((|XmlElement|) $
+     (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+               (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+     (|STransform| |#1|) (|SBoundary| |#1|)))
+   (SIGNATURE |toX3D|
+    ((|XmlElement|) $
+     (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+               (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+     (|STransform| |#1|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+   (SIGNATURE |toObj|
+    ((|Void|) $ (|Reference| (|List| |#1|))
+     (|Reference| (|List| (|List| (|NonNegativeInteger|))))
+     (|Reference| (|NonNegativeInteger|)) (|STransform| |#1|)
+     (|SBoundary| |#1|)))
+   (SIGNATURE |toObj|
+    ((|Void|) $ (|Reference| (|List| |#1|))
+     (|Reference| (|List| (|List| (|NonNegativeInteger|))))
+     (|Reference| (|NonNegativeInteger|)) (|STransform| |#1|)
+     (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+   (SIGNATURE |writeSvg| ((|Void|) $ (|String|)))
+   (SIGNATURE |writeSvgQuantised| ((|Void|) $ (|String|)))
+   (SIGNATURE |writeX3d| ((|Void|) $ (|String|)))
+   (SIGNATURE |writeVRML| ((|Void|) $ (|String|)))
+   (SIGNATURE |writeObj| ((|Void|) $ (|String|)))
+   (SIGNATURE |coerce| ((|OutputForm|) $)))
+  (|SPointCategory|))
+ (T |Scene|))
+(CATEGORY |domain| (SIGNATURE |createSceneRoot| ($))
+ (SIGNATURE |createSceneRoot| ($ (|SBoundary| |#1|)))
+ (SIGNATURE |createSceneRoot|
+  ($ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+ (SIGNATURE |createSceneRoot|
+  ($ (|Integer|) (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |createSceneGroup| ($)) (SIGNATURE |addSceneGroup| ($ $))
+ (SIGNATURE |createSceneLine| ($ (|List| |#1|)))
+ (SIGNATURE |addSceneLine| ($ $ (|List| |#1|)))
+ (SIGNATURE |createSceneLine| ($ $ $ (|DoubleFloat|)))
+ (SIGNATURE |addSceneLine| ($ $ $ $ (|DoubleFloat|)))
+ (SIGNATURE |createSceneLine| ($ $ $ (|DoubleFloat|) (|Boolean|)))
+ (SIGNATURE |addSceneLine| ($ $ $ $ (|DoubleFloat|) (|Boolean|)))
+ (SIGNATURE |createSceneLines| ($ (|List| (|List| |#1|))))
+ (SIGNATURE |addSceneLines| ($ $ (|List| (|List| |#1|))))
+ (SIGNATURE |createSceneShape|
+  ($
+   (|Record| (|:| |shptype| (|Symbol|)) (|:| |centre| |#1|) (|:| |size| |#1|)
+             (|:| |fill| (|Boolean|)))))
+ (SIGNATURE |addSceneShape|
+  ($ $
+   (|Record| (|:| |shptype| (|Symbol|)) (|:| |centre| |#1|) (|:| |size| |#1|)
+             (|:| |fill| (|Boolean|)))))
+ (SIGNATURE |createSceneShape| ($ (|SBoundary| |#1|)))
+ (SIGNATURE |addSceneShape| ($ $ (|SBoundary| |#1|)))
+ (SIGNATURE |createSceneDef| ($ (|String|) $))
+ (SIGNATURE |addSceneDef| ($ $ (|String|) $))
+ (SIGNATURE |createSceneUse| ($ (|String|)))
+ (SIGNATURE |addSceneUse| ($ $ (|String|)))
+ (SIGNATURE |createSceneArrows|
+  ($ (|List| (|List| |#1|)) (|Symbol|) (|DoubleFloat|)))
+ (SIGNATURE |addSceneArrows|
+  ($ $ (|List| (|List| |#1|)) (|Symbol|) (|DoubleFloat|)))
+ (SIGNATURE |createSceneArrow|
+  ($ (|String|) (|String|) |#1| (|Symbol|) (|DoubleFloat|)))
+ (SIGNATURE |addSceneArrow|
+  ($ $ (|String|) (|String|) |#1| (|Symbol|) (|DoubleFloat|)))
+ (SIGNATURE |createSceneArrow|
+  ($ $ $ |#1| (|Symbol|) (|DoubleFloat|) (|DoubleFloat|)))
+ (SIGNATURE |addSceneArrow|
+  ($ $ $ $ |#1| (|Symbol|) (|DoubleFloat|) (|DoubleFloat|)))
+ (SIGNATURE |createSceneNamedPoints| ($ (|SceneNamedPoints| |#1|)))
+ (SIGNATURE |addSceneNamedPoints| ($ $ (|SceneNamedPoints| |#1|)))
+ (SIGNATURE |createSceneIFS|
+  ($ (|List| (|List| (|NonNegativeInteger|))) (|List| |#1|)))
+ (SIGNATURE |addSceneIFS|
+  ($ $ (|List| (|List| (|NonNegativeInteger|))) (|List| |#1|)))
+ (SIGNATURE |createSceneIFS| ($ (|SceneIFS| |#1|)))
+ (SIGNATURE |addSceneIFS| ($ $ (|SceneIFS| |#1|)))
+ (SIGNATURE |createSceneBox| ($ (|DoubleFloat|)))
+ (SIGNATURE |addSceneBox| ($ $ (|DoubleFloat|)))
+ (SIGNATURE |createSceneText|
+  ($
+   (|Record| (|:| |txt| (|String|)) (|:| |siz| (|NonNegativeInteger|))
+             (|:| |pos| |#1|) (|:| |np| (|List| (|String|))))))
+ (SIGNATURE |addSceneText|
+  ($ $
+   (|Record| (|:| |txt| (|String|)) (|:| |siz| (|NonNegativeInteger|))
+             (|:| |pos| |#1|) (|:| |np| (|List| (|String|))))))
+ (SIGNATURE |createSceneText| ($ (|String|) (|NonNegativeInteger|) |#1|))
+ (SIGNATURE |addSceneText| ($ $ (|String|) (|NonNegativeInteger|) |#1|))
+ (SIGNATURE |createSceneText|
+  ($ (|List| (|String|)) (|NonNegativeInteger|) |#1|))
+ (SIGNATURE |addSceneText|
+  ($ $ (|List| (|String|)) (|NonNegativeInteger|) |#1|))
+ (SIGNATURE |createSceneClip| ($ (|SBoundary| |#1|)))
+ (SIGNATURE |addSceneClip| ($ $ (|SBoundary| |#1|)))
+ (SIGNATURE |createSceneClip|
+  ($ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+ (SIGNATURE |addSceneClip|
+  ($ $ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+ (SIGNATURE |createSceneGrid| ($ (|DoubleFloat|) (|SBoundary| |#1|)))
+ (SIGNATURE |addSceneGrid| ($ $ (|DoubleFloat|) (|SBoundary| |#1|)))
+ (SIGNATURE |createSceneGrid|
+  ($ (|DoubleFloat|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+ (SIGNATURE |addSceneGrid|
+  ($ $ (|DoubleFloat|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+ (SIGNATURE |createSceneGrid| ($ (|SBoundary| |#1|)))
+ (SIGNATURE |addSceneGrid| ($ $ (|SBoundary| |#1|)))
+ (SIGNATURE |createSceneGrid|
+  ($ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+ (SIGNATURE |addSceneGrid|
+  ($ $ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+ (SIGNATURE |createScenePattern|
+  ($ (|Symbol|) (|NonNegativeInteger|) (|SBoundary| |#1|)))
+ (SIGNATURE |addScenePattern|
+  ($ $ (|Symbol|) (|NonNegativeInteger|) (|SBoundary| |#1|)))
+ (SIGNATURE |createScenePattern|
+  ($ (|Symbol|) (|NonNegativeInteger|)
+   (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+ (SIGNATURE |addScenePattern|
+  ($ $ (|Symbol|) (|NonNegativeInteger|)
+   (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+ (SIGNATURE |createSceneRuler| ($ (|Symbol|) |#1| (|SBoundary| |#1|)))
+ (SIGNATURE |addSceneRuler| ($ $ (|Symbol|) |#1| (|SBoundary| |#1|)))
+ (SIGNATURE |createSceneRuler|
+  ($ (|Symbol|) |#1| (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+ (SIGNATURE |addSceneRuler|
+  ($ $ (|Symbol|) |#1| (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+ (SIGNATURE |createSceneGraph|
+  ($ (|DirectedGraph| (|String|)) (|NonNegativeInteger|) (|NonNegativeInteger|)
+   (|Boolean|)))
+ (SIGNATURE |addSceneGraph|
+  ($ $ (|DirectedGraph| (|String|)) (|NonNegativeInteger|)
+   (|NonNegativeInteger|) (|Boolean|)))
+ (SIGNATURE |createSceneMaterial|
+  ($
+   (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+             (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))))
+ (SIGNATURE |addSceneMaterial|
+  ($ $
+   (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+             (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))))
+ (SIGNATURE |createSceneMaterial| ($ (|DoubleFloat|) (|String|) (|String|)))
+ (SIGNATURE |addSceneMaterial| ($ $ (|DoubleFloat|) (|String|) (|String|)))
+ (SIGNATURE |createSceneTransform| ($ (|STransform| |#1|)))
+ (SIGNATURE |addSceneTransform| ($ $ (|STransform| |#1|)))
+ (SIGNATURE |createPlot1Din2D|
+  ($ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |addPlot1Din2D|
+  ($ $ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |createPlot1Din2D|
+  ($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |addPlot1Din2D|
+  ($ $ (|Mapping| (|DoubleFloat|) (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |createPlot1Din2Dparametric|
+  ($ (|ParametricPlaneCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+   (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|)))
+ (SIGNATURE |addPlot1Din2Dparametric|
+  ($ $ (|ParametricPlaneCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+   (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|)))
+ (SIGNATURE |createPlot1Din3Dparametric|
+  ($ (|ParametricSpaceCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+   (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|)))
+ (SIGNATURE |addPlot1Din3Dparametric|
+  ($ $ (|ParametricSpaceCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+   (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|)))
+ (SIGNATURE |createPlot1Din3Dparametric|
+  ($ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |addPlot1Din3Dparametric|
+  ($ $ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |createPlot2Din3D|
+  ($ (|Mapping| |#1| (|DoubleFloat|) (|DoubleFloat|))
+   (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |createPlot2Din3D|
+  ($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|))
+   (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |addPlot2Din3D|
+  ($ $ (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|))
+   (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |createPlot2Din3Dparametric|
+  ($ (|Mapping| |#1| (|DoubleFloat|) (|DoubleFloat|))
+   (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |addPlot2Din3Dparametric|
+  ($ $ (|Mapping| |#1| (|DoubleFloat|) (|DoubleFloat|))
+   (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |createPlot2Din3Dparametric|
+  ($
+   (|ParametricSurface|
+    (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)))
+   (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |addPlot2Din3Dparametric|
+  ($ $
+   (|ParametricSurface|
+    (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)))
+   (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |createArrows2Din2D|
+  ($ (|Mapping| |#1| |#1|) (|Segment| (|DoubleFloat|))
+   (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|)))
+ (SIGNATURE |addArrows2Din2D|
+  ($ $ (|Mapping| |#1| |#1|) (|Segment| (|DoubleFloat|))
+   (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|)))
+ (SIGNATURE |boundary| ((|SBoundary| |#1|) $ (|DoubleFloat|)))
+ (SIGNATURE |addChild!| ((|Void|) $ $))
+ (SIGNATURE |removeChild!| ((|Void|) $ $))
+ (SIGNATURE |setTransform!| ((|Void|) $ (|STransform| |#1|)))
+ (SIGNATURE |toSVG|
+  ((|XmlElement|) $
+   (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+             (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+   (|STransform| |#1|) (|SBoundary| |#1|) (|DoubleFloat|) (|Boolean|)
+   (|Boolean|) (|SceneNamedPoints| |#1|)))
+ (SIGNATURE |toSVG|
+  ((|XmlElement|) $
+   (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+             (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+   (|STransform| |#1|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))
+   (|DoubleFloat|) (|Boolean|) (|Boolean|) (|SceneNamedPoints| |#1|)))
+ (SIGNATURE |toX3D|
+  ((|XmlElement|) $
+   (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+             (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+   (|STransform| |#1|) (|SBoundary| |#1|)))
+ (SIGNATURE |toX3D|
+  ((|XmlElement|) $
+   (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+             (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+   (|STransform| |#1|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+ (SIGNATURE |toObj|
+  ((|Void|) $ (|Reference| (|List| |#1|))
+   (|Reference| (|List| (|List| (|NonNegativeInteger|))))
+   (|Reference| (|NonNegativeInteger|)) (|STransform| |#1|)
+   (|SBoundary| |#1|)))
+ (SIGNATURE |toObj|
+  ((|Void|) $ (|Reference| (|List| |#1|))
+   (|Reference| (|List| (|List| (|NonNegativeInteger|))))
+   (|Reference| (|NonNegativeInteger|)) (|STransform| |#1|)
+   (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))))
+ (SIGNATURE |writeSvg| ((|Void|) $ (|String|)))
+ (SIGNATURE |writeSvgQuantised| ((|Void|) $ (|String|)))
+ (SIGNATURE |writeX3d| ((|Void|) $ (|String|)))
+ (SIGNATURE |writeVRML| ((|Void|) $ (|String|)))
+ (SIGNATURE |writeObj| ((|Void|) $ (|String|)))
+ (SIGNATURE |coerce| ((|OutputForm|) $)))
+"/git/fricas/src/algebra/SCENE.spad"
+((|coerce| (*1 *2 *1)
+           (AND (|isDomain| *2 (|OutputForm|)) (|isDomain| *1 (|Scene| *3))
+                (|ofCategory| *3 (|SPointCategory|))))
+ (|writeObj| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|Scene| *4)) (|ofCategory| *4 (|SPointCategory|))))
+ (|writeVRML| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|Scene| *4)) (|ofCategory| *4 (|SPointCategory|))))
+ (|writeX3d| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|Scene| *4)) (|ofCategory| *4 (|SPointCategory|))))
+ (|writeSvgQuantised| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|Scene| *4)) (|ofCategory| *4 (|SPointCategory|))))
+ (|writeSvg| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|Scene| *4)) (|ofCategory| *4 (|SPointCategory|))))
+ (|toObj| (*1 *2 *1 *3 *4 *5 *6 *7)
+  (AND (|isDomain| *3 (|Reference| (|List| *8)))
+       (|isDomain| *4 (|Reference| (|List| (|List| (|NonNegativeInteger|)))))
+       (|isDomain| *5 (|Reference| (|NonNegativeInteger|)))
+       (|isDomain| *6 (|STransform| *8))
+       (|isDomain| *7 (|Record| (|:| |mins| *8) (|:| |maxs| *8)))
+       (|ofCategory| *8 (|SPointCategory|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|Scene| *8))))
+ (|toObj| (*1 *2 *1 *3 *4 *5 *6 *7)
+  (AND (|isDomain| *3 (|Reference| (|List| *8)))
+       (|isDomain| *4 (|Reference| (|List| (|List| (|NonNegativeInteger|)))))
+       (|isDomain| *5 (|Reference| (|NonNegativeInteger|)))
+       (|isDomain| *6 (|STransform| *8)) (|isDomain| *7 (|SBoundary| *8))
+       (|ofCategory| *8 (|SPointCategory|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|Scene| *8))))
+ (|toX3D| (*1 *2 *1 *3 *4 *5)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |lineWidth| (|DoubleFloat|))
+                         (|:| |lineCol| (|String|)) (|:| |fillCol| (|String|))
+                         (|:| |matOpacity| (|DoubleFloat|))))
+   (|isDomain| *4 (|STransform| *6))
+   (|isDomain| *5 (|Record| (|:| |mins| *6) (|:| |maxs| *6)))
+   (|ofCategory| *6 (|SPointCategory|)) (|isDomain| *2 (|XmlElement|))
+   (|isDomain| *1 (|Scene| *6))))
+ (|toX3D| (*1 *2 *1 *3 *4 *5)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |lineWidth| (|DoubleFloat|))
+                         (|:| |lineCol| (|String|)) (|:| |fillCol| (|String|))
+                         (|:| |matOpacity| (|DoubleFloat|))))
+   (|isDomain| *4 (|STransform| *6)) (|isDomain| *5 (|SBoundary| *6))
+   (|ofCategory| *6 (|SPointCategory|)) (|isDomain| *2 (|XmlElement|))
+   (|isDomain| *1 (|Scene| *6))))
+ (|toSVG| (*1 *2 *1 *3 *4 *5 *6 *7 *7 *8)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |lineWidth| (|DoubleFloat|))
+                         (|:| |lineCol| (|String|)) (|:| |fillCol| (|String|))
+                         (|:| |matOpacity| (|DoubleFloat|))))
+   (|isDomain| *4 (|STransform| *9))
+   (|isDomain| *5 (|Record| (|:| |mins| *9) (|:| |maxs| *9)))
+   (|isDomain| *6 (|DoubleFloat|)) (|isDomain| *7 (|Boolean|))
+   (|isDomain| *8 (|SceneNamedPoints| *9)) (|ofCategory| *9 (|SPointCategory|))
+   (|isDomain| *2 (|XmlElement|)) (|isDomain| *1 (|Scene| *9))))
+ (|toSVG| (*1 *2 *1 *3 *4 *5 *6 *7 *7 *8)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |lineWidth| (|DoubleFloat|))
+                         (|:| |lineCol| (|String|)) (|:| |fillCol| (|String|))
+                         (|:| |matOpacity| (|DoubleFloat|))))
+   (|isDomain| *4 (|STransform| *9)) (|isDomain| *5 (|SBoundary| *9))
+   (|isDomain| *6 (|DoubleFloat|)) (|isDomain| *7 (|Boolean|))
+   (|isDomain| *8 (|SceneNamedPoints| *9)) (|ofCategory| *9 (|SPointCategory|))
+   (|isDomain| *2 (|XmlElement|)) (|isDomain| *1 (|Scene| *9))))
+ (|setTransform!| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|STransform| *4)) (|ofCategory| *4 (|SPointCategory|))
+       (|isDomain| *2 (|Void|)) (|isDomain| *1 (|Scene| *4))))
+ (|removeChild!| (*1 *2 *1 *1)
+  (AND (|isDomain| *2 (|Void|)) (|isDomain| *1 (|Scene| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|addChild!| (*1 *2 *1 *1)
+  (AND (|isDomain| *2 (|Void|)) (|isDomain| *1 (|Scene| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|boundary| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|DoubleFloat|)) (|isDomain| *2 (|SBoundary| *4))
+       (|isDomain| *1 (|Scene| *4)) (|ofCategory| *4 (|SPointCategory|))))
+ (|addArrows2Din2D| (*1 *1 *1 *2 *3 *3 *4)
+  (AND (|isDomain| *2 (|Mapping| *5 *5))
+       (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|SPointCategory|)) (|isDomain| *1 (|Scene| *5))))
+ (|createArrows2Din2D| (*1 *1 *2 *3 *3 *4)
+  (AND (|isDomain| *2 (|Mapping| *5 *5))
+       (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|SPointCategory|)) (|isDomain| *1 (|Scene| *5))))
+ (|addPlot2Din3Dparametric| (*1 *1 *1 *2 *3 *3 *4)
+  (AND
+   (|isDomain| *2
+               (|ParametricSurface|
+                (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|))))
+   (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+   (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *1 (|Scene| *5))
+   (|ofCategory| *5 (|SPointCategory|))))
+ (|createPlot2Din3Dparametric| (*1 *1 *2 *3 *3 *4)
+  (AND
+   (|isDomain| *2
+               (|ParametricSurface|
+                (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|))))
+   (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+   (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *1 (|Scene| *5))
+   (|ofCategory| *5 (|SPointCategory|))))
+ (|addPlot2Din3Dparametric| (*1 *1 *1 *2 *3 *3 *4)
+  (AND (|isDomain| *2 (|Mapping| *5 (|DoubleFloat|) (|DoubleFloat|)))
+       (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|SPointCategory|)) (|isDomain| *1 (|Scene| *5))))
+ (|createPlot2Din3Dparametric| (*1 *1 *2 *3 *3 *4)
+  (AND (|isDomain| *2 (|Mapping| *5 (|DoubleFloat|) (|DoubleFloat|)))
+       (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|SPointCategory|)) (|isDomain| *1 (|Scene| *5))))
+ (|addPlot2Din3D| (*1 *1 *1 *2 *3 *3 *4)
+  (AND
+   (|isDomain| *2 (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)))
+   (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+   (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *1 (|Scene| *5))
+   (|ofCategory| *5 (|SPointCategory|))))
+ (|createPlot2Din3D| (*1 *1 *2 *3 *3 *4)
+  (AND
+   (|isDomain| *2 (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)))
+   (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+   (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *1 (|Scene| *5))
+   (|ofCategory| *5 (|SPointCategory|))))
+ (|createPlot2Din3D| (*1 *1 *2 *3 *3 *4)
+  (AND (|isDomain| *2 (|Mapping| *5 (|DoubleFloat|) (|DoubleFloat|)))
+       (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|SPointCategory|)) (|isDomain| *1 (|Scene| *5))))
+ (|addPlot1Din3Dparametric| (*1 *1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Mapping| *5 (|DoubleFloat|)))
+       (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|SPointCategory|)) (|isDomain| *1 (|Scene| *5))))
+ (|createPlot1Din3Dparametric| (*1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Mapping| *5 (|DoubleFloat|)))
+       (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|SPointCategory|)) (|isDomain| *1 (|Scene| *5))))
+ (|addPlot1Din3Dparametric| (*1 *1 *1 *2 *3 *4)
+  (AND
+   (|isDomain| *2
+               (|ParametricSpaceCurve|
+                (|Mapping| (|DoubleFloat|) (|DoubleFloat|))))
+   (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+   (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *1 (|Scene| *5))
+   (|ofCategory| *5 (|SPointCategory|))))
+ (|createPlot1Din3Dparametric| (*1 *1 *2 *3 *4)
+  (AND
+   (|isDomain| *2
+               (|ParametricSpaceCurve|
+                (|Mapping| (|DoubleFloat|) (|DoubleFloat|))))
+   (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+   (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *1 (|Scene| *5))
+   (|ofCategory| *5 (|SPointCategory|))))
+ (|addPlot1Din2Dparametric| (*1 *1 *1 *2 *3 *4)
+  (AND
+   (|isDomain| *2
+               (|ParametricPlaneCurve|
+                (|Mapping| (|DoubleFloat|) (|DoubleFloat|))))
+   (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+   (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *1 (|Scene| *5))
+   (|ofCategory| *5 (|SPointCategory|))))
+ (|createPlot1Din2Dparametric| (*1 *1 *2 *3 *4)
+  (AND
+   (|isDomain| *2
+               (|ParametricPlaneCurve|
+                (|Mapping| (|DoubleFloat|) (|DoubleFloat|))))
+   (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+   (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *1 (|Scene| *5))
+   (|ofCategory| *5 (|SPointCategory|))))
+ (|addPlot1Din2D| (*1 *1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+       (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *1 (|Scene| *5))
+       (|ofCategory| *5 (|SPointCategory|))))
+ (|createPlot1Din2D| (*1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+       (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *1 (|Scene| *5))
+       (|ofCategory| *5 (|SPointCategory|))))
+ (|addPlot1Din2D| (*1 *1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Mapping| *5 (|DoubleFloat|)))
+       (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|SPointCategory|)) (|isDomain| *1 (|Scene| *5))))
+ (|createPlot1Din2D| (*1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Mapping| *5 (|DoubleFloat|)))
+       (|isDomain| *3 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|SPointCategory|)) (|isDomain| *1 (|Scene| *5))))
+ (|addSceneTransform| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|STransform| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *3))))
+ (|createSceneTransform| (*1 *1 *2)
+  (AND (|isDomain| *2 (|STransform| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *3))))
+ (|addSceneMaterial| (*1 *1 *1 *2 *3 *3)
+  (AND (|isDomain| *2 (|DoubleFloat|)) (|isDomain| *3 (|String|))
+       (|isDomain| *1 (|Scene| *4)) (|ofCategory| *4 (|SPointCategory|))))
+ (|createSceneMaterial| (*1 *1 *2 *3 *3)
+  (AND (|isDomain| *2 (|DoubleFloat|)) (|isDomain| *3 (|String|))
+       (|isDomain| *1 (|Scene| *4)) (|ofCategory| *4 (|SPointCategory|))))
+ (|addSceneMaterial| (*1 *1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |lineWidth| (|DoubleFloat|))
+                         (|:| |lineCol| (|String|)) (|:| |fillCol| (|String|))
+                         (|:| |matOpacity| (|DoubleFloat|))))
+   (|isDomain| *1 (|Scene| *3)) (|ofCategory| *3 (|SPointCategory|))))
+ (|createSceneMaterial| (*1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |lineWidth| (|DoubleFloat|))
+                         (|:| |lineCol| (|String|)) (|:| |fillCol| (|String|))
+                         (|:| |matOpacity| (|DoubleFloat|))))
+   (|isDomain| *1 (|Scene| *3)) (|ofCategory| *3 (|SPointCategory|))))
+ (|addSceneGraph| (*1 *1 *1 *2 *3 *3 *4)
+  (AND (|isDomain| *2 (|DirectedGraph| (|String|)))
+       (|isDomain| *3 (|NonNegativeInteger|)) (|isDomain| *4 (|Boolean|))
+       (|isDomain| *1 (|Scene| *5)) (|ofCategory| *5 (|SPointCategory|))))
+ (|createSceneGraph| (*1 *1 *2 *3 *3 *4)
+  (AND (|isDomain| *2 (|DirectedGraph| (|String|)))
+       (|isDomain| *3 (|NonNegativeInteger|)) (|isDomain| *4 (|Boolean|))
+       (|isDomain| *1 (|Scene| *5)) (|ofCategory| *5 (|SPointCategory|))))
+ (|addSceneRuler| (*1 *1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Symbol|))
+       (|isDomain| *4 (|Record| (|:| |mins| *3) (|:| |maxs| *3)))
+       (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|createSceneRuler| (*1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Symbol|))
+       (|isDomain| *4 (|Record| (|:| |mins| *3) (|:| |maxs| *3)))
+       (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|addSceneRuler| (*1 *1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Symbol|)) (|isDomain| *4 (|SBoundary| *3))
+       (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|createSceneRuler| (*1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Symbol|)) (|isDomain| *4 (|SBoundary| *3))
+       (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|addScenePattern| (*1 *1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Symbol|)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *4 (|Record| (|:| |mins| *5) (|:| |maxs| *5)))
+       (|ofCategory| *5 (|SPointCategory|)) (|isDomain| *1 (|Scene| *5))))
+ (|createScenePattern| (*1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Symbol|)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *4 (|Record| (|:| |mins| *5) (|:| |maxs| *5)))
+       (|ofCategory| *5 (|SPointCategory|)) (|isDomain| *1 (|Scene| *5))))
+ (|addScenePattern| (*1 *1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Symbol|)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *4 (|SBoundary| *5)) (|ofCategory| *5 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *5))))
+ (|createScenePattern| (*1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Symbol|)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *4 (|SBoundary| *5)) (|ofCategory| *5 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *5))))
+ (|addSceneGrid| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|Record| (|:| |mins| *3) (|:| |maxs| *3)))
+       (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|createSceneGrid| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Record| (|:| |mins| *3) (|:| |maxs| *3)))
+       (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|addSceneGrid| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|SBoundary| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *3))))
+ (|createSceneGrid| (*1 *1 *2)
+  (AND (|isDomain| *2 (|SBoundary| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *3))))
+ (|addSceneGrid| (*1 *1 *1 *2 *3)
+  (AND (|isDomain| *2 (|DoubleFloat|))
+       (|isDomain| *3 (|Record| (|:| |mins| *4) (|:| |maxs| *4)))
+       (|ofCategory| *4 (|SPointCategory|)) (|isDomain| *1 (|Scene| *4))))
+ (|createSceneGrid| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|DoubleFloat|))
+       (|isDomain| *3 (|Record| (|:| |mins| *4) (|:| |maxs| *4)))
+       (|ofCategory| *4 (|SPointCategory|)) (|isDomain| *1 (|Scene| *4))))
+ (|addSceneGrid| (*1 *1 *1 *2 *3)
+  (AND (|isDomain| *2 (|DoubleFloat|)) (|isDomain| *3 (|SBoundary| *4))
+       (|ofCategory| *4 (|SPointCategory|)) (|isDomain| *1 (|Scene| *4))))
+ (|createSceneGrid| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|DoubleFloat|)) (|isDomain| *3 (|SBoundary| *4))
+       (|ofCategory| *4 (|SPointCategory|)) (|isDomain| *1 (|Scene| *4))))
+ (|addSceneClip| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|Record| (|:| |mins| *3) (|:| |maxs| *3)))
+       (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|createSceneClip| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Record| (|:| |mins| *3) (|:| |maxs| *3)))
+       (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|addSceneClip| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|SBoundary| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *3))))
+ (|createSceneClip| (*1 *1 *2)
+  (AND (|isDomain| *2 (|SBoundary| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *3))))
+ (|addSceneText| (*1 *1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|List| (|String|)))
+       (|isDomain| *3 (|NonNegativeInteger|)) (|isDomain| *1 (|Scene| *4))
+       (|ofCategory| *4 (|SPointCategory|))))
+ (|createSceneText| (*1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|List| (|String|)))
+       (|isDomain| *3 (|NonNegativeInteger|)) (|isDomain| *1 (|Scene| *4))
+       (|ofCategory| *4 (|SPointCategory|))))
+ (|addSceneText| (*1 *1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|String|)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *1 (|Scene| *4)) (|ofCategory| *4 (|SPointCategory|))))
+ (|createSceneText| (*1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|String|)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *1 (|Scene| *4)) (|ofCategory| *4 (|SPointCategory|))))
+ (|addSceneText| (*1 *1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |txt| (|String|))
+                         (|:| |siz| (|NonNegativeInteger|)) (|:| |pos| *3)
+                         (|:| |np| (|List| (|String|)))))
+   (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|createSceneText| (*1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |txt| (|String|))
+                         (|:| |siz| (|NonNegativeInteger|)) (|:| |pos| *3)
+                         (|:| |np| (|List| (|String|)))))
+   (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|addSceneBox| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|DoubleFloat|)) (|isDomain| *1 (|Scene| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|createSceneBox| (*1 *1 *2)
+  (AND (|isDomain| *2 (|DoubleFloat|)) (|isDomain| *1 (|Scene| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|addSceneIFS| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|SceneIFS| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *3))))
+ (|createSceneIFS| (*1 *1 *2)
+  (AND (|isDomain| *2 (|SceneIFS| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *3))))
+ (|addSceneIFS| (*1 *1 *1 *2 *3)
+  (AND (|isDomain| *2 (|List| (|List| (|NonNegativeInteger|))))
+       (|isDomain| *3 (|List| *4)) (|ofCategory| *4 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *4))))
+ (|createSceneIFS| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|List| (|List| (|NonNegativeInteger|))))
+       (|isDomain| *3 (|List| *4)) (|ofCategory| *4 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *4))))
+ (|addSceneNamedPoints| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|SceneNamedPoints| *3))
+       (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|createSceneNamedPoints| (*1 *1 *2)
+  (AND (|isDomain| *2 (|SceneNamedPoints| *3))
+       (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|addSceneArrow| (*1 *1 *1 *1 *1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *4 (|DoubleFloat|))
+       (|isDomain| *1 (|Scene| *2)) (|ofCategory| *2 (|SPointCategory|))))
+ (|createSceneArrow| (*1 *1 *1 *1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *4 (|DoubleFloat|))
+       (|isDomain| *1 (|Scene| *2)) (|ofCategory| *2 (|SPointCategory|))))
+ (|addSceneArrow| (*1 *1 *1 *2 *2 *3 *4 *5)
+  (AND (|isDomain| *2 (|String|)) (|isDomain| *4 (|Symbol|))
+       (|isDomain| *5 (|DoubleFloat|)) (|isDomain| *1 (|Scene| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|createSceneArrow| (*1 *1 *2 *2 *3 *4 *5)
+  (AND (|isDomain| *2 (|String|)) (|isDomain| *4 (|Symbol|))
+       (|isDomain| *5 (|DoubleFloat|)) (|isDomain| *1 (|Scene| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|addSceneArrows| (*1 *1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|List| (|List| *5))) (|isDomain| *3 (|Symbol|))
+       (|isDomain| *4 (|DoubleFloat|)) (|ofCategory| *5 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *5))))
+ (|createSceneArrows| (*1 *1 *2 *3 *4)
+  (AND (|isDomain| *2 (|List| (|List| *5))) (|isDomain| *3 (|Symbol|))
+       (|isDomain| *4 (|DoubleFloat|)) (|ofCategory| *5 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *5))))
+ (|addSceneUse| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|String|)) (|isDomain| *1 (|Scene| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|createSceneUse| (*1 *1 *2)
+  (AND (|isDomain| *2 (|String|)) (|isDomain| *1 (|Scene| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|addSceneDef| (*1 *1 *1 *2 *1)
+  (AND (|isDomain| *2 (|String|)) (|isDomain| *1 (|Scene| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|createSceneDef| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|String|)) (|isDomain| *1 (|Scene| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|addSceneShape| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|SBoundary| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *3))))
+ (|createSceneShape| (*1 *1 *2)
+  (AND (|isDomain| *2 (|SBoundary| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *3))))
+ (|addSceneShape| (*1 *1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |shptype| (|Symbol|)) (|:| |centre| *3)
+                         (|:| |size| *3) (|:| |fill| (|Boolean|))))
+   (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|createSceneShape| (*1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |shptype| (|Symbol|)) (|:| |centre| *3)
+                         (|:| |size| *3) (|:| |fill| (|Boolean|))))
+   (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|addSceneLines| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|List| *3)))
+       (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|createSceneLines| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|List| *3)))
+       (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|addSceneLine| (*1 *1 *1 *1 *1 *2 *3)
+  (AND (|isDomain| *2 (|DoubleFloat|)) (|isDomain| *3 (|Boolean|))
+       (|isDomain| *1 (|Scene| *4)) (|ofCategory| *4 (|SPointCategory|))))
+ (|createSceneLine| (*1 *1 *1 *1 *2 *3)
+  (AND (|isDomain| *2 (|DoubleFloat|)) (|isDomain| *3 (|Boolean|))
+       (|isDomain| *1 (|Scene| *4)) (|ofCategory| *4 (|SPointCategory|))))
+ (|addSceneLine| (*1 *1 *1 *1 *1 *2)
+  (AND (|isDomain| *2 (|DoubleFloat|)) (|isDomain| *1 (|Scene| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|createSceneLine| (*1 *1 *1 *1 *2)
+  (AND (|isDomain| *2 (|DoubleFloat|)) (|isDomain| *1 (|Scene| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|addSceneLine| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *3))))
+ (|createSceneLine| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *3))))
+ (|addSceneGroup| (*1 *1 *1)
+  (AND (|isDomain| *1 (|Scene| *2)) (|ofCategory| *2 (|SPointCategory|))))
+ (|createSceneGroup| (*1 *1)
+  (AND (|isDomain| *1 (|Scene| *2)) (|ofCategory| *2 (|SPointCategory|))))
+ (|createSceneRoot| (*1 *1 *2 *2 *2 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|Scene| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|createSceneRoot| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Record| (|:| |mins| *3) (|:| |maxs| *3)))
+       (|ofCategory| *3 (|SPointCategory|)) (|isDomain| *1 (|Scene| *3))))
+ (|createSceneRoot| (*1 *1 *2)
+  (AND (|isDomain| *2 (|SBoundary| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|Scene| *3))))
+ (|createSceneRoot| (*1 *1)
+  (AND (|isDomain| *1 (|Scene| *2)) (|ofCategory| *2 (|SPointCategory|)))))
+((|writeX3d| (((|Void|) $ (|String|)) 197))
+ (|writeVRML| (((|Void|) $ (|String|)) 222))
+ (|writeSvgQuantised| (((|Void|) $ (|String|)) 186))
+ (|writeSvg| (((|Void|) $ (|String|)) 185))
+ (|writeObj| (((|Void|) $ (|String|)) 220))
+ (|toX3D|
+  (((|XmlElement|) $
+    (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+              (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+    (|STransform| |#1|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   196)
+  (((|XmlElement|) $
+    (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+              (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+    (|STransform| |#1|) (|SBoundary| |#1|))
+   192))
+ (|toSVG|
+  (((|XmlElement|) $
+    (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+              (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+    (|STransform| |#1|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))
+    (|DoubleFloat|) (|Boolean|) (|Boolean|) (|SceneNamedPoints| |#1|))
+   180)
+  (((|XmlElement|) $
+    (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+              (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+    (|STransform| |#1|) (|SBoundary| |#1|) (|DoubleFloat|) (|Boolean|)
+    (|Boolean|) (|SceneNamedPoints| |#1|))
+   177))
+ (|toObj|
+  (((|Void|) $ (|Reference| (|List| |#1|))
+    (|Reference| (|List| (|List| (|NonNegativeInteger|))))
+    (|Reference| (|NonNegativeInteger|)) (|STransform| |#1|)
+    (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   210)
+  (((|Void|) $ (|Reference| (|List| |#1|))
+    (|Reference| (|List| (|List| (|NonNegativeInteger|))))
+    (|Reference| (|NonNegativeInteger|)) (|STransform| |#1|)
+    (|SBoundary| |#1|))
+   201))
+ (|setTransform!| (((|Void|) $ (|STransform| |#1|)) 150))
+ (|removeChild!| (((|Void|) $ $) 148)) (|createSceneUse| (($ (|String|)) 48))
+ (|createSceneTransform| (($ (|STransform| |#1|)) 138))
+ (|createSceneText| (($ (|List| (|String|)) (|NonNegativeInteger|) |#1|) 78)
+  (($ (|String|) (|NonNegativeInteger|) |#1|) 75)
+  (($
+    (|Record| (|:| |txt| (|String|)) (|:| |siz| (|NonNegativeInteger|))
+              (|:| |pos| |#1|) (|:| |np| (|List| (|String|)))))
+   72))
+ (|createSceneShape| (($ (|SBoundary| |#1|)) 43)
+  (($
+    (|Record| (|:| |shptype| (|Symbol|)) (|:| |centre| |#1|) (|:| |size| |#1|)
+              (|:| |fill| (|Boolean|))))
+   38))
+ (|createSceneRuler|
+  (($ (|Symbol|) |#1| (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))) 124)
+  (($ (|Symbol|) |#1| (|SBoundary| |#1|)) 122))
+ (|createSceneRoot| (($ (|Integer|) (|Integer|) (|Integer|) (|Integer|)) 15)
+  (($ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))) 12)
+  (($ (|SBoundary| |#1|)) 9) (($) 17))
+ (|createScenePattern|
+  (($ (|Symbol|) (|NonNegativeInteger|)
+    (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   115)
+  (($ (|Symbol|) (|NonNegativeInteger|) (|SBoundary| |#1|)) 113))
+ (|createSceneNamedPoints| (($ (|SceneNamedPoints| |#1|)) 58))
+ (|createSceneMaterial| (($ (|DoubleFloat|) (|String|) (|String|)) 135)
+  (($
+    (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+              (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|))))
+   134))
+ (|createSceneLines| (($ (|List| (|List| |#1|))) 35))
+ (|createSceneLine| (($ $ $ (|DoubleFloat|) (|Boolean|)) 27)
+  (($ $ $ (|DoubleFloat|)) 28) (($ (|List| |#1|)) 23))
+ (|createSceneIFS| (($ (|SceneIFS| |#1|)) 66)
+  (($ (|List| (|List| (|NonNegativeInteger|))) (|List| |#1|)) 61))
+ (|createSceneGroup| (($) 18))
+ (|createSceneGrid| (($ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))) 99)
+  (($ (|SBoundary| |#1|)) 97)
+  (($ (|DoubleFloat|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))) 89)
+  (($ (|DoubleFloat|) (|SBoundary| |#1|)) 87))
+ (|createSceneGraph|
+  (($ (|DirectedGraph| (|String|)) (|NonNegativeInteger|)
+    (|NonNegativeInteger|) (|Boolean|))
+   132))
+ (|createSceneDef| (($ (|String|) $) 46))
+ (|createSceneClip| (($ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))) 82)
+  (($ (|SBoundary| |#1|)) 80))
+ (|createSceneBox| (($ (|DoubleFloat|)) 69))
+ (|createSceneArrows|
+  (($ (|List| (|List| |#1|)) (|Symbol|) (|DoubleFloat|)) 51))
+ (|createSceneArrow|
+  (($ $ $ |#1| (|Symbol|) (|DoubleFloat|) (|DoubleFloat|)) 55)
+  (($ (|String|) (|String|) |#1| (|Symbol|) (|DoubleFloat|)) 53))
+ (|createPlot2Din3Dparametric|
+  (($
+    (|ParametricSurface|
+     (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   260)
+  (($ (|Mapping| |#1| (|DoubleFloat|) (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   262))
+ (|createPlot2Din3D|
+  (($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   252)
+  (($ (|Mapping| |#1| (|DoubleFloat|) (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   248))
+ (|createPlot1Din3Dparametric|
+  (($ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   243)
+  (($ (|ParametricSpaceCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|))
+   244))
+ (|createPlot1Din2Dparametric|
+  (($ (|ParametricPlaneCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|))
+   239))
+ (|createPlot1Din2D|
+  (($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   235)
+  (($ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   230))
+ (|createArrows2Din2D|
+  (($ (|Mapping| |#1| |#1|) (|Segment| (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|))
+   144))
+ (|coerce| (((|OutputForm|) $) 284))
+ (|boundary| (((|SBoundary| |#1|) $ (|DoubleFloat|)) 31))
+ (|addSceneUse| (($ $ (|String|)) 49))
+ (|addSceneTransform| (($ $ (|STransform| |#1|)) 139))
+ (|addSceneText| (($ $ (|List| (|String|)) (|NonNegativeInteger|) |#1|) 79)
+  (($ $ (|String|) (|NonNegativeInteger|) |#1|) 76)
+  (($ $
+    (|Record| (|:| |txt| (|String|)) (|:| |siz| (|NonNegativeInteger|))
+              (|:| |pos| |#1|) (|:| |np| (|List| (|String|)))))
+   73))
+ (|addSceneShape| (($ $ (|SBoundary| |#1|)) 44)
+  (($ $
+    (|Record| (|:| |shptype| (|Symbol|)) (|:| |centre| |#1|) (|:| |size| |#1|)
+              (|:| |fill| (|Boolean|))))
+   39))
+ (|addSceneRuler|
+  (($ $ (|Symbol|) |#1| (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))) 125)
+  (($ $ (|Symbol|) |#1| (|SBoundary| |#1|)) 123))
+ (|addScenePattern|
+  (($ $ (|Symbol|) (|NonNegativeInteger|)
+    (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   116)
+  (($ $ (|Symbol|) (|NonNegativeInteger|) (|SBoundary| |#1|)) 114))
+ (|addSceneNamedPoints| (($ $ (|SceneNamedPoints| |#1|)) 59))
+ (|addSceneMaterial| (($ $ (|DoubleFloat|) (|String|) (|String|)) 136)
+  (($ $
+    (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+              (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|))))
+   96))
+ (|addSceneLines| (($ $ (|List| (|List| |#1|))) 36))
+ (|addSceneLine| (($ $ $ $ (|DoubleFloat|) (|Boolean|)) 29)
+  (($ $ $ $ (|DoubleFloat|)) 30) (($ $ (|List| |#1|)) 24))
+ (|addSceneIFS| (($ $ (|SceneIFS| |#1|)) 67)
+  (($ $ (|List| (|List| (|NonNegativeInteger|))) (|List| |#1|)) 62))
+ (|addSceneGroup| (($ $) 21))
+ (|addSceneGrid| (($ $ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))) 100)
+  (($ $ (|SBoundary| |#1|)) 98)
+  (($ $ (|DoubleFloat|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))) 90)
+  (($ $ (|DoubleFloat|) (|SBoundary| |#1|)) 88))
+ (|addSceneGraph|
+  (($ $ (|DirectedGraph| (|String|)) (|NonNegativeInteger|)
+    (|NonNegativeInteger|) (|Boolean|))
+   133))
+ (|addSceneDef| (($ $ (|String|) $) 47))
+ (|addSceneClip| (($ $ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))) 83)
+  (($ $ (|SBoundary| |#1|)) 81))
+ (|addSceneBox| (($ $ (|DoubleFloat|)) 70))
+ (|addSceneArrows|
+  (($ $ (|List| (|List| |#1|)) (|Symbol|) (|DoubleFloat|)) 52))
+ (|addSceneArrow|
+  (($ $ $ $ |#1| (|Symbol|) (|DoubleFloat|) (|DoubleFloat|)) 56)
+  (($ $ (|String|) (|String|) |#1| (|Symbol|) (|DoubleFloat|)) 54))
+ (|addPlot2Din3Dparametric|
+  (($ $
+    (|ParametricSurface|
+     (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   261)
+  (($ $ (|Mapping| |#1| (|DoubleFloat|) (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   263))
+ (|addPlot2Din3D|
+  (($ $ (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   253))
+ (|addPlot1Din3Dparametric|
+  (($ $ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   246)
+  (($ $ (|ParametricSpaceCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|))
+   245))
+ (|addPlot1Din2Dparametric|
+  (($ $ (|ParametricPlaneCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|))
+   240))
+ (|addPlot1Din2D|
+  (($ $ (|Mapping| (|DoubleFloat|) (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   236)
+  (($ $ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   231))
+ (|addChild!| (((|Void|) $ $) 20))
+ (|addArrows2Din2D|
+  (($ $ (|Mapping| |#1| |#1|) (|Segment| (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|))
+   145)))
+SCENE
+((|constructor|
+  (NIL
+   "\\indented{1}{these are the parameters that can be set for nodes of} various types"))
+ (|coerce|
+  (((|OutputForm|) $)
+   "output a full scenegraph could contain a lot of data and so we have to be careful to restrict the output to what is reasonable on the command line. Therefore we do not display all subnodes or the full information from nodes such as IFS."))
+ (|writeObj|
+  (((|Void|) $ (|String|))
+   "\\spad{writeObj(n,{} filename)} writes an 'OBJ' (Wavefront) representation of node \\spad{'n'} to the filename supplied."))
+ (|writeVRML|
+  (((|Void|) $ (|String|))
+   "\\spad{writeVRML(n,{} filename)} writes an 'VRML' representation of node \\spad{'n'} to the filename supplied."))
+ (|writeX3d|
+  (((|Void|) $ (|String|))
+   "writeX3d: (\\spad{n},{} filename) writes an 'X3D' representation of node \\spad{'n'} to the filename supplied."))
+ (|writeSvgQuantised|
+  (((|Void|) $ (|String|))
+   "\\spad{writeSvgQuantised(n,{} filename)} writes an 'SVG' representation of node \\spad{'n'} to the filename supplied."))
+ (|writeSvg|
+  (((|Void|) $ (|String|))
+   "\\spad{writeSvg(n,{} filename)} writes an 'SVG' representation of node \\spad{'n'} to the filename supplied."))
+ (|toObj|
+  (((|Void|) $ (|Reference| (|List| |#1|))
+    (|Reference| (|List| (|List| (|NonNegativeInteger|))))
+    (|Reference| (|NonNegativeInteger|)) (|STransform| |#1|)
+    (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (((|Void|) $ (|Reference| (|List| |#1|))
+    (|Reference| (|List| (|List| (|NonNegativeInteger|))))
+    (|Reference| (|NonNegativeInteger|)) (|STransform| |#1|)
+    (|SBoundary| |#1|))
+   "\\spad{toObj(n,{} ptLst,{} indexLst,{} indexNxt,{} tran,{} bb)} creates an .OBJ (Wavefront) file from scenegraph tree structure called recursively for each node,{} so when called on root node in scenegraph all other nodes in the scenegraph will get called. \\spad{n} is the scene to be output to \\spad{ptLst} and \\spad{indexLst} \\spad{ptLst} is the points. This will be set to ref([]) at the start \\indented{6}{and will be built up as this function is called recursively} \\spad{indexLst} is list of faces,{} where faces are list of points indexed \\indented{9}{by \\spad{ptLst} This will be set to ref([]) at the start} \\indented{6}{and will be built up as this function is called recursively} \\spad{tran} is the default transform which may be overridden by subnodes \\spad{bb} is the default boundary which may be overridden by subnodes"))
+ (|toX3D|
+  (((|XmlElement|) $
+    (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+              (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+    (|STransform| |#1|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (((|XmlElement|) $
+    (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+              (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+    (|STransform| |#1|) (|SBoundary| |#1|))
+   "\\spad{toX3D(n,{} mat,{} tran,{} bb)} creates an XmlElement containing a 'X3D' representation of node \\spad{'n'} and the nodes below it. \\spad{n} is the scene to be output to \\spad{XML} elements \\spad{mat} is the default material which may be overridden by subnodes \\spad{tran} is the default transform which may be overridden by subnodes \\spad{bb} is the default boundary which may be overridden by subnodes"))
+ (|toSVG|
+  (((|XmlElement|) $
+    (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+              (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+    (|STransform| |#1|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|))
+    (|DoubleFloat|) (|Boolean|) (|Boolean|) (|SceneNamedPoints| |#1|))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (((|XmlElement|) $
+    (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+              (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|)))
+    (|STransform| |#1|) (|SBoundary| |#1|) (|DoubleFloat|) (|Boolean|)
+    (|Boolean|) (|SceneNamedPoints| |#1|))
+   "\\spad{toSVG(n,{} mat,{} tran,{} bb,{} scale,{} clipEn,{} useInteger,{} npt)} creates an XmlElement containing a 'SVG' representation of node \\spad{'n'} and the nodes below it. \\spad{n} is the scene to be output to \\spad{XML} elements \\spad{mat} is the default material which may be overridden by subnodes \\spad{tran} is the default transform which may be overridden by subnodes \\spad{bb} is the default boundary which may be overridden by subnodes \\spad{scale} is the \\spad{scale} used to \\spad{scale} into canvas,{} it would be better \\indented{6}{to merge this into trans.} \\spad{clipEn} if \\spad{true} this clips the output to the boundary \\spad{useInteger} if \\spad{true} truncate to integer values. \\spad{npt} names points can be provided. If not required then set \\indented{4}{to namedBranch([],{} [])}"))
+ (|setTransform!|
+  (((|Void|) $ (|STransform| |#1|))
+   "\\spad{setTransform!(n,{} tran)} changes the transform without altering the scene hierarchy"))
+ (|removeChild!|
+  (((|Void|) $ $)
+   "\\spad{removeChild!(n,{} c)} removes the specified child node \\spad{'c'} below node \\spad{'n'}"))
+ (|addChild!|
+  (((|Void|) $ $)
+   "\\spad{addChild!(n,{} c)} adds the specified child node \\spad{'c'} below node \\spad{'n'}"))
+ (|boundary|
+  (((|SBoundary| |#1|) $ (|DoubleFloat|))
+   "\\spad{boundary(n,{} fontScale)} returns the boundary of a given node,{} so if this is called on the root node,{} it will return the boundary of the whole scene. There is a difficulty involving text nodes,{} that is they have a fixed font size. But we want to calculate the boundary in local coordinates,{} to do this conversion we need to know the total boundary size but that is what we are trying to calculate! To get round this contradiction the parameter fontScale is required since fonts are rendered at a fixed size we need a scaling factor so that we can give the boundary in our coordinate system. fontScale should be set to the full width of the diagram (not just the width of this node). If this is not known then choose an approximate value. This only affects text nodes,{} if this node,{} or its subnodes,{} do not contain a text node then its value is not significant."))
+ (|addArrows2Din2D|
+  (($ $ (|Mapping| |#1| |#1|) (|Segment| (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|))
+   "\\spad{addArrows2Din2D(n,{} ptFun,{} uSeg,{} vSeg,{} numPts)} is a convenience function which combines createArrows2Din2D with addChild!"))
+ (|createArrows2Din2D|
+  (($ (|Mapping| |#1| |#1|) (|Segment| (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|))
+   "\\spad{createArrows2Din2D(ptFun,{} uSeg,{} vSeg,{} numPts)} creates arrows to represent output for each input point in other words this represents a two dimensional force field with the arrows showing the direction of the field"))
+ (|addPlot2Din3Dparametric|
+  (($ $
+    (|ParametricSurface|
+     (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   "\\spad{addPlot2Din3Dparametric(n,{} f,{} uSeg,{} vSeg,{} numPts)} is a convenience function which combines createPlot2Din3Dparametric with addChild!")
+  (($ $ (|Mapping| |#1| (|DoubleFloat|) (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   "\\spad{addPlot2Din3Dparametric(n,{} f,{} uSeg,{} vSeg,{} numPts)} is a convenience function which combines createPlot2Din3Dparametric with addChild!"))
+ (|createPlot2Din3Dparametric|
+  (($
+    (|ParametricSurface|
+     (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   "\\spad{createPlot2Din3Dparametric(surface(f,{} g,{} h),{} a..b,{} c..d,{} l)} returns a scene node which contains the graph of the parametric surface \\spad{x} = \\spad{f}(\\spad{u},{} \\spad{v}),{} \\spad{y} = \\spad{g}(\\spad{u},{} \\spad{v}),{} \\spad{z} = \\spad{h}(\\spad{u},{} \\spad{v}) as \\spad{u} ranges from min(a,{} \\spad{b}) to max(a,{} \\spad{b}) and \\spad{v} ranges from min(\\spad{c},{} \\spad{d}) to max(\\spad{c},{} \\spad{d}). This creates a surface (2D subspace) in 3D space The surface is approximated by polygons which are represented by in indexed face set (IFS) node")
+  (($ (|Mapping| |#1| (|DoubleFloat|) (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   "\\spad{createPlot2Din3Dparametric(f,{} a..b,{} c..d,{} l)} returns a scene node which contains the graph of the parametric surface \\spad{f}(\\spad{u},{} \\spad{v}) as \\spad{u} ranges from min(a,{} \\spad{b}) to max(a,{} \\spad{b}) and \\spad{v} ranges from min(\\spad{c},{} \\spad{d}) to max(\\spad{c},{} \\spad{d}). This creates a surface (2D subspace) in 3D space The surface is approximated by polygons which are represented by in indexed face set (IFS) node"))
+ (|addPlot2Din3D|
+  (($ $ (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   "\\spad{addPlot2Din3D(n,{} f,{} uSeg,{} vSeg,{} numPts)} is a convenience function which combines createPlot2Din3D with addChild!"))
+ (|createPlot2Din3D|
+  (($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   "\\spad{createPlot2Din3D(f,{} a..b,{} c..d)} returns a scene node which contains the graph of \\spad{z} = \\spad{f}(\\spad{x},{} \\spad{y}) as \\spad{x} ranges from min(a,{} \\spad{b}) to max(a,{} \\spad{b}) and \\spad{y} ranges from min(\\spad{c},{} \\spad{d}) to max(\\spad{c},{} \\spad{d}). create a surface (2D subspace) in 3D space The surface is approximated by polygons which are represented by in indexed face set (IFS) node")
+  (($ (|Mapping| |#1| (|DoubleFloat|) (|DoubleFloat|))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   "\\spad{createPlot2Din3D(ptFun,{} uSeg,{} vSeg,{} numPts)} create a surface (2D subspace) in 3D space. The surface is approximated by polygons which are represented by in indexed face set (IFS) node"))
+ (|addPlot1Din3Dparametric|
+  (($ $ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   "\\spad{addPlot1Din3Dparametric(n,{} pcfun,{} tRange,{} numPts)} is a convenience function which combines createPlot1Din3Dparametric with addChild!")
+  (($ $ (|ParametricSpaceCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|))
+   "\\spad{addPlot1Din3Dparametric(n,{} psc,{} tRange,{} numPts)} is a convenience function which combines createPlot1Din3Dparametric with addChild!"))
+ (|createPlot1Din3Dparametric|
+  (($ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   "\\spad{createPlot1Din3Dparametric(pcfun,{} tRange,{} numPts)} create a line (1D subspace) in 3D space. This represents 1 dimension (line - possibly curved) in 3 dimensions In theory a line has no width but in that case we would not see it so we give it a width given by the material node that is applicable in this part of the scene graph PCFUN is a function from float to point: \\spad{DF} \\spad{->} \\spad{PT}")
+  (($ (|ParametricSpaceCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|))
+   "\\spad{createPlot1Din3Dparametric(psc,{} tRange,{} numPts)} create a line (1D subspace) in 3D space. This represents 1 dimension (line - possibly curved) in 3 dimensions In theory a line has no width but in that case we would not see it so we give it a width given by the material node that is applicable in this part of the scene graph \\spad{PSC} ParametricSpaceCurve(\\spad{DF} \\spad{->} \\spad{DF}) is created with curve(\\spad{f1},{} \\spad{f2},{} \\spad{f3}) where \\spad{f1},{} \\spad{f2} and \\spad{f3} are functions of type ComponentFunction,{} in this case \\spad{DF} \\spad{->} \\spad{DF}"))
+ (|addPlot1Din2Dparametric|
+  (($ $ (|ParametricPlaneCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|))
+   "\\spad{addPlot1Din2Dparametric(n,{} ppc,{} tRange,{} numPts)} is a convenience function which combines createPlot1Din2Dparametric with addChild!"))
+ (|createPlot1Din2Dparametric|
+  (($ (|ParametricPlaneCurve| (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|NonNegativeInteger|))
+   "\\spad{createPlot1Din2Dparametric(ppc,{} tRange,{} numPts)} creates a node from plot using Parametric Plane Curve. This represents 1 dimension (line - possibly curved) in 2 dimensions (plane) In theory a line has no width but in that case we would not see it so we give it a width given by the material node that is applicable in this part of the scene graph \\spad{PPC} is ParametricPlaneCurve(\\spad{DF} \\spad{->} \\spad{DF}) which is created with curve(\\spad{f1},{} \\spad{f2}) where \\spad{f1} and \\spad{f2} are functions of type ComponentFunction,{} in this case \\spad{DF} \\spad{->} \\spad{DF}"))
+ (|addPlot1Din2D|
+  (($ $ (|Mapping| (|DoubleFloat|) (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   "\\spad{addPlot1Din2D(n,{} f,{} tRange,{} numPts)} is a convenience function which combines createPlot1Din2D with addChild!")
+  (($ $ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   "\\spad{addPlot1Din2D(n,{} f,{} tRange,{} numPts)} is a convenience function which combines createPlot1Din2D with addChild!"))
+ (|createPlot1Din2D|
+  (($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   "\\spad{createPlot1Din2D(f,{} tRange,{} numPts)} creates two dimensional function plot. Draws the graph of \\spad{y} = \\spad{f}(\\spad{x}) as \\spad{x} ranges from min(a,{} \\spad{b}) to max(a,{} \\spad{b}). \\spad{tRange} is a..\\spad{b}")
+  (($ (|Mapping| |#1| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))
+    (|NonNegativeInteger|))
+   "\\spad{createPlot1Din2D(f,{} tRange,{} numPts)} creates a two dimensional function plot draws the graph from a mapping of float to point as \\spad{x} ranges from min(a,{} \\spad{b}) to max(a,{} \\spad{b}). \\spad{tRange} is a..\\spad{b}"))
+ (|addSceneTransform|
+  (($ $ (|STransform| |#1|))
+   "\\spad{addSceneTransform(n,{} tran)} is a convenience function which combines createSceneTransform with addChild!"))
+ (|createSceneTransform|
+  (($ (|STransform| |#1|))
+   "\\spad{createSceneTransform(tran)} constructs a transform node This transforms the points and vectors below this node If a given node has more than one transform node above it in the hierarchy then the transforms are compound"))
+ (|addSceneMaterial|
+  (($ $ (|DoubleFloat|) (|String|) (|String|))
+   "\\spad{addSceneMaterial(n,{} lineW,{} lineC,{} fillC)} is a convenience function which combines createSceneMaterial with addChild!")
+  (($ $
+    (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+              (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|))))
+   "\\spad{addSceneMaterial(n,{} mat)} is a convenience function which combines createSceneMaterial with addChild!"))
+ (|createSceneMaterial|
+  (($ (|DoubleFloat|) (|String|) (|String|))
+   "\\spad{createSceneMaterial(lineW,{} lineC,{} fillC)} constructs a material node This sets the lineWidth,{} lineCol and fillCol for all nodes under this,{} unless overridden by another material node. That is the material parameters that apply to a given node are those of the closest material node above it in the hierarchy")
+  (($
+    (|Record| (|:| |lineWidth| (|DoubleFloat|)) (|:| |lineCol| (|String|))
+              (|:| |fillCol| (|String|)) (|:| |matOpacity| (|DoubleFloat|))))
+   "\\spad{createSceneMaterial(mat)} constructs a material node This sets the lineWidth,{} lineCol and fillCol for all nodes under this,{} unless overridden by another material node. That is the material parameters that apply to a given node are those of the closest material node above it in the hierarchy line width is expressed relative to the width of current boundary"))
+ (|addSceneGraph|
+  (($ $ (|DirectedGraph| (|String|)) (|NonNegativeInteger|)
+    (|NonNegativeInteger|) (|Boolean|))
+   "\\spad{addSceneGraph(n,{} g,{} x,{} y,{} dispArrowName)} is a convenience function which combines createSceneGraph with addChild!"))
+ (|createSceneGraph|
+  (($ (|DirectedGraph| (|String|)) (|NonNegativeInteger|)
+    (|NonNegativeInteger|) (|Boolean|))
+   "\\spad{createSceneGraph(g,{} x,{} y,{} dispArrowName)} creates a graph theory diagram"))
+ (|addSceneRuler|
+  (($ $ (|Symbol|) |#1| (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (($ $ (|Symbol|) |#1| (|SBoundary| |#1|))
+   "\\spad{addSceneRuler(n,{} ptype,{} offset,{} bb)} is a convenience function which combines createSceneRuler with addChild!"))
+ (|createSceneRuler|
+  (($ (|Symbol|) |#1| (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (($ (|Symbol|) |#1| (|SBoundary| |#1|))
+   "\\spad{createSceneRuler(ptype,{} offset,{} bb)} creates a scale that can be used to provide numeric values for an axis: ptype= \"HORIZONTAL\"::Symbol : horizontal axis. ptype= \"VERTICAL\"::Symbol: vertical axis. ptype= \"DEBTH\"::Symbol: depth axis."))
+ (|addScenePattern|
+  (($ $ (|Symbol|) (|NonNegativeInteger|)
+    (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (($ $ (|Symbol|) (|NonNegativeInteger|) (|SBoundary| |#1|))
+   "\\spad{addScenePattern(n,{} ptype,{} step,{} bb)} is a convenience function which combines createScenePattern with addChild!"))
+ (|createScenePattern|
+  (($ (|Symbol|) (|NonNegativeInteger|)
+    (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (($ (|Symbol|) (|NonNegativeInteger|) (|SBoundary| |#1|))
+   "\\spad{createScenePattern(ptype,{} step,{} bb)} creates a test pattern suitable for showing the effect of transforms. The pattern depends on \\spad{ptype} parameter as follows: ptype=\"GRID\"::Symbol : construct a set of horizontal and vertical lines in the current clip boundary and current material with a spacing between lines given by the \\spad{step} parameter. ptype=\"SIERPINSKI\"::Symbol: constructs a Sierpinski fractal. \\spad{step} parameter gives the level of subdivision. ptype=\"HOUSE\"::Symbol: constructs a house shape."))
+ (|addSceneGrid|
+  (($ $ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (($ $ (|SBoundary| |#1|))
+   "\\spad{addSceneGrid(n,{} bb)} is a convenience function which combines createSceneGrid with addChild!")
+  (($ $ (|DoubleFloat|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (($ $ (|DoubleFloat|) (|SBoundary| |#1|))
+   "\\spad{addSceneGrid(n,{} stepSize,{} bb)} is a convenience function which combines createSceneGrid with addChild!"))
+ (|createSceneGrid|
+  (($ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (($ (|SBoundary| |#1|))
+   "\\spad{createSceneGrid(bb)} constructs a grid with narrow blue lines every 20 units wide blue lines every 100 units wide red lines every 200 units")
+  (($ (|DoubleFloat|) (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (($ (|DoubleFloat|) (|SBoundary| |#1|))
+   "\\spad{createSceneGrid(stepSize,{} bb)} constructs a grid,{} consists of a group,{} under which are vertical and horizontal lines. The spacing between lines is given by step."))
+ (|addSceneClip|
+  (($ $ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (($ $ (|SBoundary| |#1|))
+   "\\spad{addSceneClip(n,{} bb)} is a convenience function which combines createSceneClip with addChild!"))
+ (|createSceneClip|
+  (($ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (($ (|SBoundary| |#1|))
+   "\\spad{createSceneClip(bb)} constructs a clip node,{} clips its sub nodes in the coordinate system in force at the clip node."))
+ (|addSceneText|
+  (($ $ (|List| (|String|)) (|NonNegativeInteger|) |#1|)
+   "\\spad{addSceneText(n,{} str,{} sz,{} pz)} is a convenience function which combines createSceneText with addChild!")
+  (($ $ (|String|) (|NonNegativeInteger|) |#1|)
+   "\\spad{addSceneText(n,{} str,{} sz,{} pz)} is a convenience function which combines createSceneText with addChild!")
+  (($ $
+    (|Record| (|:| |txt| (|String|)) (|:| |siz| (|NonNegativeInteger|))
+              (|:| |pos| |#1|) (|:| |np| (|List| (|String|)))))
+   "\\spad{addSceneText(n,{} text)} is a convenience function which combines createSceneText with addChild!"))
+ (|createSceneText|
+  (($ (|List| (|String|)) (|NonNegativeInteger|) |#1|)
+   "\\spad{createSceneText(str,{} sz,{} pz)} constructs a text node using information from named points node.")
+  (($ (|String|) (|NonNegativeInteger|) |#1|)
+   "\\spad{createSceneText(str,{} sz,{} pz)} constructs a text node,{} text can be used for labelling anything such as graphs,{} axes and so on.")
+  (($
+    (|Record| (|:| |txt| (|String|)) (|:| |siz| (|NonNegativeInteger|))
+              (|:| |pos| |#1|) (|:| |np| (|List| (|String|)))))
+   "\\spad{createSceneText(text)} constructs a \\spad{text} node,{} \\spad{text} can be used for labelling anything such as graphs,{} axes and so on."))
+ (|addSceneBox|
+  (($ $ (|DoubleFloat|))
+   "\\spad{addSceneBox(n,{} size)} is a convenience function which combines createSceneBox with addChild!"))
+ (|createSceneBox|
+  (($ (|DoubleFloat|))
+   "\\spad{createSceneBox(size)} constructs an indexed face set node which is a 3D box of a given \\spad{size}"))
+ (|addSceneIFS|
+  (($ $ (|SceneIFS| |#1|))
+   "\\spad{addSceneIFS(n,{} in1)} is a convenience function which combines createSceneIFS with addChild!")
+  (($ $ (|List| (|List| (|NonNegativeInteger|))) (|List| |#1|))
+   "\\spad{addSceneIFS(n,{} inx,{} pts)} is a convenience function which combines createSceneIFS with addChild!"))
+ (|createSceneIFS|
+  (($ (|SceneIFS| |#1|))
+   "\\spad{createSceneIFS(in1)} constructs an indexed face set node,{} this defines a surface represented by a set of polygons in \\spad{n}-dimensional space.")
+  (($ (|List| (|List| (|NonNegativeInteger|))) (|List| |#1|))
+   "\\spad{createSceneIFS(inx,{} pts)} constructs an indexed face set node,{} this defines a surface represented by a set of polygons in \\spad{n}-dimensional space."))
+ (|addSceneNamedPoints|
+  (($ $ (|SceneNamedPoints| |#1|))
+   "\\spad{addSceneNamedPoints(n,{} np)} is a convenience function which combines createSceneNamedPoints with addChild!"))
+ (|createSceneNamedPoints|
+  (($ (|SceneNamedPoints| |#1|))
+   "\\spad{createSceneNamedPoints(np)} constructs a named points node,{} this allows us to define a set of points which can be used multiple times in the scenegraph."))
+ (|addSceneArrow|
+  (($ $ $ $ |#1| (|Symbol|) (|DoubleFloat|) (|DoubleFloat|))
+   "\\spad{addSceneArrow(n,{} st,{} en,{} offset,{} mode,{} size,{} fontScale)} is a convenience function which combines createSceneArrow with addChild!")
+  (($ $ (|String|) (|String|) |#1| (|Symbol|) (|DoubleFloat|))
+   "\\spad{addSceneArrow(n,{} st,{} en,{} offset,{} mode,{} size)} is a convenience function which combines createSceneArrow with addChild!"))
+ (|createSceneArrow|
+  (($ $ $ |#1| (|Symbol|) (|DoubleFloat|) (|DoubleFloat|))
+   "\\spad{createSceneArrow(st,{} en,{} offset,{} mode,{} size,{} fontScale)} constructs an arrow node,{} in \\spad{n}-dimensional space,{} going from \\spad{st} to \\spad{en}. 'st' and 'en' are nodes in the scene and the arrows will be drawn upto their boundary. \\spad{st} is the node at the start of the arrow \\spad{en} is the node at the end of the arrow 'mode' and 'size' parameters determine the \\spad{size} of the arrowhead. \\spad{mode} can have the following values: \\indented{2}{\"fixed\"::Symbol \\spad{--} fixed \\spad{size} line width given by 'size' parameter} \\indented{2}{\"proportional\"::Symbol \\spad{--} \\spad{size} as a proportion of the overall bounds} \\indented{2}{\"variable\"::Symbol \\spad{--} \\spad{size} as a proportion of the arrow length} So \"proportional\" would typically be used when drawing a graph (in graph theory) where it looks better if each arrow head is the same. \"variable\" would typically be used when drawing a force field where a bigger arrow head might indicate a stronger force. fontScale should be set to the full width of the diagram (not just the width of this node). If this is not known then choose an approximate value. This only affects text nodes,{} if \\spad{st} or \\spad{en},{} or its subnodes,{} do not contain a text node then its value is not significant.")
+  (($ (|String|) (|String|) |#1| (|Symbol|) (|DoubleFloat|))
+   "\\spad{createSceneArrow(st,{} en,{} offset,{} mode,{} size)} constructs an arrow node,{} in \\spad{n}-dimensional space,{} going from \\spad{st} to \\spad{en}. 'st' and 'en' are determined from a list of points from named points node. \\spad{st} is the start of the arrow \\spad{en} is the end of the arrow 'mode' and 'size' parameters determine the size of the arrowhead. \\spad{mode} can have the following values: \\indented{2}{\"fixed\"::Symbol \\spad{--} fixed size line width given by 'size' parameter} \\indented{2}{\"proportional\"::Symbol \\spad{--} size as a proportion of the overall bounds} \\indented{2}{\"variable\"::Symbol \\spad{--} size as a proportion of the arrow length} So \"proportional\" would typically be used when drawing a graph (in graph theory) where it looks better if each arrow head is the same. \"variable\" would typically be used when drawing a force field where a bigger arrow head might indicate a stronger force."))
+ (|addSceneArrows|
+  (($ $ (|List| (|List| |#1|)) (|Symbol|) (|DoubleFloat|))
+   "\\spad{addSceneArrows(n,{} line,{} mode,{} size)} is a convenience function which combines createSceneArrows with addChild!"))
+ (|createSceneArrows|
+  (($ (|List| (|List| |#1|)) (|Symbol|) (|DoubleFloat|))
+   "\\spad{createSceneArrows(line,{} mode,{} size)} constructs an arrow node,{} this contains arrows (represented by a list of points) in \\spad{n}-dimensional space. The space is implicit in the \\spad{PT} and \\spad{TR} parameters supplied when this Scene was created. 'mode' and 'size' parameters determine the size of the arrowhead. \\spad{mode} can have the following values: \\indented{2}{\"fixed\"::Symbol \\spad{--} fixed size \\spad{line} width given by 'size' parameter} \\indented{2}{\"proportional\"::Symbol \\spad{--} size as a proportion of the overall bounds} \\indented{2}{\"variable\"::Symbol \\spad{--} size as a proportion of the arrow length} So \"proportional\" would typically be used when drawing a graph (in graph theory) where it looks better if each arrow head is the same. \"variable\" would typically be used when drawing a force field where a bigger arrow head might indicate a stronger force."))
+ (|addSceneUse|
+  (($ $ (|String|))
+   "\\spad{addSceneUse(n,{} nam)} is a convenience function which combines createSceneUse with addChild!"))
+ (|createSceneUse|
+  (($ (|String|))
+   "\\spad{createSceneUse(nam)} uses another point in the scenegraph."))
+ (|addSceneDef|
+  (($ $ (|String|) $)
+   "\\spad{addSceneDef(n,{} nam,{} nde)} is a convenience function which combines createSceneDef with addChild!"))
+ (|createSceneDef|
+  (($ (|String|) $)
+   "\\spad{createSceneDef(nam,{} nde)} defines a point in the scenegraph so that it can be used elsewhere."))
+ (|addSceneShape|
+  (($ $ (|SBoundary| |#1|))
+   "\\spad{addSceneShape(n,{} shape)} is a convenience function which combines createSceneShape with addChild!")
+  (($ $
+    (|Record| (|:| |shptype| (|Symbol|)) (|:| |centre| |#1|) (|:| |size| |#1|)
+              (|:| |fill| (|Boolean|))))
+   "\\spad{addSceneShape(n,{} shape)} is a convenience function which combines createSceneShape with addChild!"))
+ (|createSceneShape|
+  (($ (|SBoundary| |#1|))
+   "\\spad{createSceneShape(shape)} constructs a \\spad{shape} node from a boundary,{} this contains a \\spad{shape} such as a rectangle or an ellipse.")
+  (($
+    (|Record| (|:| |shptype| (|Symbol|)) (|:| |centre| |#1|) (|:| |size| |#1|)
+              (|:| |fill| (|Boolean|))))
+   "\\spad{createSceneShape(shape)} constructs a \\spad{shape} node,{} this contains a \\spad{shape} such as a rectangle or an ellipse."))
+ (|addSceneLines|
+  (($ $ (|List| (|List| |#1|)))
+   "\\spad{addSceneLines(n,{} line)} is a convenience function which combines createSceneLines with addChild!"))
+ (|createSceneLines|
+  (($ (|List| (|List| |#1|)))
+   "\\spad{createSceneLines(line)} constructs a \\spad{line} node,{} this contains lines (represented by a list of points) in \\spad{n}-dimensional space. The space is implicit in the \\spad{PT} and \\spad{TR} parameters supplied when this Scene was created."))
+ (|addSceneLine|
+  (($ $ $ $ (|DoubleFloat|) (|Boolean|))
+   "\\spad{addSceneLine(n,{} st,{} en,{} fontScale)} is a convenience function which combines createSceneLine with addChild!")
+  (($ $ $ $ (|DoubleFloat|))
+   "\\spad{addSceneLine(n,{} st,{} en,{} fontScale)} is a convenience function which combines createSceneLine with addChild!")
+  (($ $ (|List| |#1|))
+   "\\spad{addSceneLine(n,{} line)} is a convenience function which combines createSceneLine with addChild!"))
+ (|createSceneLine|
+  (($ $ $ (|DoubleFloat|) (|Boolean|))
+   "\\spad{createSceneLine(st,{} en,{} fontScale,{} shortenLine)} constructs a line node,{} that contains a line,{} in \\spad{n}-dimensions,{} from \\spad{st} to \\spad{en}. 'st' and 'en' are nodes in the scene and the line will be drawn upto their boundary. \\spad{st} is the node at the start of the line \\spad{en} is the node at the end of the line \\spad{fontScale} should be set to the full width of the diagram (not just the width of this node). If this is not known then choose an approximate value. This only affects text nodes,{} if \\spad{st} or \\spad{en},{} or its subnodes,{} do not contain a text node then its value is not significant. shortenLine if \\spad{true} line drawn upto boundary rather than \\indented{12}{centre of destination.}")
+  (($ $ $ (|DoubleFloat|))
+   "\\spad{createSceneLine(st,{} en,{} fontScale)} constructs a line node,{} that contains a line,{} in \\spad{n}-dimensions,{} from \\spad{st} to \\spad{en}. 'st' and 'en' are nodes in the scene and the line will be drawn upto their boundary. \\spad{st} is the node at the start of the line \\spad{en} is the node at the end of the line fontScale should be set to the full width of the diagram (not just the width of this node). If this is not known then choose an approximate value. This only affects text nodes,{} if \\spad{st} or \\spad{en},{} or its subnodes,{} do not contain a text node then its value is not significant.")
+  (($ (|List| |#1|))
+   "\\spad{createSceneLine(line)} constructs a \\spad{line} node,{} this contains a \\spad{line} (represented by a list of points) in \\spad{n}-dimensional space. The space is implicit in the \\spad{PT} and \\spad{TR} parameters supplied when this Scene was created."))
+ (|addSceneGroup|
+  (($ $)
+   "\\spad{addSceneGroup(n)} is a convenience function which combines createSceneGroup with addChild!"))
+ (|createSceneGroup|
+  (($)
+   "\\spad{createSceneGroup()} constructs a group node,{} this node does not do anything itself but contains other nodes"))
+ (|createSceneRoot|
+  (($ (|Integer|) (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{createSceneRoot(minx,{} miny,{} maxx,{} maxy)} constructs the root node,{} all other nodes are contained in a tree structure under this node")
+  (($ (|Record| (|:| |mins| |#1|) (|:| |maxs| |#1|)))
+   "deprecated: this has been superseded by version with SBoundary(\\spad{PT}) do not use,{} may be removed in the future.")
+  (($ (|SBoundary| |#1|))
+   "\\spad{createSceneRoot(bb)} constructs the root node,{} all other nodes are contained in a tree structure under this node")
+  (($)
+   "\\spad{createSceneRoot()} constructs the root node,{} all other nodes are contained in a tree structure under this node")))
+(("documentation" 0 55044) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 55038) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 45346) ("modemaps" 0 22284) ("sourceFile" 0 22247)
+ ("constructorCategory" 0 11398) ("constructorModemap" 0 42)
+ ("constructorKind" 0 33) ("constructorForm" 0 20))

@@ -1,0 +1,153 @@
+)abbrev package MODHPS ModularHermitePadeSolver
+++ Description: This package provides generic interface to modular
+++  Hermite-Pade solver.
+ModularHermitePadeSolver(F : CommutativeRing, S : CommutativeRing)_
+                       : Exports == Implementation where
+
+    PA ==> U32Vector
+    VPA ==> Vector PA
+    GEN ==> (List(PA), Integer, Integer) -> VPA
+    NNI ==> NonNegativeInteger
+    CHKR ==> Union("good", "reject", "no_solution")
+    SUP ==> SparseUnivariatePolynomial
+    CHKT ==> (List SUP S) -> CHKR
+    MPS ==> Matrix SparseUnivariatePolynomial S
+
+    Exports ==>
+        with
+            HP_solve : (List(List(F)), List(Integer), Symbol, Symbol, NNI,
+                         GEN, CHKT) -> Union(MPS, Boolean)
+              ++ HP_solve(l, degs, kind, sigma, gen check) finds a sigma
+              ++ basis with degree bounds given by degs.  It returns false
+              ++ if there is no interpolating vector that is correct up to
+              ++ (and including) z^(sigma-1) with sigma >= |degs+[1, 1, ..., 1]|
+              ++ or if check rejects all solutions.
+              ++ It returns true if it can not handle given problem.
+            gen_Monte_Carlo_check : (CHKT, List(List(F)), Symbol, Symbol,
+                                        NNI, GEN) -> CHKT
+              ++ gen_Monte_Carlo_check(check, l, kind, qvar, sigma, gen)
+              ++ returns Monte Carlo check for solutions to guessing problem.
+              ++ If Monte Carlo check is unavailable returns check.
+
+            LLF_to_LPA : (List(List(F)), Integer, List(Symbol),
+                            List(Integer), Integer) _
+                               -> Union(List(PA), "failed")
+              ++ modular reduction
+            VSUPS_to_VPA : (Vector(SUP S), List Symbol, List Integer, _
+                          Integer) -> VPA
+              ++ modular reduction
+
+    Implementation ==> add
+
+        import from ModularHermitePade()
+
+        check_sol_mod_diff : (Vector(SUP S), List(List(F)), Integer, _
+               GEN, Symbol, List Symbol _
+               ) -> Union("good", "reject", "no_solution")
+
+        if F is Fraction Integer and S is Integer then
+            HP_solve(l, degs, kind, qvar, sigma, gen, check) ==
+                HP_solve_I(l, degs, kind, sigma, gen, check)
+            LLF_to_LPA(l, sigma, vars, points, p) ==
+                LLFI_to_LPA(l, sigma, p)
+            VSUPS_to_VPA(v, vars, points, p) == VSUPI_to_VPA(v, p)
+            gen_Monte_Carlo_check(check, l, kind, qvar, sigma, gen) ==
+                kind ~= 'diffHP => check
+                x +-> check_sol_mod_diff(vector x, l, sigma, gen, _
+                                  'dummy, [])
+        else if F is Fraction Polynomial Integer and _
+                        S is Polynomial Integer then
+            HP_solve(l, degs, kind, qvar, sigma, gen, check) ==
+                HP_solve_P(l, degs, kind, qvar, sigma, gen, check)
+            LLF_to_LPA(l, sigma, vars, points, p) ==
+                LLFPI_to_LPA(l, sigma, vars, points, p)
+            VSUPS_to_VPA(v, vars, points, p) ==
+                VSUPPI_to_VPA(v, vars, points, p)
+            gen_Monte_Carlo_check(check, l, kind, qvar, sigma, gen) ==
+                not(kind = 'diffHP or kind = 'qdiffHP or kind = 'qmixed) =>
+                    check
+                vars :=  reverse(get_variables(l, kind, qvar))
+                x +-> check_sol_mod_diff(vector x, l, sigma, gen, _
+                           qvar, vars)
+        else if F is AlgebraicNumber and S is AlgebraicNumber then
+            HP_solve(l, degs, kind, qvar, sigma, gen, check) ==
+                HP_solve_A(l, degs, kind, sigma, gen, check)
+            gen_Monte_Carlo_check(check, l, kind, qvar, sigma, gen) ==
+                check
+        else if F is Fraction Polynomial AlgebraicNumber and _
+                        S is Polynomial AlgebraicNumber then
+            HP_solve(l, degs, kind, qvar, sigma, gen, check) ==
+                HP_solve_PA(l, degs, kind, qvar, sigma, gen, check)
+            gen_Monte_Carlo_check(check, l, kind, qvar, sigma, gen) ==
+                check
+        else
+            p := characteristic()$F
+            if p > 0 and p < 32000000 and _
+               F is PrimeField(p::PositiveInteger) and _
+               S is PrimeField(p::PositiveInteger) then
+                HP_solve(l, degs, kind, qvar, sigma, gen, check) ==
+                    checkPF : (List SUP Integer) -> CHKR
+                    checkPF := ll +-> check(ll pretend List SUP S)
+                    pp := HP_solve_M(l pretend List(List(Integer)),
+                                        degs, kind, p, sigma,
+                                        gen, checkPF)
+                    pp case Matrix SUP Integer =>
+                        return (pp::Matrix(SUP Integer) pretend Matrix(SUP S))
+                    return (pp::Boolean)
+            else
+                HP_solve(l, degs, kind, qvar, sigma, gen, check) == true
+            gen_Monte_Carlo_check(check, l, kind, qvar, sigma, gen) ==
+                check
+
+        -- chhh
+
+        check_sol_mod_diff(resv, list, sigma, gen, qvar, vars) _
+                : Union("good", "reject", "no_solution") ==
+            #list ~= 1 =>
+                error "check_sol_mod_diff: #list ~= 1"
+            n0 := #(first(list))
+            sigma0 := n0 + 2
+            min_ord := sigma0
+            delta := sigma0 - sigma
+            -- print("check_sol_mod_diff, delta is"::OutputForm)
+            -- print(delta::OutputForm)
+            delta >= sigma =>
+                error "delta too big"
+            for ii in 1..20 repeat
+                p : Integer := nextPrime(random(2000000)+2000000 _
+                                        )$IntegerPrimesPackage(Integer)
+                lpt : List Integer := []
+                qval : Integer := 0
+                for var in vars repeat
+                    lpt := cons(random(p), lpt)
+                    if var = qvar then qval := first(lpt)
+                lpt := reverse!(lpt)
+                gv0p := LLF_to_LPA(list, n0 + delta, vars, lpt, p)
+                gv0p case "failed" => "iterate"
+                gvl := gv0p::List(PA)
+                #gvl ~= 1 =>
+                   "check_sol_mod_diff: #gvl ~= 1"
+                gv0 := first(gvl)
+                nres := VSUPS_to_VPA(resv, vars, lpt, p)
+                pa := check_sol1a(nres, gvl, gen, sigma0, qval, p)
+                ord := sigma0
+                for i in 0..(sigma0 - 1) repeat
+                    if pa(i) ~= 0 then
+                        ord := i
+                        break
+                ord < sigma => return "no_solution"
+                ord < sigma0 =>
+                    c0 := pa(ord)
+                    for j in 0..(delta -1) repeat
+                        gv0(n0 + j) := 1
+                        pa := check_sol1a(nres, [gv0], gen, sigma0, qval, p)
+                        pa(ord) ~= c0 =>
+                            -- print("decreasig delta"::OutputForm)
+                            sigma0 := ord
+                            delta := sigma0 - sigma
+                            break
+                        gv0(n0 + j) := 0
+                    if ord < min_ord then min_ord := ord
+                -- print(p::OutputForm)
+            min_ord < sigma0 => return "reject"
+            return "good"

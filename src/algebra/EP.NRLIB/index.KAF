@@ -1,0 +1,301 @@
+14394               (|EigenPackage| R)
+|package|
+(((|EigenPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |characteristicPolynomial|
+    ((|Polynomial| |#1|) (|Matrix| (|Fraction| (|Polynomial| |#1|)))
+     (|Symbol|)))
+   (SIGNATURE |characteristicPolynomial|
+    ((|Polynomial| |#1|) (|Matrix| (|Fraction| (|Polynomial| |#1|)))))
+   (SIGNATURE |eigenvector|
+    ((|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+     (|Union| (|Fraction| (|Polynomial| |#1|))
+              (|SuchThat| (|Symbol|) (|Polynomial| |#1|)))
+     (|Matrix| (|Fraction| (|Polynomial| |#1|)))))
+   (SIGNATURE |generalizedEigenvector|
+    ((|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+     (|Union| (|Fraction| (|Polynomial| |#1|))
+              (|SuchThat| (|Symbol|) (|Polynomial| |#1|)))
+     (|Matrix| (|Fraction| (|Polynomial| |#1|))) (|NonNegativeInteger|)
+     (|NonNegativeInteger|)))
+   (SIGNATURE |generalizedEigenvector|
+    ((|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+     (|Record|
+      (|:| |eigval|
+           (|Union| (|Fraction| (|Polynomial| |#1|))
+                    (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+      (|:| |eigmult| (|NonNegativeInteger|))
+      (|:| |eigvec| (|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))))
+     (|Matrix| (|Fraction| (|Polynomial| |#1|)))))
+   (IF (|has| |#1| (|PolynomialFactorizationExplicit|))
+       (PROGN
+        (SIGNATURE |eigenvalues|
+         ((|List|
+           (|Union| (|Fraction| (|Polynomial| |#1|))
+                    (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+          (|Matrix| (|Fraction| (|Polynomial| |#1|)))))
+        (SIGNATURE |generalizedEigenvectors|
+         ((|List|
+           (|Record|
+            (|:| |eigval|
+                 (|Union| (|Fraction| (|Polynomial| |#1|))
+                          (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+            (|:| |geneigvec|
+                 (|List| (|Matrix| (|Fraction| (|Polynomial| |#1|)))))))
+          (|Matrix| (|Fraction| (|Polynomial| |#1|)))))
+        (SIGNATURE |eigenvectors|
+         ((|List|
+           (|Record|
+            (|:| |eigval|
+                 (|Union| (|Fraction| (|Polynomial| |#1|))
+                          (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+            (|:| |eigmult| (|NonNegativeInteger|))
+            (|:| |eigvec|
+                 (|List| (|Matrix| (|Fraction| (|Polynomial| |#1|)))))))
+          (|Matrix| (|Fraction| (|Polynomial| |#1|))))))
+       |noBranch|))
+  (|GcdDomain|))
+ (T |EigenPackage|))
+(CATEGORY |package|
+ (SIGNATURE |characteristicPolynomial|
+  ((|Polynomial| |#1|) (|Matrix| (|Fraction| (|Polynomial| |#1|))) (|Symbol|)))
+ (SIGNATURE |characteristicPolynomial|
+  ((|Polynomial| |#1|) (|Matrix| (|Fraction| (|Polynomial| |#1|)))))
+ (SIGNATURE |eigenvector|
+  ((|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   (|Union| (|Fraction| (|Polynomial| |#1|))
+            (|SuchThat| (|Symbol|) (|Polynomial| |#1|)))
+   (|Matrix| (|Fraction| (|Polynomial| |#1|)))))
+ (SIGNATURE |generalizedEigenvector|
+  ((|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   (|Union| (|Fraction| (|Polynomial| |#1|))
+            (|SuchThat| (|Symbol|) (|Polynomial| |#1|)))
+   (|Matrix| (|Fraction| (|Polynomial| |#1|))) (|NonNegativeInteger|)
+   (|NonNegativeInteger|)))
+ (SIGNATURE |generalizedEigenvector|
+  ((|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   (|Record|
+    (|:| |eigval|
+         (|Union| (|Fraction| (|Polynomial| |#1|))
+                  (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+    (|:| |eigmult| (|NonNegativeInteger|))
+    (|:| |eigvec| (|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))))
+   (|Matrix| (|Fraction| (|Polynomial| |#1|)))))
+ (IF (|has| |#1| (|PolynomialFactorizationExplicit|))
+     (PROGN
+      (SIGNATURE |eigenvalues|
+       ((|List|
+         (|Union| (|Fraction| (|Polynomial| |#1|))
+                  (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+        (|Matrix| (|Fraction| (|Polynomial| |#1|)))))
+      (SIGNATURE |generalizedEigenvectors|
+       ((|List|
+         (|Record|
+          (|:| |eigval|
+               (|Union| (|Fraction| (|Polynomial| |#1|))
+                        (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+          (|:| |geneigvec|
+               (|List| (|Matrix| (|Fraction| (|Polynomial| |#1|)))))))
+        (|Matrix| (|Fraction| (|Polynomial| |#1|)))))
+      (SIGNATURE |eigenvectors|
+       ((|List|
+         (|Record|
+          (|:| |eigval|
+               (|Union| (|Fraction| (|Polynomial| |#1|))
+                        (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+          (|:| |eigmult| (|NonNegativeInteger|))
+          (|:| |eigvec| (|List| (|Matrix| (|Fraction| (|Polynomial| |#1|)))))))
+        (|Matrix| (|Fraction| (|Polynomial| |#1|))))))
+     |noBranch|))
+"/git/fricas/src/algebra/EP.spad"
+((|eigenvectors| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| (|Polynomial| *4))))
+       (|ofCategory| *4 (|PolynomialFactorizationExplicit|))
+       (|ofCategory| *4 (|GcdDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |eigval|
+                          (|Union| (|Fraction| (|Polynomial| *4))
+                                   (|SuchThat| (|Symbol|) (|Polynomial| *4))))
+                     (|:| |eigmult| (|NonNegativeInteger|))
+                     (|:| |eigvec|
+                          (|List|
+                           (|Matrix| (|Fraction| (|Polynomial| *4))))))))
+       (|isDomain| *1 (|EigenPackage| *4))))
+ (|generalizedEigenvectors| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| (|Polynomial| *4))))
+       (|ofCategory| *4 (|PolynomialFactorizationExplicit|))
+       (|ofCategory| *4 (|GcdDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |eigval|
+                          (|Union| (|Fraction| (|Polynomial| *4))
+                                   (|SuchThat| (|Symbol|) (|Polynomial| *4))))
+                     (|:| |geneigvec|
+                          (|List|
+                           (|Matrix| (|Fraction| (|Polynomial| *4))))))))
+       (|isDomain| *1 (|EigenPackage| *4))))
+ (|eigenvalues| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| (|Polynomial| *4))))
+       (|ofCategory| *4 (|PolynomialFactorizationExplicit|))
+       (|ofCategory| *4 (|GcdDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|Union| (|Fraction| (|Polynomial| *4))
+                             (|SuchThat| (|Symbol|) (|Polynomial| *4)))))
+       (|isDomain| *1 (|EigenPackage| *4))))
+ (|generalizedEigenvector| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|Record|
+                (|:| |eigval|
+                     (|Union| (|Fraction| (|Polynomial| *5))
+                              (|SuchThat| (|Symbol|) (|Polynomial| *5))))
+                (|:| |eigmult| (|NonNegativeInteger|))
+                (|:| |eigvec|
+                     (|List| (|Matrix| (|Fraction| (|Polynomial| *5)))))))
+   (|isDomain| *4 (|Matrix| (|Fraction| (|Polynomial| *5))))
+   (|ofCategory| *5 (|GcdDomain|))
+   (|isDomain| *2 (|List| (|Matrix| (|Fraction| (|Polynomial| *5)))))
+   (|isDomain| *1 (|EigenPackage| *5))))
+ (|generalizedEigenvector| (*1 *2 *3 *4 *5 *5)
+  (AND
+   (|isDomain| *3
+               (|Union| (|Fraction| (|Polynomial| *6))
+                        (|SuchThat| (|Symbol|) (|Polynomial| *6))))
+   (|isDomain| *4 (|Matrix| (|Fraction| (|Polynomial| *6))))
+   (|isDomain| *5 (|NonNegativeInteger|)) (|ofCategory| *6 (|GcdDomain|))
+   (|isDomain| *2 (|List| (|Matrix| (|Fraction| (|Polynomial| *6)))))
+   (|isDomain| *1 (|EigenPackage| *6))))
+ (|eigenvector| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|Union| (|Fraction| (|Polynomial| *5))
+                        (|SuchThat| (|Symbol|) (|Polynomial| *5))))
+   (|isDomain| *4 (|Matrix| (|Fraction| (|Polynomial| *5))))
+   (|ofCategory| *5 (|GcdDomain|))
+   (|isDomain| *2 (|List| (|Matrix| (|Fraction| (|Polynomial| *5)))))
+   (|isDomain| *1 (|EigenPackage| *5))))
+ (|characteristicPolynomial| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| (|Polynomial| *4))))
+       (|isDomain| *2 (|Polynomial| *4)) (|isDomain| *1 (|EigenPackage| *4))
+       (|ofCategory| *4 (|GcdDomain|))))
+ (|characteristicPolynomial| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| (|Polynomial| *5))))
+       (|isDomain| *4 (|Symbol|)) (|isDomain| *2 (|Polynomial| *5))
+       (|isDomain| *1 (|EigenPackage| *5)) (|ofCategory| *5 (|GcdDomain|)))))
+((|generalizedEigenvectors|
+  (((|List|
+     (|Record|
+      (|:| |eigval|
+           (|Union| (|Fraction| (|Polynomial| |#1|))
+                    (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+      (|:| |geneigvec| (|List| (|Matrix| (|Fraction| (|Polynomial| |#1|)))))))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   63 (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ (|generalizedEigenvector|
+  (((|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+    (|Record|
+     (|:| |eigval|
+          (|Union| (|Fraction| (|Polynomial| |#1|))
+                   (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+     (|:| |eigmult| (|NonNegativeInteger|))
+     (|:| |eigvec| (|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   46)
+  (((|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+    (|Union| (|Fraction| (|Polynomial| |#1|))
+             (|SuchThat| (|Symbol|) (|Polynomial| |#1|)))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))) (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   44))
+ (|eigenvectors|
+  (((|List|
+     (|Record|
+      (|:| |eigval|
+           (|Union| (|Fraction| (|Polynomial| |#1|))
+                    (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+      (|:| |eigmult| (|NonNegativeInteger|))
+      (|:| |eigvec| (|List| (|Matrix| (|Fraction| (|Polynomial| |#1|)))))))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   57 (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ (|eigenvector|
+  (((|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+    (|Union| (|Fraction| (|Polynomial| |#1|))
+             (|SuchThat| (|Symbol|) (|Polynomial| |#1|)))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   41))
+ (|eigenvalues|
+  (((|List|
+     (|Union| (|Fraction| (|Polynomial| |#1|))
+              (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   52 (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ (|characteristicPolynomial|
+  (((|Polynomial| |#1|) (|Matrix| (|Fraction| (|Polynomial| |#1|)))) 35)
+  (((|Polynomial| |#1|) (|Matrix| (|Fraction| (|Polynomial| |#1|))) (|Symbol|))
+   34)))
+((|HasCategory| |#1| '(|PolynomialFactorizationExplicit|)))
+EP
+((|constructor|
+  (NIL
+   "This is a package for the exact computation of eigenvalues and eigenvectors. This package works for matrices with coefficients which are rational functions over a ring where we can factor polynomials. Eigenvalues not in base field are represented by their minimal polynomial."))
+ (|eigenvectors|
+  (((|List|
+     (|Record|
+      (|:| |eigval|
+           (|Union| (|Fraction| (|Polynomial| |#1|))
+                    (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+      (|:| |eigmult| (|NonNegativeInteger|))
+      (|:| |eigvec| (|List| (|Matrix| (|Fraction| (|Polynomial| |#1|)))))))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{eigenvectors(m)} returns the eigenvalues and eigenvectors for the matrix \\spad{m}. The eigenvalues in base field and the corresponding eigenvectors are explicitely computed,{} while the other ones are given via their minimal polynomial and the corresponding eigenvectors are expressed in terms of a \"generic\" root of such a polynomial."))
+ (|generalizedEigenvectors|
+  (((|List|
+     (|Record|
+      (|:| |eigval|
+           (|Union| (|Fraction| (|Polynomial| |#1|))
+                    (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+      (|:| |geneigvec| (|List| (|Matrix| (|Fraction| (|Polynomial| |#1|)))))))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{generalizedEigenvectors(m)} returns the generalized returns the generalized eigenvectors of the matrix \\spad{m}."))
+ (|eigenvalues|
+  (((|List|
+     (|Union| (|Fraction| (|Polynomial| |#1|))
+              (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{eigenvalues(m)} returns the eigenvalues of the matrix \\spad{m}."))
+ (|generalizedEigenvector|
+  (((|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+    (|Record|
+     (|:| |eigval|
+          (|Union| (|Fraction| (|Polynomial| |#1|))
+                   (|SuchThat| (|Symbol|) (|Polynomial| |#1|))))
+     (|:| |eigmult| (|NonNegativeInteger|))
+     (|:| |eigvec| (|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{generalizedEigenvector(eigen,{} m)} returns the generalized eigenvectors of the matrix relative to the eigenvalue \\spad{eigen},{} as returned by the function eigenvectors.")
+  (((|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+    (|Union| (|Fraction| (|Polynomial| |#1|))
+             (|SuchThat| (|Symbol|) (|Polynomial| |#1|)))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))) (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   "\\spad{generalizedEigenvector(alpha,{} m,{} k,{} g)} returns the generalized eigenvectors of the matrix relative to the eigenvalue \\spad{alpha}. The integers \\spad{k} and \\spad{g} are respectively the algebraic and the geometric multiplicity of tye eigenvalue \\spad{alpha}."))
+ (|eigenvector|
+  (((|List| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+    (|Union| (|Fraction| (|Polynomial| |#1|))
+             (|SuchThat| (|Symbol|) (|Polynomial| |#1|)))
+    (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{eigenvector(eigval,{} m)} returns the eigenvectors belonging to the eigenvalue \\spad{eigval} for the matrix \\spad{m}."))
+ (|characteristicPolynomial|
+  (((|Polynomial| |#1|) (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{characteristicPolynomial(m)} returns the characteristicPolynomial of the matrix \\spad{m} using a new generated symbol symbol as the main variable.")
+  (((|Polynomial| |#1|) (|Matrix| (|Fraction| (|Polynomial| |#1|))) (|Symbol|))
+   "\\spad{characteristicPolynomial(m,{} var)} returns the characteristicPolynomial of the matrix \\spad{m} using the symbol var as the main variable.")))
+(("documentation" 0 10683) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 10680) ("predicates" 0 10620) ("superDomain" 0 NIL)
+ ("operationAlist" 0 8489) ("modemaps" 0 4789) ("sourceFile" 0 4755)
+ ("constructorCategory" 0 2495) ("constructorModemap" 0 49)
+ ("constructorKind" 0 39) ("constructorForm" 0 20))

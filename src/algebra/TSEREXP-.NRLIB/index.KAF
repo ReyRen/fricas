@@ -1,0 +1,60 @@
+3065                (|TaylorSeriesExpansion&| S |Coef| |Expon| |Var| PS UTS)
+|domain|
+(((|TaylorSeriesExpansion&| |#1| |#2| |#3| |#4| |#5| |#6|)
+  (CATEGORY |domain|
+   (SIGNATURE |taylor_via_deriv|
+    (|#5| |#2| (|List| |#5|) (|List| (|Mapping| |#2| |#2|))))
+   (SIGNATURE |taylor_via_deriv|
+    (|#5| |#5| (|List| |#5|) (|List| (|Mapping| |#2| |#2|)))))
+  (|TaylorSeriesExpansion| |#2| |#3| |#4| |#5| |#6|)
+  (|Algebra| (|Fraction| (|Integer|))) (|OrderedAbelianMonoid|) (|OrderedSet|)
+  (|PowerSeriesCategory| |#2| |#3| |#4|)
+  (|UnivariateTaylorSeriesCategory| |#2|))
+ (T |TaylorSeriesExpansion&|))
+(CATEGORY |domain|
+ (SIGNATURE |taylor_via_deriv|
+  (|#5| |#2| (|List| |#5|) (|List| (|Mapping| |#2| |#2|))))
+ (SIGNATURE |taylor_via_deriv|
+  (|#5| |#5| (|List| |#5|) (|List| (|Mapping| |#2| |#2|)))))
+"/git/fricas/src/algebra/TSEREXP.spad"
+((|taylor_via_deriv| (*1 *2 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *2)) (|isDomain| *4 (|List| (|Mapping| *6 *6)))
+       (|ofCategory| *6 (|Algebra| (|Fraction| (|Integer|))))
+       (|ofCategory| *2 (|PowerSeriesCategory| *6 *7 *8))
+       (|ofCategory| *7 (|OrderedAbelianMonoid|))
+       (|ofCategory| *8 (|OrderedSet|))
+       (|ofCategory| *9 (|UnivariateTaylorSeriesCategory| *6))
+       (|isDomain| *1 (|TaylorSeriesExpansion&| *5 *6 *7 *8 *2 *9))
+       (|ofCategory| *5 (|TaylorSeriesExpansion| *6 *7 *8 *2 *9))))
+ (|taylor_via_deriv| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *4 (|List| *2)) (|isDomain| *5 (|List| (|Mapping| *3 *3)))
+       (|ofCategory| *3 (|Algebra| (|Fraction| (|Integer|))))
+       (|ofCategory| *7 (|OrderedAbelianMonoid|))
+       (|ofCategory| *8 (|OrderedSet|))
+       (|ofCategory| *9 (|UnivariateTaylorSeriesCategory| *3))
+       (|ofCategory| *2 (|PowerSeriesCategory| *3 *7 *8))
+       (|isDomain| *1 (|TaylorSeriesExpansion&| *6 *3 *7 *8 *2 *9))
+       (|ofCategory| *6 (|TaylorSeriesExpansion| *3 *7 *8 *2 *9)))))
+((|taylor_via_deriv|
+  ((|#5| |#5| (|List| |#5|) (|List| (|Mapping| |#2| |#2|))) NIL)
+  ((|#5| |#2| (|List| |#5|) (|List| (|Mapping| |#2| |#2|))) 18)))
+TSEREXP-
+((|apply_taylor|
+  ((|#5| |#6| |#5|)
+   "\\spad{apply_taylor(g,{} f)} applies \\spad{g} to \\spad{f}"))
+ (|applyTaylor|
+  ((|#5| (|Mapping| |#6| |#6|) |#5|)
+   "\\spad{applyTaylor(g,{} f)} applies \\spad{g} to \\spad{f}"))
+ (|taylor_via_lode|
+  ((|#5| (|List| |#6|) |#5| (|List| |#2|))
+   "\\spad{taylor_via_lode([a0,{} ...,{} ak],{} z,{} [c0,{} ...,{} ck])} expands into Taylor series solution of the linear ordinary differential equation"))
+ (|taylor_via_deriv|
+  ((|#5| |#5| (|List| |#5|) (|List| (|Mapping| |#2| |#2|)))
+   "\\spad{taylor_via_deriv(f,{} [x1,{} ...,{} xn],{} [D1,{} ...,{} Dn])} expands \\spad{f} into Taylor series at (\\spad{x1},{} ...,{} \\spad{xn}) using \\spad{D1},{} ...,{} \\spad{Dn} as partial derivatives")
+  ((|#5| |#2| (|List| |#5|) (|List| (|Mapping| |#2| |#2|)))
+   "\\spad{taylor_via_deriv(f,{} [x1,{} ...,{} xn],{} [D1,{} ...,{} Dn])} expands \\spad{f} into Taylor series at (\\spad{x1},{} ...,{} \\spad{xn}) using \\spad{D1},{} ...,{} \\spad{Dn} as partial derivatives")))
+(("documentation" 0 2057) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2048) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1896) ("modemaps" 0 845) ("sourceFile" 0 806)
+ ("constructorCategory" 0 604) ("constructorModemap" 0 86)
+ ("constructorKind" 0 77) ("constructorForm" 0 20))

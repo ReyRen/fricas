@@ -1,0 +1,174 @@
+9978                (|IntegralBasisTools| R UP F)
+|package|
+(((|IntegralBasisTools| |#1| |#2| |#3|)
+  (CATEGORY |package| (SIGNATURE |diagonalProduct| (|#1| (|Matrix| |#1|)))
+   (SIGNATURE |matrixGcd| (|#1| (|Matrix| |#1|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |divideIfCan!|
+    (|#1| (|Matrix| |#1|) (|Matrix| |#1|) |#1| (|Integer|)))
+   (SIGNATURE |leastPower|
+    ((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |idealiser| ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+   (SIGNATURE |idealiser|
+    ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) |#1|))
+   (SIGNATURE |idealiserMatrix|
+    ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+   (SIGNATURE |moduleSum|
+    ((|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+               (|:| |basisInv| (|Matrix| |#1|)))
+     (|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+               (|:| |basisInv| (|Matrix| |#1|)))
+     (|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+               (|:| |basisInv| (|Matrix| |#1|))))))
+  (|Join| (|EuclideanDomain|)
+          (CATEGORY |domain| (SIGNATURE |squareFree| ((|Factored| $) $))))
+  (|UnivariatePolynomialCategory| |#1|) (|FramedAlgebra| |#1| |#2|))
+ (T |IntegralBasisTools|))
+(CATEGORY |package| (SIGNATURE |diagonalProduct| (|#1| (|Matrix| |#1|)))
+ (SIGNATURE |matrixGcd| (|#1| (|Matrix| |#1|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |divideIfCan!|
+  (|#1| (|Matrix| |#1|) (|Matrix| |#1|) |#1| (|Integer|)))
+ (SIGNATURE |leastPower|
+  ((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |idealiser| ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+ (SIGNATURE |idealiser| ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) |#1|))
+ (SIGNATURE |idealiserMatrix|
+  ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+ (SIGNATURE |moduleSum|
+  ((|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+             (|:| |basisInv| (|Matrix| |#1|)))
+   (|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+             (|:| |basisInv| (|Matrix| |#1|)))
+   (|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+             (|:| |basisInv| (|Matrix| |#1|))))))
+"/git/fricas/src/algebra/IBATOOL.spad"
+((|moduleSum| (*1 *2 *2 *2)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |basis| (|Matrix| *3)) (|:| |basisDen| *3)
+                         (|:| |basisInv| (|Matrix| *3))))
+   (|ofCategory| *3
+                 (|Join| (|EuclideanDomain|)
+                         (CATEGORY |domain|
+                          (SIGNATURE |squareFree| ((|Factored| $) $)))))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+   (|isDomain| *1 (|IntegralBasisTools| *3 *4 *5))
+   (|ofCategory| *5 (|FramedAlgebra| *3 *4))))
+ (|idealiserMatrix| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| *3))
+       (|ofCategory| *3
+                     (|Join| (|EuclideanDomain|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |squareFree| ((|Factored| $) $)))))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+       (|isDomain| *1 (|IntegralBasisTools| *3 *4 *5))
+       (|ofCategory| *5 (|FramedAlgebra| *3 *4))))
+ (|idealiser| (*1 *2 *2 *2 *3)
+  (AND (|isDomain| *2 (|Matrix| *3))
+       (|ofCategory| *3
+                     (|Join| (|EuclideanDomain|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |squareFree| ((|Factored| $) $)))))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+       (|isDomain| *1 (|IntegralBasisTools| *3 *4 *5))
+       (|ofCategory| *5 (|FramedAlgebra| *3 *4))))
+ (|idealiser| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| *3))
+       (|ofCategory| *3
+                     (|Join| (|EuclideanDomain|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |squareFree| ((|Factored| $) $)))))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+       (|isDomain| *1 (|IntegralBasisTools| *3 *4 *5))
+       (|ofCategory| *5 (|FramedAlgebra| *3 *4))))
+ (|leastPower| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|ofCategory| *3
+                     (|Join| (|EuclideanDomain|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |squareFree| ((|Factored| $) $)))))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+       (|isDomain| *1 (|IntegralBasisTools| *3 *4 *5))
+       (|ofCategory| *5 (|FramedAlgebra| *3 *4))))
+ (|divideIfCan!| (*1 *2 *3 *3 *2 *4)
+  (AND (|isDomain| *3 (|Matrix| *2)) (|isDomain| *4 (|Integer|))
+       (|ofCategory| *2
+                     (|Join| (|EuclideanDomain|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |squareFree| ((|Factored| $) $)))))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *2))
+       (|isDomain| *1 (|IntegralBasisTools| *2 *5 *6))
+       (|ofCategory| *6 (|FramedAlgebra| *2 *5))))
+ (|matrixGcd| (*1 *2 *3 *2 *4)
+  (AND (|isDomain| *3 (|Matrix| *2)) (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *2
+                     (|Join| (|EuclideanDomain|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |squareFree| ((|Factored| $) $)))))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *2))
+       (|isDomain| *1 (|IntegralBasisTools| *2 *5 *6))
+       (|ofCategory| *6 (|FramedAlgebra| *2 *5))))
+ (|diagonalProduct| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *2))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *2))
+       (|ofCategory| *2
+                     (|Join| (|EuclideanDomain|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |squareFree| ((|Factored| $) $)))))
+       (|isDomain| *1 (|IntegralBasisTools| *2 *4 *5))
+       (|ofCategory| *5 (|FramedAlgebra| *2 *4)))))
+((|moduleSum|
+  (((|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+              (|:| |basisInv| (|Matrix| |#1|)))
+    (|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+              (|:| |basisInv| (|Matrix| |#1|)))
+    (|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+              (|:| |basisInv| (|Matrix| |#1|))))
+   55))
+ (|matrixGcd| ((|#1| (|Matrix| |#1|) |#1| (|NonNegativeInteger|)) 22))
+ (|leastPower|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)) 26))
+ (|idealiserMatrix| (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)) 38))
+ (|idealiser| (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) |#1|) 45)
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)) 42))
+ (|divideIfCan!| ((|#1| (|Matrix| |#1|) (|Matrix| |#1|) |#1| (|Integer|)) 25))
+ (|diagonalProduct| ((|#1| (|Matrix| |#1|)) 15)))
+IBATOOL
+((|constructor|
+  (NIL
+   "This package contains functions used in the packages FunctionFieldIntegralBasis and NumberFieldIntegralBasis."))
+ (|moduleSum|
+  (((|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+              (|:| |basisInv| (|Matrix| |#1|)))
+    (|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+              (|:| |basisInv| (|Matrix| |#1|)))
+    (|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+              (|:| |basisInv| (|Matrix| |#1|))))
+   "\\spad{moduleSum(m1,{} m2)} returns the sum of two modules in the framed algebra \\spad{F}. Each module \\spad{\\spad{mi}} is represented as follows: \\spad{F} is a framed algebra with \\spad{R}-module basis \\spad{w1,{} w2,{} ...,{} wn} and \\spad{\\spad{mi}} is a record \\spad{[basis,{} basisDen,{} basisInv]}. If \\spad{basis} is the matrix \\spad{(aij,{} i = 1..n,{} j = 1..n)},{} then a basis \\spad{v1,{} ...,{} vn} for \\spad{\\spad{mi}} is given by \\spad{\\spad{vi} = (1/basisDen) * sum(aij * wj,{} j = 1..n)},{} \\spadignore{i.e.} the \\spad{i}th row of 'basis' contains the coordinates of the \\spad{i}th basis vector. Similarly,{} the \\spad{i}th row of the matrix \\spad{basisInv} contains the coordinates of \\spad{\\spad{wi}} with respect to the basis \\spad{v1,{} ...,{} vn}: if \\spad{basisInv} is the matrix \\spad{(bij,{} i = 1..n,{} j = 1..n)},{} then \\spad{\\spad{wi} = sum(bij * vj,{} j = 1..n)}."))
+ (|idealiserMatrix|
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|))
+   "\\spad{idealiserMatrix(m1,{} m2)} returns the matrix representing the linear conditions on the Ring associatied with an ideal defined by \\spad{m1} and \\spad{m2}."))
+ (|idealiser|
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) |#1|)
+   "\\spad{idealiser(m1,{} m2,{} d)} computes the order of an ideal defined by \\spad{m1} and \\spad{m2} where \\spad{d} is the known part of the denominator")
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|))
+   "\\spad{idealiser(m1,{} m2)} computes the order of an ideal defined by \\spad{m1} and \\spad{m2}"))
+ (|leastPower|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{leastPower(p,{} n)} returns \\spad{e},{} where \\spad{e} is the smallest integer such that \\spad{p ^e >= n}"))
+ (|divideIfCan!|
+  ((|#1| (|Matrix| |#1|) (|Matrix| |#1|) |#1| (|Integer|))
+   "\\spad{divideIfCan!(matrix,{} matrixOut,{} prime,{} n)} attempts to divide the entries of \\spad{matrix} by \\spad{prime} and store the result in \\spad{matrixOut}. If it is successful,{} 1 is returned and if not,{} \\spad{prime} is returned. Here both \\spad{matrix} and \\spad{matrixOut} are \\spad{n}-by-\\spad{n} upper triangular matrices."))
+ (|matrixGcd|
+  ((|#1| (|Matrix| |#1|) |#1| (|NonNegativeInteger|))
+   "\\spad{matrixGcd(mat,{} sing,{} n)} is \\spad{gcd(sing,{} g)} where \\spad{g} is the \\spad{gcd} of the entries of the \\spad{n}-by-\\spad{n} upper-triangular matrix \\spad{mat}."))
+ (|diagonalProduct|
+  ((|#1| (|Matrix| |#1|))
+   "\\spad{diagonalProduct(m)} returns the product of the elements on the diagonal of the matrix \\spad{m}"))
+ (|squareFree|
+  (((|Factored| $) $)
+   "\\spad{squareFree(x)} returns a square-free factorisation of \\spad{x}")))
+(("documentation" 0 6756) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 6748) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5881) ("modemaps" 0 2248) ("sourceFile" 0 2209)
+ ("constructorCategory" 0 1274) ("constructorModemap" 0 60)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

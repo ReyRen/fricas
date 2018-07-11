@@ -1,0 +1,38 @@
+1625                (|KeyedDictionary&| S |Key| |Entry|)
+|domain|
+(((|KeyedDictionary&| |#1| |#2| |#3|)
+  (CATEGORY |domain| (SIGNATURE |keys| ((|List| |#2|) |#1|))
+   (SIGNATURE |key?| ((|Boolean|) |#2| |#1|))
+   (SIGNATURE |member?|
+    ((|Boolean|) (|Record| (|:| |key| |#2|) (|:| |entry| |#3|)) |#1|)))
+  (|KeyedDictionary| |#2| |#3|) (|Type|) (|Type|))
+ (T |KeyedDictionary&|))
+(CATEGORY |domain| (SIGNATURE |keys| ((|List| |#2|) |#1|))
+ (SIGNATURE |key?| ((|Boolean|) |#2| |#1|))
+ (SIGNATURE |member?|
+  ((|Boolean|) (|Record| (|:| |key| |#2|) (|:| |entry| |#3|)) |#1|)))
+"/git/fricas/src/algebra/KDAGG.spad"
+((|member?|
+  (((|Boolean|) (|Record| (|:| |key| |#2|) (|:| |entry| |#3|)) $) 15))
+ (|keys| (((|List| |#2|) $) 19)) (|key?| (((|Boolean|) |#2| $) 12)))
+KDAGG-
+((|constructor|
+  (NIL
+   "A keyed dictionary is a dictionary of key-entry pairs for which there is a unique entry for each key."))
+ (|search|
+  (((|Union| |#3| "failed") |#2| $)
+   "\\spad{search(k,{} t)} searches the table \\spad{t} for the key \\spad{k},{} returning the entry stored in \\spad{t} for key \\spad{k}. If \\spad{t} has no such key,{} \\spad{search(k,{}t)} returns \"failed\"."))
+ (|remove!|
+  (((|Union| |#3| "failed") |#2| $)
+   "\\spad{remove!(k,{} t)} searches the table \\spad{t} for the key \\spad{k} removing (and return) the entry if there. If \\spad{t} has no such key,{} \\spad{remove!(k,{}t)} returns \"failed\"."))
+ (|keys|
+  (((|List| |#2|) $)
+   "\\spad{keys(t)} returns the list of keys in table \\spad{t}."))
+ (|key?|
+  (((|Boolean|) |#2| $)
+   "\\spad{key?(k,{} t)} tests if \\spad{k} is a key in table \\spad{t}.")))
+(("documentation" 0 774) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 767) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 615) ("modemaps" 0 NIL) ("sourceFile" 0 578)
+ ("constructorCategory" 0 383) ("constructorModemap" 0 66)
+ ("constructorKind" 0 57) ("constructorForm" 0 20))

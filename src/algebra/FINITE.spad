@@ -1,0 +1,48 @@
+)abbrev category FINITE Finite
+++ Author:
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ The category of domains composed of a finite set of elements.
+++ We include the functions \spadfun{lookup} and \spadfun{index} to give a bijection
+++ between the finite set and an initial segment of positive integers.
+++
+++ Axioms:
+++   \spad{lookup(index(n)) = n}
+++   \spad{index(lookup(s)) = s}
+Finite() : Category == Join(SetCategory, ConvertibleTo InputForm,
+                            Comparable) with
+    --operations
+      size : () -> NonNegativeInteger
+        ++ size() returns the number of elements in the set.
+      index : PositiveInteger -> %
+        ++ index(i) takes a positive integer i less than or equal
+        ++ to \spad{size()} and
+        ++ returns the \spad{i}-th element of the set. This
+        ++ operation establishes a bijection
+        ++ between the elements of the finite set and \spad{1..size()}.
+      lookup : % -> PositiveInteger
+        ++ lookup(x) returns a positive integer such that
+        ++ \spad{x = index lookup x}.
+      random : () -> %
+        ++ random() returns a random element from the set.
+      enumerate : () -> List %
+        ++ enumerate() returns list of elements of the set.
+  add
+      random() == index((1+random(size()$%))::PositiveInteger)
+
+      enumerate() == [index(i::PositiveInteger) for i in 1..size()]
+
+      convert(x : %) : InputForm ==
+          packageCall('index, [convert(lookup(x))@InputForm]
+                     )$InputFormFunctions1(%)
+
+      if not(% has OrderedSet) then
+
+          smaller?(x : %, y : %) : Boolean ==
+              lookup(x) <$PositiveInteger lookup(y)
+

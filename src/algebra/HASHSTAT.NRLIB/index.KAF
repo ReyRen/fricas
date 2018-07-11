@@ -1,0 +1,34 @@
+1218                (MAKEPROP '|HashState| 'NILADIC T)
+(|HashState|)
+|domain|
+(((|HashState|)
+  (CATEGORY |domain| (SIGNATURE |new| ($))
+   (SIGNATURE |update!| ($ $ (|SingleInteger|)))
+   (SIGNATURE |value| ((|SingleInteger|) $))))
+ (T |HashState|))
+(CATEGORY |domain| (SIGNATURE |new| ($))
+ (SIGNATURE |update!| ($ $ (|SingleInteger|)))
+ (SIGNATURE |value| ((|SingleInteger|) $)))
+"/git/fricas/src/algebra/HASHSTAT.spad"
+((|value| (*1 *2 *1)
+  (AND (|isDomain| *2 (|SingleInteger|)) (|isDomain| *1 (|HashState|))))
+ (|update!| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|SingleInteger|)) (|isDomain| *1 (|HashState|))))
+ (|new| (*1 *1) (|isDomain| *1 (|HashState|))))
+((|value| (((|SingleInteger|) $) 8)) (|update!| (($ $ (|SingleInteger|)) 9))
+ (|new| (($) 6)))
+HASHSTAT
+((|constructor|
+  (NIL "This domain supports incremental computation of hash values."))
+ (|value|
+  (((|SingleInteger|) $)
+   "\\spad{value(x)} returns a SingleInteger value corresponding to \\spad{x}."))
+ (|update!|
+  (($ $ (|SingleInteger|))
+   "\\spad{update!(hs,{} x)} computes new values of HashState from \\spad{hs} and \\spad{x} and might destructively operate on its first argument."))
+ (|new| (($) "\\spad{new()} return a new HashState.")))
+(("documentation" 0 768) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 759) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 664) ("modemaps" 0 423) ("sourceFile" 0 383)
+ ("constructorCategory" 0 251) ("constructorModemap" 0 78)
+ ("constructorKind" 0 69) ("constructorForm" 0 55) ("NILADIC" 0 20))

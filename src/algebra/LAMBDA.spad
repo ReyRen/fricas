@@ -1,0 +1,776 @@
+)abbrev domain LAMBDA Lambda
+++ Author: Martin Baker
+++ Date Created: March 2011
+++ Basic Operations:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/computation/lambda/
+++ An implementation of untyped lambda-calculus
+
+Lambda(UT) : Exports == Implementation where
+
+ UT : VarCat
+ NNI==> NonNegativeInteger
+ PR ==> Record(rft : %, pout : NNI)
+   ++ parse result includes term returned and new index
+ x<<y ==> hconcat(x::OutputForm,y::OutputForm)
+   ++ macro to simplify output
+
+ Exports == CoercibleTo(OutputForm) with
+  lambda : (deBruijn : NNI) -> %
+    ++ Constructs a reference to a bound variable from its deBruijn
+    ++ index
+  lambda : (varNme : UT) -> %
+    ++ Constructs a reference to a free variable
+  lambda : (x : %, y : %) -> %
+    ++ Constructs a node containing multiple terms
+  lambda : (x : %, t1 : UT) -> %
+    ++ Constructs lambda term and bind any variables with the name provided
+  parseLambda : (t1 : String) -> %
+    ++ Constructs nested lambda terms from a string
+    ++ notation assumes format like this:
+    ++ <term> : := "\" var "."<term> | n | <term><term> | "("<term>")"
+    ++ where:
+    ++ \ = lambda (I would like to use unicode lambda symbol but
+    ++             I would also like to keep maximum compatibility
+    ++             with non-unicode versions of Lisp)
+    ++ n = De Bruijn index which is a integer where, 1=inside inner
+    ++             lambda term, 2= next outer lambda term, 3= next
+    ++             outer and so on.
+    ++ brackets can be used around whole terms.
+  parseTerm : (t1 : String, pin : NNI) -> PR
+    ++ parseTerm is used by parseLambda. It would rarely be called
+    ++ externally but it is here to allow it to call parseLambda
+    ++ that is to allow circular calls
+  atom? : (n : %) -> Boolean
+    ++ returns true if this is an atom, that is free or bound variable
+    ++ otherwise return false if this is a compound or lambda definition
+  isCompound? : (n : %) -> Boolean
+    ++ introspection: returns true if this is a compound term containing
+    ++ two nodes
+  isLambda? : (n : %) -> Boolean
+    ++ introspection: returns true if this is a lambda definition
+  isBoundNode? : (n : %) -> Boolean
+    ++ introspection: returns true if this is a bound leaf node
+  isFreeNode? : (n : %) -> Boolean
+    ++ introspection: returns true if this is a unbound leaf node
+  getBoundValue : (n : %) -> NNI
+    ++ introspection: returns deBruijn index of bound variable in bound
+    ++ leaf node
+  getVariable : (n : %) -> UT
+    ++ introspection: returns value of unbound variable in unbound leaf
+    ++ node or bound variable in lambda term
+  free? : (n : %) -> Boolean
+    ++ if this is a lambda term then is it free, that is does
+    ++ its variable appear in its expression
+  getChildren : (n : %) -> List %
+    ++ returns 2 child nodes if this is a compound term
+    ++ returns 1 child node if this is a lamda term
+    ++ otherwise returns []
+  subst : (n : %, a : %, b : %) -> %
+    ++ substitution of 'a' for 'b' in 'n'
+  bind : (n : %) -> %
+    ++ if this is a lambda term then replace string name in sub-nodes
+    ++ with De Bruijn index
+  unbind : (n : %) -> %
+    ++ if this is a lambda term then replace De Bruijn index in sub-nodes
+    ++ with string name
+  redux : (n : %) -> %
+    ++ beta reduction - apply beta reduction recusivly to all subnodes
+  "=":(x:%, y:%) -> Boolean
+    ++ return true if equal (deep search) that is: all terms
+    ++ at all levels in tree must be alpha-equivalent to return true
+    ++ That is the names, but not the deBruijn index, of the
+    ++ bound variables can be different.
+    ++ beta-equivalence is not implemented because it is not decidable.
+  toStringConven : (n : %, boundL : List String) -> String
+    ++ return string representation using conventional notation, that is
+    ++ deBruijn index is replaced by name using String value for bound variables.
+    ++ notation assumes association to the left, in the absence of
+    ++ brackets, the term to the left binds more tightly than the
+    ++ one on the right.
+  toString : (n : %) -> String
+    ++ return string representation using deBruijn index for
+    ++ bound variables.
+    ++ notation assumes association to the left, in the absence of
+    ++ brackets, the term to the left binds more tightly than the
+    ++ one on the right.
+
+ Implementation == add
+
+  Rep := Union(_
+         boundTerm : Record(varBound : NNI), _
+         freeTerm : UT, _
+         compoundTerm : Record(c1 : %, c2 : %), _
+         lambdaTerm : Record(c3 : %, nm : UT)_
+         )
+    ++ this allows us to represent potentially nested lambda
+    ++ expressions as a tree structure where the nodes are
+    ++ one of:
+    ++ 1) boundTerm: Record(varBound: NNI)
+    ++    This represents a bound variable using De Bruijn index.
+    ++       varBound = De Bruijn index which is a integer where,
+    ++             1=inside inner lambda term
+    ++             2= next outer lambda term,
+    ++             3= next outer and so on.
+    ++
+    ++ 2) freeTerm: UT
+    ++    This represents an unbound variable so De Bruijn index
+    ++    is not used.
+    ++
+    ++ 3) compoundTerm: Record(c1: %, c2: %)
+    ++   Adjacent nodes represent function application
+    ++
+    ++ 4) lambdaTerm: Record(c3: %, nm: UT)
+    ++    when used the outer term should be a lambdaTerm although
+    ++    lambda terms may also be nested within the tree structure
+    ++    c3 holds the subnodes
+    ++    nm is the bound term for this lambda node
+    ++   There is only one bound term for each lambda node, if more
+    ++   are required then lambda nodes can be nested.
+
+  -- Constructs a reference to a bound variable from its deBruijn
+  -- index
+  lambda(n1 : NNI) : % == [[n1]]
+
+  -- Constructs a reference to a free variable from its name
+  lambda(var : UT) : % == [var]
+
+  -- Constructs a node containing multiple terms
+  lambda(x : %, y : %) : % == [[x, y]]
+
+  -- Constructs lambda term and bind any variables with the name provided
+  lambda(x : %, t1 : UT) : % ==
+    lt : % := [[x, t1]]
+    --print(message "creating lambda(" << toString(x) << _
+    --  message "," << t1 << message ") giving:" << toString(lt))
+    --print(message "bound ver=" << toString(bind(lt)))
+    bind(lt)
+
+  -- returns 2 child nodes if this is a compound term
+  -- returns 1 child node if this is a lambda term
+  -- otherwise returns []
+  getChildren(n : %) : List % ==
+    if atom?(n) then return []
+    if n case compoundTerm then
+      return [n.compoundTerm.c1, n.compoundTerm.c2]
+    if n case lambdaTerm then
+      return [n.lambdaTerm.c3]
+    []
+
+  -- returns true if this is an atom, that is free or bound variable
+  -- otherwise return false if this is a compound or lambda definition
+  atom?(n : %) : Boolean == (n case boundTerm) or (n case freeTerm)
+
+  -- introspection:  returns true if this is a compound term containing
+  -- two nodes
+  isCompound?(n : %) : Boolean == (n case compoundTerm)
+
+  -- introspection:  returns true if this is a lambda definition
+  isLambda?(n : %) : Boolean == (n case lambdaTerm)
+
+  -- introspection: returns true if this is a bound leaf node
+  isBoundNode?(n : %) : Boolean == (n case boundTerm)
+
+  -- introspection: returns true if this is a unbound leaf node
+  isFreeNode?(n : %) : Boolean == (n case freeTerm)
+
+  -- introspection: returns deBruijn index of bound variable in bound
+  -- leaf node
+  getBoundValue(n : %) : NNI ==
+    if n case boundTerm then
+      return n.boundTerm.varBound
+    0::NNI
+
+  -- introspection: returns value of unbound variable in unbound leaf
+  -- node or bound variable in lambda term
+  getVariable(n : %) : UT ==
+    if n case freeTerm then
+      return n.freeTerm
+    if n case lambdaTerm then
+      return n.lambdaTerm.nm
+    var("error")$UT
+
+  -- does s not appear in n
+  freeVariable?(n : %, s : UT) : Boolean ==
+    if n case freeTerm then
+      if n.freeTerm = s then return false
+    if n case lambdaTerm then
+      if not freeVariable?(n.lambdaTerm.c3, s) then return false
+    if n case compoundTerm then
+      if not freeVariable?(n.compoundTerm.c1, s) or _
+         not freeVariable?(n.compoundTerm.c2, s) then return false
+    true
+
+  -- return false if any bound terms
+  freeVariable?(n : %, i : NNI) : Boolean ==
+    if n case boundTerm then
+      if n.boundTerm.varBound = i then return false
+    if n case lambdaTerm then
+      if not freeVariable?(n.lambdaTerm.c3, (i+1)::NNI) then return false
+    if n case compoundTerm then
+      if (not freeVariable?(n.compoundTerm.c1, i)) or _
+         (not freeVariable?(n.compoundTerm.c2, i)) then return false
+    true
+
+  -- if this is a lambda term then is it free, that is does
+  -- its variable appear in its expression
+  free?(n : %) : Boolean ==
+    if n case lambdaTerm then
+      --s1: String := name(n.lambdaTerm.nm)$UT
+      return freeVariable?(n.lambdaTerm.c3, 0::NNI)
+    print(message "warning free called on non-lambda term" << n)
+    false
+
+  parseLambdaTerm(t1 : String, pin : NNI) : PR ==
+    --print(message "parseLambdaTerm(" << t1 << " << ",string(pin) << ")")
+    p1 := pin
+    ch := qelt(t1, p1)
+    if not (ch = char("\")) then
+      error "lambda term must start with \"
+      return [[[0::NNI]], p1]
+    p1 := p1 + (1::NNI)
+    if p1 > maxIndex(t1) then
+      error "lambda term not complete"
+      return [[[0::NNI]], p1]
+    r := parseVarTerm(t1, p1)$UT
+    p1 := r.pout
+    ch := qelt(t1, p1)
+    --print(message "parseLambdaTerm'(" << t1 << "," << string(p1) << ")")
+    if not (ch = char(".")) then
+      error "lambda term must have ."
+      return [[[0::NNI]], p1]
+    p1 := p1 + (1::NNI)
+    --print(message "parseLambdaTerm''(" << t1 << "," << string(p1) << ")")
+    if p1 > maxIndex(t1) then
+      error "lambda term must contain something"
+      return [[[0::NNI]], p1]
+    --print(message "parseLambdaTerm'''(" << t1 << "," << string(p1) << ")")
+    r2 := parseTerm(t1, p1)
+    ex : % := r2.rft
+    p1 := r2.pout
+    [lambda(ex, r.rft), p1]
+
+  parseBracketTerm(t1 : String, pin : NNI) : PR ==
+    p1 := pin
+    ch := qelt(t1, p1)
+    if not (ch = char("(")) then
+      error "bracket term must start with ("
+      return [[[0::NNI]], p1]
+    p1 := p1 + (1::NNI)
+    if p1 > maxIndex(t1) then
+      error "opening but no closing bracket"
+      return [[[0::NNI]], p1]
+    r2 := parseTerm(t1, p1)
+    trm := r2.rft
+    p1 := r2.pout
+    ch := qelt(t1, p1)
+    if not (ch = char(")")) then
+      error "can't find closing bracket"
+      return [[[0::NNI]], p1]
+    p1 := p1 + (1::NNI)
+    [trm, p1]
+
+  parseVariableTerm(t1 : String, pin : NNI) : PR ==
+    p1 := pin
+    inx : NNI := 0 -- holds De Bruijn index while its being read
+    ch := qelt(t1, p1)
+    --print(message "pv ch=" << ch)
+    while digit?(ch) repeat
+      if ch = char("0") then inx := inx*10
+      if ch = char("1") then inx := inx*10 + 1
+      if ch = char("2") then inx := inx*10 + 2
+      if ch = char("3") then inx := inx*10 + 3
+      if ch = char("4") then inx := inx*10 + 4
+      if ch = char("5") then inx := inx*10 + 5
+      if ch = char("6") then inx := inx*10 + 6
+      if ch = char("7") then inx := inx*10 + 7
+      if ch = char("8") then inx := inx*10 + 8
+      if ch = char("9") then inx := inx*10 + 9
+      p1 := p1 + (1::NNI)
+      if p1 > maxIndex(t1) then return [lambda(inx), p1]
+      ch := qelt(t1, p1)
+    [lambda(inx), p1]
+
+  parseTerm(t1 : String, pin : NNI) : PR ==
+    p1 := pin
+    res : % := [[0::NNI]]
+    ch := qelt(t1, p1)
+    --print(message "parseTerm ch=" << ch << " p1=" << string(p1))
+    -- first remove leading spaces
+    while ch = char(" ") repeat
+      p1 := p1 + (1::NNI)
+      if p1 > maxIndex(t1) then
+        --print(message "parseTerm(" << t1 << ") 1 giving:" << _
+        --  toString(res))
+        return [res, p1]
+      ch := qelt(t1, p1)
+    r : PR := [res, p1]
+    if ch = char("\") then r := parseLambdaTerm(t1,p1)
+    if ch = char("(") then r := parseBracketTerm(t1,p1)
+    if digit?(ch) then r := parseVariableTerm(t1, p1)
+    res := r.rft
+    p1 := r.pout
+    if alphabetic?(ch) then
+      r2 := parseVarTerm(t1, p1)$UT
+      res := lambda(r2.rft)
+      p1 := r2.pout
+    -- now check for compound term
+    if p1 > maxIndex(t1) then
+      --print(message "parseTerm(" << t1 << ") 2 giving:" << _
+      --  toString(res))
+      return [res, p1]
+    ch := qelt(t1, p1)
+    if ch = char(" ") then
+      p1 := p1 + (1::NNI)
+      if p1 > maxIndex(t1) then
+        --print(message "parseTerm(" << t1 << ") 3 giving:" << _
+        --  toString(res))
+        return [res, p1]
+      r := parseTerm(t1, p1)
+      p1 := r.pout
+      res := lambda(res, r.rft)
+    --print(message "parseTerm(" << t1 << ") 4 giving:" << _
+    --  toString(res))
+    [res, p1]
+
+  -- Constructs nested lambda terms from a string
+  -- notation assumes format like this:
+  -- <term> : := "\" var "."<term> | n | <term><term> | "("<term>")"
+  -- where:
+  -- \ = lambda (I would like to use unicode lambda symbol but
+  --             I would also like to keep maximum compatibility
+  --             with non-unicode versions of Lisp)
+  -- n = De Bruijn index which is a integer where, 1=inside inner
+  --             lambda term, 2= next outer lambda term, 3= next
+  --             outer and so on.
+  -- brackets can be used around whole terms.
+  parseLambda(t1 : String) : % ==
+    r := parseTerm(t1, minIndex(t1)::NNI)
+    --print(message "parseLambda(" << t1 << ") giving:" << _
+    --  toString(tm))
+    r.rft
+
+  -- return string representation using conventional notation, that is
+  -- deBruijn index is replaced by name using String value for bound variables.
+  -- notation assumes association to the left, in the absence of
+  -- brackets, the term to the left binds more tightly than the
+  -- one on the right.
+  toStringConven(n : %, boundL : List String) : String ==
+    s:String := ""
+    --print(message "toStringConven(" << toString(n) << message ")")
+    if n case boundTerm then
+      i : NNI := n.boundTerm.varBound + 1
+      --print(message "toStringConven(" << toString(n) << ") i=" << _
+      --  string(i) << " #boundL=" << string(#boundL))
+      if i > 0 and i <= #boundL then return boundL.i
+      s := string(n.boundTerm.varBound)
+    if n case freeTerm then
+      s := getName(n.freeTerm)$UT
+    if n case compoundTerm then
+      s := concat(["(",toStringConven(n.compoundTerm.c1,boundL)," ",toStringConven(n.compoundTerm.c2,boundL),")"])
+    if n case lambdaTerm then
+      -- variable node so print name
+      varName : String := getName(n.lambdaTerm.nm)$UT
+      while member?(varName, boundL) repeat
+        varName := concat(varName,"'")
+      boundL2 : List String := concat(boundL, varName)
+      s := concat(["(\",varName,".",toStringConven(n.lambdaTerm.c3,boundL2),")"])
+    s
+
+  -- return string representation using deBruijn index for
+  -- bound variables.
+  -- notation assumes association to the left, in the absence of
+  -- brackets, the term to the left binds more tightly than the
+  -- one on the right.
+  toString(n : %) : String ==
+    s:String := ""
+    if n case boundTerm then
+      s := string(n.boundTerm.varBound)
+    if n case freeTerm then
+      s := toString(n.freeTerm)$UT
+    if n case compoundTerm then
+      s := concat(["(",toString(n.compoundTerm.c1)," ",toString(n.compoundTerm.c2),")"])
+    if n case lambdaTerm then
+      -- variable node so print name
+      s := concat(["(\",toString(n.lambdaTerm.nm)$UT,".",toString(n.lambdaTerm.c3),")"])
+    s
+
+  -- substitution of 'a' for 'b' in 'n'
+  subst(n : %, a : %, b : %) : % ==
+    if n = b then return a
+    if (n case compoundTerm) then
+      return lambda(subst(n.compoundTerm.c1, a, b), subst(n.compoundTerm.c2, a, b))
+    if (n case lambdaTerm) then
+      return lambda(subst(n.lambdaTerm.c3, a, b), n.lambdaTerm.nm)
+    n
+
+  -- used by bind to replace a given string name in sub-nodes
+  -- with De Bruijn index
+  bindTerm(n : %, i : NNI, s : UT) : % ==
+    --print(message "bindTerm(" << toString(n) << " map:" << _
+    --  string(i) << " to " << (name(s)$UT) << ")")
+    if n case boundTerm then
+      return lambda(n.boundTerm.varBound)
+    if n case freeTerm then
+      if n.freeTerm = s then
+        --print(message "convert:" << (name(s)$UT) << _
+        --  " to " << string(i))
+        return lambda(i)
+      return lambda(n.freeTerm)
+    if n case lambdaTerm then
+      --print(message "bindTerm generating lambda(" << _
+      --  toString(bindTerm(n.lambdaTerm.c3,i+1,s)) << "," << _
+      --  (name(n.lambdaTerm.nm)$UT) << ")")
+      return [[bindTerm(n.lambdaTerm.c3, i+1, s), n.lambdaTerm.nm]]
+    if n case compoundTerm then
+      return lambda(bindTerm(n.compoundTerm.c1, i, s), _
+                    bindTerm(n.compoundTerm.c2, i, s))
+    n
+
+  -- if this is a lambda term then replace string name in sub-nodes
+  -- with De Bruijn index
+  bind(n : %) : % ==
+    --print(message "bind(" << toString(n) << ")")
+    if (n case lambdaTerm) then
+      return [[bindTerm(n.lambdaTerm.c3, 0, n.lambdaTerm.nm), n.lambdaTerm.nm]]
+    n
+
+  -- used by unbind to replace a given De Bruijn index in sub-nodes
+  -- with string name
+  unbindTerm(n : %, i : NNI, s : UT) : % ==
+    --print(message "unbindTerm(" << toString(n) << " map:" << _
+    --   string(i) << " to " << (name(s)$UT) << ")")
+    if n case boundTerm then
+      if n.boundTerm.varBound = i then
+        --print(message "convert:" << string(i) << _
+        -- message " to " << (name(s)$UT))
+        return lambda(s)
+      return lambda(n.boundTerm.varBound)
+    if n case freeTerm then
+      return lambda(n.freeTerm)
+    if n case lambdaTerm then
+      --print(message "unbindTerm generating lambda(" << _
+      --  toString(unbindTerm(n.lambdaTerm.c3,i+1,s)) << "," << _
+      --  name(n.lambdaTerm.nm) << message ")")
+      return [[unbindTerm(n.lambdaTerm.c3, i+1, s), n.lambdaTerm.nm]]
+    if n case compoundTerm then
+      return lambda(unbindTerm(n.compoundTerm.c1, i, s), _
+                    unbindTerm(n.compoundTerm.c2, i, s))
+    n
+
+  -- if this is a lambda term then replace De Bruijn index in sub-nodes
+  -- with string name
+  unbind(n : %) : % ==
+    --print(message "unbind(" << toString(n) << message ")")
+    if (n case lambdaTerm) then
+      return [[unbindTerm(n.lambdaTerm.c3, 0, n.lambdaTerm.nm), n.lambdaTerm.nm]]
+    n
+
+  -- beta reduction - apply beta reduction recursively to all subnodes
+  redux(n : %) : % ==
+    if atom?(n) then return n -- atom cant be reduced
+    if n case compoundTerm then
+      -- we are looking for a compound term where the first term is
+      -- a lambda expression being applied to the second term.
+      term1 : % := n.compoundTerm.c1
+      term2 : % := n.compoundTerm.c2
+      if isLambda?(term1) then
+        -- apply term1 to term2
+        boundVarName : String := getName(term1.lambdaTerm.nm)$UT
+        return subst(term1, term2, lambda(0::NNI))
+      return lambda(redux(term1), redux(term2))
+    if n case lambdaTerm then
+      return lambda(redux(n.lambdaTerm.c3), n.lambdaTerm.nm)
+    n
+
+  -- return true if equal (deep search) that is: all terms
+  -- at all levels in tree must be alpha-equivalent to return true
+  -- That is the names, but not the deBruijn index, of the
+  -- bound variables can be different.
+  x = y ==
+    if (x case boundTerm) and (y case boundTerm) then
+      -- boundTerm so compare deBruijn index
+      if x.boundTerm.varBound = y.boundTerm.varBound then return true
+      return false
+    if (x case freeTerm) and (y case freeTerm) then
+      -- freeTerm so compare variables
+      if x.freeTerm = y.freeTerm then return true
+      return false
+    if (x case compoundTerm) and (y case compoundTerm) then
+      -- compoundTerm so compare both terms
+      if (x.compoundTerm.c1 = y.compoundTerm.c1) and_
+         (x.compoundTerm.c2 = y.compoundTerm.c2) then return true
+      return false
+    if (x case lambdaTerm) and (y case lambdaTerm) then
+      -- lambdaTerm only compare body not variable name
+      if x.lambdaTerm.c3 = y.lambdaTerm.c3 then return true
+      return false
+    false
+
+
+  -- return OutputForm using conventional notation, that is
+  -- deBruijn index is replaced by name using String value for bound variables.
+  -- notation assumes association to the left, in the absence of
+  -- brackets, the term to the left binds more tightly than the
+  -- one on the right.
+  toOutputFormConven(n : %, boundL:List(String)) : OutputForm ==
+      s:OutputForm := empty()$OutputForm
+      --print(message "toOutputFormConven(" << toString(n) << ")")
+      if n case boundTerm then
+          i : NNI := n.boundTerm.varBound + 1
+          --print(message "toOutputFormConven(" << toString(n) << _
+          --   ") i=" << string(i) << " #boundL=" << string(#boundL))
+          -- if index is within range use it to lookup String value
+          -- convert it to Symbol first to avoid displaying quotes.
+          if i > 0 and i <= #boundL then return message(boundL.i)
+          -- otherwise display bound term as NNI (deBruijn index)
+          s := (n.boundTerm.varBound)::OutputForm
+      if n case freeTerm then
+          s := (n.freeTerm)::OutputForm
+      if n case compoundTerm then
+          s := hconcat([message("("),
+                        toOutputFormConven(n.compoundTerm.c1, boundL),
+                        message(" "),
+                        toOutputFormConven(n.compoundTerm.c2, boundL),
+                        message(")")])$OutputForm
+      if n case lambdaTerm then
+          -- variable node so print name
+          varName : String := getName(n.lambdaTerm.nm)$UT
+          while member?(varName, boundL) repeat
+              varName := concat(varName,"'")
+          boundL2 : List String := concat(boundL, varName)
+          s := hconcat([message("(\"),
+                        message(varName),
+                        message("."),
+                        toOutputFormConven(n.lambdaTerm.c3, boundL2),
+                        message(")")])$OutputForm
+      s
+
+  -- output
+  coerce(n : %) : OutputForm == toOutputFormConven(n,[])
+
+)if false
+
+\section{SKI Combinators}
+for more details see:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/computation/ski/}
+
+Ski combinators were introduced by Moses Schoenfinkel and Haskell
+Curry with the aim of eliminating the need for variables in
+mathematical logic. It is equivalent to lambda calculus but
+it can be used for doing, without variables, anything that
+would require variables in other systems.
+
+The structure is a self-modifying binary tree.
+\section{Tutorial}
+
+On this page we will be working with 'untyped' SKI combinators
+so we create an instance called UNTYP to simplify notation:
+
+\begin{verbatim}
+(1) -> UNTYP := SKICombinators Untyped
+
+   (1)  SKICombinators(Untyped)
+                                                           Type : Type
+\end{verbatim}
+
+\section{Constructing SKI combinators}
+
+SKI combinators consist of a binary tree structure where the leaves
+of the tree are either $I$, $K$ or $S$ combinators or variables.
+
+The $I$, $K$ and $S$ combinators can be constructed by using the $I()$,
+$K()$ and $S()$ functions.
+
+Variables (representing functions) can be constructed by
+\verb'var("x")$Untyped', where \verb'x' is the name of the variable, we can
+then pass this variable to a ski constructor to create a SKI term:
+\begin{verbatim}
+(2) -> m1 := I()$UNTYP
+
+   (2)  I
+                                      Type: SKICombinators(Untyped)
+(3) -> m2 := K()$UNTYP
+
+   (3)  K
+                                      Type: SKICombinators(Untyped)
+(4) -> m3 := S()$UNTYP
+
+   (4)  S
+                                      Type: SKICombinators(Untyped)
+(5) -> v1 := ski(var("x")$Untyped)$UNTYP
+
+   (5)  x
+                                      Type: SKICombinators(Untyped)
+\end{verbatim}
+Compound combinator terms can be constructed by \verb'ski(node1, node2)' where
+\verb'node1' and \verb'node2' are other combinator terms. Internally
+combinators are stored as a binary tree. The notation assumes association
+to the left, in the absence of brackets, the term to the left binds more
+tightly than the one on the right. So, in the following, we can see that:
+\begin{itemize}
+\item In n2 the second term is an atom so brackets are not required.
+\item In n3 the second term is compound so brackets are required.
+\end{itemize}
+\begin{verbatim}
+(6) -> n1 := ski(m1, m2)$UNTYP
+
+   (6)  IK
+                                      Type: SKICombinators(Untyped)
+(7) -> n2 := ski(n1, m3)$UNTYP
+
+   (7)  IKS
+                                      Type: SKICombinators(Untyped)
+(8) -> n3 := ski(m3, n1)$UNTYP
+
+   (8)  S(IK)
+                                      Type: SKICombinators(Untyped)
+\end{verbatim}
+In addition, to avoid having to build up this node by node, there is a
+quicker way to construct SKI combinators. We can construct the whole
+binary tree from a single string using the \verb'parseSki' constructor as
+follows. Again the notation assumes association to the left, in the
+absence of brackets, the term to the left binds more tightly than the
+one on the right.
+
+When we are using parseSki and we have two variables next to each other
+(such as \verb'x y') then we must put a space between the variables, this is
+so that we can gave a variable a name consisting of multiple characters.
+So \verb'xy' is a single variable but \verb'x y' is two variables. All variables
+must start with a lower case letter. The combinators $I$, $K$, and $S$ do not
+need to be separated with a space since they always consist of 1
+character.
+\begin{verbatim}
+(9) -> n4 := parseSki("IKS")$UNTYP
+
+   (9)  IKS
+                                      Type: SKICombinators(Untyped)
+(10) -> n5 := parseSki("S(IK)")$UNTYP
+
+   (10)  S(IK)
+                                      Type: SKICombinators(Untyped)
+\end{verbatim}
+\section{redux}
+
+Now that we have constructed our SKI combinator we can apply the
+combinators using the redux function. This allows us to apply the
+self-modifying binary tree.
+
+The first combinator to investigate is $I$. This is a do nothing
+combinator:
+\begin{verbatim}
+(11) -> s1 := parseSki("Ix")$UNTYP
+
+   (11)  I x
+                                      Type: SKICombinators(Untyped)
+(12) -> redux(s1)$UNTYP
+   x
+
+   (12)  x
+                                      Type: SKICombinators(Untyped)
+\end{verbatim}
+The next combinator to investigate is $K$. This removes the final
+variable:
+\begin{verbatim}
+(13) -> s2 := parseSki("Kx y")$UNTYP
+
+   (13)  K x y
+                                      Type: SKICombinators(Untyped)
+(14) -> redux(s2)$UNTYP
+   x
+
+   (14)  x
+                                      Type: SKICombinators(Untyped)
+\end{verbatim}
+The next combinator to investigate is $S$ This applies the first two
+functions to the third:
+\begin{verbatim}
+(15) -> s3 := parseSki("Sx y z")$UNTYP
+
+   (15)  S x y z
+                                      Type: SKICombinators(Untyped)
+(16) -> redux(s3)$UNTYP
+   x z(y z)
+
+   (16)  x z(y z)
+                                      Type: SKICombinators(Untyped)
+\end{verbatim}
+\section{Secondary Combinators}
+
+Any calculation can be done by some combination of $K$ and $S$. However
+some sequences occur frequently so it is worth assigning them special
+letters:
+
+\begin{tabular}{lll}
+Operator&        What it does&    SKI equivalent (normal form)\\
+$I$ &      Identity (leave unchanged)  &     $I$ or $SKK$ or $SKS$\\
+$B$ &      Function composition        &    $S(KS)K$\\
+$B'$&      Reverse function composition&\\
+$C$ &      Swap functions              &    $S(K(SI))K$\\
+$K$ &      Form constant function      &    $K$\\
+$S$ &      Generalized composition     &    $S$\\
+$W$ &      Doubling or diagonalizing   &\\
+\end{tabular}
+
+So we can see in the 3 examples below :
+
+    In 17 that $SKKxy$ is equivalent to $xy$, that is $SKK$ is identity,
+equivalent to I
+    In 19 that $S(K(SI))Kxy$ is equivalent to $yx$, so "S(K(SI))K"
+reverses its operands.
+\begin{verbatim}
+(17) -> redux(parseSki("SKKx y")$UNTYP)$UNTYP
+   K x(K x) y
+   x y
+
+   (17)  x y
+                                      Type: SKICombinators(Untyped)
+(18) -> redux(parseSki("S(KS)x y")$UNTYP)$UNTYP
+   KS y(x y)
+   S(x y)
+
+   (18)  S(x y)
+                                      Type: SKICombinators(Untyped)
+(19) -> redux(parseSki("S(K(SI))Kx y")$UNTYP)$UNTYP
+   K(SI) x(K x) y
+   I y(K x y)
+   y x
+
+   (19)  y x
+                                      Type: SKICombinators(Untyped)
+\end{verbatim}
+SKI combinators can be coerced to and from lambda-calculus and
+intuitionistic logic. For a tutorial about how to coerce to/from these
+algebras see this page.
+\section{To Do}
+
+These are issues to think about for longer term development of this domain.
+\begin{itemize}
+\item Issue 1
+
+Currently this only works with variables, this means that:
+\begin{verbatim}
+    redux applied to 'SKKx y' gives 'x y'
+    but redux applied to 'SKK' does not give 'I'
+\end{verbatim}
+
+That is, I am looking for a way to 'lift' from working in terms operators
+acting on variables to working in terms of operators only.
+\item Issue 2
+
+It would be good to be able to use these combinators to operate on
+Axiom/FriCAS functions.
+
+\item See also
+
+I also have Axiom/FriCAS coding for lambda-calculus, as explained on this
+page, where there is explanation and tutorial.
+\end{itemize}
+
+\section{domain SKICOMB SKICombinators}
+)endif
+

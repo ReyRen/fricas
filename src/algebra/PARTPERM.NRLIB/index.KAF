@@ -1,0 +1,181 @@
+10066               (MAKEPROP '|PartitionsAndPermutations| 'NILADIC T)
+(|PartitionsAndPermutations|)
+|package|
+(((|PartitionsAndPermutations|)
+  (CATEGORY |package|
+   (SIGNATURE |partitions|
+    ((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |partitions| ((|Stream| (|List| (|Integer|))) (|Integer|)))
+   (SIGNATURE |partitions|
+    ((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|)))
+   (SIGNATURE |odd_partitions|
+    ((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |odd_partitions| ((|Stream| (|List| (|Integer|))) (|Integer|)))
+   (SIGNATURE |distinct_partitions|
+    ((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |distinct_partitions|
+    ((|Stream| (|List| (|Integer|))) (|Integer|)))
+   (SIGNATURE |conjugate| ((|List| (|Integer|)) (|List| (|Integer|))))
+   (SIGNATURE |conjugates|
+    ((|Stream| (|List| (|Integer|))) (|Stream| (|List| (|Integer|)))))
+   (SIGNATURE |shuffle|
+    ((|Stream| (|List| (|Integer|))) (|List| (|Integer|))
+     (|List| (|Integer|))))
+   (SIGNATURE |shufflein|
+    ((|Stream| (|List| (|Integer|))) (|List| (|Integer|))
+     (|Stream| (|List| (|Integer|)))))
+   (SIGNATURE |sequences|
+    ((|Stream| (|List| (|Integer|))) (|List| (|Integer|))
+     (|List| (|Integer|))))
+   (SIGNATURE |sequences|
+    ((|Stream| (|List| (|Integer|))) (|List| (|Integer|))))
+   (SIGNATURE |permutations| ((|Stream| (|List| (|Integer|))) (|Integer|)))))
+ (T |PartitionsAndPermutations|))
+(CATEGORY |package|
+ (SIGNATURE |partitions|
+  ((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |partitions| ((|Stream| (|List| (|Integer|))) (|Integer|)))
+ (SIGNATURE |partitions|
+  ((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|)))
+ (SIGNATURE |odd_partitions|
+  ((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |odd_partitions| ((|Stream| (|List| (|Integer|))) (|Integer|)))
+ (SIGNATURE |distinct_partitions|
+  ((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |distinct_partitions|
+  ((|Stream| (|List| (|Integer|))) (|Integer|)))
+ (SIGNATURE |conjugate| ((|List| (|Integer|)) (|List| (|Integer|))))
+ (SIGNATURE |conjugates|
+  ((|Stream| (|List| (|Integer|))) (|Stream| (|List| (|Integer|)))))
+ (SIGNATURE |shuffle|
+  ((|Stream| (|List| (|Integer|))) (|List| (|Integer|)) (|List| (|Integer|))))
+ (SIGNATURE |shufflein|
+  ((|Stream| (|List| (|Integer|))) (|List| (|Integer|))
+   (|Stream| (|List| (|Integer|)))))
+ (SIGNATURE |sequences|
+  ((|Stream| (|List| (|Integer|))) (|List| (|Integer|)) (|List| (|Integer|))))
+ (SIGNATURE |sequences| ((|Stream| (|List| (|Integer|))) (|List| (|Integer|))))
+ (SIGNATURE |permutations| ((|Stream| (|List| (|Integer|))) (|Integer|))))
+"/git/fricas/src/algebra/PARTPERM.spad"
+((|permutations| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|Stream| (|List| (|Integer|))))
+       (|isDomain| *1 (|PartitionsAndPermutations|))))
+ (|sequences| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *2 (|Stream| (|List| (|Integer|))))
+       (|isDomain| *1 (|PartitionsAndPermutations|))))
+ (|sequences| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *2 (|Stream| (|List| (|Integer|))))
+       (|isDomain| *1 (|PartitionsAndPermutations|))))
+ (|shufflein| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|Stream| (|List| (|Integer|))))
+       (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *1 (|PartitionsAndPermutations|))))
+ (|shuffle| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *2 (|Stream| (|List| (|Integer|))))
+       (|isDomain| *1 (|PartitionsAndPermutations|))))
+ (|conjugates| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Stream| (|List| (|Integer|))))
+       (|isDomain| *1 (|PartitionsAndPermutations|))))
+ (|conjugate| (*1 *2 *2)
+  (AND (|isDomain| *2 (|List| (|Integer|)))
+       (|isDomain| *1 (|PartitionsAndPermutations|))))
+ (|distinct_partitions| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|Stream| (|List| (|Integer|))))
+       (|isDomain| *1 (|PartitionsAndPermutations|))))
+ (|distinct_partitions| (*1 *2 *3 *3 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|Stream| (|List| (|Integer|))))
+       (|isDomain| *1 (|PartitionsAndPermutations|))))
+ (|odd_partitions| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|Stream| (|List| (|Integer|))))
+       (|isDomain| *1 (|PartitionsAndPermutations|))))
+ (|odd_partitions| (*1 *2 *3 *3 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|Stream| (|List| (|Integer|))))
+       (|isDomain| *1 (|PartitionsAndPermutations|))))
+ (|partitions| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|Stream| (|List| (|Integer|))))
+       (|isDomain| *1 (|PartitionsAndPermutations|))))
+ (|partitions| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|Stream| (|List| (|Integer|))))
+       (|isDomain| *1 (|PartitionsAndPermutations|))))
+ (|partitions| (*1 *2 *3 *3 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|Stream| (|List| (|Integer|))))
+       (|isDomain| *1 (|PartitionsAndPermutations|)))))
+((|shufflein|
+  (((|Stream| (|List| (|Integer|))) (|List| (|Integer|))
+    (|Stream| (|List| (|Integer|))))
+   37))
+ (|shuffle|
+  (((|Stream| (|List| (|Integer|))) (|List| (|Integer|)) (|List| (|Integer|)))
+   33))
+ (|sequences| (((|Stream| (|List| (|Integer|))) (|List| (|Integer|))) 46)
+  (((|Stream| (|List| (|Integer|))) (|List| (|Integer|)) (|List| (|Integer|)))
+   45))
+ (|permutations| (((|Stream| (|List| (|Integer|))) (|Integer|)) 47))
+ (|partitions| (((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|)) 22)
+  (((|Stream| (|List| (|Integer|))) (|Integer|)) 16)
+  (((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|) (|Integer|)) 12))
+ (|odd_partitions| (((|Stream| (|List| (|Integer|))) (|Integer|)) 27)
+  (((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|) (|Integer|)) 26))
+ (|distinct_partitions| (((|Stream| (|List| (|Integer|))) (|Integer|)) 29)
+  (((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|) (|Integer|)) 28))
+ (|conjugates|
+  (((|Stream| (|List| (|Integer|))) (|Stream| (|List| (|Integer|)))) 31))
+ (|conjugate| (((|List| (|Integer|)) (|List| (|Integer|))) 30)))
+PARTPERM
+((|constructor|
+  (NIL
+   "PartitionsAndPermutations contains functions for generating streams of integer partitions,{} and streams of sequences of integers composed from a multi-set."))
+ (|permutations|
+  (((|Stream| (|List| (|Integer|))) (|Integer|))
+   "\\spad{permutations(n)} is the stream of permutations \\indented{1}{formed from \\spad{1,{} 2,{} 3,{} ...,{} n}.}"))
+ (|sequences|
+  (((|Stream| (|List| (|Integer|))) (|List| (|Integer|)))
+   "\\spad{sequences([l0,{} l1,{} l2,{} ..,{} ln])} is the set of \\indented{1}{all sequences formed from} \\spad{l0} 0\\spad{'s},{} \\spad{l1} 1\\spad{'s},{} \\spad{l2} 2\\spad{'s},{} ...,{} \\spad{ln} \\spad{n}\\spad{'s}.")
+  (((|Stream| (|List| (|Integer|))) (|List| (|Integer|)) (|List| (|Integer|)))
+   "\\spad{sequences(l1,{} l2)} is the stream of all sequences that \\indented{1}{can be composed from the multiset defined from} \\indented{1}{two lists of integers \\spad{l1} and \\spad{l2}.} \\indented{1}{For example,{} the pair \\spad{([1,{} 2,{} 4],{} [2,{} 3,{} 5])} represents} \\indented{1}{multi-set with 1 \\spad{2},{} 2 \\spad{3}\\spad{'s},{} and 4 \\spad{5}\\spad{'s}.}"))
+ (|shufflein|
+  (((|Stream| (|List| (|Integer|))) (|List| (|Integer|))
+    (|Stream| (|List| (|Integer|))))
+   "\\spad{shufflein(l,{} st)} maps shuffle(\\spad{l},{} \\spad{u}) on to all \\indented{1}{members \\spad{u} of st,{} concatenating the results.}"))
+ (|shuffle|
+  (((|Stream| (|List| (|Integer|))) (|List| (|Integer|)) (|List| (|Integer|)))
+   "\\spad{shuffle(l1,{} l2)} forms the stream of all shuffles of \\spad{l1} \\indented{1}{and \\spad{l2},{} \\spadignore{i.e.} all sequences that can be formed from} \\indented{1}{merging \\spad{l1} and \\spad{l2}.}"))
+ (|conjugates|
+  (((|Stream| (|List| (|Integer|))) (|Stream| (|List| (|Integer|))))
+   "\\spad{conjugates(lp)} is the stream of conjugates of a stream \\indented{1}{of partitions \\spad{lp}.}"))
+ (|conjugate|
+  (((|List| (|Integer|)) (|List| (|Integer|)))
+   "\\spad{conjugate(pt)} is the conjugate of the partition \\spad{pt}."))
+ (|distinct_partitions|
+  (((|Stream| (|List| (|Integer|))) (|Integer|))
+   "\\spad{distinct_partitions(n)} is the stream of all partitions \\indented{1}{of \\spad{n} into distinct numbers.}")
+  (((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{distinct_partitions(p,{} l,{} n)} is the stream of partitions \\indented{1}{of \\spad{n} into distinct numbers whose number of parts is no greater than \\spad{p}} \\indented{1}{and whose largest part is no greater than \\spad{l}.}"))
+ (|odd_partitions|
+  (((|Stream| (|List| (|Integer|))) (|Integer|))
+   "\\spad{odd_partitions(n)} is the stream of all partitions \\indented{1}{of \\spad{n} into odd numbers.}")
+  (((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{odd_partitions(p,{} l,{} n)} is the stream of partitions \\indented{1}{of \\spad{n} into odd numbers whose number of parts is no greater than \\spad{p}} \\indented{1}{and whose largest part is no greater than \\spad{l}.}"))
+ (|partitions|
+  (((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|))
+   "\\spad{partitions(p,{} l)} is the stream of all \\indented{1}{partitions whose number of} \\indented{1}{parts and largest part are no greater than \\spad{p} and \\spad{l}.}")
+  (((|Stream| (|List| (|Integer|))) (|Integer|))
+   "\\spad{partitions(n)} is the stream of all partitions of \\spad{n}.")
+  (((|Stream| (|List| (|Integer|))) (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{partitions(p,{} l,{} n)} is the stream of partitions \\indented{1}{of \\spad{n} whose number of parts is no greater than \\spad{p}} \\indented{1}{and whose largest part is no greater than \\spad{l}.}")))
+(("documentation" 0 6367) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 6358) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5249) ("modemaps" 0 2848) ("sourceFile" 0 2808)
+ ("constructorCategory" 0 1525) ("constructorModemap" 0 111)
+ ("constructorKind" 0 101) ("constructorForm" 0 71) ("NILADIC" 0 20))

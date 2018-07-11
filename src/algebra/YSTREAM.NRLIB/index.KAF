@@ -1,0 +1,47 @@
+1837                (|ParadoxicalCombinatorsForStreams| A)
+|package|
+(((|ParadoxicalCombinatorsForStreams| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE Y ((|Stream| |#1|) (|Mapping| (|Stream| |#1|) (|Stream| |#1|))))
+   (SIGNATURE Y
+    ((|List| (|Stream| |#1|))
+     (|Mapping| (|List| (|Stream| |#1|)) (|List| (|Stream| |#1|)))
+     (|Integer|))))
+  (|Type|))
+ (T |ParadoxicalCombinatorsForStreams|))
+(CATEGORY |package|
+ (SIGNATURE Y ((|Stream| |#1|) (|Mapping| (|Stream| |#1|) (|Stream| |#1|))))
+ (SIGNATURE Y
+  ((|List| (|Stream| |#1|))
+   (|Mapping| (|List| (|Stream| |#1|)) (|List| (|Stream| |#1|))) (|Integer|))))
+"/git/fricas/src/algebra/YSTREAM.spad"
+((Y (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3 (|Mapping| (|List| (|Stream| *5)) (|List| (|Stream| *5))))
+   (|isDomain| *4 (|Integer|)) (|isDomain| *2 (|List| (|Stream| *5)))
+   (|isDomain| *1 (|ParadoxicalCombinatorsForStreams| *5))
+   (|ofCategory| *5 (|Type|))))
+ (Y (*1 *2 *3)
+  (AND (|isDomain| *3 (|Mapping| (|Stream| *4) (|Stream| *4)))
+       (|isDomain| *2 (|Stream| *4))
+       (|isDomain| *1 (|ParadoxicalCombinatorsForStreams| *4))
+       (|ofCategory| *4 (|Type|)))))
+((Y
+  (((|List| (|Stream| |#1|))
+    (|Mapping| (|List| (|Stream| |#1|)) (|List| (|Stream| |#1|))) (|Integer|))
+   16)
+  (((|Stream| |#1|) (|Mapping| (|Stream| |#1|) (|Stream| |#1|))) 12)))
+YSTREAM
+((|constructor|
+  (NIL "This package implements fixed-point computations on streams."))
+ (Y
+  (((|List| (|Stream| |#1|))
+    (|Mapping| (|List| (|Stream| |#1|)) (|List| (|Stream| |#1|))) (|Integer|))
+   "\\spad{Y(g,{} n)} computes a fixed point of the function \\spad{g},{} where \\spad{g} takes a list of \\spad{n} streams and returns a list of \\spad{n} streams.")
+  (((|Stream| |#1|) (|Mapping| (|Stream| |#1|) (|Stream| |#1|)))
+   "\\spad{Y(f)} computes a fixed point of the function \\spad{f}.")))
+(("documentation" 0 1334) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1326) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1136) ("modemaps" 0 658) ("sourceFile" 0 619)
+ ("constructorCategory" 0 400) ("constructorModemap" 0 69)
+ ("constructorKind" 0 59) ("constructorForm" 0 20))

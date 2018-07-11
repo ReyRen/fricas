@@ -1,0 +1,72 @@
+3749                (|AbelianMonoidRing&| S R E)
+|domain|
+(((|AbelianMonoidRing&| |#1| |#2| |#3|)
+  (CATEGORY |domain| (SIGNATURE * (|#1| (|NonNegativeInteger|) |#1|))
+   (SIGNATURE * (|#1| (|Integer|) |#1|))
+   (SIGNATURE * (|#1| |#1| (|Fraction| (|Integer|))))
+   (SIGNATURE * (|#1| (|Fraction| (|Integer|)) |#1|))
+   (SIGNATURE |monomial?| ((|Boolean|) |#1|))
+   (SIGNATURE |map| (|#1| (|Mapping| |#2| |#2|) |#1|))
+   (SIGNATURE * (|#1| |#2| |#1|)) (SIGNATURE * (|#1| |#1| |#2|))
+   (SIGNATURE * (|#1| |#1| |#1|))
+   (SIGNATURE * (|#1| (|PositiveInteger|) |#1|)))
+  (|AbelianMonoidRing| |#2| |#3|) (|Join| (|SemiRng|) (|AbelianMonoid|))
+  (|OrderedAbelianMonoid|))
+ (T |AbelianMonoidRing&|))
+(CATEGORY |domain| (SIGNATURE * (|#1| (|NonNegativeInteger|) |#1|))
+ (SIGNATURE * (|#1| (|Integer|) |#1|))
+ (SIGNATURE * (|#1| |#1| (|Fraction| (|Integer|))))
+ (SIGNATURE * (|#1| (|Fraction| (|Integer|)) |#1|))
+ (SIGNATURE |monomial?| ((|Boolean|) |#1|))
+ (SIGNATURE |map| (|#1| (|Mapping| |#2| |#2|) |#1|))
+ (SIGNATURE * (|#1| |#2| |#1|)) (SIGNATURE * (|#1| |#1| |#2|))
+ (SIGNATURE * (|#1| |#1| |#1|)) (SIGNATURE * (|#1| (|PositiveInteger|) |#1|)))
+"/git/fricas/src/algebra/AMR.spad"
+((|monomial?| (((|Boolean|) $) 12)) (|map| (($ (|Mapping| |#2| |#2|) $) 21))
+ (* (($ (|PositiveInteger|) $) NIL) (($ $ $) NIL) (($ $ |#2|) NIL)
+    (($ |#2| $) NIL) (($ (|Fraction| (|Integer|)) $) 24)
+    (($ $ (|Fraction| (|Integer|))) NIL) (($ (|Integer|) $) NIL)
+    (($ (|NonNegativeInteger|) $) NIL)))
+((|HasCategory| |#2| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+ (|HasCategory| |#2| '(|IntegralDomain|))
+ (|HasCategory| |#2| '(|CharacteristicNonZero|))
+ (|HasCategory| |#2| '(|CharacteristicZero|))
+ (|HasCategory| |#2| '(|CommutativeRing|))
+ (|HasCategory| |#1| '(|VariablesCommuteWithCoefficients|))
+ (|HasCategory| |#2| '(|Field|)) (|HasCategory| |#2| '(|Ring|))
+ (|HasCategory| |#2| '(|SemiRing|))
+ (|HasCategory| |#2| '(|CancellationAbelianMonoid|)))
+AMR-
+((|constructor|
+  (NIL
+   "Abelian monoid ring elements (not necessarily of finite support) of this ring are of the form formal SUM (r_i * e_i) where the r_i are coefficents and the e_i,{} elements of the ordered abelian monoid,{} are thought of as exponents or monomials. The monomials commute with each other,{} but in general do not commute with the coefficients (which themselves may or may not be commutative). See \\spadtype{FiniteAbelianMonoidRing} for the case of finite support. A useful common model for polynomials and power series. Conceptually at least,{} only the non-zero terms are ever operated on."))
+ (/ (($ $ |#2|) "\\spad{p/c} divides \\spad{p} by the coefficient \\spad{c}."))
+ (|coefficient|
+  ((|#2| $ |#3|)
+   "\\spad{coefficient(p,{} e)} extracts the coefficient of the monomial with exponent \\spad{e} from polynomial \\spad{p},{} or returns zero if exponent is not present."))
+ (|reductum|
+  (($ $)
+   "\\spad{reductum(u)} returns \\spad{u} minus its leading monomial returns zero if handed the zero element."))
+ (|monomial|
+  (($ |#2| |#3|)
+   "\\spad{monomial(r,{} e)} makes a term from a coefficient \\spad{r} and an exponent \\spad{e}."))
+ (|monomial?|
+  (((|Boolean|) $)
+   "\\spad{monomial?(p)} tests if \\spad{p} is a single monomial."))
+ (|map|
+  (($ (|Mapping| |#2| |#2|) $)
+   "\\spad{map(fn,{} u)} maps function \\spad{fn} onto the coefficients of the non-zero monomials of \\spad{u}."))
+ (|degree|
+  ((|#3| $)
+   "\\spad{degree(p)} returns the maximum of the exponents of the terms of \\spad{p}."))
+ (|leadingMonomial|
+  (($ $)
+   "\\spad{leadingMonomial(p)} returns the monomial of \\spad{p} with the highest degree."))
+ (|leadingCoefficient|
+  ((|#2| $)
+   "\\spad{leadingCoefficient(p)} returns the coefficient highest degree term of \\spad{p}.")))
+(("documentation" 0 1958) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1953) ("predicates" 0 1487) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1180) ("modemaps" 0 NIL) ("sourceFile" 0 1145)
+ ("constructorCategory" 0 695) ("constructorModemap" 0 58)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

@@ -1,0 +1,17 @@
+)abbrev category DISTLAT DistributiveLattice
+++ Author: Martin Baker
+++ Date Created: Aug 2015
+++ Basic Operations: Meet Join
+++ Related Constructors: BoundedDistributiveLattice
+++  use BoundedDistributiveLattice if the lattice has a top and 'bottom'
+++  which will be the case for all finite lattices since we can do a
+++  meet and join of all values
+++ Keywords: Meet Top Join Bottom
+++ Description: not every lattice is distributive so treat this
+++              as a seperate case
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+++ Axiom: distribution1 forall(x, y, z): x/\(y\/z)=(x/\y)\/(x/\z)
+++ Axiom: distribution2 forall(x, y, z): x\/(y/\z)=(x\/y)/\(x\/z)
+DistributiveLattice: Category == Lattice
+

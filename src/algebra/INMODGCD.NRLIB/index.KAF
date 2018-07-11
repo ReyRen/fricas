@@ -1,0 +1,51 @@
+2489                (|InnerModularGcd| R BP |pMod| |nextMod|)
+|package|
+(((|InnerModularGcd| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |modularGcdPrimitive| (|#2| (|List| |#2|)))
+   (SIGNATURE |modularGcd| (|#2| (|List| |#2|)))
+   (SIGNATURE |reduction| (|#2| |#2| |#1|)))
+  (|EuclideanDomain|) (|UnivariatePolynomialCategory| |#1|) |#1|
+  (|Mapping| |#1| |#1| (|NonNegativeInteger|)))
+ (T |InnerModularGcd|))
+(CATEGORY |package| (SIGNATURE |modularGcdPrimitive| (|#2| (|List| |#2|)))
+ (SIGNATURE |modularGcd| (|#2| (|List| |#2|)))
+ (SIGNATURE |reduction| (|#2| |#2| |#1|)))
+"/git/fricas/src/algebra/INMODGCD.spad"
+((|reduction| (*1 *2 *2 *3)
+  (AND (|ofCategory| *3 (|EuclideanDomain|)) (|ofType| *4 *3)
+       (|ofType| *5 (|Mapping| *3 *3 (|NonNegativeInteger|)))
+       (|isDomain| *1 (|InnerModularGcd| *3 *2 *4 *5))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|modularGcd| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))
+       (|isDomain| *1 (|InnerModularGcd| *4 *2 *5 *6))
+       (|ofCategory| *4 (|EuclideanDomain|)) (|ofType| *5 *4)
+       (|ofType| *6 (|Mapping| *4 *4 (|NonNegativeInteger|)))))
+ (|modularGcdPrimitive| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))
+       (|isDomain| *1 (|InnerModularGcd| *4 *2 *5 *6))
+       (|ofCategory| *4 (|EuclideanDomain|)) (|ofType| *5 *4)
+       (|ofType| *6 (|Mapping| *4 *4 (|NonNegativeInteger|))))))
+((|reduction| ((|#2| |#2| |#1|) 17))
+ (|modularGcdPrimitive| ((|#2| (|List| |#2|)) 26))
+ (|modularGcd| ((|#2| (|List| |#2|)) 43)))
+INMODGCD
+((|constructor|
+  (NIL
+   "This file contains the functions for modular \\spad{gcd} algorithm for univariate polynomials with coefficients in a non-trivial euclidean domain (\\spadignore{i.e.} not a field). The package parametrised by the coefficient domain,{} the polynomial domain,{} a prime,{} and a function for choosing the next prime"))
+ (|reduction|
+  ((|#2| |#2| |#1|)
+   "\\spad{reduction(f,{} p)} reduces the coefficients of the polynomial \\spad{f} modulo the prime \\spad{p}."))
+ (|modularGcd|
+  ((|#2| (|List| |#2|))
+   "\\spad{modularGcd(listf)} computes the \\spad{gcd} of the list of polynomials \\spad{listf} by modular methods."))
+ (|modularGcdPrimitive|
+  ((|#2| (|List| |#2|))
+   "\\spad{modularGcdPrimitive(listf)} computes the \\spad{gcd} of the list of primitive polynomials \\spad{listf} by modular methods.")))
+(("documentation" 0 1653) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1644) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1513) ("modemaps" 0 627) ("sourceFile" 0 587)
+ ("constructorCategory" 0 422) ("constructorModemap" 0 72)
+ ("constructorKind" 0 62) ("constructorForm" 0 20))

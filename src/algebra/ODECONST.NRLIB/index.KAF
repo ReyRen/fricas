@@ -1,0 +1,51 @@
+2181                (|ConstantLODE| R F L)
+|package|
+(((|ConstantLODE| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |constDsolve|
+    ((|Record| (|:| |particular| |#2|) (|:| |basis| (|List| |#2|))) |#3| |#2|
+     (|Symbol|))))
+  (|Join| (|Comparable|) (|PolynomialFactorizationExplicit|)
+          (|RetractableTo| (|Integer|)) (|LinearlyExplicitOver| (|Integer|))
+          (|CharacteristicZero|))
+  (|Join| (|AlgebraicallyClosedFunctionSpace| |#1|)
+          (|TranscendentalFunctionCategory|) (|PrimitiveFunctionCategory|))
+  (|LinearOrdinaryDifferentialOperatorCategory| |#2|))
+ (T |ConstantLODE|))
+(CATEGORY |package|
+ (SIGNATURE |constDsolve|
+  ((|Record| (|:| |particular| |#2|) (|:| |basis| (|List| |#2|))) |#3| |#2|
+   (|Symbol|))))
+"/git/fricas/src/algebra/ODECONST.spad"
+((|constDsolve| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *5 (|Symbol|))
+       (|ofCategory| *6
+                     (|Join| (|Comparable|) (|PolynomialFactorizationExplicit|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))
+                             (|CharacteristicZero|)))
+       (|ofCategory| *4
+                     (|Join| (|AlgebraicallyClosedFunctionSpace| *6)
+                             (|TranscendentalFunctionCategory|)
+                             (|PrimitiveFunctionCategory|)))
+       (|isDomain| *2
+                   (|Record| (|:| |particular| *4) (|:| |basis| (|List| *4))))
+       (|isDomain| *1 (|ConstantLODE| *6 *4 *3))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *4)))))
+((|constDsolve|
+  (((|Record| (|:| |particular| |#2|) (|:| |basis| (|List| |#2|))) |#3| |#2|
+    (|Symbol|))
+   19)))
+ODECONST
+((|constructor|
+  (NIL
+   "Solution of linear ordinary differential equations,{} constant coefficient case."))
+ (|constDsolve|
+  (((|Record| (|:| |particular| |#2|) (|:| |basis| (|List| |#2|))) |#3| |#2|
+    (|Symbol|))
+   "\\spad{constDsolve(op,{} g,{} x)} returns \\spad{[f,{} [y1,{} ...,{} ym]]} where \\spad{f} is a particular solution of the equation \\spad{op y = g},{} and the \\spad{\\spad{yi}}\\spad{'s} form a basis for the solutions of \\spad{op y = 0}.")))
+(("documentation" 0 1712) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1703) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1585) ("modemaps" 0 789) ("sourceFile" 0 749)
+ ("constructorCategory" 0 610) ("constructorModemap" 0 53)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

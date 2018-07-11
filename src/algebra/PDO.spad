@@ -1,0 +1,38 @@
+)abbrev domain PDO PartialDifferentialOperator
+++ Description:
+++   PartialDifferentialOperator(R, V) defines a ring of partial
+++   differential operators in variables from V and with coefficients
+++   in a partial differential ring R.  Multiplication of operators
+++   corresponds to composition of operators.
+++
+PartialDifferentialOperator(R : PartialDifferentialRing(Var),
+    Var : OrderedSet) : Exports == Implementation where
+  HLP ==> PartialDifferentialOperatorHelper(R, Var)
+  Exports ==> MultivariateSkewPolynomialCategory(R,
+                  IndexedExponents(Var), Var) with
+    D : Var -> %
+      ++ D(v) returns the operator corresponding to derivative with
+      ++ respect to v in R.
+    adjoint : % -> %
+      ++ adjoint(p) returns the adjoint of operator p.
+    if R has LeftOreRing then
+        SolvableSkewPolynomialCategory(R, IndexedExponents(Var))
+  Implementation ==> SparseMultivariateSkewPolynomial(R, Var, id_map$HLP,
+                        diff_map$HLP) add
+
+    Smp ==> SparseMultivariatePolynomial(R, Var)
+    Sup := SparseUnivariatePolynomial(%)
+
+    adjoint(x : %) : % ==
+        ground?(x) => x
+        v := mainVariable(x)::Var
+        xu := univariate(x pretend Smp, v)$Smp pretend Sup
+        res : % := 0
+        xu := map(adjoint, xu)$Sup
+        while xu ~= 0 repeat
+            d := degree(xu)
+            sign := (odd?(d) => -1 ; 1)
+            res := res + sign*monomial(1, v, d)*leadingCoefficient(xu)
+            xu := reductum(xu)
+        res
+

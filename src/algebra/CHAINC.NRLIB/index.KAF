@@ -1,0 +1,56 @@
+2683                (MAKEPROP '|ChainComplex| 'NILADIC T)
+(|ChainComplex|)
+|domain|
+(((|ChainComplex|)
+  (|Join| (|SetCategory|)
+          (CATEGORY |domain|
+           (SIGNATURE |chainComplex| ($ (|List| (|Matrix| (|Integer|)))))
+           (SIGNATURE |transition_matrices|
+            ((|List| (|Matrix| (|Integer|))) $))
+           (SIGNATURE |validate| ((|Boolean|) $))
+           (SIGNATURE |homology| ((|List| (|Homology|)) $)))))
+ (T |ChainComplex|))
+(|Join| (|SetCategory|)
+        (CATEGORY |domain|
+         (SIGNATURE |chainComplex| ($ (|List| (|Matrix| (|Integer|)))))
+         (SIGNATURE |transition_matrices| ((|List| (|Matrix| (|Integer|))) $))
+         (SIGNATURE |validate| ((|Boolean|) $))
+         (SIGNATURE |homology| ((|List| (|Homology|)) $))))
+"/git/fricas/src/algebra/CHAINC.spad"
+((|chainComplex| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|Matrix| (|Integer|))))
+       (|isDomain| *1 (|ChainComplex|))))
+ (|transition_matrices| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|Matrix| (|Integer|))))
+       (|isDomain| *1 (|ChainComplex|))))
+ (|validate| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|ChainComplex|))))
+ (|homology| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|Homology|))) (|isDomain| *1 (|ChainComplex|)))))
+((~= (((|Boolean|) $ $) NIL)) (|validate| (((|Boolean|) $) 27))
+ (|transition_matrices| (((|List| (|Matrix| (|Integer|))) $) 9))
+ (|latex| (((|String|) $) NIL)) (|homology| (((|List| (|Homology|)) $) 32))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|coerce| (((|OutputForm|) $) 35))
+ (|chainComplex| (($ (|List| (|Matrix| (|Integer|)))) 8))
+ (= (((|Boolean|) $ $) NIL)))
+CHAINC
+(((|SetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "\\indented{2}{Delta Complexes are defined by a sequence of 'face maps',{} These} \\indented{2}{can be represented by a list of matrices.} \\indented{2}{for more documentation see:} \\indented{2}{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/chain/} Date Created: March 2016 Basic Operations: Related packages: Related categories: Related Domains: CoChainComplex Also See: AMS Classifications:"))
+ (|homology|
+  (((|List| (|Homology|)) $) "calculate homology using SmithNormalForm"))
+ (|validate|
+  (((|Boolean|) $)
+   "\\spad{true} if this is a valid chain complex,{} that is: 1. maps compose 2. product of adjacent maps is zero"))
+ (|transition_matrices|
+  (((|List| (|Matrix| (|Integer|))) $)
+   "\\spad{transition_matrices(a)} gives list of transition matrices of a."))
+ (|chainComplex| (($ (|List| (|Matrix| (|Integer|)))) "constructor")))
+(("documentation" 0 1796) ("ancestors" 0 1715) ("parents" 0 1691)
+ ("abbreviation" 0 1684) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1263) ("modemaps" 0 807) ("sourceFile" 0 769)
+ ("constructorCategory" 0 459) ("constructorModemap" 0 84)
+ ("constructorKind" 0 75) ("constructorForm" 0 58) ("NILADIC" 0 20))

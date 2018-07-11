@@ -1,0 +1,355 @@
+17291               (|InnerEigenPackage| F)
+|package|
+(((|InnerEigenPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |characteristicPolynomial|
+    ((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|)))
+   (SIGNATURE |eigenvalues|
+    ((|List| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+     (|Matrix| |#1|)
+     (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+                (|SparseUnivariatePolynomial| |#1|))))
+   (SIGNATURE |eigenvector|
+    ((|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))
+     (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)) (|Matrix| |#1|)))
+   (SIGNATURE |generalizedEigenvector|
+    ((|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))
+     (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)) (|Matrix| |#1|)
+     (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |generalizedEigenvector|
+    ((|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))
+     (|Record|
+      (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+      (|:| |eigmult| (|NonNegativeInteger|))
+      (|:| |eigvec| (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))))
+     (|Matrix| |#1|)))
+   (SIGNATURE |generalizedEigenvectors|
+    ((|List|
+      (|Record|
+       (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+       (|:| |geneigvec|
+            (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+     (|Matrix| |#1|)
+     (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+                (|SparseUnivariatePolynomial| |#1|))))
+   (SIGNATURE |eigenvectors|
+    ((|List|
+      (|Record|
+       (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+       (|:| |eigmult| (|NonNegativeInteger|))
+       (|:| |eigvec| (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+     (|Matrix| |#1|)
+     (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+                (|SparseUnivariatePolynomial| |#1|))))
+   (IF (|has| |#1| (|PolynomialFactorizationExplicit|))
+       (PROGN
+        (SIGNATURE |eigenvalues|
+         ((|List| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+          (|Matrix| |#1|)))
+        (SIGNATURE |eigenvectors|
+         ((|List|
+           (|Record|
+            (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+            (|:| |eigmult| (|NonNegativeInteger|))
+            (|:| |eigvec|
+                 (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+          (|Matrix| |#1|)))
+        (SIGNATURE |generalizedEigenvectors|
+         ((|List|
+           (|Record|
+            (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+            (|:| |geneigvec|
+                 (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+          (|Matrix| |#1|))))
+       |noBranch|))
+  (|Field|))
+ (T |InnerEigenPackage|))
+(CATEGORY |package|
+ (SIGNATURE |characteristicPolynomial|
+  ((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|)))
+ (SIGNATURE |eigenvalues|
+  ((|List| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|))) (|Matrix| |#1|)
+   (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+              (|SparseUnivariatePolynomial| |#1|))))
+ (SIGNATURE |eigenvector|
+  ((|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))
+   (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)) (|Matrix| |#1|)))
+ (SIGNATURE |generalizedEigenvector|
+  ((|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))
+   (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)) (|Matrix| |#1|)
+   (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |generalizedEigenvector|
+  ((|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))
+   (|Record| (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+             (|:| |eigmult| (|NonNegativeInteger|))
+             (|:| |eigvec|
+                  (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))))
+   (|Matrix| |#1|)))
+ (SIGNATURE |generalizedEigenvectors|
+  ((|List|
+    (|Record| (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+              (|:| |geneigvec|
+                   (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+   (|Matrix| |#1|)
+   (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+              (|SparseUnivariatePolynomial| |#1|))))
+ (SIGNATURE |eigenvectors|
+  ((|List|
+    (|Record| (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+              (|:| |eigmult| (|NonNegativeInteger|))
+              (|:| |eigvec|
+                   (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+   (|Matrix| |#1|)
+   (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+              (|SparseUnivariatePolynomial| |#1|))))
+ (IF (|has| |#1| (|PolynomialFactorizationExplicit|))
+     (PROGN
+      (SIGNATURE |eigenvalues|
+       ((|List| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+        (|Matrix| |#1|)))
+      (SIGNATURE |eigenvectors|
+       ((|List|
+         (|Record|
+          (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+          (|:| |eigmult| (|NonNegativeInteger|))
+          (|:| |eigvec|
+               (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+        (|Matrix| |#1|)))
+      (SIGNATURE |generalizedEigenvectors|
+       ((|List|
+         (|Record|
+          (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+          (|:| |geneigvec|
+               (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+        (|Matrix| |#1|))))
+     |noBranch|))
+"/git/fricas/src/algebra/IEP.spad"
+((|generalizedEigenvectors| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *4))
+       (|ofCategory| *4 (|PolynomialFactorizationExplicit|))
+       (|ofCategory| *4 (|Field|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |eigval|
+                          (|Union| *4 (|SparseUnivariatePolynomial| *4)))
+                     (|:| |geneigvec|
+                          (|List|
+                           (|Vector| (|SparseUnivariatePolynomial| *4)))))))
+       (|isDomain| *1 (|InnerEigenPackage| *4))))
+ (|eigenvectors| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *4))
+       (|ofCategory| *4 (|PolynomialFactorizationExplicit|))
+       (|ofCategory| *4 (|Field|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |eigval|
+                          (|Union| *4 (|SparseUnivariatePolynomial| *4)))
+                     (|:| |eigmult| (|NonNegativeInteger|))
+                     (|:| |eigvec|
+                          (|List|
+                           (|Vector| (|SparseUnivariatePolynomial| *4)))))))
+       (|isDomain| *1 (|InnerEigenPackage| *4))))
+ (|eigenvalues| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *4))
+       (|ofCategory| *4 (|PolynomialFactorizationExplicit|))
+       (|ofCategory| *4 (|Field|))
+       (|isDomain| *2 (|List| (|Union| *4 (|SparseUnivariatePolynomial| *4))))
+       (|isDomain| *1 (|InnerEigenPackage| *4))))
+ (|eigenvectors| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *5))
+       (|isDomain| *4
+                   (|Mapping| (|Factored| (|SparseUnivariatePolynomial| *5))
+                              (|SparseUnivariatePolynomial| *5)))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |eigval|
+                          (|Union| *5 (|SparseUnivariatePolynomial| *5)))
+                     (|:| |eigmult| (|NonNegativeInteger|))
+                     (|:| |eigvec|
+                          (|List|
+                           (|Vector| (|SparseUnivariatePolynomial| *5)))))))
+       (|isDomain| *1 (|InnerEigenPackage| *5))))
+ (|generalizedEigenvectors| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *5))
+       (|isDomain| *4
+                   (|Mapping| (|Factored| (|SparseUnivariatePolynomial| *5))
+                              (|SparseUnivariatePolynomial| *5)))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |eigval|
+                          (|Union| *5 (|SparseUnivariatePolynomial| *5)))
+                     (|:| |geneigvec|
+                          (|List|
+                           (|Vector| (|SparseUnivariatePolynomial| *5)))))))
+       (|isDomain| *1 (|InnerEigenPackage| *5))))
+ (|generalizedEigenvector| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|Record|
+                (|:| |eigval| (|Union| *5 (|SparseUnivariatePolynomial| *5)))
+                (|:| |eigmult| (|NonNegativeInteger|))
+                (|:| |eigvec|
+                     (|List| (|Vector| (|SparseUnivariatePolynomial| *5))))))
+   (|isDomain| *4 (|Matrix| *5)) (|ofCategory| *5 (|Field|))
+   (|isDomain| *2 (|List| (|Vector| (|SparseUnivariatePolynomial| *5))))
+   (|isDomain| *1 (|InnerEigenPackage| *5))))
+ (|generalizedEigenvector| (*1 *2 *3 *4 *5 *5)
+  (AND (|isDomain| *3 (|Union| *6 (|SparseUnivariatePolynomial| *6)))
+       (|isDomain| *4 (|Matrix| *6)) (|isDomain| *5 (|NonNegativeInteger|))
+       (|ofCategory| *6 (|Field|))
+       (|isDomain| *2 (|List| (|Vector| (|SparseUnivariatePolynomial| *6))))
+       (|isDomain| *1 (|InnerEigenPackage| *6))))
+ (|eigenvector| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Union| *5 (|SparseUnivariatePolynomial| *5)))
+       (|isDomain| *4 (|Matrix| *5)) (|ofCategory| *5 (|Field|))
+       (|isDomain| *2 (|List| (|Vector| (|SparseUnivariatePolynomial| *5))))
+       (|isDomain| *1 (|InnerEigenPackage| *5))))
+ (|eigenvalues| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *5))
+       (|isDomain| *4
+                   (|Mapping| (|Factored| (|SparseUnivariatePolynomial| *5))
+                              (|SparseUnivariatePolynomial| *5)))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2 (|List| (|Union| *5 (|SparseUnivariatePolynomial| *5))))
+       (|isDomain| *1 (|InnerEigenPackage| *5))))
+ (|characteristicPolynomial| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *4)) (|ofCategory| *4 (|Field|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|InnerEigenPackage| *4)))))
+((|generalizedEigenvectors|
+  (((|List|
+     (|Record|
+      (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+      (|:| |geneigvec|
+           (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+    (|Matrix| |#1|))
+   23 (|has| |#1| (|PolynomialFactorizationExplicit|)))
+  (((|List|
+     (|Record|
+      (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+      (|:| |geneigvec|
+           (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+    (|Matrix| |#1|)
+    (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+               (|SparseUnivariatePolynomial| |#1|)))
+   22))
+ (|generalizedEigenvector|
+  (((|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))
+    (|Record| (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+              (|:| |eigmult| (|NonNegativeInteger|))
+              (|:| |eigvec|
+                   (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))))
+    (|Matrix| |#1|))
+   75)
+  (((|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))
+    (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)) (|Matrix| |#1|)
+    (|NonNegativeInteger|) (|NonNegativeInteger|))
+   35))
+ (|eigenvectors|
+  (((|List|
+     (|Record|
+      (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+      (|:| |eigmult| (|NonNegativeInteger|))
+      (|:| |eigvec| (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+    (|Matrix| |#1|))
+   19 (|has| |#1| (|PolynomialFactorizationExplicit|)))
+  (((|List|
+     (|Record|
+      (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+      (|:| |eigmult| (|NonNegativeInteger|))
+      (|:| |eigvec| (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+    (|Matrix| |#1|)
+    (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+               (|SparseUnivariatePolynomial| |#1|)))
+   18))
+ (|eigenvector|
+  (((|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))
+    (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)) (|Matrix| |#1|))
+   63))
+ (|eigenvalues|
+  (((|List| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+    (|Matrix| |#1|))
+   15 (|has| |#1| (|PolynomialFactorizationExplicit|)))
+  (((|List| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|))) (|Matrix| |#1|)
+    (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+               (|SparseUnivariatePolynomial| |#1|)))
+   14))
+ (|characteristicPolynomial|
+  (((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|)) 38)))
+((|HasCategory| |#1| '(|PolynomialFactorizationExplicit|)))
+IEP
+((|constructor|
+  (NIL
+   "This is a package for the exact computation of eigenvalues and eigenvectors. This package works for matrices with coefficients from a field over which we can factor polynomials. Eigenvalues in base field are always explicitly computed while the other are expressed in terms of their minimal polynomial."))
+ (|eigenvectors|
+  (((|List|
+     (|Record|
+      (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+      (|:| |eigmult| (|NonNegativeInteger|))
+      (|:| |eigvec| (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+    (|Matrix| |#1|))
+   "\\spad{eigenvectors(m)} returns the eigenvalues and eigenvectors for the matrix \\spad{m}. The eigenvalues in base field and corresponding eigenvectors are explicitely computed,{} while the non rational ones are given via their minimal polynomial and the corresponding eigenvectors are expressed in terms of a \"generic\" root of such a polynomial.")
+  (((|List|
+     (|Record|
+      (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+      (|:| |eigmult| (|NonNegativeInteger|))
+      (|:| |eigvec| (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+    (|Matrix| |#1|)
+    (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+               (|SparseUnivariatePolynomial| |#1|)))
+   "\\spad{eigenvectors(m,{} fac)} returns the eigenvalues and eigenvectors for the matrix \\spad{m}. The eigenvalues in base field and corresponding eigenvectors are explicitely computed,{} while the other eigenvalues are given via their minimal polynomial and the corresponding eigenvectors are expressed in terms of a \"generic\" root of such a polynomial. fac is a factorizer for polynomials over \\spad{F}."))
+ (|generalizedEigenvectors|
+  (((|List|
+     (|Record|
+      (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+      (|:| |geneigvec|
+           (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+    (|Matrix| |#1|))
+   "\\spad{generalizedEigenvectors(m)} returns the generalized eigenvectors of the matrix \\spad{m}.")
+  (((|List|
+     (|Record|
+      (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+      (|:| |geneigvec|
+           (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|))))))
+    (|Matrix| |#1|)
+    (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+               (|SparseUnivariatePolynomial| |#1|)))
+   "\\spad{generalizedEigenvectors(m,{} fac)} returns the generalized eigenvectors of the matrix \\spad{m}. fac is a factorizer for polynomials over \\spad{F}."))
+ (|generalizedEigenvector|
+  (((|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))
+    (|Record| (|:| |eigval| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+              (|:| |eigmult| (|NonNegativeInteger|))
+              (|:| |eigvec|
+                   (|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))))
+    (|Matrix| |#1|))
+   "\\spad{generalizedEigenvector(eigen,{} m)} returns the generalized eigenvectors of the matrix relative to the eigenvalue \\spad{eigen},{} as returned by the function eigenvectors.")
+  (((|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))
+    (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)) (|Matrix| |#1|)
+    (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{generalizedEigenvector(alpha,{} m,{} k,{} g)} returns the generalized eigenvectors of the matrix relative to the eigenvalue \\spad{alpha}. The integers \\spad{k} and \\spad{g} are respectively the algebraic and the geometric multiplicity of the eigenvalue \\spad{alpha}."))
+ (|eigenvector|
+  (((|List| (|Vector| (|SparseUnivariatePolynomial| |#1|)))
+    (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)) (|Matrix| |#1|))
+   "\\spad{eigenvector(eigval,{} m)} returns the eigenvectors belonging to the eigenvalue \\spad{eigval} for the matrix \\spad{m}."))
+ (|eigenvalues|
+  (((|List| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|)))
+    (|Matrix| |#1|))
+   "\\spad{eigenvalues(m)} returns the eigenvalues of the matrix \\spad{m}.")
+  (((|List| (|Union| |#1| (|SparseUnivariatePolynomial| |#1|))) (|Matrix| |#1|)
+    (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+               (|SparseUnivariatePolynomial| |#1|)))
+   "\\spad{eigenvalues(m,{} fac)} returns the eigenvalues of the matrix \\spad{m}. Eigenvalues in base field are given explicitely,{} other are represented by mininal polynomial. fac is a factorizer for polynomials over \\spad{F}."))
+ (|characteristicPolynomial|
+  (((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|))
+   "\\spad{characteristicPolynomial(m)} returns the characteristic polynomial of the matrix \\spad{m}")))
+(("documentation" 0 12648) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 12644) ("predicates" 0 12584) ("superDomain" 0 NIL)
+ ("operationAlist" 0 10112) ("modemaps" 0 5513) ("sourceFile" 0 5478)
+ ("constructorCategory" 0 2824) ("constructorModemap" 0 54)
+ ("constructorKind" 0 44) ("constructorForm" 0 20))

@@ -1,0 +1,142 @@
+6733                (|FiniteSetAggregate| S)
+|category|
+(((|FiniteSetAggregate| |#1|) (|Category|) (|SetCategory|))
+ (T |FiniteSetAggregate|))
+(|Join| (|Dictionary| |t#1|) (|SetAggregate| |t#1|) (|finiteAggregate|)
+        (CATEGORY |domain| (SIGNATURE |cardinality| ((|NonNegativeInteger|) $))
+         (IF (|has| |t#1| (|Finite|))
+             (PROGN
+              (ATTRIBUTE (|Finite|))
+              (SIGNATURE |complement| ($ $))
+              (SIGNATURE |universe| ($)))
+             |noBranch|)
+         (IF (|has| |t#1| (|Comparable|))
+             (ATTRIBUTE (|Comparable|))
+             |noBranch|)))
+"/git/fricas/src/algebra/FSAGG.spad"
+((|cardinality| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|FiniteSetAggregate| *3))
+       (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *2 (|NonNegativeInteger|))))
+ (|complement| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|FiniteSetAggregate| *2))
+       (|ofCategory| *2 (|SetCategory|)) (|ofCategory| *2 (|Finite|))))
+ (|universe| (*1 *1)
+  (AND (|ofCategory| *1 (|FiniteSetAggregate| *2)) (|ofCategory| *2 (|Finite|))
+       (|ofCategory| *2 (|SetCategory|)))))
+((~= (((|Boolean|) $ $) 6)) (|universe| (($) 6 (|has| |#1| (|Finite|))))
+ (|union| (($ |#1| $) 6) (($ $ |#1|) 6) (($ $ $) 6))
+ (|symmetricDifference| (($ $ $) 6)) (|subset?| (((|Boolean|) $ $) 6))
+ (|smaller?| (((|Boolean|) $ $) 6 (|has| |#1| (|Comparable|))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|size| (((|NonNegativeInteger|)) 6 (|has| |#1| (|Finite|))))
+ (|set| (($ (|List| |#1|)) 6) (($) 6))
+ (|select!|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|sample| (($) 6 T CONST))
+ (|removeDuplicates|
+  (($ $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove!|
+  (($ |#1| $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|remove| (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+           (($ |#1| $) 6
+            (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|random| (($) 6 (|has| |#1| (|Finite|))))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|lookup| (((|PositiveInteger|) $) 6 (|has| |#1| (|Finite|))))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|latex| (((|String|) $) 6)) (|intersect| (($ $ $) 6))
+ (|inspect| ((|#1| $) 6)) (|insert!| (($ |#1| $) 6))
+ (|index| (($ (|PositiveInteger|)) 6 (|has| |#1| (|Finite|))))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) 6))
+ (|extract!| ((|#1| $) 6))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6))
+ (|enumerate| (((|List| $)) 6 (|has| |#1| (|Finite|))))
+ (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|difference| (($ $ |#1|) 6) (($ $ $) 6))
+ (|dictionary| (($) 6) (($ (|List| |#1|)) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|convert| (((|InputForm|) $) 6 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 6))
+ (|complement| (($ $) 6 (|has| |#1| (|Finite|))))
+ (|coerce| (((|OutputForm|) $) 6))
+ (|cardinality| (((|NonNegativeInteger|) $) 6))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (>= (((|Boolean|) $ $) 6)) (> (((|Boolean|) $ $) 6)) (= (((|Boolean|) $ $) 6))
+ (<= (((|Boolean|) $ $) 6)) (< (((|Boolean|) $ $) 6))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+FSAGG
+(((|Dictionary| |#1|) . T) ((|SetAggregate| |#1|) . T)
+ ((|finiteAggregate|) . T) ((|Finite|) |has| |#1| (|Finite|))
+ ((|Comparable|) |has| |#1| (|Comparable|)))
+(((|Aggregate|) . T) ((|BagAggregate| |t#1|) . T) ((|BasicType|) . T)
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|Collection| |t#1|) . T)
+ ((|Comparable|) |has| |#1| (|Comparable|))
+ ((|ConvertibleTo| (|InputForm|)) OR
+  (|has| |t#1| (|ConvertibleTo| (|InputForm|))) (|has| |#1| (|Finite|)))
+ ((|Dictionary| |#1|) . T) ((|DictionaryOperations| |t#1|) . T)
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|Finite|) |has| |#1| (|Finite|)) ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|PartialOrder|) . T) ((|SetAggregate| |#1|) . T) ((|SetCategory|) . T)
+ ((|Type|) . T) ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "A finite-set aggregate models the notion of a finite set,{} that is,{} a collection of elements characterized by membership,{} but not by order or multiplicity. See \\spadtype{Set} for an example."))
+ (|universe|
+  (($)
+   "\\spad{universe()}\\$\\spad{D} returns the universal set for finite set aggregate \\spad{D}."))
+ (|complement|
+  (($ $)
+   "\\spad{complement(u)} returns the complement of the set \\spad{u},{} \\spadignore{i.e.} the set of all values not in \\spad{u}."))
+ (|cardinality|
+  (((|NonNegativeInteger|) $)
+   "\\spad{cardinality(u)} returns the number of elements of \\spad{u}. Note: \\spad{cardinality(u) = \\#u}.")))
+(("documentation" 0 6068) ("ancestors" 0 5305) ("parents" 0 5143)
+ ("abbreviation" 0 5137) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1109) ("modemaps" 0 648) ("sourceFile" 0 611)
+ ("constructorCategory" 0 143) ("constructorModemap" 0 56)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

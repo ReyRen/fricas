@@ -1,0 +1,212 @@
+)abbrev package ITRIGMNP InnerTrigonometricManipulations
+)boot $tryRecompileArguments := nil
+++ Trigs to/from exps and logs
+++ Author: Manuel Bronstein
+++ Date Created: 4 April 1988
+++ Description:
+++   This package provides transformations from trigonometric functions
+++   to exponentials and logarithms, and back.
+++   F and FG should be the same type of function space.
+++ Keywords: trigonometric, function, manipulation.
+InnerTrigonometricManipulations(R, F, FG) : Exports == Implementation where
+  R  : Join(IntegralDomain, Comparable)
+  F  : Join(FunctionSpace R, RadicalCategory,
+            TranscendentalFunctionCategory)
+  FG : Join(FunctionSpace Complex R, RadicalCategory,
+            TranscendentalFunctionCategory)
+
+  Z   ==> Integer
+  SY  ==> Symbol
+  OP  ==> BasicOperator
+  GR  ==> Complex R
+  GF  ==> Complex F
+  KG  ==> Kernel FG
+  PG  ==> SparseMultivariatePolynomial(GR, KG)
+  UP  ==> SparseUnivariatePolynomial PG
+  NTHR  ==> 'nthRoot
+
+  Exports ==> with
+    GF2FG        : GF -> FG
+      ++ GF2FG(a + i b) returns \spad{a + i b} viewed as a function with
+      ++ the \spad{i} pushed down into the coefficient domain.
+    FG2F         : FG -> F
+      ++ FG2F(a + i b) returns \spad{a + sqrt(-1) b}.
+    F2FG         : F  -> FG
+      ++ F2FG(a + sqrt(-1) b) returns \spad{a + i b}.
+    explogs2trigs : FG -> GF
+      ++ explogs2trigs(f) rewrites all the complex logs and
+      ++ exponentials appearing in \spad{f} in terms of trigonometric
+      ++ functions.
+    trigs2explogs : (FG, List KG) -> FG
+      ++ trigs2explogs(f, [k1, ..., kn]) rewrites
+      ++ all the trigonometric functions appearing in \spad{f}
+      ++ in terms of complex logarithms and
+      ++ exponentials. A kernel of the form \spad{tan(u)} is expressed
+      ++ using \spad{exp(u)^2} if it is one of the \spad{ki's}, in terms of
+      ++ \spad{exp(2*u)} otherwise.
+    do_liou : (OP, List GF) -> GF
+      ++ do_liou(op, lf) should be local but conditional.
+
+  Implementation ==> add
+
+    KF  ==> Kernel F
+    PF  ==> SparseMultivariatePolynomial(R, KF)
+
+    ker2explogs : (KG, List KG) -> FG
+    smp2explogs : (PG, List KG) -> FG
+    supexp     : (UP, GF, GF, Z) -> GF
+    GR2GF      : GR -> GF
+    GR2F       : GR -> F
+    KG2F       : KG -> F
+    PG2F       : PG -> F
+    KF2FG      : KF -> FG
+    PF2FG      : PF -> FG
+    ker2trigs  : (OP, List GF) -> GF
+    smp2trigs  : PG -> GF
+    sup2trigs  : (UP, GF) -> GF
+
+    nth := R has RetractableTo(Integer) and F has RadicalCategory
+
+    GR2F g        == real(g)::F + sqrt(-(1::F)) * imag(g)::F
+    FG2F f        == (PG2F numer f) / (PG2F denom f)
+    F2FG f        == (PF2FG numer f) / (PF2FG denom f)
+    GF2FG f       == (F2FG real f) + complex(0, 1)$GR ::FG * F2FG imag f
+    GR2GF gr      == complex(real(gr)::F, imag(gr)::F)
+
+    im := complex(0, 1)$GR :: FG
+
+    KG2F k ==
+        kernel(operator(operator(k))$F, [FG2F a for a in argument(k)])
+
+    KF2FG k ==
+        akl := argument(k)
+        op := operator(k)
+        is?(op, 'nthRoot) and akl(1) = -1 and akl(2) = 2::F => im
+        kernel(operator(op)$FG, [F2FG a for a in akl])
+
+-- This expects the argument to have only tan and atans left.
+-- Does a half-angle correction if k is not in the initial kernel list.
+    ker2explogs(k, l) ==
+      kf := k::FG
+      empty?(args := [trigs2explogs(a, l)
+                                    for a in argument k]$List(FG)) => kf
+      z  := first args
+      is?(k, 'tan)  =>
+        e := (member?(k, l) => exp(im * z) ^ 2;  exp(2 * im * z))
+        - im * (e - 1) /$FG (e + 1)
+      is?(k, 'atan) =>
+        im * log((1 -$FG im *$FG z)/$FG (1 +$FG im *$FG z))$FG / (2::FG)
+      (operator k) args
+
+    trigs2explogs(f, l) ==
+      smp2explogs(numer f, l) / smp2explogs(denom f, l)
+
+
+    ker2trigs_error(op : OP, arg : List GF) : GF ==
+        print(op::OutputForm)$OutputForm
+        print(arg::OutputForm)$OutputForm
+        error "ker2trigs: cannot convert kernel to gaussian function"
+
+
+    if F has LiouvillianFunctionCategory then
+        do_liou(op, arg) ==
+            a := first(arg)
+            is?(op, 'Ei) and real(a) = 0 =>
+                complex(Ci(imag(a)), Si(imag(a)))
+            is?(op, 'erf) and real(a) = 0 => complex(0, erfi(imag(a)))
+            is?(op, 'erf) and real(a) = imag(a) =>
+                a1 := 2*real(a)/sqrt(pi())
+                complex(1, 1)*complex(fresnelC(a1), -fresnelS(a1))
+            is?(op, 'erf) and real(a) = -imag(a) =>
+                a1 := 2*real(a)/sqrt(pi())
+                complex(1, -1)*complex(fresnelC(a1), fresnelS(a1))
+            ker2trigs_error(op, arg)
+
+    else
+        do_liou(op, args) == ker2trigs_error(op, args)
+
+    -- return op(arg) as f + %i g
+    -- op is already an operator with semantics over R, not GR
+    ker2trigs(op, arg) ==
+      "and"/[zero? imag x for x in arg] =>
+        complex(op [real x for x in arg]$List(F), 0)
+      a := first arg
+      is?(op, 'exp)  => exp a
+      is?(op, 'log)  => log a
+      is?(op, 'sin)  => sin a
+      is?(op, 'cos)  => cos a
+      is?(op, 'tan)  => tan a
+      is?(op, 'cot)  => cot a
+      is?(op, 'sec)  => sec a
+      is?(op, 'csc)  => csc a
+      is?(op, 'asin)  => asin a
+      is?(op, 'acos)  => acos a
+      is?(op, 'atan)  => atan a
+      is?(op, 'acot)  => acot a
+      is?(op, 'asec)  => asec a
+      is?(op, 'acsc)  => acsc a
+      is?(op, 'sinh)  => sinh a
+      is?(op, 'cosh)  => cosh a
+      is?(op, 'tanh)  => tanh a
+      is?(op, 'coth)  => coth a
+      is?(op, 'sech)  => sech a
+      is?(op, 'csch)  => csch a
+      is?(op, 'asinh)  => asinh a
+      is?(op, 'acosh)  => acosh a
+      is?(op, 'atanh)  => atanh a
+      is?(op, 'acoth)  => acoth a
+      is?(op, 'asech)  => asech a
+      is?(op, 'acsch)  => acsch a
+      is?(op, 'abs)    => sqrt(norm a)::GF
+      nth and is?(op, NTHR) => nthRoot(a, retract(second arg)@Z)
+      is?(op, '%iint) =>
+          complex(op [real x for x in arg]$List(F),
+                  op [imag x for x in arg]$List(F))
+      do_liou(op, arg)
+
+    sup2trigs(p, f) ==
+      map(smp2trigs, p)$SparseUnivariatePolynomialFunctions2(PG, GF) f
+
+    smp2trigs p ==
+      map(x +-> explogs2trigs(x::FG), GR2GF, p)$PolynomialCategoryLifting(
+                                    IndexedExponents KG, KG, GR, PG, GF)
+
+    explogs2trigs f ==
+      nf := numer f
+      df := denom f
+      (m := mainKernel f) case "failed" =>
+        GR2GF(retract(nf)@GR) / GR2GF(retract(df)@GR)
+      op  := operator(operator(k := m::KG))$F
+      arg := [explogs2trigs x for x in argument k]
+      num := univariate(nf, k)
+      den := univariate(df, k)
+      is?(op, 'exp) =>
+        e  := exp real first arg
+        y  := imag first arg
+        g  := complex(e *  cos y, e * sin y)$GF
+        gi := complex(cos(y) / e, - sin(y) / e)$GF
+        supexp(num, g, gi, b := (degree num)::Z quo 2)/supexp(den, g, gi, b)
+      sup2trigs(num, g := ker2trigs(op, arg)) / sup2trigs(den, g)
+
+    supexp(p, f1, f2, bse) ==
+      ans : GF := 0
+      while p ~= 0 repeat
+        g := explogs2trigs(leadingCoefficient(p)::FG)
+        if ((d := degree(p)::Z - bse) >= 0) then
+             ans := ans + g * f1 ^ d
+        else ans := ans + g * f2 ^ (-d)
+        p := reductum p
+      ans
+
+    PG2F p ==
+      map(KG2F, GR2F, p)$PolynomialCategoryLifting(IndexedExponents KG,
+                                                          KG, GR, PG, F)
+    PF2FG p ==
+        map(KF2FG, x +-> x::GR::FG, p)$PolynomialCategoryLifting(
+              IndexedExponents KF, KF, R, PF, FG)
+
+    smp2explogs(p, l) ==
+      map(x +-> ker2explogs(x, l), y +-> y::FG,
+           p)$PolynomialCategoryLifting(IndexedExponents KG, KG, GR, PG, FG)
+)boot $tryRecompileArguments := true
+

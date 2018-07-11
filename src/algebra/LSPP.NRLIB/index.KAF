@@ -1,0 +1,79 @@
+3320                (|LinearSystemPolynomialPackage| R E OV P)
+|package|
+(((|LinearSystemPolynomialPackage| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |linSolve|
+    ((|Record|
+      (|:| |particular| (|Union| (|Vector| (|Fraction| |#4|)) "failed"))
+      (|:| |basis| (|List| (|Vector| (|Fraction| |#4|)))))
+     (|List| |#4|) (|List| |#3|)))
+   (SIGNATURE |intoMatrix|
+    ((|Record| (|:| |mat| (|Matrix| (|Fraction| |#4|)))
+               (|:| |vec| (|Vector| (|Fraction| |#4|))))
+     (|List| |#4|) (|List| |#3|))))
+  (|IntegralDomain|) (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|PolynomialCategory| |#1| |#2| |#3|))
+ (T |LinearSystemPolynomialPackage|))
+(CATEGORY |package|
+ (SIGNATURE |linSolve|
+  ((|Record| (|:| |particular| (|Union| (|Vector| (|Fraction| |#4|)) "failed"))
+             (|:| |basis| (|List| (|Vector| (|Fraction| |#4|)))))
+   (|List| |#4|) (|List| |#3|)))
+ (SIGNATURE |intoMatrix|
+  ((|Record| (|:| |mat| (|Matrix| (|Fraction| |#4|)))
+             (|:| |vec| (|Vector| (|Fraction| |#4|))))
+   (|List| |#4|) (|List| |#3|))))
+"/git/fricas/src/algebra/LSPP.spad"
+((|intoMatrix| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *8)) (|isDomain| *4 (|List| *7))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *8 (|PolynomialCategory| *5 *6 *7))
+       (|ofCategory| *5 (|IntegralDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|Record| (|:| |mat| (|Matrix| (|Fraction| *8)))
+                             (|:| |vec| (|Vector| (|Fraction| *8)))))
+       (|isDomain| *1 (|LinearSystemPolynomialPackage| *5 *6 *7 *8))))
+ (|linSolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *8)) (|isDomain| *4 (|List| *7))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *8 (|PolynomialCategory| *5 *6 *7))
+       (|ofCategory| *5 (|IntegralDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular|
+                         (|Union| (|Vector| (|Fraction| *8)) "failed"))
+                    (|:| |basis| (|List| (|Vector| (|Fraction| *8))))))
+       (|isDomain| *1 (|LinearSystemPolynomialPackage| *5 *6 *7 *8)))))
+((|linSolve|
+  (((|Record|
+     (|:| |particular| (|Union| (|Vector| (|Fraction| |#4|)) "failed"))
+     (|:| |basis| (|List| (|Vector| (|Fraction| |#4|)))))
+    (|List| |#4|) (|List| |#3|))
+   45))
+ (|intoMatrix|
+  (((|Record| (|:| |mat| (|Matrix| (|Fraction| |#4|)))
+              (|:| |vec| (|Vector| (|Fraction| |#4|))))
+    (|List| |#4|) (|List| |#3|))
+   40)))
+LSPP
+((|constructor|
+  (NIL
+   "this package finds the solutions of linear systems presented as a list of polynomials."))
+ (|intoMatrix|
+  (((|Record| (|:| |mat| (|Matrix| (|Fraction| |#4|)))
+              (|:| |vec| (|Vector| (|Fraction| |#4|))))
+    (|List| |#4|) (|List| |#3|))
+   "\\spad{intoMatrix(lp,{} lvar)} converts linear in symbols lvar system of polynomials \\spad{lp} = 0 into matrix form"))
+ (|linSolve|
+  (((|Record|
+     (|:| |particular| (|Union| (|Vector| (|Fraction| |#4|)) "failed"))
+     (|:| |basis| (|List| (|Vector| (|Fraction| |#4|)))))
+    (|List| |#4|) (|List| |#3|))
+   "\\spad{linSolve(lp,{} lvar)} finds the solutions of the linear system of polynomials \\spad{lp} = 0 with respect to the list of symbols lvar.")))
+(("documentation" 0 2580) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2575) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2209) ("modemaps" 0 1103) ("sourceFile" 0 1067)
+ ("constructorCategory" 0 677) ("constructorModemap" 0 73)
+ ("constructorKind" 0 63) ("constructorForm" 0 20))

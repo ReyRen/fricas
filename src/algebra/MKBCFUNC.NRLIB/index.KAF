@@ -1,0 +1,42 @@
+1942                (|MakeBinaryCompiledFunction| S D1 D2 I)
+|package|
+(((|MakeBinaryCompiledFunction| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |binaryFunction| ((|Mapping| |#4| |#2| |#3|) (|Symbol|)))
+   (SIGNATURE |compiledFunction|
+    ((|Mapping| |#4| |#2| |#3|) |#1| (|Symbol|) (|Symbol|))))
+  (|ConvertibleTo| (|InputForm|)) (|Type|) (|Type|) (|Type|))
+ (T |MakeBinaryCompiledFunction|))
+(CATEGORY |package|
+ (SIGNATURE |binaryFunction| ((|Mapping| |#4| |#2| |#3|) (|Symbol|)))
+ (SIGNATURE |compiledFunction|
+  ((|Mapping| |#4| |#2| |#3|) |#1| (|Symbol|) (|Symbol|))))
+"/git/fricas/src/algebra/MKBCFUNC.spad"
+((|compiledFunction| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *4 (|Symbol|)) (|isDomain| *2 (|Mapping| *7 *5 *6))
+       (|isDomain| *1 (|MakeBinaryCompiledFunction| *3 *5 *6 *7))
+       (|ofCategory| *3 (|ConvertibleTo| (|InputForm|)))
+       (|ofCategory| *5 (|Type|)) (|ofCategory| *6 (|Type|))
+       (|ofCategory| *7 (|Type|))))
+ (|binaryFunction| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *2 (|Mapping| *7 *5 *6))
+       (|isDomain| *1 (|MakeBinaryCompiledFunction| *4 *5 *6 *7))
+       (|ofCategory| *4 (|ConvertibleTo| (|InputForm|)))
+       (|ofCategory| *5 (|Type|)) (|ofCategory| *6 (|Type|))
+       (|ofCategory| *7 (|Type|)))))
+((|compiledFunction|
+  (((|Mapping| |#4| |#2| |#3|) |#1| (|Symbol|) (|Symbol|)) 19))
+ (|binaryFunction| (((|Mapping| |#4| |#2| |#3|) (|Symbol|)) 12)))
+MKBCFUNC
+((|constructor| (NIL "transforms top-level objects into compiled functions."))
+ (|compiledFunction|
+  (((|Mapping| |#4| |#2| |#3|) |#1| (|Symbol|) (|Symbol|))
+   "\\spad{compiledFunction(expr,{} x,{} y)} returns a function \\spad{f: (D1,{} D2) -> I} defined by \\spad{f(x,{} y) == expr}. Function \\spad{f} is compiled and directly applicable to objects of type \\spad{(D1,{} D2)}"))
+ (|binaryFunction|
+  (((|Mapping| |#4| |#2| |#3|) (|Symbol|))
+   "\\spad{binaryFunction(s)} is a local function")))
+(("documentation" 0 1442) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1433) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1282) ("modemaps" 0 631) ("sourceFile" 0 591)
+ ("constructorCategory" 0 410) ("constructorModemap" 0 71)
+ ("constructorKind" 0 61) ("constructorForm" 0 20))

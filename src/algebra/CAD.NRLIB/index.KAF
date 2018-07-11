@@ -1,0 +1,146 @@
+6379                (|CylindricalAlgebraicDecompositionPackage| |TheField|)
+|package|
+(((|CylindricalAlgebraicDecompositionPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |cylindricalDecomposition|
+    ((|List| (|Cell| |#1|)) (|List| (|Polynomial| |#1|))))
+   (SIGNATURE |cylindricalDecomposition|
+    ((|List| (|Cell| |#1|)) (|List| (|Polynomial| |#1|)) (|List| (|Symbol|))))
+   (SIGNATURE |projectionSet|
+    ((|List| (|Polynomial| |#1|))
+     (|List| (|SparseUnivariatePolynomial| (|Polynomial| |#1|)))))
+   (SIGNATURE |coefficientSet|
+    ((|List| (|Polynomial| |#1|))
+     (|SparseUnivariatePolynomial| (|Polynomial| |#1|))))
+   (SIGNATURE |discriminantSet|
+    ((|List| (|Polynomial| |#1|))
+     (|List| (|SparseUnivariatePolynomial| (|Polynomial| |#1|)))))
+   (SIGNATURE |resultantSet|
+    ((|List| (|Polynomial| |#1|))
+     (|List| (|SparseUnivariatePolynomial| (|Polynomial| |#1|)))))
+   (SIGNATURE |principalSubResultantSet|
+    ((|List| (|Polynomial| |#1|))
+     (|SparseUnivariatePolynomial| (|Polynomial| |#1|))
+     (|SparseUnivariatePolynomial| (|Polynomial| |#1|))))
+   (SIGNATURE |specialise|
+    ((|List| (|SparseUnivariatePolynomial| |#1|)) (|List| (|Polynomial| |#1|))
+     (|Cell| |#1|))))
+  (|RealClosedField|))
+ (T |CylindricalAlgebraicDecompositionPackage|))
+(CATEGORY |package|
+ (SIGNATURE |cylindricalDecomposition|
+  ((|List| (|Cell| |#1|)) (|List| (|Polynomial| |#1|))))
+ (SIGNATURE |cylindricalDecomposition|
+  ((|List| (|Cell| |#1|)) (|List| (|Polynomial| |#1|)) (|List| (|Symbol|))))
+ (SIGNATURE |projectionSet|
+  ((|List| (|Polynomial| |#1|))
+   (|List| (|SparseUnivariatePolynomial| (|Polynomial| |#1|)))))
+ (SIGNATURE |coefficientSet|
+  ((|List| (|Polynomial| |#1|))
+   (|SparseUnivariatePolynomial| (|Polynomial| |#1|))))
+ (SIGNATURE |discriminantSet|
+  ((|List| (|Polynomial| |#1|))
+   (|List| (|SparseUnivariatePolynomial| (|Polynomial| |#1|)))))
+ (SIGNATURE |resultantSet|
+  ((|List| (|Polynomial| |#1|))
+   (|List| (|SparseUnivariatePolynomial| (|Polynomial| |#1|)))))
+ (SIGNATURE |principalSubResultantSet|
+  ((|List| (|Polynomial| |#1|))
+   (|SparseUnivariatePolynomial| (|Polynomial| |#1|))
+   (|SparseUnivariatePolynomial| (|Polynomial| |#1|))))
+ (SIGNATURE |specialise|
+  ((|List| (|SparseUnivariatePolynomial| |#1|)) (|List| (|Polynomial| |#1|))
+   (|Cell| |#1|))))
+"/git/fricas/src/algebra/CAD.spad"
+((|specialise| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5))) (|isDomain| *4 (|Cell| *5))
+       (|ofCategory| *5 (|RealClosedField|))
+       (|isDomain| *2 (|List| (|SparseUnivariatePolynomial| *5)))
+       (|isDomain| *1 (|CylindricalAlgebraicDecompositionPackage| *5))))
+ (|principalSubResultantSet| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| (|Polynomial| *4)))
+       (|ofCategory| *4 (|RealClosedField|))
+       (|isDomain| *2 (|List| (|Polynomial| *4)))
+       (|isDomain| *1 (|CylindricalAlgebraicDecompositionPackage| *4))))
+ (|resultantSet| (*1 *2 *3)
+  (AND
+   (|isDomain| *3 (|List| (|SparseUnivariatePolynomial| (|Polynomial| *4))))
+   (|ofCategory| *4 (|RealClosedField|))
+   (|isDomain| *2 (|List| (|Polynomial| *4)))
+   (|isDomain| *1 (|CylindricalAlgebraicDecompositionPackage| *4))))
+ (|discriminantSet| (*1 *2 *3)
+  (AND
+   (|isDomain| *3 (|List| (|SparseUnivariatePolynomial| (|Polynomial| *4))))
+   (|ofCategory| *4 (|RealClosedField|))
+   (|isDomain| *2 (|List| (|Polynomial| *4)))
+   (|isDomain| *1 (|CylindricalAlgebraicDecompositionPackage| *4))))
+ (|coefficientSet| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| (|Polynomial| *4)))
+       (|ofCategory| *4 (|RealClosedField|))
+       (|isDomain| *2 (|List| (|Polynomial| *4)))
+       (|isDomain| *1 (|CylindricalAlgebraicDecompositionPackage| *4))))
+ (|projectionSet| (*1 *2 *3)
+  (AND
+   (|isDomain| *3 (|List| (|SparseUnivariatePolynomial| (|Polynomial| *4))))
+   (|ofCategory| *4 (|RealClosedField|))
+   (|isDomain| *2 (|List| (|Polynomial| *4)))
+   (|isDomain| *1 (|CylindricalAlgebraicDecompositionPackage| *4))))
+ (|cylindricalDecomposition| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5)))
+       (|isDomain| *4 (|List| (|Symbol|)))
+       (|ofCategory| *5 (|RealClosedField|))
+       (|isDomain| *2 (|List| (|Cell| *5)))
+       (|isDomain| *1 (|CylindricalAlgebraicDecompositionPackage| *5))))
+ (|cylindricalDecomposition| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *4)))
+       (|ofCategory| *4 (|RealClosedField|))
+       (|isDomain| *2 (|List| (|Cell| *4)))
+       (|isDomain| *1 (|CylindricalAlgebraicDecompositionPackage| *4)))))
+((|specialise|
+  (((|List| (|SparseUnivariatePolynomial| |#1|)) (|List| (|Polynomial| |#1|))
+    (|Cell| |#1|))
+   34))
+ (|resultantSet|
+  (((|List| (|Polynomial| |#1|))
+    (|List| (|SparseUnivariatePolynomial| (|Polynomial| |#1|))))
+   60))
+ (|projectionSet|
+  (((|List| (|Polynomial| |#1|))
+    (|List| (|SparseUnivariatePolynomial| (|Polynomial| |#1|))))
+   33))
+ (|principalSubResultantSet|
+  (((|List| (|Polynomial| |#1|))
+    (|SparseUnivariatePolynomial| (|Polynomial| |#1|))
+    (|SparseUnivariatePolynomial| (|Polynomial| |#1|)))
+   59))
+ (|discriminantSet|
+  (((|List| (|Polynomial| |#1|))
+    (|List| (|SparseUnivariatePolynomial| (|Polynomial| |#1|))))
+   56))
+ (|cylindricalDecomposition|
+  (((|List| (|Cell| |#1|)) (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)))
+   17)
+  (((|List| (|Cell| |#1|)) (|List| (|Polynomial| |#1|))) 18))
+ (|coefficientSet|
+  (((|List| (|Polynomial| |#1|))
+    (|SparseUnivariatePolynomial| (|Polynomial| |#1|)))
+   47)))
+CAD
+((|specialise|
+  (((|List| (|SparseUnivariatePolynomial| |#1|)) (|List| (|Polynomial| |#1|))
+    (|Cell| |#1|))
+   "\\spad{specialise(lp,{} c)} specializes all \\spad{p} in \\spad{lp} to the sample point of \\spad{c}."))
+ (|projectionSet|
+  (((|List| (|Polynomial| |#1|))
+    (|List| (|SparseUnivariatePolynomial| (|Polynomial| |#1|))))
+   "\\spad{projectionSet(lup)} performs one projection step"))
+ (|cylindricalDecomposition|
+  (((|List| (|Cell| |#1|)) (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)))
+   "\\spad{cylindricalDecomposition(lp,{} lv)} computes cylindrical decomposition of \\spad{lp} in using variable order given by \\spad{lv}")
+  (((|List| (|Cell| |#1|)) (|List| (|Polynomial| |#1|)))
+   "\\spad{cylindricalDecomposition(lp)} is cylindricalDecomposition(\\spad{lp},{} \\spad{lv}) where \\spad{lv} is list of variables in \\spad{lp}.")))
+(("documentation" 0 5522) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 5518) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4552) ("modemaps" 0 2349) ("sourceFile" 0 2314)
+ ("constructorCategory" 0 1286) ("constructorModemap" 0 86)
+ ("constructorKind" 0 76) ("constructorForm" 0 20))

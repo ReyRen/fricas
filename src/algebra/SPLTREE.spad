@@ -1,0 +1,333 @@
+)abbrev domain SPLTREE SplittingTree
+++ Author: Marc Moereno Maza
+++ Date Created: 07/05/1996
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++      M. MORENO MAZA "Calculs de pgcd au-dessus des tours
+++      d'extensions simples et resolution des systemes d'equations
+++      algebriques" These, Universite P.etM. Curie, Paris, 1997.
+++ Description:
+++    This domain exports a modest implementation of splitting
+++    trees. Splitting trees are needed when the
+++    evaluation of some quantity under some hypothesis
+++    requires to split the hypothesis into sub-cases.
+++    For instance by adding some new hypothesis on one
+++    hand and its negation on another hand. The computations
+++    are terminated for a splitting tree \spad{a} when
+++    \spad{status(value(a))} is \spad{true}. Thus,
+++    if for the splitting tree \spad{a} the flag
+++    \spad{status(value(a))} is \spad{true}, then
+++    \spad{status(value(d))} is \spad{true} for any
+++    subtree \spad{d} of \spad{a}. This property
+++    of splitting trees is called the termination
+++    condition. If no vertex in a splitting tree \spad{a}
+++    is equal to another, \spad{a} is said to satisfy
+++    the no-duplicates condition. The splitting
+++    tree \spad{a} will satisfy this condition
+++    if nodes are added to \spad{a} by means of
+++    \spad{splitNodeOf!} and if \spad{construct}
+++    is only used to create the root of \spad{a}
+++    with no children.
+
+SplittingTree(V, C) : Exports == Implementation where
+
+  V : Join(SetCategory, Aggregate)
+  C : Join(SetCategory, Aggregate)
+  B ==> Boolean
+  O ==> OutputForm
+  NNI ==> NonNegativeInteger
+  VT ==> Record(val : V, tower : C)
+  VTB ==> Record(val : V, tower : C, flag : B)
+  S ==> SplittingNode(V, C)
+  A ==> Record(root : S, subTrees : List(%))
+
+  Exports ==  Join(RecursiveAggregate(S), shallowlyMutable, _
+       finiteAggregate) with
+     extractSplittingLeaf : % -> Union(%,"failed")
+       ++ \spad{extractSplittingLeaf(a)} returns the left
+       ++ most leaf (as a tree) whose status is false
+       ++ if any, else "failed" is returned.
+     updateStatus! : % -> %
+       ++ \spad{updateStatus!(a)} returns a where the status
+       ++ of the vertices are updated to satisfy
+       ++ the "termination condition".
+     construct : S -> %
+       ++ \spad{construct(s)} creates a splitting tree
+       ++ with value (i.e. root vertex) given by
+       ++ \spad{s} and no children. Thus, if the
+       ++ status of \spad{s} is false, \spad{[s]}
+       ++ represents the starting point of the
+       ++ evaluation \spad{value(s)} under the
+       ++ hypothesis \spad{condition(s)}.
+     construct : (V, C, List %) -> %
+       ++ \spad{construct(v, t, la)} creates a splitting tree
+       ++ with value (i.e. root vertex) given by
+       ++ \spad{[v, t]$S} and with \spad{la} as
+       ++ children list.
+     construct : (V, C, List S) -> %
+       ++ \spad{construct(v, t, ls)} creates a splitting tree
+       ++ with value (i.e. root vertex) given by
+       ++ \spad{[v, t]$S} and with children list given by
+       ++ \spad{[[s]$% for s in ls]}.
+     construct : (V, C, V, List C) -> %
+       ++ \spad{construct(v1, t, v2, lt)} creates a splitting tree
+       ++ with value (i.e. root vertex) given by
+       ++ \spad{[v, t]$S} and with children list given by
+       ++ \spad{[[[v, t]$S]$% for s in ls]}.
+     conditions : % -> List C
+       ++ \spad{conditions(a)} returns the list of the conditions
+       ++ of the leaves of a
+     result : % -> List VT
+       ++ \spad{result(a)} where \spad{ls} is the leaves list of \spad{a}
+       ++ returns \spad{[[value(s), condition(s)]$VT for s in ls]}
+       ++ if the computations are terminated in \spad{a} else
+       ++ an error is produced.
+     nodeOf? : (S, %) -> B
+       ++ \spad{nodeOf?(s, a)} returns true iff some node of \spad{a}
+       ++ is equal to \spad{s}
+     subNodeOf? : (S, %, (C, C) -> B) -> B
+       ++ \spad{subNodeOf?(s, a, sub?)} returns true iff for some node
+       ++ \spad{n} in \spad{a} we have \spad{s = n} or
+       ++ \spad{status(n)} and \spad{subNode?(s, n, sub?)}.
+     remove : (S, %) -> %
+       ++ \spad{remove(s, a)} returns the splitting tree obtained
+       ++ from a by removing every sub-tree \spad{b} such
+       ++ that \spad{value(b)} and \spad{s} have the same
+       ++ value, condition and status.
+     remove! : (S, %) -> %
+       ++ \spad{remove!(s, a)} replaces a by remove(s, a)
+     splitNodeOf! : (%, %, List(S)) -> %
+       ++ \spad{splitNodeOf!(l, a, ls)} returns \spad{a} where the children
+       ++ list of \spad{l} has been set to
+       ++ \spad{[[s]$% for s in ls | not nodeOf?(s, a)]}.
+       ++ Thus, if \spad{l} is not a node of \spad{a}, this
+       ++ latter splitting tree is unchanged.
+     splitNodeOf! : (%, %, List(S), (C, C) -> B) -> %
+       ++ \spad{splitNodeOf!(l, a, ls, sub?)} returns \spad{a} where the children
+       ++ list of \spad{l} has been set to
+       ++ \spad{[[s]$% for s in ls | not subNodeOf?(s, a, sub?)]}.
+       ++ Thus, if \spad{l} is not a node of \spad{a}, this
+       ++ latter splitting tree is unchanged.
+
+
+  Implementation == add
+
+     Rep ==> A
+
+     rep(n : %) : Rep == n pretend Rep
+     per(r : Rep) : % == r pretend %
+
+     construct(s : S) ==
+        per [s, []]$A
+     construct(v : V, t : C, la : List(%)) ==
+        per [[v, t]$S, la]$A
+     construct(v : V, t : C, ls : List(S)) ==
+        per [[v, t]$S, [[s]$% for s in ls]]$A
+     construct(v1 : V, t : C, v2 : V, lt : List(C)) ==
+        [v1, t, ([v2, lt]$S)@(List S)]$%
+
+     empty?(a : %) == empty?((rep a).root) and empty?((rep a).subTrees)
+     empty() == [empty()$S]$%
+
+     remove(s : S, a : %) ==
+       empty? a => a
+       (s = value(a)) and (status(s) = status(value(a))) => empty()$%
+       la := children(a)
+       lb : List % := []
+       while (not empty? la) repeat
+          lb := cons(remove(s, first la), lb)
+          la := rest la
+       lb := reverse remove(empty?, lb)
+       [value(value(a)), condition(value(a)), lb]$%
+
+     remove!(s : S, a : %) ==
+       empty? a => a
+       (s = value(a)) and (status(s) = status(value(a))) =>
+         (rep a).root := empty()$S
+         (rep a).subTrees := []
+         a
+       la := children(a)
+       lb : List % := []
+       while (not empty? la) repeat
+          lb := cons(remove!(s, first la), lb)
+          la := rest la
+       lb := reverse remove(empty()$%, lb)
+       setchildren!(a, lb)
+
+     value(a : %) ==
+        (rep a).root
+     children(a : %) ==
+        (rep a).subTrees
+     leaf?(a : %) ==
+        empty? a => false
+        empty? (rep a).subTrees
+     setchildren!(a : %, la : List(%)) ==
+        (rep a).subTrees := la
+        a
+     setvalue!(a : %, s : S) ==
+        (rep a).root := s
+        s
+     cyclic?(a : %) == false
+     map(foo : (S -> S), a : %) ==
+       empty? a => a
+       b : % := [foo(value(a))]$%
+       leaf? a => b
+       setchildren!(b, [map(foo, c) for c in children(a)])
+     map!(foo : (S -> S), a : %) ==
+       empty? a => a
+       setvalue!(a, foo(value(a)))
+       leaf? a => a
+       setchildren!(a, [map!(foo, c) for c in children(a)])
+     copy(a : %) ==
+       map(copy, a)
+     eq?(a1 : %, a2 : %) ==
+       error "in eq? from SPLTREE : unimplemented"
+     nodes(a : %) ==
+       empty? a => []
+       leaf? a => [a]
+       cons(a, concat([nodes(c) for c in children(a)]))
+     leaves(a : %) ==
+       empty? a => []
+       leaf? a => [value(a)]
+       concat([leaves(c) for c in children(a)])
+     members(a : %) ==
+       empty? a => []
+       leaf? a => [value(a)]
+       cons(value(a), concat([members(c) for c in children(a)]))
+     #(a : %) ==
+       empty? a => 0$NNI
+       leaf? a => 1$NNI
+       reduce("+",[#c for c in children(a)],1$NNI)$(List NNI)
+     a1 : % = a2 : % ==
+       empty? a1 => empty? a2
+       empty? a2 => false
+       leaf? a1 =>
+         not leaf? a2 => false
+         value(a1) =$S value(a2)
+       leaf? a2 => false
+       value(a1) ~=$S value(a2) => false
+       children(a1) = children(a2)
+     -- sample() == [sample()$S]$%
+     localCoerce(a : %, k : NNI) : O ==
+       s : String
+       if k = 1 then  s := "* " else s := "-> "
+       for i in 2..k repeat s := concat("-+",s)$String
+       ro : O := left(hconcat(message(s)$O, value(a)::O)$O)$O
+       leaf? a => ro
+       lo : List O := [localCoerce(c, k+1) for c in children(a)]
+       lo := cons(ro, lo)
+       vconcat(lo)$O
+     coerce(a : %) : O ==
+       empty? a => vconcat(message(" ")$O,message("* []")$O)
+       vconcat(message(" ")$O,localCoerce(a,1))
+
+     extractSplittingLeaf(a : %) ==
+       empty? a => "failed"::Union(%,"failed")
+       status(value(a))$S => "failed"::Union(%,"failed")
+       la := children(a)
+       empty? la => a
+       while (not empty? la) repeat
+          esl := extractSplittingLeaf(first la)
+          (esl case %) => return(esl)
+          la := rest la
+       "failed"::Union(%,"failed")
+
+     updateStatus!(a : %) ==
+       la := children(a)
+       (empty? la) or (status(value(a))$S) => a
+       done := true
+       while (not empty? la) and done repeat
+          done := done and status(value(updateStatus! first la))
+          la := rest la
+       setStatus!(value(a), done)$S
+       a
+
+     result(a : %) ==
+       empty? a => []
+       not status(value(a))$S =>
+          error"in result from SLPTREE : mad cow!"
+       ls : List S := leaves(a)
+       [[value(s), condition(s)]$VT for s in ls]
+
+     conditions(a : %) ==
+       empty? a => []
+       ls : List S := leaves(a)
+       [condition(s) for s in ls]
+
+     nodeOf?(s : S, a : %) ==
+       empty? a => false
+       s =$S value(a) => true
+       la := children(a)
+       while (not empty? la) and (not nodeOf?(s, first la)) repeat
+          la := rest la
+       not empty? la
+
+     subNodeOf?(s : S, a : %, sub? : ((C, C) -> B)) ==
+       empty? a => false
+       -- s =$S value(a) => true
+       status(value(a)$%)$S and subNode?(s, value(a), sub?)$S => true
+       la := children(a)
+       while (not empty? la) and (not subNodeOf?(s, first la, sub?)) repeat
+          la := rest la
+       not empty? la
+
+     splitNodeOf!(l : %, a : %, ls : List(S)) ==
+       ln := removeDuplicates ls
+       la : List % := []
+       while not empty? ln repeat
+          if not nodeOf?(first ln, a)
+            then
+              la := cons([first ln]$%, la)
+          ln := rest ln
+       la := reverse la
+       setchildren!(l, la)$%
+       if empty? la then (rep l).root := [empty()$V, empty()$C, true]$S
+       updateStatus!(a)
+
+     splitNodeOf!(l : %, a : %, ls : List(S), sub? : ((C, C) -> B)) ==
+       ln := removeDuplicates ls
+       la : List % := []
+       while not empty? ln repeat
+          if not subNodeOf?(first ln, a, sub?)
+            then
+              la := cons([first ln]$%, la)
+          ln := rest ln
+       la := reverse la
+       setchildren!(l, la)$%
+       if empty? la then (rep l).root := [empty()$V, empty()$C, true]$S
+       updateStatus!(a)
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

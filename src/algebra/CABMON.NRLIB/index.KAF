@@ -1,0 +1,32 @@
+1508                (MAKEPROP '|CancellationAbelianMonoid| 'NILADIC T)
+(|CancellationAbelianMonoid|)
+|category|
+(((|CancellationAbelianMonoid|) (|Category|)) (T |CancellationAbelianMonoid|))
+(|Join| (|AbelianMonoid|)
+        (CATEGORY |domain|
+         (SIGNATURE |subtractIfCan| ((|Union| $ "failed") $ $))))
+"/git/fricas/src/algebra/CABMON.spad"
+((|subtractIfCan| (*1 *1 *1 *1)
+  (|partial| |ofCategory| *1 (|CancellationAbelianMonoid|))))
+((~= (((|Boolean|) $ $) 6)) (|zero?| (((|Boolean|) $) 6))
+ (|subtractIfCan| (((|Union| $ "failed") $ $) 6)) (|sample| (($) 6 T CONST))
+ (|opposite?| (((|Boolean|) $ $) 6)) (|latex| (((|String|) $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (|Zero| (($) 6 T CONST)) (= (((|Boolean|) $ $) 6)) (+ (($ $ $) 6))
+ (* (($ (|PositiveInteger|) $) 6) (($ (|NonNegativeInteger|) $) 6)))
+CABMON
+(((|AbelianMonoid|) . T))
+(((|AbelianMonoid|) . T) ((|AbelianSemiGroup|) . T) ((|BasicType|) . T)
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "This is an \\spadtype{AbelianMonoid} with the cancellation property,{} \\spadignore{i.e.} \\spad{ a+b = a+c => b=c }. This is formalised by the partial subtraction operator,{} which satisfies the axioms listed below: \\blankline"))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $)
+   "\\spad{subtractIfCan(x,{} y)} returns an element \\spad{z} such that \\spad{z+y=x} or \"failed\" if no such element exists.")))
+(("documentation" 0 1069) ("ancestors" 0 936) ("parents" 0 910)
+ ("abbreviation" 0 903) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 442) ("modemaps" 0 348) ("sourceFile" 0 310)
+ ("constructorCategory" 0 191) ("constructorModemap" 0 112)
+ ("constructorKind" 0 101) ("constructorForm" 0 71) ("NILADIC" 0 20))

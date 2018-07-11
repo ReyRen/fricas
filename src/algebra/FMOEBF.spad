@@ -1,0 +1,85 @@
+)abbrev domain FMOEBF FiniteMoebiusFunction
+++ Author: Franz Lehner
+++ Date Created: 06.03.2011
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ A domain for Moebius functions of explicit subposets
+++ of infinite posets.
+FiniteMoebiusFunction(P : Join(PartialOrder, SetCategory)
+                     ) : Exports == Implementation where
+  R ==> Integer
+  NNI ==> NonNegativeInteger
+  MATL ==> Record(matrix : Matrix R, indices : List P)
+  TRIMATI ==> TriangularMatrixOperations(R, Vector R, Vector R, Matrix R)
+
+  Exports ==> SetCategory with
+    moebiusFunction : List P -> %
+      ++ \spad{moebiusFunction(pp)} creates the canonical
+      ++ zeta matrix and inverts it.
+    moebiusMu : (mf : %, pi : P, si : P) -> R
+      ++ \spad{moebiusMu(mf, pi, si)} evaluates the Moebius function
+    apply : (mf : %, pi : P, si : P) -> R
+      ++ \spad{mf(pi, si)} evaluates the Moebius function mf at pi and si
+    members : % -> List P
+      ++ \spad{members(mf)} returns the elements of the subposet
+    moebiusMatrix : % -> Matrix R
+      ++ \spad{moebiusMatrix(P)} returns the Moebius matrix
+
+  Implementation ==> add
+    Rep :=  MATL
+    rep(x : %) : Rep == x::Rep
+    per(r : Rep) : % == r::%
+
+    members(mf : %) : List P == rep(mf).indices
+
+    moebiusFunction(xx : List P) : % ==
+        xxo : List P := removeDuplicates topologicalSort("<=", xx
+                                                        )$(ListPackage P)
+        zf : Matrix R := matrix [[(if x <= y then 1 else 0) for y in xxo]
+                                    for x in xxo]
+        mf : Matrix R := UpTriBddDenomInv(zf, 1)$TRIMATI
+        per ([mf, xxo]$Rep)
+
+    canonicalZeta : (P, P) -> R
+    canonicalZeta(pi, si) ==
+        if pi <= si then
+            return 1
+        0
+
+    moebiusMu(mf : %, x : P, y : P) ==
+        mfn : Matrix R := (rep mf) matrix
+        kx := position(x, members mf)
+        ky := position(y, members mf)
+        zero? kx or zero? ky =>
+            error "not members"
+        return (mfn)(kx, ky)
+
+    apply(mf : %, x : P, y : P) ==
+        mfn : Matrix R := (rep mf) matrix
+        kx := position(x, members mf)
+        ky := position(y, members mf)
+        zero? kx or zero? ky =>
+            error "not members"
+        return (mfn)(kx, ky)
+
+    moebiusMatrix(mf : %) : Matrix R == rep(mf) matrix
+
+    coerce(mf : %) : OutputForm ==
+        hconcat(message("Moebius Function"), coerce(members(mf)))
+
+)if false
+\section{domain GENMOEBF GeneralizedFiniteMoebiusFunction}
+Code for GeneralizedFiniteMoebiusFunction by Franz Lehner. Notes by
+Martin Baker are here:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/moebius/}
+
+A \emph{generalized Moebius function} is the inverse
+of an upper triangular matrix on a poset
+which is not necessarily the zeta matrix.
+It works similar to the domain \axiom{FiniteMoebiusFunction}.
+)endif

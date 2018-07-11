@@ -1,0 +1,140 @@
+)abbrev domain CHAINC ChainComplex
+++ Author: Martin Baker
+++ Description:
+++   Delta Complexes are defined by a sequence of 'face maps', These
+++   can be represented by a list of matrices.
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/topology/chain/
+++ Date Created: March 2016
+++ Basic Operations:
+++ Related packages:
+++ Related categories:
+++ Related Domains: CoChainComplex
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+
+ChainComplex() : Exports == Impl where
+  NNI==> NonNegativeInteger
+  x<<y ==> hconcat(x::OutputForm, y::OutputForm)
+
+  Exports ==> SetCategory() with
+    chainComplex : (v : List(Matrix(Integer))) -> %
+      ++ constructor
+    transition_matrices : % -> List(Matrix(Integer))
+      ++ transition_matrices(a) gives list of transition matrices
+      ++ of a.
+    validate : (a : %) -> Boolean
+      ++ true if this is a valid chain complex, that is:
+      ++ 1. maps compose
+      ++ 2. product of adjacent maps is zero
+    homology : (a : %) -> List(Homology)
+      ++ calculate homology using SmithNormalForm
+
+  Impl ==> add
+
+   -- Representation contains sequence of face maps in matrix
+   -- form
+   Rep := List(Matrix(Integer))
+
+   -- constructor
+   chainComplex(v : List(Matrix(Integer))) : % ==
+       v
+
+   transition_matrices(a : %) : List(Matrix(Integer)) == a::Rep
+
+   -- true if this is a valid chain complex, that is:
+   -- 1) maps compose
+   -- 2) product of adjacent maps is zero
+   validate(a : %) : Boolean ==
+       len : NNI := #a
+       if len < 2 then return true
+       last : Matrix(Integer) := a.1
+       for x in 2..len repeat
+           m : Matrix(Integer) := a.x
+           if maxRowIndex(m) ~= maxColIndex(last) then
+               print(message("validate failed nRows=") << maxRowIndex(m) <<
+                   message(" not equal to nCols ") << maxColIndex(last))
+               return false
+           prod : Matrix(Integer) := last*m
+           if not zero?(prod) then
+               print(message(
+                  "validate failed: product of adjacent maps should be zero")
+                   << last << message(" * ") << m << message(" = ") << prod)
+               return false
+           last := m
+       true
+
+   -- calculate homology using SmithNormalForm
+   homology(a : %) : List(Homology) ==
+       --print("ChainComplex homology("  << a << ")")
+       res := []$List(Homology)
+       prev := empty()$Matrix(Integer)
+       notFirst : Boolean := false
+       for m1 in a repeat
+           if notFirst then
+               --print("chainComplex: " << nrows(m1) << "*" << ncols(m1) <<_
+               --  " " << nrows(prev) << "*" << ncols(prev))
+               m2 : Homology := homologyGroup(m1, prev)
+               res := concat(res, m2)
+           notFirst := true
+           prev := m1
+       res
+
+   -- output
+   coerce(s : %) : OutputForm ==
+       lst : List(OutputForm) := [x::OutputForm for x in s]
+       commaSeparate(lst)
+
+)if false
+\section{Cochain Complex}
+
+For cochain we reverse the arrows. As with the chain we represent each
+one of these mappings with a matrix. For a cochain this matrix is
+transposed compared to the chain.
+
+For examples see:
+http://www.euclideanspace.com/prog/scratchpad/mycode/topology/chain/cochain/
+
+In the example, on that page, we create a shape (triangle) with 3
+points. We then associate a value (in this case an integer) to each
+of these points:
+\begin{tabular}{ll}
+Point \ Value \\
+1 \ 3 \\
+2 \ 4 \\
+3 \ 5 \\
+\end{tabular}
+\end{table}
+
+The coboundary function then calculates the differences: [1,2,1]. That
+is the difference between 3 and 4 is 1, the difference between 3 and 5
+is 2, and the difference between 4 and 5 is 1.
+
+When we apply the coboundary function again we get the difference
+around the loop, that is, 0.
+
+The values used here were Integers but we could use any type that
+implements AbelianGroup.
+
+For example we could have real (Float) values associated with each
+point representing say voltage or height or some other quantity for
+each point.
+
+Perhaps the most obvious quantity we could associate with each point
+is position, given by a vector relative to some origin and coordinate
+system. However the type (domain) needs to implement AbelianGroup.
+Unfortunately Vectors in FriCAS don't implement AbelianGroup because
+it needs to implement 0:% which it can't because the nearest function
+in Vector is zero: NonNegativeInteger -> % but this needs to know the
+number of dimensions.
+
+We therefore use DirectProduct which implements AbelianGroup.
+There is also an example of this on the above web page.
+
+For examples of cohomology see:
+http://www.euclideanspace.com/prog/scratchpad/mycode/topology/homology/cohomol/
+)endif
+

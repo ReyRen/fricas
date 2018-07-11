@@ -1,0 +1,137 @@
+7035                (|UnivariateSkewPolynomialCategoryOps| R C)
+|package|
+(((|UnivariateSkewPolynomialCategoryOps| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |times|
+    (|#2| |#2| |#2| (|Automorphism| |#1|) (|Mapping| |#1| |#1|)))
+   (SIGNATURE |apply|
+    (|#1| |#2| |#1| |#1| (|Automorphism| |#1|) (|Mapping| |#1| |#1|)))
+   (IF (|has| |#1| (|IntegralDomain|))
+       (PROGN
+        (SIGNATURE |monicLeftDivide|
+         ((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+          (|Automorphism| |#1|)))
+        (SIGNATURE |monicRightDivide|
+         ((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+          (|Automorphism| |#1|))))
+       |noBranch|)
+   (IF (|has| |#1| (|Field|))
+       (PROGN
+        (SIGNATURE |leftDivide|
+         ((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+          (|Automorphism| |#1|)))
+        (SIGNATURE |rightDivide|
+         ((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+          (|Automorphism| |#1|))))
+       |noBranch|))
+  (|Ring|) (|UnivariateSkewPolynomialCategory| |#1|))
+ (T |UnivariateSkewPolynomialCategoryOps|))
+(CATEGORY |package|
+ (SIGNATURE |times|
+  (|#2| |#2| |#2| (|Automorphism| |#1|) (|Mapping| |#1| |#1|)))
+ (SIGNATURE |apply|
+  (|#1| |#2| |#1| |#1| (|Automorphism| |#1|) (|Mapping| |#1| |#1|)))
+ (IF (|has| |#1| (|IntegralDomain|))
+     (PROGN
+      (SIGNATURE |monicLeftDivide|
+       ((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+        (|Automorphism| |#1|)))
+      (SIGNATURE |monicRightDivide|
+       ((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+        (|Automorphism| |#1|))))
+     |noBranch|)
+ (IF (|has| |#1| (|Field|))
+     (PROGN
+      (SIGNATURE |leftDivide|
+       ((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+        (|Automorphism| |#1|)))
+      (SIGNATURE |rightDivide|
+       ((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+        (|Automorphism| |#1|))))
+     |noBranch|))
+"/git/fricas/src/algebra/OREPCTO.spad"
+((|rightDivide| (*1 *2 *3 *3 *4)
+  (AND (|isDomain| *4 (|Automorphism| *5)) (|ofCategory| *5 (|Field|))
+       (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|Record| (|:| |quotient| *3) (|:| |remainder| *3)))
+       (|isDomain| *1 (|UnivariateSkewPolynomialCategoryOps| *5 *3))
+       (|ofCategory| *3 (|UnivariateSkewPolynomialCategory| *5))))
+ (|leftDivide| (*1 *2 *3 *3 *4)
+  (AND (|isDomain| *4 (|Automorphism| *5)) (|ofCategory| *5 (|Field|))
+       (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|Record| (|:| |quotient| *3) (|:| |remainder| *3)))
+       (|isDomain| *1 (|UnivariateSkewPolynomialCategoryOps| *5 *3))
+       (|ofCategory| *3 (|UnivariateSkewPolynomialCategory| *5))))
+ (|monicRightDivide| (*1 *2 *3 *3 *4)
+  (AND (|isDomain| *4 (|Automorphism| *5)) (|ofCategory| *5 (|IntegralDomain|))
+       (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|Record| (|:| |quotient| *3) (|:| |remainder| *3)))
+       (|isDomain| *1 (|UnivariateSkewPolynomialCategoryOps| *5 *3))
+       (|ofCategory| *3 (|UnivariateSkewPolynomialCategory| *5))))
+ (|monicLeftDivide| (*1 *2 *3 *3 *4)
+  (AND (|isDomain| *4 (|Automorphism| *5)) (|ofCategory| *5 (|IntegralDomain|))
+       (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|Record| (|:| |quotient| *3) (|:| |remainder| *3)))
+       (|isDomain| *1 (|UnivariateSkewPolynomialCategoryOps| *5 *3))
+       (|ofCategory| *3 (|UnivariateSkewPolynomialCategory| *5))))
+ (|apply| (*1 *2 *3 *2 *2 *4 *5)
+  (AND (|isDomain| *4 (|Automorphism| *2)) (|isDomain| *5 (|Mapping| *2 *2))
+       (|ofCategory| *2 (|Ring|))
+       (|isDomain| *1 (|UnivariateSkewPolynomialCategoryOps| *2 *3))
+       (|ofCategory| *3 (|UnivariateSkewPolynomialCategory| *2))))
+ (|times| (*1 *2 *2 *2 *3 *4)
+  (AND (|isDomain| *3 (|Automorphism| *5)) (|isDomain| *4 (|Mapping| *5 *5))
+       (|ofCategory| *5 (|Ring|))
+       (|isDomain| *1 (|UnivariateSkewPolynomialCategoryOps| *5 *2))
+       (|ofCategory| *2 (|UnivariateSkewPolynomialCategory| *5)))))
+((|times| ((|#2| |#2| |#2| (|Automorphism| |#1|) (|Mapping| |#1| |#1|)) 15))
+ (|rightDivide|
+  (((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+    (|Automorphism| |#1|))
+   43 (|has| |#1| (|Field|))))
+ (|monicRightDivide|
+  (((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+    (|Automorphism| |#1|))
+   40 (|has| |#1| (|IntegralDomain|))))
+ (|monicLeftDivide|
+  (((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+    (|Automorphism| |#1|))
+   39 (|has| |#1| (|IntegralDomain|))))
+ (|leftDivide|
+  (((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+    (|Automorphism| |#1|))
+   42 (|has| |#1| (|Field|))))
+ (|apply|
+  ((|#1| |#2| |#1| |#1| (|Automorphism| |#1|) (|Mapping| |#1| |#1|)) 31)))
+((|HasCategory| |#1| '(|Field|)) (|HasCategory| |#1| '(|IntegralDomain|)))
+OREPCTO
+((|constructor|
+  (NIL
+   "\\spad{UnivariateSkewPolynomialCategoryOps} provides products and \\indented{1}{divisions of univariate skew polynomials.}"))
+ (|rightDivide|
+  (((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+    (|Automorphism| |#1|))
+   "\\spad{rightDivide(a,{} b,{} sigma)} returns the pair \\spad{[q,{} r]} such that \\spad{a = q*b + r} and the degree of \\spad{r} is less than the degree of \\spad{b}. This process is called ``right division\\spad{''}. \\spad{\\sigma} is the morphism to use."))
+ (|leftDivide|
+  (((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+    (|Automorphism| |#1|))
+   "\\spad{leftDivide(a,{} b,{} sigma)} returns the pair \\spad{[q,{} r]} such that \\spad{a = b*q + r} and the degree of \\spad{r} is less than the degree of \\spad{b}. This process is called ``left division\\spad{''}. \\spad{\\sigma} is the morphism to use."))
+ (|monicRightDivide|
+  (((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+    (|Automorphism| |#1|))
+   "\\spad{monicRightDivide(a,{} b,{} sigma)} returns the pair \\spad{[q,{} r]} such that \\spad{a = q*b + r} and the degree of \\spad{r} is less than the degree of \\spad{b}. \\spad{b} must be monic. This process is called ``right division\\spad{''}. \\spad{\\sigma} is the morphism to use."))
+ (|monicLeftDivide|
+  (((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|
+    (|Automorphism| |#1|))
+   "\\spad{monicLeftDivide(a,{} b,{} sigma)} returns the pair \\spad{[q,{} r]} such that \\spad{a = b*q + r} and the degree of \\spad{r} is less than the degree of \\spad{b}. \\spad{b} must be monic. This process is called ``left division\\spad{''}. \\spad{\\sigma} is the morphism to use."))
+ (|apply|
+  ((|#1| |#2| |#1| |#1| (|Automorphism| |#1|) (|Mapping| |#1| |#1|))
+   "\\spad{apply(p,{} c,{} m,{} sigma,{} delta)} returns \\spad{p(m)} where the action is given by \\spad{x m = c sigma(m) + delta(m)}."))
+ (|times|
+  ((|#2| |#2| |#2| (|Automorphism| |#1|) (|Mapping| |#1| |#1|))
+   "\\spad{times(p,{} q,{} sigma,{} delta)} returns \\spad{p * q}. \\spad{\\sigma} and \\spad{\\delta} are the maps to use.")))
+(("documentation" 0 4886) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4878) ("predicates" 0 4803) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4039) ("modemaps" 0 2059) ("sourceFile" 0 2020)
+ ("constructorCategory" 0 1145) ("constructorModemap" 0 74)
+ ("constructorKind" 0 64) ("constructorForm" 0 20))

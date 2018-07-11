@@ -1,0 +1,93 @@
+3984                (|PointsOfFiniteOrderTools| UP UPUP)
+|package|
+(((|PointsOfFiniteOrderTools| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |getGoodPrime| ((|PositiveInteger|) (|Integer|)))
+   (SIGNATURE |badNum|
+    ((|Record| (|:| |den| (|Integer|)) (|:| |gcdnum| (|Integer|))) |#1|))
+   (SIGNATURE |badNum| ((|Integer|) |#2|))
+   (SIGNATURE |mix|
+    ((|Integer|)
+     (|List| (|Record| (|:| |den| (|Integer|)) (|:| |gcdnum| (|Integer|))))))
+   (SIGNATURE |doubleDisc| ((|Integer|) |#2|))
+   (SIGNATURE |polyred| (|#2| |#2|)))
+  (|UnivariatePolynomialCategory| (|Fraction| (|Integer|)))
+  (|UnivariatePolynomialCategory| (|Fraction| |#1|)))
+ (T |PointsOfFiniteOrderTools|))
+(CATEGORY |package|
+ (SIGNATURE |getGoodPrime| ((|PositiveInteger|) (|Integer|)))
+ (SIGNATURE |badNum|
+  ((|Record| (|:| |den| (|Integer|)) (|:| |gcdnum| (|Integer|))) |#1|))
+ (SIGNATURE |badNum| ((|Integer|) |#2|))
+ (SIGNATURE |mix|
+  ((|Integer|)
+   (|List| (|Record| (|:| |den| (|Integer|)) (|:| |gcdnum| (|Integer|))))))
+ (SIGNATURE |doubleDisc| ((|Integer|) |#2|)) (SIGNATURE |polyred| (|#2| |#2|)))
+"/git/fricas/src/algebra/PFOTOOLS.spad"
+((|polyred| (*1 *2 *2)
+  (AND
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Fraction| (|Integer|))))
+   (|isDomain| *1 (|PointsOfFiniteOrderTools| *3 *2))
+   (|ofCategory| *2 (|UnivariatePolynomialCategory| (|Fraction| *3)))))
+ (|doubleDisc| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Fraction| *2)))
+       (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|PointsOfFiniteOrderTools| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Fraction| *4)))))
+ (|mix| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |den| (|Integer|)) (|:| |gcdnum| (|Integer|)))))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Fraction| *2)))
+   (|isDomain| *2 (|Integer|))
+   (|isDomain| *1 (|PointsOfFiniteOrderTools| *4 *5))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| (|Fraction| *4)))))
+ (|badNum| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Fraction| *2)))
+       (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|PointsOfFiniteOrderTools| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Fraction| *4)))))
+ (|badNum| (*1 *2 *3)
+  (AND
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Fraction| (|Integer|))))
+   (|isDomain| *2
+               (|Record| (|:| |den| (|Integer|)) (|:| |gcdnum| (|Integer|))))
+   (|isDomain| *1 (|PointsOfFiniteOrderTools| *3 *4))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Fraction| *3)))))
+ (|getGoodPrime| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Fraction| *3)))
+       (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|PointsOfFiniteOrderTools| *4 *5))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| (|Fraction| *4))))))
+((|polyred| ((|#2| |#2|) 25))
+ (|mix|
+  (((|Integer|)
+    (|List| (|Record| (|:| |den| (|Integer|)) (|:| |gcdnum| (|Integer|)))))
+   15))
+ (|getGoodPrime| (((|PositiveInteger|) (|Integer|)) 35))
+ (|doubleDisc| (((|Integer|) |#2|) 42))
+ (|badNum| (((|Integer|) |#2|) 21)
+  (((|Record| (|:| |den| (|Integer|)) (|:| |gcdnum| (|Integer|))) |#1|) 20)))
+PFOTOOLS
+((|constructor|
+  (NIL
+   "\\indented{1}{Utilities for PFOQ and PFO} Author: Manuel Bronstein Date Created: 25 Aug 1988"))
+ (|polyred| ((|#2| |#2|) "\\spad{polyred(u)} \\undocumented"))
+ (|doubleDisc| (((|Integer|) |#2|) "\\spad{doubleDisc(u)} \\undocumented"))
+ (|mix|
+  (((|Integer|)
+    (|List| (|Record| (|:| |den| (|Integer|)) (|:| |gcdnum| (|Integer|)))))
+   "\\spad{mix(l)} \\undocumented"))
+ (|badNum| (((|Integer|) |#2|) "\\spad{badNum(u)} \\undocumented")
+  (((|Record| (|:| |den| (|Integer|)) (|:| |gcdnum| (|Integer|))) |#1|)
+   "\\spad{badNum(p)} \\undocumented"))
+ (|getGoodPrime|
+  (((|PositiveInteger|) (|Integer|))
+   "\\spad{getGoodPrime n} returns the smallest prime not dividing \\spad{n}")))
+(("documentation" 0 3271) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3262) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2914) ("modemaps" 0 1126) ("sourceFile" 0 1086)
+ ("constructorCategory" 0 681) ("constructorModemap" 0 67)
+ ("constructorKind" 0 57) ("constructorForm" 0 20))

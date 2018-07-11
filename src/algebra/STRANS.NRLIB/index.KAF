@@ -1,0 +1,102 @@
+5314                (|STransformPackage| R UTSR ULSR UPSR)
+|package|
+(((|STransformPackage| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |STransform1| (|#2| (|Distribution| |#1|)))
+   (SIGNATURE |STransform2| (|#4| (|Distribution| |#1|)))
+   (SIGNATURE |STransform| (|#4| (|Distribution| |#1|)))
+   (SIGNATURE |distributionBySTransform| ((|Distribution| |#1|) |#4|))
+   (SIGNATURE |freeMultiplicativeConvolution|
+    ((|Distribution| |#1|) (|Distribution| |#1|) (|Distribution| |#1|))))
+  (|Join| (|CommutativeRing|) (|Algebra| (|Fraction| (|Integer|))))
+  (|UnivariateTaylorSeriesCategory| |#1|)
+  (|UnivariateLaurentSeriesConstructorCategory| |#1| |#2|)
+  (|UnivariatePuiseuxSeriesConstructorCategory| |#1| |#3|))
+ (T |STransformPackage|))
+(CATEGORY |package| (SIGNATURE |STransform1| (|#2| (|Distribution| |#1|)))
+ (SIGNATURE |STransform2| (|#4| (|Distribution| |#1|)))
+ (SIGNATURE |STransform| (|#4| (|Distribution| |#1|)))
+ (SIGNATURE |distributionBySTransform| ((|Distribution| |#1|) |#4|))
+ (SIGNATURE |freeMultiplicativeConvolution|
+  ((|Distribution| |#1|) (|Distribution| |#1|) (|Distribution| |#1|))))
+"/git/fricas/src/algebra/STRANS.spad"
+((|freeMultiplicativeConvolution| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|Distribution| *3))
+       (|ofCategory| *3
+                     (|Join| (|CommutativeRing|)
+                             (|Algebra| (|Fraction| (|Integer|)))))
+       (|ofCategory| *4 (|UnivariateTaylorSeriesCategory| *3))
+       (|ofCategory| *5 (|UnivariateLaurentSeriesConstructorCategory| *3 *4))
+       (|isDomain| *1 (|STransformPackage| *3 *4 *5 *6))
+       (|ofCategory| *6 (|UnivariatePuiseuxSeriesConstructorCategory| *3 *5))))
+ (|distributionBySTransform| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|CommutativeRing|)
+                         (|Algebra| (|Fraction| (|Integer|)))))
+   (|ofCategory| *5 (|UnivariateTaylorSeriesCategory| *4))
+   (|ofCategory| *6 (|UnivariateLaurentSeriesConstructorCategory| *4 *5))
+   (|isDomain| *2 (|Distribution| *4))
+   (|isDomain| *1 (|STransformPackage| *4 *5 *6 *3))
+   (|ofCategory| *3 (|UnivariatePuiseuxSeriesConstructorCategory| *4 *6))))
+ (|STransform| (*1 *2 *3)
+               (AND (|isDomain| *3 (|Distribution| *4))
+                    (|ofCategory| *4
+                                  (|Join| (|CommutativeRing|)
+                                          (|Algebra|
+                                           (|Fraction| (|Integer|)))))
+                    (|ofCategory| *5 (|UnivariateTaylorSeriesCategory| *4))
+                    (|ofCategory| *2
+                                  (|UnivariatePuiseuxSeriesConstructorCategory|
+                                   *4 *6))
+                    (|isDomain| *1 (|STransformPackage| *4 *5 *6 *2))
+                    (|ofCategory| *6
+                                  (|UnivariateLaurentSeriesConstructorCategory|
+                                   *4 *5))))
+ (|STransform2| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Distribution| *4))
+       (|ofCategory| *4
+                     (|Join| (|CommutativeRing|)
+                             (|Algebra| (|Fraction| (|Integer|)))))
+       (|ofCategory| *5 (|UnivariateTaylorSeriesCategory| *4))
+       (|ofCategory| *2 (|UnivariatePuiseuxSeriesConstructorCategory| *4 *6))
+       (|isDomain| *1 (|STransformPackage| *4 *5 *6 *2))
+       (|ofCategory| *6 (|UnivariateLaurentSeriesConstructorCategory| *4 *5))))
+ (|STransform1| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Distribution| *4))
+       (|ofCategory| *4
+                     (|Join| (|CommutativeRing|)
+                             (|Algebra| (|Fraction| (|Integer|)))))
+       (|ofCategory| *5 (|UnivariateLaurentSeriesConstructorCategory| *4 *2))
+       (|ofCategory| *2 (|UnivariateTaylorSeriesCategory| *4))
+       (|isDomain| *1 (|STransformPackage| *4 *2 *5 *6))
+       (|ofCategory| *6 (|UnivariatePuiseuxSeriesConstructorCategory| *4 *5)))))
+((|freeMultiplicativeConvolution|
+  (((|Distribution| |#1|) (|Distribution| |#1|) (|Distribution| |#1|)) NIL))
+ (|distributionBySTransform| (((|Distribution| |#1|) |#4|) 56))
+ (|STransform2| ((|#4| (|Distribution| |#1|)) 37))
+ (|STransform1| ((|#2| (|Distribution| |#1|)) 27))
+ (|STransform| ((|#4| (|Distribution| |#1|)) 39)))
+STRANS
+((|constructor|
+  (NIL
+   "A package to computes Taylor and Puiseux series of \\spad{S}-transforms."))
+ (|freeMultiplicativeConvolution|
+  (((|Distribution| |#1|) (|Distribution| |#1|) (|Distribution| |#1|))
+   "\\spad{freeMultiplicativeConvolution(x,{} y)} returns the free multiplicative convolution of the distributions \\spad{x} and \\spad{y}."))
+ (|distributionBySTransform|
+  (((|Distribution| |#1|) |#4|)
+   "of the distributions \\spad{x} if the mean is zero \\spad{distributionBySTransform(x)} returns the distribution with \\spad{S}-transform \\spad{x}."))
+ (|STransform|
+  ((|#4| (|Distribution| |#1|))
+   "\\spad{STransform(x)} returns the Puiseux expansion of the \\spad{S}-transform \\spad{S(z)}."))
+ (|STransform2|
+  ((|#4| (|Distribution| |#1|))
+   "\\spad{STransform(x)} returns the Puiseux expansion of the \\spad{S}-transform \\spad{S(z)} if the mean is zero."))
+ (|STransform1|
+  ((|#2| (|Distribution| |#1|))
+   "\\spad{STransform(x)} returns the Taylor expansion the \\spad{S}-transform \\spad{S(z)} of the distribution \\spad{x} if the mean is nonzero.")))
+(("documentation" 0 4234) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4227) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3899) ("modemaps" 0 1160) ("sourceFile" 0 1122)
+ ("constructorCategory" 0 751) ("constructorModemap" 0 69)
+ ("constructorKind" 0 59) ("constructorForm" 0 20))

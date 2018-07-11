@@ -1,0 +1,132 @@
+)abbrev package LINDEP LinearDependence
+++ Test for linear dependence
+++ Author: Manuel Bronstein
+++ Description: Test for linear dependence.
+LinearDependence(S, R) : Exports == Implementation where
+  S : IntegralDomain
+  R : LinearlyExplicitOver S
+
+  Q ==> Fraction S
+  PartialS ==> Union(Vector S, "failed")
+  BothS ==> Record(particular : PartialS, basis : List Vector S)
+  PartialQ ==> Union(Vector Q, "failed")
+  BothQ ==> Record(particular : PartialQ, basis : List Vector Q)
+
+  Exports ==> with
+    linearlyDependent? : Vector R -> Boolean
+      ++ \spad{linearlyDependent?([v1, ..., vn])} returns true if
+      ++ the vi's are linearly dependent over S, false otherwise.
+    linearDependence  : Vector R -> PartialS
+      ++ \spad{linearDependence([v1, ..., vn])} returns \spad{[c1, ..., cn]} if
+      ++ \spad{c1*v1 + ... + cn*vn = 0} and not all the ci's are 0,
+      ++ "failed" if the vi's are linearly independent over S.
+    if S has Field then
+      particularSolution : (Vector R, R) -> PartialS
+        ++ \spad{particularSolution([v1, ..., vn], u)} returns
+        ++ \spad{[c1, ..., cn]} such that \spad{c1*v1 + ... + cn*vn = u},
+        ++ "failed" if no such ci's exist in S.
+      particularSolution : (Matrix R, Vector R) -> PartialS
+        ++ \spad{particularSolution([v1, ..., vn], u)} returns
+        ++ \spad{[c1, ..., cn]} such that \spad{c1*v1 + ... + cn*vn = u},
+        ++ "failed" if no such ci's exist in S.
+      solveLinear : (Vector R, R) -> BothS
+        ++ \spad{solveLinear([v1, ..., vn], u)} returns solution of
+        ++ the system  \spad{c1*v1 + ... + cn*vn = u} and
+        ++ and a basis of the associated homogeneous system
+        ++ \spad{c1*v1 + ... + cn*vn = 0}
+      solveLinear : (Matrix R, Vector R) -> BothS
+        ++ \spad{solveLinear([v1, ..., vn], u)} returns solution of
+        ++ the system  \spad{c1*v1 + ... + cn*vn = u} and
+        ++ and a basis of the associated homogeneous system
+        ++ \spad{c1*v1 + ... + cn*vn = 0}
+    else
+      particularSolution : (Vector R, R) -> PartialQ
+        ++ \spad{particularSolution([v1, ..., vn], u)} returns
+        ++ \spad{[c1, ..., cn]} such that \spad{c1*v1 + ... + cn*vn = u},
+        ++ "failed" if no such ci's exist in the quotient field of S.
+      particularSolution : (Matrix R, Vector R) -> PartialQ
+        ++ \spad{particularSolution([v1, ..., vn], u)} returns
+        ++ \spad{[c1, ..., cn]} such that \spad{c1*v1 + ... + cn*vn = u},
+        ++ "failed" if no such ci's exist in the quotient field of S.
+      solveLinear : (Vector R, R) -> BothQ
+        ++ \spad{solveLinear([v1, ..., vn], u)} returns solution of
+        ++ the system  \spad{c1*v1 + ... + cn*vn = u} and
+        ++ and a basis of the associated homogeneous system
+        ++ \spad{c1*v1 + ... + cn*vn = 0}
+      solveLinear : (Matrix R, Vector R) -> BothQ
+        ++ \spad{solveLinear([v1, ..., vn], u)} returns solution of
+        ++ the system  \spad{c1*v1 + ... + cn*vn = u} and
+        ++ and a basis of the associated homogeneous system
+        ++ \spad{c1*v1 + ... + cn*vn = 0}
+  Implementation ==> add
+    aNonZeroSolution : Matrix S -> Union(Vector S, "failed")
+
+    aNonZeroSolution m ==
+      empty?(ns := nullSpace m) => "failed"
+      first ns
+
+    linearlyDependent? v ==
+      zero?(n := #v) => true
+      (n = 1) => zero?(v(minIndex v))
+      positive? nullity reducedSystem transpose v
+
+    linearDependence v ==
+      zero?(n := #v) => empty()
+      (n = 1) =>
+        zero?(v(minIndex v)) => new(1, 1)
+        "failed"
+      aNonZeroSolution reducedSystem transpose v
+
+
+    if S has Field then
+
+      solveLinear(v : Vector R, c : R) : BothS ==
+          solveLinear(transpose v, new(1, c))
+
+      solveLinear(m : Matrix R, v : Vector R) : BothS ==
+          sys := reducedSystem(m, v)
+          solve(sys.mat, sys.vec)$LinearSystemMatrixPackage(S,
+                                           Vector S, Vector S, Matrix S)
+
+      particularSolution(v : Vector R, c : R) : PartialS ==
+          zero? c => new(#v, 0)
+          empty? v => "failed"
+          solveLinear(v, c).particular
+
+      particularSolution(m : Matrix R, v : Vector R) : PartialS ==
+          v = zero(#v) => new(ncols(m), 0)
+          solveLinear(m, v).particular
+
+    else
+      solveLinear(v : Vector R, c : R) : BothQ ==
+          solveLinear(transpose v, new(1, c))
+
+      solveLinear(m : Matrix R, v : Vector R) : BothQ ==
+          sys := reducedSystem(m, v)
+          solve(map((z1 : S) : Q +-> z1::Q, sys.mat)$MatrixCategoryFunctions2(S,
+               Vector S, Vector S, Matrix S, Q, Vector Q, Vector Q, Matrix Q),
+                  map((z1 : S) : Q +-> z1 ::Q, sys.vec)$VectorFunctions2(S, Q)
+                                    )$LinearSystemMatrixPackage(Q,
+                                           Vector Q, Vector Q, Matrix Q)
+
+      particularSolution(v:Vector R, c:R) : PartialQ ==
+          zero? c => new(#v, 0)
+          empty? v => "failed"
+          solveLinear(v, c).particular
+
+      particularSolution(m : Matrix R, v : Vector R) : PartialQ ==
+          v = zero(#v) => new(ncols(m), 0)
+          solveLinear(m, v).particular
+
+
+--rhx: Suggested improvement...
+--      lift(q1: S): Q == q1::Q
+--      solveLinear(m : Matrix R, v : Vector R) : Union(Vector Q, "failed") ==
+--        v = zero(#v) => new(ncols(m), 0)
+--        sys: Record(mat: Matrix S, vec: Vector S) := reducedSystem(m, v)
+--        mm: Matrix Q := map(lift@(S->Q), sys.mat)$MatrixCategoryFunctions2(
+--            S, Vector S, Vector S, Matrix S, Q, Vector Q, Vector Q, Matrix Q)
+--        vv: Vector Q := map(lift@(S->Q), sys.vec)$VectorFunctions2(S, Q)
+--        particularSolution(mm, vv)$LinearSystemMatrixPackage(
+--            Q, Vector Q, Vector Q, Matrix Q)
+

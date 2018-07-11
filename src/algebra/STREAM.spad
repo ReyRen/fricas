@@ -1,0 +1,582 @@
+)abbrev domain STREAM Stream
+++ Implementation of streams via lazy evaluation
+++ Authors: Burge, Watt; updated by Clifton J. Williamson
+++ Date Created: July 1986
+++ Keywords: stream, infinite list, infinite sequence
+++ Examples:
+++ References:
+++ Description:
+++ A stream is an implementation of a possibly infinite sequence using
+++ a list of terms that have been computed and a function closure
+++ to compute additional terms when needed.
+
+Stream(S : Type) : Exports == Implementation where
+--  problems:
+--  1) dealing with functions which basically want a finite structure
+--  2) 'map' doesn't deal with cycles very well
+
+  B   ==> Boolean
+  OUT ==> OutputForm
+  I   ==> Integer
+  L   ==> List
+  NNI ==> NonNegativeInteger
+  U   ==> UniversalSegment I
+
+  Exports ==> Join(LazyStreamAggregate(S), shallowlyMutable) with
+
+    coerce : L S -> %
+      ++ coerce(l) converts a list l to a stream.
+    repeating : L S -> %
+      ++ repeating(l) is a repeating stream whose period is the list l.
+    if S has SetCategory then
+      repeating? : (L S, %) -> B
+        ++ repeating?(l, s) returns true if a stream s is periodic
+        ++ with period l, and false otherwise.
+    findCycle : (NNI, %) -> Record(cycle? : B, prefix : NNI, period : NNI)
+      ++ findCycle(n, st) determines if st is periodic within n.
+    delay : (() -> %) -> %
+      ++ delay(f) creates a stream with a lazy evaluation defined by function f.
+      ++ Caution: This function can only be called in compiled code.
+    cons : (S, %) -> %
+      ++ cons(a, s) returns a stream whose \spad{first} is \spad{a}
+      ++ and whose \spad{rest} is s.
+      ++ Note: \spad{cons(a, s) = concat(a, s)}.
+    if S has SetCategory then
+      showElements : (NNI, %) -> OUT
+        ++ showElements(n, st) computes and creates and output form of
+        ++ the first n entries of st.
+      showAllElements : % -> OUT
+        ++ showAllElements(s) creates an output form which displays all
+        ++ computed elements.
+      showAll? : () -> B
+        ++ showAll?() returns true if all computed entries of streams
+        ++ will be displayed.
+        --!! this should be a function of one argument
+    setrest! : (%, I, %) -> %
+      ++ setrest!(x, n, y) sets rest(x, n) to y. The function will expand
+      ++ cycles if necessary.
+    stream : (() -> S) -> %
+      ++ stream(f) creates an infinite stream all of whose elements are
+      ++ equal to \spad{f()}.
+      ++ Note: \spad{stream(f) = [f(), f(), f(), ...]}.
+    stream : (S -> S, S) -> %
+      ++ stream(f, x) creates an infinite stream whose first element is
+      ++ x and whose nth element (\spad{n > 1}) is f applied to the previous
+      ++ element. Note: \spad{stream(f, x) = [x, f(x), f(f(x)), ...]}.
+    filterWhile : (S -> Boolean, %) -> %
+      ++ filterWhile(p, s) returns \spad{[x0, x1, ..., x(n-1)]} where
+      ++ \spad{s = [x0, x1, x2, ..]} and
+      ++ n is the smallest index such that \spad{p(xn) = false}.
+    filterUntil : (S -> Boolean, %) -> %
+      ++ filterUntil(p, s) returns \spad{[x0, x1, ..., x(n)]} where
+      ++ \spad{s = [x0, x1, x2, ..]} and
+      ++ n is the smallest index such that \spad{p(xn) = true}.
+--    if S has SetCategory then
+--      map: ((S, S) -> S, %, %, S) -> %
+--       ++ map(f, x, y, a) is equivalent to map(f, x, y)
+--       ++ If z = map(f, x, y, a), then z = map(f, x, y) except if
+--       ++ x.n = a and rest(rest(x, n)) = rest(x, n) in which case
+--       ++ rest(z, n) = rest(y, n) or if y.m = a and rest(rest(y, m)) =
+--       ++ rest(y, m) in which case rest(z, n) = rest(x, n).
+--       ++ Think of the case where f(xi, yi) = xi + yi and a = 0.
+
+  Implementation ==> add
+    MIN ==> 1  -- minimal stream index; see also the defaults in LZSTAGG
+    x : %
+
+    import from CyclicStreamTools(S, %)
+
+--% representation
+
+    -- This description of the rep is not quite true.
+    -- The Rep is a pair of one of three forms:
+    --    [value: S,             rest: %]
+    --    [nullstream:    Magic, NIL    ]
+    --    [nonnullstream: Magic, fun: () -> %]
+    --    [uninitializedstream : Magic, 0]
+    -- Could use a record of unions if we could guarantee no tags.
+
+    NullStream :    S := _$NullStream$Lisp    pretend S
+    NonNullStream : S := _$NonNullStream$Lisp pretend S
+    UninitializedStream : S := _$UninitializedStream$Lisp pretend S
+
+    Rep := Record(firstElt : S, restOfStream : %)
+
+    explicitlyEmpty? x == EQ(frst x, NullStream)$Lisp
+    lazy? x            == EQ(frst x, NonNullStream)$Lisp
+    uninitialized? : % -> Boolean
+    uninitialized? x   == EQ(frst x, UninitializedStream)$Lisp
+
+--% signatures of local functions
+
+    setfrst!     : (%, S) -> S
+    setrst!      : (%, %) -> %
+    setToNil!    : % -> %
+    setrestt!    : (%, I, %) -> %
+    lazyEval      : % -> %
+    expand!      : (%, I) -> %
+
+--% functions to access or change record fields without lazy evaluation
+
+    frst x == x.firstElt
+    rst  x == x.restOfStream
+
+    setfrst!(x, s) == x.firstElt := s
+    setrst!(x, y)  == x.restOfStream := y
+
+    setToNil! x ==
+    -- destructively changes x to a null stream
+      setfrst!(x, NullStream); setrst!(x, NIL$Lisp)
+      x
+
+--% SETCAT functions
+
+    if S has SetCategory then
+
+      getm              : (%, L OUT, I) -> L OUT
+      streamCountCoerce : % -> OUT
+      listm             : (%, L OUT, I) -> L OUT
+
+      getm(x, le, n) ==
+        explicitlyEmpty? x => le
+        lazy? x =>
+          n > 0 =>
+            empty? x => le
+            getm(rst x, concat(frst(x) :: OUT, le), n - 1)
+          concat(message("..."),le)
+        eq?(x, rst x) => concat(overbar(frst(x) :: OUT), le)
+        n > 0 => getm(rst x, concat(frst(x) :: OUT, le), n - 1)
+        concat(message("..."),le)
+
+      showElements(count: NNI, x: %): OUT ==
+        -- compute count elements
+        y := x
+        for i in 1..count while not empty? y repeat y := rst y
+        fc := findCycle(count, x)
+        not fc.cycle? => bracket reverse! getm(x, empty(), count)
+        le : L OUT := empty()
+        for i in 1..fc.prefix repeat
+          le := concat(first(x) :: OUT, le)
+          x := rest x
+        pp : OUT :=
+          fc.period = 1 => overbar(frst(x) :: OUT)
+          pl : L OUT := empty()
+          for i in 1..fc.period repeat
+            pl := concat(frst(x) :: OUT, pl)
+            x  := rest x
+          overbar commaSeparate reverse! pl
+        bracket reverse! concat(pp, le)
+
+      streamCountCoerce x ==
+      -- this will not necessarily display all stream elements
+      -- which have been computed
+        count : NNI := _$streamCount$Lisp
+        showElements(count, x)
+
+      listm(x, le, n) ==
+        explicitlyEmpty? x => le
+        lazy? x =>
+          n > 0 =>
+            empty? x => le
+            listm(rst x, concat(frst(x) :: OUT, le), n-1)
+          concat(message("..."),le)
+        listm(rst x, concat(frst(x) :: OUT, le), n-1)
+
+      showAllElements x ==
+      -- this will display all stream elements which have been computed
+      -- and will display at least n elements with n = streamCount$Lisp
+        extend(x, _$streamCount$Lisp)
+        cycElt := cycleElt x
+        cycElt case "failed" =>
+          le := listm(x, empty(), _$streamCount$Lisp)
+          bracket reverse! le
+        cycEnt := computeCycleEntry(x, cycElt :: %)
+        le : L OUT := empty()
+        while not eq?(x, cycEnt) repeat
+          le := concat(frst(x) :: OUT, le)
+          x := rst x
+        len := computeCycleLength(cycElt :: %)
+        pp : OUT :=
+          len = 1 => overbar(frst(x) :: OUT)
+          pl : L OUT := []
+          for i in 1..len repeat
+            pl := concat(frst(x) :: OUT, pl)
+            x := rst x
+          overbar commaSeparate reverse! pl
+        bracket reverse! concat(pp, le)
+
+      showAll?() == _$streamsShowAll$Lisp
+
+      coerce(x) : OUT ==
+        showAll?() => showAllElements x
+        streamCountCoerce x
+
+--% AGG functions
+
+    lazyCopy : % -> %
+    lazyCopy x == delay
+      empty? x => empty()
+      concat(frst x, copy rst x)
+
+    copy x ==
+      cycElt := cycleElt x
+      cycElt case "failed" => lazyCopy x
+      ce := cycElt :: %
+      len := computeCycleLength(ce)
+      e := computeCycleEntry(x, ce)
+      d := distance(x, e)
+      cycle := complete first(e, len)
+      setrst!(tail cycle, cycle)
+      d = 0 => cycle
+      head := complete first(x, d::NNI)
+      setrst!(tail head, cycle)
+      head
+
+--% CLAGG functions
+
+    construct l == APPEND(l, empty())$Lisp
+
+--% ELTAGG functions
+
+    elt(x : %, n : I) ==
+      -- copied from defaults to avoid loading defaults
+      n < MIN or empty? x => error "elt: no such element"
+      n = MIN => frst x
+      elt(rst x, n - 1)
+
+    seteltt : (%, I, S) -> S
+    seteltt(x, n, s) ==
+      n = MIN => setfrst!(x, s)
+      seteltt(rst x, n - 1, s)
+
+    setelt!(x, n : I, s : S) ==
+      n < MIN or empty? x => error "setelt!: no such element"
+      x := expand!(x, n - MIN + 1)
+      seteltt(x, n, s)
+
+--% IXAGG functions
+
+    removee : ((S -> Boolean), %) -> %
+    removee(p, x) == delay
+      empty? x => empty()
+      p(frst x) => remove(p, rst x)
+      concat(frst x, remove(p, rst x))
+
+    remove(p : S -> Boolean, x) ==
+      explicitlyEmpty? x => empty()
+      eq?(x, rst x) =>
+        p(frst x) => empty()
+        x
+      removee(p, x)
+
+    selectt : ((S -> Boolean), %) -> %
+    selectt(p, x) == delay
+      empty? x => empty()
+      not p(frst x) => select(p, rst x)
+      concat(frst x, select(p, rst x))
+
+    select(p, x) ==
+      explicitlyEmpty? x => empty()
+      eq?(x, rst x) =>
+        p(frst x) => x
+        empty()
+      selectt(p, x)
+
+    map(f, x) ==
+      map(f, x pretend Stream(S))$StreamFunctions2(S, S) pretend %
+
+    map(g, x, y) ==
+      xs := x pretend Stream(S); ys := y pretend Stream(S)
+      map(g, xs, ys)$StreamFunctions3(S, S, S) pretend %
+
+    fill!(x, s) ==
+      setfrst!(x, s)
+      setrst!(x, x)
+
+    map!(f, x) ==
+    -- too many problems with map! on a lazy stream, so
+    -- in this case, an error message is returned
+      cyclic? x =>
+        tail := cycleTail x ; y := x
+        until y = tail repeat
+          setfrst!(y, f frst y)
+          y := rst y
+        x
+      explicitlyFinite? x =>
+        y := x
+        while not empty? y repeat
+          setfrst!(y, f frst y)
+          y := rst y
+        x
+      error "map!: stream with lazy evaluation"
+
+    swap!(x, m, n) ==
+      (not index?(m, x)) or (not index?(n, x)) =>
+        error "swap!: no such elements"
+      x := expand!(x, max(m, n) - MIN + 1)
+      xm := elt(x, m); xn := elt(x, n)
+      setelt!(x, m, xn); setelt!(x, n, xm)
+      x
+
+--% LNAGG functions
+
+    concat(x : %, s : S) == delay
+      empty? x => concat(s, empty())
+      concat(frst x, concat(rst x, s))
+
+    concat(x : %, y : %) == delay
+      empty? x => copy y
+      concat(frst x, concat(rst x, y))
+
+    concat l == delay
+      empty? l => empty()
+      empty?(x := first l) => concat rest l
+      concat(frst x, concat(rst x, concat rest l))
+
+    setelt!(x, seg : U, s : S) ==
+      l := low(seg)
+      hasHi seg =>
+        h := high(seg)
+        h < l => s
+        (not index?(l, x)) or (not index?(h, x)) =>
+          error "setelt!: index out of range"
+        x := expand!(x, h - MIN + 1)
+        y := rest(x, (l - MIN) :: NNI)
+        for i in 0..(h - l) repeat
+          setfrst!(y, s)
+          y := rst y
+        s
+      not index?(l, x) => error "setelt!: index out of range"
+      x := rest(x, (l - MIN) :: NNI)
+      setrst!(x, x)
+      setfrst!(x, s)
+
+--% RCAGG functions
+
+    empty() == [NullStream, NIL$Lisp]
+
+    -- we have to use SPADCALL directly to avoid wrong code
+    lazyEval x == SPADCALL(rst(x))$Lisp pretend %
+
+    lazyEvaluate x ==
+      st := lazyEval x
+      setfrst!(x, frst st)
+      setrst!(x, if EQ(rst st, st)$Lisp then x else rst st)
+      x
+
+    -- empty? is the only function that explicitly causes evaluation
+    -- of a stream element
+    empty? x ==
+      while lazy? x repeat
+        st := lazyEval x
+        setfrst!(x, frst st)
+        setrst!(x, if EQ(rst st, st)$Lisp then x else rst st)
+      uninitialized? x => error "Trying to use uninitialized stream"
+      explicitlyEmpty? x
+
+    --setvalue(x, s) == setfirst!(x, s)
+
+    --setchildren(x, l) ==
+      --empty? l => error "setchildren: empty list of children"
+      --not(empty? rest l) => error "setchildren: wrong number of children"
+      --setrest!(x, first l)
+
+--% URAGG functions
+
+    first(x, n) == delay
+    -- former name: take
+      n = 0 or empty? x => empty()
+      (concat(frst x, first(rst x, (n-1) :: NNI)))
+
+    concat(s : S, x : %) == [s, x]
+    cons(s, x) == concat(s, x)
+
+    cycleSplit! x ==
+      cycElt := cycleElt x
+      cycElt case "failed" =>
+        error "cycleSplit!: non-cyclic stream"
+      y := computeCycleEntry(x, cycElt :: %)
+      eq?(x, y) => (setToNil! x; return y)
+      z := rst x
+      repeat
+        eq?(y, z) => (setrest!(x, empty()); return y)
+        x := z ; z := rst z
+
+    expand!(x, n) ==
+    -- expands cycles (if necessary) so that the first n
+    -- elements of x will not be part of a cycle
+      n < 1 => x
+      y := x
+      for i in 1..n while not empty? y repeat y := rst y
+      cycElt := cycleElt x
+      cycElt case "failed" => x
+      e := computeCycleEntry(x, cycElt :: %)
+      d : I := distance(x, e)
+      d >= n => x
+      if d = 0 then
+        -- roll the cycle 1 entry
+        d := 1
+        t := cycleTail e
+        if eq?(t, e) then
+          t := concat(frst t, empty())
+          e := setrst!(t, t)
+          setrst!(x, e)
+        else
+          setrst!(t, concat(frst e, rst e))
+          e := rst e
+      nLessD := (n-d) :: NNI
+      y := complete first(e, nLessD)
+      e := rest(e, nLessD)
+      setrst!(tail y, e)
+      setrst!(rest(x, (d-1) :: NNI), y)
+      x
+
+    first x ==
+      empty? x => error "Can't take the first of an empty stream."
+      frst x
+
+    concat!(x : %, y : %) ==
+      empty? x => y
+      setrst!(tail x, y)
+
+    concat!(x : %, s : S) ==
+      concat!(x, concat(s, empty()))
+
+    setfirst!(x, s) == setelt!(x, 0, s)
+    setelt!(x, "first", s) == setfirst!(x, s)
+    setrest!(x, y) ==
+      empty? x => error "setrest!: empty stream"
+      setrst!(x, y)
+    setelt!(x, "rest", y) == setrest!(x, y)
+
+    setlast!(x, s) ==
+      empty? x => error "setlast!: empty stream"
+      setfrst!(tail x, s)
+    setelt!(x, "last", s) == setlast!(x, s)
+
+    split!(x, n) ==
+      n < MIN => error "split!: index out of range"
+      n = MIN =>
+        y : % := empty()
+        setfrst!(y, frst x)
+        setrst!(y, rst x)
+        setToNil! x
+        y
+      x := expand!(x, n - MIN)
+      x := rest(x, (n - MIN - 1) :: NNI)
+      y := rest x
+      setrst!(x, empty())
+      y
+
+--% STREAM functions
+
+    coerce(l : L S) == construct l
+
+    repeating l ==
+      empty? l =>
+        error "Need a non-null list to make a repeating stream."
+      x0 : % := x := construct l
+      while not empty? rst x repeat x := rst x
+      setrst!(x, x0)
+
+    if S has SetCategory then
+
+      repeating?(l, x) ==
+        empty? l =>
+          error "Need a non-empty? list to make a repeating stream."
+        empty? rest l =>
+          not empty? x and frst x = first l and x = rst x
+        x0 := x
+        for s in l repeat
+          empty? x or s ~= frst x => return false
+          x := rst x
+        eq?(x, x0)
+
+    findCycle(n, x) ==
+      hd := x
+      -- Determine whether periodic within n.
+      tl := rest(x, n)
+      explicitlyEmpty? tl => [false, 0, 0]
+      i := 0; while not eq?(x, tl) repeat (x := rst x; i := i + 1)
+      i = n => [false, 0, 0]
+      -- Find period. Now x=tl, so step over and find it again.
+      x := rst x; per := 1
+      while not eq?(x, tl) repeat (x := rst x; per := per + 1)
+      -- Find non-periodic part.
+      x := hd; xp := rest(hd, per); npp := 0
+      while not eq?(x, xp) repeat (x := rst x; xp := rst xp; npp := npp+1)
+      [true, npp, per]
+
+    delay(fs : ()->%) == [NonNullStream, fs pretend %]
+
+--     explicitlyEmpty? x == markedNull? x
+
+    explicitEntries? x ==
+      not explicitlyEmpty? x and not lazy? x
+
+    numberOfComputedEntries x ==
+        count := 0
+        while explicitEntries? x repeat
+            count := count + 1
+            x := rst x
+        count
+
+    setrestt!(x, n, y) ==
+      n = 0 => setrst!(x, y)
+      setrestt!(rst x, n-1, y)
+
+    setrest!(x, n, y) ==
+      n < 0 or empty? x => error "setrest!: no such rest"
+      x := expand!(x, n+1)
+      setrestt!(x, n, y)
+
+    stream f    == delay concat(f(), stream f)
+    gen : (S -> S, S) -> %
+    gen(f, s) == delay(ss := f s; concat(ss, gen(f, ss)))
+    stream(f, s)==concat(s, gen(f, s))
+
+    concat(x : %, y : %) ==delay
+      empty? x => y
+      concat(frst x, concat(rst x, y))
+
+    swhilee : (S -> Boolean, %) -> %
+    swhilee(p, x) == delay
+      empty? x      => empty()
+      not p(frst x) => empty()
+      concat(frst x, filterWhile(p, rst x))
+    filterWhile(p, x)==
+      explicitlyEmpty? x => empty()
+      eq?(x, rst x) =>
+        p(frst x) => x
+        empty()
+      swhilee(p, x)
+
+    suntill : (S -> Boolean, %) -> %
+    suntill(p, x) == delay
+      empty? x  => empty()
+      p(frst x) => concat(frst x, empty())
+      concat(frst x, filterUntil(p, rst x))
+
+    filterUntil(p, x)==
+      explicitlyEmpty? x => empty()
+      eq?(x, rst x) =>
+        p(frst x) => concat(frst x, empty())
+        x
+      suntill(p, x)
+
+--  if S has SetCategory then
+--    mapp: ((S, S) -> S, %, %, S) -> %
+--    mapp(f, x, y, a) == delay
+--      empty? x or empty? y => empty()
+--      concat(f(frst x, frst y), map(f, rst x, rst y, a))
+--      map(f, x, y, a) ==
+--      explicitlyEmpty? x => empty()
+--      eq?(x, rst x) =>
+--        frst x=a => y
+--        map(f(frst x, #1), y)
+--      explicitlyEmpty? y => empty()
+--      eq?(y, rst y) =>
+--        frst y=a => x
+--        p(f(#1, frst y), x)
+--      mapp(f, x, y, a)
+

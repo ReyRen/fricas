@@ -1,0 +1,212 @@
+11532               (|LinearDependence| S R)
+|package|
+(((|LinearDependence| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |linearlyDependent?| ((|Boolean|) (|Vector| |#2|)))
+   (SIGNATURE |linearDependence|
+    ((|Union| (|Vector| |#1|) #1="failed") (|Vector| |#2|)))
+   (IF (|has| |#1| (|Field|))
+       (PROGN
+        (SIGNATURE |particularSolution|
+         ((|Union| (|Vector| |#1|) #1#) (|Vector| |#2|) |#2|))
+        (SIGNATURE |particularSolution|
+         ((|Union| (|Vector| |#1|) #1#) (|Matrix| |#2|) (|Vector| |#2|)))
+        (SIGNATURE |solveLinear|
+         ((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+                    (|:| |basis| (|List| (|Vector| |#1|))))
+          (|Vector| |#2|) |#2|))
+        (SIGNATURE |solveLinear|
+         ((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+                    (|:| |basis| (|List| (|Vector| |#1|))))
+          (|Matrix| |#2|) (|Vector| |#2|))))
+       (PROGN
+        (SIGNATURE |particularSolution|
+         ((|Union| (|Vector| (|Fraction| |#1|)) #2="failed") (|Vector| |#2|)
+          |#2|))
+        (SIGNATURE |particularSolution|
+         ((|Union| (|Vector| (|Fraction| |#1|)) #2#) (|Matrix| |#2|)
+          (|Vector| |#2|)))
+        (SIGNATURE |solveLinear|
+         ((|Record|
+           (|:| |particular| (|Union| (|Vector| (|Fraction| |#1|)) #2#))
+           (|:| |basis| (|List| (|Vector| (|Fraction| |#1|)))))
+          (|Vector| |#2|) |#2|))
+        (SIGNATURE |solveLinear|
+         ((|Record|
+           (|:| |particular| (|Union| (|Vector| (|Fraction| |#1|)) #2#))
+           (|:| |basis| (|List| (|Vector| (|Fraction| |#1|)))))
+          (|Matrix| |#2|) (|Vector| |#2|))))))
+  (|IntegralDomain|) (|LinearlyExplicitOver| |#1|))
+ (T |LinearDependence|))
+(CATEGORY |package|
+ (SIGNATURE |linearlyDependent?| ((|Boolean|) (|Vector| |#2|)))
+ (SIGNATURE |linearDependence|
+  ((|Union| (|Vector| |#1|) #1="failed") (|Vector| |#2|)))
+ (IF (|has| |#1| (|Field|))
+     (PROGN
+      (SIGNATURE |particularSolution|
+       ((|Union| (|Vector| |#1|) #1#) (|Vector| |#2|) |#2|))
+      (SIGNATURE |particularSolution|
+       ((|Union| (|Vector| |#1|) #1#) (|Matrix| |#2|) (|Vector| |#2|)))
+      (SIGNATURE |solveLinear|
+       ((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+                  (|:| |basis| (|List| (|Vector| |#1|))))
+        (|Vector| |#2|) |#2|))
+      (SIGNATURE |solveLinear|
+       ((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+                  (|:| |basis| (|List| (|Vector| |#1|))))
+        (|Matrix| |#2|) (|Vector| |#2|))))
+     (PROGN
+      (SIGNATURE |particularSolution|
+       ((|Union| (|Vector| (|Fraction| |#1|)) #2="failed") (|Vector| |#2|)
+        |#2|))
+      (SIGNATURE |particularSolution|
+       ((|Union| (|Vector| (|Fraction| |#1|)) #2#) (|Matrix| |#2|)
+        (|Vector| |#2|)))
+      (SIGNATURE |solveLinear|
+       ((|Record| (|:| |particular| (|Union| (|Vector| (|Fraction| |#1|)) #2#))
+                  (|:| |basis| (|List| (|Vector| (|Fraction| |#1|)))))
+        (|Vector| |#2|) |#2|))
+      (SIGNATURE |solveLinear|
+       ((|Record| (|:| |particular| (|Union| (|Vector| (|Fraction| |#1|)) #2#))
+                  (|:| |basis| (|List| (|Vector| (|Fraction| |#1|)))))
+        (|Matrix| |#2|) (|Vector| |#2|))))))
+"/git/fricas/src/algebra/LINDEP.spad"
+((|solveLinear| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *6)) (|isDomain| *4 (|Vector| *6))
+       (|ofCategory| *6 (|LinearlyExplicitOver| *5))
+       (|not| (|ofCategory| *5 (|Field|))) (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular|
+                         (|Union| (|Vector| (|Fraction| *5)) #1="failed"))
+                    (|:| |basis| (|List| (|Vector| (|Fraction| *5))))))
+       (|isDomain| *1 (|LinearDependence| *5 *6))))
+ (|solveLinear| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Vector| *4))
+       (|ofCategory| *4 (|LinearlyExplicitOver| *5))
+       (|not| (|ofCategory| *5 (|Field|))) (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular| (|Union| (|Vector| (|Fraction| *5)) #1#))
+                    (|:| |basis| (|List| (|Vector| (|Fraction| *5))))))
+       (|isDomain| *1 (|LinearDependence| *5 *4))))
+ (|particularSolution| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Matrix| *6)) (|isDomain| *4 (|Vector| *6))
+   (|ofCategory| *6 (|LinearlyExplicitOver| *5))
+   (|not| (|ofCategory| *5 (|Field|))) (|ofCategory| *5 (|IntegralDomain|))
+   (|isDomain| *2 (|Vector| (|Fraction| *5)))
+   (|isDomain| *1 (|LinearDependence| *5 *6))))
+ (|particularSolution| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Vector| *4))
+   (|ofCategory| *4 (|LinearlyExplicitOver| *5))
+   (|not| (|ofCategory| *5 (|Field|))) (|ofCategory| *5 (|IntegralDomain|))
+   (|isDomain| *2 (|Vector| (|Fraction| *5)))
+   (|isDomain| *1 (|LinearDependence| *5 *4))))
+ (|solveLinear| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *6)) (|isDomain| *4 (|Vector| *6))
+       (|ofCategory| *6 (|LinearlyExplicitOver| *5))
+       (|ofCategory| *5 (|Field|)) (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular| (|Union| (|Vector| *5) #2="failed"))
+                    (|:| |basis| (|List| (|Vector| *5)))))
+       (|isDomain| *1 (|LinearDependence| *5 *6))))
+ (|solveLinear| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Vector| *4))
+       (|ofCategory| *4 (|LinearlyExplicitOver| *5))
+       (|ofCategory| *5 (|Field|)) (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record| (|:| |particular| (|Union| (|Vector| *5) #2#))
+                             (|:| |basis| (|List| (|Vector| *5)))))
+       (|isDomain| *1 (|LinearDependence| *5 *4))))
+ (|particularSolution| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Matrix| *6)) (|isDomain| *4 (|Vector| *6))
+   (|ofCategory| *6 (|LinearlyExplicitOver| *5)) (|ofCategory| *5 (|Field|))
+   (|ofCategory| *5 (|IntegralDomain|)) (|isDomain| *2 (|Vector| *5))
+   (|isDomain| *1 (|LinearDependence| *5 *6))))
+ (|particularSolution| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Vector| *4))
+   (|ofCategory| *4 (|LinearlyExplicitOver| *5)) (|ofCategory| *5 (|Field|))
+   (|ofCategory| *5 (|IntegralDomain|)) (|isDomain| *2 (|Vector| *5))
+   (|isDomain| *1 (|LinearDependence| *5 *4))))
+ (|linearDependence| (*1 *2 *3)
+  (|partial| AND (|isDomain| *3 (|Vector| *5))
+   (|ofCategory| *5 (|LinearlyExplicitOver| *4))
+   (|ofCategory| *4 (|IntegralDomain|)) (|isDomain| *2 (|Vector| *4))
+   (|isDomain| *1 (|LinearDependence| *4 *5))))
+ (|linearlyDependent?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Vector| *5))
+       (|ofCategory| *5 (|LinearlyExplicitOver| *4))
+       (|ofCategory| *4 (|IntegralDomain|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|LinearDependence| *4 *5)))))
+((|solveLinear|
+  (((|Record|
+     (|:| |particular| (|Union| (|Vector| (|Fraction| |#1|)) #1="failed"))
+     (|:| |basis| (|List| (|Vector| (|Fraction| |#1|)))))
+    (|Matrix| |#2|) (|Vector| |#2|))
+   46 (|not| (|has| |#1| (|Field|))))
+  (((|Record| (|:| |particular| (|Union| (|Vector| (|Fraction| |#1|)) #1#))
+              (|:| |basis| (|List| (|Vector| (|Fraction| |#1|)))))
+    (|Vector| |#2|) |#2|)
+   47 (|not| (|has| |#1| (|Field|))))
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #2="failed"))
+              (|:| |basis| (|List| (|Vector| |#1|))))
+    (|Matrix| |#2|) (|Vector| |#2|))
+   30 (|has| |#1| (|Field|)))
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #2#))
+              (|:| |basis| (|List| (|Vector| |#1|))))
+    (|Vector| |#2|) |#2|)
+   31 (|has| |#1| (|Field|))))
+ (|particularSolution|
+  (((|Union| (|Vector| (|Fraction| |#1|)) #1#) (|Matrix| |#2|) (|Vector| |#2|))
+   61 (|not| (|has| |#1| (|Field|))))
+  (((|Union| (|Vector| (|Fraction| |#1|)) #1#) (|Vector| |#2|) |#2|) 60
+   (|not| (|has| |#1| (|Field|))))
+  (((|Union| (|Vector| |#1|) #2#) (|Matrix| |#2|) (|Vector| |#2|)) 43
+   (|has| |#1| (|Field|)))
+  (((|Union| (|Vector| |#1|) #2#) (|Vector| |#2|) |#2|) 40
+   (|has| |#1| (|Field|))))
+ (|linearlyDependent?| (((|Boolean|) (|Vector| |#2|)) 26))
+ (|linearDependence| (((|Union| (|Vector| |#1|) #2#) (|Vector| |#2|)) 28)))
+((|HasCategory| |#1| '(|Field|)) (|not| (|HasCategory| |#1| '(|Field|))))
+LINDEP
+((|constructor| (NIL "Test for linear dependence."))
+ (|solveLinear|
+  (((|Record|
+     (|:| |particular| (|Union| (|Vector| (|Fraction| |#1|)) #1="failed"))
+     (|:| |basis| (|List| (|Vector| (|Fraction| |#1|)))))
+    (|Matrix| |#2|) (|Vector| |#2|))
+   "\\spad{solveLinear([v1,{} ...,{} vn],{} u)} returns solution of the system \\spad{c1*v1 + ... + cn*vn = u} and and a basis of the associated homogeneous system \\spad{c1*v1 + ... + cn*vn = 0}")
+  (((|Record| (|:| |particular| (|Union| (|Vector| (|Fraction| |#1|)) #1#))
+              (|:| |basis| (|List| (|Vector| (|Fraction| |#1|)))))
+    (|Vector| |#2|) |#2|)
+   "\\spad{solveLinear([v1,{} ...,{} vn],{} u)} returns solution of the system \\spad{c1*v1 + ... + cn*vn = u} and and a basis of the associated homogeneous system \\spad{c1*v1 + ... + cn*vn = 0}")
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #2="failed"))
+              (|:| |basis| (|List| (|Vector| |#1|))))
+    (|Matrix| |#2|) (|Vector| |#2|))
+   "\\spad{solveLinear([v1,{} ...,{} vn],{} u)} returns solution of the system \\spad{c1*v1 + ... + cn*vn = u} and and a basis of the associated homogeneous system \\spad{c1*v1 + ... + cn*vn = 0}")
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #2#))
+              (|:| |basis| (|List| (|Vector| |#1|))))
+    (|Vector| |#2|) |#2|)
+   "\\spad{solveLinear([v1,{} ...,{} vn],{} u)} returns solution of the system \\spad{c1*v1 + ... + cn*vn = u} and and a basis of the associated homogeneous system \\spad{c1*v1 + ... + cn*vn = 0}"))
+ (|particularSolution|
+  (((|Union| (|Vector| (|Fraction| |#1|)) #1#) (|Matrix| |#2|) (|Vector| |#2|))
+   "\\spad{particularSolution([v1,{} ...,{} vn],{} u)} returns \\spad{[c1,{} ...,{} cn]} such that \\spad{c1*v1 + ... + cn*vn = u},{} \"failed\" if no such \\spad{ci}\\spad{'s} exist in the quotient field of \\spad{S}.")
+  (((|Union| (|Vector| (|Fraction| |#1|)) #1#) (|Vector| |#2|) |#2|)
+   "\\spad{particularSolution([v1,{} ...,{} vn],{} u)} returns \\spad{[c1,{} ...,{} cn]} such that \\spad{c1*v1 + ... + cn*vn = u},{} \"failed\" if no such \\spad{ci}\\spad{'s} exist in the quotient field of \\spad{S}.")
+  (((|Union| (|Vector| |#1|) #2#) (|Matrix| |#2|) (|Vector| |#2|))
+   "\\spad{particularSolution([v1,{} ...,{} vn],{} u)} returns \\spad{[c1,{} ...,{} cn]} such that \\spad{c1*v1 + ... + cn*vn = u},{} \"failed\" if no such \\spad{ci}\\spad{'s} exist in \\spad{S}.")
+  (((|Union| (|Vector| |#1|) #2#) (|Vector| |#2|) |#2|)
+   "\\spad{particularSolution([v1,{} ...,{} vn],{} u)} returns \\spad{[c1,{} ...,{} cn]} such that \\spad{c1*v1 + ... + cn*vn = u},{} \"failed\" if no such \\spad{ci}\\spad{'s} exist in \\spad{S}."))
+ (|linearDependence|
+  (((|Union| (|Vector| |#1|) #2#) (|Vector| |#2|))
+   "\\spad{linearDependence([v1,{} ...,{} vn])} returns \\spad{[c1,{} ...,{} cn]} if \\spad{c1*v1 + ... + cn*vn = 0} and not all the \\spad{ci}\\spad{'s} are 0,{} \"failed\" if the \\spad{vi}\\spad{'s} are linearly independent over \\spad{S}."))
+ (|linearlyDependent?|
+  (((|Boolean|) (|Vector| |#2|))
+   "\\spad{linearlyDependent?([v1,{} ...,{} vn])} returns \\spad{true} if the \\spad{vi}\\spad{'s} are linearly dependent over \\spad{S},{} \\spad{false} otherwise.")))
+(("documentation" 0 8333) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 8326) ("predicates" 0 8252) ("superDomain" 0 NIL)
+ ("operationAlist" 0 6874) ("modemaps" 0 3313) ("sourceFile" 0 3275)
+ ("constructorCategory" 0 1755) ("constructorModemap" 0 55)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

@@ -1,0 +1,132 @@
+6166                (|SceneIFS| PT)
+|domain|
+(((|SceneIFS| |#1|)
+  (CATEGORY |domain| (SIGNATURE |smesh| ($ (|List| (|List| |#1|)) (|Boolean|)))
+   (SIGNATURE |singleFace| ($ (|List| |#1|))) (SIGNATURE |subdivide| ($ $))
+   (SIGNATURE |sierpinskiDivide| ($ $ (|NonNegativeInteger|)))
+   (SIGNATURE |stube|
+    ($
+     (|List|
+      (|Record| (|:| |source| (|Mapping| |#1| (|DoubleFloat|)))
+                (|:| |ranges| (|List| (|Segment| (|DoubleFloat|))))
+                (|:| |knots| (|List| (|DoubleFloat|)))
+                (|:| |points| (|List| |#1|))))
+     (|DoubleFloat|) (|Integer|)))
+   (SIGNATURE |curveLoops|
+    ((|List| (|List| |#1|)) (|List| |#1|) (|DoubleFloat|) (|Integer|)))
+   (SIGNATURE |indexes| ((|List| (|List| (|NonNegativeInteger|))) $))
+   (SIGNATURE |pointList| ((|List| |#1|) $))
+   (SIGNATURE |coerce| ((|OutputForm|) $)))
+  (|SPointCategory|))
+ (T |SceneIFS|))
+(CATEGORY |domain| (SIGNATURE |smesh| ($ (|List| (|List| |#1|)) (|Boolean|)))
+ (SIGNATURE |singleFace| ($ (|List| |#1|))) (SIGNATURE |subdivide| ($ $))
+ (SIGNATURE |sierpinskiDivide| ($ $ (|NonNegativeInteger|)))
+ (SIGNATURE |stube|
+  ($
+   (|List|
+    (|Record| (|:| |source| (|Mapping| |#1| (|DoubleFloat|)))
+              (|:| |ranges| (|List| (|Segment| (|DoubleFloat|))))
+              (|:| |knots| (|List| (|DoubleFloat|)))
+              (|:| |points| (|List| |#1|))))
+   (|DoubleFloat|) (|Integer|)))
+ (SIGNATURE |curveLoops|
+  ((|List| (|List| |#1|)) (|List| |#1|) (|DoubleFloat|) (|Integer|)))
+ (SIGNATURE |indexes| ((|List| (|List| (|NonNegativeInteger|))) $))
+ (SIGNATURE |pointList| ((|List| |#1|) $))
+ (SIGNATURE |coerce| ((|OutputForm|) $)))
+"/git/fricas/src/algebra/SCIFS.spad"
+((|coerce| (*1 *2 *1)
+           (AND (|isDomain| *2 (|OutputForm|)) (|isDomain| *1 (|SceneIFS| *3))
+                (|ofCategory| *3 (|SPointCategory|))))
+ (|pointList| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| *3)) (|isDomain| *1 (|SceneIFS| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|indexes| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|List| (|NonNegativeInteger|))))
+       (|isDomain| *1 (|SceneIFS| *3)) (|ofCategory| *3 (|SPointCategory|))))
+ (|curveLoops| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|List| *6)) (|isDomain| *4 (|DoubleFloat|))
+       (|isDomain| *5 (|Integer|)) (|ofCategory| *6 (|SPointCategory|))
+       (|isDomain| *2 (|List| (|List| *6))) (|isDomain| *1 (|SceneIFS| *6))))
+ (|stube| (*1 *1 *2 *3 *4)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |source| (|Mapping| *5 (|DoubleFloat|)))
+                          (|:| |ranges| (|List| (|Segment| (|DoubleFloat|))))
+                          (|:| |knots| (|List| (|DoubleFloat|)))
+                          (|:| |points| (|List| *5)))))
+   (|isDomain| *3 (|DoubleFloat|)) (|isDomain| *4 (|Integer|))
+   (|ofCategory| *5 (|SPointCategory|)) (|isDomain| *1 (|SceneIFS| *5))))
+ (|sierpinskiDivide| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|)) (|isDomain| *1 (|SceneIFS| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|subdivide| (*1 *1 *1)
+  (AND (|isDomain| *1 (|SceneIFS| *2)) (|ofCategory| *2 (|SPointCategory|))))
+ (|singleFace| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|SceneIFS| *3))))
+ (|smesh| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|List| (|List| *4))) (|isDomain| *3 (|Boolean|))
+       (|ofCategory| *4 (|SPointCategory|)) (|isDomain| *1 (|SceneIFS| *4)))))
+((|subdivide| (($ $) 30))
+ (|stube|
+  (($
+    (|List|
+     (|Record| (|:| |source| (|Mapping| |#1| (|DoubleFloat|)))
+               (|:| |ranges| (|List| (|Segment| (|DoubleFloat|))))
+               (|:| |knots| (|List| (|DoubleFloat|)))
+               (|:| |points| (|List| |#1|))))
+    (|DoubleFloat|) (|Integer|))
+   62))
+ (|smesh| (($ (|List| (|List| |#1|)) (|Boolean|)) 19))
+ (|singleFace| (($ (|List| |#1|)) 20))
+ (|sierpinskiDivide| (($ $ (|NonNegativeInteger|)) 35))
+ (|pointList| (((|List| |#1|) $) 11))
+ (|indexes| (((|List| (|List| (|NonNegativeInteger|))) $) 9))
+ (|curveLoops|
+  (((|List| (|List| |#1|)) (|List| |#1|) (|DoubleFloat|) (|Integer|)) 57))
+ (|coerce| (((|OutputForm|) $) 74)))
+SCIFS
+((|constructor|
+  (NIL
+   "Generates various surfaces (2 dimensional subsets of 3D space). When 1 dimensional subspace (a line) needs to be represented in a 3D editor then we convert the line into a tube. Many of the functions here are from NumericTubePlot and related packages. However \\spad{I} needed them to be defined over SPointCategory so \\spad{I} adapted them here."))
+ (|coerce|
+  (((|OutputForm|) $)
+   "\\spad{coerce(me)} list this instance to the command line"))
+ (|pointList|
+  (((|List| |#1|) $)
+   "\\spad{pointList(me)} returns points at vertices of this mesh."))
+ (|indexes|
+  (((|List| (|List| (|NonNegativeInteger|))) $)
+   "\\spad{indexes(me)} returns indexes into pointList(\\spad{me})"))
+ (|curveLoops|
+  (((|List| (|List| |#1|)) (|List| |#1|) (|DoubleFloat|) (|Integer|))
+   "\\spad{curveLoops(pts1,{} r,{} nn)} generates ifs from line given by \\spad{pts1}"))
+ (|stube|
+  (($
+    (|List|
+     (|Record| (|:| |source| (|Mapping| |#1| (|DoubleFloat|)))
+               (|:| |ranges| (|List| (|Segment| (|DoubleFloat|))))
+               (|:| |knots| (|List| (|DoubleFloat|)))
+               (|:| |points| (|List| |#1|))))
+    (|DoubleFloat|) (|Integer|))
+   "\\spad{stube(functions: List Clipd,{} r,{} n)} creates a tube of radius \\spad{r} around the curve functions."))
+ (|sierpinskiDivide|
+  (($ $ (|NonNegativeInteger|))
+   "\\spad{sierpinskiDivide(me,{} level)} for each edge of each face calculate a new point in the centre of the edge,{} then build a new set of faces which include the new points."))
+ (|subdivide|
+  (($ $)
+   "\\spad{subdivide(me)} for each face calculate a new point in the centre of the face,{} then build a new set of faces which include the new point."))
+ (|singleFace|
+  (($ (|List| |#1|))
+   "\\spad{singleFace(ptin)} constructs a ifs representation of a face from an array of points"))
+ (|smesh|
+  (($ (|List| (|List| |#1|)) (|Boolean|))
+   "\\spad{smesh(ptin,{} clos)} constructs a ifs representation of a mesh from a 2 dimensional array of points")))
+(("documentation" 0 4160) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4154) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3452) ("modemaps" 0 1685) ("sourceFile" 0 1648)
+ ("constructorCategory" 0 892) ("constructorModemap" 0 45)
+ ("constructorKind" 0 36) ("constructorForm" 0 20))

@@ -1,0 +1,534 @@
+29538               (|GenericNonAssociativeAlgebra| R |n| |ls| |gamma|)
+|domain|
+(((|GenericNonAssociativeAlgebra| |#1| |#2| |#3| |#4|)
+  (|Join| (|FramedNonAssociativeAlgebra| (|Fraction| (|Polynomial| |#1|)))
+          (|LeftModule| (|SquareMatrix| |#2| (|Fraction| (|Polynomial| |#1|))))
+          (CATEGORY |domain|
+           (SIGNATURE |coerce| ($ (|Vector| (|Fraction| (|Polynomial| |#1|)))))
+           (SIGNATURE |leftUnits|
+            ((|Union| (|Record| (|:| |particular| $) (|:| |basis| (|List| $)))
+                      "failed")))
+           (SIGNATURE |rightUnits|
+            ((|Union| (|Record| (|:| |particular| $) (|:| |basis| (|List| $)))
+                      "failed")))
+           (SIGNATURE |generic| ($)) (SIGNATURE |generic| ($ (|Symbol|)))
+           (SIGNATURE |generic| ($ (|Vector| (|Symbol|))))
+           (SIGNATURE |generic| ($ (|Vector| $)))
+           (SIGNATURE |generic| ($ (|Symbol|) (|Vector| $)))
+           (SIGNATURE |generic| ($ (|Vector| (|Symbol|)) (|Vector| $)))
+           (IF (|has| |#1| (|IntegralDomain|))
+               (PROGN
+                (SIGNATURE |leftRankPolynomial|
+                 ((|SparseUnivariatePolynomial|
+                   (|Fraction| (|Polynomial| |#1|)))))
+                (SIGNATURE |genericLeftMinimalPolynomial|
+                 ((|SparseUnivariatePolynomial|
+                   (|Fraction| (|Polynomial| |#1|)))
+                  $))
+                (SIGNATURE |genericLeftTrace|
+                 ((|Fraction| (|Polynomial| |#1|)) $))
+                (SIGNATURE |genericLeftNorm|
+                 ((|Fraction| (|Polynomial| |#1|)) $))
+                (SIGNATURE |rightRankPolynomial|
+                 ((|SparseUnivariatePolynomial|
+                   (|Fraction| (|Polynomial| |#1|)))))
+                (SIGNATURE |genericRightMinimalPolynomial|
+                 ((|SparseUnivariatePolynomial|
+                   (|Fraction| (|Polynomial| |#1|)))
+                  $))
+                (SIGNATURE |genericRightTrace|
+                 ((|Fraction| (|Polynomial| |#1|)) $))
+                (SIGNATURE |genericRightNorm|
+                 ((|Fraction| (|Polynomial| |#1|)) $))
+                (SIGNATURE |genericLeftTraceForm|
+                 ((|Fraction| (|Polynomial| |#1|)) $ $))
+                (SIGNATURE |genericLeftDiscriminant|
+                 ((|Fraction| (|Polynomial| |#1|))))
+                (SIGNATURE |genericRightTraceForm|
+                 ((|Fraction| (|Polynomial| |#1|)) $ $))
+                (SIGNATURE |genericRightDiscriminant|
+                 ((|Fraction| (|Polynomial| |#1|))))
+                (SIGNATURE |conditionsForIdempotents|
+                 ((|List| (|Polynomial| |#1|)) (|Vector| $)))
+                (SIGNATURE |conditionsForIdempotents|
+                 ((|List| (|Polynomial| |#1|)))))
+               |noBranch|)))
+  (|CommutativeRing|) (|PositiveInteger|) (|List| (|Symbol|))
+  (|Vector| (|Matrix| |#1|)))
+ (T |GenericNonAssociativeAlgebra|))
+(|Join| (|FramedNonAssociativeAlgebra| (|Fraction| (|Polynomial| |#1|)))
+        (|LeftModule| (|SquareMatrix| |#2| (|Fraction| (|Polynomial| |#1|))))
+        (CATEGORY |domain|
+         (SIGNATURE |coerce| ($ (|Vector| (|Fraction| (|Polynomial| |#1|)))))
+         (SIGNATURE |leftUnits|
+          ((|Union| (|Record| (|:| |particular| $) (|:| |basis| (|List| $)))
+                    "failed")))
+         (SIGNATURE |rightUnits|
+          ((|Union| (|Record| (|:| |particular| $) (|:| |basis| (|List| $)))
+                    "failed")))
+         (SIGNATURE |generic| ($)) (SIGNATURE |generic| ($ (|Symbol|)))
+         (SIGNATURE |generic| ($ (|Vector| (|Symbol|))))
+         (SIGNATURE |generic| ($ (|Vector| $)))
+         (SIGNATURE |generic| ($ (|Symbol|) (|Vector| $)))
+         (SIGNATURE |generic| ($ (|Vector| (|Symbol|)) (|Vector| $)))
+         (IF (|has| |#1| (|IntegralDomain|))
+             (PROGN
+              (SIGNATURE |leftRankPolynomial|
+               ((|SparseUnivariatePolynomial|
+                 (|Fraction| (|Polynomial| |#1|)))))
+              (SIGNATURE |genericLeftMinimalPolynomial|
+               ((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|)))
+                $))
+              (SIGNATURE |genericLeftTrace|
+               ((|Fraction| (|Polynomial| |#1|)) $))
+              (SIGNATURE |genericLeftNorm|
+               ((|Fraction| (|Polynomial| |#1|)) $))
+              (SIGNATURE |rightRankPolynomial|
+               ((|SparseUnivariatePolynomial|
+                 (|Fraction| (|Polynomial| |#1|)))))
+              (SIGNATURE |genericRightMinimalPolynomial|
+               ((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|)))
+                $))
+              (SIGNATURE |genericRightTrace|
+               ((|Fraction| (|Polynomial| |#1|)) $))
+              (SIGNATURE |genericRightNorm|
+               ((|Fraction| (|Polynomial| |#1|)) $))
+              (SIGNATURE |genericLeftTraceForm|
+               ((|Fraction| (|Polynomial| |#1|)) $ $))
+              (SIGNATURE |genericLeftDiscriminant|
+               ((|Fraction| (|Polynomial| |#1|))))
+              (SIGNATURE |genericRightTraceForm|
+               ((|Fraction| (|Polynomial| |#1|)) $ $))
+              (SIGNATURE |genericRightDiscriminant|
+               ((|Fraction| (|Polynomial| |#1|))))
+              (SIGNATURE |conditionsForIdempotents|
+               ((|List| (|Polynomial| |#1|)) (|Vector| $)))
+              (SIGNATURE |conditionsForIdempotents|
+               ((|List| (|Polynomial| |#1|)))))
+             |noBranch|)))
+"/git/fricas/src/algebra/GCNAALG.spad"
+((|coerce| (*1 *1 *2)
+           (AND (|isDomain| *2 (|Vector| (|Fraction| (|Polynomial| *3))))
+                (|ofCategory| *3 (|CommutativeRing|))
+                (|ofType| *6 (|Vector| (|Matrix| *3)))
+                (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+                (|ofType| *4 (|PositiveInteger|))
+                (|ofType| *5 (|List| (|Symbol|)))))
+ (|leftUnits| (*1 *2)
+  (|partial| AND
+   (|isDomain| *2
+               (|Record|
+                (|:| |particular| (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+                (|:| |basis|
+                     (|List| (|GenericNonAssociativeAlgebra| *3 *4 *5 *6)))))
+   (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+   (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+   (|ofType| *5 (|List| (|Symbol|))) (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|rightUnits| (*1 *2)
+  (|partial| AND
+   (|isDomain| *2
+               (|Record|
+                (|:| |particular| (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+                (|:| |basis|
+                     (|List| (|GenericNonAssociativeAlgebra| *3 *4 *5 *6)))))
+   (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+   (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+   (|ofType| *5 (|List| (|Symbol|))) (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|generic| (*1 *1)
+  (AND (|isDomain| *1 (|GenericNonAssociativeAlgebra| *2 *3 *4 *5))
+       (|ofCategory| *2 (|CommutativeRing|)) (|ofType| *3 (|PositiveInteger|))
+       (|ofType| *4 (|List| (|Symbol|)))
+       (|ofType| *5 (|Vector| (|Matrix| *2)))))
+ (|generic| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Symbol|))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+       (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+       (|ofType| *5 (|List| *2)) (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|generic| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Vector| (|Symbol|)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+       (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|generic| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Vector| (|GenericNonAssociativeAlgebra| *3 *4 *5 *6)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+       (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|generic| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|Symbol|))
+       (|isDomain| *3 (|Vector| (|GenericNonAssociativeAlgebra| *4 *5 *6 *7)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *4 *5 *6 *7))
+       (|ofCategory| *4 (|CommutativeRing|)) (|ofType| *5 (|PositiveInteger|))
+       (|ofType| *6 (|List| *2)) (|ofType| *7 (|Vector| (|Matrix| *4)))))
+ (|generic| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|Vector| (|Symbol|)))
+       (|isDomain| *3 (|Vector| (|GenericNonAssociativeAlgebra| *4 *5 *6 *7)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *4 *5 *6 *7))
+       (|ofCategory| *4 (|CommutativeRing|)) (|ofType| *5 (|PositiveInteger|))
+       (|ofType| *6 (|List| (|Symbol|)))
+       (|ofType| *7 (|Vector| (|Matrix| *4)))))
+ (|leftRankPolynomial| (*1 *2)
+  (AND
+   (|isDomain| *2
+               (|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| *3))))
+   (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+   (|ofCategory| *3 (|IntegralDomain|)) (|ofCategory| *3 (|CommutativeRing|))
+   (|ofType| *4 (|PositiveInteger|)) (|ofType| *5 (|List| (|Symbol|)))
+   (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|genericLeftMinimalPolynomial| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| *3))))
+   (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+   (|ofCategory| *3 (|IntegralDomain|)) (|ofCategory| *3 (|CommutativeRing|))
+   (|ofType| *4 (|PositiveInteger|)) (|ofType| *5 (|List| (|Symbol|)))
+   (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|genericLeftTrace| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Fraction| (|Polynomial| *3)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|genericLeftNorm| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Fraction| (|Polynomial| *3)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|rightRankPolynomial| (*1 *2)
+  (AND
+   (|isDomain| *2
+               (|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| *3))))
+   (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+   (|ofCategory| *3 (|IntegralDomain|)) (|ofCategory| *3 (|CommutativeRing|))
+   (|ofType| *4 (|PositiveInteger|)) (|ofType| *5 (|List| (|Symbol|)))
+   (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|genericRightMinimalPolynomial| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| *3))))
+   (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+   (|ofCategory| *3 (|IntegralDomain|)) (|ofCategory| *3 (|CommutativeRing|))
+   (|ofType| *4 (|PositiveInteger|)) (|ofType| *5 (|List| (|Symbol|)))
+   (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|genericRightTrace| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Fraction| (|Polynomial| *3)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|genericRightNorm| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Fraction| (|Polynomial| *3)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|genericLeftTraceForm| (*1 *2 *1 *1)
+  (AND (|isDomain| *2 (|Fraction| (|Polynomial| *3)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|genericLeftDiscriminant| (*1 *2)
+  (AND (|isDomain| *2 (|Fraction| (|Polynomial| *3)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|genericRightTraceForm| (*1 *2 *1 *1)
+  (AND (|isDomain| *2 (|Fraction| (|Polynomial| *3)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|genericRightDiscriminant| (*1 *2)
+  (AND (|isDomain| *2 (|Fraction| (|Polynomial| *3)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|ofType| *6 (|Vector| (|Matrix| *3)))))
+ (|conditionsForIdempotents| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Vector| (|GenericNonAssociativeAlgebra| *4 *5 *6 *7)))
+       (|isDomain| *2 (|List| (|Polynomial| *4)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *4 *5 *6 *7))
+       (|ofCategory| *4 (|IntegralDomain|))
+       (|ofCategory| *4 (|CommutativeRing|)) (|ofType| *5 (|PositiveInteger|))
+       (|ofType| *6 (|List| (|Symbol|)))
+       (|ofType| *7 (|Vector| (|Matrix| *4)))))
+ (|conditionsForIdempotents| (*1 *2)
+  (AND (|isDomain| *2 (|List| (|Polynomial| *3)))
+       (|isDomain| *1 (|GenericNonAssociativeAlgebra| *3 *4 *5 *6))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *3 (|CommutativeRing|)) (|ofType| *4 (|PositiveInteger|))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|ofType| *6 (|Vector| (|Matrix| *3))))))
+((~= (((|Boolean|) $ $) NIL)) (|zero?| (((|Boolean|) $) NIL))
+ (|unit|
+  (((|Union| $ #1="failed")) NIL
+   (|has| (|Fraction| (|Polynomial| |#1|)) (|IntegralDomain|))))
+ (|subtractIfCan| (((|Union| $ "failed") $ $) NIL))
+ (|structuralConstants|
+  (((|Vector| (|Matrix| (|Fraction| (|Polynomial| |#1|)))) (|Vector| $)) NIL)
+  (((|Vector| (|Matrix| (|Fraction| (|Polynomial| |#1|))))) NIL))
+ (|someBasis| (((|Vector| $)) NIL))
+ (|smaller?|
+  (((|Boolean|) $ $) NIL (|has| (|Fraction| (|Polynomial| |#1|)) (|Finite|))))
+ (|size|
+  (((|NonNegativeInteger|)) NIL
+   (|has| (|Fraction| (|Polynomial| |#1|)) (|Finite|))))
+ (|sample| (($) NIL T CONST))
+ (|rightUnits|
+  (((|Union| (|Record| (|:| |particular| $) (|:| |basis| (|List| $)))
+             "failed"))
+   NIL))
+ (|rightUnit|
+  (((|Union| $ #1#)) NIL
+   (|has| (|Fraction| (|Polynomial| |#1|)) (|IntegralDomain|))))
+ (|rightTraceMatrix|
+  (((|Matrix| (|Fraction| (|Polynomial| |#1|))) (|Vector| $)) NIL)
+  (((|Matrix| (|Fraction| (|Polynomial| |#1|)))) NIL))
+ (|rightTrace| (((|Fraction| (|Polynomial| |#1|)) $) NIL))
+ (|rightRegularRepresentation|
+  (((|Matrix| (|Fraction| (|Polynomial| |#1|))) $ (|Vector| $)) NIL)
+  (((|Matrix| (|Fraction| (|Polynomial| |#1|))) $) NIL))
+ (|rightRecip|
+  (((|Union| $ #1#) $) NIL
+   (|has| (|Fraction| (|Polynomial| |#1|)) (|IntegralDomain|))))
+ (|rightRankPolynomial|
+  (((|SparseUnivariatePolynomial|
+     (|Polynomial| (|Fraction| (|Polynomial| |#1|)))))
+   NIL (|has| (|Fraction| (|Polynomial| |#1|)) (|Field|)))
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|)))) 79
+   (|has| |#1| (|IntegralDomain|))))
+ (|rightPower| (($ $ (|PositiveInteger|)) NIL))
+ (|rightNorm| (((|Fraction| (|Polynomial| |#1|)) $) NIL))
+ (|rightMinimalPolynomial|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))) $) 77
+   (|has| (|Fraction| (|Polynomial| |#1|)) (|IntegralDomain|))))
+ (|rightDiscriminant| (((|Fraction| (|Polynomial| |#1|)) (|Vector| $)) NIL)
+  (((|Fraction| (|Polynomial| |#1|))) NIL))
+ (|rightCharacteristicPolynomial|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))) $) NIL))
+ (|rightAlternative?| (((|Boolean|)) NIL))
+ (|represents|
+  (($ (|Vector| (|Fraction| (|Polynomial| |#1|))) (|Vector| $)) 100)
+  (($ (|Vector| (|Fraction| (|Polynomial| |#1|)))) NIL))
+ (|recip|
+  (((|Union| $ #1#) $) NIL
+   (|has| (|Fraction| (|Polynomial| |#1|)) (|IntegralDomain|))))
+ (|rank| (((|PositiveInteger|)) NIL))
+ (|random| (($) NIL (|has| (|Fraction| (|Polynomial| |#1|)) (|Finite|))))
+ (|powerAssociative?| (((|Boolean|)) NIL))
+ (|plenaryPower| (($ $ (|PositiveInteger|)) NIL))
+ (|opposite?| (((|Boolean|) $ $) NIL))
+ (|noncommutativeJordanAlgebra?| (((|Boolean|)) NIL))
+ (|lookup|
+  (((|PositiveInteger|) $) NIL
+   (|has| (|Fraction| (|Polynomial| |#1|)) (|Finite|))))
+ (|lieAlgebra?| (((|Boolean|)) NIL)) (|lieAdmissible?| (((|Boolean|)) NIL))
+ (|leftUnits|
+  (((|Union| (|Record| (|:| |particular| $) (|:| |basis| (|List| $)))
+             "failed"))
+   NIL))
+ (|leftUnit|
+  (((|Union| $ #1#)) NIL
+   (|has| (|Fraction| (|Polynomial| |#1|)) (|IntegralDomain|))))
+ (|leftTraceMatrix|
+  (((|Matrix| (|Fraction| (|Polynomial| |#1|))) (|Vector| $)) NIL)
+  (((|Matrix| (|Fraction| (|Polynomial| |#1|)))) NIL))
+ (|leftTrace| (((|Fraction| (|Polynomial| |#1|)) $) NIL))
+ (|leftRegularRepresentation|
+  (((|Matrix| (|Fraction| (|Polynomial| |#1|))) $ (|Vector| $)) NIL)
+  (((|Matrix| (|Fraction| (|Polynomial| |#1|))) $) NIL))
+ (|leftRecip|
+  (((|Union| $ #1#) $) NIL
+   (|has| (|Fraction| (|Polynomial| |#1|)) (|IntegralDomain|))))
+ (|leftRankPolynomial|
+  (((|SparseUnivariatePolynomial|
+     (|Polynomial| (|Fraction| (|Polynomial| |#1|)))))
+   NIL (|has| (|Fraction| (|Polynomial| |#1|)) (|Field|)))
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|)))) 78
+   (|has| |#1| (|IntegralDomain|))))
+ (|leftPower| (($ $ (|PositiveInteger|)) NIL))
+ (|leftNorm| (((|Fraction| (|Polynomial| |#1|)) $) NIL))
+ (|leftMinimalPolynomial|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))) $) 72
+   (|has| (|Fraction| (|Polynomial| |#1|)) (|IntegralDomain|))))
+ (|leftDiscriminant| (((|Fraction| (|Polynomial| |#1|)) (|Vector| $)) NIL)
+  (((|Fraction| (|Polynomial| |#1|))) NIL))
+ (|leftCharacteristicPolynomial|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))) $) NIL))
+ (|leftAlternative?| (((|Boolean|)) NIL)) (|latex| (((|String|) $) NIL))
+ (|jordanAlgebra?| (((|Boolean|)) NIL))
+ (|jordanAdmissible?| (((|Boolean|)) NIL))
+ (|jacobiIdentity?| (((|Boolean|)) NIL))
+ (|index|
+  (($ (|PositiveInteger|)) NIL
+   (|has| (|Fraction| (|Polynomial| |#1|)) (|Finite|))))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|genericRightTraceForm|
+  (((|Fraction| (|Polynomial| |#1|)) $ $) 66 (|has| |#1| (|IntegralDomain|))))
+ (|genericRightTrace|
+  (((|Fraction| (|Polynomial| |#1|)) $) 65 (|has| |#1| (|IntegralDomain|))))
+ (|genericRightNorm|
+  (((|Fraction| (|Polynomial| |#1|)) $) 90 (|has| |#1| (|IntegralDomain|))))
+ (|genericRightMinimalPolynomial|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))) $) 83
+   (|has| |#1| (|IntegralDomain|))))
+ (|genericRightDiscriminant|
+  (((|Fraction| (|Polynomial| |#1|))) 67 (|has| |#1| (|IntegralDomain|))))
+ (|genericLeftTraceForm|
+  (((|Fraction| (|Polynomial| |#1|)) $ $) 54 (|has| |#1| (|IntegralDomain|))))
+ (|genericLeftTrace|
+  (((|Fraction| (|Polynomial| |#1|)) $) 53 (|has| |#1| (|IntegralDomain|))))
+ (|genericLeftNorm|
+  (((|Fraction| (|Polynomial| |#1|)) $) 89 (|has| |#1| (|IntegralDomain|))))
+ (|genericLeftMinimalPolynomial|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))) $) 82
+   (|has| |#1| (|IntegralDomain|))))
+ (|genericLeftDiscriminant|
+  (((|Fraction| (|Polynomial| |#1|))) 64 (|has| |#1| (|IntegralDomain|))))
+ (|generic| (($) 96) (($ (|Symbol|)) 104) (($ (|Vector| (|Symbol|))) 103)
+  (($ (|Vector| $)) 91) (($ (|Symbol|) (|Vector| $)) 102)
+  (($ (|Vector| (|Symbol|)) (|Vector| $)) 101))
+ (|flexible?| (((|Boolean|)) NIL))
+ (|enumerate|
+  (((|List| $)) NIL (|has| (|Fraction| (|Polynomial| |#1|)) (|Finite|))))
+ (|elt| (((|Fraction| (|Polynomial| |#1|)) $ (|Integer|)) NIL))
+ (|coordinates|
+  (((|Vector| (|Fraction| (|Polynomial| |#1|))) $ (|Vector| $)) 93)
+  (((|Matrix| (|Fraction| (|Polynomial| |#1|))) (|Vector| $) (|Vector| $)) NIL)
+  (((|Matrix| (|Fraction| (|Polynomial| |#1|))) (|Vector| $)) NIL)
+  (((|Vector| (|Fraction| (|Polynomial| |#1|))) $) 37))
+ (|convert|
+  (((|InputForm|) $) NIL (|has| (|Fraction| (|Polynomial| |#1|)) (|Finite|)))
+  (($ (|Vector| (|Fraction| (|Polynomial| |#1|)))) 34)
+  (((|Vector| (|Fraction| (|Polynomial| |#1|))) $) NIL))
+ (|conditionsForIdempotents|
+  (((|List| (|Polynomial| (|Fraction| (|Polynomial| |#1|)))) (|Vector| $)) NIL)
+  (((|List| (|Polynomial| (|Fraction| (|Polynomial| |#1|))))) NIL)
+  (((|List| (|Polynomial| |#1|)) (|Vector| $)) 94
+   (|has| |#1| (|IntegralDomain|)))
+  (((|List| (|Polynomial| |#1|))) 95 (|has| |#1| (|IntegralDomain|))))
+ (|commutator| (($ $ $) NIL)) (|commutative?| (((|Boolean|)) NIL))
+ (|coerce| (((|OutputForm|) $) NIL)
+           (($ (|Vector| (|Fraction| (|Polynomial| |#1|)))) NIL))
+ (|basis| (((|Vector| $)) 56))
+ (|associatorDependence|
+  (((|List| (|Vector| (|Fraction| (|Polynomial| |#1|))))) NIL
+   (|has| (|Fraction| (|Polynomial| |#1|)) (|IntegralDomain|))))
+ (|associator| (($ $ $ $) NIL)) (|associative?| (((|Boolean|)) NIL))
+ (|apply| (($ (|Matrix| (|Fraction| (|Polynomial| |#1|))) $) NIL))
+ (|antiCommutator| (($ $ $) NIL)) (|antiCommutative?| (((|Boolean|)) NIL))
+ (|antiAssociative?| (((|Boolean|)) NIL)) (|alternative?| (((|Boolean|)) NIL))
+ (^ (($ $ (|PositiveInteger|)) NIL)) (|Zero| (($) NIL T CONST))
+ (= (((|Boolean|) $ $) NIL)) (- (($ $ $) 92) (($ $) NIL)) (+ (($ $ $) NIL))
+ (* (($ (|PositiveInteger|) $) NIL) (($ $ $) 52) (($ (|Integer|) $) NIL)
+    (($ (|NonNegativeInteger|) $) NIL)
+    (($ $ (|Fraction| (|Polynomial| |#1|))) NIL)
+    (($ (|Fraction| (|Polynomial| |#1|)) $) NIL)
+    (($ (|SquareMatrix| |#2| (|Fraction| (|Polynomial| |#1|))) $) NIL)))
+((|HasCategory| (|Fraction| (|Polynomial| |#1|)) '(|IntegralDomain|))
+ (|HasCategory| (|Fraction| (|Polynomial| |#1|)) '(|Finite|))
+ (|HasCategory| (|Fraction| (|Polynomial| |#1|)) '(|Field|))
+ (|HasCategory| |#1| '(|IntegralDomain|)))
+GCNAALG
+(((|FramedNonAssociativeAlgebra| (|Fraction| (|Polynomial| |#1|))) . T)
+ ((|LeftModule| (|SquareMatrix| |#2| (|Fraction| (|Polynomial| |#1|)))) . T))
+(((|AbelianGroup|) . T) ((|AbelianMonoid|) . T) ((|AbelianSemiGroup|) . T)
+ ((|BasicType|) . T) ((|BiModule| |t#1| |t#1|) . T)
+ ((|CancellationAbelianMonoid|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|Comparable|) |has| |t#1| (|Finite|))
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|Finite|))
+ ((|Finite|) |has| |t#1| (|Finite|))
+ ((|FiniteRankNonAssociativeAlgebra| |t#1|) . T) ((|FramedModule| |t#1|) . T)
+ ((|FramedNonAssociativeAlgebra| (|Fraction| (|Polynomial| |#1|))) . T)
+ ((|LeftModule| (|SquareMatrix| |#2| (|Fraction| (|Polynomial| |#1|)))) . T)
+ ((|LeftModule| |t#1|) . T) ((|Magma|) . T) ((|Module| |t#1|) . T)
+ ((|NonAssociativeAlgebra| |t#1|) . T) ((|NonAssociativeRng|) . T)
+ ((|NonAssociativeSemiRng|) . T) ((|RightModule| |t#2|) . T)
+ ((|SetCategory|) . T) ((|unitsKnown|) |has| |t#1| (|IntegralDomain|)))
+((|constructor|
+  (NIL
+   "AlgebraGenericElementPackage allows you to create generic elements of an algebra,{} \\spadignore{i.e.} the scalars are extended to include symbolic coefficients"))
+ (|conditionsForIdempotents|
+  (((|List| (|Polynomial| |#1|)))
+   "\\spad{conditionsForIdempotents()} determines a complete list of polynomial equations for the coefficients of idempotents with respect to the fixed \\spad{R}-module basis")
+  (((|List| (|Polynomial| |#1|)) (|Vector| $))
+   "\\spad{conditionsForIdempotents([v1,{} ...,{} vn])} determines a complete list of polynomial equations for the coefficients of idempotents with respect to the \\spad{R}-module basis \\spad{v1},{} ...,{} \\spad{vn}"))
+ (|genericRightDiscriminant|
+  (((|Fraction| (|Polynomial| |#1|)))
+   "\\spad{genericRightDiscriminant()} is the determinant of the generic left trace forms of all products of basis element,{} if the generic left trace form is associative,{} an algebra is separable if the generic left discriminant is invertible,{} if it is non-zero,{} there is some ring extension which makes the algebra separable"))
+ (|genericRightTraceForm|
+  (((|Fraction| (|Polynomial| |#1|)) $ $)
+   "\\spad{genericRightTraceForm (a,{} b)} is defined to be \\spadfun{genericRightTrace (a*b)},{} this defines a symmetric bilinear form on the algebra"))
+ (|genericLeftDiscriminant|
+  (((|Fraction| (|Polynomial| |#1|)))
+   "\\spad{genericLeftDiscriminant()} is the determinant of the generic left trace forms of all products of basis element,{} if the generic left trace form is associative,{} an algebra is separable if the generic left discriminant is invertible,{} if it is non-zero,{} there is some ring extension which makes the algebra separable"))
+ (|genericLeftTraceForm|
+  (((|Fraction| (|Polynomial| |#1|)) $ $)
+   "\\spad{genericLeftTraceForm (a,{} b)} is defined to be \\spad{genericLeftTrace (a*b)},{} this defines a symmetric bilinear form on the algebra"))
+ (|genericRightNorm|
+  (((|Fraction| (|Polynomial| |#1|)) $)
+   "\\spad{genericRightNorm(a)} substitutes the coefficients of \\spad{a} for the generic coefficients into the coefficient of the constant term in \\spadfun{rightRankPolynomial} and changes the sign if the degree of this polynomial is odd"))
+ (|genericRightTrace|
+  (((|Fraction| (|Polynomial| |#1|)) $)
+   "\\spad{genericRightTrace(a)} substitutes the coefficients of \\spad{a} for the generic coefficients into the coefficient of the second highest term in \\spadfun{rightRankPolynomial} and changes the sign"))
+ (|genericRightMinimalPolynomial|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))) $)
+   "\\spad{genericRightMinimalPolynomial(a)} substitutes the coefficients of \\spad{a} for the generic coefficients in \\spadfun{rightRankPolynomial}"))
+ (|rightRankPolynomial|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{rightRankPolynomial()} returns the right minimimal polynomial of the generic element"))
+ (|genericLeftNorm|
+  (((|Fraction| (|Polynomial| |#1|)) $)
+   "\\spad{genericLeftNorm(a)} substitutes the coefficients of \\spad{a} for the generic coefficients into the coefficient of the constant term in \\spadfun{leftRankPolynomial} and changes the sign if the degree of this polynomial is odd. This is a form of degree \\spad{k}"))
+ (|genericLeftTrace|
+  (((|Fraction| (|Polynomial| |#1|)) $)
+   "\\spad{genericLeftTrace(a)} substitutes the coefficients of \\spad{a} for the generic coefficients into the coefficient of the second highest term in \\spadfun{leftRankPolynomial} and changes the sign. \\indented{1}{This is a linear form}"))
+ (|genericLeftMinimalPolynomial|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))) $)
+   "\\spad{genericLeftMinimalPolynomial(a)} substitutes the coefficients of {em a} for the generic coefficients in \\spad{leftRankPolynomial()}"))
+ (|leftRankPolynomial|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{leftRankPolynomial()} returns the left minimimal polynomial of the generic element"))
+ (|generic|
+  (($ (|Vector| (|Symbol|)) (|Vector| $))
+   "\\spad{generic(vs,{} ve)} returns a generic element,{} \\spadignore{i.e.} the linear combination of \\spad{ve} with the symbolic coefficients \\spad{vs} error,{} if the vector of symbols is shorter than the vector of elements")
+  (($ (|Symbol|) (|Vector| $))
+   "\\spad{generic(s,{} v)} returns a generic element,{} \\spadignore{i.e.} the linear combination of \\spad{v} with the symbolic coefficients \\spad{s1,{} s2,{} ..}")
+  (($ (|Vector| $))
+   "\\spad{generic(ve)} returns a generic element,{} \\spadignore{i.e.} the linear combination of \\spad{ve} basis with the symbolic coefficients \\spad{\\%x1,{} \\%x2,{} ..}")
+  (($ (|Vector| (|Symbol|)))
+   "\\spad{generic(vs)} returns a generic element,{} \\spadignore{i.e.} the linear combination of the fixed basis with the symbolic coefficients \\spad{vs}; error,{} if the vector of symbols is too short")
+  (($ (|Symbol|))
+   "\\spad{generic(s)} returns a generic element,{} \\spadignore{i.e.} the linear combination of the fixed basis with the symbolic coefficients \\spad{s1,{} s2,{} ..}")
+  (($)
+   "\\spad{generic()} returns a generic element,{} \\spadignore{i.e.} the linear combination of the fixed basis with the symbolic coefficients \\spad{\\%x1,{} \\%x2,{} ..}"))
+ (|rightUnits|
+  (((|Union| (|Record| (|:| |particular| $) (|:| |basis| (|List| $)))
+             "failed"))
+   "\\spad{rightUnits()} returns the affine space of all right units of the algebra,{} or \\spad{\"failed\"} if there is none"))
+ (|leftUnits|
+  (((|Union| (|Record| (|:| |particular| $) (|:| |basis| (|List| $)))
+             "failed"))
+   "\\spad{leftUnits()} returns the affine space of all left units of the algebra,{} or \\spad{\"failed\"} if there is none"))
+ (|coerce|
+  (($ (|Vector| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{coerce(v)} assumes that it is called with a vector of length equal to the dimension of the algebra,{} then a linear combination with the basis element is formed")))
+(("documentation" 0 23488) ("ancestors" 0 22657) ("parents" 0 22507)
+ ("abbreviation" 0 22499) ("predicates" 0 22263) ("superDomain" 0 NIL)
+ ("operationAlist" 0 14188) ("modemaps" 0 5548) ("sourceFile" 0 5509)
+ ("constructorCategory" 0 2956) ("constructorModemap" 0 81)
+ ("constructorKind" 0 72) ("constructorForm" 0 20))

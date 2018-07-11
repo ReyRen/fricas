@@ -1,0 +1,43 @@
+1744                (MAKEPROP '|Loop| 'NILADIC T)
+(|Loop|)
+|domain|
+(((|Loop|)
+  (|Join| (|SetCategory|)
+          (CATEGORY |domain|
+           (SIGNATURE |loop| ($ (|List| (|NonNegativeInteger|))))
+           (SIGNATURE |entries| ((|List| (|NonNegativeInteger|)) $)))))
+ (T |Loop|))
+(|Join| (|SetCategory|)
+        (CATEGORY |domain|
+         (SIGNATURE |loop| ($ (|List| (|NonNegativeInteger|))))
+         (SIGNATURE |entries| ((|List| (|NonNegativeInteger|)) $))))
+"/git/fricas/src/algebra/LOOP.spad"
+((|loop| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|NonNegativeInteger|)))
+       (|isDomain| *1 (|Loop|))))
+ (|entries| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|NonNegativeInteger|)))
+       (|isDomain| *1 (|Loop|)))))
+((~= (((|Boolean|) $ $) NIL)) (|loop| (($ (|List| (|NonNegativeInteger|))) 10))
+ (|latex| (((|String|) $) 20))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) 14))
+ (|entries| (((|List| (|NonNegativeInteger|)) $) 12))
+ (|coerce| (((|OutputForm|) $) 31)) (= (((|Boolean|) $ $) 23)))
+LOOP
+(((|SetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "This is used with graph theory code (FiniteGraph,{} DirectedGraph. FunctionGraph,{} and so on) to represent a loop as either a sequence of vertex or arrow indexes depending on context. The main benefit is that the loop is stored in a canonical way so that loops can be quickly compared using \\spad{'='}."))
+ (|entries|
+  (((|List| (|NonNegativeInteger|)) $)
+   "\\spad{entries(lp)} returns list of indexes that make this loop"))
+ (|loop|
+  (($ (|List| (|NonNegativeInteger|)))
+   "\\spad{loop(\\spad{li})} constructs loop from list of indexes \\spad{li}")))
+(("documentation" 0 1158) ("ancestors" 0 1077) ("parents" 0 1053)
+ ("abbreviation" 0 1048) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 727) ("modemaps" 0 505) ("sourceFile" 0 469)
+ ("constructorCategory" 0 285) ("constructorModemap" 0 68)
+ ("constructorKind" 0 59) ("constructorForm" 0 50) ("NILADIC" 0 20))

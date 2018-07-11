@@ -1,0 +1,57 @@
+3234                (|PolynomialFactorizationExplicit&| S)
+|domain|
+(((|PolynomialFactorizationExplicit&| |#1|)
+  (CATEGORY |domain| (SIGNATURE |charthRoot| ((|Union| |#1| "failed") |#1|))
+   (SIGNATURE |solveLinearPolynomialEquation|
+    ((|Union| (|List| (|SparseUnivariatePolynomial| |#1|)) "failed")
+     (|List| (|SparseUnivariatePolynomial| |#1|))
+     (|SparseUnivariatePolynomial| |#1|))))
+  (|PolynomialFactorizationExplicit|))
+ (T |PolynomialFactorizationExplicit&|))
+(CATEGORY |domain| (SIGNATURE |charthRoot| ((|Union| |#1| "failed") |#1|))
+ (SIGNATURE |solveLinearPolynomialEquation|
+  ((|Union| (|List| (|SparseUnivariatePolynomial| |#1|)) "failed")
+   (|List| (|SparseUnivariatePolynomial| |#1|))
+   (|SparseUnivariatePolynomial| |#1|))))
+"/git/fricas/src/algebra/PFECAT.spad"
+((|solveLinearPolynomialEquation|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| $)) "failed")
+    (|List| (|SparseUnivariatePolynomial| $)) (|SparseUnivariatePolynomial| $))
+   31))
+ (|charthRoot| (((|Union| $ "failed") $) 23)))
+((|HasCategory| |#1| '(|CharacteristicNonZero|)))
+PFECAT-
+((|constructor|
+  (NIL
+   "This is the category of domains that know \"enough\" about themselves in order to factor univariate polynomials over themselves."))
+ (|charthRoot|
+  (((|Union| $ "failed") $)
+   "\\spad{charthRoot(r)} returns the \\spad{p}\\spad{-}th root of \\spad{r},{} or \"failed\" if none exists in the domain."))
+ (|conditionP|
+  (((|Union| (|Vector| $) "failed") (|Matrix| $))
+   "\\spad{conditionP(m)} returns a vector of elements,{} not all zero,{} whose \\spad{p}\\spad{-}th powers (\\spad{p} is the characteristic of the domain) are a solution of the homogenous linear system represented by \\spad{m},{} or \"failed\" is there is no such vector."))
+ (|solveLinearPolynomialEquation|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| $)) "failed")
+    (|List| (|SparseUnivariatePolynomial| $)) (|SparseUnivariatePolynomial| $))
+   "\\spad{solveLinearPolynomialEquation([f1,{} ...,{} fn],{} g)} (where the \\spad{fi} are relatively prime to each other) returns a list of \\spad{ai} such that \\spad{g/prod \\spad{fi} = sum ai/fi} or returns \"failed\" if no such list of \\spad{ai}\\spad{'s} exists."))
+ (|gcdPolynomial|
+  (((|SparseUnivariatePolynomial| $) (|SparseUnivariatePolynomial| $)
+    (|SparseUnivariatePolynomial| $))
+   "\\spad{gcdPolynomial(p,{} q)} returns the \\spad{gcd} of the univariate polynomials \\spad{p} \\spad{qnd} \\spad{q}."))
+ (|factorSquareFreePolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   "\\spad{factorSquareFreePolynomial(p)} factors the univariate polynomial \\spad{p} into irreducibles where \\spad{p} is known to be square free and primitive with respect to its main variable."))
+ (|factorPolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   "\\spad{factorPolynomial(p)} returns the factorization into irreducibles of the univariate polynomial \\spad{p}."))
+ (|squareFreePolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   "\\spad{squareFreePolynomial(p)} returns the square-free factorization of the univariate polynomial \\spad{p}.")))
+(("documentation" 0 1084) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1076) ("predicates" 0 1026) ("superDomain" 0 NIL)
+ ("operationAlist" 0 792) ("modemaps" 0 NIL) ("sourceFile" 0 754)
+ ("constructorCategory" 0 478) ("constructorModemap" 0 68)
+ ("constructorKind" 0 59) ("constructorForm" 0 20))

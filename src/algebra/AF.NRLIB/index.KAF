@@ -1,0 +1,145 @@
+6925                (|AlgebraicFunction| R F)
+|package|
+(((|AlgebraicFunction| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |rootOf| (|#2| (|SparseUnivariatePolynomial| |#2|) (|Symbol|)))
+   (SIGNATURE |rootSum|
+    (|#2| |#2| (|SparseUnivariatePolynomial| |#2|) (|Symbol|)))
+   (SIGNATURE |operator| ((|BasicOperator|) (|BasicOperator|)))
+   (SIGNATURE |belong?| ((|Boolean|) (|BasicOperator|)))
+   (SIGNATURE |inrootof| (|#2| (|SparseUnivariatePolynomial| |#2|) |#2|))
+   (SIGNATURE |droot| ((|OutputForm|) (|List| |#2|)))
+   (IF (|has| |#1| (|RetractableTo| (|Integer|)))
+       (PROGN
+        (SIGNATURE ^ (|#2| |#2| (|Fraction| (|Integer|))))
+        (SIGNATURE |minPoly|
+         ((|SparseUnivariatePolynomial| |#2|) (|Kernel| |#2|)))
+        (SIGNATURE |definingPolynomial| (|#2| |#2|))
+        (SIGNATURE |iroot| (|#2| |#1| (|Integer|))))
+       |noBranch|))
+  (|Join| (|Comparable|) (|IntegralDomain|)) (|FunctionSpace| |#1|))
+ (T |AlgebraicFunction|))
+(CATEGORY |package|
+ (SIGNATURE |rootOf| (|#2| (|SparseUnivariatePolynomial| |#2|) (|Symbol|)))
+ (SIGNATURE |rootSum|
+  (|#2| |#2| (|SparseUnivariatePolynomial| |#2|) (|Symbol|)))
+ (SIGNATURE |operator| ((|BasicOperator|) (|BasicOperator|)))
+ (SIGNATURE |belong?| ((|Boolean|) (|BasicOperator|)))
+ (SIGNATURE |inrootof| (|#2| (|SparseUnivariatePolynomial| |#2|) |#2|))
+ (SIGNATURE |droot| ((|OutputForm|) (|List| |#2|)))
+ (IF (|has| |#1| (|RetractableTo| (|Integer|)))
+     (PROGN
+      (SIGNATURE ^ (|#2| |#2| (|Fraction| (|Integer|))))
+      (SIGNATURE |minPoly|
+       ((|SparseUnivariatePolynomial| |#2|) (|Kernel| |#2|)))
+      (SIGNATURE |definingPolynomial| (|#2| |#2|))
+      (SIGNATURE |iroot| (|#2| |#1| (|Integer|))))
+     |noBranch|))
+"/git/fricas/src/algebra/AF.spad"
+((|iroot| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Integer|)) (|ofCategory| *2 (|FunctionSpace| *3))
+       (|isDomain| *1 (|AlgebraicFunction| *3 *2))
+       (|ofCategory| *3 (|RetractableTo| *4))
+       (|ofCategory| *3 (|Join| (|Comparable|) (|IntegralDomain|)))))
+ (|definingPolynomial| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|RetractableTo| (|Integer|)))
+       (|ofCategory| *3 (|Join| (|Comparable|) (|IntegralDomain|)))
+       (|isDomain| *1 (|AlgebraicFunction| *3 *2))
+       (|ofCategory| *2 (|FunctionSpace| *3))))
+ (|minPoly| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Kernel| *5)) (|ofCategory| *5 (|FunctionSpace| *4))
+       (|ofCategory| *4 (|RetractableTo| (|Integer|)))
+       (|ofCategory| *4 (|Join| (|Comparable|) (|IntegralDomain|)))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *5))
+       (|isDomain| *1 (|AlgebraicFunction| *4 *5))))
+ (^ (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Fraction| (|Integer|)))
+       (|ofCategory| *4 (|RetractableTo| (|Integer|)))
+       (|ofCategory| *4 (|Join| (|Comparable|) (|IntegralDomain|)))
+       (|isDomain| *1 (|AlgebraicFunction| *4 *2))
+       (|ofCategory| *2 (|FunctionSpace| *4))))
+ (|droot| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *5)) (|ofCategory| *5 (|FunctionSpace| *4))
+       (|ofCategory| *4 (|Join| (|Comparable|) (|IntegralDomain|)))
+       (|isDomain| *2 (|OutputForm|))
+       (|isDomain| *1 (|AlgebraicFunction| *4 *5))))
+ (|inrootof| (*1 *2 *3 *2)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *2))
+       (|ofCategory| *2 (|FunctionSpace| *4))
+       (|ofCategory| *4 (|Join| (|Comparable|) (|IntegralDomain|)))
+       (|isDomain| *1 (|AlgebraicFunction| *4 *2))))
+ (|belong?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|BasicOperator|))
+       (|ofCategory| *4 (|Join| (|Comparable|) (|IntegralDomain|)))
+       (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|AlgebraicFunction| *4 *5))
+       (|ofCategory| *5 (|FunctionSpace| *4))))
+ (|operator| (*1 *2 *2)
+  (AND (|isDomain| *2 (|BasicOperator|))
+       (|ofCategory| *3 (|Join| (|Comparable|) (|IntegralDomain|)))
+       (|isDomain| *1 (|AlgebraicFunction| *3 *4))
+       (|ofCategory| *4 (|FunctionSpace| *3))))
+ (|rootSum| (*1 *2 *2 *3 *4)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *2))
+       (|isDomain| *4 (|Symbol|)) (|ofCategory| *2 (|FunctionSpace| *5))
+       (|ofCategory| *5 (|Join| (|Comparable|) (|IntegralDomain|)))
+       (|isDomain| *1 (|AlgebraicFunction| *5 *2))))
+ (|rootOf| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *2))
+       (|isDomain| *4 (|Symbol|)) (|ofCategory| *2 (|FunctionSpace| *5))
+       (|isDomain| *1 (|AlgebraicFunction| *5 *2))
+       (|ofCategory| *5 (|Join| (|Comparable|) (|IntegralDomain|))))))
+((|rootSum| ((|#2| |#2| (|SparseUnivariatePolynomial| |#2|) (|Symbol|)) 105))
+ (|rootOf| ((|#2| (|SparseUnivariatePolynomial| |#2|) (|Symbol|)) 41))
+ (|operator| (((|BasicOperator|) (|BasicOperator|)) 52))
+ (|minPoly|
+  (((|SparseUnivariatePolynomial| |#2|) (|Kernel| |#2|)) 151
+   (|has| |#1| (|RetractableTo| (|Integer|)))))
+ (|iroot|
+  ((|#2| |#1| (|Integer|)) 135 (|has| |#1| (|RetractableTo| (|Integer|)))))
+ (|inrootof| ((|#2| (|SparseUnivariatePolynomial| |#2|) |#2|) 31))
+ (|droot| (((|OutputForm|) (|List| |#2|)) 117))
+ (|definingPolynomial|
+  ((|#2| |#2|) 148 (|has| |#1| (|RetractableTo| (|Integer|)))))
+ (|belong?| (((|Boolean|) (|BasicOperator|)) 19))
+ (^
+  ((|#2| |#2| (|Fraction| (|Integer|))) 121
+   (|has| |#1| (|RetractableTo| (|Integer|))))))
+((|HasCategory| |#1| (LIST '|RetractableTo| '(|Integer|))))
+AF
+((|constructor|
+  (NIL "This package provides algebraic functions over an integral domain."))
+ (|iroot|
+  ((|#2| |#1| (|Integer|))
+   "\\spad{iroot(p,{} n)} should be a non-exported function."))
+ (|definingPolynomial|
+  ((|#2| |#2|)
+   "\\spad{definingPolynomial(f)} returns the defining polynomial of \\spad{f} as an element of \\spad{F}. Error: if \\spad{f} is not a kernel."))
+ (|minPoly|
+  (((|SparseUnivariatePolynomial| |#2|) (|Kernel| |#2|))
+   "\\spad{minPoly(k)} returns the defining polynomial of \\spad{k}."))
+ (^
+  ((|#2| |#2| (|Fraction| (|Integer|)))
+   "\\spad{x ^ q} is \\spad{x} raised to the rational power \\spad{q}."))
+ (|droot|
+  (((|OutputForm|) (|List| |#2|))
+   "\\spad{droot(l)} should be a non-exported function."))
+ (|inrootof|
+  ((|#2| (|SparseUnivariatePolynomial| |#2|) |#2|)
+   "\\spad{inrootof(p,{} x)} should be a non-exported function."))
+ (|belong?|
+  (((|Boolean|) (|BasicOperator|))
+   "\\spad{belong?(op)} is \\spad{true} if \\spad{op} is an algebraic operator,{} that is,{} an \\spad{n}th root or implicit algebraic operator."))
+ (|operator|
+  (((|BasicOperator|) (|BasicOperator|))
+   "\\spad{operator(op)} returns a copy of \\spad{op} with the domain-dependent properties appropriate for \\spad{F}. Error: if \\spad{op} is not an algebraic operator,{} that is,{} an \\spad{n}th root or implicit algebraic operator."))
+ (|rootSum|
+  ((|#2| |#2| (|SparseUnivariatePolynomial| |#2|) (|Symbol|))
+   "\\spad{rootSum(expr,{} p,{} s)}"))
+ (|rootOf|
+  ((|#2| (|SparseUnivariatePolynomial| |#2|) (|Symbol|))
+   "\\spad{rootOf(p,{} y)} returns \\spad{y} such that \\spad{p(y) = 0}. The object returned displays as \\spad{'y}.")))
+(("documentation" 0 5264) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 5261) ("predicates" 0 5201) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4439) ("modemaps" 0 1745) ("sourceFile" 0 1711)
+ ("constructorCategory" 0 964) ("constructorModemap" 0 56)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))

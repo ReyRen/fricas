@@ -1,0 +1,49 @@
+2966                (|ListFunctions2| A B)
+|package|
+(((|ListFunctions2| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |scan|
+    ((|List| |#2|) (|Mapping| |#2| |#1| |#2|) (|List| |#1|) |#2|))
+   (SIGNATURE |reduce| (|#2| (|Mapping| |#2| |#1| |#2|) (|List| |#1|) |#2|))
+   (SIGNATURE |map| ((|List| |#2|) (|Mapping| |#2| |#1|) (|List| |#1|))))
+  (|Type|) (|Type|))
+ (T |ListFunctions2|))
+(CATEGORY |package|
+ (SIGNATURE |scan|
+  ((|List| |#2|) (|Mapping| |#2| |#1| |#2|) (|List| |#1|) |#2|))
+ (SIGNATURE |reduce| (|#2| (|Mapping| |#2| |#1| |#2|) (|List| |#1|) |#2|))
+ (SIGNATURE |map| ((|List| |#2|) (|Mapping| |#2| |#1|) (|List| |#1|))))
+"/git/fricas/src/algebra/LIST2.spad"
+((|map| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *6 *5)) (|isDomain| *4 (|List| *5))
+       (|ofCategory| *5 (|Type|)) (|ofCategory| *6 (|Type|))
+       (|isDomain| *2 (|List| *6)) (|isDomain| *1 (|ListFunctions2| *5 *6))))
+ (|reduce| (*1 *2 *3 *4 *2)
+  (AND (|isDomain| *3 (|Mapping| *2 *5 *2)) (|isDomain| *4 (|List| *5))
+       (|ofCategory| *5 (|Type|)) (|ofCategory| *2 (|Type|))
+       (|isDomain| *1 (|ListFunctions2| *5 *2))))
+ (|scan| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Mapping| *5 *6 *5)) (|isDomain| *4 (|List| *6))
+       (|ofCategory| *6 (|Type|)) (|ofCategory| *5 (|Type|))
+       (|isDomain| *2 (|List| *5)) (|isDomain| *1 (|ListFunctions2| *6 *5)))))
+((|scan| (((|List| |#2|) (|Mapping| |#2| |#1| |#2|) (|List| |#1|) |#2|) 16))
+ (|reduce| ((|#2| (|Mapping| |#2| |#1| |#2|) (|List| |#1|) |#2|) 18))
+ (|map| (((|List| |#2|) (|Mapping| |#2| |#1|) (|List| |#1|)) 13)))
+LIST2
+((|constructor|
+  (NIL
+   "\\spadtype{ListFunctions2} implements utility functions that operate on two kinds of lists,{} each with a possibly different type of element."))
+ (|map|
+  (((|List| |#2|) (|Mapping| |#2| |#1|) (|List| |#1|))
+   "\\spad{map(fn,{} u)} applies \\spad{fn} to each element of list \\spad{u} and returns a new list with the results. For example \\spad{map(square,{} [1,{} 2,{} 3]) = [1,{} 4,{} 9]}."))
+ (|reduce|
+  ((|#2| (|Mapping| |#2| |#1| |#2|) (|List| |#1|) |#2|)
+   "\\spad{reduce(fn,{} u,{} ident)} successively uses the binary function \\spad{fn} on the elements of list \\spad{u} and the result of previous applications. \\spad{ident} is returned if the \\spad{u} is empty. Note the order of application in the following examples: \\spad{reduce(fn,{} [1,{} 2,{} 3],{} 0) = fn(3,{} fn(2,{} fn(1,{} 0)))} and \\spad{reduce(*,{} [2,{} 3],{} 1) = 3 * (2 * 1)}."))
+ (|scan|
+  (((|List| |#2|) (|Mapping| |#2| |#1| |#2|) (|List| |#1|) |#2|)
+   "\\spad{scan(fn,{} u,{} ident)} successively uses the binary function \\spad{fn} to reduce more and more of list \\spad{u}. \\spad{ident} is returned if the \\spad{u} is empty. The result is a list of the reductions at each step. See \\spadfun{reduce} for more information. Examples: \\spad{scan(fn,{} [1,{} 2],{} 0) = [fn(2,{} fn(1,{} 0)),{} fn(1,{} 0)]} and \\spad{scan(*,{} [2,{} 3],{} 1) = [2 * 1,{} 3 * (2 * 1)]}.")))
+(("documentation" 0 1576) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1570) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1356) ("modemaps" 0 677) ("sourceFile" 0 640)
+ ("constructorCategory" 0 389) ("constructorModemap" 0 53)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

@@ -1,0 +1,33 @@
+)abbrev category LOGIC Logic
+++ Note: transferred from boolean.spad
+++ Author:
+++ Date Created:
+++ Change History:
+++ Basic Operations: ~, /\, \/
+++ Related Constructors:
+++ Keywords: boolean
+++ Description:
+++ 'Logic' adds 'not' operation to lattices,
+++ Implements De Morgan's laws.
+++ Axiom: DeMorgan1 forall(x, y): ~(x/\y)=~x\/~y
+++ Axiom: DeMorgan2 forall(x, y): ~(x\/y)=~x/\~y
+Logic : Category == BoundedDistributiveLattice with
+       _~ : % -> %
+         ++ ~(x) returns the logical complement of x.
+       true   : constant -> %
+         ++ true is a logical constant.
+       false  : constant -> %
+         ++ false is a logical constant.
+   add
+       T == true
+       ___|__ == false
+
+)if false
+This is the algebration of poset. A big difference between
+this lattice domain and the poset domain is that, in this domain, the
+REP holds a single node whereas in poset REP holds the whole poset.
+
+The REP is NNI since this is used as an index into the poset nodes
+(S : SetCategory).
+)endif
+

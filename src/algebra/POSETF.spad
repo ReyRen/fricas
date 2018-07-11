@@ -1,0 +1,335 @@
+)abbrev package POSETF PosetFactory
+++ Author: Martin Baker
+++ Date Created: Aug 2015
+++ Description:
+++  Provides functions to construct various small posets
+++  including powerset.
+++  Perhaps it should be called a 'powerlist' but since we do
+++  not expect duplicates or reqire specific ordering it is
+++  essentially the same.
+PI ==> PositiveInteger
+NNI ==> NonNegativeInteger
+
+PosetFactory(S : SetCategory) : with
+  powerset : (List S) -> FiniteBiCPO(List(S))
+    ++ generate a poset representing all possible subsets of a
+    ++ given set with their subset relationships.
+  completelyOrderedSet : (objs : List(S)) -> FiniteBiCPO(S)
+    ++ generates a completely ordered set
+  posetN5 : (objs : List(S)) -> FiniteBiCPO(S)
+    ++ generates a poset corresponding to an N5 lattice
+  posetM5 : (objs : List(S)) -> FiniteBiCPO(S)
+    ++ generates a poset corresponding to an M5 lattice
+  posetO6 : (objs : List(S)) -> FiniteBiCPO(S)
+    ++ generates a poset corresponding to an O6 lattice
+  posetP6 : (objs : List(S)) -> FiniteBiCPO(S)
+    ++ generates a poset corresponding to an P6 lattice
+  posetL7 : (objs : List(S)) -> FiniteBiCPO(S)
+    ++ generates a poset corresponding to an L7 lattice
+
+ == add
+
+  -- local function used by powerset
+  addDimensionToObjects(a : List(List(S)), newObj : S) : List(List(S)) ==
+      b : List(List(S)) := []
+      for x in a repeat
+          x1 : List(S) := concat(x, newObj)
+          b := concat(b, x1)
+      concat(a, b)
+
+  -- local function used by powerset
+  addDimensionToArrows(a : List(List(Boolean))) : List(List(Boolean)) ==
+      res : List(List(Boolean)) := [empty()$List(Boolean)]
+      fst : Boolean := true
+      for xrepeat in 1..2 repeat
+          for x in a repeat
+              thisRow : List(Boolean) := empty()$List(Boolean)
+              for yrepeat in 1..2 repeat
+                  for y in x repeat
+                      topRight : Boolean := (xrepeat = 1) and (yrepeat = 2)
+                      thisRow := concat(thisRow, if topRight then false else y)
+              if fst then
+                  res := [copy(thisRow)]
+                  fst := false
+              else
+                  res := concat(res, copy(thisRow))$List(List(Boolean))
+      res
+
+  -- generate a poset representing all possible subsets of a
+  -- given set with their subset relationships.
+  powerset(objs : List S) : FiniteBiCPO(List(S)) ==
+      eles : List(List(S)) := [[]]
+      arrows : List(List(Boolean)) := [[true]]
+      for x in objs repeat
+          eles := addDimensionToObjects(eles, x)
+          arrows := addDimensionToArrows(arrows)
+      finitePoset(eles, arrows)$FiniteBiCPO(List(S))
+
+  -- generates a completely ordered set
+  completelyOrderedSet(objs : List(S)) : FiniteBiCPO(S) ==
+      dim : NNI := #objs
+      arrows : List(List(Boolean)) := [[]]
+      for x in 1..dim repeat
+          row : List Boolean := []
+          for y in 1..dim repeat
+              g : Boolean := if x >= y then true else false
+              row := concat(row, g)
+          arrows := concat(arrows, row)
+      finitePoset(objs, arrows)$FiniteBiCPO(S)
+
+  -- generates a poset corresponding to an N5 lattice
+  posetN5(objs : List(S)) : FiniteBiCPO(S) ==
+      finitePoset(objs, [[true, true, true, true, true],
+      [false, true, false, false, true],
+      [false, false, true, true, true],
+      [false, false, false, true, true],
+      [false, false, false, false, true]
+      ])$FiniteBiCPO(S)
+
+  -- generates a poset corresponding to an M5 lattice
+  posetM5(objs : List(S)) : FiniteBiCPO(S) ==
+      finitePoset(objs, [[true, true, true, true, true],
+      [false, true, false, false, true],
+      [false, false, true, false, true],
+      [false, false, false, true, true],
+      [false, false, false, false, true]
+      ])$FiniteBiCPO(S)
+
+  -- generates a poset corresponding to an O6 lattice
+  posetO6(objs : List(S)) : FiniteBiCPO(S) ==
+      finitePoset(objs, [[true, true, true, true, true, true],
+      [false, true, true, false, false, true],
+      [false, false, true, false, false, true],
+      [false, false, false, true, true, true],
+      [false, false, false, false, true, true],
+      [false, false, false, false, false, true]
+      ])$FiniteBiCPO(S)
+
+  -- generates a poset corresponding to an P6 lattice
+  posetP6(objs : List(S)) : FiniteBiCPO(S) ==
+      finitePoset(objs, [[true, true, true, true, true, true],
+      [false, true, true, false, true, true],
+      [false, false, true, false, false, true],
+      [false, false, true, true, true, true],
+      [false, false, false, false, true, true],
+      [false, false, false, false, false, true]
+      ])$FiniteBiCPO(S)
+
+  -- generates a poset corresponding to an L7 lattice
+  posetL7(objs : List(S)) : FiniteBiCPO(S) ==
+      finitePoset(objs, [[true, true, true, true, true, true, true],
+      [false, true, false, true, true, false, true],
+      [false, false, true, false, true, true, true],
+      [false, false, false, true, false, false, true],
+      [false, false, false, false, true, false, true],
+      [false, false, false, false, false, true, true],
+      [false, false, false, false, false, false, true]
+      ])$FiniteBiCPO(S)
+
+)if false
+\section{Infinite (unbounded) Littices}
+\subsection{Intuitionistic Logic}
+The intuitionisticLogic domain implements a Heyting algebra implied
+by intuitionistic logic similar to boolean algebra.
+
+Intuitionistic or constructive logic is similar to classical logic
+but where the law of excluded middle is not used.
+
+The implementation starts with a 'free logic algebra' that is an
+algebra where each combination of inputs to /\ , \/ and - generates
+a new element. So an expression like T /\ T is just T /\ T and does
+not simplify.
+
+Then by adding "simplification rules" (should I have called them
+relators?) then other logic algebras can be implemented (intuitional,
+ternary, many-valued, boolean) just by adding the "rules".
+
+These "rules" are hardcoded into the /\ , \/ and - implementations
+(rather than implementing a true rule based system).
+
+Simplification rules :
+
+      ~T -> _|_
+      ~(~T) -> T
+      ~x /\ x -> _|_
+      x /\ ~x -> _|_
+      x /\ x -> x
+      _|_ /\ x -> _|_
+      x /\ _|_ -> _|_
+      T \/ x -> T
+      x \/ T -> T
+      x \/ x -> x
+      x /\ T -> x
+      T /\ x -> x
+      x \/ _|_ -> x
+      _|_ \/ x -> x
+
+where:
+
+      T = true
+      _|_ = false
+      x = arbitrary proposition
+
+An option to generalise this code might be to implement the 'free
+logic algebra' as a category, then intuitional, ternary, many-valued,
+boolean could be domains which overload /\ , \/ and - with their own
+sets of rules.
+
+Note : Please be aware that changes may be made in the future to improve
+          and correct intuitionistic logic domain, such as:
+\begin{itemize}
+\item investigate change of meaning of $=$ for intuitionistic logic to
+       represent equivalence rather than equality.
+\item implement more complete algorithm to decide if two (quantifier-free)
+       intuitionistic formulas are equivalent.
+\end{itemize}
+\section{Intuitionistic Logic Tutorial}
+Intuitionistic logic has many possible values : true $T$, false $_|_$ and
+infinitely many other values generated by constructs such as inverse.
+These can be constructed as follows:
+
+\begin{verbatim}
+(1) -> logicF()
+
+   (1)  _|_
+                                                                Type : ILogic
+(2) -> logicT()
+
+   (2)  T
+                                                                Type : ILogic
+(3) -> ~logicT()
+
+   (3)  _|_
+                                                                Type : ILogic
+\end{verbatim}
+
+This logic has different rules from boolean algebra and all constructions
+do not reduce to true or false. To test out our constructs we will use
+the following list:
+
+\begin{verbatim}
+(4) -> l : List ILogic := [logicF(), logicT(), proposition("a"), ~proposition("a"), proposition("b"), ~proposition("b")]
+
+   (4)  [_|_, T, a, ~(a), b, ~(b)]
+                                                          Type : List(ILogic)
+\end{verbatim}
+
+First we will try 'not':
+\begin{verbatim}
+(5) -> [(~j)::OutputForm for j in l]
+
+   (5)  [~(_|_), _|_, ~(a), ~(~(a)), ~(b), ~(~(b))]
+                                                      Type : List(OutputForm)
+\end{verbatim}
+
+We can print a truth table for 'and' and 'or'. This is the same as
+boolean logic for true/false values and extended for the unproven case.
+\begin{verbatim}
+(6) -> matrix[ [(k /\ j)::OutputForm for j in l] for k in l]
+
+     (6)
+      SUB
+          matrix,
+          [_|_, _|_, _|_, _|_, _|_, _|_],
+          [_|_, T, a, ~(a), b, ~(b)],
+          [_|_, a, a, _|_, (a/\b), (a/\~(b))],
+          [_|_, ~(a), _|_, ~(a), (~(a)/\b), (~(a)/\~(b))],
+          [_|_, b, (b/\a), (b/\~(a)), b, _|_],
+          [_|_, ~(b), (~(b)/\a), (~(b)/\~(a)), _|_, ~(b)]
+                                                                Type : Symbol
+
+Note : Its hard to read this table in text, it displays better as
+html on this page:
+http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/intuitionistic/index.htm
+
+(7) -> matrix[ [(k \/ j)::OutputForm for j in l] for k in l]
+
+     (7)
+    SUB
+        matrix,
+        [_|_, T, a, ~(a), b, ~(b)], [T, T, T, T, T, T],
+        [a, T, a, (a\/~(a)), (a\/b), (a\/~(b))],
+        [~(a), T, (~(a)\/a), ~(a), (~(a)\/b), (~(a)\/~(b))],
+        [b, T, (b\/a), (b\/~(a)), b, (b\/~(b))],
+        [~(b), T, (~(b)\/a), (~(b)\/~(a)), (~(b)\/b), ~(b)]
+                                                                Type : Symbol
+\end{verbatim}
+
+'implies' produces the following truth table.
+\begin{verbatim}
+(8) -> matrix[ [implies(k, j)::OutputForm for j in l] for k in l]
+
+   (8)
+    SUB
+        matrix,
+        [T, T, (_|_->a), (_|_->~(a)), (_|_->b), (_|_->~(b))],
+        [_|_, T, (T->a), (T->~(a)), (T->b), (T->~(b))],
+        [(a->_|_), (a->T), (a->a), (a->~(a)), (a->b), (a->~(b))],
+        [(~(a)->_|_), (~(a)->T), (~(a)->a), (~(a)->~(a)), (~(a)->b), (~(a)->~(b))],
+        [(b->_|_), (b->T), (b->a), (b->~(a)), (b->b), (b->~(b))],
+        [(~(b)->_|_), (~(b)->T), (~(b)->a), (~(b)->~(a)), (~(b)->b), (~(b)->~(b))]
+                                                                Type : Symbol
+\end{verbatim}
+
+Now that we can do intuitionistic logic with constant values we can
+go on to represent theories. We can enter a symbolic value as follows:
+\begin{verbatim}
+(9) -> proposition("p1")
+
+   (9)  p1
+                                                                Type : ILogic
+\end{verbatim}
+
+When applying a symbolic value, then it may not possible to compress
+as a single node, so the result remains as a tree. So (13) can be
+reduced to a single value $_|_$, because the result does not depend
+on \verb'a', however in (12) we cannot reduce to a single value.
+\begin{verbatim}
+(10) -> proposition("a") /\ proposition("b")
+
+   (10)  (a/\b)
+                                                                Type : ILogic
+(11) -> implies(proposition("a"), proposition("b"))
+
+   (11)  (a->b)
+                                                                Type : ILogic
+(12) -> proposition("a") /\ logicT()
+
+   (12)  a
+                                                                Type : ILogic
+(13) -> proposition("a") /\ logicF()
+
+   (13)  _|_
+                                                                Type : ILogic
+\end{verbatim}
+\section{applying modus ponens}
+modus ponens tells us that given : 'a' and 'a->b' then we can imply 'b'.
+So we first assert 'a' and 'a->b' as follows:
+\begin{verbatim}
+(14) -> givens := proposition("a") /\ implies(proposition("a"), proposition("b"))
+
+   (14)  (a/\(a->b))
+                                                                Type : ILogic
+\end{verbatim}
+We then factor into separate terms:
+\begin{verbatim}
+(15) -> fgivens := factor(givens)
+
+   (15)  [a, (a->b)]
+                                                          Type : List(ILogic)
+\end{verbatim}
+note : List ILOGIC to OutputForm is fixed in latest FriCAS so it will
+now display : [a, a->b]
+
+We now apply the deductions function to this list.
+\begin{verbatim}
+(16) -> deduct := deductions(fgivens)
+
+   (16)  [b]
+                                                          Type : List(ILogic)
+\end{verbatim}
+so we get the required deduction 'b'
+
+\section{domain ILOGIC ILogic}
+)endif
+

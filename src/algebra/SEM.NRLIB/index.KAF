@@ -1,0 +1,420 @@
+21100               (|SparseEchelonMatrix| C D)
+|domain|
+(((|SparseEchelonMatrix| |#1| |#2|)
+  (|Join| (|CoercibleTo| (|OutputForm|))
+          (CATEGORY |domain| (ATTRIBUTE (|shallowlyMutable|))
+           (ATTRIBUTE (|finiteAggregate|))
+           (SIGNATURE |coerce| ((|Matrix| |#2|) $)) (SIGNATURE |copy| ($ $))
+           (SIGNATURE |ncols| ((|NonNegativeInteger|) $))
+           (SIGNATURE |nrows| ((|NonNegativeInteger|) $))
+           (SIGNATURE |allIndices| ((|List| |#1|) $))
+           (SIGNATURE |elimZeroCols!| ((|Void|) $))
+           (SIGNATURE |purge!| ((|Void|) $ (|Mapping| (|Boolean|) |#1|)))
+           (SIGNATURE |sortedPurge!| ((|Void|) $ (|Mapping| (|Boolean|) |#1|)))
+           (SIGNATURE |new| ($ (|List| |#1|) (|Integer|)))
+           (SIGNATURE |elt| (|#2| $ (|Integer|) |#1|))
+           (SIGNATURE |setelt!| ((|Void|) $ (|Integer|) |#1| |#2|))
+           (SIGNATURE |row|
+            ((|Record| (|:| |Indices| (|List| |#1|))
+                       (|:| |Entries| (|List| |#2|)))
+             $ (|Integer|)))
+           (SIGNATURE |setRow!|
+            ((|Void|) $ (|Integer|)
+             (|Record| (|:| |Indices| (|List| |#1|))
+                       (|:| |Entries| (|List| |#2|)))))
+           (SIGNATURE |setRow!|
+            ((|Void|) $ (|Integer|) (|List| |#1|) (|List| |#2|)))
+           (SIGNATURE |deleteRow!| ((|Void|) $ (|Integer|)))
+           (SIGNATURE |consRow!|
+            ((|Void|) $
+             (|Record| (|:| |Indices| (|List| |#1|))
+                       (|:| |Entries| (|List| |#2|)))))
+           (SIGNATURE |appendRow!|
+            ((|Void|) $
+             (|Record| (|:| |Indices| (|List| |#1|))
+                       (|:| |Entries| (|List| |#2|)))))
+           (SIGNATURE |extract| ($ $ (|Integer|) (|Integer|)))
+           (SIGNATURE |rowEchelon|
+            ((|Record| (|:| |Ech| $) (|:| |Lt| (|Matrix| |#2|))
+                       (|:| |Pivots| (|List| |#2|))
+                       (|:| |Rank| (|NonNegativeInteger|)))
+             $))
+           (IF (|has| |#2| (|GcdDomain|))
+               (PROGN
+                (SIGNATURE |setGcdMode| ((|Symbol|) (|Symbol|)))
+                (SIGNATURE |primitiveRowEchelon|
+                 ((|Record| (|:| |Ech| $)
+                            (|:| |Lt| (|Matrix| (|Fraction| |#2|)))
+                            (|:| |Pivots| (|List| |#2|))
+                            (|:| |Rank| (|NonNegativeInteger|)))
+                  $)))
+               |noBranch|)
+           (SIGNATURE |pivot|
+            ((|Record| (|:| |Index| |#1|) (|:| |Entry| |#2|)) $ (|Integer|)))
+           (SIGNATURE |pivots|
+            ((|Record| (|:| |Indices| (|List| |#1|))
+                       (|:| |Entries| (|List| |#2|)))
+             $))
+           (SIGNATURE * ($ (|Matrix| |#2|) $))
+           (IF (|has| |#2| (|IntegralDomain|))
+               (SIGNATURE * ($ (|Matrix| (|Fraction| |#2|)) $))
+               |noBranch|)
+           (SIGNATURE |join| ($ $ $)) (SIGNATURE |horizJoin| ($ $ $))
+           (SIGNATURE |horizSplit|
+            ((|Record| (|:| |Left| $) (|:| |Right| $)) $ |#1|))))
+  (|OrderedSet|) (|Ring|))
+ (T |SparseEchelonMatrix|))
+(|Join| (|CoercibleTo| (|OutputForm|))
+        (CATEGORY |domain| (ATTRIBUTE (|shallowlyMutable|))
+         (ATTRIBUTE (|finiteAggregate|))
+         (SIGNATURE |coerce| ((|Matrix| |#2|) $)) (SIGNATURE |copy| ($ $))
+         (SIGNATURE |ncols| ((|NonNegativeInteger|) $))
+         (SIGNATURE |nrows| ((|NonNegativeInteger|) $))
+         (SIGNATURE |allIndices| ((|List| |#1|) $))
+         (SIGNATURE |elimZeroCols!| ((|Void|) $))
+         (SIGNATURE |purge!| ((|Void|) $ (|Mapping| (|Boolean|) |#1|)))
+         (SIGNATURE |sortedPurge!| ((|Void|) $ (|Mapping| (|Boolean|) |#1|)))
+         (SIGNATURE |new| ($ (|List| |#1|) (|Integer|)))
+         (SIGNATURE |elt| (|#2| $ (|Integer|) |#1|))
+         (SIGNATURE |setelt!| ((|Void|) $ (|Integer|) |#1| |#2|))
+         (SIGNATURE |row|
+          ((|Record| (|:| |Indices| (|List| |#1|))
+                     (|:| |Entries| (|List| |#2|)))
+           $ (|Integer|)))
+         (SIGNATURE |setRow!|
+          ((|Void|) $ (|Integer|)
+           (|Record| (|:| |Indices| (|List| |#1|))
+                     (|:| |Entries| (|List| |#2|)))))
+         (SIGNATURE |setRow!|
+          ((|Void|) $ (|Integer|) (|List| |#1|) (|List| |#2|)))
+         (SIGNATURE |deleteRow!| ((|Void|) $ (|Integer|)))
+         (SIGNATURE |consRow!|
+          ((|Void|) $
+           (|Record| (|:| |Indices| (|List| |#1|))
+                     (|:| |Entries| (|List| |#2|)))))
+         (SIGNATURE |appendRow!|
+          ((|Void|) $
+           (|Record| (|:| |Indices| (|List| |#1|))
+                     (|:| |Entries| (|List| |#2|)))))
+         (SIGNATURE |extract| ($ $ (|Integer|) (|Integer|)))
+         (SIGNATURE |rowEchelon|
+          ((|Record| (|:| |Ech| $) (|:| |Lt| (|Matrix| |#2|))
+                     (|:| |Pivots| (|List| |#2|))
+                     (|:| |Rank| (|NonNegativeInteger|)))
+           $))
+         (IF (|has| |#2| (|GcdDomain|))
+             (PROGN
+              (SIGNATURE |setGcdMode| ((|Symbol|) (|Symbol|)))
+              (SIGNATURE |primitiveRowEchelon|
+               ((|Record| (|:| |Ech| $) (|:| |Lt| (|Matrix| (|Fraction| |#2|)))
+                          (|:| |Pivots| (|List| |#2|))
+                          (|:| |Rank| (|NonNegativeInteger|)))
+                $)))
+             |noBranch|)
+         (SIGNATURE |pivot|
+          ((|Record| (|:| |Index| |#1|) (|:| |Entry| |#2|)) $ (|Integer|)))
+         (SIGNATURE |pivots|
+          ((|Record| (|:| |Indices| (|List| |#1|))
+                     (|:| |Entries| (|List| |#2|)))
+           $))
+         (SIGNATURE * ($ (|Matrix| |#2|) $))
+         (IF (|has| |#2| (|IntegralDomain|))
+             (SIGNATURE * ($ (|Matrix| (|Fraction| |#2|)) $))
+             |noBranch|)
+         (SIGNATURE |join| ($ $ $)) (SIGNATURE |horizJoin| ($ $ $))
+         (SIGNATURE |horizSplit|
+          ((|Record| (|:| |Left| $) (|:| |Right| $)) $ |#1|))))
+"/git/fricas/src/algebra/SEM.spad"
+((|coerce| (*1 *2 *1)
+           (AND (|isDomain| *2 (|Matrix| *4))
+                (|isDomain| *1 (|SparseEchelonMatrix| *3 *4))
+                (|ofCategory| *3 (|OrderedSet|)) (|ofCategory| *4 (|Ring|))))
+ (|copy| (*1 *1 *1)
+  (AND (|isDomain| *1 (|SparseEchelonMatrix| *2 *3))
+       (|ofCategory| *2 (|OrderedSet|)) (|ofCategory| *3 (|Ring|))))
+ (|ncols| (*1 *2 *1)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|SparseEchelonMatrix| *3 *4))
+       (|ofCategory| *3 (|OrderedSet|)) (|ofCategory| *4 (|Ring|))))
+ (|nrows| (*1 *2 *1)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|SparseEchelonMatrix| *3 *4))
+       (|ofCategory| *3 (|OrderedSet|)) (|ofCategory| *4 (|Ring|))))
+ (|allIndices| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| *3))
+       (|isDomain| *1 (|SparseEchelonMatrix| *3 *4))
+       (|ofCategory| *3 (|OrderedSet|)) (|ofCategory| *4 (|Ring|))))
+ (|elimZeroCols!| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Void|)) (|isDomain| *1 (|SparseEchelonMatrix| *3 *4))
+       (|ofCategory| *3 (|OrderedSet|)) (|ofCategory| *4 (|Ring|))))
+ (|purge!| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|Mapping| (|Boolean|) *4))
+       (|ofCategory| *4 (|OrderedSet|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|SparseEchelonMatrix| *4 *5))
+       (|ofCategory| *5 (|Ring|))))
+ (|sortedPurge!| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|Mapping| (|Boolean|) *4))
+       (|ofCategory| *4 (|OrderedSet|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|SparseEchelonMatrix| *4 *5))
+       (|ofCategory| *5 (|Ring|))))
+ (|new| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|List| *4)) (|isDomain| *3 (|Integer|))
+       (|ofCategory| *4 (|OrderedSet|))
+       (|isDomain| *1 (|SparseEchelonMatrix| *4 *5))
+       (|ofCategory| *5 (|Ring|))))
+ (|elt| (*1 *2 *1 *3 *4)
+  (AND (|isDomain| *3 (|Integer|)) (|ofCategory| *2 (|Ring|))
+       (|isDomain| *1 (|SparseEchelonMatrix| *4 *2))
+       (|ofCategory| *4 (|OrderedSet|))))
+ (|setelt!| (*1 *2 *1 *3 *4 *5)
+  (AND (|isDomain| *3 (|Integer|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|SparseEchelonMatrix| *4 *5))
+       (|ofCategory| *4 (|OrderedSet|)) (|ofCategory| *5 (|Ring|))))
+ (|row| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2
+                   (|Record| (|:| |Indices| (|List| *4))
+                             (|:| |Entries| (|List| *5))))
+       (|isDomain| *1 (|SparseEchelonMatrix| *4 *5))
+       (|ofCategory| *4 (|OrderedSet|)) (|ofCategory| *5 (|Ring|))))
+ (|setRow!| (*1 *2 *1 *3 *4)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *4
+                   (|Record| (|:| |Indices| (|List| *5))
+                             (|:| |Entries| (|List| *6))))
+       (|ofCategory| *5 (|OrderedSet|)) (|ofCategory| *6 (|Ring|))
+       (|isDomain| *2 (|Void|)) (|isDomain| *1 (|SparseEchelonMatrix| *5 *6))))
+ (|setRow!| (*1 *2 *1 *3 *4 *5)
+  (AND (|isDomain| *3 (|Integer|)) (|isDomain| *4 (|List| *6))
+       (|isDomain| *5 (|List| *7)) (|ofCategory| *6 (|OrderedSet|))
+       (|ofCategory| *7 (|Ring|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|SparseEchelonMatrix| *6 *7))))
+ (|deleteRow!| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|Integer|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|SparseEchelonMatrix| *4 *5))
+       (|ofCategory| *4 (|OrderedSet|)) (|ofCategory| *5 (|Ring|))))
+ (|consRow!| (*1 *2 *1 *3)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |Indices| (|List| *4))
+                         (|:| |Entries| (|List| *5))))
+   (|ofCategory| *4 (|OrderedSet|)) (|ofCategory| *5 (|Ring|))
+   (|isDomain| *2 (|Void|)) (|isDomain| *1 (|SparseEchelonMatrix| *4 *5))))
+ (|appendRow!| (*1 *2 *1 *3)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |Indices| (|List| *4))
+                         (|:| |Entries| (|List| *5))))
+   (|ofCategory| *4 (|OrderedSet|)) (|ofCategory| *5 (|Ring|))
+   (|isDomain| *2 (|Void|)) (|isDomain| *1 (|SparseEchelonMatrix| *4 *5))))
+ (|extract| (*1 *1 *1 *2 *2)
+  (AND (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|SparseEchelonMatrix| *3 *4))
+       (|ofCategory| *3 (|OrderedSet|)) (|ofCategory| *4 (|Ring|))))
+ (|rowEchelon| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |Ech| (|SparseEchelonMatrix| *3 *4))
+                         (|:| |Lt| (|Matrix| *4)) (|:| |Pivots| (|List| *4))
+                         (|:| |Rank| (|NonNegativeInteger|))))
+   (|isDomain| *1 (|SparseEchelonMatrix| *3 *4))
+   (|ofCategory| *3 (|OrderedSet|)) (|ofCategory| *4 (|Ring|))))
+ (|setGcdMode| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Symbol|)) (|isDomain| *1 (|SparseEchelonMatrix| *3 *4))
+       (|ofCategory| *4 (|GcdDomain|)) (|ofCategory| *3 (|OrderedSet|))
+       (|ofCategory| *4 (|Ring|))))
+ (|primitiveRowEchelon| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |Ech| (|SparseEchelonMatrix| *3 *4))
+                         (|:| |Lt| (|Matrix| (|Fraction| *4)))
+                         (|:| |Pivots| (|List| *4))
+                         (|:| |Rank| (|NonNegativeInteger|))))
+   (|isDomain| *1 (|SparseEchelonMatrix| *3 *4))
+   (|ofCategory| *4 (|GcdDomain|)) (|ofCategory| *3 (|OrderedSet|))
+   (|ofCategory| *4 (|Ring|))))
+ (|pivot| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|Record| (|:| |Index| *4) (|:| |Entry| *5)))
+       (|isDomain| *1 (|SparseEchelonMatrix| *4 *5))
+       (|ofCategory| *4 (|OrderedSet|)) (|ofCategory| *5 (|Ring|))))
+ (|pivots| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |Indices| (|List| *3))
+                         (|:| |Entries| (|List| *4))))
+   (|isDomain| *1 (|SparseEchelonMatrix| *3 *4))
+   (|ofCategory| *3 (|OrderedSet|)) (|ofCategory| *4 (|Ring|))))
+ (* (*1 *1 *2 *1)
+    (AND (|isDomain| *2 (|Matrix| *4)) (|ofCategory| *4 (|Ring|))
+         (|isDomain| *1 (|SparseEchelonMatrix| *3 *4))
+         (|ofCategory| *3 (|OrderedSet|))))
+ (* (*1 *1 *2 *1)
+    (AND (|isDomain| *2 (|Matrix| (|Fraction| *4)))
+         (|ofCategory| *4 (|IntegralDomain|)) (|ofCategory| *4 (|Ring|))
+         (|isDomain| *1 (|SparseEchelonMatrix| *3 *4))
+         (|ofCategory| *3 (|OrderedSet|))))
+ (|join| (*1 *1 *1 *1)
+  (AND (|isDomain| *1 (|SparseEchelonMatrix| *2 *3))
+       (|ofCategory| *2 (|OrderedSet|)) (|ofCategory| *3 (|Ring|))))
+ (|horizJoin| (*1 *1 *1 *1)
+  (AND (|isDomain| *1 (|SparseEchelonMatrix| *2 *3))
+       (|ofCategory| *2 (|OrderedSet|)) (|ofCategory| *3 (|Ring|))))
+ (|horizSplit| (*1 *2 *1 *3)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |Left| (|SparseEchelonMatrix| *3 *4))
+                         (|:| |Right| (|SparseEchelonMatrix| *3 *4))))
+   (|isDomain| *1 (|SparseEchelonMatrix| *3 *4))
+   (|ofCategory| *3 (|OrderedSet|)) (|ofCategory| *4 (|Ring|)))))
+((|sortedPurge!| (((|Void|) $ (|Mapping| (|Boolean|) |#1|)) 62))
+ (|setelt!| (((|Void|) $ (|Integer|) |#1| |#2|) 42))
+ (|setRow!|
+  (((|Void|) $ (|Integer|)
+    (|Record| (|:| |Indices| (|List| |#1|)) (|:| |Entries| (|List| |#2|))))
+   31)
+  (((|Void|) $ (|Integer|) (|List| |#1|) (|List| |#2|)) 33))
+ (|setGcdMode| (((|Symbol|) (|Symbol|)) 99 (|has| |#2| (|GcdDomain|))))
+ (|rowEchelon|
+  (((|Record| (|:| |Ech| $) (|:| |Lt| (|Matrix| |#2|))
+              (|:| |Pivots| (|List| |#2|)) (|:| |Rank| (|NonNegativeInteger|)))
+    $)
+   97))
+ (|row|
+  (((|Record| (|:| |Indices| (|List| |#1|)) (|:| |Entries| (|List| |#2|))) $
+    (|Integer|))
+   28))
+ (|purge!| (((|Void|) $ (|Mapping| (|Boolean|) |#1|)) 61))
+ (|primitiveRowEchelon|
+  (((|Record| (|:| |Ech| $) (|:| |Lt| (|Matrix| (|Fraction| |#2|)))
+              (|:| |Pivots| (|List| |#2|)) (|:| |Rank| (|NonNegativeInteger|)))
+    $)
+   117 (|has| |#2| (|GcdDomain|))))
+ (|pivots|
+  (((|Record| (|:| |Indices| (|List| |#1|)) (|:| |Entries| (|List| |#2|))) $)
+   88))
+ (|pivot|
+  (((|Record| (|:| |Index| |#1|) (|:| |Entry| |#2|)) $ (|Integer|)) 87))
+ (|nrows| (((|NonNegativeInteger|) $) 23))
+ (|new| (($ (|List| |#1|) (|Integer|)) 34))
+ (|ncols| (((|NonNegativeInteger|) $) 22)) (|join| (($ $ $) 73))
+ (|horizSplit| (((|Record| (|:| |Left| $) (|:| |Right| $)) $ |#1|) 79))
+ (|horizJoin| (($ $ $) 76)) (|extract| (($ $ (|Integer|) (|Integer|)) 72))
+ (|elt| ((|#2| $ (|Integer|) |#1|) 38)) (|elimZeroCols!| (((|Void|) $) 58))
+ (|deleteRow!| (((|Void|) $ (|Integer|)) 64)) (|copy| (($ $) 54))
+ (|consRow!|
+  (((|Void|) $
+    (|Record| (|:| |Indices| (|List| |#1|)) (|:| |Entries| (|List| |#2|))))
+   69))
+ (|coerce| (((|OutputForm|) $) 52) (((|Matrix| |#2|) $) 48))
+ (|appendRow!|
+  (((|Void|) $
+    (|Record| (|:| |Indices| (|List| |#1|)) (|:| |Entries| (|List| |#2|))))
+   71))
+ (|allIndices| (((|List| |#1|) $) 26))
+ (* (($ (|Matrix| |#2|) $) 118)
+    (($ (|Matrix| (|Fraction| |#2|)) $) 126 (|has| |#2| (|IntegralDomain|)))))
+((|HasCategory| |#2| '(|GcdDomain|)) (|HasCategory| |#2| '(|IntegralDomain|)))
+SEM
+(((|CoercibleTo| (|OutputForm|)) . T) ((|shallowlyMutable|) . T)
+ ((|finiteAggregate|) . T))
+(((|CoercibleTo| (|OutputForm|)) . T) ((|finiteAggregate|) . T)
+ ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "\\spad{SparseEchelonMatrix(C,{} D)} implements sparse matrices whose columns are enumerated by the \\spadtype{OrderedSet} \\spad{C} and whose entries belong to the \\spadtype{GcdDomain} \\spad{D}. The basic operation of this domain is the computation of an row echelon form. The used algorithm tries to maintain the sparsity and is especially adapted to matrices who are already close to a row echelon form."))
+ (|horizSplit|
+  (((|Record| (|:| |Left| $) (|:| |Right| $)) $ |#1|)
+   "\\spad{horizSplit(A,{} c)} splits the matrix \\spad{A} into two at the column given by \\spad{c}. The first column of the right matrix is enumerated by the first index less or equal to \\spad{c}."))
+ (|horizJoin|
+  (($ $ $)
+   "\\spad{horizJoin(A,{} B)} horizontally concats the matrices \\spad{A} and \\spad{B}. It is assumed that all indices of \\spad{B} are smaller than those of \\spad{A}."))
+ (|join|
+  (($ $ $)
+   "\\spad{join(A,{} B)} vertically concats the matrices \\spad{A} and \\spad{B}."))
+ (*
+  (($ (|Matrix| (|Fraction| |#2|)) $)
+   "\\spad{L*A} implements left multiplication with a usual matrix over the quotient field of \\spad{D}.")
+  (($ (|Matrix| |#2|) $)
+   "\\spad{L*A} implements left multiplication with a usual matrix."))
+ (|pivots|
+  (((|Record| (|:| |Indices| (|List| |#1|)) (|:| |Entries| (|List| |#2|))) $)
+   "\\spad{pivots(A)} returns all leading entries of the matrix \\spad{A} together with their indices."))
+ (|pivot|
+  (((|Record| (|:| |Index| |#1|) (|:| |Entry| |#2|)) $ (|Integer|))
+   "\\spad{pivot(A,{} i)} returns the leading entry of the \\spad{i}\\spad{-}th row of the matrix \\spad{A} together with its index."))
+ (|primitiveRowEchelon|
+  (((|Record| (|:| |Ech| $) (|:| |Lt| (|Matrix| (|Fraction| |#2|)))
+              (|:| |Pivots| (|List| |#2|)) (|:| |Rank| (|NonNegativeInteger|)))
+    $)
+   "\\spad{primitiveRowEchelon(A)} computes a row echelon form for the matrix \\spad{A}. The algorithm used is fraction-free elimination. Every row is made primitive by division by the \\spad{gcd}. The algorithm is especially adapted to matrices already close to row echelon form. The transformation matrix,{} the used pivots and the rank of the matrix are also returned."))
+ (|setGcdMode|
+  (((|Symbol|) (|Symbol|))
+   "\\spad{setGcdMode(s)} sets a new value for the flag deciding on the method used to compute gcd`s for lists. Possible values for \\spad{s} are \\spad{iterated} and \\spad{random}."))
+ (|rowEchelon|
+  (((|Record| (|:| |Ech| $) (|:| |Lt| (|Matrix| |#2|))
+              (|:| |Pivots| (|List| |#2|)) (|:| |Rank| (|NonNegativeInteger|)))
+    $)
+   "\\spad{primitiveRowEchelon(A)} computes a row echelon form for the matrix \\spad{A}. The algorithm used is fraction-free elimination. It is especially adapted to matrices already close to row echelon form. The transformation matrix,{} the used pivots and the rank of the matrix are also returned."))
+ (|extract|
+  (($ $ (|Integer|) (|Integer|))
+   "\\spad{extract(A,{} i1,{} i2)} extracts the rows \\spad{i1} to \\spad{i2} and returns them as a new matrix."))
+ (|appendRow!|
+  (((|Void|) $
+    (|Record| (|:| |Indices| (|List| |#1|)) (|:| |Entries| (|List| |#2|))))
+   "\\spad{appendRow!(A,{} r)} appends the row \\spad{r} at the end of the matrix \\spad{A}."))
+ (|consRow!|
+  (((|Void|) $
+    (|Record| (|:| |Indices| (|List| |#1|)) (|:| |Entries| (|List| |#2|))))
+   "\\spad{consRow!(A,{} r)} inserts the row \\spad{r} at the top of the matrix \\spad{A}."))
+ (|deleteRow!|
+  (((|Void|) $ (|Integer|))
+   "\\spad{deleteRow(A,{} i)} deletes the \\spad{i}\\spad{-}th row of the matrix \\spad{A}."))
+ (|setRow!|
+  (((|Void|) $ (|Integer|) (|List| |#1|) (|List| |#2|))
+   "\\spad{setRow!(A,{} i,{} ind,{} ent)} sets the \\spad{i}\\spad{-}th row of the matrix \\spad{A}. Its indices are \\spad{ind}; the entries \\spad{ent}.")
+  (((|Void|) $ (|Integer|)
+    (|Record| (|:| |Indices| (|List| |#1|)) (|:| |Entries| (|List| |#2|))))
+   "\\spad{setRow!(A,{} i,{} ind,{} ent)} sets the \\spad{i}\\spad{-}th row of the matrix \\spad{A} to the value \\spad{r}."))
+ (|row|
+  (((|Record| (|:| |Indices| (|List| |#1|)) (|:| |Entries| (|List| |#2|))) $
+    (|Integer|))
+   "\\spad{row(A,{} i)} returns the \\spad{i}\\spad{-}th row of the matrix \\spad{A}."))
+ (|setelt!|
+  (((|Void|) $ (|Integer|) |#1| |#2|)
+   "\\spad{setelt!(A,{} i,{} c,{} d)} sets the entry of the matrix \\spad{A} in row \\spad{i} and in the column with index \\spad{c} to the value \\spad{d}."))
+ (|elt|
+  ((|#2| $ (|Integer|) |#1|)
+   "\\spad{elt(A,{} i,{} c)} returns the entry of the matrix \\spad{A} in row \\spad{i} and in the column with index \\spad{c}."))
+ (|new|
+  (($ (|List| |#1|) (|Integer|))
+   "\\spad{new(inds,{} nrows)} generates a new matrix with \\spad{nrows} rows and columns enumerated by the indices \\spad{inds}. The matrix is empty,{} \\spadignore{i.e.} the zero matrix."))
+ (|sortedPurge!|
+  (((|Void|) $ (|Mapping| (|Boolean|) |#1|))
+   "\\spad{sortedPurge!(A,{} crit)} is like \\spad{purge},{} however,{} with the additional assumption that \\spad{crit} respects the ordering of the indices."))
+ (|purge!|
+  (((|Void|) $ (|Mapping| (|Boolean|) |#1|))
+   "\\spad{purge!(A,{} crit)} eliminates all columns belonging to an index \\spad{c} such that \\spad{crit(c)} yields \\spad{true}."))
+ (|elimZeroCols!|
+  (((|Void|) $)
+   "\\spad{elimZeroCols!(A)} removes columns which contain only zeros. This effects basically only the value of \\spad{allIndices(A)}."))
+ (|allIndices|
+  (((|List| |#1|) $)
+   "\\spad{allIndices(A)} returns all indices used for enumerating the columns of the matrix \\spad{A}."))
+ (|nrows|
+  (((|NonNegativeInteger|) $)
+   "\\spad{nrows(A)} returns the number of rows of the matrix \\spad{A}."))
+ (|ncols|
+  (((|NonNegativeInteger|) $)
+   "\\spad{ncols(A)} returns the number of columns of the matrix \\spad{A}."))
+ (|copy| (($ $) "\\spad{copy(A)} returns a copy of the matrix \\spad{A}."))
+ (|coerce|
+  (((|Matrix| |#2|) $)
+   "\\spad{coerce(A)} yields the matrix \\spad{A} in the usual matrix type."))
+ (|finiteAggregate| ((|attribute|) "Matrices are finite."))
+ (|shallowlyMutable| ((|attribute|) "Matrices may be altered destructively.")))
+(("documentation" 0 14941) ("ancestors" 0 14848) ("parents" 0 14755)
+ ("abbreviation" 0 14751) ("predicates" 0 14672) ("superDomain" 0 NIL)
+ ("operationAlist" 0 12692) ("modemaps" 0 6005) ("sourceFile" 0 5970)
+ ("constructorCategory" 0 3133) ("constructorModemap" 0 57)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

@@ -1,0 +1,25 @@
+)abbrev domain UP UnivariatePolynomial
+++ Author:
+++ Basic Functions: Ring, monomial, coefficient, reductum, differentiate,
+++ elt, map, resultant, discriminant
+++ Related Constructors: SparseUnivariatePolynomial, MultivariatePolynomial
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ This domain represents univariate polynomials in some symbol
+++ over arbitrary (not necessarily commutative) coefficient rings.
+++ The representation is sparse
+++ in the sense that only non-zero terms are represented.
+++ Note: if the coefficient ring is a field, then this domain forms a euclidean domain.
+
+UnivariatePolynomial(x : Symbol, R : Ring):
+  UnivariatePolynomialCategory(R) with
+    coerce : Variable(x) -> %
+      ++ coerce(x) converts the variable x to a univariate polynomial.
+   == SparseUnivariatePolynomial(R)   add
+    Rep := SparseUnivariatePolynomial(R)
+    coerce(p : %) : OutputForm  == outputForm(p, outputForm x)
+    coerce(v : Variable(x)) : % == monomial(1, 1)
+

@@ -1,0 +1,100 @@
+5377                (|LeadingCoefDetermination| OV E Z P)
+|package|
+(((|LeadingCoefDetermination| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |polCase|
+    ((|Boolean|) |#3| (|NonNegativeInteger|) (|List| |#3|)))
+   (SIGNATURE |distFact|
+    ((|Union|
+      (|Record| (|:| |polfac| (|List| |#4|)) (|:| |correct| |#3|)
+                (|:| |corrfact| (|List| (|SparseUnivariatePolynomial| |#3|))))
+      "failed")
+     |#3| (|List| (|SparseUnivariatePolynomial| |#3|))
+     (|Record| (|:| |contp| |#3|)
+               (|:| |factors|
+                    (|List|
+                     (|Record| (|:| |irr| |#4|)
+                               (|:| |pow| (|NonNegativeInteger|))))))
+     (|List| |#3|) (|List| |#1|) (|List| |#3|))))
+  (|OrderedSet|) (|OrderedAbelianMonoidSup|) (|GcdDomain|)
+  (|PolynomialCategory| |#3| |#2| |#1|))
+ (T |LeadingCoefDetermination|))
+(CATEGORY |package|
+ (SIGNATURE |polCase| ((|Boolean|) |#3| (|NonNegativeInteger|) (|List| |#3|)))
+ (SIGNATURE |distFact|
+  ((|Union|
+    (|Record| (|:| |polfac| (|List| |#4|)) (|:| |correct| |#3|)
+              (|:| |corrfact| (|List| (|SparseUnivariatePolynomial| |#3|))))
+    "failed")
+   |#3| (|List| (|SparseUnivariatePolynomial| |#3|))
+   (|Record| (|:| |contp| |#3|)
+             (|:| |factors|
+                  (|List|
+                   (|Record| (|:| |irr| |#4|)
+                             (|:| |pow| (|NonNegativeInteger|))))))
+   (|List| |#3|) (|List| |#1|) (|List| |#3|))))
+"/git/fricas/src/algebra/LEADCDET.spad"
+((|distFact| (*1 *2 *3 *4 *5 *6 *7 *6)
+  (|partial| AND (|isDomain| *4 (|List| (|SparseUnivariatePolynomial| *3)))
+   (|isDomain| *5
+               (|Record| (|:| |contp| *3)
+                         (|:| |factors|
+                              (|List|
+                               (|Record| (|:| |irr| *10)
+                                         (|:| |pow|
+                                              (|NonNegativeInteger|)))))))
+   (|isDomain| *6 (|List| *3)) (|isDomain| *7 (|List| *8))
+   (|ofCategory| *8 (|OrderedSet|)) (|ofCategory| *3 (|GcdDomain|))
+   (|ofCategory| *10 (|PolynomialCategory| *3 *9 *8))
+   (|ofCategory| *9 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *2
+               (|Record| (|:| |polfac| (|List| *10)) (|:| |correct| *3)
+                         (|:| |corrfact|
+                              (|List| (|SparseUnivariatePolynomial| *3)))))
+   (|isDomain| *1 (|LeadingCoefDetermination| *8 *9 *3 *10))))
+ (|polCase| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *5 (|List| *3))
+       (|ofCategory| *3 (|GcdDomain|)) (|ofCategory| *6 (|OrderedSet|))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|LeadingCoefDetermination| *6 *7 *3 *8))
+       (|ofCategory| *8 (|PolynomialCategory| *3 *7 *6)))))
+((|polCase| (((|Boolean|) |#3| (|NonNegativeInteger|) (|List| |#3|)) 25))
+ (|distFact|
+  (((|Union|
+     (|Record| (|:| |polfac| (|List| |#4|)) (|:| |correct| |#3|)
+               (|:| |corrfact| (|List| (|SparseUnivariatePolynomial| |#3|))))
+     "failed")
+    |#3| (|List| (|SparseUnivariatePolynomial| |#3|))
+    (|Record| (|:| |contp| |#3|)
+              (|:| |factors|
+                   (|List|
+                    (|Record| (|:| |irr| |#4|)
+                              (|:| |pow| (|NonNegativeInteger|))))))
+    (|List| |#3|) (|List| |#1|) (|List| |#3|))
+   55)))
+LEADCDET
+((|constructor|
+  (NIL
+   "Package for leading coefficient determination in the lifting step. Package working for every \\spad{R} euclidean with property \\spad{\"F\"}. Uses algorithm given in section 3 of \\spad{P}. \\spad{S}. Wang \"An improved multivariate polynomial factoring algorithm\",{} Math. of Comput. 32,{} 1978,{} \\spad{p}. 1215-\\spad{-1231},{} generalized to arbitrary euclidean domain."))
+ (|distFact|
+  (((|Union|
+     (|Record| (|:| |polfac| (|List| |#4|)) (|:| |correct| |#3|)
+               (|:| |corrfact| (|List| (|SparseUnivariatePolynomial| |#3|))))
+     "failed")
+    |#3| (|List| (|SparseUnivariatePolynomial| |#3|))
+    (|Record| (|:| |contp| |#3|)
+              (|:| |factors|
+                   (|List|
+                    (|Record| (|:| |irr| |#4|)
+                              (|:| |pow| (|NonNegativeInteger|))))))
+    (|List| |#3|) (|List| |#1|) (|List| |#3|))
+   "\\spad{distFact(contm,{} unilist,{} plead,{} vl,{} lvar,{} lval)},{} where \\spad{contm} is the content of the evaluated polynomial,{} \\spad{unilist} is the list of factors of the evaluated polynomial,{} \\spad{plead} is the complete factorization of the leading coefficient,{} \\spad{vl} is the list of factors of the leading coefficient evaluated,{} \\spad{lvar} is the list of variables,{} lval is the list of values,{} returns a record giving the list of leading coefficients to impose on the univariate factors,{}"))
+ (|polCase|
+  (((|Boolean|) |#3| (|NonNegativeInteger|) (|List| |#3|))
+   "\\spad{polCase(contprod,{} numFacts,{} evallcs)},{} where \\spad{contprod} is the product of the content of the leading coefficient of the polynomial to be factored with the content of the evaluated polynomial,{} \\spad{numFacts} is the number of factors of the leadingCoefficient,{} and evallcs is the list of the evaluated factors of the leadingCoefficient,{} returns \\spad{true} if the factors of the leading Coefficient can be distributed with this valuation.")))
+(("documentation" 0 3410) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3401) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2828) ("modemaps" 0 1504) ("sourceFile" 0 1464)
+ ("constructorCategory" 0 874) ("constructorModemap" 0 68)
+ ("constructorKind" 0 58) ("constructorForm" 0 20))

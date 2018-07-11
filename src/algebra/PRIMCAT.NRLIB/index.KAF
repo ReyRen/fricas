@@ -1,0 +1,27 @@
+1044                (MAKEPROP '|PrimitiveFunctionCategory| 'NILADIC T)
+(|PrimitiveFunctionCategory|)
+|category|
+(((|PrimitiveFunctionCategory|) (|Category|)) (T |PrimitiveFunctionCategory|))
+(|Join|
+ (CATEGORY |domain| (SIGNATURE |integral| ($ $ (|Symbol|)))
+  (SIGNATURE |integral| ($ $ (|SegmentBinding| $)))))
+"/git/fricas/src/algebra/PRIMCAT.spad"
+((|integral| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|SegmentBinding| *1))
+       (|ofCategory| *1 (|PrimitiveFunctionCategory|))))
+ (|integral| (*1 *1 *1 *2)
+  (AND (|ofCategory| *1 (|PrimitiveFunctionCategory|))
+       (|isDomain| *2 (|Symbol|)))))
+((|integral| (($ $ (|SegmentBinding| $)) 6) (($ $ (|Symbol|)) 6)))
+PRIMCAT
+((|constructor| (NIL "Category for the functions defined by integrals."))
+ (|integral|
+  (($ $ (|SegmentBinding| $))
+   "\\spad{integral(f,{} x = a..b)} returns the formal definite integral of \\spad{f} \\spad{dx} for \\spad{x} between \\spad{a} and \\spad{b}.")
+  (($ $ (|Symbol|))
+   "\\spad{integral(f,{} x)} returns the formal integral of \\spad{f} \\spad{dx}.")))
+(("documentation" 0 675) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 667) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 600) ("modemaps" 0 352) ("sourceFile" 0 313)
+ ("constructorCategory" 0 191) ("constructorModemap" 0 112)
+ ("constructorKind" 0 101) ("constructorForm" 0 71) ("NILADIC" 0 20))

@@ -1,0 +1,39 @@
+1776                (|InverseLaplaceTransform| R F)
+|package|
+(((|InverseLaplaceTransform| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |inverseLaplace|
+    ((|Union| |#2| "failed") |#2| (|Symbol|) (|Symbol|))))
+  (|Join| (|EuclideanDomain|) (|Comparable|) (|CharacteristicZero|)
+          (|RetractableTo| (|Integer|)) (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|TranscendentalFunctionCategory|) (|PrimitiveFunctionCategory|)
+          (|SpecialFunctionCategory|)
+          (|AlgebraicallyClosedFunctionSpace| |#1|)))
+ (T |InverseLaplaceTransform|))
+(CATEGORY |package|
+ (SIGNATURE |inverseLaplace|
+  ((|Union| |#2| "failed") |#2| (|Symbol|) (|Symbol|))))
+"/git/fricas/src/algebra/INVLAPLA.spad"
+((|inverseLaplace| (*1 *2 *2 *3 *3)
+  (|partial| AND (|isDomain| *3 (|Symbol|))
+   (|ofCategory| *4
+                 (|Join| (|EuclideanDomain|) (|Comparable|)
+                         (|CharacteristicZero|) (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *1 (|InverseLaplaceTransform| *4 *2))
+   (|ofCategory| *2
+                 (|Join| (|TranscendentalFunctionCategory|)
+                         (|PrimitiveFunctionCategory|)
+                         (|SpecialFunctionCategory|)
+                         (|AlgebraicallyClosedFunctionSpace| *4))))))
+((|inverseLaplace| (((|Union| |#2| "failed") |#2| (|Symbol|) (|Symbol|)) 10)))
+INVLAPLA
+((|constructor| (NIL "This package computes the inverse Laplace Transform."))
+ (|inverseLaplace|
+  (((|Union| |#2| "failed") |#2| (|Symbol|) (|Symbol|))
+   "\\spad{inverseLaplace(f,{} s,{} t)} returns the Inverse Laplace transform of \\spad{f(s)} using \\spad{t} as the new variable or \"failed\" if unable to find a closed form. Handles only rational \\spad{f(s)}.")))
+(("documentation" 0 1406) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1397) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1318) ("modemaps" 0 705) ("sourceFile" 0 665)
+ ("constructorCategory" 0 559) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

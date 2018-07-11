@@ -1,0 +1,97 @@
+4112                (MAKEPROP '|IntegerSmithNormalForm| 'NILADIC T)
+(|IntegerSmithNormalForm|)
+|package|
+(((|IntegerSmithNormalForm|)
+  (CATEGORY |package|
+   (SIGNATURE |smith| ((|Matrix| (|Integer|)) (|Matrix| (|Integer|))))
+   (SIGNATURE |smith|
+    ((|Matrix| (|Integer|)) (|Matrix| (|Integer|))
+     (|Mapping| (|Matrix| (|Integer|)) (|Matrix| (|Integer|)))))
+   (SIGNATURE |completeSmith|
+    ((|Record| (|:| |Smith| (|Matrix| (|Integer|)))
+               (|:| |leftEqMat| (|Matrix| (|Integer|)))
+               (|:| |rightEqMat| (|Matrix| (|Integer|))))
+     (|Matrix| (|Integer|))
+     (|Mapping|
+      (|Record| (|:| |Smith| (|Matrix| (|Integer|)))
+                (|:| |leftEqMat| (|Matrix| (|Integer|)))
+                (|:| |rightEqMat| (|Matrix| (|Integer|))))
+      (|Matrix| (|Integer|)))))))
+ (T |IntegerSmithNormalForm|))
+(CATEGORY |package|
+ (SIGNATURE |smith| ((|Matrix| (|Integer|)) (|Matrix| (|Integer|))))
+ (SIGNATURE |smith|
+  ((|Matrix| (|Integer|)) (|Matrix| (|Integer|))
+   (|Mapping| (|Matrix| (|Integer|)) (|Matrix| (|Integer|)))))
+ (SIGNATURE |completeSmith|
+  ((|Record| (|:| |Smith| (|Matrix| (|Integer|)))
+             (|:| |leftEqMat| (|Matrix| (|Integer|)))
+             (|:| |rightEqMat| (|Matrix| (|Integer|))))
+   (|Matrix| (|Integer|))
+   (|Mapping|
+    (|Record| (|:| |Smith| (|Matrix| (|Integer|)))
+              (|:| |leftEqMat| (|Matrix| (|Integer|)))
+              (|:| |rightEqMat| (|Matrix| (|Integer|))))
+    (|Matrix| (|Integer|))))))
+"/git/fricas/src/algebra/ISMITH.spad"
+((|completeSmith| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *4
+               (|Mapping|
+                (|Record| (|:| |Smith| (|Matrix| (|Integer|)))
+                          (|:| |leftEqMat| (|Matrix| (|Integer|)))
+                          (|:| |rightEqMat| (|Matrix| (|Integer|))))
+                (|Matrix| (|Integer|))))
+   (|isDomain| *3 (|Matrix| (|Integer|)))
+   (|isDomain| *2
+               (|Record| (|:| |Smith| (|Matrix| (|Integer|)))
+                         (|:| |leftEqMat| (|Matrix| (|Integer|)))
+                         (|:| |rightEqMat| (|Matrix| (|Integer|)))))
+   (|isDomain| *1 (|IntegerSmithNormalForm|))))
+ (|smith| (*1 *2 *2 *3)
+  (AND
+   (|isDomain| *3 (|Mapping| (|Matrix| (|Integer|)) (|Matrix| (|Integer|))))
+   (|isDomain| *2 (|Matrix| (|Integer|)))
+   (|isDomain| *1 (|IntegerSmithNormalForm|))))
+ (|smith| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| (|Integer|)))
+       (|isDomain| *1 (|IntegerSmithNormalForm|)))))
+((|smith|
+  (((|Matrix| (|Integer|)) (|Matrix| (|Integer|))
+    (|Mapping| (|Matrix| (|Integer|)) (|Matrix| (|Integer|))))
+   13)
+  (((|Matrix| (|Integer|)) (|Matrix| (|Integer|))) 16))
+ (|completeSmith|
+  (((|Record| (|:| |Smith| (|Matrix| (|Integer|)))
+              (|:| |leftEqMat| (|Matrix| (|Integer|)))
+              (|:| |rightEqMat| (|Matrix| (|Integer|))))
+    (|Matrix| (|Integer|))
+    (|Mapping|
+     (|Record| (|:| |Smith| (|Matrix| (|Integer|)))
+               (|:| |leftEqMat| (|Matrix| (|Integer|)))
+               (|:| |rightEqMat| (|Matrix| (|Integer|))))
+     (|Matrix| (|Integer|))))
+   22)))
+ISMITH
+((|completeSmith|
+  (((|Record| (|:| |Smith| (|Matrix| (|Integer|)))
+              (|:| |leftEqMat| (|Matrix| (|Integer|)))
+              (|:| |rightEqMat| (|Matrix| (|Integer|))))
+    (|Matrix| (|Integer|))
+    (|Mapping|
+     (|Record| (|:| |Smith| (|Matrix| (|Integer|)))
+               (|:| |leftEqMat| (|Matrix| (|Integer|)))
+               (|:| |rightEqMat| (|Matrix| (|Integer|))))
+     (|Matrix| (|Integer|))))
+   "\\spad{completeSmith(m,{} full)} computes record containing Smith normal form of \\spad{m} and the left and right equivalence matrices. It first reduces \\spad{m} to smaller matrix and then usess full to finish."))
+ (|smith|
+  (((|Matrix| (|Integer|)) (|Matrix| (|Integer|))
+    (|Mapping| (|Matrix| (|Integer|)) (|Matrix| (|Integer|))))
+   "\\spad{smith(m,{} full)} computes Smith normal form of \\spad{m}. It first reduces \\spad{m} to smaller matrix and then usess full to finish.")
+  (((|Matrix| (|Integer|)) (|Matrix| (|Integer|)))
+   "\\spad{smith(m)} computes Smith normal form of \\spad{m}")))
+(("documentation" 0 3087) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3080) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2466) ("modemaps" 0 1520) ("sourceFile" 0 1482)
+ ("constructorCategory" 0 839) ("constructorModemap" 0 105)
+ ("constructorKind" 0 95) ("constructorForm" 0 68) ("NILADIC" 0 20))

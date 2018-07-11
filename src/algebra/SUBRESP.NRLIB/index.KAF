@@ -1,0 +1,44 @@
+2097                (|SubResultantPackage| R UP)
+|package|
+(((|SubResultantPackage| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |subresultantVector| ((|PrimitiveArray| |#2|) |#2| |#2|))
+   (IF (|has| |#1| (|EuclideanDomain|))
+       (SIGNATURE |primitivePart| (|#2| |#2| |#1|))
+       |noBranch|))
+  (|IntegralDomain|) (|UnivariatePolynomialCategory| |#1|))
+ (T |SubResultantPackage|))
+(CATEGORY |package|
+ (SIGNATURE |subresultantVector| ((|PrimitiveArray| |#2|) |#2| |#2|))
+ (IF (|has| |#1| (|EuclideanDomain|))
+     (SIGNATURE |primitivePart| (|#2| |#2| |#1|))
+     |noBranch|))
+"/git/fricas/src/algebra/SUBRESP.spad"
+((|primitivePart| (*1 *2 *2 *3)
+  (AND (|ofCategory| *3 (|EuclideanDomain|))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|SubResultantPackage| *3 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|subresultantVector| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|PrimitiveArray| *3))
+       (|isDomain| *1 (|SubResultantPackage| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4)))))
+((|subresultantVector| (((|PrimitiveArray| |#2|) |#2| |#2|) 34))
+ (|primitivePart| ((|#2| |#2| |#1|) 19 (|has| |#1| (|EuclideanDomain|)))))
+((|HasCategory| |#1| '(|EuclideanDomain|)))
+SUBRESP
+((|constructor|
+  (NIL
+   "This package computes the subresultants of two polynomials which is needed for the `Lazard Rioboo' enhancement to Tragers integrations formula. For efficiency reasons this has been rewritten to call Lionel Ducos package which is currently the best one. \\blankline"))
+ (|primitivePart|
+  ((|#2| |#2| |#1|)
+   "\\spad{primitivePart(p,{} q)} reduces the coefficient of \\spad{p} modulo \\spad{q},{} takes the primitive part of the result,{} and ensures that the leading coefficient of that result is monic."))
+ (|subresultantVector|
+  (((|PrimitiveArray| |#2|) |#2| |#2|)
+   "\\spad{subresultantVector(p,{} q)} returns \\spad{[p0,{} ...,{} pn]} where \\spad{pi} is the \\spad{i}-th subresultant of \\spad{p} and \\spad{q}. In particular,{} \\spad{p0 = resultant(p,{} q)}.")))
+(("documentation" 0 1296) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1288) ("predicates" 0 1244) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1104) ("modemaps" 0 624) ("sourceFile" 0 585)
+ ("constructorCategory" 0 389) ("constructorModemap" 0 59)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

@@ -1,0 +1,53 @@
+2590                (MAKEPROP '|UnitGaussianElimination| 'NILADIC T)
+(|UnitGaussianElimination|)
+|package|
+(((|UnitGaussianElimination|)
+  (CATEGORY |package|
+   (SIGNATURE |pre_gauss| ((|Matrix| (|Integer|)) (|Matrix| (|Integer|))))
+   (SIGNATURE |pre_smith| ((|Matrix| (|Integer|)) (|Matrix| (|Integer|))))
+   (SIGNATURE |pre_lr|
+    ((|Matrix| (|Integer|)) (|Matrix| (|Integer|)) (|Vector| (|Integer|))
+     (|Vector| (|Integer|))))))
+ (T |UnitGaussianElimination|))
+(CATEGORY |package|
+ (SIGNATURE |pre_gauss| ((|Matrix| (|Integer|)) (|Matrix| (|Integer|))))
+ (SIGNATURE |pre_smith| ((|Matrix| (|Integer|)) (|Matrix| (|Integer|))))
+ (SIGNATURE |pre_lr|
+  ((|Matrix| (|Integer|)) (|Matrix| (|Integer|)) (|Vector| (|Integer|))
+   (|Vector| (|Integer|)))))
+"/git/fricas/src/algebra/UGAUSS.spad"
+((|pre_lr| (*1 *2 *2 *3 *3)
+  (AND (|isDomain| *2 (|Matrix| (|Integer|)))
+       (|isDomain| *3 (|Vector| (|Integer|)))
+       (|isDomain| *1 (|UnitGaussianElimination|))))
+ (|pre_smith| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| (|Integer|)))
+       (|isDomain| *1 (|UnitGaussianElimination|))))
+ (|pre_gauss| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| (|Integer|)))
+       (|isDomain| *1 (|UnitGaussianElimination|)))))
+((|pre_smith| (((|Matrix| (|Integer|)) (|Matrix| (|Integer|))) 19))
+ (|pre_lr|
+  (((|Matrix| (|Integer|)) (|Matrix| (|Integer|)) (|Vector| (|Integer|))
+    (|Vector| (|Integer|)))
+   15))
+ (|pre_gauss| (((|Matrix| (|Integer|)) (|Matrix| (|Integer|))) 17)))
+UGAUSS
+((|constructor|
+  (NIL
+   "\\indented{1}{References:} \\indented{2}{\\spad{J}-\\spad{G}. Dumas,{} \\spad{F}. Heckenbach,{} \\spad{D}. Sauders,{} \\spad{V}. Welker:} \\indented{2}{Computing simplicial homology based on efficient Smith} \\indented{2}{normal form algorithms.} Descrition: Gaussion elimination using only 1 or \\spad{-1} as pivots \\blankline"))
+ (|pre_lr|
+  (((|Matrix| (|Integer|)) (|Matrix| (|Integer|)) (|Vector| (|Integer|))
+    (|Vector| (|Integer|)))
+   "\\spad{pre_lr(m,{} \\spad{pi},{} pj)} is like pre_gauss,{} but records positions of pivots in \\spad{pi} and \\spad{pj} and returns transformation matrix. \\spad{m},{} \\spad{pi},{} \\spad{pj} are modified in place"))
+ (|pre_smith|
+  (((|Matrix| (|Integer|)) (|Matrix| (|Integer|)))
+   "\\spad{pre_smith(m)} first performs pre_gauss(\\spad{m}) and then drops all rows and colums of \\spad{m} contaning pivots."))
+ (|pre_gauss|
+  (((|Matrix| (|Integer|)) (|Matrix| (|Integer|)))
+   "\\spad{pre_gauss(m)} performs Gaussian eliminaton on rows of \\spad{m} using only 1 and \\spad{-1} as pivots. Note: \\spad{m} is modified in place")))
+(("documentation" 0 1482) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1475) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1218) ("modemaps" 0 796) ("sourceFile" 0 758)
+ ("constructorCategory" 0 470) ("constructorModemap" 0 107)
+ ("constructorKind" 0 97) ("constructorForm" 0 69) ("NILADIC" 0 20))

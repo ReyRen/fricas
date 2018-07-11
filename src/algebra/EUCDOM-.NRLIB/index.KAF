@@ -1,0 +1,83 @@
+4836                (|EuclideanDomain&| S)
+|domain|
+(((|EuclideanDomain&| |#1|)
+  (CATEGORY |domain|
+   (SIGNATURE |multiEuclidean|
+    ((|Union| (|List| |#1|) "failed") (|List| |#1|) |#1|))
+   (SIGNATURE |extendedEuclidean|
+    ((|Union| (|Record| (|:| |coef1| |#1|) (|:| |coef2| |#1|)) "failed") |#1|
+     |#1| |#1|))
+   (SIGNATURE |extendedEuclidean|
+    ((|Record| (|:| |coef1| |#1|) (|:| |coef2| |#1|) (|:| |generator| |#1|))
+     |#1| |#1|))
+   (SIGNATURE |rem| (|#1| |#1| |#1|)) (SIGNATURE |quo| (|#1| |#1| |#1|))
+   (SIGNATURE |sizeLess?| ((|Boolean|) |#1| |#1|))
+   (SIGNATURE |expressIdealMember|
+    ((|Union| (|List| |#1|) "failed") (|List| |#1|) |#1|))
+   (SIGNATURE |principalIdeal|
+    ((|Record| (|:| |coef| (|List| |#1|)) (|:| |generator| |#1|))
+     (|List| |#1|)))
+   (SIGNATURE |gcd| (|#1| (|List| |#1|))) (SIGNATURE |gcd| (|#1| |#1| |#1|))
+   (SIGNATURE |exquo| ((|Union| |#1| "failed") |#1| |#1|)))
+  (|EuclideanDomain|))
+ (T |EuclideanDomain&|))
+(CATEGORY |domain|
+ (SIGNATURE |multiEuclidean|
+  ((|Union| (|List| |#1|) "failed") (|List| |#1|) |#1|))
+ (SIGNATURE |extendedEuclidean|
+  ((|Union| (|Record| (|:| |coef1| |#1|) (|:| |coef2| |#1|)) "failed") |#1|
+   |#1| |#1|))
+ (SIGNATURE |extendedEuclidean|
+  ((|Record| (|:| |coef1| |#1|) (|:| |coef2| |#1|) (|:| |generator| |#1|)) |#1|
+   |#1|))
+ (SIGNATURE |rem| (|#1| |#1| |#1|)) (SIGNATURE |quo| (|#1| |#1| |#1|))
+ (SIGNATURE |sizeLess?| ((|Boolean|) |#1| |#1|))
+ (SIGNATURE |expressIdealMember|
+  ((|Union| (|List| |#1|) "failed") (|List| |#1|) |#1|))
+ (SIGNATURE |principalIdeal|
+  ((|Record| (|:| |coef| (|List| |#1|)) (|:| |generator| |#1|)) (|List| |#1|)))
+ (SIGNATURE |gcd| (|#1| (|List| |#1|))) (SIGNATURE |gcd| (|#1| |#1| |#1|))
+ (SIGNATURE |exquo| ((|Union| |#1| "failed") |#1| |#1|)))
+"/git/fricas/src/algebra/EUCDOM.spad"
+((|sizeLess?| (((|Boolean|) $ $) 11)) (|rem| (($ $ $) 15)) (|quo| (($ $ $) 14))
+ (|principalIdeal|
+  (((|Record| (|:| |coef| (|List| $)) (|:| |generator| $)) (|List| $)) 43))
+ (|multiEuclidean| (((|Union| (|List| $) "failed") (|List| $) $) 51))
+ (|gcd| (($ $ $) 20) (($ (|List| $)) NIL))
+ (|extendedEuclidean|
+  (((|Record| (|:| |coef1| $) (|:| |coef2| $) (|:| |generator| $)) $ $) 31)
+  (((|Union| (|Record| (|:| |coef1| $) (|:| |coef2| $)) "failed") $ $ $) 36))
+ (|exquo| (((|Union| $ "failed") $ $) 17))
+ (|expressIdealMember| (((|Union| (|List| $) "failed") (|List| $) $) 45)))
+EUCDOM-
+((|constructor|
+  (NIL
+   "A constructive euclidean domain,{} \\spadignore{i.e.} one can divide producing a quotient and a remainder where the remainder is either zero or is smaller (\\spadfun{euclideanSize}) than the divisor. \\blankline Conditional attributes: \\indented{2}{multiplicativeValuation\\tab{25}\\spad{Size(a*b)=Size(a)*Size(b)}} \\indented{2}{additiveValuation\\tab{25}\\spad{Size(a*b)=Size(a)+Size(b)}}"))
+ (|multiEuclidean|
+  (((|Union| (|List| $) "failed") (|List| $) $)
+   "\\spad{multiEuclidean([f1,{} ...,{} fn],{} z)} returns a list of coefficients \\spad{[a1,{} ...,{} an]} such that \\spad{ z / prod \\spad{fi} = sum aj/fj}. If no such list of coefficients exists,{} \"failed\" is returned."))
+ (|extendedEuclidean|
+  (((|Union| (|Record| (|:| |coef1| $) (|:| |coef2| $)) "failed") $ $ $)
+   "\\spad{extendedEuclidean(x,{} y,{} z)} either returns a record rec where \\spad{rec.coef1*x+rec.coef2*y=z} or returns \"failed\" if \\spad{z} cannot be expressed as a linear combination of \\spad{x} and \\spad{y}.")
+  (((|Record| (|:| |coef1| $) (|:| |coef2| $) (|:| |generator| $)) $ $)
+   "\\spad{extendedEuclidean(x,{} y)} returns a record rec where \\spad{rec.coef1*x+rec.coef2*y = rec.generator} and rec.generator is a \\spad{gcd} of \\spad{x} and \\spad{y}. The \\spad{gcd} is unique only up to associates if \\spadatt{canonicalUnitNormal} is not asserted. \\spadfun{principalIdeal} provides a version of this operation which accepts an arbitrary length list of arguments."))
+ (|rem|
+  (($ $ $)
+   "\\spad{x rem y} is the same as \\spad{divide(x,{} y).remainder}. See \\spadfunFrom{divide}{EuclideanDomain}."))
+ (|quo|
+  (($ $ $)
+   "\\spad{x quo y} is the same as \\spad{divide(x,{} y).quotient}. See \\spadfunFrom{divide}{EuclideanDomain}."))
+ (|divide|
+  (((|Record| (|:| |quotient| $) (|:| |remainder| $)) $ $)
+   "\\spad{divide(x,{} y)} divides \\spad{x} by \\spad{y} producing a record containing a \\spad{quotient} and \\spad{remainder},{} where the remainder is smaller (see \\spadfunFrom{sizeLess?}{EuclideanDomain}) than the divisor \\spad{y}."))
+ (|euclideanSize|
+  (((|NonNegativeInteger|) $)
+   "\\spad{euclideanSize(x)} returns the euclidean size of the element \\spad{x}. Error: if \\spad{x} is zero."))
+ (|sizeLess?|
+  (((|Boolean|) $ $)
+   "\\spad{sizeLess?(x,{} y)} tests whether \\spad{x} is strictly smaller than \\spad{y} with respect to the \\spadfunFrom{euclideanSize}{EuclideanDomain}.")))
+(("documentation" 0 2399) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2391) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1809) ("modemaps" 0 NIL) ("sourceFile" 0 1771)
+ ("constructorCategory" 0 969) ("constructorModemap" 0 52)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

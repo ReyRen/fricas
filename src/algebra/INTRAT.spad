@@ -1,0 +1,45 @@
+)abbrev package INTRAT RationalIntegration
+++ Rational function integration
+++ Author: Manuel Bronstein
+++ Date Created: 1987
+++ Description:
+++   This package provides functions for the base
+++   case of the Risch algorithm.
+-- Used internally by the integration packages
+RationalIntegration(F, UP) : Exports == Implementation where
+  F : Join(Field, CharacteristicZero, RetractableTo Integer)
+  UP : UnivariatePolynomialCategory F
+
+  RF  ==> Fraction UP
+  IR  ==> IntegrationResult RF
+  LLG ==> List Record(coeff : RF, logand : RF)
+  URF ==> Union(Record(ratpart:RF, coeff:RF), "failed")
+  U   ==> Union(Record(mainpart:RF, limitedlogs:LLG), "failed")
+
+  Exports ==> with
+    integrate  : RF -> IR
+      ++ integrate(f) returns g such that \spad{g' = f}.
+    infieldint : RF -> Union(RF, "failed")
+      ++ infieldint(f) returns g such that \spad{g' = f} or "failed"
+      ++ if the integral of f is not a rational function.
+
+  Implementation ==> add
+    import from TranscendentalIntegration(F, UP)
+
+    Param_Rec_F ==> Record(ratpart : F, coeffs : Vector F)
+    L_Param_F ==> List Param_Rec_F
+
+    infieldint f ==
+        ext : List F ->  L_Param_F := lg +->
+            r1 := nullSpace(matrix([lg]))$Matrix(F)
+            [[0, bv] for bv in r1]
+        rec := primextint(differentiate$UP, ext, nullSpace$Matrix(F), [f]
+                         )$ParametricTranscendentalIntegration(F, UP)
+        empty?(rec) => "failed"
+        s1 := first(rec)
+        -s1.ratpart/((s1.coeffs)(1)::UP::RF)
+
+    integrate f ==
+      rec := monomialIntegrate(f, differentiate)
+      integrate(rec.polypart)::RF::IR + rec.ir
+

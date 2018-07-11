@@ -1,0 +1,58 @@
+2403                (|NumberTheoreticPolynomialFunctions| R)
+|package|
+(((|NumberTheoreticPolynomialFunctions| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |cyclotomic| (|#1| (|NonNegativeInteger|) |#1|))
+   (IF (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))
+       (PROGN
+        (SIGNATURE |bernoulliB| (|#1| (|NonNegativeInteger|) |#1|))
+        (SIGNATURE |eulerE| (|#1| (|NonNegativeInteger|) |#1|)))
+       |noBranch|))
+  (|CommutativeRing|))
+ (T |NumberTheoreticPolynomialFunctions|))
+(CATEGORY |package| (SIGNATURE |cyclotomic| (|#1| (|NonNegativeInteger|) |#1|))
+ (IF (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))
+     (PROGN
+      (SIGNATURE |bernoulliB| (|#1| (|NonNegativeInteger|) |#1|))
+      (SIGNATURE |eulerE| (|#1| (|NonNegativeInteger|) |#1|)))
+     |noBranch|))
+"/git/fricas/src/algebra/NTPOLFN.spad"
+((|eulerE| (*1 *2 *3 *2)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *1 (|NumberTheoreticPolynomialFunctions| *2))
+       (|ofCategory| *2 (|Algebra| (|Fraction| (|Integer|))))
+       (|ofCategory| *2 (|CommutativeRing|))))
+ (|bernoulliB| (*1 *2 *3 *2)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *1 (|NumberTheoreticPolynomialFunctions| *2))
+       (|ofCategory| *2 (|Algebra| (|Fraction| (|Integer|))))
+       (|ofCategory| *2 (|CommutativeRing|))))
+ (|cyclotomic| (*1 *2 *3 *2)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *1 (|NumberTheoreticPolynomialFunctions| *2))
+       (|ofCategory| *2 (|CommutativeRing|)))))
+((|eulerE|
+  ((|#1| (|NonNegativeInteger|) |#1|) 32
+   (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|cyclotomic| ((|#1| (|NonNegativeInteger|) |#1|) 22))
+ (|bernoulliB|
+  ((|#1| (|NonNegativeInteger|) |#1|) 34
+   (|has| |#1| (|Algebra| (|Fraction| (|Integer|)))))))
+((|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|)))))
+NTPOLFN
+((|constructor|
+  (NIL "This package provides polynomials as functions on a ring."))
+ (|eulerE|
+  ((|#1| (|NonNegativeInteger|) |#1|)
+   "\\spad{eulerE(n,{} r)} returns value of the \\spad{n}th Euler polynomial at \\spad{r}."))
+ (|bernoulliB|
+  ((|#1| (|NonNegativeInteger|) |#1|)
+   "\\spad{bernoulliB(n,{} r)} returns value of the \\spad{n}th Bernoulli polynomial at \\spad{r}."))
+ (|cyclotomic|
+  ((|#1| (|NonNegativeInteger|) |#1|)
+   "\\spad{cyclotomic(n,{} r)} returns value of the \\spad{n}th cyclotomic polynomial at \\spad{r}.")))
+(("documentation" 0 1863) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1855) ("predicates" 0 1782) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1507) ("modemaps" 0 825) ("sourceFile" 0 786)
+ ("constructorCategory" 0 492) ("constructorModemap" 0 71)
+ ("constructorKind" 0 61) ("constructorForm" 0 20))

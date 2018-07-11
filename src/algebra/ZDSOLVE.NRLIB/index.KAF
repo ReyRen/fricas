@@ -1,0 +1,670 @@
+39408               (|ZeroDimensionalSolvePackage| R |ls| |ls2|)
+|package|
+(((|ZeroDimensionalSolvePackage| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |triangSolve|
+    ((|List| (|RegularChain| |#1| |#2|)) (|List| (|Polynomial| |#1|))
+     (|Boolean|) (|Boolean|)))
+   (SIGNATURE |triangSolve|
+    ((|List| (|RegularChain| |#1| |#2|)) (|List| (|Polynomial| |#1|))
+     (|Boolean|)))
+   (SIGNATURE |triangSolve|
+    ((|List| (|RegularChain| |#1| |#2|)) (|List| (|Polynomial| |#1|))))
+   (SIGNATURE |univariateSolve|
+    ((|List|
+      (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+                (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+     (|RegularChain| |#1| |#2|)))
+   (SIGNATURE |univariateSolve|
+    ((|List|
+      (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+                (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+     (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|) (|Boolean|)))
+   (SIGNATURE |univariateSolve|
+    ((|List|
+      (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+                (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+     (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|)))
+   (SIGNATURE |univariateSolve|
+    ((|List|
+      (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+                (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+     (|List| (|Polynomial| |#1|)) (|Boolean|)))
+   (SIGNATURE |univariateSolve|
+    ((|List|
+      (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+                (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+     (|List| (|Polynomial| |#1|))))
+   (SIGNATURE |realSolve|
+    ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+     (|RegularChain| |#1| |#2|)))
+   (SIGNATURE |realSolve|
+    ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+     (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|) (|Boolean|)))
+   (SIGNATURE |realSolve|
+    ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+     (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|)))
+   (SIGNATURE |realSolve|
+    ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+     (|List| (|Polynomial| |#1|)) (|Boolean|)))
+   (SIGNATURE |realSolve|
+    ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+     (|List| (|Polynomial| |#1|))))
+   (SIGNATURE |positiveSolve|
+    ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+     (|RegularChain| |#1| |#2|)))
+   (SIGNATURE |positiveSolve|
+    ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+     (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|)))
+   (SIGNATURE |positiveSolve|
+    ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+     (|List| (|Polynomial| |#1|)) (|Boolean|)))
+   (SIGNATURE |positiveSolve|
+    ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+     (|List| (|Polynomial| |#1|))))
+   (SIGNATURE |squareFree|
+    ((|List|
+      (|SquareFreeRegularTriangularSet| |#1|
+                                        (|IndexedExponents|
+                                         (|OrderedVariableList| |#3|))
+                                        (|OrderedVariableList| |#3|)
+                                        (|NewSparseMultivariatePolynomial| |#1|
+                                                                           (|OrderedVariableList|
+                                                                            |#3|))))
+     (|RegularChain| |#1| |#2|)))
+   (SIGNATURE |convert|
+    ((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#3|))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   (SIGNATURE |convert|
+    ((|Polynomial| (|RealClosure| (|Fraction| |#1|))) (|Polynomial| |#1|)))
+   (SIGNATURE |convert|
+    ((|Polynomial| (|RealClosure| (|Fraction| |#1|)))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#3|))))
+   (SIGNATURE |convert|
+    ((|SparseUnivariatePolynomial| (|RealClosure| (|Fraction| |#1|)))
+     (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |convert|
+    ((|List|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#3|)))
+     (|SquareFreeRegularTriangularSet| |#1|
+                                       (|IndexedExponents|
+                                        (|OrderedVariableList| |#3|))
+                                       (|OrderedVariableList| |#3|)
+                                       (|NewSparseMultivariatePolynomial| |#1|
+                                                                          (|OrderedVariableList|
+                                                                           |#3|))))))
+  (|Join| (|OrderedRing|) (|PolynomialFactorizationExplicit|)
+          (|CharacteristicZero|) (|RealConstant|))
+  (|List| (|Symbol|)) (|List| (|Symbol|)))
+ (T |ZeroDimensionalSolvePackage|))
+(CATEGORY |package|
+ (SIGNATURE |triangSolve|
+  ((|List| (|RegularChain| |#1| |#2|)) (|List| (|Polynomial| |#1|)) (|Boolean|)
+   (|Boolean|)))
+ (SIGNATURE |triangSolve|
+  ((|List| (|RegularChain| |#1| |#2|)) (|List| (|Polynomial| |#1|))
+   (|Boolean|)))
+ (SIGNATURE |triangSolve|
+  ((|List| (|RegularChain| |#1| |#2|)) (|List| (|Polynomial| |#1|))))
+ (SIGNATURE |univariateSolve|
+  ((|List|
+    (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+              (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+   (|RegularChain| |#1| |#2|)))
+ (SIGNATURE |univariateSolve|
+  ((|List|
+    (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+              (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+   (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|) (|Boolean|)))
+ (SIGNATURE |univariateSolve|
+  ((|List|
+    (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+              (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+   (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|)))
+ (SIGNATURE |univariateSolve|
+  ((|List|
+    (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+              (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+   (|List| (|Polynomial| |#1|)) (|Boolean|)))
+ (SIGNATURE |univariateSolve|
+  ((|List|
+    (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+              (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+   (|List| (|Polynomial| |#1|))))
+ (SIGNATURE |realSolve|
+  ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+   (|RegularChain| |#1| |#2|)))
+ (SIGNATURE |realSolve|
+  ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+   (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|) (|Boolean|)))
+ (SIGNATURE |realSolve|
+  ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+   (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|)))
+ (SIGNATURE |realSolve|
+  ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+   (|List| (|Polynomial| |#1|)) (|Boolean|)))
+ (SIGNATURE |realSolve|
+  ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+   (|List| (|Polynomial| |#1|))))
+ (SIGNATURE |positiveSolve|
+  ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+   (|RegularChain| |#1| |#2|)))
+ (SIGNATURE |positiveSolve|
+  ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+   (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|)))
+ (SIGNATURE |positiveSolve|
+  ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+   (|List| (|Polynomial| |#1|)) (|Boolean|)))
+ (SIGNATURE |positiveSolve|
+  ((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+   (|List| (|Polynomial| |#1|))))
+ (SIGNATURE |squareFree|
+  ((|List|
+    (|SquareFreeRegularTriangularSet| |#1|
+                                      (|IndexedExponents|
+                                       (|OrderedVariableList| |#3|))
+                                      (|OrderedVariableList| |#3|)
+                                      (|NewSparseMultivariatePolynomial| |#1|
+                                                                         (|OrderedVariableList|
+                                                                          |#3|))))
+   (|RegularChain| |#1| |#2|)))
+ (SIGNATURE |convert|
+  ((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#3|))
+   (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+ (SIGNATURE |convert|
+  ((|Polynomial| (|RealClosure| (|Fraction| |#1|))) (|Polynomial| |#1|)))
+ (SIGNATURE |convert|
+  ((|Polynomial| (|RealClosure| (|Fraction| |#1|)))
+   (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#3|))))
+ (SIGNATURE |convert|
+  ((|SparseUnivariatePolynomial| (|RealClosure| (|Fraction| |#1|)))
+   (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |convert|
+  ((|List|
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#3|)))
+   (|SquareFreeRegularTriangularSet| |#1|
+                                     (|IndexedExponents|
+                                      (|OrderedVariableList| |#3|))
+                                     (|OrderedVariableList| |#3|)
+                                     (|NewSparseMultivariatePolynomial| |#1|
+                                                                        (|OrderedVariableList|
+                                                                         |#3|))))))
+"/git/fricas/src/algebra/ZDSOLVE.spad"
+((|convert| (*1 *2 *3)
+            (AND
+             (|isDomain| *3
+                         (|SquareFreeRegularTriangularSet| *4
+                                                           (|IndexedExponents|
+                                                            (|OrderedVariableList|
+                                                             *6))
+                                                           (|OrderedVariableList|
+                                                            *6)
+                                                           (|NewSparseMultivariatePolynomial|
+                                                            *4
+                                                            (|OrderedVariableList|
+                                                             *6))))
+             (|ofCategory| *4
+                           (|Join| (|OrderedRing|)
+                                   (|PolynomialFactorizationExplicit|)
+                                   (|CharacteristicZero|) (|RealConstant|)))
+             (|ofType| *6 (|List| (|Symbol|)))
+             (|isDomain| *2
+                         (|List|
+                          (|NewSparseMultivariatePolynomial| *4
+                                                             (|OrderedVariableList|
+                                                              *6))))
+             (|isDomain| *1 (|ZeroDimensionalSolvePackage| *4 *5 *6))
+             (|ofType| *5 (|List| (|Symbol|)))))
+ (|convert| (*1 *2 *3)
+            (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *4))
+                 (|ofCategory| *4
+                               (|Join| (|OrderedRing|)
+                                       (|PolynomialFactorizationExplicit|)
+                                       (|CharacteristicZero|)
+                                       (|RealConstant|)))
+                 (|isDomain| *2
+                             (|SparseUnivariatePolynomial|
+                              (|RealClosure| (|Fraction| *4))))
+                 (|isDomain| *1 (|ZeroDimensionalSolvePackage| *4 *5 *6))
+                 (|ofType| *5 (|List| (|Symbol|)))
+                 (|ofType| *6 (|List| (|Symbol|)))))
+ (|convert| (*1 *2 *3)
+            (AND
+             (|isDomain| *3
+                         (|NewSparseMultivariatePolynomial| *4
+                                                            (|OrderedVariableList|
+                                                             *6)))
+             (|ofCategory| *4
+                           (|Join| (|OrderedRing|)
+                                   (|PolynomialFactorizationExplicit|)
+                                   (|CharacteristicZero|) (|RealConstant|)))
+             (|ofType| *6 (|List| (|Symbol|)))
+             (|isDomain| *2 (|Polynomial| (|RealClosure| (|Fraction| *4))))
+             (|isDomain| *1 (|ZeroDimensionalSolvePackage| *4 *5 *6))
+             (|ofType| *5 (|List| (|Symbol|)))))
+ (|convert| (*1 *2 *3)
+            (AND (|isDomain| *3 (|Polynomial| *4))
+                 (|ofCategory| *4
+                               (|Join| (|OrderedRing|)
+                                       (|PolynomialFactorizationExplicit|)
+                                       (|CharacteristicZero|)
+                                       (|RealConstant|)))
+                 (|isDomain| *2 (|Polynomial| (|RealClosure| (|Fraction| *4))))
+                 (|isDomain| *1 (|ZeroDimensionalSolvePackage| *4 *5 *6))
+                 (|ofType| *5 (|List| (|Symbol|)))
+                 (|ofType| *6 (|List| (|Symbol|)))))
+ (|convert| (*1 *2 *3)
+            (AND
+             (|isDomain| *3
+                         (|NewSparseMultivariatePolynomial| *4
+                                                            (|OrderedVariableList|
+                                                             *5)))
+             (|ofCategory| *4
+                           (|Join| (|OrderedRing|)
+                                   (|PolynomialFactorizationExplicit|)
+                                   (|CharacteristicZero|) (|RealConstant|)))
+             (|ofType| *5 (|List| (|Symbol|)))
+             (|isDomain| *2
+                         (|NewSparseMultivariatePolynomial| *4
+                                                            (|OrderedVariableList|
+                                                             *6)))
+             (|isDomain| *1 (|ZeroDimensionalSolvePackage| *4 *5 *6))
+             (|ofType| *6 (|List| (|Symbol|)))))
+ (|squareFree| (*1 *2 *3)
+  (AND (|isDomain| *3 (|RegularChain| *4 *5))
+       (|ofCategory| *4
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|isDomain| *2
+                   (|List|
+                    (|SquareFreeRegularTriangularSet| *4
+                                                      (|IndexedExponents|
+                                                       (|OrderedVariableList|
+                                                        *6))
+                                                      (|OrderedVariableList|
+                                                       *6)
+                                                      (|NewSparseMultivariatePolynomial|
+                                                       *4
+                                                       (|OrderedVariableList|
+                                                        *6)))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *4 *5 *6))
+       (|ofType| *6 (|List| (|Symbol|)))))
+ (|positiveSolve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *4)))
+       (|ofCategory| *4
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2 (|List| (|List| (|RealClosure| (|Fraction| *4)))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *4 *5 *6))
+       (|ofType| *5 (|List| (|Symbol|))) (|ofType| *6 (|List| (|Symbol|)))))
+ (|positiveSolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5))) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2 (|List| (|List| (|RealClosure| (|Fraction| *5)))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *5 *6 *7))
+       (|ofType| *6 (|List| (|Symbol|))) (|ofType| *7 (|List| (|Symbol|)))))
+ (|positiveSolve| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5))) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2 (|List| (|List| (|RealClosure| (|Fraction| *5)))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *5 *6 *7))
+       (|ofType| *6 (|List| (|Symbol|))) (|ofType| *7 (|List| (|Symbol|)))))
+ (|positiveSolve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|RegularChain| *4 *5))
+       (|ofCategory| *4
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|isDomain| *2 (|List| (|List| (|RealClosure| (|Fraction| *4)))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *4 *5 *6))
+       (|ofType| *6 (|List| (|Symbol|)))))
+ (|realSolve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *4)))
+       (|ofCategory| *4
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2 (|List| (|List| (|RealClosure| (|Fraction| *4)))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *4 *5 *6))
+       (|ofType| *5 (|List| (|Symbol|))) (|ofType| *6 (|List| (|Symbol|)))))
+ (|realSolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5))) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2 (|List| (|List| (|RealClosure| (|Fraction| *5)))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *5 *6 *7))
+       (|ofType| *6 (|List| (|Symbol|))) (|ofType| *7 (|List| (|Symbol|)))))
+ (|realSolve| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5))) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2 (|List| (|List| (|RealClosure| (|Fraction| *5)))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *5 *6 *7))
+       (|ofType| *6 (|List| (|Symbol|))) (|ofType| *7 (|List| (|Symbol|)))))
+ (|realSolve| (*1 *2 *3 *4 *4 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5))) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2 (|List| (|List| (|RealClosure| (|Fraction| *5)))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *5 *6 *7))
+       (|ofType| *6 (|List| (|Symbol|))) (|ofType| *7 (|List| (|Symbol|)))))
+ (|realSolve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|RegularChain| *4 *5))
+       (|ofCategory| *4
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|isDomain| *2 (|List| (|List| (|RealClosure| (|Fraction| *4)))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *4 *5 *6))
+       (|ofType| *6 (|List| (|Symbol|)))))
+ (|univariateSolve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *4)))
+       (|ofCategory| *4
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |complexRoots| (|SparseUnivariatePolynomial| *4))
+                     (|:| |coordinates| (|List| (|Polynomial| *4))))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *4 *5 *6))
+       (|ofType| *5 (|List| (|Symbol|))) (|ofType| *6 (|List| (|Symbol|)))))
+ (|univariateSolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5))) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |complexRoots| (|SparseUnivariatePolynomial| *5))
+                     (|:| |coordinates| (|List| (|Polynomial| *5))))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *5 *6 *7))
+       (|ofType| *6 (|List| (|Symbol|))) (|ofType| *7 (|List| (|Symbol|)))))
+ (|univariateSolve| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5))) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |complexRoots| (|SparseUnivariatePolynomial| *5))
+                     (|:| |coordinates| (|List| (|Polynomial| *5))))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *5 *6 *7))
+       (|ofType| *6 (|List| (|Symbol|))) (|ofType| *7 (|List| (|Symbol|)))))
+ (|univariateSolve| (*1 *2 *3 *4 *4 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5))) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |complexRoots| (|SparseUnivariatePolynomial| *5))
+                     (|:| |coordinates| (|List| (|Polynomial| *5))))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *5 *6 *7))
+       (|ofType| *6 (|List| (|Symbol|))) (|ofType| *7 (|List| (|Symbol|)))))
+ (|univariateSolve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|RegularChain| *4 *5))
+       (|ofCategory| *4
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|ofType| *5 (|List| (|Symbol|)))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |complexRoots| (|SparseUnivariatePolynomial| *4))
+                     (|:| |coordinates| (|List| (|Polynomial| *4))))))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *4 *5 *6))
+       (|ofType| *6 (|List| (|Symbol|)))))
+ (|triangSolve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *4)))
+       (|ofCategory| *4
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2 (|List| (|RegularChain| *4 *5)))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *4 *5 *6))
+       (|ofType| *5 (|List| (|Symbol|))) (|ofType| *6 (|List| (|Symbol|)))))
+ (|triangSolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5))) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2 (|List| (|RegularChain| *5 *6)))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *5 *6 *7))
+       (|ofType| *6 (|List| (|Symbol|))) (|ofType| *7 (|List| (|Symbol|)))))
+ (|triangSolve| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5))) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|OrderedRing|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|) (|RealConstant|)))
+       (|isDomain| *2 (|List| (|RegularChain| *5 *6)))
+       (|isDomain| *1 (|ZeroDimensionalSolvePackage| *5 *6 *7))
+       (|ofType| *6 (|List| (|Symbol|))) (|ofType| *7 (|List| (|Symbol|))))))
+((|univariateSolve|
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)))
+   145)
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|))
+   144)
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|))
+   143)
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|) (|Boolean|))
+   142)
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|RegularChain| |#1| |#2|))
+   127))
+ (|triangSolve|
+  (((|List| (|RegularChain| |#1| |#2|)) (|List| (|Polynomial| |#1|))) 70)
+  (((|List| (|RegularChain| |#1| |#2|)) (|List| (|Polynomial| |#1|))
+    (|Boolean|))
+   69)
+  (((|List| (|RegularChain| |#1| |#2|)) (|List| (|Polynomial| |#1|))
+    (|Boolean|) (|Boolean|))
+   68))
+ (|squareFree|
+  (((|List|
+     (|SquareFreeRegularTriangularSet| |#1|
+                                       (|IndexedExponents|
+                                        (|OrderedVariableList| |#3|))
+                                       (|OrderedVariableList| |#3|)
+                                       (|NewSparseMultivariatePolynomial| |#1|
+                                                                          (|OrderedVariableList|
+                                                                           |#3|))))
+    (|RegularChain| |#1| |#2|))
+   59))
+ (|realSolve|
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)))
+   112)
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|))
+   111)
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|))
+   110)
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|) (|Boolean|))
+   109)
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|RegularChain| |#1| |#2|))
+   104))
+ (|positiveSolve|
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)))
+   117)
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|))
+   116)
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|))
+   115)
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|RegularChain| |#1| |#2|))
+   114))
+ (|convert|
+  (((|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#3|)))
+    (|SquareFreeRegularTriangularSet| |#1|
+                                      (|IndexedExponents|
+                                       (|OrderedVariableList| |#3|))
+                                      (|OrderedVariableList| |#3|)
+                                      (|NewSparseMultivariatePolynomial| |#1|
+                                                                         (|OrderedVariableList|
+                                                                          |#3|))))
+   96)
+  (((|SparseUnivariatePolynomial| (|RealClosure| (|Fraction| |#1|)))
+    (|SparseUnivariatePolynomial| |#1|))
+   87)
+  (((|Polynomial| (|RealClosure| (|Fraction| |#1|)))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#3|)))
+   94)
+  (((|Polynomial| (|RealClosure| (|Fraction| |#1|))) (|Polynomial| |#1|)) 92)
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#3|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+   32)))
+ZDSOLVE
+((|constructor|
+  (NIL
+   "A package for computing symbolically the complex and real roots of zero-dimensional algebraic systems over the integer or rational numbers. Complex roots are given by means of univariate representations of irreducible regular chains. Real roots are given by means of tuples of coordinates lying in the \\spadtype{RealClosure} of the coefficient ring. This constructor takes three arguments. The first one \\spad{R} is the coefficient ring. The second one \\spad{ls} is the list of variables involved in the systems to solve. The third one must be \\spad{concat(ls,{} s)} where \\spad{s} is an additional symbol used for the univariate representations. WARNING: The third argument is not checked. All operations are based on triangular decompositions. The default is to compute these decompositions directly from the input system by using the \\spadtype{RegularChain} domain constructor. The lexTriangular algorithm can also be used for computing these decompositions (see the \\spadtype{LexTriangularPackage} package constructor). For that purpose,{} the operations \\spadopFrom{univariateSolve}{ZeroDimensionalSolvePackage},{} \\spadopFrom{realSolve}{ZeroDimensionalSolvePackage} and \\spadopFrom{positiveSolve}{ZeroDimensionalSolvePackage} admit an optional argument. \\newline Author: Marc Moreno Maza."))
+ (|convert|
+  (((|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#3|)))
+    (|SquareFreeRegularTriangularSet| |#1|
+                                      (|IndexedExponents|
+                                       (|OrderedVariableList| |#3|))
+                                      (|OrderedVariableList| |#3|)
+                                      (|NewSparseMultivariatePolynomial| |#1|
+                                                                         (|OrderedVariableList|
+                                                                          |#3|))))
+   "\\spad{convert(st)} returns the members of \\spad{st}.")
+  (((|SparseUnivariatePolynomial| (|RealClosure| (|Fraction| |#1|)))
+    (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{convert(u)} converts \\spad{u}.")
+  (((|Polynomial| (|RealClosure| (|Fraction| |#1|)))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#3|)))
+   "\\spad{convert(q)} converts \\spad{q}.")
+  (((|Polynomial| (|RealClosure| (|Fraction| |#1|))) (|Polynomial| |#1|))
+   "\\spad{convert(p)} converts \\spad{p}.")
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#3|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+   "\\spad{convert(q)} converts \\spad{q}."))
+ (|squareFree|
+  (((|List|
+     (|SquareFreeRegularTriangularSet| |#1|
+                                       (|IndexedExponents|
+                                        (|OrderedVariableList| |#3|))
+                                       (|OrderedVariableList| |#3|)
+                                       (|NewSparseMultivariatePolynomial| |#1|
+                                                                          (|OrderedVariableList|
+                                                                           |#3|))))
+    (|RegularChain| |#1| |#2|))
+   "\\spad{squareFree(ts)} returns the square-free factorization of \\spad{ts}. Moreover,{} each factor is a Lazard triangular set and the decomposition is a Kalkbrener split of \\spad{ts},{} which is enough here for the matter of solving zero-dimensional algebraic systems. WARNING: \\spad{ts} is not checked to be zero-dimensional."))
+ (|positiveSolve|
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)))
+   "\\spad{positiveSolve(lp)} returns the same as \\spad{positiveSolve(lp,{} false,{} false)}.")
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|))
+   "\\spad{positiveSolve(lp)} returns the same as \\spad{positiveSolve(lp,{} info?,{} false)}.")
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|))
+   "\\spad{positiveSolve(lp,{} info?,{} lextri?)} returns the set of the points in the variety associated with \\spad{lp} whose coordinates are (real) strictly positive. Moreover,{} if \\spad{info?} is \\spad{true} then some information is displayed during decomposition into regular chains. If \\spad{lextri?} is \\spad{true} then the lexTriangular algorithm is called from the \\spadtype{LexTriangularPackage} constructor (see \\spadopFrom{zeroSetSplit}{LexTriangularPackage}(\\spad{lp},{} \\spad{false})). Otherwise,{} the triangular decomposition is computed directly from the input system by using the \\spadopFrom{zeroSetSplit}{RegularChain} from \\spadtype{RegularChain}. WARNING: For each set of coordinates given by \\spad{positiveSolve(lp,{} info?,{} lextri?)} the ordering of the indeterminates is reversed \\spad{w}.\\spad{r}.\\spad{t}. \\spad{ls}.")
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|RegularChain| |#1| |#2|))
+   "\\spad{positiveSolve(ts)} returns the points of the regular set of \\spad{ts} with (real) strictly positive coordinates."))
+ (|realSolve|
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)))
+   "\\spad{realSolve(lp)} returns the same as \\spad{realSolve(ts,{} false,{} false,{} false)}")
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|))
+   "\\spad{realSolve(ts,{} info?)} returns the same as \\spad{realSolve(ts,{} info?,{} false,{} false)}.")
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|))
+   "\\spad{realSolve(ts,{} info?,{} check?)} returns the same as \\spad{realSolve(ts,{} info?,{} check?,{} false)}.")
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|) (|Boolean|))
+   "\\spad{realSolve(ts,{} info?,{} check?,{} lextri?)} returns the set of the points in the variety associated with \\spad{lp} whose coordinates are all real. Moreover,{} if \\spad{info?} is \\spad{true} then some information is displayed during decomposition into regular chains. If \\spad{check?} is \\spad{true} then the result is checked. If \\spad{lextri?} is \\spad{true} then the lexTriangular algorithm is called from the \\spadtype{LexTriangularPackage} constructor (see \\spadopFrom{zeroSetSplit}{LexTriangularPackage}(\\spad{lp},{} \\spad{false})). Otherwise,{} the triangular decomposition is computed directly from the input system by using the \\spadopFrom{zeroSetSplit}{RegularChain} from \\spadtype{RegularChain}. WARNING: For each set of coordinates given by \\spad{realSolve(ts,{} info?,{} check?,{} lextri?)} the ordering of the indeterminates is reversed \\spad{w}.\\spad{r}.\\spad{t}. \\spad{ls}.")
+  (((|List| (|List| (|RealClosure| (|Fraction| |#1|))))
+    (|RegularChain| |#1| |#2|))
+   "\\spad{realSolve(ts)} returns the set of the points in the regular zero set of \\spad{ts} whose coordinates are all real. WARNING: For each set of coordinates given by \\spad{realSolve(ts)} the ordering of the indeterminates is reversed \\spad{w}.\\spad{r}.\\spad{t}. \\spad{ls}."))
+ (|univariateSolve|
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)))
+   "\\spad{univariateSolve(lp)} returns the same as \\spad{univariateSolve(lp,{} false,{} false,{} false)}.")
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|))
+   "\\spad{univariateSolve(lp,{} info?)} returns the same as \\spad{univariateSolve(lp,{} info?,{} false,{} false)}.")
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|))
+   "\\spad{univariateSolve(lp,{} info?,{} check?)} returns the same as \\spad{univariateSolve(lp,{} info?,{} check?,{} false)}.")
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|Boolean|) (|Boolean|) (|Boolean|))
+   "\\spad{univariateSolve(lp,{} info?,{} check?,{} lextri?)} returns a univariate representation of the variety associated with \\spad{lp}. Moreover,{} if \\spad{info?} is \\spad{true} then some information is displayed during the decomposition into regular chains. If \\spad{check?} is \\spad{true} then the result is checked. See \\spadopFrom{rur}{RationalUnivariateRepresentationPackage}(\\spad{lp},{} \\spad{true}). If \\spad{lextri?} is \\spad{true} then the lexTriangular algorithm is called from the \\spadtype{LexTriangularPackage} constructor (see \\spadopFrom{zeroSetSplit}{LexTriangularPackage}(\\spad{lp},{} \\spad{false})). Otherwise,{} the triangular decomposition is computed directly from the input system by using the \\spadopFrom{zeroSetSplit}{RegularChain} from \\spadtype{RegularChain}.")
+  (((|List|
+     (|Record| (|:| |complexRoots| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |coordinates| (|List| (|Polynomial| |#1|)))))
+    (|RegularChain| |#1| |#2|))
+   "\\spad{univariateSolve(ts)} returns a univariate representation of \\spad{ts}. See \\spadopFrom{rur}{RationalUnivariateRepresentationPackage}(\\spad{lp},{} \\spad{true})."))
+ (|triangSolve|
+  (((|List| (|RegularChain| |#1| |#2|)) (|List| (|Polynomial| |#1|)))
+   "\\spad{triangSolve(lp)} returns the same as \\spad{triangSolve(lp,{} false,{} false)}")
+  (((|List| (|RegularChain| |#1| |#2|)) (|List| (|Polynomial| |#1|))
+    (|Boolean|))
+   "\\spad{triangSolve(lp,{} info?)} returns the same as \\spad{triangSolve(lp,{} false)}")
+  (((|List| (|RegularChain| |#1| |#2|)) (|List| (|Polynomial| |#1|))
+    (|Boolean|) (|Boolean|))
+   "\\spad{triangSolve(lp,{} info?,{} lextri?)} decomposes the variety associated with \\spad{lp} into regular chains. Thus a point belongs to this variety iff it is a regular zero of a regular set in in the output. Note that \\spad{lp} needs to generate a zero-dimensional ideal. If \\spad{lp} is not zero-dimensional then the result is only a decomposition of its zero-set in the sense of the closure (\\spad{w}.\\spad{r}.\\spad{t}. Zarisky topology). Moreover,{} if \\spad{info?} is \\spad{true} then some information is displayed during the computations. See \\spadopFrom{zeroSetSplit}{RegularTriangularSetCategory}(\\spad{lp},{} \\spad{true},{} \\spad{info?}). If \\spad{lextri?} is \\spad{true} then the lexTriangular algorithm is called from the \\spadtype{LexTriangularPackage} constructor (see \\spadopFrom{zeroSetSplit}{LexTriangularPackage}(\\spad{lp},{} \\spad{false})). Otherwise,{} the triangular decomposition is computed directly from the input system by using the \\spadopFrom{zeroSetSplit}{RegularChain} from \\spadtype{RegularChain}.")))
+(("documentation" 0 28349) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 28341) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 24324) ("modemaps" 0 9173) ("sourceFile" 0 9134)
+ ("constructorCategory" 0 4817) ("constructorModemap" 0 75)
+ ("constructorKind" 0 65) ("constructorForm" 0 20))

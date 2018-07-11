@@ -1,0 +1,120 @@
+)abbrev category BRAGG BinaryRecursiveAggregate
+++ Author: Michael Monagan; revised by Manuel Bronstein and Richard Jenks
+++ Date Created: August 87 through August 88
+++ Basic Operations:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ A binary-recursive aggregate has 0, 1 or 2 children and
+++ serves as a model for a binary tree or a doubly-linked aggregate structure
+BinaryRecursiveAggregate(S : Type) : Category == RecursiveAggregate S with
+   -- needs preorder, inorder and postorder iterators
+   left : % -> %
+     ++ left(u) returns the left child.
+   elt : (%, "left") -> %
+     ++ elt(u, "left") (also written: \spad{a.left}) is
+     ++ equivalent to \spad{left(a)}.
+   right : % -> %
+     ++ right(a) returns the right child.
+   elt : (%, "right") -> %
+     ++ elt(a, "right") (also written: \spad{a.right})
+     ++ is equivalent to \spad{right(a)}.
+   if % has shallowlyMutable then
+      setelt! : (%, "left", %) -> %
+        ++ setelt!(a, "left", b) (also written \spad{a.left := b})
+        ++ is equivalent to \spad{setleft!(a, b)}.
+      setleft! : (%, %) -> %
+         ++ setleft!(a, b) sets the left child of \spad{a} to be b.
+      setelt! : (%, "right", %) -> %
+         ++ setelt!(a, "right", b) (also written \spad{a.right := b})
+         ++ is equivalent to \spad{setright!(a, b)}.
+      setright! : (%, %) -> %
+         ++ setright!(a, b) sets the right child of \spad{a} to be b.
+ add
+   cycleMax ==> 1000
+
+   elt(x,"left")  == left x
+   elt(x,"right") == right x
+   leaf? x ==
+       empty? x => false
+       empty? left x and empty? right x
+
+   leaves t ==
+       empty? t => empty()$List(S)
+       leaf? t => [value t]
+       concat(leaves left t, leaves right t)
+
+   nodes x ==
+       empty? x => empty()
+       concat(nodes left x, concat(x, nodes right x))
+
+   children x ==
+       l := empty()$List(%)
+       empty? x => l
+       empty? left x  => [right x]
+       empty? right x => [left x]
+       [left x, right x]
+
+   if % has finiteAggregate then
+       aggCount : (%, NonNegativeInteger) -> NonNegativeInteger
+       #x == aggCount(x, 0)
+       aggCount(x, k) ==
+           empty? x => 0
+           k := k + 1
+           k = cycleMax and cyclic? x => error "cyclic tree"
+           for y in children x repeat k := aggCount(y, k)
+           k
+
+       if S has BasicType then
+           node?(u, v) ==
+               empty? v => false
+               u = v => true
+               node?(u, left v) or node?(u, right v) => return true
+               false
+
+           x = y ==
+               empty?(x) => empty?(y)
+               empty?(y) => false
+               value x = value y and left x = left y and right x = right y
+
+           member?(x, u) ==
+               empty? u => false
+               x = value u => true
+               member?(x, left u) or member?(x, right u)
+
+       if S has CoercibleTo OutputForm then
+           coerce(t : %) : OutputForm ==
+               empty? t => message("[]")$OutputForm
+               v := value(t)::OutputForm
+               empty? left t =>
+                   empty? right t => v
+                   r := coerce(right t)@OutputForm
+                   bracket [message(".")$OutputForm, v, r]
+               l := coerce(left t)@OutputForm
+               r :=
+                   empty? right t => message(".")$OutputForm
+                   coerce(right t)@OutputForm
+               bracket [l, v, r]
+
+   isCycle? :  (%, List %) -> Boolean
+   eqMember? : (%, List %) -> Boolean
+   cyclic? x     == not empty? x and isCycle?(x, empty()$(List %))
+
+   isCycle?(x, acc) ==
+       empty? x => false
+       eqMember?(x, acc) => true
+       for y in children x | not empty? y repeat
+           isCycle?(y, acc) => return true
+       false
+
+   eqMember?(y, l) ==
+       for x in l repeat eq?(x, y) => return true
+       false
+
+   if % has shallowlyMutable then
+       setelt!(x, "left", b)  == setleft!(x, b)
+       setelt!(x, "right", b) == setright!(x, b)
+

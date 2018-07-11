@@ -1,0 +1,32 @@
+1249                (MAKEPROP '|PartialOrder| 'NILADIC T)
+(|PartialOrder|)
+|category|
+(((|PartialOrder|) (|Category|)) (T |PartialOrder|))
+(|Join|
+ (CATEGORY |domain| (SIGNATURE < ((|Boolean|) $ $))
+  (SIGNATURE > ((|Boolean|) $ $)) (SIGNATURE >= ((|Boolean|) $ $))
+  (SIGNATURE <= ((|Boolean|) $ $))))
+"/git/fricas/src/algebra/PORDER.spad"
+((<= (*1 *2 *1 *1)
+     (AND (|ofCategory| *1 (|PartialOrder|)) (|isDomain| *2 (|Boolean|))))
+ (>= (*1 *2 *1 *1)
+     (AND (|ofCategory| *1 (|PartialOrder|)) (|isDomain| *2 (|Boolean|))))
+ (> (*1 *2 *1 *1)
+    (AND (|ofCategory| *1 (|PartialOrder|)) (|isDomain| *2 (|Boolean|))))
+ (< (*1 *2 *1 *1)
+    (AND (|ofCategory| *1 (|PartialOrder|)) (|isDomain| *2 (|Boolean|)))))
+((>= (((|Boolean|) $ $) 6)) (> (((|Boolean|) $ $) 6))
+ (<= (((|Boolean|) $ $) 6)) (< (((|Boolean|) $ $) 6)))
+PORDER
+((|constructor|
+  (NIL
+   "The class of partially ordered sets,{} that is sets equipped with transitive and reflexive relation \\spad{<=}."))
+ (<= (((|Boolean|) $ $) "\\spad{x <= y} is a less than or equal test."))
+ (>= (((|Boolean|) $ $) "\\spad{x >= y} is a greater than or equal test."))
+ (> (((|Boolean|) $ $) "\\spad{x > y} is a greater than test."))
+ (< (((|Boolean|) $ $) "\\spad{x < y} is a less than test.")))
+(("documentation" 0 830) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 823) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 714) ("modemaps" 0 341) ("sourceFile" 0 303)
+ ("constructorCategory" 0 139) ("constructorModemap" 0 86)
+ ("constructorKind" 0 75) ("constructorForm" 0 58) ("NILADIC" 0 20))

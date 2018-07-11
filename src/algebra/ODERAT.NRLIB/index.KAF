@@ -1,0 +1,233 @@
+11776               (|RationalLODE| F UP)
+|package|
+(((|RationalLODE| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |ratDsolve|
+    ((|Record| (|:| |particular| (|Union| (|Fraction| |#2|) #1="failed"))
+               (|:| |basis| (|List| (|Fraction| |#2|))))
+     (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+     (|Fraction| |#2|)))
+   (SIGNATURE |ratDsolve|
+    ((|Record| (|:| |basis| (|List| (|Fraction| |#2|)))
+               (|:| |mat| (|Matrix| |#1|)))
+     (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+     (|List| (|Fraction| |#2|))))
+   (SIGNATURE |ratDsolve|
+    ((|Record| (|:| |particular| (|Union| (|Fraction| |#2|) #1#))
+               (|:| |basis| (|List| (|Fraction| |#2|))))
+     (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+     (|Fraction| |#2|)))
+   (SIGNATURE |ratDsolve|
+    ((|Record| (|:| |basis| (|List| (|Fraction| |#2|)))
+               (|:| |mat| (|Matrix| |#1|)))
+     (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+     (|List| (|Fraction| |#2|))))
+   (SIGNATURE |indicialEquationAtInfinity|
+    (|#2| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))))
+   (SIGNATURE |indicialEquationAtInfinity|
+    (|#2| (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))))
+   (SIGNATURE |integrate_sols|
+    ((|Record|
+      (|:| |ltilde| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+      (|:| |r|
+           (|Union| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+                    "failed")))
+     (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))))
+  (|Join| (|Field|) (|CharacteristicZero|) (|RetractableTo| (|Integer|))
+          (|RetractableTo| (|Fraction| (|Integer|))))
+  (|UnivariatePolynomialCategory| |#1|))
+ (T |RationalLODE|))
+(CATEGORY |package|
+ (SIGNATURE |ratDsolve|
+  ((|Record| (|:| |particular| (|Union| (|Fraction| |#2|) #1="failed"))
+             (|:| |basis| (|List| (|Fraction| |#2|))))
+   (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+   (|Fraction| |#2|)))
+ (SIGNATURE |ratDsolve|
+  ((|Record| (|:| |basis| (|List| (|Fraction| |#2|)))
+             (|:| |mat| (|Matrix| |#1|)))
+   (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+   (|List| (|Fraction| |#2|))))
+ (SIGNATURE |ratDsolve|
+  ((|Record| (|:| |particular| (|Union| (|Fraction| |#2|) #1#))
+             (|:| |basis| (|List| (|Fraction| |#2|))))
+   (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+   (|Fraction| |#2|)))
+ (SIGNATURE |ratDsolve|
+  ((|Record| (|:| |basis| (|List| (|Fraction| |#2|)))
+             (|:| |mat| (|Matrix| |#1|)))
+   (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+   (|List| (|Fraction| |#2|))))
+ (SIGNATURE |indicialEquationAtInfinity|
+  (|#2| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))))
+ (SIGNATURE |indicialEquationAtInfinity|
+  (|#2| (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))))
+ (SIGNATURE |integrate_sols|
+  ((|Record|
+    (|:| |ltilde| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+    (|:| |r|
+         (|Union| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+                  "failed")))
+   (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))))
+"/git/fricas/src/algebra/ODERAT.spad"
+((|integrate_sols| (*1 *2 *3)
+  (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| (|Fraction| *5)))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+       (|ofCategory| *4
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |ltilde|
+                         (|LinearOrdinaryDifferentialOperator1|
+                          (|Fraction| *5)))
+                    (|:| |r|
+                         (|Union|
+                          (|LinearOrdinaryDifferentialOperator1|
+                           (|Fraction| *5))
+                          "failed"))))
+       (|isDomain| *1 (|RationalLODE| *4 *5))))
+ (|indicialEquationAtInfinity| (*1 *2 *3)
+  (AND
+   (|isDomain| *3 (|LinearOrdinaryDifferentialOperator2| *2 (|Fraction| *2)))
+   (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))
+   (|isDomain| *1 (|RationalLODE| *4 *2))
+   (|ofCategory| *4
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Fraction| (|Integer|)))))))
+ (|indicialEquationAtInfinity| (*1 *2 *3)
+  (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| (|Fraction| *2)))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))
+       (|isDomain| *1 (|RationalLODE| *4 *2))
+       (|ofCategory| *4
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Fraction| (|Integer|)))))))
+ (|ratDsolve| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3 (|LinearOrdinaryDifferentialOperator2| *6 (|Fraction| *6)))
+   (|isDomain| *4 (|List| (|Fraction| *6)))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+   (|ofCategory| *5
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|isDomain| *2
+               (|Record| (|:| |basis| (|List| (|Fraction| *6)))
+                         (|:| |mat| (|Matrix| *5))))
+   (|isDomain| *1 (|RationalLODE| *5 *6))))
+ (|ratDsolve| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3 (|LinearOrdinaryDifferentialOperator2| *6 (|Fraction| *6)))
+   (|isDomain| *4 (|Fraction| *6))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+   (|ofCategory| *5
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|isDomain| *2
+               (|Record|
+                (|:| |particular| (|Union| (|Fraction| *6) #1="failed"))
+                (|:| |basis| (|List| (|Fraction| *6)))))
+   (|isDomain| *1 (|RationalLODE| *5 *6))))
+ (|ratDsolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| (|Fraction| *6)))
+       (|isDomain| *4 (|List| (|Fraction| *6)))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|isDomain| *2
+                   (|Record| (|:| |basis| (|List| (|Fraction| *6)))
+                             (|:| |mat| (|Matrix| *5))))
+       (|isDomain| *1 (|RationalLODE| *5 *6))))
+ (|ratDsolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| (|Fraction| *6)))
+       (|isDomain| *4 (|Fraction| *6))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|isDomain| *2
+                   (|Record| (|:| |particular| (|Union| (|Fraction| *6) #1#))
+                             (|:| |basis| (|List| (|Fraction| *6)))))
+       (|isDomain| *1 (|RationalLODE| *5 *6)))))
+((|ratDsolve|
+  (((|Record| (|:| |basis| (|List| (|Fraction| |#2|)))
+              (|:| |mat| (|Matrix| |#1|)))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|List| (|Fraction| |#2|)))
+   114)
+  (((|Record| (|:| |particular| (|Union| (|Fraction| |#2|) #1="failed"))
+              (|:| |basis| (|List| (|Fraction| |#2|))))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|Fraction| |#2|))
+   113)
+  (((|Record| (|:| |basis| (|List| (|Fraction| |#2|)))
+              (|:| |mat| (|Matrix| |#1|)))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+    (|List| (|Fraction| |#2|)))
+   108)
+  (((|Record| (|:| |particular| (|Union| (|Fraction| |#2|) #1#))
+              (|:| |basis| (|List| (|Fraction| |#2|))))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+    (|Fraction| |#2|))
+   106))
+ (|integrate_sols|
+  (((|Record|
+     (|:| |ltilde| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+     (|:| |r|
+          (|Union| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+                   "failed")))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+   120))
+ (|indicialEquationAtInfinity|
+  ((|#2| (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))) 73)
+  ((|#2| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))) 77)))
+ODERAT
+((|constructor|
+  (NIL
+   "\\spad{RationalLODE} provides functions for in-field solutions of linear \\indented{1}{ordinary differential equations,{} in the rational case.}"))
+ (|integrate_sols|
+  (((|Record|
+     (|:| |ltilde| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+     (|:| |r|
+          (|Union| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+                   "failed")))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+   "\\spad{integrate_sols(l)} integrates the solutions of an operator \\spad{l}."))
+ (|indicialEquationAtInfinity|
+  ((|#2| (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|)))
+   "\\spad{indicialEquationAtInfinity op} returns the indicial equation of \\spad{op} at infinity.")
+  ((|#2| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+   "\\spad{indicialEquationAtInfinity op} returns the indicial equation of \\spad{op} at infinity."))
+ (|ratDsolve|
+  (((|Record| (|:| |basis| (|List| (|Fraction| |#2|)))
+              (|:| |mat| (|Matrix| |#1|)))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|List| (|Fraction| |#2|)))
+   "\\spad{ratDsolve(op,{} [g1,{} ...,{} gm])} returns \\spad{[[h1,{} ...,{} hq],{} M]} such that any rational solution of \\spad{op y = c1 g1 + ... + cm gm} is of the form \\spad{c1 h1 + ... + cq hq} where \\spad{M [c1,{} ...,{} cq] = 0} and \\spad{q >= m}.")
+  (((|Record| (|:| |particular| (|Union| (|Fraction| |#2|) #1="failed"))
+              (|:| |basis| (|List| (|Fraction| |#2|))))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|Fraction| |#2|))
+   "\\spad{ratDsolve(op,{} g)} returns \\spad{[\"failed\",{} []]} if the equation \\spad{op y = g} has no rational solution. Otherwise,{} it returns \\spad{[f,{} [y1,{} ...,{} ym]]} where \\spad{f} is a particular rational solution and the \\spad{yi}\\spad{'s} form a basis for the rational solutions of the homogeneous equation.")
+  (((|Record| (|:| |basis| (|List| (|Fraction| |#2|)))
+              (|:| |mat| (|Matrix| |#1|)))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+    (|List| (|Fraction| |#2|)))
+   "\\spad{ratDsolve(op,{} [g1,{} ...,{} gm])} returns \\spad{[[h1,{} ...,{} hq],{} M]} such that any rational solution of \\spad{op y = c1 g1 + ... + cm gm} is of the form \\spad{c1 h1 + ... + cq hq} where \\spad{M [c1,{} ...,{} cq] = 0} and \\spad{q >= m}.")
+  (((|Record| (|:| |particular| (|Union| (|Fraction| |#2|) #1#))
+              (|:| |basis| (|List| (|Fraction| |#2|))))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+    (|Fraction| |#2|))
+   "\\spad{ratDsolve(op,{} g)} returns \\spad{[\"failed\",{} []]} if the equation \\spad{op y = g} has no rational solution. Otherwise,{} it returns \\spad{[f,{} [y1,{} ...,{} ym]]} where \\spad{f} is a particular rational solution and the \\spad{yi}\\spad{'s} form a basis for the rational solutions of the homogeneous equation.")))
+(("documentation" 0 8830) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 8823) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 7475) ("modemaps" 0 3258) ("sourceFile" 0 3220)
+ ("constructorCategory" 0 1777) ("constructorModemap" 0 52)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

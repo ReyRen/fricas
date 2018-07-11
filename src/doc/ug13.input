@@ -1,0 +1,115 @@
+
+-- Input for page ugDomainsOriginsPage
+)clear all
+
+
+-- Input for page ugDomainsPuttingPage
+)clear all
+
+
+-- Input for page ugDomainsDatabasePage
+)clear all
+
+
+-- Input for page ugDomsinsDatabasePage
+)clear all
+
+
+-- Input for page ugDomainsCliffordPage
+)clear all
+
+
+-- Input for page ugDomainsCreatingPage
+)clear all
+
+
+-- Input for page ugDomainsDefaultsPage
+)clear all
+
+
+-- Input for page ugDomainsExamplesPage
+)clear all
+
+ks := getDatabase "k"
+[ks.(kind=k) for k in ["c","d","p"]]
+elt(ks.(kind="d").(nargs="0"),name)
+mk := ks.(name="*Matrix*")
+elt(mk.(kind="d"),name)
+o := getDatabase "o"
+[o.(kind=k) for k in ["c","d","p"]]
+eigens := o.(name="*eigen*")
+elt(eigens,name)
+elt(elt(elt(eigens,origin),sort),unique)
+tm := o.(type="*Matrix*")
+fm := o.(origin="*Matrix*")
+fm-tm
+fullDisplay(fm-%)
+m := tm+fm
+fullDisplay(m, 202, 205)
+elt(elt(elt(m,name),unique),count)
+
+-- Input for page ugDomainsAddDomainPage
+)clear all
+
+
+-- Input for page ugDomainsDataListsPage
+)clear all
+
+
+-- Input for page ugDomainsDatabaseConstructorPage
+)clear all
+
+
+-- Input for page ugDomainsPage
+)clear all
+
+
+-- Input for page ugDomainsShortFormsPage
+)clear all
+
+
+-- Input for page ugDomainsAssertionsPage
+)clear all
+
+
+-- Input for page ugDomainsMultipleRepsPage
+)clear all
+
+
+-- Input for page ugDomainsRepPage
+)clear all
+
+
+-- Input for page ugDomainsQueryLanguagePage
+)clear all
+
+ops := getDatabase("o")
+ops.(name="map").(nargs="3").(type="*Stream*")
+elt(elt(elt(elt(ops,name="determinant"),origin),sort),unique)
+
+-- Input for page ugDomainsDefsPage
+)clear all
+
+
+-- Input for page ugDomainsDemoPage
+)clear all
+
+QF := QuadraticForm(2,Fraction Integer)
+A := matrix [[-1,1/2],[1/2,1]]
+q : QF := quadraticForm(A)
+nrows q
+v := directProduct([2,-1])$DirectProduct(2,Fraction Integer)
+q.v
+3*q-q+q
+
+-- Input for page ugDomainsQueryEquationsPage
+)clear all
+
+
+-- Input for page ugPackagesDomsPage
+)clear all
+
+
+-- Input for page ugDomainsBrowsePage
+)clear all
+

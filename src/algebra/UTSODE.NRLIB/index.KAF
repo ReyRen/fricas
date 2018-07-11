@@ -1,0 +1,131 @@
+6537                (|UnivariateTaylorSeriesODESolver| |Coef| UTS)
+|package|
+(((|UnivariateTaylorSeriesODESolver| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |stFunc1|
+    ((|Mapping| (|Stream| |#1|) (|Stream| |#1|)) (|Mapping| |#2| |#2|)))
+   (SIGNATURE |stFunc2|
+    ((|Mapping| (|Stream| |#1|) (|Stream| |#1|) (|Stream| |#1|))
+     (|Mapping| |#2| |#2| |#2|)))
+   (SIGNATURE |stFuncN|
+    ((|Mapping| (|Stream| |#1|) (|List| (|Stream| |#1|)))
+     (|Mapping| |#2| (|List| |#2|))))
+   (SIGNATURE |fixedPointExquo| (|#2| |#2| |#2|))
+   (SIGNATURE |ode1| (|#2| (|Mapping| |#2| |#2|) |#1|))
+   (SIGNATURE |ode2| (|#2| (|Mapping| |#2| |#2| |#2|) |#1| |#1|))
+   (SIGNATURE |ode| (|#2| (|Mapping| |#2| (|List| |#2|)) (|List| |#1|)))
+   (SIGNATURE |mpsode|
+    ((|List| |#2|) (|List| |#1|) (|List| (|Mapping| |#2| (|List| |#2|))))))
+  (|Algebra| (|Fraction| (|Integer|))) (|UnivariateTaylorSeriesCategory| |#1|))
+ (T |UnivariateTaylorSeriesODESolver|))
+(CATEGORY |package|
+ (SIGNATURE |stFunc1|
+  ((|Mapping| (|Stream| |#1|) (|Stream| |#1|)) (|Mapping| |#2| |#2|)))
+ (SIGNATURE |stFunc2|
+  ((|Mapping| (|Stream| |#1|) (|Stream| |#1|) (|Stream| |#1|))
+   (|Mapping| |#2| |#2| |#2|)))
+ (SIGNATURE |stFuncN|
+  ((|Mapping| (|Stream| |#1|) (|List| (|Stream| |#1|)))
+   (|Mapping| |#2| (|List| |#2|))))
+ (SIGNATURE |fixedPointExquo| (|#2| |#2| |#2|))
+ (SIGNATURE |ode1| (|#2| (|Mapping| |#2| |#2|) |#1|))
+ (SIGNATURE |ode2| (|#2| (|Mapping| |#2| |#2| |#2|) |#1| |#1|))
+ (SIGNATURE |ode| (|#2| (|Mapping| |#2| (|List| |#2|)) (|List| |#1|)))
+ (SIGNATURE |mpsode|
+  ((|List| |#2|) (|List| |#1|) (|List| (|Mapping| |#2| (|List| |#2|))))))
+"/git/fricas/src/algebra/UTSODE.spad"
+((|mpsode| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5))
+       (|isDomain| *4 (|List| (|Mapping| *6 (|List| *6))))
+       (|ofCategory| *5 (|Algebra| (|Fraction| (|Integer|))))
+       (|ofCategory| *6 (|UnivariateTaylorSeriesCategory| *5))
+       (|isDomain| *2 (|List| *6))
+       (|isDomain| *1 (|UnivariateTaylorSeriesODESolver| *5 *6))))
+ (|ode| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *2 (|List| *2))) (|isDomain| *4 (|List| *5))
+       (|ofCategory| *5 (|Algebra| (|Fraction| (|Integer|))))
+       (|ofCategory| *2 (|UnivariateTaylorSeriesCategory| *5))
+       (|isDomain| *1 (|UnivariateTaylorSeriesODESolver| *5 *2))))
+ (|ode2| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|Mapping| *2 *2 *2))
+       (|ofCategory| *2 (|UnivariateTaylorSeriesCategory| *4))
+       (|isDomain| *1 (|UnivariateTaylorSeriesODESolver| *4 *2))
+       (|ofCategory| *4 (|Algebra| (|Fraction| (|Integer|))))))
+ (|ode1| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *2 *2))
+       (|ofCategory| *2 (|UnivariateTaylorSeriesCategory| *4))
+       (|isDomain| *1 (|UnivariateTaylorSeriesODESolver| *4 *2))
+       (|ofCategory| *4 (|Algebra| (|Fraction| (|Integer|))))))
+ (|fixedPointExquo| (*1 *2 *2 *2)
+  (AND (|ofCategory| *3 (|Algebra| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|UnivariateTaylorSeriesODESolver| *3 *2))
+       (|ofCategory| *2 (|UnivariateTaylorSeriesCategory| *3))))
+ (|stFuncN| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Mapping| *5 (|List| *5)))
+       (|ofCategory| *5 (|UnivariateTaylorSeriesCategory| *4))
+       (|ofCategory| *4 (|Algebra| (|Fraction| (|Integer|))))
+       (|isDomain| *2 (|Mapping| (|Stream| *4) (|List| (|Stream| *4))))
+       (|isDomain| *1 (|UnivariateTaylorSeriesODESolver| *4 *5))))
+ (|stFunc2| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Mapping| *5 *5 *5))
+       (|ofCategory| *5 (|UnivariateTaylorSeriesCategory| *4))
+       (|ofCategory| *4 (|Algebra| (|Fraction| (|Integer|))))
+       (|isDomain| *2 (|Mapping| (|Stream| *4) (|Stream| *4) (|Stream| *4)))
+       (|isDomain| *1 (|UnivariateTaylorSeriesODESolver| *4 *5))))
+ (|stFunc1| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Mapping| *5 *5))
+       (|ofCategory| *5 (|UnivariateTaylorSeriesCategory| *4))
+       (|ofCategory| *4 (|Algebra| (|Fraction| (|Integer|))))
+       (|isDomain| *2 (|Mapping| (|Stream| *4) (|Stream| *4)))
+       (|isDomain| *1 (|UnivariateTaylorSeriesODESolver| *4 *5)))))
+((|stFuncN|
+  (((|Mapping| (|Stream| |#1|) (|List| (|Stream| |#1|)))
+    (|Mapping| |#2| (|List| |#2|)))
+   24))
+ (|stFunc2|
+  (((|Mapping| (|Stream| |#1|) (|Stream| |#1|) (|Stream| |#1|))
+    (|Mapping| |#2| |#2| |#2|))
+   16))
+ (|stFunc1|
+  (((|Mapping| (|Stream| |#1|) (|Stream| |#1|)) (|Mapping| |#2| |#2|)) 13))
+ (|ode2| ((|#2| (|Mapping| |#2| |#2| |#2|) |#1| |#1|) 48))
+ (|ode1| ((|#2| (|Mapping| |#2| |#2|) |#1|) 46))
+ (|ode| ((|#2| (|Mapping| |#2| (|List| |#2|)) (|List| |#1|)) 54))
+ (|mpsode|
+  (((|List| |#2|) (|List| |#1|) (|List| (|Mapping| |#2| (|List| |#2|)))) 61))
+ (|fixedPointExquo| ((|#2| |#2| |#2|) 43)))
+UTSODE
+((|constructor|
+  (NIL
+   "\\indented{1}{This package provides Taylor series solutions to regular} linear or non-linear ordinary differential equations of arbitrary order."))
+ (|mpsode|
+  (((|List| |#2|) (|List| |#1|) (|List| (|Mapping| |#2| (|List| |#2|))))
+   "\\spad{mpsode(r,{} f)} solves the system of differential equations \\spad{dy[i]/dx =f[i] [x,{} y[1],{} y[2],{} ...,{} y[n]]},{} \\spad{y[i](a) = r[i]} for \\spad{i} in 1..\\spad{n}."))
+ (|ode|
+  ((|#2| (|Mapping| |#2| (|List| |#2|)) (|List| |#1|))
+   "\\spad{ode(f,{} cl)} is the solution to \\spad{y<n>=f(y,{} y',{} ..,{} y<n-1>)} such that \\spad{y<i>(a) = cl.(i+1)} for \\spad{i} in 0..(\\spad{n} - 1)."))
+ (|ode2|
+  ((|#2| (|Mapping| |#2| |#2| |#2|) |#1| |#1|)
+   "\\spad{ode2(f,{} c0,{} c1)} is the solution to \\spad{y'' = f(y,{} y')} such that \\spad{y(a) = c0} and \\spad{y'(a) = c1}."))
+ (|ode1|
+  ((|#2| (|Mapping| |#2| |#2|) |#1|)
+   "\\spad{ode1(f,{} c)} is the solution to \\spad{y' = f(y)} such that \\spad{y(a) = c}."))
+ (|fixedPointExquo|
+  ((|#2| |#2| |#2|)
+   "\\spad{fixedPointExquo(f,{} g)} computes the exact quotient of \\spad{f} and \\spad{g} using a fixed point computation."))
+ (|stFuncN|
+  (((|Mapping| (|Stream| |#1|) (|List| (|Stream| |#1|)))
+    (|Mapping| |#2| (|List| |#2|)))
+   "\\spad{stFuncN(f)} is a local function xported due to compiler problem. This function is of no interest to the top-level user."))
+ (|stFunc2|
+  (((|Mapping| (|Stream| |#1|) (|Stream| |#1|) (|Stream| |#1|))
+    (|Mapping| |#2| |#2| |#2|))
+   "\\spad{stFunc2(f)} is a local function exported due to compiler problem. This function is of no interest to the top-level user."))
+ (|stFunc1|
+  (((|Mapping| (|Stream| |#1|) (|Stream| |#1|)) (|Mapping| |#2| |#2|))
+   "\\spad{stFunc1(f)} is a local function exported due to compiler problem. This function is of no interest to the top-level user.")))
+(("documentation" 0 4671) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4664) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4040) ("modemaps" 0 1665) ("sourceFile" 0 1627)
+ ("constructorCategory" 0 951) ("constructorModemap" 0 77)
+ ("constructorKind" 0 67) ("constructorForm" 0 20))

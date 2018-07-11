@@ -1,0 +1,52 @@
+3014                (|UnivariateLaurentSeriesCategory&| S |Coef|)
+|domain|
+(((|UnivariateLaurentSeriesCategory&| |#1| |#2|)
+  (CATEGORY |domain| (SIGNATURE |laurent| (|#1| (|Integer|) (|Stream| |#2|))))
+  (|UnivariateLaurentSeriesCategory| |#2|) (|Ring|))
+ (T |UnivariateLaurentSeriesCategory&|))
+(CATEGORY |domain| (SIGNATURE |laurent| (|#1| (|Integer|) (|Stream| |#2|))))
+"/git/fricas/src/algebra/ULSCAT.spad"
+((|laurent| (($ (|Integer|) (|Stream| |#2|)) 26)))
+((|HasCategory| |#2| '(|Field|))
+ (|HasCategory| |#2| (LIST '|AlgebraicallyClosedFunctionSpace| '(|Integer|)))
+ (|HasCategory| |#2| '(|PrimitiveFunctionCategory|))
+ (|HasCategory| |#2| '(|TranscendentalFunctionCategory|))
+ (|HasSignature| |#2|
+                 (LIST '|variables|
+                       (LIST (LIST '|List| '(|Symbol|)) (|devaluate| |#2|))))
+ (|HasSignature| |#2|
+                 (LIST '|integrate|
+                       (LIST (|devaluate| |#2|) (|devaluate| |#2|)
+                             '(|Symbol|))))
+ (|HasCategory| |#2| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+ (|HasCategory| |#2| '(|IntegralDomain|)))
+ULSCAT-
+((|constructor|
+  (NIL
+   "\\spadtype{UnivariateLaurentSeriesCategory} is the category of Laurent series in one variable."))
+ (|integrate|
+  (($ $ (|Symbol|))
+   "\\spad{integrate(f(x),{} y)} returns an anti-derivative of the power series \\spad{f(x)} with respect to the variable \\spad{y}.")
+  (($ $ (|Symbol|))
+   "\\spad{integrate(f(x),{} y)} returns an anti-derivative of the power series \\spad{f(x)} with respect to the variable \\spad{y}.")
+  (($ $)
+   "\\spad{integrate(f(x))} returns an anti-derivative of the power series \\spad{f(x)} with constant coefficient 0. We may integrate a series when we can divide coefficients by integers."))
+ (|rationalFunction|
+  (((|Fraction| (|Polynomial| |#2|)) $ (|Integer|) (|Integer|))
+   "\\spad{rationalFunction(f,{} k1,{} k2)} returns a rational function consisting of the sum of all terms of \\spad{f} of degree \\spad{d} with \\spad{k1 <= d <= k2}.")
+  (((|Fraction| (|Polynomial| |#2|)) $ (|Integer|))
+   "\\spad{rationalFunction(f,{} k)} returns a rational function consisting of the sum of all terms of \\spad{f} of degree \\spad{<=} \\spad{k}."))
+ (|multiplyCoefficients|
+  (($ (|Mapping| |#2| (|Integer|)) $)
+   "\\spad{multiplyCoefficients(f,{} sum(n = n0..infinity,{} a[n] * x^n)) = sum(n = 0..infinity,{} f(n) * a[n] * x^n)}. This function is used when Puiseux series are represented by a Laurent series and an exponent."))
+ (|laurent|
+  (($ (|Integer|) (|Stream| |#2|))
+   "\\spad{laurent(n,{} st)} returns \\spad{xn * series st} where \\spad{xn = monomial(1,{} n)} and \\spad{series st} stands for the power series with coefficients given by the stream st."))
+ (|series|
+  (($ (|Stream| (|Record| (|:| |k| (|Integer|)) (|:| |c| |#2|))))
+   "\\spad{series(st)} creates a series from a stream of non-zero terms,{} where a term is an exponent-coefficient pair. The terms in the stream should be ordered by increasing order of exponents.")))
+(("documentation" 0 1113) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1105) ("predicates" 0 463) ("superDomain" 0 NIL)
+ ("operationAlist" 0 412) ("modemaps" 0 NIL) ("sourceFile" 0 374)
+ ("constructorCategory" 0 297) ("constructorModemap" 0 75)
+ ("constructorKind" 0 66) ("constructorForm" 0 20))

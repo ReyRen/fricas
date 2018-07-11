@@ -1,0 +1,103 @@
+5041                (|PermutationCategory| S)
+|category|
+(((|PermutationCategory| |#1|) (|Category|) (|SetCategory|))
+ (T |PermutationCategory|))
+(|Join| (|Group|)
+        (CATEGORY |domain| (SIGNATURE |cycle| ($ (|List| |t#1|)))
+         (SIGNATURE |cycles| ($ (|List| (|List| |t#1|))))
+         (SIGNATURE |eval| (|t#1| $ |t#1|)) (SIGNATURE |elt| (|t#1| $ |t#1|))
+         (SIGNATURE |orbit| ((|Set| |t#1|) $ |t#1|))
+         (SIGNATURE < ((|Boolean|) $ $))
+         (IF (|has| |t#1| (|OrderedSet|))
+             (ATTRIBUTE (|OrderedSet|))
+             |noBranch|)
+         (IF (|has| |t#1| (|Finite|))
+             (ATTRIBUTE (|OrderedSet|))
+             |noBranch|)))
+"/git/fricas/src/algebra/PERMCAT.spad"
+((|cycle| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *1 (|PermutationCategory| *3))))
+ (|cycles| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|List| *3))) (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *1 (|PermutationCategory| *3))))
+ (|eval| (*1 *2 *1 *2)
+         (AND (|ofCategory| *1 (|PermutationCategory| *2))
+              (|ofCategory| *2 (|SetCategory|))))
+ (|elt| (*1 *2 *1 *2)
+  (AND (|ofCategory| *1 (|PermutationCategory| *2))
+       (|ofCategory| *2 (|SetCategory|))))
+ (|orbit| (*1 *2 *1 *3)
+  (AND (|ofCategory| *1 (|PermutationCategory| *3))
+       (|ofCategory| *3 (|SetCategory|)) (|isDomain| *2 (|Set| *3))))
+ (< (*1 *2 *1 *1)
+    (AND (|ofCategory| *1 (|PermutationCategory| *3))
+         (|ofCategory| *3 (|SetCategory|)) (|isDomain| *2 (|Boolean|)))))
+((~= (((|Boolean|) $ $) 6))
+ (|smaller?|
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|OrderedSet|)) (|has| |#1| (|Finite|)))))
+ (|sample| (($) 6 T CONST)) (|rightRecip| (((|Union| $ #1="failed") $) 6))
+ (|rightPower| (($ $ (|PositiveInteger|)) 6) (($ $ (|NonNegativeInteger|)) 6))
+ (|recip| (((|Union| $ #1#) $) 6)) (|orbit| (((|Set| |#1|) $ |#1|) 6))
+ (|one?| (((|Boolean|) $) 6))
+ (|min| (($ $ $) 6 (OR (|has| |#1| (|OrderedSet|)) (|has| |#1| (|Finite|)))))
+ (|max| (($ $ $) 6 (OR (|has| |#1| (|OrderedSet|)) (|has| |#1| (|Finite|)))))
+ (|leftRecip| (((|Union| $ #1#) $) 6))
+ (|leftPower| (($ $ (|PositiveInteger|)) 6) (($ $ (|NonNegativeInteger|)) 6))
+ (|latex| (((|String|) $) 6)) (|inv| (($ $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|eval| ((|#1| $ |#1|) 6))
+ (|elt| ((|#1| $ |#1|) 6)) (|cycles| (($ (|List| (|List| |#1|))) 6))
+ (|cycle| (($ (|List| |#1|)) 6)) (|conjugate| (($ $ $) 6))
+ (|commutator| (($ $ $) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (^ (($ $ (|PositiveInteger|)) 6) (($ $ (|NonNegativeInteger|)) 6)
+  (($ $ (|Integer|)) 6))
+ (|One| (($) 6 T CONST))
+ (>=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|OrderedSet|)) (|has| |#1| (|Finite|)))))
+ (>
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|OrderedSet|)) (|has| |#1| (|Finite|)))))
+ (= (((|Boolean|) $ $) 6))
+ (<=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|OrderedSet|)) (|has| |#1| (|Finite|)))))
+ (< (((|Boolean|) $ $) 6)) (/ (($ $ $) 6)) (* (($ $ $) 6)))
+PERMCAT
+(((|Group|) . T) ((|OrderedSet|) |has| |#1| (|OrderedSet|))
+ ((|OrderedSet|) |has| |#1| (|Finite|)))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|Comparable|) OR (|has| |#1| (|OrderedSet|)) (|has| |#1| (|Finite|)))
+ ((|Group|) . T) ((|Magma|) . T) ((|MagmaWithUnit|) . T) ((|Monoid|) . T)
+ ((|OrderedSet|) OR (|has| |#1| (|OrderedSet|)) (|has| |#1| (|Finite|)))
+ ((|PartialOrder|) OR (|has| |#1| (|OrderedSet|)) (|has| |#1| (|Finite|)))
+ ((|SemiGroup|) . T) ((|SetCategory|) . T) ((|TwoSidedRecip|) . T)
+ ((|unitsKnown|) . T))
+((|constructor|
+  (NIL
+   "PermutationCategory provides a categorial environment \\indented{1}{for subgroups of bijections of a set (\\spadignore{i.e.} permutations)}"))
+ (<
+  (((|Boolean|) $ $)
+   "\\spad{p < q} is an order relation on permutations. Note: this order is only total if and only if \\spad{S} is totally ordered or \\spad{S} is finite."))
+ (|orbit|
+  (((|Set| |#1|) $ |#1|)
+   "\\spad{orbit(p,{} el)} returns the orbit of {\\em el} under the permutation \\spad{p},{} \\spadignore{i.e.} the set which is given by applications of the powers of \\spad{p} to {\\em el}."))
+ (|elt|
+  ((|#1| $ |#1|)
+   "\\spad{elt(p,{} el)} returns the image of {\\em el} under the permutation \\spad{p}."))
+ (|eval|
+  ((|#1| $ |#1|)
+   "\\spad{eval(p,{} el)} returns the image of {\\em el} under the permutation \\spad{p}."))
+ (|cycles|
+  (($ (|List| (|List| |#1|)))
+   "\\spad{cycles(lls)} coerces a list list of cycles {\\em lls} to a permutation,{} each cycle being a list with not repetitions,{} is coerced to the permutation,{} which maps {\\em ls.i} to {\\em ls.i+1},{} indices modulo the length of the list,{} then these permutations are mutiplied. Error: if repetitions occur in one cycle."))
+ (|cycle|
+  (($ (|List| |#1|))
+   "\\spad{cycle(ls)} coerces a cycle {\\em ls},{} \\spadignore{i.e.} a list with not repetitions to a permutation,{} which maps {\\em ls.i} to {\\em ls.i+1},{} indices modulo the length of the list. Error: if repetitions occur.")))
+(("documentation" 0 3583) ("ancestors" 0 3140) ("parents" 0 3039)
+ ("abbreviation" 0 3031) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1550) ("modemaps" 0 711) ("sourceFile" 0 672)
+ ("constructorCategory" 0 146) ("constructorModemap" 0 57)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))

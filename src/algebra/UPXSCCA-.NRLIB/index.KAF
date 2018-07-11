@@ -1,0 +1,45 @@
+2206                (|UnivariatePuiseuxSeriesConstructorCategory&| S |Coef| ULS)
+|domain|
+(((|UnivariatePuiseuxSeriesConstructorCategory&| |#1| |#2| |#3|)
+  (CATEGORY |domain| (SIGNATURE |retract| (|#3| |#1|))
+   (SIGNATURE |retractIfCan| ((|Union| |#3| "failed") |#1|))
+   (SIGNATURE |zero?| ((|Boolean|) |#1|)))
+  (|UnivariatePuiseuxSeriesConstructorCategory| |#2| |#3|) (|Ring|)
+  (|UnivariateLaurentSeriesCategory| |#2|))
+ (T |UnivariatePuiseuxSeriesConstructorCategory&|))
+(CATEGORY |domain| (SIGNATURE |retract| (|#3| |#1|))
+ (SIGNATURE |retractIfCan| ((|Union| |#3| "failed") |#1|))
+ (SIGNATURE |zero?| ((|Boolean|) |#1|)))
+"/git/fricas/src/algebra/UPXSCCA.spad"
+((|zero?| (((|Boolean|) $) 12))
+ (|retractIfCan| (((|Union| |#3| "failed") $) 17)) (|retract| ((|#3| $) 14)))
+UPXSCCA-
+((|constructor|
+  (NIL
+   "This is a category of univariate Puiseux series constructed from univariate Laurent series. A Puiseux series is represented by a pair \\spad{[r,{} f(x)]},{} where \\spad{r} is a positive rational number and \\spad{f(x)} is a Laurent series. This pair represents the Puiseux series \\spad{f(x^r)}."))
+ (|laurentIfCan|
+  (((|Union| |#3| "failed") $)
+   "\\spad{laurentIfCan(f(x))} converts the Puiseux series \\spad{f(x)} to a Laurent series if possible. If this is not possible,{} \"failed\" is returned."))
+ (|laurent|
+  ((|#3| $)
+   "\\spad{laurent(f(x))} converts the Puiseux series \\spad{f(x)} to a Laurent series if possible. Error: if this is not possible."))
+ (|coerce|
+  (($ |#3|)
+   "\\spad{coerce(f(x))} converts the Laurent series \\spad{f(x)} to a Puiseux series."))
+ (|degree|
+  (((|Fraction| (|Integer|)) $)
+   "\\spad{degree(f(x))} returns the degree of the leading term of the Puiseux series \\spad{f(x)},{} which may have zero as a coefficient."))
+ (|laurentRep|
+  ((|#3| $)
+   "\\spad{laurentRep(f(x))} returns \\spad{g(x)} where the Puiseux series \\spad{f(x) = g(x^r)} is represented by \\spad{[r,{} g(x)]}."))
+ (|rationalPower|
+  (((|Fraction| (|Integer|)) $)
+   "\\spad{rationalPower(f(x))} returns \\spad{r} where the Puiseux series \\spad{f(x) = g(x^r)}."))
+ (|puiseux|
+  (($ (|Fraction| (|Integer|)) |#3|)
+   "\\spad{puiseux(r,{} f(x))} returns \\spad{f(x^r)}.")))
+(("documentation" 0 789) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 780) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 670) ("modemaps" 0 NIL) ("sourceFile" 0 631)
+ ("constructorCategory" 0 478) ("constructorModemap" 0 90)
+ ("constructorKind" 0 81) ("constructorForm" 0 20))

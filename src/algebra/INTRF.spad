@@ -1,0 +1,71 @@
+)abbrev package INTRF RationalFunctionIntegration
+++ Integration of rational functions
+++ Author: Manuel Bronstein
+++ Date Created: 1987
+++ Keywords: polynomial, fraction, integration.
+++ Description:
+++   This package provides functions for the integration
+++   of rational functions.
+++ Examples: )r INTRF INPUT
+RationalFunctionIntegration(F) : Exports == Implementation where
+  F : Join(IntegralDomain, RetractableTo Integer, CharacteristicZero)
+
+  SE  ==> Symbol
+  P   ==> Polynomial F
+  Q   ==> Fraction P
+  UP  ==> SparseUnivariatePolynomial Q
+  QF  ==> Fraction UP
+  LGQ ==> List Record(coeff : Q, logand : Q)
+  UQ  ==> Union(Record(ratpart:Q, coeff:Q), "failed")
+  ULQ ==> Union(Record(mainpart:Q, limitedlogs:LGQ), "failed")
+
+  Exports ==> with
+    internalIntegrate : (Q, SE) -> IntegrationResult Q
+       ++ internalIntegrate(f, x) returns g such that \spad{dg/dx = f}.
+    infieldIntegrate : (Q, SE) -> Union(Q, "failed")
+       ++ infieldIntegrate(f, x) returns a fraction
+       ++ g such that \spad{dg/dx = f}
+       ++ if g exists, "failed" otherwise.
+
+  Implementation ==> add
+    import from RationalIntegration(Q, UP)
+    import from IntegrationResultFunctions2(QF, Q)
+    import from PolynomialCategoryQuotientFunctions(IndexedExponents SE,
+                                                       SE, F, P, Q)
+
+    infieldIntegrate(f, x) ==
+      map(x1+->multivariate(x1, x), infieldint univariate(f, x))
+
+    internalIntegrate(f, x) ==
+      map(x1+->multivariate(x1, x), integrate univariate(f, x))
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

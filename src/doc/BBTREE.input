@@ -1,0 +1,14 @@
+
+-- Input for page BalancedBinaryTreeXmpPage
+)clear all
+
+lm := [3,5,7,11]
+modTree(12,lm)
+t := balancedBinaryTree(#lm, 0)
+setleaves!(t,lm)
+mapUp!(t,_*)
+t
+mapDown!(t,12,_rem)
+leaves %
+squares := [x^2 rem m for x in % for m in lm]
+chineseRemainder(%,lm)

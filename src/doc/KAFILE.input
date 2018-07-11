@@ -1,0 +1,25 @@
+
+-- Input for page KeyedAccessFileXmpPage
+)clear all
+
+ey: KeyedAccessFile(Integer) := open("/tmp/editor.year", "output")
+ey."Char" := 1986
+ey."Caviness" := 1985
+ey."Fitch" := 1984
+ey."Char"
+ey("Char")
+ey "Char"
+search("Char", ey)
+search("Smith", ey)
+remove!("Char", ey)
+keys ey
+#ey
+KE := Record(key: String, entry: Integer)
+reopen!(ey, "output")
+write!(ey, ["van Hulzen", 1983]$KE)
+write!(ey, ["Calmet", 1982]$KE)
+write!(ey, ["Wang", 1981]$KE)
+close! ey
+keys ey
+members ey
+)system rm -r /tmp/editor.year

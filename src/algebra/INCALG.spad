@@ -1,0 +1,148 @@
+)abbrev domain INCALG IncidenceAlgebra
+++ Author: Franz Lehner lehner@math.tugraz.at
+++ Date Created: 30 April 2013
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   A domain for incidence matrices of finite posets.
+IncidenceAlgebra(R : Ring, S : SetCategory): Decl == Impl where
+    IND ==> OneDimensionalArray S
+    Decl ==> SetCategory with
+      -- IncidenceAlgebra declarations
+      --constructor
+      incidenceAlgebra : (Matrix R, List S) -> %
+        ++ \spad{incidenceAlgebra(A, ss)}
+        ++ constructs an adjacency matrix with with indices ss and Matrix A
+      incidenceAlgebra : (Matrix R, OneDimensionalArray S) -> %
+        ++ \spad{incidenceAlgebra(A, ss)}
+        ++ constructs an adjacency matrix with with indices ss and Matrix A
+      --access
+      indices : % -> OneDimensionalArray S
+        ++ \spad{indices(A)} returns the indices of the incidence matrix A
+      matrix : % -> Matrix R
+        ++ \spad{matrix(A)} returns the underlying matrix
+        ++ of the incidence matrix A
+      apply : (%, Integer, Integer) -> R
+        ++ \spad{A(i, j)} returns $A_{i, j}$
+      apply : (%, S, S) -> R
+        ++ \spad{A(s, t)} returns $A_{i, j}$, where $i$, $j$ are the positions
+        ++ of $s$ and $t$ in the index list.
+      -- manipulations
+      _* : (Permutation Integer, %) -> %
+        ++ \spad{\pi * A} permutes the indices and the matrix according to the
+        ++ permutation \spad{\pi}.
+      -- _* : (Permutation S, %) -> %
+      -- arithmetics
+      "+" : (%, %) -> %
+        ++ \spad{x + y} is the sum of the matrices x and y.
+        ++ Error: if the dimensions are incompatible.
+      "*" : (%, %) -> %
+        ++ \spad{x * y} is the product of the matrices x and y.
+        ++ Error: if the dimensions are incompatible.
+      "*" : (R, %) -> %
+        ++ \spad{r*x} is the left scalar multiple of the scalar r and the
+        ++ matrix x.
+      "*" : (%, R) -> %
+        ++ \spad{r*x} is the left scalar multiple of the scalar r and the
+        ++ matrix x.
+      "^" : (%, NonNegativeInteger) -> %
+        ++ \spad{x ^ n} computes a non-negative integral power of the
+        ++ matrix x.  Error: if the matrix is not square.
+    Impl ==> add
+
+      Rep := Record(matrix : Matrix R, indices : IND)
+      Ai, Bi, Ci : Matrix R
+      r : R
+      A, B : %
+      ss : List S
+      i, j : Integer
+      u, v : S
+
+-- IncidenceAlgebra implementation
+
+      incidenceAlgebra(Ai : Matrix R, ssa : OneDimensionalArray S) : % ==
+          if (nrows Ai ~= #ssa) or (ncols Ai ~= #ssa) then
+              error "Sizes not compatible"
+          [Ai, ssa]
+
+      incidenceAlgebra(Ai, ss) == incidenceAlgebra(Ai, oneDimensionalArray ss)
+
+      indices A == A.indices
+
+      matrix A == A.matrix
+
+      apply(A, i, j) == (A.matrix)(i, j)
+
+      apply(A, u, v) ==
+          i := position(u, indices A)
+          zero? i => error "First index is not a vertex"
+          j := position(v, indices A)
+          zero? j => error "Second index is not a vertex"
+          (A.matrix)(i, j)
+
+      (p : Permutation Integer) * (A) ==
+          mp : Set Integer := movedPoints p
+          n : Integer := # indices A
+          if (min mp) < 1 or (max mp) > n then
+                  error "Permutation out of range"
+          -- permute the indices
+          newindices : OneDimensionalArray S :=
+              oneDimensionalArray [(indices A)(eval(p, i)) for i in 1..n]
+          -- permutation matrix
+          indic : List Integer := [eval(p, i) for i in 1..n]
+          newA : Matrix R := (matrix A)(indic, indic)
+          [newA, newindices]
+
+      coerce(A) : OutputForm ==
+          bracket [(matrix A)::OutputForm, (indices A)::OutputForm]
+
+      _=(A1 : %, A2 : %) : Boolean ==
+          (indices A1 = indices A2) and (matrix A1 = matrix A2)
+
+      -- Arithmetics
+
+      A + B ==
+          Aind := indices A
+          Bind := indices B
+          if Aind ~= Bind then
+              error "incompatible indices"
+          Ci := matrix A + matrix B
+          incidenceAlgebra(Ci, Aind)
+
+      A * B ==
+          Aind := indices A
+          Bind := indices B
+          if Aind ~= Bind then
+              error "incompatible indices"
+          Ci := matrix A * matrix B
+          incidenceAlgebra(Ci, Aind)
+
+      r * A ==
+          Aind := indices A
+          Ci := r*matrix A
+          incidenceAlgebra(Ci, Aind)
+
+      A * r ==
+          Aind := indices A
+          Ci := (matrix A) * r
+          incidenceAlgebra(Ci, Aind)
+
+      A^n ==
+          Aind := indices A
+          Ci := (matrix A)^n
+          incidenceAlgebra(Ci, Aind)
+
+)if false
+\section{domain FMOEBF FiniteMoebiusFunction}
+Code for FiniteMoebiusFunction by Franz Lehner. Notes by Martin Baker are here:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/moebius/}
+
+This domain computes Moebius functions of finite subposets
+of infinite posets given by lists of elements.
+It computes the zeta matrix and stores its inverse.
+
+)endif

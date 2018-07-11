@@ -1,0 +1,118 @@
+)abbrev package JCT JetCoordinateTransformation
+++ Description:
+++  \spadtype{JetCoordinateTransformation} implements changes of local
+++  coordinates. Given are the changes of the coordinates of the base space,
+++  i.e. the independent and dependent variables. The transformations of the
+++  derivatives are computed via the chain rule. \spad{Y} (\spad{W})
+++  contains expressions for the old variables in terms of the new ones.
+
+JetCoordinateTransformation(JB1, JB2, Y, W) : Cat == Def where
+
+  Sy   ==> Symbol
+  L    ==> List
+  V    ==> Vector
+  M    ==> Matrix
+  EI   ==> Expression Integer
+  PI   ==> PositiveInteger
+  E1   ==> JBE JB1
+  E2   ==> JBE JB2
+  JBC  ==> JetBundleCategory
+  JBE  ==> JetBundleExpression
+  LUD  ==> LUDecomposition E2
+
+  Const ==> "Const"::Sy
+  Indep ==> "Indep"::Sy
+  Dep   ==> "Dep"::Sy
+  Deriv ==> "Deriv"::Sy
+
+
+  JB1, JB2 : JBC
+  Y, W     : V E2
+
+
+  Cat ==> with
+
+    transform : JB1 -> E2
+      ++ \spad{transform(jv)} transforms a jet variable \spad{jv}
+      ++ into a function of the new coordinates.
+
+    transform : E1 -> E2
+      ++ \spad{transform(f)} rewrites a function of the old coordinates
+      ++ in the new ones.
+
+
+  Def ==> add
+
+    -- ---------------- --
+    -- Global Constants --
+    -- ---------------- --
+
+    -- Checks for compatible charts.
+
+    errmsg ==> "Number of variables must match"
+
+    num1() : PI ==
+        numIndVar()$JB1 ~= numIndVar()$JB2 => error errmsg
+        numIndVar()$JB1 ~= #Y => error errmsg
+        numIndVar()$JB1
+
+    num2() : PI ==
+        numDepVar()$JB1 ~= numDepVar()$JB2 => error errmsg
+        numDepVar()$JB1 ~= #W => error errmsg
+        numDepVar()$JB1
+
+    nn := num1()     -- number of independent variables
+    mm := num2()     -- number of dependent variables
+
+
+    -- transform is an expensive operation due to its recursive definition.
+    -- Hence a table with already computed values is set up.
+
+    remember : Table(EI, E2) := dictionary()
+
+
+    -- inverse of (total) Jacobi matrix is precomputed
+
+    jacobi(y : V E2) : M E2 ==
+        ly := entries y
+        JM := jacobiMatrix ly
+        res : M E2 := new(#y, nn, 0)
+        for i in 1..nn repeat
+            tmp := formalDiff2(ly, i::PI, JM)
+            res := setColumn!(res, i, vector tmp.DSys)
+        res
+
+    DYI := LUInverse(jacobi Y)$LUD
+
+
+    -- ------------------ --
+    -- Exported Functions --
+    -- ------------------ --
+
+    transform(jv : JB1) : E2 ==
+        -- first check memory
+        ans := search(jv::EI, remember)
+        ans case E2 => ans::E2
+
+        jt := type jv
+        if jt = Const then      res := 1$E2
+        else if jt = Indep then res := qelt(Y, index(jv)+minIndex(Y)-1)
+        else if jt = Dep then   res := qelt(W, index(jv)+minIndex(W)-1)
+        else
+          i := class jv
+          pint := integrate(jv, i::PI)$JB1
+          qint := transform pint
+          res := reduce("+", [qelt(DYI.Inv, i, k)*formalDiff(qint, k::PI) _
+                             for k in 1..nn], 0)
+        setelt!(remember, jv::EI, res)
+
+
+    transform(e1 : E1) : E2 ==
+        JV := jetVariables e1
+        JE := [jv::EI::E2  for jv in JV]
+        e2 := e1::EI::E2
+        for jv in JV  for je in JE repeat
+            e2 := eval(e2, je = transform(jv))
+        e2
+
+

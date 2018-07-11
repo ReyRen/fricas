@@ -1,0 +1,140 @@
+5599                (MAKEPROP '|ProductFacet| 'NILADIC T)
+(|ProductFacet|)
+|domain|
+(((|ProductFacet|)
+  (|Join| (|FacetCategory|)
+          (CATEGORY |domain|
+           (SIGNATURE |productFacet|
+            ($ (|Integer|)
+             (|List|
+              (|Record| (|:| |left| (|NonNegativeInteger|))
+                        (|:| |right| (|NonNegativeInteger|))))))
+           (SIGNATURE |productFacet| ($ (|Integer|) (|ProductFacet|)))
+           (SIGNATURE |getIndexs|
+            ((|List|
+              (|Record| (|:| |left| (|NonNegativeInteger|))
+                        (|:| |right| (|NonNegativeInteger|))))
+             $))
+           (SIGNATURE |getMaxLeft| ((|NonNegativeInteger|) $))
+           (SIGNATURE |getMaxRight| ((|NonNegativeInteger|) $))
+           (SIGNATURE |setMult!| ($ $ (|Integer|)))
+           (SIGNATURE |addVertex2|
+            ($ $
+             (|Record| (|:| |left| (|NonNegativeInteger|))
+                       (|:| |right| (|NonNegativeInteger|))))))))
+ (T |ProductFacet|))
+(|Join| (|FacetCategory|)
+        (CATEGORY |domain|
+         (SIGNATURE |productFacet|
+          ($ (|Integer|)
+           (|List|
+            (|Record| (|:| |left| (|NonNegativeInteger|))
+                      (|:| |right| (|NonNegativeInteger|))))))
+         (SIGNATURE |productFacet| ($ (|Integer|) (|ProductFacet|)))
+         (SIGNATURE |getIndexs|
+          ((|List|
+            (|Record| (|:| |left| (|NonNegativeInteger|))
+                      (|:| |right| (|NonNegativeInteger|))))
+           $))
+         (SIGNATURE |getMaxLeft| ((|NonNegativeInteger|) $))
+         (SIGNATURE |getMaxRight| ((|NonNegativeInteger|) $))
+         (SIGNATURE |setMult!| ($ $ (|Integer|)))
+         (SIGNATURE |addVertex2|
+          ($ $
+           (|Record| (|:| |left| (|NonNegativeInteger|))
+                     (|:| |right| (|NonNegativeInteger|)))))))
+"/git/fricas/src/algebra/PFACET.spad"
+((|productFacet| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|Integer|))
+       (|isDomain| *3
+                   (|List|
+                    (|Record| (|:| |left| (|NonNegativeInteger|))
+                              (|:| |right| (|NonNegativeInteger|)))))
+       (|isDomain| *1 (|ProductFacet|))))
+ (|productFacet| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|ProductFacet|))))
+ (|getIndexs| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |left| (|NonNegativeInteger|))
+                          (|:| |right| (|NonNegativeInteger|)))))
+   (|isDomain| *1 (|ProductFacet|))))
+ (|getMaxLeft| (*1 *2 *1)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|ProductFacet|))))
+ (|getMaxRight| (*1 *2 *1)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|ProductFacet|))))
+ (|setMult!| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|ProductFacet|))))
+ (|addVertex2| (*1 *1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |left| (|NonNegativeInteger|))
+                         (|:| |right| (|NonNegativeInteger|))))
+   (|isDomain| *1 (|ProductFacet|)))))
+((~= (((|Boolean|) $ $) NIL)) (|smaller?| (((|Boolean|) $ $) NIL))
+ (|setMult!| (($ $ (|Integer|)) 22))
+ (|productFacet|
+  (($ (|Integer|)
+    (|List|
+     (|Record| (|:| |left| (|NonNegativeInteger|))
+               (|:| |right| (|NonNegativeInteger|)))))
+   10)
+  (($ (|Integer|) (|ProductFacet|)) 13))
+ (|order| (((|NonNegativeInteger|) $) 20)) (|min| (($ $ $) NIL))
+ (|max| (($ $ $) NIL)) (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|getMult| (((|Integer|) $) 21))
+ (|getMaxRight| (((|NonNegativeInteger|) $) 19))
+ (|getMaxLeft| (((|NonNegativeInteger|) $) 18))
+ (|getIndexs|
+  (((|List|
+     (|Record| (|:| |left| (|NonNegativeInteger|))
+               (|:| |right| (|NonNegativeInteger|))))
+    $)
+   14))
+ (|empty?| (((|Boolean|) $) NIL)) (|coerce| (((|OutputForm|) $) 38))
+ (|addVertex2|
+  (($ $
+    (|Record| (|:| |left| (|NonNegativeInteger|))
+              (|:| |right| (|NonNegativeInteger|))))
+   24))
+ (>= (((|Boolean|) $ $) NIL)) (> (((|Boolean|) $ $) NIL))
+ (= (((|Boolean|) $ $) 26)) (<= (((|Boolean|) $ $) NIL))
+ (< (((|Boolean|) $ $) NIL)))
+PFACET
+(((|FacetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|Comparable|) . T)
+ ((|FacetCategory|) . T) ((|OrderedSet|) . T) ((|PartialOrder|) . T)
+ ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "\\indented{2}{Holds the product of two simplexes} \\indented{2}{for more documentation see:} \\indented{2}{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/simplex/product/} Date Created: April 2016 Basic Operations: Related packages: Related categories: FacetCategory Related Domains: Also See: AMS Classifications:"))
+ (|addVertex2|
+  (($ $
+    (|Record| (|:| |left| (|NonNegativeInteger|))
+              (|:| |right| (|NonNegativeInteger|))))
+   "used by cone. Adds a vertex to face."))
+ (|setMult!| (($ $ (|Integer|)) "sets multiplier of face"))
+ (|getMaxRight| (((|NonNegativeInteger|) $) "returns maximum right index"))
+ (|getMaxLeft| (((|NonNegativeInteger|) $) "returns maximum left index"))
+ (|getIndexs|
+  (((|List|
+     (|Record| (|:| |left| (|NonNegativeInteger|))
+               (|:| |right| (|NonNegativeInteger|))))
+    $)
+   "returns left indexes"))
+ (|productFacet|
+  (($ (|Integer|) (|ProductFacet|)) "Copy constructor to allow change of sign")
+  (($ (|Integer|)
+    (|List|
+     (|Record| (|:| |left| (|NonNegativeInteger|))
+               (|:| |right| (|NonNegativeInteger|)))))
+   "Constructor for product facet")))
+(("documentation" 0 4422) ("ancestors" 0 4250) ("parents" 0 4224)
+ ("abbreviation" 0 4217) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3076) ("modemaps" 0 1899) ("sourceFile" 0 1861)
+ ("constructorCategory" 0 1013) ("constructorModemap" 0 84)
+ ("constructorKind" 0 75) ("constructorForm" 0 58) ("NILADIC" 0 20))

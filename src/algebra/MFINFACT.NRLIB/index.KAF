@@ -1,0 +1,50 @@
+2132                (|MultFiniteFactorize| OV E F PG)
+|package|
+(((|MultFiniteFactorize| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#4|) |#4|))
+   (SIGNATURE |factor|
+    ((|Factored| (|SparseUnivariatePolynomial| |#4|))
+     (|SparseUnivariatePolynomial| |#4|))))
+  (|OrderedSet|) (|OrderedAbelianMonoidSup|) (|FiniteFieldCategory|)
+  (|PolynomialCategory| |#3| |#2| |#1|))
+ (T |MultFiniteFactorize|))
+(CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#4|) |#4|))
+ (SIGNATURE |factor|
+  ((|Factored| (|SparseUnivariatePolynomial| |#4|))
+   (|SparseUnivariatePolynomial| |#4|))))
+"/git/fricas/src/algebra/MFINFACT.spad"
+((|factor| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *7))
+       (|ofCategory| *7 (|PolynomialCategory| *6 *5 *4))
+       (|ofCategory| *4 (|OrderedSet|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|FiniteFieldCategory|))
+       (|isDomain| *2 (|Factored| (|SparseUnivariatePolynomial| *7)))
+       (|isDomain| *1 (|MultFiniteFactorize| *4 *5 *6 *7))))
+ (|factor| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|OrderedSet|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|FiniteFieldCategory|))
+       (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|MultFiniteFactorize| *4 *5 *6 *3))
+       (|ofCategory| *3 (|PolynomialCategory| *6 *5 *4)))))
+((|factor|
+  (((|Factored| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|))
+   88)
+  (((|Factored| |#4|) |#4|) 227)))
+MFINFACT
+((|constructor|
+  (NIL
+   "Package for factorization of multivariate polynomials over finite fields."))
+ (|factor|
+  (((|Factored| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|))
+   "\\spad{factor(p)} produces the complete factorization of the multivariate polynomial \\spad{p} over a finite field. \\spad{p} is represented as a univariate polynomial with multivariate coefficients over a finite field.")
+  (((|Factored| |#4|) |#4|)
+   "\\spad{factor(p)} produces the complete factorization of the multivariate polynomial \\spad{p} over a finite field.")))
+(("documentation" 0 1545) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1536) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1389) ("modemaps" 0 658) ("sourceFile" 0 618)
+ ("constructorCategory" 0 437) ("constructorModemap" 0 64)
+ ("constructorKind" 0 54) ("constructorForm" 0 20))

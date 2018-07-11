@@ -1,0 +1,103 @@
+)abbrev domain UNTYPED Untyped
+++ Author: Martin Baker
+++ Date Created: April 2011
+++ Basic Operations:
+++ Related Constructors: lambda, ski
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/computation/
+++ Description: Untyped represents an untyped variable in Lambda and Ski
+++ domains, a variable has a name represented by a String.
+
+Untyped() : Exports == Implementation where
+
+  NNI==> NonNegativeInteger
+  PR ==> Record(rft : %, pout : NNI)
+    ++ parse result includes string returned and new index
+
+  Exports ==> VarCat()
+
+  Implementation ==> add
+
+    Rep := Record(nme : String)
+      ++ At the moment an untyped variable is represented by a string
+      ++ representing the name of the variable.
+      ++ So why wrap it in a Record structure.
+      ++ The main reason is because I am planning to expand this as
+      ++ explained in the text part of this pamphlet.
+      ++ Also it seems like a good idea to keep a similar structure to
+      ++ typed variables.
+      ++ Also I could not get it to work unwrapped. I vaguely recall that
+      ++ I couldn't get the constructor to return an unwrapped value, but
+      ++ it may have been some other issue and that's not the main reason.
+
+    -- constructs variable with a name but no type
+    var(n : String) : % ==
+      [n]
+
+    -- since this is an untyped implementation the type value
+    -- is ignored
+    var(n : String, t : ILogic) : % ==
+      [n]
+
+    -- returns the name of the variable.
+    getName(v : %) : String ==
+      v.nme
+
+    -- returns the type of the variable.
+    -- Since this is an untyped variable it will always return an
+    -- empty string.
+    getType(v : %) : ILogic ==
+      logicT()
+
+    -- returns the name and the type in string form.
+    toString(v : %) : String ==
+      v.nme
+
+    -- construct a variable by parsing a string
+    -- pin is index to string at start of parse
+    -- pout is index to string at end of parse
+    parseVarTerm(t1 : String, pin : NNI) : PR ==
+        vnm:String := ""
+        pt : NNI := pin
+        ch := qelt(t1, pt)
+        --print(message "st ch=" << ch)
+        while alphanumeric?(ch) repeat
+            vnm := concat(vnm, ch)
+            pt := pt + (1::NNI)
+            if pt > maxIndex(t1) then
+                return [var(vnm), pt]
+            ch := qelt(t1, pt)
+        if ch = char(":") then
+            -- read type
+            --print(message "st ch=" << ch)
+            r : Record(rft : ILogic, pout : NNI) := parseIL2(t1, pt)$ILogic
+            pt := r.pout
+          -- since this instance is untyped we ignore result
+        [var(vnm), pt]
+
+    -- construct a variable by parsing a string
+    parseVar(t1 : String) : % ==
+      r : PR := parseVarTerm(t1, 1::NNI)
+      r.rft
+
+    -- return true if equal, that is names are equal (since there are
+    -- no types that is all that is required) in the case of typed
+    -- implementations then they would also have to be equal.
+    x = y ==
+      x.nme = y.nme
+
+    -- output - display without quotes
+    coerce(n : %) : OutputForm ==
+        message(n.nme)
+
+)if false
+
+Next an implementation of the VarCat category which is intended to work with
+typed variables:
+
+\section{domain TYPED Typed}
+)endif
+

@@ -1,0 +1,43 @@
+1544                (MAKEPROP '|Infinity| 'NILADIC T)
+(|Infinity|)
+|package|
+(((|Infinity|)
+  (CATEGORY |package|
+   (SIGNATURE |infinity| ((|OnePointCompletion| (|Integer|))))
+   (SIGNATURE |plusInfinity| ((|OrderedCompletion| (|Integer|))))
+   (SIGNATURE |minusInfinity| ((|OrderedCompletion| (|Integer|))))))
+ (T |Infinity|))
+(CATEGORY |package| (SIGNATURE |infinity| ((|OnePointCompletion| (|Integer|))))
+ (SIGNATURE |plusInfinity| ((|OrderedCompletion| (|Integer|))))
+ (SIGNATURE |minusInfinity| ((|OrderedCompletion| (|Integer|)))))
+"/git/fricas/src/algebra/INFINITY.spad"
+((|minusInfinity| (*1 *2)
+  (AND (|isDomain| *2 (|OrderedCompletion| (|Integer|)))
+       (|isDomain| *1 (|Infinity|))))
+ (|plusInfinity| (*1 *2)
+  (AND (|isDomain| *2 (|OrderedCompletion| (|Integer|)))
+       (|isDomain| *1 (|Infinity|))))
+ (|infinity| (*1 *2)
+  (AND (|isDomain| *2 (|OnePointCompletion| (|Integer|)))
+       (|isDomain| *1 (|Infinity|)))))
+((|plusInfinity| (((|OrderedCompletion| (|Integer|))) 11))
+ (|minusInfinity| (((|OrderedCompletion| (|Integer|))) 13))
+ (|infinity| (((|OnePointCompletion| (|Integer|))) 8)))
+INFINITY
+((|constructor|
+  (NIL
+   "Default infinity signatures for the interpreter; Date Created: 4 Oct 1989"))
+ (|minusInfinity|
+  (((|OrderedCompletion| (|Integer|)))
+   "\\spad{minusInfinity()} returns minusInfinity."))
+ (|plusInfinity|
+  (((|OrderedCompletion| (|Integer|)))
+   "\\spad{plusInfinity()} returns plusIinfinity."))
+ (|infinity|
+  (((|OnePointCompletion| (|Integer|)))
+   "\\spad{infinity()} returns infinity.")))
+(("documentation" 0 1122) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1113) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 938) ("modemaps" 0 579) ("sourceFile" 0 539)
+ ("constructorCategory" 0 329) ("constructorModemap" 0 77)
+ ("constructorKind" 0 67) ("constructorForm" 0 54) ("NILADIC" 0 20))

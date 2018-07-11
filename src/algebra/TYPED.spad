@@ -1,0 +1,288 @@
+)abbrev domain TYPED Typed
+++ Author: Martin Baker
+++ Date Created: April 2011
+++ Basic Operations:
+++ Related Constructors: lambda, ski
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/computation/
+++ Description: Typed represents an typed variable in Lambda and Ski
+++ domains, a variable has a name represented by a String and a type
+++ represented by intutionistic logic.
+
+Typed() : Exports == Implementation where
+
+  NNI==> NonNegativeInteger
+  PR ==> Record(rft : %, pout : NNI)
+    ++ parse result includes string returned and new index
+
+  Exports ==> VarCat()
+
+  Implementation ==> add
+
+    Rep := Record(nme : String, typ : ILogic)
+      ++ name of variable
+      ++ and type of variable
+
+    -- constructs variable with a name but no type
+    var(n : String) : % ==
+      [n, logicT()]
+
+    -- in this constructor both name and type are supplied
+    var(n : String, t : ILogic) : % ==
+      [n, t]
+
+    -- returns the name of the variable.
+    getName(v : %) : String ==
+      v.nme
+
+    -- returns the type of the variable. This may be a compound type, for
+    -- instance ["a","b"] represents a->b a function from type a to type b
+    getType(v : %) : ILogic ==
+      v.typ
+
+    -- returns the name and the type in string form. This may be a compound
+    -- type, for instance ["a","b"] represents a->b a function from type a
+    -- to type b
+    toString(v : %) : String ==
+      s:String := concat([v.nme,":",toString(v.typ)])
+      s
+
+    -- construct a variable by parsing a string
+    -- pin is index to string at start of parse
+    -- pout is index to string at end of parse
+    parseVarTerm(t1 : String, pin : NNI) : PR ==
+      vnm:String := ""
+      pt : NNI := pin
+      ch := qelt(t1, pt)
+      --print(message "st ch=" << ch)
+      while alphanumeric?(ch) repeat
+        vnm := concat(vnm, ch)
+        pt := pt + (1::NNI)
+        if pt > maxIndex(t1) then
+          return [var(vnm), pt]
+        ch := qelt(t1, pt)
+      if ch = char(":") then
+        -- read type
+        --print(message "st ch=" << ch)
+        pt := pt + (1::NNI)
+        if pt > maxIndex(t1) then
+          return [var(vnm), pt]
+        r : Record(rft : ILogic, pout : NNI) := parseIL2(t1, pt)$ILogic
+        pt := r.pout
+        return [var(vnm, r.rft), pt]
+      [var(vnm), pt]
+
+    -- construct a variable by parsing a string
+    parseVar(t1 : String) : % ==
+      r : PR := parseVarTerm(t1, 1::NNI)
+      r.rft
+
+    -- return true if equal, that is names are equal (since there are
+    -- no types that is all that is required) in the case of typed
+    -- implementations then they would also have to be equal.
+    x = y ==
+      (x.nme = y.nme) and (x.typ = y.typ)
+
+    -- output -
+    coerce(n : %) : OutputForm ==
+      hconcat([message (n.nme),message ":",(n.typ)::OutputForm])$OutputForm
+
+)if false
+
+\section{lambda-Calculus}
+for more details see:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/computation/lambda/}
+
+\section{Notation}
+
+Externally a fairly standard notation is used, as may be familiar to
+someone using a textbook to study lambda-calculus, or as close as we can get
+without using unicode. I have used the \verb'\' symbol to stand for lambda. At
+some stage in the future it may be possible to use unicode lambda symbol
+but not yet due to compatibility issues.
+
+Internally the domain stores bound variables using De Bruijn index,
+in most cases this should not concern the user as I/O uses string
+names for variables. Converting bound variables internally to index
+values means that the same variable name can be used, in different
+lambda terms, without ambiguity and without the need for
+alpha-substitution.
+
+De Bruijn index which is a integer where
+\begin{verbatim}
+    0 = inside current (inner) lambda term
+    1= next outer lambda term
+    2= next outer and so on
+    ...
+\end{verbatim}
+
+We will see how this works in the tutorial below.
+
+So internally the lambda-calculus is stored as a binary tree structure
+using the following syntax:
+\begin{verbatim}
+<term> : := "\" var "."<term> | n | <term><term> | "("<term>")"
+
+where:
+
+    \ = lambda
+    n = De Bruijn index which is a integer where,
+        0 = inside inner lambda term,
+        1= next outer lambda term,
+        2= next outer and so on.
+    var = a string representation of variable (this form is used for
+          unbound variables)
+    brackets can be used around whole terms.
+\end{verbatim}
+
+\section{Tutorial}
+
+On this page we will be working with 'untyped' variables so we create
+an instance called UNTYP to simplify notation:
+\begin{verbatim}
+(1) -> UNTYP := Lambda Untyped
+   (1)  Lambda(Untyped)
+                                                           Type: Type
+\end{verbatim}
+
+\section{Constructors}
+
+First we can enter some variables, at the moment they are not inside
+a lambda-term so they can't yet be bound, but later we can put them into
+a lambda-term.
+
+A numeric name is interpreted as a De Bruijn index when put inside
+a lambda-term, although we don't need this notation for I/O unless we are
+trying to avoid some ambiguity, because free and bound variables can
+be constructed by giving the variable name as a string. So in (4) is
+not yet a valid term on its own but it will be when put inside a
+lambda-term, when this is done it will be given the name of the bound
+variable rather than "0".
+
+Internally a string name will be converted to a De Bruijn index when
+put inside a matching lambda-term, otherwise it will be interpreted as a
+free variable.
+\begin{verbatim}
+(2) -> v1 := lambda(var("x")$Untyped)$UNTYP
+   (2)  x
+                                                    Type: Lambda(Untyped)
+(3) -> v2 := lambda(var("y")$Untyped)$UNTYP
+   (3)  y
+                                                    Type: Lambda(Untyped)
+(4) -> v3 := lambda(0)$UNTYP
+   (4)  0
+                                                    Type: Lambda(Untyped)
+\end{verbatim}
+
+This can be built up into more complex lambda terms by using compound
+terms (as in (5)) and the lambda-term itself (as in (6)).
+
+Each lambda-term can only have one bound variable, if more than one bound
+variable is required then lambda-terms can be nested. lambda-term requires that
+the bound variable be given a name.
+\begin{verbatim}
+(5) -> n1 := lambda(v1, v2)$UNTYP
+   (5)  (x y)
+                                                    Type: Lambda(Untyped)
+(6) -> n2 := lambda(n1,var("x")$Untyped)$UNTYP
+   (6)  (\x.(x y))
+                                                    Type: Lambda(Untyped)
+\end{verbatim}
+
+In (7) \verb'x' is a the bound variable and so, when the lambda-term was created,
+this will be converted to De Bruijn index, in (7) we call toString to
+see the internal representation:
+
+In (8) we see that when entered as a numeric index the bound variable
+will still be displayed as a string.
+
+In (9) and (10) we can see that the \verb'unbind' function can be used to
+unbind the bound variable \verb'x' that is, although \verb'x' has the same string
+value as the lambda term, it is treated as though it were different.
+We can see this because the toString output does not have a index value.
+In (11) we call \verb'bind' to re-bind it.
+\begin{verbatim}
+(7) -> toString(n2)$UNTYP
+   (7)  "(\x.(0 y))"
+                                                             Type: String
+(8) -> n3 := lambda(v3,var("x")$Untyped)$UNTYP
+   (8)  (\x.x)
+                                                    Type: Lambda(Untyped)
+(9) -> u2 := unbind(n2)$UNTYP
+   (9)  (\x.(x y))
+                                                    Type: Lambda(Untyped)
+(10) -> toString(u2)$UNTYP
+   (10)  "(\x.(x y))"
+                                                             Type: String
+(11) -> toString(bind(u2))$UNTYP
+   (11)  "(\x.(0 y))"
+                                                             Type: String
+\end{verbatim}
+
+So we can already construct any type of lambda term, however its a bit
+tedious to construct complex lambda terms in this way, an easier way is
+to use \verb'parseLambda' to construct the lambda term from a string. Again
+we can enter variables as either alpha or numeric characters depending
+on whether we want to specify the index value directly or allow the
+code to generate it.
+
+In (14) we can see the use of numeric terms to avoid the ambiguity
+caused by nested lambda-terms with the same name.
+\begin{verbatim}
+(12) -> n4 := parseLambda("\x.\y. y x")$UNTYP
+   (12)  (\x.(\y.(x y)))
+                                                    Type: Lambda(Untyped)
+(13) -> toString(n4)$UNTYP
+   (13)  "(\x.(\y.(0 1)))"
+                                                             Type: String
+(14) -> n4a := parseLambda("\x.\x. 0 1")$UNTYP
+   (14)  (\x.(\x'.(x x')))
+                                                    Type: Lambda(Untyped)
+(15) -> toString(n4a)$UNTYP
+   (15)  "(\x.(\x.(0 1)))"
+                                                             Type: String
+(16) -> unbind(n4a)$UNTYP
+   (16)  (\x.(\x'.(x x)))
+                                                    Type: Lambda(Untyped)
+\end{verbatim}
+
+\section{beta-substitution}
+
+The command: \verb'subst : (n, a, b)' substitutes \verb'a' for \verb'b'
+in \verb'n' as follows:
+\begin{verbatim}
+(17) -> subst(n2, v2, v1)$UNTYP
+   (17)  (\x.(x y))
+                                                    Type: Lambda(Untyped)
+(18) -> subst(n2, v1, v2)$UNTYP
+   (18)  (\x.(x x))
+                                                    Type: Lambda(Untyped)
+\end{verbatim}
+
+\section{Issues}
+
+I realise that Axiom/FriCAS already has a way to create anonymous
+functions using \verb'+->' in a lambda-calculus sort of way. But the aim here
+is to represent lambda-calculus as a pure mathematical structure so that
+we can experiment with the properties of this structure without the
+messy features that are required for a practical computer language.
+I also need a domain structure which is related to SKI combinators
+and IntuitionisticLogic domain and can be coerced to and from these
+other domain types as demonstrated on this page.
+
+I also realise that this is written in SPAD which is written in
+Lisp which is based on lambda-Calculus (perhaps it could later be
+optimized by having direct calls to Lisp?)
+Relationship to Other Domains
+
+\section{Relationship to Other Domains}
+
+lambda-calculus can be coerced to and from SKI combinators. For a tutorial
+about how to coerce to/from this algebra see below.
+
+\section{domain LAMBDA Lambda}
+)endif
+

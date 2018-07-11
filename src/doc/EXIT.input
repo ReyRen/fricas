@@ -1,0 +1,17 @@
+
+-- Input for page ExitXmpPage
+)clear all
+
+n := 0
+gasp(): Exit ==
+    free n
+    n := n + 1
+    error "Oh no!"
+
+half(k) ==
+  if odd? k then gasp()
+  else k quo 2
+
+half 4
+half 3
+n

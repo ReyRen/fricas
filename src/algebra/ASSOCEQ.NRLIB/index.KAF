@@ -1,0 +1,93 @@
+4508                (|AssociatedEquations| R L)
+|package|
+(((|AssociatedEquations| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |associatedSystem|
+    ((|Record| (|:| |mat| (|Matrix| |#1|))
+               (|:| |vec| (|Vector| (|List| (|PositiveInteger|)))))
+     |#2| (|PositiveInteger|)))
+   (SIGNATURE |uncouplingMatrices|
+    ((|Vector| (|Matrix| |#1|)) (|Matrix| |#1|)))
+   (IF (|has| |#1| (|Field|))
+       (SIGNATURE |associatedEquations|
+        ((|Record| (|:| |minor| (|List| (|PositiveInteger|))) (|:| |eq| |#2|)
+                   (|:| |minors| (|List| (|List| (|PositiveInteger|))))
+                   (|:| |ops| (|List| |#2|)))
+         |#2| (|PositiveInteger|)))
+       |noBranch|))
+  (|IntegralDomain|) (|LinearOrdinaryDifferentialOperatorCategory| |#1|))
+ (T |AssociatedEquations|))
+(CATEGORY |package|
+ (SIGNATURE |associatedSystem|
+  ((|Record| (|:| |mat| (|Matrix| |#1|))
+             (|:| |vec| (|Vector| (|List| (|PositiveInteger|)))))
+   |#2| (|PositiveInteger|)))
+ (SIGNATURE |uncouplingMatrices| ((|Vector| (|Matrix| |#1|)) (|Matrix| |#1|)))
+ (IF (|has| |#1| (|Field|))
+     (SIGNATURE |associatedEquations|
+      ((|Record| (|:| |minor| (|List| (|PositiveInteger|))) (|:| |eq| |#2|)
+                 (|:| |minors| (|List| (|List| (|PositiveInteger|))))
+                 (|:| |ops| (|List| |#2|)))
+       |#2| (|PositiveInteger|)))
+     |noBranch|))
+"/git/fricas/src/algebra/ASSOCEQ.spad"
+((|associatedEquations| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|PositiveInteger|)) (|ofCategory| *5 (|Field|))
+       (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record| (|:| |minor| (|List| (|PositiveInteger|)))
+                             (|:| |eq| *3)
+                             (|:| |minors|
+                                  (|List| (|List| (|PositiveInteger|))))
+                             (|:| |ops| (|List| *3))))
+       (|isDomain| *1 (|AssociatedEquations| *5 *3))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *5))))
+ (|uncouplingMatrices| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *4)) (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|Vector| (|Matrix| *4)))
+       (|isDomain| *1 (|AssociatedEquations| *4 *5))
+       (|ofCategory| *5 (|LinearOrdinaryDifferentialOperatorCategory| *4))))
+ (|associatedSystem| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|PositiveInteger|)) (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record| (|:| |mat| (|Matrix| *5))
+                             (|:| |vec|
+                                  (|Vector| (|List| (|PositiveInteger|))))))
+       (|isDomain| *1 (|AssociatedEquations| *5 *3))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *5)))))
+((|uncouplingMatrices| (((|Vector| (|Matrix| |#1|)) (|Matrix| |#1|)) 49))
+ (|associatedSystem|
+  (((|Record| (|:| |mat| (|Matrix| |#1|))
+              (|:| |vec| (|Vector| (|List| (|PositiveInteger|)))))
+    |#2| (|PositiveInteger|))
+   41))
+ (|associatedEquations|
+  (((|Record| (|:| |minor| (|List| (|PositiveInteger|))) (|:| |eq| |#2|)
+              (|:| |minors| (|List| (|List| (|PositiveInteger|))))
+              (|:| |ops| (|List| |#2|)))
+    |#2| (|PositiveInteger|))
+   58 (|has| |#1| (|Field|)))))
+((|HasCategory| |#1| '(|Field|)))
+ASSOCEQ
+((|constructor|
+  (NIL
+   "\\spadtype{AssociatedEquations} provides functions to compute the associated equations needed for factoring operators"))
+ (|associatedEquations|
+  (((|Record| (|:| |minor| (|List| (|PositiveInteger|))) (|:| |eq| |#2|)
+              (|:| |minors| (|List| (|List| (|PositiveInteger|))))
+              (|:| |ops| (|List| |#2|)))
+    |#2| (|PositiveInteger|))
+   "\\spad{associatedEquations(op,{} m)} returns \\spad{[w,{} eq,{} lw,{} lop]} such that \\spad{eq(w) = 0} where \\spad{w} is the given minor,{} and \\spad{lw_i = lop_i(w)} for all the other minors."))
+ (|uncouplingMatrices|
+  (((|Vector| (|Matrix| |#1|)) (|Matrix| |#1|))
+   "\\spad{uncouplingMatrices(M)} returns \\spad{[A_1,{} ...,{} A_n]} such that if \\spad{y = [y_1,{} ...,{} y_n]} is a solution of \\spad{y' = M y},{} then \\spad{[\\$y_j',{} y_j'',{} ...,{} y_j^{(n)}\\$] = \\$A_j y\\$} for all \\spad{j}\\spad{'s}."))
+ (|associatedSystem|
+  (((|Record| (|:| |mat| (|Matrix| |#1|))
+              (|:| |vec| (|Vector| (|List| (|PositiveInteger|)))))
+    |#2| (|PositiveInteger|))
+   "\\spad{associatedSystem(op,{} m)} returns \\spad{[M,{} w]} such that the \\spad{m}-th associated equation system to \\spad{L} is \\spad{w' = M w}.")))
+(("documentation" 0 3283) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3275) ("predicates" 0 3241) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2732) ("modemaps" 0 1415) ("sourceFile" 0 1376)
+ ("constructorCategory" 0 801) ("constructorModemap" 0 58)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

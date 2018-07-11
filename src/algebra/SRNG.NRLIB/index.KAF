@@ -1,0 +1,51 @@
+2116                (MAKEPROP '|SemiRng| 'NILADIC T)
+(|SemiRng|)
+|category|
+(((|SemiRng|) (|Category|)) (T |SemiRng|))
+(|Join| (|NonAssociativeSemiRng|) (|BiModule| $ $) (|SemiGroup|))
+"/git/fricas/src/algebra/SRNG.spad"
+((~= (((|Boolean|) $ $) 6))
+ (|zero?|
+  (((|Boolean|) $) 6
+   (OR (|has| $ (|AbelianMonoid|)) (|has| $ (|AbelianMonoid|)))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) 6
+   (OR (|has| $ (|AbelianGroup|)) (|has| $ (|AbelianGroup|)))))
+ (|sample|
+  (($) 6 (OR (|has| $ (|AbelianMonoid|)) (|has| $ (|AbelianMonoid|))) CONST))
+ (|rightPower| (($ $ (|PositiveInteger|)) 6))
+ (|opposite?|
+  (((|Boolean|) $ $) 6
+   (OR (|has| $ (|AbelianMonoid|)) (|has| $ (|AbelianMonoid|)))))
+ (|leftPower| (($ $ (|PositiveInteger|)) 6)) (|latex| (((|String|) $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (|antiCommutator| (($ $ $) 6)) (^ (($ $ (|PositiveInteger|)) 6))
+ (|Zero|
+  (($) 6 (OR (|has| $ (|AbelianMonoid|)) (|has| $ (|AbelianMonoid|))) CONST))
+ (= (((|Boolean|) $ $) 6))
+ (- (($ $ $) 6 (OR (|has| $ (|AbelianGroup|)) (|has| $ (|AbelianGroup|))))
+    (($ $) 6 (OR (|has| $ (|AbelianGroup|)) (|has| $ (|AbelianGroup|)))))
+ (+ (($ $ $) 6))
+ (* (($ (|PositiveInteger|) $) 6) (($ $ $) 6)
+    (($ (|Integer|) $) 6
+     (OR (|has| $ (|AbelianGroup|)) (|has| $ (|AbelianGroup|))))
+    (($ (|NonNegativeInteger|) $) 6
+     (OR (|has| $ (|AbelianMonoid|)) (|has| $ (|AbelianMonoid|))))))
+SRNG
+(((|NonAssociativeSemiRng|) . T) ((|BiModule| $ $) . T) ((|SemiGroup|) . T))
+(((|AbelianGroup|) |has| |t#1| (|AbelianGroup|))
+ ((|AbelianMonoid|) |has| |t#1| (|AbelianMonoid|)) ((|AbelianSemiGroup|) . T)
+ ((|BasicType|) . T) ((|BiModule| $ $) . T)
+ ((|CancellationAbelianMonoid|) |has| |t#1| (|AbelianGroup|))
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|LeftModule| |t#1|) . T)
+ ((|Magma|) . T) ((|NonAssociativeSemiRng|) . T) ((|RightModule| |t#2|) . T)
+ ((|SemiGroup|) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "The category of associative semirings,{} not necessarily commutative,{} and not necessarily with a 1.")))
+(("documentation" 0 1983) ("ancestors" 0 1564) ("parents" 0 1487)
+ ("abbreviation" 0 1482) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 221) ("modemaps" 0 NIL) ("sourceFile" 0 185)
+ ("constructorCategory" 0 119) ("constructorModemap" 0 76)
+ ("constructorKind" 0 65) ("constructorForm" 0 53) ("NILADIC" 0 20))

@@ -1,0 +1,176 @@
+8450                (|RationalFunction| R)
+|package|
+(((|RationalFunction| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |variables|
+    ((|List| (|Symbol|)) (|Fraction| (|Polynomial| |#1|))))
+   (SIGNATURE |mainVariable|
+    ((|Union| (|Symbol|) "failed") (|Fraction| (|Polynomial| |#1|))))
+   (SIGNATURE |univariate|
+    ((|Fraction|
+      (|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))))
+     (|Fraction| (|Polynomial| |#1|)) (|Symbol|)))
+   (SIGNATURE |multivariate|
+    ((|Fraction| (|Polynomial| |#1|))
+     (|Fraction|
+      (|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))))
+     (|Symbol|)))
+   (SIGNATURE |eval|
+    ((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+     (|Symbol|) (|Fraction| (|Polynomial| |#1|))))
+   (SIGNATURE |eval|
+    ((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+     (|List| (|Symbol|)) (|List| (|Fraction| (|Polynomial| |#1|)))))
+   (SIGNATURE |eval|
+    ((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+     (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   (SIGNATURE |eval|
+    ((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+     (|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))))
+   (SIGNATURE |coerce| ((|Fraction| (|Polynomial| |#1|)) |#1|)))
+  (|IntegralDomain|))
+ (T |RationalFunction|))
+(CATEGORY |package|
+ (SIGNATURE |variables| ((|List| (|Symbol|)) (|Fraction| (|Polynomial| |#1|))))
+ (SIGNATURE |mainVariable|
+  ((|Union| (|Symbol|) "failed") (|Fraction| (|Polynomial| |#1|))))
+ (SIGNATURE |univariate|
+  ((|Fraction| (|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))))
+   (|Fraction| (|Polynomial| |#1|)) (|Symbol|)))
+ (SIGNATURE |multivariate|
+  ((|Fraction| (|Polynomial| |#1|))
+   (|Fraction| (|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))))
+   (|Symbol|)))
+ (SIGNATURE |eval|
+  ((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|)) (|Symbol|)
+   (|Fraction| (|Polynomial| |#1|))))
+ (SIGNATURE |eval|
+  ((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+   (|List| (|Symbol|)) (|List| (|Fraction| (|Polynomial| |#1|)))))
+ (SIGNATURE |eval|
+  ((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+   (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+ (SIGNATURE |eval|
+  ((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+   (|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))))
+ (SIGNATURE |coerce| ((|Fraction| (|Polynomial| |#1|)) |#1|)))
+"/git/fricas/src/algebra/RF.spad"
+((|coerce| (*1 *2 *3)
+           (AND (|isDomain| *2 (|Fraction| (|Polynomial| *3)))
+                (|isDomain| *1 (|RationalFunction| *3))
+                (|ofCategory| *3 (|IntegralDomain|))))
+ (|eval| (*1 *2 *2 *3)
+         (AND
+          (|isDomain| *3 (|List| (|Equation| (|Fraction| (|Polynomial| *4)))))
+          (|isDomain| *2 (|Fraction| (|Polynomial| *4)))
+          (|ofCategory| *4 (|IntegralDomain|))
+          (|isDomain| *1 (|RationalFunction| *4))))
+ (|eval| (*1 *2 *2 *3)
+         (AND (|isDomain| *3 (|Equation| (|Fraction| (|Polynomial| *4))))
+              (|isDomain| *2 (|Fraction| (|Polynomial| *4)))
+              (|ofCategory| *4 (|IntegralDomain|))
+              (|isDomain| *1 (|RationalFunction| *4))))
+ (|eval| (*1 *2 *2 *3 *4)
+         (AND (|isDomain| *3 (|List| (|Symbol|)))
+              (|isDomain| *4 (|List| (|Fraction| (|Polynomial| *5))))
+              (|isDomain| *2 (|Fraction| (|Polynomial| *5)))
+              (|ofCategory| *5 (|IntegralDomain|))
+              (|isDomain| *1 (|RationalFunction| *5))))
+ (|eval| (*1 *2 *2 *3 *2)
+         (AND (|isDomain| *2 (|Fraction| (|Polynomial| *4)))
+              (|isDomain| *3 (|Symbol|)) (|ofCategory| *4 (|IntegralDomain|))
+              (|isDomain| *1 (|RationalFunction| *4))))
+ (|multivariate| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|Fraction|
+                (|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| *5)))))
+   (|isDomain| *4 (|Symbol|)) (|isDomain| *2 (|Fraction| (|Polynomial| *5)))
+   (|isDomain| *1 (|RationalFunction| *5))
+   (|ofCategory| *5 (|IntegralDomain|))))
+ (|univariate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+       (|isDomain| *4 (|Symbol|)) (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Fraction|
+                    (|SparseUnivariatePolynomial|
+                     (|Fraction| (|Polynomial| *5)))))
+       (|isDomain| *1 (|RationalFunction| *5))))
+ (|mainVariable| (*1 *2 *3)
+  (|partial| AND (|isDomain| *3 (|Fraction| (|Polynomial| *4)))
+   (|ofCategory| *4 (|IntegralDomain|)) (|isDomain| *2 (|Symbol|))
+   (|isDomain| *1 (|RationalFunction| *4))))
+ (|variables| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| *4)))
+       (|ofCategory| *4 (|IntegralDomain|)) (|isDomain| *2 (|List| (|Symbol|)))
+       (|isDomain| *1 (|RationalFunction| *4)))))
+((|variables| (((|List| (|Symbol|)) (|Fraction| (|Polynomial| |#1|))) 15))
+ (|univariate|
+  (((|Fraction|
+     (|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))))
+    (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   22))
+ (|multivariate|
+  (((|Fraction| (|Polynomial| |#1|))
+    (|Fraction|
+     (|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))))
+    (|Symbol|))
+   24))
+ (|mainVariable|
+  (((|Union| (|Symbol|) "failed") (|Fraction| (|Polynomial| |#1|))) 18))
+ (|eval|
+  (((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+    (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   29)
+  (((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+    (|Equation| (|Fraction| (|Polynomial| |#1|))))
+   31)
+  (((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+    (|List| (|Symbol|)) (|List| (|Fraction| (|Polynomial| |#1|))))
+   26)
+  (((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+    (|Symbol|) (|Fraction| (|Polynomial| |#1|)))
+   27))
+ (|coerce| (((|Fraction| (|Polynomial| |#1|)) |#1|) 11)))
+RF
+((|constructor|
+  (NIL
+   "Utilities that provide the same top-level manipulations on fractions than on polynomials."))
+ (|coerce|
+  (((|Fraction| (|Polynomial| |#1|)) |#1|)
+   "\\spad{coerce(r)} returns \\spad{r} viewed as a rational function over \\spad{R}."))
+ (|eval|
+  (((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+    (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   "\\spad{eval(f,{} [v1 = g1,{} ...,{} vn = gn])} returns \\spad{f} with each \\spad{vi} replaced by \\spad{gi} in parallel,{} \\spadignore{i.e.} \\spad{vi}\\spad{'s} appearing inside the \\spad{gi}\\spad{'s} are not replaced. Error: if any \\spad{vi} is not a symbol.")
+  (((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+    (|Equation| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{eval(f,{} v = g)} returns \\spad{f} with \\spad{v} replaced by \\spad{g}. Error: if \\spad{v} is not a symbol.")
+  (((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+    (|List| (|Symbol|)) (|List| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{eval(f,{} [v1,{} ...,{} vn],{} [g1,{} ...,{} gn])} returns \\spad{f} with each \\spad{vi} replaced by \\spad{gi} in parallel,{} \\spadignore{i.e.} \\spad{vi}\\spad{'s} appearing inside the \\spad{gi}\\spad{'s} are not replaced.")
+  (((|Fraction| (|Polynomial| |#1|)) (|Fraction| (|Polynomial| |#1|))
+    (|Symbol|) (|Fraction| (|Polynomial| |#1|)))
+   "\\spad{eval(f,{} v,{} g)} returns \\spad{f} with \\spad{v} replaced by \\spad{g}."))
+ (|multivariate|
+  (((|Fraction| (|Polynomial| |#1|))
+    (|Fraction|
+     (|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))))
+    (|Symbol|))
+   "\\spad{multivariate(f,{} v)} applies both the numerator and denominator of \\spad{f} to \\spad{v}."))
+ (|univariate|
+  (((|Fraction|
+     (|SparseUnivariatePolynomial| (|Fraction| (|Polynomial| |#1|))))
+    (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   "\\spad{univariate(f,{} v)} returns \\spad{f} viewed as a univariate rational function in \\spad{v}."))
+ (|mainVariable|
+  (((|Union| (|Symbol|) "failed") (|Fraction| (|Polynomial| |#1|)))
+   "\\spad{mainVariable(f)} returns the highest variable appearing in the numerator or the denominator of \\spad{f},{} \"failed\" if \\spad{f} has no variables."))
+ (|variables|
+  (((|List| (|Symbol|)) (|Fraction| (|Polynomial| |#1|)))
+   "\\spad{variables(f)} returns the list of variables appearing in the numerator or the denominator of \\spad{f}.")))
+(("documentation" 0 5986) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 5983) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4893) ("modemaps" 0 2526) ("sourceFile" 0 2492)
+ ("constructorCategory" 0 1342) ("constructorModemap" 0 53)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

@@ -1,0 +1,87 @@
+)abbrev domain JBSA JetBundleSymAna
+++ Description:
+++  \spad{JetBundleSymAna} is only necessary to have a valid return type for
+++  some procedures in \spad{SymmetryAnalysis}. It is essentially identical
+++  with \spad{JetBundle} but computes its parameters in a more complicated
+++  way.
+
+JetBundleSymAna(JB1 : JBC, xi : US, eta : US) : Cat == Def where
+
+  Sy   ==> Symbol
+  L    ==> List
+  US   ==> Union(Sy, L Sy)
+  I    ==> Integer
+  PI   ==> PositiveInteger
+  NNI  ==> NonNegativeInteger
+  EI   ==> Expression Integer
+  OUT  ==> OutputForm
+  JBC  ==> JetBundleCategory
+
+  Cat ==> JBC with
+
+    coerce : Sy -> %
+      ++ \spad{coerce(s)} allows for the input of jet variables as symbols.
+
+    D : (Sy, L Sy) -> %
+     ++ \spad{D(u, der)} generates a derivative.
+
+  Def ==> add
+
+    nn : PI := numIndVar()$JB1
+    mm : PI := numDepVar()$JB1
+
+    vars : L JB1 := concat!([X(i::PI)$JB1  for i in 1..nn], _
+                          [U(i::PI)$JB1  for i in 1..mm])
+    indVars : L(Sy) := [name(jv)  for jv in vars]
+    depVars : L(Sy) := empty()
+    if xi case Sy then
+        if nn > 1 then
+            depVars := [superscript(xi::Sy, [i::OUT])  for i in 1..nn]
+        else
+            depVars := [xi::Sy]
+    else
+        depVars := xi::L(Sy)
+    if eta case Sy then
+        if mm > 1 then
+            depVars := append(depVars, _
+                          [superscript(eta::Sy, [i::OUT])  for i in 1..mm])
+        else
+            depVars := append(depVars, [eta::Sy])
+    else
+        depVars := append(depVars, eta::L(Sy))
+
+    Rep := JetBundle(indVars, depVars)
+
+    setNotation(s : Sy) : Sy ==
+        print(message("only repeated index notation possible"))$OUT
+        'Repeated
+
+    getNotation() : Sy == 'Repeated
+
+    multiIndex(jv : %) : L NNI == multiIndex(jv)$Rep
+
+    index(jv : %) : PI == index(jv)$Rep
+
+    type(jv : %) : Sy == type(jv)$Rep
+
+    X(up : PI) : % == X(up)$Rep
+
+    U(up : PI) : % == U(up)$Rep
+
+    Pm(up : PI, lo : L NNI) : % == Pm(up, lo)$Rep
+
+    coerce(s : Sy) : % == coerce(s)$Rep
+
+    D(u : Sy, der : L Sy) : % == D(u, der)$Rep
+
+    1 : % == 1$Rep
+
+    numIndVar() : PI == (nn+mm)::PI
+
+    numDepVar() : PI == (nn+mm)::PI
+
+    name(jv : %) : Sy == name(jv)$Rep
+
+    coerce(jv : %) : EI == coerce(jv)$Rep
+
+

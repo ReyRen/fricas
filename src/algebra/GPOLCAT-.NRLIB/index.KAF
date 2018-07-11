@@ -1,0 +1,73 @@
+4447                (|MaybeSkewPolynomialCategory&| S R E |VarSet|)
+|domain|
+(((|MaybeSkewPolynomialCategory&| |#1| |#2| |#3| |#4|)
+  (CATEGORY |domain| (SIGNATURE |primitiveMonomials| ((|List| |#1|) |#1|))
+   (SIGNATURE |monomial|
+    (|#1| |#1| (|List| |#4|) (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |monomial| (|#1| |#1| |#4| (|NonNegativeInteger|)))
+   (SIGNATURE |monomials| ((|List| |#1|) |#1|))
+   (SIGNATURE |monomial| (|#1| |#2| |#3|)))
+  (|MaybeSkewPolynomialCategory| |#2| |#3| |#4|)
+  (|Join| (|SemiRng|) (|AbelianMonoid|)) (|OrderedAbelianMonoidSup|)
+  (|OrderedSet|))
+ (T |MaybeSkewPolynomialCategory&|))
+(CATEGORY |domain| (SIGNATURE |primitiveMonomials| ((|List| |#1|) |#1|))
+ (SIGNATURE |monomial|
+  (|#1| |#1| (|List| |#4|) (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |monomial| (|#1| |#1| |#4| (|NonNegativeInteger|)))
+ (SIGNATURE |monomials| ((|List| |#1|) |#1|))
+ (SIGNATURE |monomial| (|#1| |#2| |#3|)))
+"/git/fricas/src/algebra/GPOLCAT.spad"
+((|primitiveMonomials| (((|List| $) $) 28)) (|monomials| (((|List| $) $) 17))
+ (|monomial| (($ |#2| |#3|) NIL) (($ $ |#4| (|NonNegativeInteger|)) NIL)
+  (($ $ (|List| |#4|) (|List| (|NonNegativeInteger|))) 23)))
+((|HasCategory| |#2| '(|canonicalUnitNormal|))
+ (|HasCategory| |#2| '(|Comparable|)) (|HasCategory| |#2| '(|SemiRing|))
+ (|HasCategory| |#2| '(|Ring|)))
+GPOLCAT-
+((|constructor|
+  (NIL
+   "The category for general multi-variate possibly skew polynomials over a ring \\spad{R},{} in variables from VarSet,{} with exponents from the \\spadtype{OrderedAbelianMonoidSup}."))
+ (|primitiveMonomials|
+  (((|List| $) $)
+   "\\spad{primitiveMonomials(p)} gives the list of monomials of the polynomial \\spad{p} with their coefficients removed. Note: \\spad{primitiveMonomials(sum(a_(i) X^(i))) = [X^(1),{} ...,{} X^(n)]}."))
+ (|variables|
+  (((|List| |#4|) $)
+   "\\spad{variables(p)} returns the list of those variables actually appearing in the polynomial \\spad{p}."))
+ (|totalDegreeSorted|
+  (((|NonNegativeInteger|) $ (|List| |#4|))
+   "\\spad{totalDegreeSorted(p,{} lv)} returns the maximum sum (over all monomials of polynomial \\spad{p}) of the degree in variables in the list \\spad{lv}. \\spad{lv} is assumed to be sorted in decreasing order."))
+ (|totalDegree|
+  (((|NonNegativeInteger|) $ (|List| |#4|))
+   "\\spad{totalDegree(p,{} lv)} returns the maximum sum (over all monomials of polynomial \\spad{p}) of the variables in the list \\spad{lv}.")
+  (((|NonNegativeInteger|) $)
+   "\\spad{totalDegree(p)} returns the largest sum over all monomials of all exponents of a monomial."))
+ (|monomial|
+  (($ $ (|List| |#4|) (|List| (|NonNegativeInteger|)))
+   "\\spad{monomial(a,{} [v1..vn],{} [e1..en])} returns \\spad{a*prod(vi^ei)}.")
+  (($ $ |#4| (|NonNegativeInteger|))
+   "\\spad{monomial(a,{} x,{} n)} creates the monomial \\spad{a*x^n} where \\spad{a} is a polynomial,{} \\spad{x} is a variable and \\spad{n} is a nonnegative integer."))
+ (|mainVariable|
+  (((|Union| |#4| "failed") $)
+   "\\spad{mainVariable(p)} returns the biggest variable which actually occurs in the polynomial \\spad{p},{} or \"failed\" if no variables are present. fails precisely if polynomial satisfies ground?"))
+ (|monomials|
+  (((|List| $) $)
+   "\\spad{monomials(p)} returns the list of non-zero monomials of polynomial \\spad{p},{} \\spadignore{i.e.} \\spad{monomials(sum(a_(i) X^(i))) = [a_(1) X^(1),{} ...,{} a_(n) X^(n)]}."))
+ (|coefficient|
+  (($ $ (|List| |#4|) (|List| (|NonNegativeInteger|)))
+   "\\spad{coefficient(p,{} lv,{} ln)} views the polynomial \\spad{p} as a polynomial in the variables of \\spad{lv} and returns the coefficient of the term \\spad{lv^ln},{} \\spadignore{i.e.} \\spad{prod(lv_i ^ ln_i)}.")
+  (($ $ |#4| (|NonNegativeInteger|))
+   "\\spad{coefficient(p,{} v,{} n)} views the polynomial \\spad{p} as a univariate polynomial in \\spad{v} and returns the coefficient of the \\spad{v^n} term."))
+ (|degree|
+  (((|List| (|NonNegativeInteger|)) $ (|List| |#4|))
+   "\\spad{degree(p,{} lv)} gives the list of degrees of polynomial \\spad{p} with respect to each of the variables in the list \\spad{lv}.")
+  (((|NonNegativeInteger|) $ |#4|)
+   "\\spad{degree(p,{} v)} gives the degree of polynomial \\spad{p} with respect to the variable \\spad{v}."))
+ (|canonicalUnitNormal|
+  ((|attribute|)
+   "we can choose a unique representative for each associate class. This normalization is chosen to be normalization of leading coefficient (by default).")))
+(("documentation" 0 1348) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1339) ("predicates" 0 1186) ("superDomain" 0 NIL)
+ ("operationAlist" 0 974) ("modemaps" 0 NIL) ("sourceFile" 0 935)
+ ("constructorCategory" 0 626) ("constructorModemap" 0 77)
+ ("constructorKind" 0 68) ("constructorForm" 0 20))

@@ -1,0 +1,14 @@
+)abbrev package PDOHLP PartialDifferentialOperatorHelper
+PartialDifferentialOperatorHelper(R : PartialDifferentialRing(Var),
+                                  Var : OrderedSet) : with
+    id_map : Var -> Automorphism(R)
+    diff_map : Var -> (R -> R)
+
+ == add
+
+    id_map(v) == 1$Automorphism(R)
+
+    diff_map(v) == (x : R) : R +-> differentiate(x, v)
+
+
+

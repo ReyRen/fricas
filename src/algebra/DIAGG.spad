@@ -1,0 +1,46 @@
+)abbrev category DIAGG Dictionary
+++ Author: Michael Monagan; revised by Manuel Bronstein and Richard Jenks
+++ Date Created: August 87 through August 88
+++ Basic Operations:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ A dictionary is an aggregate in which entries can be inserted,
+++ searched for and removed. Duplicates are thrown away on insertion.
+++ This category models the usual notion of dictionary which involves
+++ large amounts of data where copying is impractical.
+++ Principal operations are thus destructive (non-copying) ones.
+Dictionary(S : Type) : Category ==
+ DictionaryOperations S add
+
+   import from Integer
+   import from List(S)
+
+   dictionary l ==
+       d := dictionary()
+       for x in l repeat insert!(x, d)
+       d
+
+   if % has finiteAggregate then
+       -- remove(f: S->Boolean, t: %)  == remove!(f, copy t)
+       -- select(f, t)        == select!(f, copy t)
+       select!(f, t)      == remove!((x : S) : Boolean +-> not f(x), t)
+
+       --extract! d ==
+       --  empty? d => error "empty dictionary"
+       --  remove!(x := first parts d, d, 1)
+       --  x
+
+       if S has BasicType then
+           s = t ==
+               eq?(s, t) => true
+               #s ~= #t => false
+               every?((x : S) : Boolean +-> member?(x, t), parts s)
+
+           remove!(f : S->Boolean, t : %) ==
+               for m in parts t repeat if f m then remove!(m, t)
+               t
+

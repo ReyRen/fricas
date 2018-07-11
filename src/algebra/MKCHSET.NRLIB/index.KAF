@@ -1,0 +1,35 @@
+1257                (|MakeCachableSet| S)
+|domain|
+(((|MakeCachableSet| |#1|)
+  (|Join| (|CachableSet|) (|CoercibleTo| |#1|)
+          (CATEGORY |domain| (SIGNATURE |coerce| ($ |#1|))))
+  (|SetCategory|))
+ (T |MakeCachableSet|))
+(|Join| (|CachableSet|) (|CoercibleTo| |#1|)
+        (CATEGORY |domain| (SIGNATURE |coerce| ($ |#1|))))
+"/git/fricas/src/algebra/MKCHSET.spad"
+((|coerce| (*1 *1 *2)
+           (AND (|isDomain| *1 (|MakeCachableSet| *2))
+                (|ofCategory| *2 (|SetCategory|)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|setPosition| (((|Void|) $ (|NonNegativeInteger|)) 14))
+ (|position| (((|NonNegativeInteger|) $) 12)) (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|coerce| (((|OutputForm|) $) 18) ((|#1| $) 15) (($ |#1|) 23))
+ (= (((|Boolean|) $ $) 24)))
+MKCHSET
+(((|CachableSet|) . T) ((|CoercibleTo| |#1|) . T))
+(((|BasicType|) . T) ((|CachableSet|) . T) ((|CoercibleTo| |#1|) . T)
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "MakeCachableSet(\\spad{S}) returns a cachable set which is equal to \\spad{S} as a set."))
+ (|coerce|
+  (($ |#1|)
+   "\\spad{coerce(s)} returns \\spad{s} viewed as an element of \\%.")))
+(("documentation" 0 1043) ("ancestors" 0 912) ("parents" 0 861)
+ ("abbreviation" 0 853) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 502) ("modemaps" 0 372) ("sourceFile" 0 333)
+ ("constructorCategory" 0 229) ("constructorModemap" 0 51)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

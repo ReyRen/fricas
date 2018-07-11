@@ -1,0 +1,391 @@
+)abbrev domain STR STransform
+++ Author: Martin Baker
+++ Date Created: September 2010
+++ Basic Operations: spnt, sipnt, svec, sivec, screenCoords
+++ Related Constructors: SCartesian, SArgand, SConformal
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/graph/
+++ Description:
+++ This domain implements transforms from SPoint to SPoint
+
+STransform(PT) : Exports == Implementation where
+  ++ Domains for transform from SPoint to SPoint
+  ++ STransform transform domain can by used to represent linear transforms
+  ++ for instance when working with SCartesian
+  ++ where its Representation is a matrix of DoubleFloat
+  ++ Other transform domains may not necessarily
+  ++ be linear and will have different representations
+
+  PT : SPointCategory
+
+  PI ==> PositiveInteger
+  NNI ==> NonNegativeInteger
+  DF ==> DoubleFloat
+  TRAN ==> PT -> PT
+  C ==> Complex DF
+  FCV ==> C -> C
+  PARAMS==> Union(mtx : PrimitiveArray PrimitiveArray DF, _
+                 general : TRAN, _
+                 multiv : PrimitiveArray DF, _
+                 iden:"iden")
+
+  Exports == with
+
+    stransform : (m : List List DF) -> %
+      ++ stransform(m) constructs transform with given matrix elements
+    stransform : (gen : PT -> PT) -> %
+      ++ stransform(gen) construct transform in general form as a
+      ++ mapping from PT to PT
+    stransform : (cpx : C -> C) -> %
+      ++ stransform(cpx) construct transform as function of complex
+      ++ variable can only be used when PT is SArgand so this can be
+      ++ converted to PT -> PT
+    stransform : (m : List DF) -> %
+      ++ stransform(m) construct transform using a multivector
+    stranslate : (offsetx : DF, offsety : DF, offsetz : DF, scalex : DF, _
+                 scaley : DF, scalez : DF) -> %
+      ++ stranslate(offsetx, offsety, offsetz, scalex, scaley, scalez)
+      ++ constructs a transform which represents pure translation
+      ++ we can also combine with scale which, for instance, is useful
+      ++ when writing to SVG file because the y dimension is inverted
+    identity : () -> %
+      ++ identity() returns the identity element which is do nothing
+      ++ transform
+    xform : (tr : %, inpt : PT) -> PT
+      ++ xform(tr, inpt) apply transform to a point producing another
+      ++ point
+    compound : (tr : %, inpt : %) -> %
+      ++ compound(tr, inpt) combine two transforms
+    coerce : (tr : %) -> OutputForm
+      ++ coerce(tr) output
+
+  Implementation == add
+
+    import from OutputForm
+
+    Rep := PARAMS
+
+    -- qelt(m, i, j) returns the element in the ith row and jth
+    -- column of the array m
+    -- NO error check to determine if indices are in proper ranges
+    qelt(m : %, i : Integer, j : Integer) : DF ==
+      qelt(qelt(m.mtx, i)$(PrimitiveArray PrimitiveArray DF), j)
+
+    -- construct with given matrix elements
+    stransform(m : List List DF) : % ==
+      PT has SCartesian(2) =>
+        arr : PrimitiveArray PrimitiveArray DF := new(3, empty())
+        for i in 0..2 repeat
+          qsetelt!(arr, i, new(3, 0::DF))
+          for j in 0..2 repeat
+            (arr.i).j := (m.(i+1)).(j+1)
+        [arr]
+      PT has SCartesian(3) =>
+        arr : PrimitiveArray PrimitiveArray DF := new(4, empty())
+        for i in 0..3 repeat
+          qsetelt!(arr, i, new(4, 0::DF))
+          for j in 0..3 repeat
+            (arr.i).j := (m.(i+1)).(j+1)
+        [arr]
+      error "invalid point type in transform constructor"
+      identity()
+
+    -- construct with a general mapping from PT to PT
+    stransform(gen : PT -> PT) : % ==
+      [gen]
+
+    -- construct transform as function of complex variable
+    -- can only be used when PT is SArgand so this can be
+    -- converted to PT -> PT
+    stransform(cpx : C -> C) : % ==
+      pp : (PT -> PT) := ((x : PT) : PT +-> _
+         (cpx((x pretend SArgand):: C))::SArgand pretend PT)
+      [pp]
+
+    -- construct with a multivector
+    stransform(m : List DF) : % ==
+      [construct m]
+
+    -- construct transform which represents pure translation
+    -- we can also combine with scale which, for instance, is useful
+    -- when writing to SVG file because the y dimension is inverted
+    stranslate(offsetx : DF, offsety : DF, offsetz : DF, _
+               scalex : DF, scaley : DF, scalez : DF) : % ==
+      if PT has SCartesian(2) then
+        return stransform([_
+             [scalex, 0::DF, offsetx], _
+             [0::DF, scaley, offsety], _
+             [0::DF, 0::DF, 1::DF]])
+      if PT has SCartesian(3) then
+        return stransform([_
+             [scalex, 0::DF, 0::DF, offsetx], _
+             [0::DF, scaley, 0::DF, offsety], _
+             [0::DF, 0::DF, scalez, offsetz], _
+             [0::DF, 0::DF, 0::DF, 1::DF]])
+      if PT has SConformal(2) then
+        m := matrix([[0::DF, 1::DF, 0::DF, 0::DF], _
+                           [1::DF, 0::DF, 0::DF, 0::DF], _
+                           [0::DF, 0::DF, 1::DF, 0::DF], _
+                           [0::DF, 0::DF, 0::DF, 1::DF]])$Matrix(DF)
+        CA := CliffordAlgebra(4, DF, squareMatrix(m)$SquareMatrix(4, DF))
+        trConf : CA := multivector([1::DF, 0::DF, 0::DF, 0::DF, _
+                0::DF, 0::DF, offsetx*(0.5::DF), 0::DF, _
+                0::DF, 0::DF, offsety*(0.5::DF), 0::DF, _
+                0::DF, 0::DF, 0::DF, 0::DF])$CA
+        return [trConf pretend PrimitiveArray DF]
+      if PT has SArgand then
+        pp : (PT -> PT) := ((x : PT) : PT +-> _
+          (((x pretend SArgand):: C)+ complex(offsetx, offsety))::SArgand pretend PT)
+        return [pp]
+      identity()
+
+    -- returns the identity element which is 'do-nothing' transform
+    identity():% == ["iden"]
+
+    -- apply transform to a point producing another point
+    applyTransPt2(tr : %, inpt : SCartesian(2)) : SCartesian(2) ==
+      if tr case iden then return inpt
+      if tr case general then
+        print message("can't transform Euclidean point using general function")
+        return inpt
+      vin : List DF := extendedCoords(inpt)$SCartesian(2)
+      a : DF := tr.mtx.0.0 * vin.1 + tr.mtx.0.1 * vin.2 + tr.mtx.0.2 * vin.3
+      b : DF := tr.mtx.1.0 * vin.1 + tr.mtx.1.1 * vin.2 + tr.mtx.1.2 * vin.3
+      spnt(a, b)$SCartesian(2)
+
+    -- apply transform to a point producing another point
+    applyTransPt3(tr : %, inpt : SCartesian(3)) : SCartesian(3) ==
+      if tr case iden then return inpt
+      if tr case general then
+        print message("can't transform Euclidean point using general function")
+        return inpt
+      vin : List DF := extendedCoords(inpt)$SCartesian(3)
+      a : DF := tr.mtx.0.0 * vin.1 + tr.mtx.0.1 * vin.2_
+            + tr.mtx.0.2 * vin.3 + tr.mtx.0.3 * vin.4
+      b : DF := tr.mtx.1.0 * vin.1 + tr.mtx.1.1 * vin.2_
+            + tr.mtx.1.2 * vin.3 + tr.mtx.1.3 * vin.4
+      c : DF := tr.mtx.2.0 * vin.1 + tr.mtx.2.1 * vin.2_
+            + tr.mtx.2.2 * vin.3 + tr.mtx.2.3 * vin.4
+      spnt(a, b, c)$SCartesian(3)
+
+    -- apply transform to a (complex number) point producing another point
+    applyTransCx(tr : %, inpt : SArgand) : SArgand ==
+      if tr case iden then return inpt
+      if tr case mtx then
+        print(message("can't transform complex using matrix"))
+        print coerce(tr)
+        return inpt
+      f := tr.general
+      res := f(inpt pretend PT)
+      res pretend SArgand
+
+    -- apply transform to a 2D conformal point producing another point
+    applyTransConf2(tr : %, inpt : SConformal(2)) : SConformal(2) ==
+      if tr case iden then return inpt
+      if not (tr case multiv) then
+        print(message("this transform not compatible with conformal"))
+        print coerce(tr)
+        return inpt
+      m := matrix([[0::DF, 1::DF, 0::DF, 0::DF], _
+                           [1::DF, 0::DF, 0::DF, 0::DF], _
+                           [0::DF, 0::DF, 1::DF, 0::DF], _
+                           [0::DF, 0::DF, 0::DF, 1::DF]])$Matrix(DF)
+      CA := CliffordAlgebra(4, DF, squareMatrix(m)$SquareMatrix(4, DF))
+      ptConf : CA := inpt pretend CA
+      trConf : CA := (tr.multiv) pretend CA
+      conjugation := trConf * ptConf * reverse(trConf)
+      res := conjugation pretend SConformal(2)
+      normalisePoint(res)
+
+    -- apply transform to a point producing another point
+    xform(tr : %, inpt : PT) : PT ==
+      PT has SCartesian(2) => _
+        applyTransPt2(tr, inpt pretend SCartesian(2)) pretend PT
+      PT has SCartesian(3) => _
+        applyTransPt3(tr, inpt pretend SCartesian(3)) pretend PT
+      PT has SArgand => applyTransCx(tr, inpt pretend SArgand) pretend PT
+      PT has SConformal(2) => _
+        applyTransConf2(tr, inpt pretend SConformal(2)) pretend PT
+      error "invalid point type in transform"
+      spnt(0::DF, 0::DF)$SCartesian(2) pretend PT
+
+    -- combine two 2D transforms
+    compound2(tr : %, inpt : %) : % ==
+      arr : PrimitiveArray PrimitiveArray DF := new(3, empty())
+      for i in 0..2 repeat
+        qsetelt!(arr, i, new(3, 0::DF))
+        for j in 0..2 repeat
+          (arr.i).j := tr.mtx.0.j * inpt.mtx.i.0_
+                     + tr.mtx.1.j * inpt.mtx.i.1_
+                     + tr.mtx.2.j * inpt.mtx.i.2
+      return [arr]
+
+    -- combine two 3D transforms
+    compound3(tr : %, inpt : %) : % ==
+      arr : PrimitiveArray PrimitiveArray DF := new(4, empty())
+      for i in 0..3 repeat
+        qsetelt!(arr, i, new(4, 0::DF))
+        for j in 0..3 repeat
+          (arr.i).j := tr.mtx.0.j * inpt.mtx.i.0_
+                     + tr.mtx.1.j * inpt.mtx.i.1_
+                     + tr.mtx.2.j * inpt.mtx.i.2_
+                     + tr.mtx.3.j * inpt.mtx.i.3
+      return [arr]
+
+    -- combine two 2D conformal transforms
+    compoundConf2(tr : %, inpt : %) : % ==
+      m := matrix([[0::DF, 1::DF, 0::DF, 0::DF], _
+                           [1::DF, 0::DF, 0::DF, 0::DF], _
+                           [0::DF, 0::DF, 1::DF, 0::DF], _
+                           [0::DF, 0::DF, 0::DF, 1::DF]])$Matrix(DF)
+      CA := CliffordAlgebra(4, DF, squareMatrix(m)$SquareMatrix(4, DF))
+      trConf : CA := (tr.multiv) pretend CA
+      inptConf : CA := (inpt.multiv) pretend CA
+      resConf : CA := trConf*inptConf
+      return [resConf pretend PrimitiveArray DF]
+
+    -- combine two transforms
+    compound(tr : %, inpt : %) : % ==
+      -- first check for simple case where one of the operands is identity
+      if tr case iden then return inpt -- iden*inpt = inpt
+      if inpt case iden then return tr -- tr*iden = tr
+      if tr case mtx and inpt case mtx then
+        if PT has SCartesian(2) then return compound2(tr, inpt)
+        if PT has SCartesian(3) then return compound3(tr, inpt)
+      if tr case general and inpt case general then
+        in1 : PT -> PT := tr.general
+        in2 : PT -> PT := inpt.general
+        fn : PT -> PT := _*(in1, in2)$MappingPackage3(PT, PT, PT)
+        return [fn]
+      if tr case multiv and inpt case multiv then
+        return compoundConf2(tr, inpt)
+      identity()
+
+    -- local function used by coerce(%): OutputForm to format array
+    outputArray(x : PrimitiveArray DF) : OutputForm ==
+      l : List OutputForm
+      m : NNI := #x
+      bracket([(x.i)::OutputForm for i in 0..(m-1)])
+
+    -- local function used by coerce(%): OutputForm to format matrix
+    outputMatrix(x : PrimitiveArray PrimitiveArray DF) : OutputForm ==
+      l : List List OutputForm
+      m : NNI := #x
+      l := [[(x.i.j)::OutputForm for j in 0..(m-1)] for i in 0..(m-1)]
+      matrix(l)
+
+    -- output
+    coerce(tr : %) : OutputForm ==
+      -- iden means identity transform
+      if tr case iden then return message("iden")
+      -- can't display function as OutputForm
+      if tr case general then return message("function as transform")
+      -- if matrix output matrix
+      if tr case mtx then
+        return hconcat(message("mtx"), outputMatrix(tr.mtx))
+      -- if above tests are false then tr must be multiv
+      hconcat(message("multiv"), outputArray(tr.multiv))
+
+)if false
+
+\section{Boundary}
+SBoundary implements boundaries for use in scene graph
+
+This defines the outer extent of the scene or of an element
+in the scene or of some branch in the scene.
+
+The difference between this boundary and an n-dimensional
+surface, such as IFS, is that boundary must always have a
+well defined inside and an outside.
+
+SBoundary does not necessarily follow the exact outer contours
+of the shape but just constructs a simple boundary shape where
+all points of the shape are guaranteed to be inside the boundary.
+
+The uses of SBoundary are:
+\begin{itemize}
+\item So we know how much to scale a given scene to fit in a
+given size.
+\item So that we know where to terminate arrows going in out out of
+of the shape.
+\item To detect if objects intersect (collision detect), or if one
+object is contained completely inside another.
+\end{itemize}
+
+Currently there are 3 boundary shapes:
+\begin{itemize}
+\item "box"::Symbol which is a n-dimensional axis-aligned rectangle
+\item "ellipoid"::Symbol which is a n-dimensional axis-aligned ellipse
+\item "none"::Symbol is used, for example, when the boundary of a
+material node is requested.
+\end{itemize}
+In future we may add other boundary shapes, we may also allow a
+boundary to consist of a union of these other shapes.
+
+In the case of box it is specified by two points, on opposite ends
+of diagonal, where edges are aligned with coordinate axes.
+
+In the case of ellipse : first parameter is centre and second
+determines the radius aligned with each coordinate axis (half
+the full height and width).
+
+First we create some types to work with
+\begin{verbatim}
+(1) -> DF ==> DoubleFloat
+                                                             Type : Void
+(2) -> PT ==> SCartesian(2)
+                                                             Type : Void
+(3) -> B ==> SBoundary PT
+                                                             Type : Void
+\end{verbatim}
+As discussed above SBoundary can have one of three forms : a null
+boundary, a box boundary and an ellipoid boundary. These 3 forms can
+be constructed as in 3, 4 and 5 below:
+\begin{verbatim}
+(4) -> B1 := nullBoundary()$B
+   (4)  bound none
+                                         Type : SBoundary(SCartesian(2))
+
+(5) -> B2 := boxBoundary(spnt(20::DF, -20::DF), spnt(10::DF, 10::DF))$B
+   (5)  bound box : pt(10.0, - 20.0)->pt(20.0, 10.0)
+                                         Type : SBoundary(SCartesian(2))
+
+(6) -> B3 := ellipseBoundary(spnt(30::DF, 10::DF), spnt(25::DF, 5::DF))$B
+   (6)  bound ellipoid : pt(30.0, 10.0)->pt(25.0, 5.0)
+                                         Type : SBoundary(SCartesian(2))
+\end{verbatim}
+We can now do various operations on the boundaries that we have
+constructed.
+
+Line (7) construct a union of two boundaries, that is, a boundary
+that completely encloses the input boundaries.
+
+Line (8) is also a union, but this time, one of the operands is a
+point. We can think of this as extending the boundary to include
+the point.
+
+Lines (9) and (10) demonstrate how we can test if a point is
+inside the boundary.
+\begin{verbatim}
+(7) -> B4 := sunion(B2, B3)
+   (7)  bound box : pt(5.0, - 20.0)->pt(55.0, 15.0)
+                                         Type : SBoundary(SCartesian(2))
+
+(8) -> B5 := extendToPoint(B2, spnt(30::DF, 10::DF))$B
+   (8)  bound box : pt(10.0, - 20.0)->pt(30.0, 10.0)
+                                         Type : SBoundary(SCartesian(2))
+
+(9) -> containsPoint?(B2, spnt(15::DF, 5::DF))$B
+   (9)  true
+                                                          Type : Boolean
+
+(10) -> containsPoint?(B2, spnt(0::DF, 5::DF))$B
+   (10)  false
+                                                          Type : Boolean
+\end{verbatim}
+\section{SBOUND SBoundary}
+)endif
+

@@ -1,0 +1,42 @@
+1550                (|ReducedDivisor| F1 UP UPUP R F2)
+|package|
+(((|ReducedDivisor| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package|
+   (SIGNATURE |order|
+    ((|NonNegativeInteger|) (|FiniteDivisor| |#1| |#2| |#3| |#4|) |#3|
+     (|Mapping| |#5| |#1|))))
+  (|Field|) (|UnivariatePolynomialCategory| |#1|)
+  (|UnivariatePolynomialCategory| (|Fraction| |#2|))
+  (|FunctionFieldCategory| |#1| |#2| |#3|) (|Join| (|Finite|) (|Field|)))
+ (T |ReducedDivisor|))
+(CATEGORY |package|
+ (SIGNATURE |order|
+  ((|NonNegativeInteger|) (|FiniteDivisor| |#1| |#2| |#3| |#4|) |#3|
+   (|Mapping| |#5| |#1|))))
+"/git/fricas/src/algebra/RDIV.spad"
+((|order| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|FiniteDivisor| *6 *7 *4 *8))
+       (|isDomain| *5 (|Mapping| *9 *6)) (|ofCategory| *6 (|Field|))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| *6))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Fraction| *7)))
+       (|ofCategory| *8 (|FunctionFieldCategory| *6 *7 *4))
+       (|ofCategory| *9 (|Join| (|Finite|) (|Field|)))
+       (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|ReducedDivisor| *6 *7 *4 *8 *9)))))
+((|order|
+  (((|NonNegativeInteger|) (|FiniteDivisor| |#1| |#2| |#3| |#4|) |#3|
+    (|Mapping| |#5| |#1|))
+   23)))
+RDIV
+((|constructor|
+  (NIL
+   "\\indented{1}{Finds the order of a divisor over a finite field} Author: Manuel Bronstein Date Created: 1988"))
+ (|order|
+  (((|NonNegativeInteger|) (|FiniteDivisor| |#1| |#2| |#3| |#4|) |#3|
+    (|Mapping| |#5| |#1|))
+   "\\spad{order(f,{} u,{} g)} \\undocumented")))
+(("documentation" 0 1255) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1250) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1134) ("modemaps" 0 629) ("sourceFile" 0 593)
+ ("constructorCategory" 0 456) ("constructorModemap" 0 65)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

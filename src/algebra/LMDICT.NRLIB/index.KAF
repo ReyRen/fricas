@@ -1,0 +1,155 @@
+7218                (|ListMultiDictionary| S)
+|domain|
+(((|ListMultiDictionary| |#1|)
+  (|Join| (|MultiDictionary| |#1|) (|finiteAggregate|)
+          (CATEGORY |domain| (SIGNATURE |duplicates?| ((|Boolean|) $))
+           (SIGNATURE |substitute| ($ |#1| |#1| $))))
+  (|SetCategory|))
+ (T |ListMultiDictionary|))
+(|Join| (|MultiDictionary| |#1|) (|finiteAggregate|)
+        (CATEGORY |domain| (SIGNATURE |duplicates?| ((|Boolean|) $))
+         (SIGNATURE |substitute| ($ |#1| |#1| $))))
+"/git/fricas/src/algebra/LMDICT.spad"
+((|duplicates?| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|ListMultiDictionary| *3))
+       (|ofCategory| *3 (|SetCategory|))))
+ (|substitute| (*1 *1 *2 *2 *1)
+               (AND (|isDomain| *1 (|ListMultiDictionary| *2))
+                    (|ofCategory| *2 (|SetCategory|)))))
+((~=
+  (((|Boolean|) $ $) NIL
+   (OR (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|substitute| (($ |#1| |#1| $) 42))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|select!|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 53 (|has| $ (|finiteAggregate|))))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) NIL (|has| $ (|finiteAggregate|))))
+ (|sample| (($) NIL T CONST)) (|removeDuplicates!| (($ $) 44))
+ (|removeDuplicates|
+  (($ $) NIL (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|remove!|
+  (($ |#1| $) 50
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|))))
+  (($ (|Mapping| (|Boolean|) |#1|) $) 52 (|has| $ (|finiteAggregate|))))
+ (|remove|
+  (($ (|Mapping| (|Boolean|) |#1|) $) NIL (|has| $ (|finiteAggregate|)))
+  (($ |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) NIL (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) NIL (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|parts| (((|List| |#1|) $) 12 (|has| $ (|finiteAggregate|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|min|
+  ((|#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (|members| (((|List| |#1|) $) NIL (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  ((|#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 38 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 36))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|latex| (((|String|) $) NIL (|has| |#1| (|SetCategory|))))
+ (|inspect| ((|#1| $) 45))
+ (|insert!| (($ |#1| $) 27) (($ |#1| $ (|NonNegativeInteger|)) 41))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) NIL (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) NIL (|has| |#1| (|SetCategory|))))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) NIL))
+ (|extract!| ((|#1| $) 47))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) NIL)) (|empty?| (((|Boolean|) $) 23))
+ (|empty| (($) 26)) (|duplicates?| (((|Boolean|) $) 48))
+ (|duplicates|
+  (((|List| (|Record| (|:| |entry| |#1|) (|:| |count| (|NonNegativeInteger|))))
+    $)
+   58))
+ (|dictionary| (($) 24) (($ (|List| |#1|)) 20))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 54
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|copy| (($ $) 21))
+ (|convert|
+  (((|InputForm|) $) 33 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) NIL))
+ (|coerce| (((|OutputForm|) $) 16 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 60
+   (OR (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|#| (((|NonNegativeInteger|) $) 18 (|has| $ (|finiteAggregate|)))))
+((|HasCategory| |#1| '(|SetCategory|))
+ (AND (|HasCategory| |#1| (LIST '|Evalable| (|devaluate| |#1|)))
+      (|HasCategory| |#1| '(|SetCategory|)))
+ (|HasCategory| |#1| (LIST '|ConvertibleTo| '(|InputForm|)))
+ (|HasCategory| |#1| '(|OrderedSet|)) (|HasCategory| |#1| '(|BasicType|))
+ (OR (|HasCategory| |#1| '(|BasicType|)) (|HasCategory| |#1| '(|SetCategory|)))
+ (|HasCategory| |#1| (LIST '|CoercibleTo| '(|OutputForm|)))
+ (OR (|HasCategory| |#1| (LIST '|CoercibleTo| '(|OutputForm|)))
+     (AND (|HasCategory| |#1| (LIST '|Evalable| (|devaluate| |#1|)))
+          (|HasCategory| |#1| '(|SetCategory|))))
+ (|HasCategory| $ '(|shallowlyMutable|)) (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| |#1| '(|OrderedSet|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (AND (|HasCategory| |#1| '(|BasicType|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (OR
+  (AND (|HasCategory| |#1| '(|BasicType|))
+       (|HasCategory| $ '(|finiteAggregate|)))
+  (|HasCategory| |#1| '(|SetCategory|))))
+LMDICT
+(((|MultiDictionary| |#1|) . T) ((|finiteAggregate|) . T))
+(((|Aggregate|) . T) ((|BagAggregate| |t#1|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Collection| |t#1|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|DictionaryOperations| |t#1|) . T)
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|MultiDictionary| |#1|) . T) ((|SetCategory|) |has| |t#1| (|SetCategory|))
+ ((|Type|) . T) ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "The \\spadtype{ListMultiDictionary} domain implements a dictionary with duplicates allowed. The representation is a list with duplicates represented explicitly. Hence most operations will be relatively inefficient when the number of entries in the dictionary becomes large. If the objects in the dictionary belong to an ordered set,{} the entries are maintained in ascending order."))
+ (|substitute|
+  (($ |#1| |#1| $)
+   "\\spad{substitute(x,{} y,{} d)} replace \\spad{x}\\spad{'s} with \\spad{y}\\spad{'s} in dictionary \\spad{d}."))
+ (|duplicates?|
+  (((|Boolean|) $)
+   "\\spad{duplicates?(d)} tests if dictionary \\spad{d} has duplicate entries.")))
+(("documentation" 0 6536) ("ancestors" 0 5769) ("parents" 0 5710)
+ ("abbreviation" 0 5703) ("predicates" 0 4702) ("superDomain" 0 NIL)
+ ("operationAlist" 0 825) ("modemaps" 0 525) ("sourceFile" 0 487)
+ ("constructorCategory" 0 313) ("constructorModemap" 0 55)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))

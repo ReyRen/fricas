@@ -1,0 +1,98 @@
+5064                (|NormalizationPackage| R E V P TS)
+|package|
+(((|NormalizationPackage| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package|
+   (SIGNATURE |recip| ((|Record| (|:| |num| |#4|) (|:| |den| |#4|)) |#4| |#5|))
+   (SIGNATURE |normalizedAssociate| (|#4| |#4| |#5|))
+   (SIGNATURE |normalize|
+    ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#5|))
+   (SIGNATURE |outputArgs| ((|Void|) (|String|) (|String|) |#4| |#5|))
+   (SIGNATURE |normInvertible?|
+    ((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4|
+     |#5|)))
+  (|GcdDomain|) (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|RecursivePolynomialCategory| |#1| |#2| |#3|)
+  (|RegularTriangularSetCategory| |#1| |#2| |#3| |#4|))
+ (T |NormalizationPackage|))
+(CATEGORY |package|
+ (SIGNATURE |recip| ((|Record| (|:| |num| |#4|) (|:| |den| |#4|)) |#4| |#5|))
+ (SIGNATURE |normalizedAssociate| (|#4| |#4| |#5|))
+ (SIGNATURE |normalize|
+  ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#5|))
+ (SIGNATURE |outputArgs| ((|Void|) (|String|) (|String|) |#4| |#5|))
+ (SIGNATURE |normInvertible?|
+  ((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|)))
+"/git/fricas/src/algebra/NORMPK.spad"
+((|normInvertible?| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |val| (|Boolean|)) (|:| |tower| *4))))
+       (|isDomain| *1 (|NormalizationPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|outputArgs| (*1 *2 *3 *3 *4 *5)
+  (AND (|isDomain| *3 (|String|)) (|ofCategory| *6 (|GcdDomain|))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *8 (|OrderedSet|))
+       (|ofCategory| *4 (|RecursivePolynomialCategory| *6 *7 *8))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|NormalizationPackage| *6 *7 *8 *4 *5))
+       (|ofCategory| *5 (|RegularTriangularSetCategory| *6 *7 *8 *4))))
+ (|normalize| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|List| (|Record| (|:| |val| *3) (|:| |tower| *4))))
+       (|isDomain| *1 (|NormalizationPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|normalizedAssociate| (*1 *2 *2 *3)
+  (AND (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|))
+       (|ofCategory| *2 (|RecursivePolynomialCategory| *4 *5 *6))
+       (|isDomain| *1 (|NormalizationPackage| *4 *5 *6 *2 *3))
+       (|ofCategory| *3 (|RegularTriangularSetCategory| *4 *5 *6 *2))))
+ (|recip| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|Record| (|:| |num| *3) (|:| |den| *3)))
+       (|isDomain| *1 (|NormalizationPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3)))))
+((|recip| (((|Record| (|:| |num| |#4|) (|:| |den| |#4|)) |#4| |#5|) 57))
+ (|outputArgs| (((|Void|) (|String|) (|String|) |#4| |#5|) 34))
+ (|normalizedAssociate| ((|#4| |#4| |#5|) 73))
+ (|normalize|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#5|) 77))
+ (|normInvertible?|
+  (((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|)
+   15)))
+NORMPK
+((|constructor|
+  (NIL
+   "A package for computing normalized assocites of univariate polynomials with coefficients in a tower of simple extensions of a field."))
+ (|normInvertible?|
+  (((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|)
+   "\\spad{normInvertible?(p,{} ts)} is an internal subroutine,{} exported only for developement."))
+ (|outputArgs|
+  (((|Void|) (|String|) (|String|) |#4| |#5|)
+   "\\spad{outputArgs(s1,{} s2,{} p,{} ts)} is an internal subroutine,{} exported only for developement."))
+ (|normalize|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#5|)
+   "\\spad{normalize(p,{} ts)} normalizes \\spad{p} \\spad{w}.\\spad{r}.\\spad{t} \\spad{ts}."))
+ (|normalizedAssociate|
+  ((|#4| |#4| |#5|)
+   "\\spad{normalizedAssociate(p,{} ts)} returns a normalized polynomial \\spad{n} \\spad{w}.\\spad{r}.\\spad{t}. \\spad{ts} such that \\spad{n} and \\spad{p} are associates \\spad{w}.\\spad{r}.\\spad{t} \\spad{ts} and assuming that \\spad{p} is invertible \\spad{w}.\\spad{r}.\\spad{t} \\spad{ts}."))
+ (|recip|
+  (((|Record| (|:| |num| |#4|) (|:| |den| |#4|)) |#4| |#5|)
+   "\\spad{recip(p,{} ts)} returns the inverse of \\spad{p} \\spad{w}.\\spad{r}.\\spad{t} \\spad{ts} assuming that \\spad{p} is invertible \\spad{w}.\\spad{r}.\\spad{t} \\spad{ts}.")))
+(("documentation" 0 3750) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3743) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3362) ("modemaps" 0 1216) ("sourceFile" 0 1178)
+ ("constructorCategory" 0 755) ("constructorModemap" 0 66)
+ ("constructorKind" 0 56) ("constructorForm" 0 20))

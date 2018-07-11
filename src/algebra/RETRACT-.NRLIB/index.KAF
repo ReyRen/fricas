@@ -1,0 +1,25 @@
+975                 (|RetractableTo&| A S)
+|domain|
+(((|RetractableTo&| |#1| |#2|)
+  (CATEGORY |domain| (SIGNATURE |retract| (|#2| |#1|))) (|RetractableTo| |#2|)
+  (|Type|))
+ (T |RetractableTo&|))
+(CATEGORY |domain| (SIGNATURE |retract| (|#2| |#1|)))
+"/git/fricas/src/algebra/RETRACT.spad"
+((|retract| ((|#2| $) 10)))
+RETRACT-
+((|constructor|
+  (NIL
+   "A is retractable to \\spad{B} means that some elements of A can be converted into elements of \\spad{B} and any element of \\spad{B} can be converted into an element of A."))
+ (|retract|
+  ((|#2| $)
+   "\\spad{retract(a)} transforms a into an element of \\spad{S} if possible. Error: if a cannot be made into an element of \\spad{S}."))
+ (|retractIfCan|
+  (((|Union| |#2| "failed") $)
+   "\\spad{retractIfCan(a)} transforms a into an element of \\spad{S} if possible. Returns \"failed\" if a cannot be made into an element of \\spad{S}."))
+ (|coerce| (($ |#2|) "\\spad{coerce(a)} transforms a into an element of \\%.")))
+(("documentation" 0 327) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 318) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 290) ("modemaps" 0 NIL) ("sourceFile" 0 251)
+ ("constructorCategory" 0 197) ("constructorModemap" 0 52)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

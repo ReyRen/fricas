@@ -1,0 +1,170 @@
+8492                (|GeneralTriangularSet| R E V P)
+|domain|
+(((|GeneralTriangularSet| |#1| |#2| |#3| |#4|)
+  (|TriangularSetCategory| |#1| |#2| |#3| |#4|) (|IntegralDomain|)
+  (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|RecursivePolynomialCategory| |#1| |#2| |#3|))
+ (T |GeneralTriangularSet|))
+(|TriangularSetCategory| |#1| |#2| |#3| |#4|)
+"/git/fricas/src/algebra/GTSET.spad"
+((~= (((|Boolean|) $ $) NIL))
+ (|zeroSetSplitIntoTriangularSystems|
+  (((|List| (|Record| (|:| |close| $) (|:| |open| (|List| |#4|))))
+    (|List| |#4|))
+   NIL))
+ (|zeroSetSplit| (((|List| $) (|List| |#4|)) NIL))
+ (|variables| (((|List| |#3|) $) NIL)) (|trivialIdeal?| (((|Boolean|) $) NIL))
+ (|triangular?| (((|Boolean|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|stronglyReduced?| (((|Boolean|) |#4| $) NIL) (((|Boolean|) $) NIL))
+ (|stronglyReduce| ((|#4| |#4| $) NIL))
+ (|sort|
+  (((|Record| (|:| |under| $) (|:| |floor| $) (|:| |upper| $)) $ |#3|) NIL))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#4|) $) NIL (|has| $ (|finiteAggregate|)))
+  (((|Union| |#4| #1="failed") $ |#3|) NIL))
+ (|sample| (($) NIL T CONST))
+ (|roughUnitIdeal?| (((|Boolean|) $) 26 (|has| |#1| (|IntegralDomain|))))
+ (|roughSubIdeal?| (((|Boolean|) $ $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|roughEqualIdeals?| (((|Boolean|) $ $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|roughBase?| (((|Boolean|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|rewriteSetWithReduction|
+  (((|List| |#4|) (|List| |#4|) $ (|Mapping| |#4| |#4| |#4|)
+    (|Mapping| (|Boolean|) |#4| |#4|))
+   NIL))
+ (|rewriteIdealWithRemainder|
+  (((|List| |#4|) (|List| |#4|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|rewriteIdealWithHeadRemainder|
+  (((|List| |#4|) (|List| |#4|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|retractIfCan| (((|Union| $ "failed") (|List| |#4|)) NIL))
+ (|retract| (($ (|List| |#4|)) NIL)) (|rest| (((|Union| $ #1#) $) 39))
+ (|removeZero| ((|#4| |#4| $) NIL))
+ (|removeDuplicates|
+  (($ $) NIL (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|)))))
+ (|remove|
+  (($ |#4| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|))))
+  (($ (|Mapping| (|Boolean|) |#4|) $) NIL (|has| $ (|finiteAggregate|))))
+ (|remainder|
+  (((|Record| (|:| |rnum| |#1|) (|:| |polnum| |#4|) (|:| |den| |#1|)) |#4| $)
+   NIL (|has| |#1| (|IntegralDomain|))))
+ (|reduced?| (((|Boolean|) |#4| $ (|Mapping| (|Boolean|) |#4| |#4|)) NIL))
+ (|reduceByQuasiMonic| ((|#4| |#4| $) NIL))
+ (|reduce|
+  ((|#4| (|Mapping| |#4| |#4| |#4|) $ |#4| |#4|) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|))))
+  ((|#4| (|Mapping| |#4| |#4| |#4|) $ |#4|) NIL (|has| $ (|finiteAggregate|)))
+  ((|#4| (|Mapping| |#4| |#4| |#4|) $) NIL (|has| $ (|finiteAggregate|)))
+  ((|#4| |#4| $ (|Mapping| |#4| |#4| |#4|) (|Mapping| (|Boolean|) |#4| |#4|))
+   NIL))
+ (|quasiComponent|
+  (((|Record| (|:| |close| (|List| |#4|)) (|:| |open| (|List| |#4|))) $) NIL))
+ (|parts| (((|List| |#4|) $) 16 (|has| $ (|finiteAggregate|))))
+ (|normalized?| (((|Boolean|) |#4| $) NIL) (((|Boolean|) $) NIL))
+ (|mvar| ((|#3| $) 33)) (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|min|
+  ((|#4| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|OrderedSet|)))))
+ (|members| (((|List| |#4|) $) 17 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#4| $) 25
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|)))))
+ (|max|
+  ((|#4| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|OrderedSet|))))
+  ((|#4| (|Mapping| (|Boolean|) |#4| |#4|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|map!| (($ (|Mapping| |#4| |#4|) $) 23 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#4| |#4|) $) 21))
+ (|mainVariables| (((|List| |#3|) $) NIL))
+ (|mainVariable?| (((|Boolean|) |#3| $) NIL))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|latex| (((|String|) $) NIL)) (|last| (((|Union| |#4| #1#) $) 37))
+ (|initials| (((|List| |#4|) $) NIL))
+ (|initiallyReduced?| (((|Boolean|) |#4| $) NIL) (((|Boolean|) $) NIL))
+ (|initiallyReduce| ((|#4| |#4| $) NIL)) (|infRittWu?| (((|Boolean|) $ $) NIL))
+ (|iexactQuo| ((|#1| |#1| |#1|) NIL (|has| |#1| (|IntegralDomain|))))
+ (|headRemainder|
+  (((|Record| (|:| |num| |#4|) (|:| |den| |#1|)) |#4| $) NIL
+   (|has| |#1| (|IntegralDomain|))))
+ (|headReduced?| (((|Boolean|) |#4| $) NIL) (((|Boolean|) $) NIL))
+ (|headReduce| ((|#4| |#4| $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|first| (((|Union| |#4| #1#) $) 35))
+ (|find| (((|Union| |#4| "failed") (|Mapping| (|Boolean|) |#4|) $) NIL))
+ (|extendIfCan| (((|Union| $ #1#) $ |#4|) 48)) (|extend| (($ $ |#4|) NIL))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#4|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| |#4|) (|List| |#4|)) NIL
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|))))
+  (($ $ |#4| |#4|) NIL
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|))))
+  (($ $ (|Equation| |#4|)) NIL
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|))))
+  (($ $ (|List| (|Equation| |#4|))) NIL
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) NIL)) (|empty?| (((|Boolean|) $) 15))
+ (|empty| (($) 13)) (|degree| (((|NonNegativeInteger|) $) NIL))
+ (|count|
+  (((|NonNegativeInteger|) |#4| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|))))
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#4|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|copy| (($ $) 12))
+ (|convert|
+  (((|InputForm|) $) NIL (|has| |#4| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#4|)) 20)) (|collectUpper| (($ $ |#3|) 42))
+ (|collectUnder| (($ $ |#3|) 44)) (|collectQuasiMonic| (($ $) NIL))
+ (|collect| (($ $ |#3|) NIL))
+ (|coerce| (((|OutputForm|) $) 31) (((|List| |#4|) $) 40))
+ (|coHeight| (((|NonNegativeInteger|) $) NIL (|has| |#3| (|Finite|))))
+ (|basicSet|
+  (((|Union| (|Record| (|:| |bas| $) (|:| |top| (|List| |#4|))) #1#)
+    (|List| |#4|) (|Mapping| (|Boolean|) |#4| |#4|))
+   NIL)
+  (((|Union| (|Record| (|:| |bas| $) (|:| |top| (|List| |#4|))) #1#)
+    (|List| |#4|) (|Mapping| (|Boolean|) |#4|)
+    (|Mapping| (|Boolean|) |#4| |#4|))
+   NIL))
+ (|autoReduced?|
+  (((|Boolean|) $ (|Mapping| (|Boolean|) |#4| (|List| |#4|))) NIL))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#4|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|algebraicVariables| (((|List| |#3|) $) NIL))
+ (|algebraic?| (((|Boolean|) |#3| $) NIL)) (= (((|Boolean|) $ $) NIL))
+ (|#| (((|NonNegativeInteger|) $) NIL (|has| $ (|finiteAggregate|)))))
+((AND (|HasCategory| |#4| (LIST '|Evalable| (|devaluate| |#4|)))
+      (|HasCategory| |#4| '(|SetCategory|)))
+ (|HasCategory| |#4| (LIST '|ConvertibleTo| '(|InputForm|)))
+ (|HasCategory| |#4| '(|BasicType|)) (|HasCategory| |#4| '(|OrderedSet|))
+ (|HasCategory| |#1| '(|IntegralDomain|)) (|HasCategory| |#3| '(|Finite|))
+ (|HasCategory| $ '(|shallowlyMutable|)) (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| |#4| '(|BasicType|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (AND (|HasCategory| |#4| '(|OrderedSet|))
+      (|HasCategory| $ '(|finiteAggregate|))))
+GTSET
+(((|TriangularSetCategory| |#1| |#2| |#3| |#4|) . T))
+(((|Aggregate|) . T) ((|BasicType|) . T) ((|CoercibleTo| (|List| |t#4|)) . T)
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|Collection| |t#4|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|PolynomialSetCategory| |t#1| |t#2| |t#3| |t#4|) . T)
+ ((|RetractableFrom| (|List| |t#4|)) . T) ((|SetCategory|) . T)
+ ((|TriangularSetCategory| |#1| |#2| |#3| |#4|) . T) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "A domain constructor of the category \\spadtype{TriangularSetCategory}. The only requirement for a list of polynomials to be a member of such a domain is the following: no polynomial is constant and two distinct polynomials have distinct main variables. Such a triangular set may not be auto-reduced or consistent. Triangular sets are stored as sorted lists \\spad{w}.\\spad{r}.\\spad{t}. the main variables of their members but they are displayed in reverse order.\\newline")))
+(("documentation" 0 7986) ("ancestors" 0 7289) ("parents" 0 7235)
+ ("abbreviation" 0 7229) ("predicates" 0 6651) ("superDomain" 0 NIL)
+ ("operationAlist" 0 383) ("modemaps" 0 NIL) ("sourceFile" 0 346)
+ ("constructorCategory" 0 300) ("constructorModemap" 0 62)
+ ("constructorKind" 0 53) ("constructorForm" 0 20))

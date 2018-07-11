@@ -1,0 +1,49 @@
+)abbrev package TSEREXPP TaylorSeriesExpansionPuiseux
+TaylorSeriesExpansionPuiseux(Coef : Algebra(Fraction(Integer)),
+    UTS : UnivariateTaylorSeriesCategory Coef,
+    ULS : UnivariateLaurentSeriesConstructorCategory(Coef, UTS),
+    UPS : UnivariatePuiseuxSeriesConstructorCategory(Coef, ULS)
+    ) : Exports == Implementation
+  where
+    TEL ==> TaylorSeriesExpansionLaurent(Coef, UTS, ULS)
+    RN ==> Fraction Integer
+    Exports ==> TaylorSeriesExpansion(Coef, RN,
+                                      SingletonAsOrderedSet, UPS, UTS)
+
+    Implementation ==> add
+
+        rescale(p : UPS, r0 : RN, rn : RN) : ULS ==
+            s := (retract(r0/rn)@Integer)::PositiveInteger
+            multiplyExponents(laurentRep(p), s)
+
+        common_rep(lp : List UPS) : Record(laus : List ULS, rpow : RN) ==
+            lr : List(RN) := [rationalPower(p) for p in lp]
+            rn := gcd([numer(r) for r in lr]@List(Integer))/
+                    lcm([denom(r) for r in lr]@List(Integer))
+            [[rescale(p, r, rn) for p in lp for r in lr], rn]
+
+        taylor_via_deriv(f : UPS, lx : List UPS,
+                         ld : List (Coef -> Coef)) : UPS ==
+            nrep := common_rep(cons(f, lx))
+            lla := nrep.laus
+            lres := (taylor_via_deriv(first lla, rest lla, ld)$TEL)
+            puiseux(nrep.rpow, lres)
+
+        taylor_via_lode(la : List UTS, z : UPS, lc : List Coef) : UPS ==
+            nrep := common_rep([z])
+            lau := first(nrep.laus)
+            lres := (taylor_via_lode(la, lau, lc)$TEL)
+            puiseux(nrep.rpow, lres)
+
+        applyTaylor(g, f) ==
+            nrep := common_rep([f])
+            lres := (applyTaylor(g, first(nrep.laus))$TEL)
+            puiseux(nrep.rpow, lres)
+
+        apply_taylor(g, f) ==
+            nrep := common_rep([f])
+            lres := (apply_taylor(g, first(nrep.laus))$TEL)
+            puiseux(nrep.rpow, lres)
+
+
+

@@ -1,0 +1,122 @@
+
+-- Input for page ugGeneralFortranPage
+)clear all
+
+)set fortran precision
+m := matrix [[1,2,3],[4,5,6]]
+fortranLiteralLine(concat ["C      The Matrix has ", nrows(m)::String, " rows and ", ncols(m)::String, " columns"] )$FortranTemplate
+fortranLiteral("C      The Matrix has ")$FortranTemplate
+fortranLiteral(nrows(m)::String)$FortranTemplate
+fortranLiteral(" rows and ")$FortranTemplate
+fortranLiteral(ncols(m)::String)$FortranTemplate
+fortranLiteral(" columns")$FortranTemplate
+fortranCarriageReturn()$FortranTemplate
+topFortranOutputStack()$FortranOutputStackPackage
+type:=construct(real,[i,10],false)$FortranType
+type:=[real,[i,10],false]$FortranType
+scalarTypeOf type
+dimensionsOf type
+external? type
+fortranLogical()$FortranType
+construct(integer,[],true)$FortranType
+symbols := empty()$SymbolTable
+declare!(X, fortranReal()$FortranType, symbols)
+declare!(M,construct(real,[i,j],false)$FortranType,symbols)
+declare!([i,j], fortranInteger()$FortranType, symbols)
+symbols
+fortranTypeOf(i,symbols)
+typeList(real,symbols)
+printTypes symbols
+newSubProgram(F)$TheSymbolTable
+endSubProgram()$TheSymbolTable
+newSubProgram(F)$TheSymbolTable
+argumentList!(F, [X])$TheSymbolTable
+returnType!(F,real)$TheSymbolTable
+declare!(X,fortranReal(),F)$TheSymbolTable
+printHeader(F)$TheSymbolTable
+LT(x,y)$Switch
+c := cond(LT(X,Y),assign(F,X),cond(GT(Y,Z),assign(F,Y), assign(F,Z))$FortranCode)$FortranCode
+printCode c
+symbols := empty()$SymbolTable
+declare!([X,Y],fortranReal()$FortranType,symbols)
+FP := FortranProgram(F,real,[X,Y],symbols)
+asp := X*sin(Y)
+outputAsFortran(asp::FP)
+declare!(Z,fortranReal()$FortranType,symbols)
+outputAsFortran([c,returns()$FortranCode]::FP)
+
+-- Input for page ugInOutPage
+)clear all
+
+
+-- Input for page ugInOutInPage
+)clear all
+
+
+-- Input for page ugInOutTeXPage
+)clear all
+
+)set output tex on
+
+-- Input for page ugInOutOutPage
+)clear all
+
+)set output fortran linalg
+)set output fortran on
+)set output fortran console
+)set output fortran off
+)system rm linalg.sfort
+
+-- Input for page ugInOutMathMLPage
+)clear all
+
+)set output mathml on
+)set output mathml off
+
+-- Input for page ugInOutScriptPage
+)clear all
+
+)set output script on
+)set output script off
+
+-- Input for page ugInOutAlgebraPage
+)clear all
+
+)set output algebra on
+)set output tex off
+matrix [[i*x^i + j*%i*y^j for i in 1..2] for j in 3..4]
+)set output algebra off
+)set output tex on
+
+-- Input for page ugInOutTexmacsPage
+)clear all
+
+)set output texmacs on
+)set output texmacs off
+
+-- Input for page ugInOutFortranPage
+)clear all
+
+)set output fortran on
+)set fortran optlevel 0
+)set fortran fortlength 60
+(x+y)^3
+(x+y+z)^3
+sin(x)
+)set fortran optlevel 1
+(x+y+z)^3
+)set fortran precision double
+2.3 + 5.6*%i
+sin %e
+)set fortran precision single
+2.3 + 5.6*%i
+sin %e
+[x+1,y+1,z+1]
+set[2,3,4,3,5]
+matrix [[2.3,9.7],[0.0,18.778]]
+)set fortran startindex 1
+matrix [[2.3,9.7],[0.0,18.778]]
+
+-- Input for page ugInOutSpadprofPage
+)clear all
+

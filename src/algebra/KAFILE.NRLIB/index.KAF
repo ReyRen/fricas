@@ -1,0 +1,320 @@
+13964               (|KeyedAccessFile| |Entry|)
+|domain|
+(((|KeyedAccessFile| |#1|)
+  (|Join|
+   (|FileCategory| (|FileName|)
+                   (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+   (|TableAggregate| (|String|) |#1|) (|finiteAggregate|)
+   (CATEGORY |domain| (SIGNATURE |pack!| ($ $))))
+  (|SetCategory|))
+ (T |KeyedAccessFile|))
+(|Join|
+ (|FileCategory| (|FileName|)
+                 (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+ (|TableAggregate| (|String|) |#1|) (|finiteAggregate|)
+ (CATEGORY |domain| (SIGNATURE |pack!| ($ $))))
+"/git/fricas/src/algebra/KAFILE.spad"
+((|pack!| (*1 *1 *1)
+  (AND (|isDomain| *1 (|KeyedAccessFile| *2))
+       (|ofCategory| *2 (|SetCategory|)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|write!|
+  (((|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)) $
+    (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+   31))
+ (|table|
+  (($ (|List| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))) NIL)
+  (($) NIL))
+ (|swap!|
+  (((|Void|) $ (|String|) (|String|)) NIL (|has| $ (|shallowlyMutable|))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|setelt!| ((|#1| $ (|String|) |#1|) 41))
+ (|select!|
+  (($
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|select|
+  (($
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|search| (((|Union| |#1| #1="failed") (|String|) $) 44))
+ (|sample| (($) NIL T CONST)) (|reopen!| (($ $ (|String|)) 22))
+ (|removeDuplicates|
+  (($ $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|BasicType|)))))
+ (|remove!| (((|Union| |#1| #1#) (|String|) $) 45)
+  (($
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (($ (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|BasicType|)))))
+ (|remove|
+  (($ (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|BasicType|))))
+  (($
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|reduce|
+  (((|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+    (|Mapping| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $ (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+    (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+   NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|BasicType|))))
+  (((|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+    (|Mapping| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $ (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+    (|Mapping| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|read!| (((|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)) $) 30))
+ (|qsetelt!| ((|#1| $ (|String|) |#1|) NIL (|has| $ (|shallowlyMutable|))))
+ (|qelt| ((|#1| $ (|String|)) NIL))
+ (|parts| (((|List| |#1|) $) NIL (|has| $ (|finiteAggregate|)))
+  (((|List| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|pack!| (($ $) 46))
+ (|open| (($ (|FileName|)) 20) (($ (|FileName|) (|String|)) 19))
+ (|name| (((|FileName|) $) 32))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|minIndex| (((|String|) $) NIL (|has| (|String|) (|OrderedSet|))))
+ (|min|
+  ((|#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|))))
+  (((|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|OrderedSet|)))))
+ (|members| (((|List| |#1|) $) NIL (|has| $ (|finiteAggregate|)))
+  (((|List| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|))))
+  (((|Boolean|) (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|BasicType|)))))
+ (|maxIndex| (((|String|) $) NIL (|has| (|String|) (|OrderedSet|))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  ((|#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|))))
+  (((|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|OrderedSet|))))
+  (((|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+    (|Mapping| (|Boolean|) (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) NIL (|has| $ (|shallowlyMutable|)))
+  (($
+    (|Mapping| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $)
+   NIL (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1| |#1|) $ $) NIL)
+  (($ (|Mapping| |#1| |#1|) $) NIL)
+  (($
+    (|Mapping| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $)
+   NIL))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|latex| (((|String|) $) NIL)) (|keys| (((|List| (|String|)) $) 37))
+ (|key?| (((|Boolean|) (|String|) $) NIL)) (|iomode| (((|String|) $) 33))
+ (|inspect| (((|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)) $) NIL))
+ (|insert!| (($ (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)) $) NIL))
+ (|indices| (((|List| (|String|)) $) NIL))
+ (|index?| (((|Boolean|) (|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|flush| (((|Void|) $) NIL))
+ (|first| ((|#1| $) NIL (|has| (|String|) (|OrderedSet|))))
+ (|find|
+  (((|Union| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)) "failed")
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $)
+   NIL))
+ (|fill!| (($ $ |#1|) NIL (|has| $ (|shallowlyMutable|))))
+ (|extract!| (((|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)) $) NIL))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (((|Boolean|)
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    (|List| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))))
+   NIL
+   (AND
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+           (|Evalable| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))))
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+           (|SetCategory|))))
+  (($ $ (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+    (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+   NIL
+   (AND
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+           (|Evalable| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))))
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+           (|SetCategory|))))
+  (($ $ (|Equation| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))) NIL
+   (AND
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+           (|Evalable| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))))
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+           (|SetCategory|))))
+  (($ $
+    (|List| (|Equation| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))))
+   NIL
+   (AND
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+           (|Evalable| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))))
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+           (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) NIL))
+ (|entry?|
+  (((|Boolean|) |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|entries| (((|List| |#1|) $) NIL)) (|empty?| (((|Boolean|) $) NIL))
+ (|empty| (($) 35))
+ (|elt| ((|#1| $ (|String|) |#1|) NIL) ((|#1| $ (|String|)) 40))
+ (|dictionary|
+  (($ (|List| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))) NIL)
+  (($) NIL))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|))))
+  (((|NonNegativeInteger|) (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+    $)
+   NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+               (|BasicType|))))
+  (((|NonNegativeInteger|)
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|copy| (($ $) NIL))
+ (|convert|
+  (((|InputForm|) $) NIL
+   (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+          (|ConvertibleTo| (|InputForm|)))))
+ (|construct|
+  (($ (|List| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))) NIL))
+ (|coerce| (((|OutputForm|) $) 18)) (|close!| (($ $) 23))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (((|Boolean|)
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (= (((|Boolean|) $ $) 16))
+ (|#| (((|NonNegativeInteger|) $) 39 (|has| $ (|finiteAggregate|)))))
+((AND
+  (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+                 (LIST '|Evalable|
+                       (LIST '|Record| (LIST '|:| '|key| '(|String|))
+                             (LIST '|:| '|entry| (|devaluate| |#1|)))))
+  (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+                 '(|SetCategory|)))
+ (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+                (LIST '|ConvertibleTo| '(|InputForm|)))
+ (AND (|HasCategory| |#1| (LIST '|Evalable| (|devaluate| |#1|)))
+      (|HasCategory| |#1| '(|SetCategory|)))
+ (|HasCategory| |#1| '(|OrderedSet|)) (|HasCategory| |#1| '(|BasicType|))
+ (|HasCategory| (|String|) '(|OrderedSet|))
+ (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+                '(|BasicType|))
+ (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+                '(|OrderedSet|))
+ (|HasCategory| $ '(|shallowlyMutable|)) (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| |#1| '(|OrderedSet|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (AND (|HasCategory| |#1| '(|BasicType|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+                     '(|BasicType|)))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|))
+                     '(|OrderedSet|))))
+KAFILE
+(((|FileCategory| (|FileName|)
+                  (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+  . T)
+ ((|TableAggregate| (|String|) |#1|) . T) ((|finiteAggregate|) . T))
+(((|Aggregate|) . T) ((|BagAggregate| |t#1|) . T) ((|BasicType|) . T)
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|Collection| |t#1|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Dictionary| (|Record| (|:| |key| |t#1|) (|:| |entry| |t#2|))) . T)
+ ((|DictionaryOperations| |t#1|) . T) ((|Eltable| |t#1| |t#2|) . T)
+ ((|EltableAggregate| |t#1| |t#2|) . T)
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|FileCategory| (|FileName|)
+                  (|Record| (|:| |key| (|String|)) (|:| |entry| |#1|)))
+  . T)
+ ((|HomogeneousAggregate| |t#2|) . T) ((|HomogeneousAggregate| |t#1|) . T)
+ ((|IndexedAggregate| |t#1| |t#2|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|KeyedDictionary| |t#1| |t#2|) . T) ((|SetCategory|) . T)
+ ((|TableAggregate| (|String|) |#1|) . T) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "This domain allows a random access file to be viewed both as a table and as a file object."))
+ (|pack!|
+  (($ $)
+   "\\spad{pack!(f)} reorganizes the file \\spad{f} on disk to recover unused space.")))
+(("documentation" 0 13735) ("ancestors" 0 12751) ("parents" 0 12572)
+ ("abbreviation" 0 12565) ("predicates" 0 11077) ("superDomain" 0 NIL)
+ ("operationAlist" 0 712) ("modemaps" 0 601) ("sourceFile" 0 563)
+ ("constructorCategory" 0 350) ("constructorModemap" 0 57)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

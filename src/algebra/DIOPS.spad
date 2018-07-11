@@ -1,0 +1,39 @@
+)abbrev category DIOPS DictionaryOperations
+++ Author: Michael Monagan; revised by Manuel Bronstein and Richard Jenks
+++ Date Created: August 87 through August 88
+++ Basic Operations:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ This category is a collection of operations common to both
+++ categories \spadtype{Dictionary} and \spadtype{MultiDictionary}
+DictionaryOperations(S : Type) : Category == BagAggregate S with
+   dictionary : () -> %
+     ++ dictionary()$D creates an empty dictionary of type D.
+   dictionary : List S -> %
+     ++ dictionary([x, y, ..., z]) creates a dictionary consisting of
+     ++ entries \spad{x, y, ..., z}.
+   if % has finiteAggregate then
+     if S has BasicType then
+       remove! : (S, %) -> %
+         ++ remove!(x, d) destructively changes dictionary d by removing
+         ++ all entries y such that \spad{y = x}.
+     remove! : (S -> Boolean, %) -> %
+       ++ remove!(p, d) destructively changes dictionary d by removing
+       ++ all entries x such that \spad{p(x)} is true.
+     select! : (S -> Boolean, %) -> %
+       ++ select!(p, d) destructively changes dictionary d by removing
+       ++ all entries x such that \spad{p(x)} is not true.
+ add
+   construct l == dictionary l
+   dictionary() == empty()
+   if % has finiteAggregate then
+       copy d == dictionary parts d
+       if S has CoercibleTo(OutputForm) then
+           coerce(s : %) : OutputForm ==
+               prefix("dictionary"@String :: OutputForm,
+                                      [x::OutputForm for x in parts s])
+

@@ -1,0 +1,727 @@
+28673               (|RegularChain| R |ls|)
+|domain|
+(((|RegularChain| |#1| |#2|)
+  (|Join|
+   (|RegularTriangularSetCategory| |#1|
+                                   (|IndexedExponents|
+                                    (|OrderedVariableList| |#2|))
+                                   (|OrderedVariableList| |#2|)
+                                   (|NewSparseMultivariatePolynomial| |#1|
+                                                                      (|OrderedVariableList|
+                                                                       |#2|)))
+   (CATEGORY |domain|
+    (SIGNATURE |zeroSetSplit|
+     ((|List| $)
+      (|List|
+       (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+      (|Boolean|) (|Boolean|)))))
+  (|GcdDomain|) (|List| (|Symbol|)))
+ (T |RegularChain|))
+(|Join|
+ (|RegularTriangularSetCategory| |#1|
+                                 (|IndexedExponents|
+                                  (|OrderedVariableList| |#2|))
+                                 (|OrderedVariableList| |#2|)
+                                 (|NewSparseMultivariatePolynomial| |#1|
+                                                                    (|OrderedVariableList|
+                                                                     |#2|)))
+ (CATEGORY |domain|
+  (SIGNATURE |zeroSetSplit|
+   ((|List| $)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Boolean|) (|Boolean|)))))
+"/git/fricas/src/algebra/RGCHAIN.spad"
+((|zeroSetSplit| (*1 *2 *3 *4 *4)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|NewSparseMultivariatePolynomial| *5
+                                                   (|OrderedVariableList|
+                                                    *6))))
+   (|isDomain| *4 (|Boolean|)) (|ofCategory| *5 (|GcdDomain|))
+   (|ofType| *6 (|List| (|Symbol|)))
+   (|isDomain| *2 (|List| (|RegularChain| *5 *6)))
+   (|isDomain| *1 (|RegularChain| *5 *6)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|zeroSetSplitIntoTriangularSystems|
+  (((|List|
+     (|Record| (|:| |close| $)
+               (|:| |open|
+                    (|List|
+                     (|NewSparseMultivariatePolynomial| |#1|
+                                                        (|OrderedVariableList|
+                                                         |#2|))))))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   NIL))
+ (|zeroSetSplit|
+  (((|List| $)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   NIL)
+  (((|List| $)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Boolean|))
+   NIL)
+  (((|List| $)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Boolean|) (|Boolean|))
+   NIL))
+ (|variables| (((|List| (|OrderedVariableList| |#2|)) $) NIL))
+ (|trivialIdeal?| (((|Boolean|) $) NIL))
+ (|triangular?| (((|Boolean|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|stronglyReduced?|
+  (((|Boolean|)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL)
+  (((|Boolean|) $) NIL))
+ (|stronglyReduce|
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|squareFreePart|
+  (((|List|
+     (|Record|
+      (|:| |val|
+           (|NewSparseMultivariatePolynomial| |#1|
+                                              (|OrderedVariableList| |#2|)))
+      (|:| |tower| $)))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|sort|
+  (((|Record| (|:| |under| $) (|:| |floor| $) (|:| |upper| $)) $
+    (|OrderedVariableList| |#2|))
+   NIL))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|select|
+  (($
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList|
+                                                   |#2|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|Union|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     #1="failed")
+    $ (|OrderedVariableList| |#2|))
+   NIL))
+ (|sample| (($) NIL T CONST))
+ (|roughUnitIdeal?| (((|Boolean|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|roughSubIdeal?| (((|Boolean|) $ $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|roughEqualIdeals?| (((|Boolean|) $ $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|roughBase?| (((|Boolean|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|rewriteSetWithReduction|
+  (((|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $
+    (|Mapping|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList| |#2|))
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList|
+                                                   |#2|))))
+   NIL))
+ (|rewriteIdealWithRemainder|
+  (((|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $)
+   NIL (|has| |#1| (|IntegralDomain|))))
+ (|rewriteIdealWithHeadRemainder|
+  (((|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $)
+   NIL (|has| |#1| (|IntegralDomain|))))
+ (|retractIfCan|
+  (((|Union| $ "failed")
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   NIL))
+ (|retract|
+  (($
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   NIL))
+ (|rest| (((|Union| $ #1#) $) NIL))
+ (|removeZero|
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|removeDuplicates|
+  (($ $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has|
+         (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+         (|BasicType|)))))
+ (|remove|
+  (($ (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has|
+         (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+         (|BasicType|))))
+  (($
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList|
+                                                   |#2|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|remainder|
+  (((|Record| (|:| |rnum| |#1|)
+              (|:| |polnum|
+                   (|NewSparseMultivariatePolynomial| |#1|
+                                                      (|OrderedVariableList|
+                                                       |#2|)))
+              (|:| |den| |#1|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL (|has| |#1| (|IntegralDomain|))))
+ (|reduced?|
+  (((|Boolean|)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList| |#2|))
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList|
+                                                   |#2|))))
+   NIL))
+ (|reduceByQuasiMonic|
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|reduce|
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|Mapping|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $ (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+   NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has|
+         (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+         (|BasicType|))))
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|Mapping|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $ (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|Mapping|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $
+    (|Mapping|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList| |#2|))
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList|
+                                                   |#2|))))
+   NIL))
+ (|quasiComponent|
+  (((|Record|
+     (|:| |close|
+          (|List|
+           (|NewSparseMultivariatePolynomial| |#1|
+                                              (|OrderedVariableList| |#2|))))
+     (|:| |open|
+          (|List|
+           (|NewSparseMultivariatePolynomial| |#1|
+                                              (|OrderedVariableList| |#2|)))))
+    $)
+   NIL))
+ (|purelyTranscendental?|
+  (((|Boolean|)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|purelyAlgebraicLeadingMonomial?|
+  (((|Boolean|)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|purelyAlgebraic?|
+  (((|Boolean|)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL)
+  (((|Boolean|) $) NIL))
+ (|parts|
+  (((|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|normalized?|
+  (((|Boolean|)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL)
+  (((|Boolean|) $) NIL))
+ (|mvar| (((|OrderedVariableList| |#2|) $) NIL))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|min|
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has|
+         (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+         (|OrderedSet|)))))
+ (|members|
+  (((|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has|
+         (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+         (|BasicType|)))))
+ (|max|
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has|
+         (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+         (|OrderedSet|))))
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList| |#2|))
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList|
+                                                   |#2|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|map!|
+  (($
+    (|Mapping|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $)
+   NIL (|has| $ (|shallowlyMutable|))))
+ (|map|
+  (($
+    (|Mapping|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $)
+   NIL))
+ (|mainVariables| (((|List| (|OrderedVariableList| |#2|)) $) NIL))
+ (|mainVariable?| (((|Boolean|) (|OrderedVariableList| |#2|) $) NIL))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|latex| (((|String|) $) NIL))
+ (|lastSubResultantElseSplit|
+  (((|Union|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|List| $))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|lastSubResultant|
+  (((|List|
+     (|Record|
+      (|:| |val|
+           (|NewSparseMultivariatePolynomial| |#1|
+                                              (|OrderedVariableList| |#2|)))
+      (|:| |tower| $)))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|last|
+  (((|Union|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) #1#)
+    $)
+   NIL))
+ (|invertibleSet|
+  (((|List| $)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|invertibleElseSplit?|
+  (((|Union| (|Boolean|) (|List| $))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|invertible?|
+  (((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| $)))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL)
+  (((|Boolean|)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|intersect|
+  (((|List| $)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL)
+  (((|List| $)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $)
+   NIL)
+  (((|List| $)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|List| $))
+   NIL)
+  (((|List| $)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|List| $))
+   NIL))
+ (|internalAugment|
+  (($ (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL)
+  (($
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $)
+   NIL))
+ (|initials|
+  (((|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $)
+   NIL))
+ (|initiallyReduced?|
+  (((|Boolean|)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL)
+  (((|Boolean|) $) NIL))
+ (|initiallyReduce|
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|infRittWu?| (((|Boolean|) $ $) NIL))
+ (|iexactQuo| ((|#1| |#1| |#1|) NIL (|has| |#1| (|IntegralDomain|))))
+ (|headRemainder|
+  (((|Record|
+     (|:| |num|
+          (|NewSparseMultivariatePolynomial| |#1|
+                                             (|OrderedVariableList| |#2|)))
+     (|:| |den| |#1|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL (|has| |#1| (|IntegralDomain|))))
+ (|headReduced?|
+  (((|Boolean|)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL)
+  (((|Boolean|) $) NIL))
+ (|headReduce|
+  (((|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|first|
+  (((|Union|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) #1#)
+    $)
+   NIL))
+ (|find|
+  (((|Union|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     "failed")
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList|
+                                                   |#2|)))
+    $)
+   NIL))
+ (|extendIfCan|
+  (((|Union| $ #1#) $
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+   NIL))
+ (|extend|
+  (($ $ (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+   NIL)
+  (((|List| $)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL)
+  (((|List| $)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|List| $))
+   NIL)
+  (((|List| $)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $)
+   NIL)
+  (((|List| $)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|List| $))
+   NIL))
+ (|every?|
+  (((|Boolean|)
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList|
+                                                   |#2|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   NIL
+   (AND
+    (|has|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|Evalable|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+    (|has|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|SetCategory|))))
+  (($ $ (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+   NIL
+   (AND
+    (|has|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|Evalable|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+    (|has|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|SetCategory|))))
+  (($ $
+    (|Equation|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   NIL
+   (AND
+    (|has|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|Evalable|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+    (|has|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|SetCategory|))))
+  (($ $
+    (|List|
+     (|Equation|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))))
+   NIL
+   (AND
+    (|has|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|Evalable|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+    (|has|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+     (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) NIL)) (|empty?| (((|Boolean|) $) NIL))
+ (|empty| (($) NIL)) (|degree| (((|NonNegativeInteger|) $) NIL))
+ (|count|
+  (((|NonNegativeInteger|)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has|
+         (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+         (|BasicType|))))
+  (((|NonNegativeInteger|)
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList|
+                                                   |#2|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|copy| (($ $) NIL))
+ (|convert|
+  (((|InputForm|) $) NIL
+   (|has| (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+          (|ConvertibleTo| (|InputForm|)))))
+ (|construct|
+  (($
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   NIL))
+ (|collectUpper| (($ $ (|OrderedVariableList| |#2|)) NIL))
+ (|collectUnder| (($ $ (|OrderedVariableList| |#2|)) NIL))
+ (|collectQuasiMonic| (($ $) NIL))
+ (|collect| (($ $ (|OrderedVariableList| |#2|)) NIL))
+ (|coerce| (((|OutputForm|) $) NIL)
+           (((|List|
+              (|NewSparseMultivariatePolynomial| |#1|
+                                                 (|OrderedVariableList| |#2|)))
+             $)
+            NIL))
+ (|coHeight|
+  (((|NonNegativeInteger|) $) NIL
+   (|has| (|OrderedVariableList| |#2|) (|Finite|))))
+ (|basicSet|
+  (((|Union|
+     (|Record| (|:| |bas| $)
+               (|:| |top|
+                    (|List|
+                     (|NewSparseMultivariatePolynomial| |#1|
+                                                        (|OrderedVariableList|
+                                                         |#2|)))))
+     #1#)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList| |#2|))
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList|
+                                                   |#2|))))
+   NIL)
+  (((|Union|
+     (|Record| (|:| |bas| $)
+               (|:| |top|
+                    (|List|
+                     (|NewSparseMultivariatePolynomial| |#1|
+                                                        (|OrderedVariableList|
+                                                         |#2|)))))
+     #1#)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList|
+                                                   |#2|)))
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList| |#2|))
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList|
+                                                   |#2|))))
+   NIL))
+ (|autoReduced?|
+  (((|Boolean|) $
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList| |#2|))
+               (|List|
+                (|NewSparseMultivariatePolynomial| |#1|
+                                                   (|OrderedVariableList|
+                                                    |#2|)))))
+   NIL))
+ (|augment|
+  (((|List| $)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL)
+  (((|List| $)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+    (|List| $))
+   NIL)
+  (((|List| $)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    $)
+   NIL)
+  (((|List| $)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|List| $))
+   NIL))
+ (|any?|
+  (((|Boolean|)
+    (|Mapping| (|Boolean|)
+               (|NewSparseMultivariatePolynomial| |#1|
+                                                  (|OrderedVariableList|
+                                                   |#2|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|algebraicVariables| (((|List| (|OrderedVariableList| |#2|)) $) NIL))
+ (|algebraicCoefficients?|
+  (((|Boolean|)
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)) $)
+   NIL))
+ (|algebraic?| (((|Boolean|) (|OrderedVariableList| |#2|) $) NIL))
+ (= (((|Boolean|) $ $) NIL))
+ (|#| (((|NonNegativeInteger|) $) NIL (|has| $ (|finiteAggregate|)))))
+((AND
+  (|HasCategory|
+   (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+   (LIST '|Evalable|
+         (LIST '|NewSparseMultivariatePolynomial| (|devaluate| |#1|)
+               (LIST '|OrderedVariableList| (|devaluate| |#2|)))))
+  (|HasCategory|
+   (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+   '(|SetCategory|)))
+ (|HasCategory|
+  (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+  (LIST '|ConvertibleTo| '(|InputForm|)))
+ (|HasCategory|
+  (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+  '(|BasicType|))
+ (|HasCategory|
+  (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+  '(|OrderedSet|))
+ (|HasCategory| |#1| '(|IntegralDomain|))
+ (|HasCategory| (|OrderedVariableList| |#2|) '(|Finite|))
+ (|HasCategory| $ '(|shallowlyMutable|)) (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory|
+       (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+       '(|BasicType|)))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory|
+       (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))
+       '(|OrderedSet|))))
+RGCHAIN
+(((|RegularTriangularSetCategory| |#1|
+                                  (|IndexedExponents|
+                                   (|OrderedVariableList| |#2|))
+                                  (|OrderedVariableList| |#2|)
+                                  (|NewSparseMultivariatePolynomial| |#1|
+                                                                     (|OrderedVariableList|
+                                                                      |#2|)))
+  . T))
+(((|Aggregate|) . T) ((|BasicType|) . T) ((|CoercibleTo| (|List| |t#4|)) . T)
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|Collection| |t#4|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|PolynomialSetCategory| |t#1| |t#2| |t#3| |t#4|) . T)
+ ((|RegularTriangularSetCategory| |#1|
+                                  (|IndexedExponents|
+                                   (|OrderedVariableList| |#2|))
+                                  (|OrderedVariableList| |#2|)
+                                  (|NewSparseMultivariatePolynomial| |#1|
+                                                                     (|OrderedVariableList|
+                                                                      |#2|)))
+  . T)
+ ((|RetractableFrom| (|List| |t#4|)) . T) ((|SetCategory|) . T)
+ ((|TriangularSetCategory| |t#1| |t#2| |t#3| |t#4|) . T) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "A domain for regular chains (\\spadignore{i.e.} regular triangular sets) over a \\spad{Gcd}-Domain and with a fix list of variables. This is just a front-end for the \\spadtype{RegularTriangularSet} domain constructor."))
+ (|zeroSetSplit|
+  (((|List| $)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Boolean|) (|Boolean|))
+   "\\spad{zeroSetSplit(lp,{} clos?,{} info?)} returns a list \\spad{lts} of regular chains such that the union of the closures of their regular zero sets equals the affine variety associated with \\spad{lp}. Moreover,{} if \\spad{clos?} is \\spad{false} then the union of the regular zero set of the \\spad{ts} (for \\spad{ts} in \\spad{lts}) equals this variety. If \\spad{info?} is \\spad{true} then some information is displayed during the computations. See \\spadopFrom{zeroSetSplit}{RegularTriangularSet}.")))
+(("documentation" 0 27759) ("ancestors" 0 26586) ("parents" 0 26113)
+ ("abbreviation" 0 26105) ("predicates" 0 24881) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1970) ("modemaps" 0 1505) ("sourceFile" 0 1466)
+ ("constructorCategory" 0 817) ("constructorModemap" 0 53)
+ ("constructorKind" 0 44) ("constructorForm" 0 20))

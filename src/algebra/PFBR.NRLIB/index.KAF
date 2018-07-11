@@ -1,0 +1,127 @@
+6756                (|PolynomialFactorizationByRecursion| R E |VarSet| S)
+|package|
+(((|PolynomialFactorizationByRecursion| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |solveLinearPolynomialEquationByRecursion|
+    ((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+     (|List| (|SparseUnivariatePolynomial| |#4|))
+     (|SparseUnivariatePolynomial| |#4|)))
+   (SIGNATURE |factorByRecursion|
+    ((|Factored| (|SparseUnivariatePolynomial| |#4|))
+     (|SparseUnivariatePolynomial| |#4|)))
+   (SIGNATURE |factorSquareFreeByRecursion|
+    ((|Factored| (|SparseUnivariatePolynomial| |#4|))
+     (|SparseUnivariatePolynomial| |#4|)))
+   (SIGNATURE |randomR| (|#1| (|Integer|)))
+   (SIGNATURE |bivariateSLPEBR|
+    ((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+     (|List| (|SparseUnivariatePolynomial| |#4|))
+     (|SparseUnivariatePolynomial| |#4|) |#3|)))
+  (|PolynomialFactorizationExplicit|) (|OrderedAbelianMonoidSup|)
+  (|OrderedSet|) (|PolynomialCategory| |#1| |#2| |#3|))
+ (T |PolynomialFactorizationByRecursion|))
+(CATEGORY |package|
+ (SIGNATURE |solveLinearPolynomialEquationByRecursion|
+  ((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+   (|List| (|SparseUnivariatePolynomial| |#4|))
+   (|SparseUnivariatePolynomial| |#4|)))
+ (SIGNATURE |factorByRecursion|
+  ((|Factored| (|SparseUnivariatePolynomial| |#4|))
+   (|SparseUnivariatePolynomial| |#4|)))
+ (SIGNATURE |factorSquareFreeByRecursion|
+  ((|Factored| (|SparseUnivariatePolynomial| |#4|))
+   (|SparseUnivariatePolynomial| |#4|)))
+ (SIGNATURE |randomR| (|#1| (|Integer|)))
+ (SIGNATURE |bivariateSLPEBR|
+  ((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+   (|List| (|SparseUnivariatePolynomial| |#4|))
+   (|SparseUnivariatePolynomial| |#4|) |#3|)))
+"/git/fricas/src/algebra/PFBR.spad"
+((|bivariateSLPEBR| (*1 *2 *2 *3 *4)
+  (|partial| AND (|isDomain| *2 (|List| (|SparseUnivariatePolynomial| *7)))
+   (|isDomain| *3 (|SparseUnivariatePolynomial| *7))
+   (|ofCategory| *7 (|PolynomialCategory| *5 *6 *4))
+   (|ofCategory| *5 (|PolynomialFactorizationExplicit|))
+   (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *4 (|OrderedSet|))
+   (|isDomain| *1 (|PolynomialFactorizationByRecursion| *5 *6 *4 *7))))
+ (|randomR| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|ofCategory| *2 (|PolynomialFactorizationExplicit|))
+       (|isDomain| *1 (|PolynomialFactorizationByRecursion| *2 *4 *5 *6))
+       (|ofCategory| *6 (|PolynomialCategory| *2 *4 *5))))
+ (|factorSquareFreeByRecursion| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *7))
+       (|ofCategory| *7 (|PolynomialCategory| *4 *5 *6))
+       (|ofCategory| *4 (|PolynomialFactorizationExplicit|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|))
+       (|isDomain| *2 (|Factored| (|SparseUnivariatePolynomial| *7)))
+       (|isDomain| *1 (|PolynomialFactorizationByRecursion| *4 *5 *6 *7))))
+ (|factorByRecursion| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *7))
+       (|ofCategory| *7 (|PolynomialCategory| *4 *5 *6))
+       (|ofCategory| *4 (|PolynomialFactorizationExplicit|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|))
+       (|isDomain| *2 (|Factored| (|SparseUnivariatePolynomial| *7)))
+       (|isDomain| *1 (|PolynomialFactorizationByRecursion| *4 *5 *6 *7))))
+ (|solveLinearPolynomialEquationByRecursion| (*1 *2 *2 *3)
+  (|partial| AND (|isDomain| *2 (|List| (|SparseUnivariatePolynomial| *7)))
+   (|isDomain| *3 (|SparseUnivariatePolynomial| *7))
+   (|ofCategory| *7 (|PolynomialCategory| *4 *5 *6))
+   (|ofCategory| *4 (|PolynomialFactorizationExplicit|))
+   (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *6 (|OrderedSet|))
+   (|isDomain| *1 (|PolynomialFactorizationByRecursion| *4 *5 *6 *7)))))
+((|solveLinearPolynomialEquationByRecursion|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+    (|List| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|))
+   85))
+ (|randomR| ((|#1| (|Integer|)) 16))
+ (|factorSquareFreeByRecursion|
+  (((|Factored| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|))
+   97))
+ (|factorByRecursion|
+  (((|Factored| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|))
+   109))
+ (|bivariateSLPEBR|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+    (|List| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|) |#3|)
+   35)))
+PFBR
+((|constructor|
+  (NIL
+   "PolynomialFactorizationByRecursion(\\spad{R},{} \\spad{E},{} \\spad{VarSet},{} \\spad{S}) is used for factorization of sparse univariate polynomials over a domain \\spad{S} of multivariate polynomials over \\spad{R}."))
+ (|bivariateSLPEBR|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+    (|List| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|) |#3|)
+   "\\spad{bivariateSLPEBR(lp,{} p,{} v)} implements the bivariate case of \\spadfun{solveLinearPolynomialEquationByRecursion}; its implementation depends on \\spad{R}"))
+ (|randomR|
+  ((|#1| (|Integer|))
+   "\\spad{randomR produces} a random element of \\spad{R}"))
+ (|factorSquareFreeByRecursion|
+  (((|Factored| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|))
+   "\\spad{factorSquareFreeByRecursion(p)} returns the square free factorization of \\spad{p}. This functions performs the recursion step for factorSquareFreePolynomial,{} as defined in \\spadfun{PolynomialFactorizationExplicit} category (see \\spadfun{factorSquareFreePolynomial})."))
+ (|factorByRecursion|
+  (((|Factored| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|))
+   "\\spad{factorByRecursion(p)} factors polynomial \\spad{p}. This function performs the recursion step for factorPolynomial,{} as defined in \\spadfun{PolynomialFactorizationExplicit} category (see \\spadfun{factorPolynomial})"))
+ (|solveLinearPolynomialEquationByRecursion|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+    (|List| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|))
+   "\\spad{solveLinearPolynomialEquationByRecursion([p1,{} ...,{} pn],{} p)} returns the list of polynomials \\spad{[q1,{} ...,{} qn]} such that \\spad{sum qi/pi = p / prod \\spad{pi}},{} a recursion step for solveLinearPolynomialEquation as defined in \\spadfun{PolynomialFactorizationExplicit} category (see \\spadfun{solveLinearPolynomialEquation}). If no such list of \\spad{qi} exists,{} then \"failed\" is returned.")))
+(("documentation" 0 4670) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4665) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3966) ("modemaps" 0 1828) ("sourceFile" 0 1792)
+ ("constructorCategory" 0 1067) ("constructorModemap" 0 84)
+ ("constructorKind" 0 74) ("constructorForm" 0 20))

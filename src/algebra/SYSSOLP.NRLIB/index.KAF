@@ -1,0 +1,183 @@
+10115               (|SystemSolvePackage| R)
+|package|
+(((|SystemSolvePackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |solve|
+    ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+     (|List| (|Fraction| (|Polynomial| |#1|))) (|List| (|Symbol|))))
+   (SIGNATURE |solve|
+    ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+     (|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+     (|List| (|Symbol|))))
+   (SIGNATURE |solve|
+    ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+     (|List| (|Fraction| (|Polynomial| |#1|)))))
+   (SIGNATURE |solve|
+    ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+     (|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))))
+   (SIGNATURE |solve|
+    ((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+     (|Fraction| (|Polynomial| |#1|)) (|Symbol|)))
+   (SIGNATURE |solve|
+    ((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+     (|Equation| (|Fraction| (|Polynomial| |#1|))) (|Symbol|)))
+   (SIGNATURE |solve|
+    ((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+     (|Fraction| (|Polynomial| |#1|))))
+   (SIGNATURE |solve|
+    ((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+     (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   (SIGNATURE |triangularSystems|
+    ((|List| (|List| (|Polynomial| |#1|)))
+     (|List| (|Fraction| (|Polynomial| |#1|))) (|List| (|Symbol|)))))
+  (|IntegralDomain|))
+ (T |SystemSolvePackage|))
+(CATEGORY |package|
+ (SIGNATURE |solve|
+  ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   (|List| (|Fraction| (|Polynomial| |#1|))) (|List| (|Symbol|))))
+ (SIGNATURE |solve|
+  ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))) (|List| (|Symbol|))))
+ (SIGNATURE |solve|
+  ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   (|List| (|Fraction| (|Polynomial| |#1|)))))
+ (SIGNATURE |solve|
+  ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   (|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))))
+ (SIGNATURE |solve|
+  ((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+   (|Fraction| (|Polynomial| |#1|)) (|Symbol|)))
+ (SIGNATURE |solve|
+  ((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+   (|Equation| (|Fraction| (|Polynomial| |#1|))) (|Symbol|)))
+ (SIGNATURE |solve|
+  ((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+   (|Fraction| (|Polynomial| |#1|))))
+ (SIGNATURE |solve|
+  ((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+   (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+ (SIGNATURE |triangularSystems|
+  ((|List| (|List| (|Polynomial| |#1|)))
+   (|List| (|Fraction| (|Polynomial| |#1|))) (|List| (|Symbol|)))))
+"/git/fricas/src/algebra/SYSSOLP.spad"
+((|triangularSystems| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Fraction| (|Polynomial| *5))))
+       (|isDomain| *4 (|List| (|Symbol|))) (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2 (|List| (|List| (|Polynomial| *5))))
+       (|isDomain| *1 (|SystemSolvePackage| *5))))
+ (|solve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Equation| (|Fraction| (|Polynomial| *4))))
+       (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|List| (|Equation| (|Fraction| (|Polynomial| *4)))))
+       (|isDomain| *1 (|SystemSolvePackage| *4))))
+ (|solve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| *4)))
+       (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|List| (|Equation| (|Fraction| (|Polynomial| *4)))))
+       (|isDomain| *1 (|SystemSolvePackage| *4))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Equation| (|Fraction| (|Polynomial| *5))))
+       (|isDomain| *4 (|Symbol|)) (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2 (|List| (|Equation| (|Fraction| (|Polynomial| *5)))))
+       (|isDomain| *1 (|SystemSolvePackage| *5))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+       (|isDomain| *4 (|Symbol|)) (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2 (|List| (|Equation| (|Fraction| (|Polynomial| *5)))))
+       (|isDomain| *1 (|SystemSolvePackage| *5))))
+ (|solve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Equation| (|Fraction| (|Polynomial| *4)))))
+       (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|List| (|Equation| (|Fraction| (|Polynomial| *4))))))
+       (|isDomain| *1 (|SystemSolvePackage| *4))))
+ (|solve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Fraction| (|Polynomial| *4))))
+       (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|List| (|Equation| (|Fraction| (|Polynomial| *4))))))
+       (|isDomain| *1 (|SystemSolvePackage| *4))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Equation| (|Fraction| (|Polynomial| *5)))))
+       (|isDomain| *4 (|List| (|Symbol|))) (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|List| (|Equation| (|Fraction| (|Polynomial| *5))))))
+       (|isDomain| *1 (|SystemSolvePackage| *5))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Fraction| (|Polynomial| *5))))
+       (|isDomain| *4 (|List| (|Symbol|))) (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|List| (|Equation| (|Fraction| (|Polynomial| *5))))))
+       (|isDomain| *1 (|SystemSolvePackage| *5)))))
+((|triangularSystems|
+  (((|List| (|List| (|Polynomial| |#1|)))
+    (|List| (|Fraction| (|Polynomial| |#1|))) (|List| (|Symbol|)))
+   54))
+ (|solve|
+  (((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+    (|Equation| (|Fraction| (|Polynomial| |#1|))))
+   64)
+  (((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+    (|Fraction| (|Polynomial| |#1|)))
+   60)
+  (((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+    (|Equation| (|Fraction| (|Polynomial| |#1|))) (|Symbol|))
+   65)
+  (((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+    (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   59)
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   90)
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Fraction| (|Polynomial| |#1|))))
+   89)
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))) (|List| (|Symbol|)))
+   91)
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Fraction| (|Polynomial| |#1|))) (|List| (|Symbol|)))
+   88)))
+SYSSOLP
+((|constructor|
+  (NIL
+   "Symbolic solver for systems of rational functions with coefficients in an integral domain \\spad{R}. The systems are solved in the field of rational functions over \\spad{R}. Solutions are exact of the form variable = value when the value is a member of the coefficient domain \\spad{R}. Otherwise the solutions are implicitly expressed as roots of univariate polynomial equations over \\spad{R}. Care is taken to guarantee that the denominators of the input equations do not vanish on the solution sets. The arguments to solve can either be given as equations or as rational functions interpreted as equal to zero. The user can specify an explicit list of symbols to be solved for,{} treating all other symbols appearing as parameters or omit the list of symbols in which case the system tries to solve with respect to all symbols appearing in the input."))
+ (|triangularSystems|
+  (((|List| (|List| (|Polynomial| |#1|)))
+    (|List| (|Fraction| (|Polynomial| |#1|))) (|List| (|Symbol|)))
+   "\\spad{triangularSystems(lf,{} lv)} solves the system of equations defined by \\spad{lf} with respect to the list of symbols \\spad{lv}; the system of equations is obtaining by equating to zero the list of rational functions \\spad{lf}. The output is a list of solutions where each solution is expressed as a \"reduced\" triangular system of polynomials."))
+ (|solve|
+  (((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+    (|Equation| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{solve(eq)} finds the solutions of the equation \\spad{eq} with respect to the unique variable appearing in \\spad{eq}.")
+  (((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+    (|Fraction| (|Polynomial| |#1|)))
+   "\\spad{solve(p)} finds the solution of a rational function \\spad{p} = 0 with respect to the unique variable appearing in \\spad{p}.")
+  (((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+    (|Equation| (|Fraction| (|Polynomial| |#1|))) (|Symbol|))
+   "\\spad{solve(eq,{} v)} finds the solutions of the equation \\spad{eq} with respect to the variable \\spad{v}.")
+  (((|List| (|Equation| (|Fraction| (|Polynomial| |#1|))))
+    (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   "\\spad{solve(p,{} v)} solves the equation \\spad{p=0},{} where \\spad{p} is a rational function with respect to the variable \\spad{v}.")
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   "\\spad{solve(le)} finds the solutions of the list \\spad{le} of equations of rational functions with respect to all symbols appearing in \\spad{le}.")
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{solve(lp)} finds the solutions of the list \\spad{lp} of rational functions with respect to all symbols appearing in \\spad{lp}.")
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))) (|List| (|Symbol|)))
+   "\\spad{solve(le,{} lv)} finds the solutions of the list \\spad{le} of equations of rational functions with respect to the list of symbols \\spad{lv}.")
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Fraction| (|Polynomial| |#1|))) (|List| (|Symbol|)))
+   "\\spad{solve(lp,{} lv)} finds the solutions of the list \\spad{lp} of rational functions with respect to the list of symbols \\spad{lv}.")))
+(("documentation" 0 6637) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 6629) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5460) ("modemaps" 0 2784) ("sourceFile" 0 2745)
+ ("constructorCategory" 0 1470) ("constructorModemap" 0 55)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

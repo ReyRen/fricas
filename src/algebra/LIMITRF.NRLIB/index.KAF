@@ -1,0 +1,234 @@
+10353               (|RationalFunctionLimitPackage| R)
+|package|
+(((|RationalFunctionLimitPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |limit|
+    ((|Union| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+              (|Record|
+               (|:| |leftHandLimit|
+                    (|Union|
+                     (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                     #1="failed"))
+               (|:| |rightHandLimit|
+                    (|Union|
+                     (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                     #1#)))
+              #2="failed")
+     (|Fraction| (|Polynomial| |#1|))
+     (|Equation| (|OrderedCompletion| (|Polynomial| |#1|)))))
+   (SIGNATURE |limit|
+    ((|Union| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+              (|Record|
+               (|:| |leftHandLimit|
+                    (|Union|
+                     (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                     #1#))
+               (|:| |rightHandLimit|
+                    (|Union|
+                     (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                     #1#)))
+              #2#)
+     (|Fraction| (|Polynomial| |#1|))
+     (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   (SIGNATURE |complexLimit|
+    ((|OnePointCompletion| (|Fraction| (|Polynomial| |#1|)))
+     (|Fraction| (|Polynomial| |#1|))
+     (|Equation| (|OnePointCompletion| (|Polynomial| |#1|)))))
+   (SIGNATURE |complexLimit|
+    ((|OnePointCompletion| (|Fraction| (|Polynomial| |#1|)))
+     (|Fraction| (|Polynomial| |#1|))
+     (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   (SIGNATURE |limit|
+    ((|Union| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|))) #1#)
+     (|Fraction| (|Polynomial| |#1|))
+     (|Equation| (|Fraction| (|Polynomial| |#1|))) (|String|))))
+  (|GcdDomain|))
+ (T |RationalFunctionLimitPackage|))
+(CATEGORY |package|
+ (SIGNATURE |limit|
+  ((|Union| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+            (|Record|
+             (|:| |leftHandLimit|
+                  (|Union|
+                   (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                   #1="failed"))
+             (|:| |rightHandLimit|
+                  (|Union|
+                   (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                   #1#)))
+            #2="failed")
+   (|Fraction| (|Polynomial| |#1|))
+   (|Equation| (|OrderedCompletion| (|Polynomial| |#1|)))))
+ (SIGNATURE |limit|
+  ((|Union| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+            (|Record|
+             (|:| |leftHandLimit|
+                  (|Union|
+                   (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|))) #1#))
+             (|:| |rightHandLimit|
+                  (|Union|
+                   (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                   #1#)))
+            #2#)
+   (|Fraction| (|Polynomial| |#1|))
+   (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+ (SIGNATURE |complexLimit|
+  ((|OnePointCompletion| (|Fraction| (|Polynomial| |#1|)))
+   (|Fraction| (|Polynomial| |#1|))
+   (|Equation| (|OnePointCompletion| (|Polynomial| |#1|)))))
+ (SIGNATURE |complexLimit|
+  ((|OnePointCompletion| (|Fraction| (|Polynomial| |#1|)))
+   (|Fraction| (|Polynomial| |#1|))
+   (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+ (SIGNATURE |limit|
+  ((|Union| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|))) #1#)
+   (|Fraction| (|Polynomial| |#1|))
+   (|Equation| (|Fraction| (|Polynomial| |#1|))) (|String|))))
+"/git/fricas/src/algebra/LIMITRF.spad"
+((|limit| (*1 *2 *3 *4 *5)
+  (|partial| AND (|isDomain| *4 (|Equation| (|Fraction| (|Polynomial| *6))))
+   (|isDomain| *5 (|String|)) (|isDomain| *3 (|Fraction| (|Polynomial| *6)))
+   (|ofCategory| *6 (|GcdDomain|))
+   (|isDomain| *2 (|OrderedCompletion| (|Fraction| (|Polynomial| *6))))
+   (|isDomain| *1 (|RationalFunctionLimitPackage| *6))))
+ (|complexLimit| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Equation| (|Fraction| (|Polynomial| *5))))
+       (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|isDomain| *2 (|OnePointCompletion| (|Fraction| (|Polynomial| *5))))
+       (|isDomain| *1 (|RationalFunctionLimitPackage| *5))))
+ (|complexLimit| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+       (|isDomain| *4 (|Equation| (|OnePointCompletion| (|Polynomial| *5))))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|isDomain| *2 (|OnePointCompletion| (|Fraction| (|Polynomial| *5))))
+       (|isDomain| *1 (|RationalFunctionLimitPackage| *5))))
+ (|limit| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Equation| (|Fraction| (|Polynomial| *5))))
+       (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|isDomain| *2
+                   (|Union|
+                    (|OrderedCompletion| (|Fraction| (|Polynomial| *5)))
+                    (|Record|
+                     (|:| |leftHandLimit|
+                          (|Union|
+                           (|OrderedCompletion| (|Fraction| (|Polynomial| *5)))
+                           #1="failed"))
+                     (|:| |rightHandLimit|
+                          (|Union|
+                           (|OrderedCompletion| (|Fraction| (|Polynomial| *5)))
+                           #1#)))
+                    #2="failed"))
+       (|isDomain| *1 (|RationalFunctionLimitPackage| *5))))
+ (|limit| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+       (|isDomain| *4 (|Equation| (|OrderedCompletion| (|Polynomial| *5))))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|isDomain| *2
+                   (|Union|
+                    (|OrderedCompletion| (|Fraction| (|Polynomial| *5)))
+                    (|Record|
+                     (|:| |leftHandLimit|
+                          (|Union|
+                           (|OrderedCompletion| (|Fraction| (|Polynomial| *5)))
+                           #1#))
+                     (|:| |rightHandLimit|
+                          (|Union|
+                           (|OrderedCompletion| (|Fraction| (|Polynomial| *5)))
+                           #1#)))
+                    #2#))
+       (|isDomain| *1 (|RationalFunctionLimitPackage| *5)))))
+((|limit|
+  (((|Union| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+             #1="failed")
+    (|Fraction| (|Polynomial| |#1|))
+    (|Equation| (|Fraction| (|Polynomial| |#1|))) (|String|))
+   81)
+  (((|Union| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+             (|Record|
+              (|:| |leftHandLimit|
+                   (|Union|
+                    (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                    #1#))
+              (|:| |rightHandLimit|
+                   (|Union|
+                    (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                    #1#)))
+             #2="failed")
+    (|Fraction| (|Polynomial| |#1|))
+    (|Equation| (|Fraction| (|Polynomial| |#1|))))
+   18)
+  (((|Union| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+             (|Record|
+              (|:| |leftHandLimit|
+                   (|Union|
+                    (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                    #1#))
+              (|:| |rightHandLimit|
+                   (|Union|
+                    (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                    #1#)))
+             #2#)
+    (|Fraction| (|Polynomial| |#1|))
+    (|Equation| (|OrderedCompletion| (|Polynomial| |#1|))))
+   34))
+ (|complexLimit|
+  (((|OnePointCompletion| (|Fraction| (|Polynomial| |#1|)))
+    (|Fraction| (|Polynomial| |#1|))
+    (|Equation| (|Fraction| (|Polynomial| |#1|))))
+   21)
+  (((|OnePointCompletion| (|Fraction| (|Polynomial| |#1|)))
+    (|Fraction| (|Polynomial| |#1|))
+    (|Equation| (|OnePointCompletion| (|Polynomial| |#1|))))
+   42)))
+LIMITRF
+((|constructor| (NIL "Computation of limits for rational functions."))
+ (|complexLimit|
+  (((|OnePointCompletion| (|Fraction| (|Polynomial| |#1|)))
+    (|Fraction| (|Polynomial| |#1|))
+    (|Equation| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{complexLimit(f(x),{} x = a)} computes the complex limit of \\spad{f} as its argument \\spad{x} approaches \\spad{a}.")
+  (((|OnePointCompletion| (|Fraction| (|Polynomial| |#1|)))
+    (|Fraction| (|Polynomial| |#1|))
+    (|Equation| (|OnePointCompletion| (|Polynomial| |#1|))))
+   "\\spad{complexLimit(f(x),{} x = a)} computes the complex limit of \\spad{f} as its argument \\spad{x} approaches \\spad{a}."))
+ (|limit|
+  (((|Union| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+             #1="failed")
+    (|Fraction| (|Polynomial| |#1|))
+    (|Equation| (|Fraction| (|Polynomial| |#1|))) (|String|))
+   "\\spad{limit(f(x),{}x,{}a,{}\"left\")} computes the real limit of \\spad{f} as its argument \\spad{x} approaches \\spad{a} from the left; limit(\\spad{f}(\\spad{x}),{}\\spad{x},{}a,{}\"right\") computes the corresponding limit as \\spad{x} approaches \\spad{a} from the right.")
+  (((|Union| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+             (|Record|
+              (|:| |leftHandLimit|
+                   (|Union|
+                    (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                    #1#))
+              (|:| |rightHandLimit|
+                   (|Union|
+                    (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                    #1#)))
+             #2="failed")
+    (|Fraction| (|Polynomial| |#1|))
+    (|Equation| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{limit(f(x),{} x = a)} computes the real two-sided limit of \\spad{f} as its argument \\spad{x} approaches \\spad{a}.")
+  (((|Union| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+             (|Record|
+              (|:| |leftHandLimit|
+                   (|Union|
+                    (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                    #1#))
+              (|:| |rightHandLimit|
+                   (|Union|
+                    (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))
+                    #1#)))
+             #2#)
+    (|Fraction| (|Polynomial| |#1|))
+    (|Equation| (|OrderedCompletion| (|Polynomial| |#1|))))
+   "\\spad{limit(f(x),{} x = a)} computes the real two-sided limit of \\spad{f} as its argument \\spad{x} approaches \\spad{a}.")))
+(("documentation" 0 7879) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 7871) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 6236) ("modemaps" 0 3585) ("sourceFile" 0 3546)
+ ("constructorCategory" 0 1903) ("constructorModemap" 0 65)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

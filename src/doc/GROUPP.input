@@ -1,0 +1,16 @@
+
+-- Input for page GroupPresentationXmpPage
+)clear all
+
+)expose GroupPresentation
+c3 := groupPresentation([1], [[1, 1, 1]])
+toPermutationIfCan(c3)
+fG := FreeGroup(Symbol)
+a := (^$fG)('a, 1)
+b := (^$fG)('b, 1)
+c := (^$fG)('c, 1)
+ m12f := [a^11, b^2, c^2, (a*b)^3, (a*c)^3, (b*c)^10, a^2*(b*c)^2*a*(b*c)^(-2)]
+ cP := GroupPresentationFunctions1(Symbol)
+m12pres := convert(['a, 'b, 'c], m12f)$cP
+m12per := toPermutationIfCan(m12pres, [[1], [2]], false)
+order(m12per::PermutationGroup(Integer))

@@ -1,0 +1,85 @@
+)abbrev domain FILE File
+++ Author: Stephen M. Watt, Victor Miller
+++ Date Created: 1984
+++ Basic Operations:
+++ Related Domains:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+++ Description:
+++   This domain provides a basic model of files to save arbitrary values.
+++   The operations provide sequential access to the contents.
+
+File(S : SetCategory) : FileCategory(FileName, S) with
+        readIfCan! : % -> Union(S, "failed")
+            ++ readIfCan!(f) returns a value from the file f, if possible.
+            ++ If f is not open for reading, or if f is at the end of file
+            ++ then \spad{"failed"} is the result.
+    == add
+        FileState ==> SExpression
+        IOMode    ==> String
+
+        Rep := Record(fileName :    FileName,   _
+                    fileState :   FileState,  _
+                    fileIOmode :  IOMode)
+
+        defstream(fn : FileName, mode : IOMode) : FileState ==
+            mode = "input"  =>
+              not readable? fn => error ["File is not readable", fn]
+              MAKE_INSTREAM(fn::String)$Lisp
+            mode = "output" =>
+              not writable? fn => error ["File is not writable", fn]
+              MAKE_OUTSTREAM(fn::String)$Lisp
+            error ["IO mode must be input or output", mode]
+
+        f1 = f2 ==
+            f1.fileName = f2.fileName
+        coerce(f : %) : OutputForm ==
+            f.fileName::OutputForm
+
+        open fname ==
+            open(fname, "input")
+        open(fname, mode) ==
+            fstream := defstream(fname, mode)
+            [fname, fstream, mode]
+        reopen!(f, mode) ==
+            if f.fileIOmode = "output" then flush(f)
+            fname := f.fileName
+            f.fileState := defstream(fname, mode)
+            f.fileIOmode := mode
+            f
+        close! f ==
+            SHUT(f.fileState)$Lisp
+            f.fileIOmode := "closed"
+            f
+        name f ==
+            f.fileName
+        iomode f ==
+            f.fileIOmode
+        read! f ==
+            f.fileIOmode ~= "input" =>
+                error "File not in read state"
+            x : None := VMREAD(f.fileState)$Lisp
+            PLACEP(x)$Lisp =>
+                error "End of file"
+            x pretend S
+        readIfCan! f ==
+            f.fileIOmode ~= "input" =>
+                error "File not in read state"
+            x : None := VMREAD(f.fileState)$Lisp
+            PLACEP(x)$Lisp => "failed"
+            x pretend S
+        write!(f, x) ==
+            f.fileIOmode ~= "output" =>
+                error "File not in write state"
+            print_full2(x, f.fileState)$Lisp
+            TERPRI(f.fileState)$Lisp
+            x
+
+        flush f ==
+            f.fileIOmode ~= "output" => error "File not in write state"
+            FORCE_-OUTPUT(f.fileState)$Lisp
+
+

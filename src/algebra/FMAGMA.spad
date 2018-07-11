@@ -1,0 +1,140 @@
+)abbrev domain FMAGMA FreeMagma
+++ Author: Michel Petitot (petitot@lifl.fr).
+++ Date Created: 91
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ This type is the basic representation of
+++ parenthesized words (binary trees over arbitrary symbols)
+++ useful in \spadtype{LiePolynomial}. \newline Author: Michel Petitot (petitot@lifl.fr).
+
+FreeMagma(VarSet : OrderedSet) : Public == Private where
+   WORD ==> FreeMonoid(VarSet)
+   EX   ==> OutputForm
+
+   Public == Join(OrderedSet, RetractableTo VarSet) with
+      "*"           : (%,%) -> %
+        ++ \spad{x*y} returns the tree \spad{[x, y]}.
+      coerce        : % -> WORD
+        ++ \spad{coerce(x)} returns the element of \spadtype{FreeMonoid}(VarSet)
+        ++ corresponding to \spad{x} by removing parentheses.
+      first         : % -> VarSet
+        ++ \spad{first(x)} returns the first entry of the tree \spad{x}.
+      left          : % -> %
+        ++ \spad{left(x)} returns left subtree of \spad{x} or
+        ++ error if \spadopFrom{retractable?}{FreeMagma}(\spad{x}) is true.
+      length        : % -> PositiveInteger
+        ++ \spad{length(x)} returns the number of entries in \spad{x}.
+      lexico        : (%, %) -> Boolean
+        ++ \spad{lexico(x, y)} returns \spad{true} iff  \spad{x} is smaller than
+        ++ \spad{y} w.r.t. the lexicographical ordering induced by \spad{VarSet}.
+        ++ N.B. This operation does not take into account the tree structure of
+        ++ its arguments. Thus this is not a total ordering.
+      mirror        : % -> %
+        ++ \spad{mirror(x)} returns the reversed word of \spad{x}.
+        ++ That is \spad{x} itself if
+        ++ \spadopFrom{retractable?}{FreeMagma}(\spad{x}) is true and
+        ++ \spad{mirror(z) * mirror(y)} if \spad{x} is \spad{y*z}.
+      rest          : % -> %
+        ++ \spad{rest(x)} return \spad{x} without the first entry or
+        ++ error if \spadopFrom{retractable?}{FreeMagma}(\spad{x}) is true.
+      retractable?  : % -> Boolean
+        ++ \spad{retractable?(x)} tests if \spad{x} is a tree with only one entry.
+      right         : % -> %
+        ++ \spad{right(x)} returns right subtree of \spad{x} or
+        ++ error if \spadopFrom{retractable?}{FreeMagma}(\spad{x}) is true.
+      varList       : % -> List VarSet
+        ++ \spad{varList(x)} returns the list of distinct entries of \spad{x}.
+
+   Private == add
+    -- representation
+      VWORD := Record(left : %, right : %)
+      Rep := Union(VarSet, VWORD)
+
+      recursif : (%, %) -> Boolean
+
+    -- define
+      x : % = y : % ==
+        x case VarSet =>
+           y case VarSet => x::VarSet = y::VarSet
+           false
+        y case VWORD => x::VWORD = y::VWORD
+        false
+
+      varList x ==
+        x case VarSet => [x::VarSet]
+        lv : List VarSet := setUnion(varList x.left, varList x.right)
+        sort!(lv)
+
+      left x ==
+        x case VarSet => error "x has only one entry"
+        x.left
+
+      right x ==
+        x case VarSet => error "x has only one entry"
+        x.right
+      retractable? x == (x case VarSet)
+
+      retract x ==
+         x case VarSet => x::VarSet
+         error "Not retractable"
+
+      retractIfCan x == (retractable? x => x::VarSet ; "failed")
+      coerce(l : VarSet) : %  == l
+
+      mirror x ==
+        x case VarSet => x
+        [mirror x.right, mirror x.left]$VWORD
+
+      coerce(x : %) : WORD ==
+        x case VarSet => x::VarSet::WORD
+        x.left::WORD * x.right::WORD
+
+      coerce(x : %) : EX ==
+         x case VarSet => x::VarSet::EX
+         bracket [x.left::EX, x.right::EX]
+
+      x * y == [x, y]$VWORD
+
+      first x ==
+         x case VarSet => x::VarSet
+         first x.left
+
+      rest x ==
+         x case VarSet => error "rest$FreeMagma: inexistant rest"
+         lx : % := x.left
+         lx case VarSet => x.right
+         [rest lx, x.right]$VWORD
+
+      length x ==
+         x case VarSet => 1
+         length(x.left) + length(x.right)
+
+      recursif(x, y) ==
+         x case VarSet =>
+            y case VarSet => x::VarSet < y::VarSet
+            true
+         y case VarSet => false
+         x.left =$% y.left =>  x.right <$% y.right
+         x.left <$% y.left
+
+      lexico(x, y) ==            -- peut etre amelioree !!!!!!!!!!!
+         x case VarSet =>
+            y case VarSet => x::VarSet < y::VarSet
+            x::VarSet <= first y
+         y case VarSet => first x < retract y
+         fx : VarSet := first x ; fy : VarSet := first y
+         fx = fy => lexico(rest x, rest y)
+         fx < fy
+
+      x < y ==                  -- recursif par longueur
+         lx, ly : PositiveInteger
+         lx := length x ; ly := length y
+         lx = ly => recursif(x, y)
+         lx < ly
+
+

@@ -1,0 +1,65 @@
+3857                (|MagmaWithUnit&| S)
+|domain|
+(((|MagmaWithUnit&| |#1|)
+  (CATEGORY |domain| (SIGNATURE |rightRecip| ((|Union| |#1| "failed") |#1|))
+   (SIGNATURE |leftRecip| ((|Union| |#1| "failed") |#1|))
+   (SIGNATURE |recip| ((|Union| |#1| "failed") |#1|))
+   (SIGNATURE ^ (|#1| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |leftPower| (|#1| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |rightPower| (|#1| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |one?| ((|Boolean|) |#1|)) (SIGNATURE |sample| (|#1|))
+   (SIGNATURE ^ (|#1| |#1| (|PositiveInteger|)))
+   (SIGNATURE |leftPower| (|#1| |#1| (|PositiveInteger|)))
+   (SIGNATURE |rightPower| (|#1| |#1| (|PositiveInteger|))))
+  (|MagmaWithUnit|))
+ (T |MagmaWithUnit&|))
+(CATEGORY |domain| (SIGNATURE |rightRecip| ((|Union| |#1| "failed") |#1|))
+ (SIGNATURE |leftRecip| ((|Union| |#1| "failed") |#1|))
+ (SIGNATURE |recip| ((|Union| |#1| "failed") |#1|))
+ (SIGNATURE ^ (|#1| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |leftPower| (|#1| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |rightPower| (|#1| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |one?| ((|Boolean|) |#1|)) (SIGNATURE |sample| (|#1|))
+ (SIGNATURE ^ (|#1| |#1| (|PositiveInteger|)))
+ (SIGNATURE |leftPower| (|#1| |#1| (|PositiveInteger|)))
+ (SIGNATURE |rightPower| (|#1| |#1| (|PositiveInteger|))))
+"/git/fricas/src/algebra/MAGMAWU.spad"
+((|sample| (($) 11)) (|rightRecip| (((|Union| $ "failed") $) 24))
+ (|rightPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) 18))
+ (|recip| (((|Union| $ "failed") $) 21)) (|one?| (((|Boolean|) $) 10))
+ (|leftRecip| (((|Union| $ "failed") $) 23))
+ (|leftPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) 19))
+ (^ (($ $ (|PositiveInteger|)) NIL) (($ $ (|NonNegativeInteger|)) 16)))
+MAGMAWU-
+((|constructor|
+  (NIL
+   "\\indented{1}{MagmaWithUnit is the class of multiplicative monads with unit,{}} \\indented{1}{\\spadignore{i.e.} sets with a binary operation and a unit element.} Axioms \\indented{3}{leftIdentity(\"*\":(\\%,{}\\%)\\spad{->}\\%,{}1)\\space{3}\\tab{30} 1*x=x} \\indented{3}{rightIdentity(\"*\":(\\%,{}\\%)\\spad{->}\\%,{}1)\\space{2}\\tab{30} x*1=x} Common Additional Axioms \\indented{3}{unitsKnown---if \"recip\" says \"failed\",{} that PROVES input wasn\\spad{'t} a unit}"))
+ (|rightRecip|
+  (((|Union| $ "failed") $)
+   "\\spad{rightRecip(a)} returns an element,{} which is a right inverse of \\spad{a},{} or \\spad{\"failed\"} if such an element doesn\\spad{'t} exist or cannot be determined (see unitsKnown)."))
+ (|leftRecip|
+  (((|Union| $ "failed") $)
+   "\\spad{leftRecip(a)} returns an element,{} which is a left inverse of \\spad{a},{} or \\spad{\"failed\"} if such an element doesn\\spad{'t} exist or cannot be determined (see unitsKnown)."))
+ (|recip|
+  (((|Union| $ "failed") $)
+   "\\spad{recip(a)} returns an element,{} which is both a left and a right inverse of \\spad{a},{} or \\spad{\"failed\"} if such an element doesn\\spad{'t} exist or cannot be determined (see unitsKnown)."))
+ (^
+  (($ $ (|NonNegativeInteger|))
+   "\\spad{a^n} returns the \\spad{n}\\spad{-}th power of \\spad{a},{} defined by repeated squaring."))
+ (|leftPower|
+  (($ $ (|NonNegativeInteger|))
+   "\\spad{leftPower(a,{} n)} returns the \\spad{n}\\spad{-}th left power of \\spad{a},{} \\spadignore{i.e.} \\spad{leftPower(a,{} n) := a * leftPower(a,{} n-1)} and \\spad{leftPower(a,{} 0) := 1}."))
+ (|rightPower|
+  (($ $ (|NonNegativeInteger|))
+   "\\spad{rightPower(a,{} n)} returns the \\spad{n}\\spad{-}th right power of \\spad{a},{} \\spadignore{i.e.} \\spad{rightPower(a,{} n) := rightPower(a,{} n-1) * a} and \\spad{rightPower(a,{} 0) := 1}."))
+ (|one?|
+  (((|Boolean|) $) "\\spad{one?(a)} tests whether \\spad{a} is the unit 1."))
+ (|sample| (($) "\\spad{sample yields} a value of type \\%"))
+ ((|One|) (($) "1 returns the unit element,{} denoted by 1.")))
+(("documentation" 0 1777) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1768) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1347) ("modemaps" 0 NIL) ("sourceFile" 0 1308)
+ ("constructorCategory" 0 724) ("constructorModemap" 0 50)
+ ("constructorKind" 0 41) ("constructorForm" 0 20))

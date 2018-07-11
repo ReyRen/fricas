@@ -1,0 +1,99 @@
+4688                (|RationalFunctionSum| R)
+|package|
+(((|RationalFunctionSum| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |sum|
+    ((|Fraction| (|Polynomial| |#1|)) (|Polynomial| |#1|) (|Symbol|)))
+   (SIGNATURE |sum|
+    ((|Union| (|Fraction| (|Polynomial| |#1|)) (|Expression| |#1|))
+     (|Fraction| (|Polynomial| |#1|)) (|Symbol|)))
+   (SIGNATURE |sum|
+    ((|Fraction| (|Polynomial| |#1|)) (|Polynomial| |#1|)
+     (|SegmentBinding| (|Polynomial| |#1|))))
+   (SIGNATURE |sum|
+    ((|Union| (|Fraction| (|Polynomial| |#1|)) (|Expression| |#1|))
+     (|Fraction| (|Polynomial| |#1|))
+     (|SegmentBinding| (|Fraction| (|Polynomial| |#1|))))))
+  (|Join| (|IntegralDomain|) (|Comparable|) (|RetractableTo| (|Integer|))))
+ (T |RationalFunctionSum|))
+(CATEGORY |package|
+ (SIGNATURE |sum|
+  ((|Fraction| (|Polynomial| |#1|)) (|Polynomial| |#1|) (|Symbol|)))
+ (SIGNATURE |sum|
+  ((|Union| (|Fraction| (|Polynomial| |#1|)) (|Expression| |#1|))
+   (|Fraction| (|Polynomial| |#1|)) (|Symbol|)))
+ (SIGNATURE |sum|
+  ((|Fraction| (|Polynomial| |#1|)) (|Polynomial| |#1|)
+   (|SegmentBinding| (|Polynomial| |#1|))))
+ (SIGNATURE |sum|
+  ((|Union| (|Fraction| (|Polynomial| |#1|)) (|Expression| |#1|))
+   (|Fraction| (|Polynomial| |#1|))
+   (|SegmentBinding| (|Fraction| (|Polynomial| |#1|))))))
+"/git/fricas/src/algebra/SUMRF.spad"
+((|sum| (*1 *2 *3 *4)
+        (AND (|isDomain| *4 (|SegmentBinding| (|Fraction| (|Polynomial| *5))))
+             (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+             (|ofCategory| *5
+                           (|Join| (|IntegralDomain|) (|Comparable|)
+                                   (|RetractableTo| (|Integer|))))
+             (|isDomain| *2
+                         (|Union| (|Fraction| (|Polynomial| *5))
+                                  (|Expression| *5)))
+             (|isDomain| *1 (|RationalFunctionSum| *5))))
+ (|sum| (*1 *2 *3 *4)
+        (AND (|isDomain| *4 (|SegmentBinding| (|Polynomial| *5)))
+             (|isDomain| *3 (|Polynomial| *5))
+             (|ofCategory| *5
+                           (|Join| (|IntegralDomain|) (|Comparable|)
+                                   (|RetractableTo| (|Integer|))))
+             (|isDomain| *2 (|Fraction| (|Polynomial| *5)))
+             (|isDomain| *1 (|RationalFunctionSum| *5))))
+ (|sum| (*1 *2 *3 *4)
+        (AND (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+             (|isDomain| *4 (|Symbol|))
+             (|ofCategory| *5
+                           (|Join| (|IntegralDomain|) (|Comparable|)
+                                   (|RetractableTo| (|Integer|))))
+             (|isDomain| *2
+                         (|Union| (|Fraction| (|Polynomial| *5))
+                                  (|Expression| *5)))
+             (|isDomain| *1 (|RationalFunctionSum| *5))))
+ (|sum| (*1 *2 *3 *4)
+        (AND (|isDomain| *3 (|Polynomial| *5)) (|isDomain| *4 (|Symbol|))
+             (|ofCategory| *5
+                           (|Join| (|IntegralDomain|) (|Comparable|)
+                                   (|RetractableTo| (|Integer|))))
+             (|isDomain| *2 (|Fraction| (|Polynomial| *5)))
+             (|isDomain| *1 (|RationalFunctionSum| *5)))))
+((|sum|
+  (((|Union| (|Fraction| (|Polynomial| |#1|)) (|Expression| |#1|))
+    (|Fraction| (|Polynomial| |#1|))
+    (|SegmentBinding| (|Fraction| (|Polynomial| |#1|))))
+   30)
+  (((|Fraction| (|Polynomial| |#1|)) (|Polynomial| |#1|)
+    (|SegmentBinding| (|Polynomial| |#1|)))
+   44)
+  (((|Union| (|Fraction| (|Polynomial| |#1|)) (|Expression| |#1|))
+    (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   32)
+  (((|Fraction| (|Polynomial| |#1|)) (|Polynomial| |#1|) (|Symbol|)) 36)))
+SUMRF
+((|constructor| (NIL "Computes sums of rational functions."))
+ (|sum|
+  (((|Union| (|Fraction| (|Polynomial| |#1|)) (|Expression| |#1|))
+    (|Fraction| (|Polynomial| |#1|))
+    (|SegmentBinding| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{sum(f(n),{} n = a..b)} returns \\spad{f(a) + f(a+1) + ... f(b)}.")
+  (((|Fraction| (|Polynomial| |#1|)) (|Polynomial| |#1|)
+    (|SegmentBinding| (|Polynomial| |#1|)))
+   "\\spad{sum(f(n),{} n = a..b)} returns \\spad{f(a) + f(a+1) + ... f(b)}.")
+  (((|Union| (|Fraction| (|Polynomial| |#1|)) (|Expression| |#1|))
+    (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   "\\spad{sum(a(n),{} n)} returns \\spad{A} which is the indefinite sum of \\spad{a} with respect to upward difference on \\spad{n},{} \\spadignore{i.e.} \\spad{A(n+1) - A(n) = a(n)}.")
+  (((|Fraction| (|Polynomial| |#1|)) (|Polynomial| |#1|) (|Symbol|))
+   "\\spad{sum(a(n),{} n)} returns \\spad{A} which is the indefinite sum of \\spad{a} with respect to upward difference on \\spad{n},{} \\spadignore{i.e.} \\spad{A(n+1) - A(n) = a(n)}.")))
+(("documentation" 0 3639) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3633) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3151) ("modemaps" 0 1326) ("sourceFile" 0 1289)
+ ("constructorCategory" 0 753) ("constructorModemap" 0 56)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))

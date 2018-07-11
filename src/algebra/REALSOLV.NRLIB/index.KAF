@@ -1,0 +1,58 @@
+2627                (MAKEPROP '|RealSolvePackage| 'NILADIC T)
+(|RealSolvePackage|)
+|package|
+(((|RealSolvePackage|)
+  (CATEGORY |package|
+   (SIGNATURE |solve|
+    ((|List| (|Float|)) (|Polynomial| (|Fraction| (|Integer|))) (|Float|)))
+   (SIGNATURE |solve|
+    ((|List| (|Float|)) (|Polynomial| (|Integer|)) (|Float|)))
+   (SIGNATURE |realSolve|
+    ((|List| (|List| (|Float|))) (|List| (|Polynomial| (|Integer|)))
+     (|List| (|Symbol|)) (|Float|)))))
+ (T |RealSolvePackage|))
+(CATEGORY |package|
+ (SIGNATURE |solve|
+  ((|List| (|Float|)) (|Polynomial| (|Fraction| (|Integer|))) (|Float|)))
+ (SIGNATURE |solve| ((|List| (|Float|)) (|Polynomial| (|Integer|)) (|Float|)))
+ (SIGNATURE |realSolve|
+  ((|List| (|List| (|Float|))) (|List| (|Polynomial| (|Integer|)))
+   (|List| (|Symbol|)) (|Float|))))
+"/git/fricas/src/algebra/REALSOLV.spad"
+((|realSolve| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|List| (|Polynomial| (|Integer|))))
+       (|isDomain| *4 (|List| (|Symbol|))) (|isDomain| *5 (|Float|))
+       (|isDomain| *2 (|List| (|List| (|Float|))))
+       (|isDomain| *1 (|RealSolvePackage|))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Polynomial| (|Integer|))) (|isDomain| *4 (|Float|))
+       (|isDomain| *2 (|List| (|Float|)))
+       (|isDomain| *1 (|RealSolvePackage|))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Polynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *4 (|Float|)) (|isDomain| *2 (|List| (|Float|)))
+       (|isDomain| *1 (|RealSolvePackage|)))))
+((|solve| (((|List| (|Float|)) (|Polynomial| (|Integer|)) (|Float|)) 27)
+  (((|List| (|Float|)) (|Polynomial| (|Fraction| (|Integer|))) (|Float|)) 26))
+ (|realSolve|
+  (((|List| (|List| (|Float|))) (|List| (|Polynomial| (|Integer|)))
+    (|List| (|Symbol|)) (|Float|))
+   36)))
+REALSOLV
+((|constructor|
+  (NIL
+   "\\indented{1}{This package provides numerical solutions of systems of polynomial} equations for use in ACPLOT."))
+ (|realSolve|
+  (((|List| (|List| (|Float|))) (|List| (|Polynomial| (|Integer|)))
+    (|List| (|Symbol|)) (|Float|))
+   "\\spad{realSolve(lp,{} lv,{} eps)} = compute the list of the real solutions of the list \\spad{lp} of polynomials with integer coefficients with respect to the variables in \\spad{lv},{} with precision eps."))
+ (|solve|
+  (((|List| (|Float|)) (|Polynomial| (|Integer|)) (|Float|))
+   "\\spad{solve(p,{} eps)} finds the real zeroes of a univariate integer polynomial \\spad{p} with precision eps.")
+  (((|List| (|Float|)) (|Polynomial| (|Fraction| (|Integer|))) (|Float|))
+   "\\spad{solve(p,{} eps)} finds the real zeroes of a univariate rational polynomial \\spad{p} with precision eps.")))
+(("documentation" 0 1773) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1764) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1486) ("modemaps" 0 840) ("sourceFile" 0 800)
+ ("constructorCategory" 0 480) ("constructorModemap" 0 93)
+ ("constructorKind" 0 83) ("constructorForm" 0 62) ("NILADIC" 0 20))

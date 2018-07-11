@@ -1,0 +1,777 @@
+)abbrev domain JLF JetLazyFunction
+++ Description:
+++  \spadtype{JetLazyFunction} takes as argument a domain in
+++  \spadtype{JetBundleFunctionCategory} and returns another domain in the
+++  same category. This domain has basically the same properties as the
+++  argument domain, but there is a lazy evaluation mechanism for derivatives.
+++  This means that differentiations are not immediately performed. Instead a
+++  pointer is established to the function to be differentiated. Only when the
+++  exact value of the derivative is needed, the differentiation is executed.
+++  Special care is taken for leading derivatives and jet variables to avoid as
+++  much as possible the need to evaluate expressions. This entails that the
+++  result of \spad{jetVariables} may contain spurious variables. Furthermore
+++  many functions in \spadtype{JetLazyFunction} destructively change their
+++  arguments. This affects, however, only their internal representation, not
+++  the value obtained after full evaluation.
+
+JetLazyFunction(JB : JBC, D : JBFC) : Cat == Def where
+
+  Sy   ==> Symbol
+  B    ==> Boolean
+  L    ==> List
+  M    ==> Matrix
+  I    ==> Integer
+  PI   ==> PositiveInteger
+  NNI  ==> NonNegativeInteger
+  OUT  ==> OutputForm
+  REF  ==> Reference
+  JBC  ==> JetBundleCategory
+  JBFC ==> JetBundleFunctionCategory JB
+  SEM  ==> SparseEchelonMatrix(JB, %)
+  UDS  ==> Union(D, %)
+
+  SREC     ==> Record(Dep : L NNI, Fun : %)
+  SIMPREC  ==> Record(Sys : L %, JM : SEM, Depend : Union("failed", L L NNI))
+
+  Const  ==> "Const"::Sy
+  Null   ==> "0"::Sy
+
+
+  Cat ==> JBFC with
+
+    lazyRepresentation
+      ++ The representation contains a lazy evaluation scheme.
+
+    coerce : D -> %
+      ++ \spad{coerce(d)} coerces an element of \spad{D} into the new domain.
+      ++ This includes the calculation of its leading derivative and its jet
+      ++ variables.
+
+    coerce : % -> D
+      ++ \spad{coerce(exp)} retracts an element to the base domain \spad{D}.
+      ++ This looses all information about its leading derivative and its
+      ++ jet variables and requires complete evaluation of the expression.
+
+    collect : % -> %
+      ++ \spad{collect(exp)} "collects" former lazy terms which have been
+      ++ meanwhile evaluated.
+
+    eval1 : % -> %
+      ++ \spad{eval1(exp)} explicitly evaluates the next term in \spad{exp}.
+      ++ \spad{exp} is destructively altered.
+
+    eval : % -> %
+      ++ \spad{eval(exp)} explicitly evaluates all terms in \spad{exp}.
+      ++ \spad{exp} is destructively altered.
+
+    ground? : % -> B
+      ++ \spad{ground(exp)} is true, if \spad{exp} contains only fully
+      ++ evaluated parts.
+
+    "*" : (D, %) -> %
+      ++ \spad{d*exp} is provided mainly for internal use, as basically all
+      ++ calculations should be performed within \spadtype{JetLazyFunction}.
+
+    eqRep? : (%, %) -> B
+      ++ \spad{eqRep?(x, y)} compares the representations of \spad{x} and
+      ++ \spad{y} without any evaluation. Thus it is much weaker than \spad{=}
+      ++ and cannot decide equality of the evaluated expressions.
+
+    statistics : () -> Void
+      ++ \spad{statistics()} prints a statistic on the use of the lazy
+      ++ evaluation mechanism. It displays the number of lazy differentiations
+      ++ performed and how many of them had to be executed explicitly later on.
+
+  Def ==> add
+
+    LazyDiff : NNI := 0
+    LazyEval : NNI := 0
+      -- global variables for statistics
+
+    statistics() : Void ==
+        print(assign(message("Number of lazy differentiations"),
+                     LazyDiff::OUT))$OUT
+        print(assign(message("Number of subsequent evaluations"),
+                     LazyEval::OUT))$OUT
+        void
+
+
+    -- -------------- --
+    -- Representation --
+    -- -------------- --
+
+    -- The representation consists of a three layer hierarchy connected by
+    -- references. The evaluation routines will always reset the references
+    -- in order to affect all elements containing them. The flags store
+    -- information about the evaluation done so far. LD and LLD represent
+    -- upper bounds for the leading derivative, Sharp? and LSharp? indicate
+    -- whether they are sharp. If DEval? is true, then the differentiation
+    -- was already performed and DFun contains the result. Otherwise DFun
+    -- should be differentiated wrt DX. JV1 contains the jet variables of
+    -- which it is known that they occur in the expression; the ones in JV2
+    -- may or may not occur.
+
+    LazyDer := Record(DEval? : B, DX : Union(JB, Sy), DFun : UDS)
+
+    LazyTerm := Record(LLD : JB, LSharp? : B, LEval? : B, _
+                       LCoeff : UDS, LDer : REF LazyDer)
+
+    RepRec := Record(LD : JB, Sharp? : B, Ground? : B, JV1 : L JB, JV2 : L JB, _
+                     Lazy : L REF LazyTerm)
+
+    Rep := REF RepRec
+
+
+    -- --------------- --
+    -- Local Functions --
+    -- --------------- --
+
+    emptyDer : LazyDer := [true, Null, 1$D]
+
+    zeroRec : RepRec := [1$JB, true, true, empty, empty, _
+                       [ref [1$JB, true, true, 0$D, ref emptyDer]]]
+
+
+    emptyDer?(der : LazyDer) : B ==
+        der.DX ~= Null => false
+        der.DFun case % => false
+        one?(der.DFun::D)$D
+
+
+    groundFlag?(exp : %) : B == deref(exp).Ground?
+
+
+    extract(exp : %) : D ==
+        -- assumes that ground?(exp) = true!
+        deref(first(deref(exp).Lazy)).LCoeff::D
+
+
+    jetVars(f : UDS) : L JB ==
+        f case D => jetVariables(f::D)$D
+        jetVariables(f::%)
+
+
+    greater(lt1 : REF LazyTerm, lt2 : REF LazyTerm) : B ==
+        deref(lt1).LLD > deref(lt2).LLD
+
+
+    lazyTerm(d : D) : LazyTerm ==
+        [leadingDer(d)$D, true, true, d, ref emptyDer]$LazyTerm
+
+
+    convert(lt : LazyTerm) : % ==
+        JV := removeDuplicates! _
+              merge(">", jetVars(lt.LCoeff), jetVars(deref(lt.LDer).DFun))
+        ref [lt.LLD, lt.LSharp?, lt.LEval?, empty, JV, [ref lt]]
+
+
+    adapt(rec : RepRec, newLazy : L REF LazyTerm) : RepRec ==
+        -- adapts values for LD etc. to new list newLazy
+        empty? newLazy => zeroRec
+        lt := deref first newLazy
+        newLD := lt.LLD
+        newSharp? := lt.LSharp? and _
+                   (empty?(rest newLazy) or (newLD > deref(second(newLazy)).LLD))
+        newJV1 := rec.JV1
+        while not(empty? newJV1) and first(newJV1) > newLD repeat
+            newJV1 := rest newJV1
+        newJV2 := rec.JV2
+        while not(empty? newJV2) and first(newJV2) > newLD repeat
+            newJV2 := rest newJV2
+        [newLD, newSharp?, rec.Ground?, newJV1, newJV2, newLazy]
+
+
+    zeroU?(f : UDS) : B ==
+        f case D => zero?(f::D)$D
+        zero?(f::%)
+
+
+    oneU?(f : UDS) : B ==
+        f case D => one?(f::D)$D
+        one?(f::%)
+
+
+    minus(f : UDS) : UDS ==
+        f case D => -$D (f::D)
+        fs := f::%
+        groundFlag? f => -$D extract fs
+        - fs
+
+
+    mult(f : UDS, g : UDS) : UDS ==
+        f case D =>
+            fd := f::D
+            g case D => fd *$D (g::D)
+            gs := g::%
+            groundFlag? gs => fd *$D extract gs
+            fd * gs
+        fs := f::%
+        g case D => (g::D) * fs
+        gs := g::%
+        groundFlag? gs => extract(gs) * fs
+        fs * gs
+
+
+    multLazy(rlt1 : REF LazyTerm, rlt2 : REF LazyTerm) : REF LazyTerm ==
+        resLD : JB
+        resSharp?, resEval? : B
+        resCoeff : UDS
+        resDer : REF LazyDer
+        lt1 := deref rlt1
+        lt2 := deref rlt2
+        if lt1.LLD > lt2.LLD then
+            resLD := lt1.LLD
+            resSharp? := lt1.LSharp?
+        else if lt1.LLD < lt2.LLD then
+            resLD := lt2.LLD
+            resSharp? := lt2.LSharp?
+        else
+            resLD := lt1.LLD
+            resSharp? := lt1.LSharp? or lt2.LSharp?
+        resEval? := false
+        if lt1.LEval? then
+            resCoeff := mult(lt1.LCoeff, lt2.LCoeff)
+            if lt2.LEval? then
+                resDer := ref emptyDer
+                resEval? := true
+            else
+                resDer := lt2.LDer
+        else if lt2.LEval? then
+            resCoeff := mult(lt1.LCoeff, lt2.LCoeff)
+            resDer := lt1.LDer
+        else
+            resCoeff := mult(convert(lt1), lt2.LCoeff)
+            resDer := lt2.LDer
+        ref [resLD, resSharp?, resEval?, resCoeff, resDer]$LazyTerm
+
+
+    -- --------- --
+    -- Coercions --
+    -- --------- --
+
+    coerce(jv : JB) : % ==
+        ref [jv, true, true, [jv], empty, _
+             [ref [jv, true, true, jv::D, ref emptyDer]$LazyTerm]]$RepRec
+
+
+    coerce(d : D) : % ==
+        ld := leadingDer(d)$D
+        JV := jetVariables(d)$D
+        ref [ld, true, true, JV, empty, _
+             [ref [ld, true, true, d, ref emptyDer]$LazyTerm]]$RepRec
+
+
+    coerce(exp : %) : D ==
+        exp := eval exp
+        extract exp
+
+
+    printFun(fun : UDS) : OUT ==
+        fun case D => fun::D::OUT
+        fun::%::OUT
+
+
+    printDiff(der : LazyDer) : OUT ==
+        der.DEval? => printFun der.DFun
+        prefix(message("diff"@String), [printFun(der.DFun), (der.DX)::OUT])
+
+
+    printLazyTerm(lt : LazyTerm) : OUT ==
+        lt.LEval? => printFun lt.LCoeff
+        co := lt.LCoeff
+        printFun(co) * printDiff(deref lt.LDer)
+
+
+    printLazy(llt : L REF LazyTerm) : OUT ==
+        #llt = 1 => printLazyTerm deref first llt
+        --reduce("+", [printLazyTerm(deref lt)  for lt in llt], empty$OUT)
+        printLazyTerm(deref first llt) + printLazy rest llt
+
+
+    coerce(exp : %) : OUT ==
+        groundFlag? exp => extract(exp)::OUT
+        printLazy deref(exp).Lazy
+
+
+    -- --------------- --
+    -- Lazy Evaluation --
+    -- --------------- --
+
+    -- All of the following functions change destructively their argument.
+
+    collect(exp : %) : % ==
+        -- Collects all ground terms.
+        -- This checks especially whether since the last call some terms
+        -- have been evaluated.
+        rec := deref exp
+        empty? rec.Lazy =>
+            setref(exp, zeroRec)
+            exp
+        d : D := 0
+        res : B := true
+        newLazy : L REF LazyTerm := empty
+
+        for rlt in rec.Lazy repeat
+            lt := deref rlt
+            if lt.LEval? then                -- term already evaluated
+                d := d +$D (lt.LCoeff::D)
+            else                             -- test for evaluated derivative
+                der := deref lt.LDer
+                if der.DEval? then                  -- derivative evaluated
+                    if emptyDer? der then
+                        prod := lt.LCoeff
+                    else
+                        prod := mult(der.DFun, lt.LCoeff)
+                    if (prod case D) or ground?(prod::%) then
+                        if prod case D then
+                            newCoeff : UDS := prod
+                        else
+                            newCoeff : UDS := extract(prod::%)
+                        newEval? := true
+                        newLD := leadingDer(newCoeff::D)
+                        newSharp? : B := true
+                        d := d +$D (newCoeff::D)
+                    else                  -- coefficient not yet evaluated
+                        newEval? := false
+                        newCoeff : UDS := prod
+                        newLD := lt.LLD
+                        newSharp? := lt.LSharp?
+                        res := false
+                    setref(rlt, [newLD, newSharp?, newEval?, newCoeff, _
+                           ref emptyDer]$LazyTerm)
+                    if not newEval? then
+                        newLazy := append(newLazy, [rlt])
+                else                     -- nothing evaluated  -> recursion!
+                    if (lt.LCoeff case %) and ground?(lt.LCoeff::%) then
+                        co := extract(lt.LCoeff::%)
+                        if zero?(co)$D then
+                            setref(rlt, lazyTerm 0$D)
+                        else
+                            lt.LCoeff := co
+                            setref(rlt, lt)
+                            res := false
+                            newLazy := append(newLazy, [rlt])
+                    else
+                        res := false
+                        newLazy := append(newLazy, [rlt])
+
+        if not zero?(d)$D then
+            newLazy := merge(greater, newLazy, [ref lazyTerm d])
+        rec := adapt(rec, newLazy)
+        rec.Ground? := res
+        setref(exp, rec)
+        exp
+
+
+    ground?(exp : %) : B ==
+        groundFlag? collect exp
+
+
+    evalDeriv(rder : REF LazyDer) : REF LazyDer ==
+        -- Evaluates a lazy derivative
+        der := deref rder
+        der.DEval? => rder
+        if zeroU? der.DFun then
+            dfun : D := 0
+        else
+            fun : D :=
+                der.DFun case D => der.DFun::D
+                der.DFun::%::D                          -- recursion!!!
+            LazyEval := LazyEval + 1
+            dfun : D :=
+                der.DX case JB => differentiate(fun, der.DX::JB)$D
+                differentiate(fun, der.DX::Sy)$D
+        setref(rder, [true, Null, dfun])
+        rder
+
+
+    evalTerm(rlt : REF LazyTerm) : REF LazyTerm ==
+        -- Completely evaluates a lazy term
+        lt := deref rlt
+        lt.LEval? => rlt
+        co : D :=
+            lt.LCoeff case D => lt.LCoeff::D
+            lt.LCoeff::%::D                         -- recursion!!!
+        zero?(co)$D =>
+            setref(rlt, lazyTerm 0$D)
+            rlt
+        res := co *$D (deref(evalDeriv lt.LDer).DFun::D)
+        setref(rlt, lazyTerm res)
+        rlt
+
+
+    eval1(exp : %) : % ==
+        -- Evaluates the next (or more) term in Lazy.
+        -- Evaluation of terms depend on leading derivatives.
+        -- If all terms are already evaluated, collect is called.
+        rec := deref exp
+        rec.Ground? => exp
+        lazy := rec.Lazy
+        empty? lazy =>
+            setref(exp, zeroRec)
+            exp
+        rlt := first lazy
+        rco := deref rlt
+        d : D := 0
+        ld := rco.LLD
+        until empty?(lazy) or (deref(first lazy).LLD < ld) repeat
+            while rco.LEval? repeat
+                d := d +$D (rco.LCoeff::D)
+                lazy := rest lazy
+                empty? lazy => return d::%
+                rlt := first lazy
+                rco := deref rlt
+            lazy := rest lazy
+            co := (deref evalTerm rlt).LCoeff::D
+            d := d +$D co
+            rlt := ref lazyTerm d
+            ld := deref(rlt).LLD
+        if not zero? d then
+            lazy := merge(greater, lazy, [rlt])
+        setref(exp, adapt(rec, lazy))
+        exp
+
+
+    eval(exp : %) : % ==
+        while not ground?(exp) repeat
+            exp := eval1 exp
+        exp
+
+
+    -- ----------- --
+    -- Arithmetics --
+    -- ----------- --
+
+    0 : % == ref zeroRec
+
+
+    1 : % == ref [1$JB, true, true, empty, empty, _
+                  [ref [1$JB, true, true, 1$D, ref emptyDer]$LazyTerm]]$RepRec
+
+
+    zero?(exp : %) : B ==
+        ground? exp => zero?(extract exp)$D
+        ld := leadingDer exp
+        type(ld) = Const => zero?(extract eval exp)$D
+        false
+
+
+    eqRep?(x : %, y : %) : B == (deref(x) = deref(y))
+
+
+    x : % = y : % ==
+        eqRep?(x, y) => true
+        zero?(x - y)
+
+
+    one?(exp : %) : B ==
+        ground? exp => one?(extract exp)$D
+        ld := leadingDer exp
+        type(ld) = Const => one?(extract eval exp)$D
+        false
+
+
+    numerator(exp : %) : % == exp
+
+
+    denominator(exp : %) : % == 1
+
+
+    -- The arithmetic operations are implemented as simple as possible. They
+    -- do not perform any evaluation or simplification with the exception of
+    -- the multiplication where collect is called to reduce if possible the
+    -- number of terms.
+
+    - x : % ==
+        rec := deref x
+        resLazy : L REF LazyTerm := _
+          [(lt := deref rlt; _
+             ref [lt.LLD, lt.LSharp?, lt.LEval?, minus lt.LCoeff, lt.LDer]) _
+           for rlt in rec.Lazy]
+        ref [rec.LD, rec.Sharp?, rec.Ground?, rec.JV1, rec.JV2, resLazy]
+
+
+    x : % + y : % ==
+        xrec := deref x
+        yrec := deref y
+        resLazy := merge(greater, xrec.Lazy, yrec.Lazy)
+        if xrec.LD > yrec.LD then
+            resLD := xrec.LD
+            resSharp? := xrec.Sharp?
+        else if yrec.LD > xrec.LD then
+            resLD := yrec.LD
+            resSharp? := yrec.Sharp?
+        else
+            resLD := xrec.LD
+            resSharp? := false
+        xJV := removeDuplicates! append(xrec.JV1, xrec.JV2)
+        yJV := removeDuplicates! append(yrec.JV1, yrec.JV2)
+        resJV1 := sort!(">", concat!(setDifference(xrec.JV1, yJV), _
+                                  setDifference(yrec.JV1, xJV)))
+        resJV2 := sort!(">", setDifference(concat!(xJV, yJV), resJV1))
+        ref [resLD, resSharp?, false, resJV1, resJV2, resLazy]
+
+
+    i : I * x : % ==
+        rec := deref x
+        resLazy : L REF LazyTerm := empty
+        for rlt in rec.Lazy repeat
+            lt := deref rlt
+            resLazy := concat!(resLazy, [ref [lt.LLD, _
+                lt.LSharp?, lt.LEval?, mult(i::D, lt.LCoeff), lt.LDer]])
+        ref [rec.LD, rec.Sharp?, rec.Ground?, rec.JV1, rec.JV2, resLazy]
+
+
+    d : D * x : % == (d::%) * x
+
+
+    x : % * y : % ==
+        eqRep?(x, 0) or eqRep?(y, 0) => 0
+        ground?(x) and ground?(y) =>
+            (extract(x) *$D extract(y))::%
+        xrec := deref x
+        yrec := deref y
+        resLazy : L REF LazyTerm := empty
+        for xlt in xrec.Lazy repeat
+            for ylt in yrec.Lazy repeat
+                resLazy := merge(greater, resLazy, [multLazy(xlt, ylt)])
+            resJV1 := removeDuplicates! append(xrec.JV1, yrec.JV1)
+            resJV2 := removeDuplicates! append(xrec.JV2, yrec.JV2)
+
+        if xrec.LD > yrec.LD then
+            resLD := xrec.LD
+        else if yrec.LD > xrec.LD then
+            resLD := yrec.LD
+        else
+            resLD := xrec.LD
+        resSharp? := xrec.Sharp? and yrec.Sharp?
+                          -- both necessary as otherwise one factor may be zero!
+
+        ref [resLD, resSharp?, false, resJV1, resJV2, resLazy]
+
+
+    recip(exp : %) : Union(%, "failed") ==
+        ground? exp =>
+            rd := recip(extract exp)$D
+            rd case "failed" => "failed"
+            rd::D::%
+        "failed"
+
+
+    -- -------------- --
+    -- JBFC Functions --
+    -- -------------- --
+
+    const?(exp : %) : B ==
+        rec := deref exp
+        empty? rec.JV1 => const?(exp::D)$D
+        false
+
+
+    order(exp : %) : NNI == order leadingDer exp
+
+
+    class(exp : %) : NNI == class leadingDer exp
+
+
+    jetVariables(exp : %) : L JB ==
+        -- result may contain spurious variables
+        rec := deref exp
+        merge(">", rec.JV1, rec.JV2)
+
+
+    differentiate(exp : %, jv : JB) : % ==
+        rec := deref exp
+        ld := rec.LD
+        jv > ld => 0
+        newJV := removeDuplicates! merge(">", rec.JV1, rec.JV2)
+        not member?(jv, newJV) => 0
+        LazyDiff := LazyDiff + 1
+        ref [ld, false, false, empty, newJV, _
+             [ref [ld, false, false, 1$D, ref [false, jv, exp]]]]
+
+
+    differentiate(exp : %, x : Sy) : % ==
+        LazyDiff := LazyDiff + 1
+        rec := deref exp
+        ld := rec.LD
+        newJV := removeDuplicates! merge(">", rec.JV1, rec.JV2)
+        ref [ld, false, false, empty, newJV, _
+             [ref [ld, false, false, 1$D, ref [false, x, exp]]]]
+
+
+    formalDiff2(Sys : L %, i : PI, JM : SEM
+               ) : Record(DSys : L %, JVars : L L JB) ==
+        -- Basically as the default implementation in JBFC;
+        -- only eqRep? is used instead of zero?.
+        inds := allIndices JM
+        empty? inds => [[0 for eq in Sys], [empty for eq in Sys]]
+        LRes : L % := empty
+        LJV : L L JB := empty
+
+        -- compute formal derivative for each function
+        for l in 1..nrows(JM)   for f in Sys repeat
+            r := row(JM, l)
+            res : % := 0
+            JV : L JB := empty
+            for df in reverse r.Entries  for jv in reverse r.Indices repeat
+                if not eqRep?(df, 0) then
+                    djv := differentiate(jv, i)
+                    if djv case "0" then
+                        JV := cons(jv, JV)
+                    else if one?(djv::JB) then
+                        res := res + df
+                        JV := cons(jv, JV)
+                    else
+                        res := res + df*(djv::JB::%)
+                        JV := append([jv, djv::JB], JV)
+            if deref(f).Sharp? then
+                deref(res).Sharp? := true
+            LRes := cons(res, LRes)
+            JV := sort!(">", removeDuplicates! JV)
+            LJV := cons(JV, LJV)
+
+        [reverse! LRes, reverse! LJV]
+
+
+    -- -------------- --
+    -- Simplification --
+    -- -------------- --
+
+    -- Most of the procedures here need to completely evaluate their
+    -- arguments. Notable exception are leadingDer and simplify both
+    -- trying to avoid evaluation as long as possible.
+
+    leadingDer(exp : %) : JB ==
+        -- Evaluates as many terms as necessary to get sharp bound LD
+        rec := deref exp
+        while not(rec.Sharp? or ground? exp) repeat
+            exp := eval1 exp
+            rec := deref exp
+        rec.Sharp? => rec.LD
+        leadingDer(exp::D)$D
+
+
+    freeOf?(exp : %, jv : JB) : B ==
+        -- Can be decided without evaluation only if jv in JV1
+        while not(member?(jv, deref(exp).JV1) or ground?(exp)) repeat
+             exp := eval1 exp
+        member?(jv, deref(exp).JV1) => false
+        freeOf?(exp::D, jv)$D
+
+
+    solveFor(exp : %, jv : JB) : Union(%, "failed") ==
+        sf := solveFor(exp::D, jv)$D
+        sf case "failed" => "failed"
+        sf::D::%
+
+
+    subst(exp : %, jv : JB, sub : %) : % ==
+        -- Substitution requires complete evaluation of both exp and sub,
+        -- as we don't know how subst works in D. Otherwise we could at least
+        -- avoid the evaluation of sub.
+        subst(exp::D, jv, sub::D)$D ::%
+
+
+    ld(r : SREC) : JB == deref(r.Fun).LD
+
+
+
+    greaterLD(r1 : SREC, r2 : SREC) : B == (ld(r1) > ld(r2))
+        -- local function for sorting purposes
+
+
+
+    simpLD(l : L SREC) : L SREC ==
+        -- assumes l is sorted using greaterLD
+        #l < 2 => l
+        cur := first l
+        cld := ld cur
+        l := rest l
+        cld ~= ld(first l) => cons(cur, simpLD l)
+        eqLD : L SREC := [cur]
+        while not(empty? l) and (cld = ld(fl : SREC := first l)) repeat
+            eqLD := cons(fl, eqLD)
+            l := rest l
+
+        -- try to solve one equation and substitute in the other ones
+        solvable? : B := false
+        for eq in eqLD  until solvable? repeat
+            s := solveFor(eq.Fun, cld)
+            solvable? := (s case %)
+            seq := eq
+        newL : L SREC := empty
+        if solvable? then
+            for eq in eqLD | eq ~= seq repeat
+                neweq := numerator subst(eq.Fun, cld, s::%)
+                if not zero? neweq then
+                    newld := leadingDer neweq
+                    newL := merge(greaterLD, newL,
+                             [[append(eq.Dep, seq.Dep), neweq]$SREC])
+        else
+            -- evaluate and use simplify of D
+            sys := [eq.Fun::D  for eq in eqLD]
+            oldDep := [eq.Dep  for eq in eqLD]
+            tmp := simplify(sys, jacobiMatrix(sys))$D
+            if tmp.Depend = "failed" then
+                dep := removeDuplicates! reduce(append, oldDep, empty)
+                newDep : L L NNI := [dep  for eq in tmp.Sys]
+            else
+                newDep : L L NNI := empty
+                for dep in tmp.Depend::L L NNI repeat
+                    ndep : L NNI := empty
+                    for d in dep repeat
+                        ndep := removeDuplicates! concat!(ndep, qelt(oldDep, d))
+                    newDep := cons(ndep, newDep)
+                newDep := reverse! newDep
+            newL := [[dep, deq::%]  for deq in tmp.Sys  for dep in newDep]
+            newL := sort!(greaterLD, newL)
+        cons(seq, simpLD merge(greaterLD, l, newL))
+
+
+    simplify(sys : L %, jm : SEM) : SIMPREC ==
+        sl : L SREC := [[[i::NNI], f]  for f in sys  for i in 1..]
+        --print("SIMPLIFY")$OUT
+        --print(assign("sl", sl::OUT))$OUT
+        sl := simpLD sort!(greaterLD, sl)
+        --print(assign("sl", sl::OUT))$OUT
+        resSys := [collect l.Fun  for l in sl]
+        resDep := [l.Dep  for l in sl]
+
+        -- adjust Jacobi matrix
+        inds := allIndices jm
+        resJM : SEM := new(inds, #sl)
+        for eq in resSys  for dep in resDep  for i in 1.. repeat
+            if one?(#dep) then
+                r := row(jm, first(dep))
+            else
+                tmp := jacobiMatrix([eq], [inds])
+                r := row(tmp, 1)
+            setRow!(resJM, i, r)
+
+        [resSys, resJM, resDep]
+
+)if false
+    simpOne(sys : L %) : L % ==
+        -- Simplifies only evaluated equations
+        groundSys : L D := empty()
+        remSys : L % := empty
+        for exp in sys repeat
+            if ground? exp then
+                groundSys := cons(extract exp, groundSys)
+            else
+                remSys := cons(exp, remSys)
+        concat!([d::%  for d in simpOne(groundSys)$D], remSys)
+)endif
+
+    reduceMod(sys1 : L %, sys2 : L %) : L % ==
+        sys1D := [extract eval exp  for exp in sys1]
+        sys2D := [extract eval exp  for exp in sys2]
+        [d::%  for d in reduceMod(sys1D, sys2D)$D]
+
+
+    autoReduce(sys : L %) : L % ==
+        sysD := [extract eval exp  for exp in sys]
+        [d::%  for d in autoReduce(sysD)$D]
+
+

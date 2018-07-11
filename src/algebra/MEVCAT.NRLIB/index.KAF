@@ -1,0 +1,118 @@
+5835                (|ModularEvaluationCategory| PT MP)
+|category|
+(((|ModularEvaluationCategory| |#1| |#2|) (|Category|) (|Type|) (|Type|))
+ (T |ModularEvaluationCategory|))
+(|Join|
+ (CATEGORY |package|
+  (SIGNATURE |degree| ((|NonNegativeInteger|) |t#2| (|Symbol|)))
+  (SIGNATURE |ldegree| ((|NonNegativeInteger|) |t#1| (|Symbol|)))
+  (SIGNATURE |eval1a|
+   ((|Integer|) |t#2| (|Integer|)
+    (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+              (|:| |eval1expbuf| (|SortedExponentVector|)))))
+  (SIGNATURE |eval1|
+   (|t#2| |t#2| (|Symbol|) (|Integer|)
+    (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+              (|:| |eval1expbuf| (|SortedExponentVector|)))))
+  (SIGNATURE |modpreduction| (|t#2| |t#2| (|Integer|)))
+  (SIGNATURE |subst_vars|
+   (|t#2| |t#1| (|List| (|Symbol|)) (|List| (|Symbol|))))
+  (SIGNATURE |trial_division|
+   ((|Boolean|) |t#2| (|Polynomial| (|Integer|)) (|List| |t#2|) (|Symbol|)
+    (|List| (|Symbol|))))))
+"/git/fricas/src/algebra/MEVCAT.spad"
+((|trial_division| (*1 *2 *3 *4 *5 *6 *7)
+  (AND (|isDomain| *4 (|Polynomial| (|Integer|))) (|isDomain| *5 (|List| *3))
+       (|isDomain| *7 (|List| (|Symbol|)))
+       (|ofCategory| *1 (|ModularEvaluationCategory| *8 *3))
+       (|ofCategory| *8 (|Type|)) (|ofCategory| *3 (|Type|))
+       (|isDomain| *6 (|Symbol|)) (|isDomain| *2 (|Boolean|))))
+ (|subst_vars| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *4 (|List| (|Symbol|)))
+       (|ofCategory| *1 (|ModularEvaluationCategory| *3 *2))
+       (|ofCategory| *3 (|Type|)) (|ofCategory| *2 (|Type|))))
+ (|modpreduction| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|ofCategory| *1 (|ModularEvaluationCategory| *4 *2))
+       (|ofCategory| *4 (|Type|)) (|ofCategory| *2 (|Type|))))
+ (|eval1| (*1 *2 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|isDomain| *5
+                   (|Record| (|:| |prime| (|Integer|))
+                             (|:| |eval1coeffbuf| (|U32Vector|))
+                             (|:| |eval1expbuf| (|SortedExponentVector|))))
+       (|ofCategory| *1 (|ModularEvaluationCategory| *6 *2))
+       (|ofCategory| *6 (|Type|)) (|ofCategory| *2 (|Type|))
+       (|isDomain| *4 (|Integer|))))
+ (|eval1a| (*1 *2 *3 *2 *4)
+  (AND
+   (|isDomain| *4
+               (|Record| (|:| |prime| (|Integer|))
+                         (|:| |eval1coeffbuf| (|U32Vector|))
+                         (|:| |eval1expbuf| (|SortedExponentVector|))))
+   (|ofCategory| *1 (|ModularEvaluationCategory| *5 *3))
+   (|ofCategory| *5 (|Type|)) (|ofCategory| *3 (|Type|))
+   (|isDomain| *2 (|Integer|))))
+ (|ldegree| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *1 (|ModularEvaluationCategory| *3 *5))
+       (|ofCategory| *3 (|Type|)) (|ofCategory| *5 (|Type|))
+       (|isDomain| *2 (|NonNegativeInteger|))))
+ (|degree| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *1 (|ModularEvaluationCategory| *5 *3))
+       (|ofCategory| *5 (|Type|)) (|ofCategory| *3 (|Type|))
+       (|isDomain| *2 (|NonNegativeInteger|)))))
+((|trial_division|
+  (((|Boolean|) |#2| (|Polynomial| (|Integer|)) (|List| |#2|) (|Symbol|)
+    (|List| (|Symbol|)))
+   6))
+ (|subst_vars| ((|#2| |#1| (|List| (|Symbol|)) (|List| (|Symbol|))) 6))
+ (|modpreduction| ((|#2| |#2| (|Integer|)) 6))
+ (|ldegree| (((|NonNegativeInteger|) |#1| (|Symbol|)) 6))
+ (|eval1a|
+  (((|Integer|) |#2| (|Integer|)
+    (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+              (|:| |eval1expbuf| (|SortedExponentVector|))))
+   6))
+ (|eval1|
+  ((|#2| |#2| (|Symbol|) (|Integer|)
+    (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+              (|:| |eval1expbuf| (|SortedExponentVector|))))
+   6))
+ (|degree| (((|NonNegativeInteger|) |#2| (|Symbol|)) 6)))
+MEVCAT
+((|constructor|
+  (NIL
+   "ModularEvaluationCategory(\\spad{PT},{} \\spad{MP}) defines interface \\indented{1}{to evaluation functions for \\spad{ModularAlgebraicGcd2}.}"))
+ (|trial_division|
+  (((|Boolean|) |#2| (|Polynomial| (|Integer|)) (|List| |#2|) (|Symbol|)
+    (|List| (|Symbol|)))
+   "\\spad{trial_division(p,{} q,{} lm,{} v,{} lz)} checks if \\spad{p} is divisible by \\spad{q}. \\spad{lm} is a list of defining equations for algebraic parameters,{} \\spad{v} is main variable,{} \\spad{lz} is the list of algebraic parameters."))
+ (|subst_vars|
+  ((|#2| |#1| (|List| (|Symbol|)) (|List| (|Symbol|)))
+   "\\spad{subst_vars(p,{} lv1,{} lv2)} substitutes variables from list \\spad{lv2} for corresponding variables from \\spad{lv1}."))
+ (|modpreduction|
+  ((|#2| |#2| (|Integer|))
+   "\\spad{modpreduction(p,{} q)} reduces all coefficients of \\spad{p} modulo \\spad{q}."))
+ (|eval1|
+  ((|#2| |#2| (|Symbol|) (|Integer|)
+    (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+              (|:| |eval1expbuf| (|SortedExponentVector|))))
+   "\\spad{eval1(p,{} v,{} r,{} pss)} evaluates \\spad{p} with respect to single variable \\spad{v} at \\spad{r}. \\spad{pss} is global state."))
+ (|eval1a|
+  (((|Integer|) |#2| (|Integer|)
+    (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+              (|:| |eval1expbuf| (|SortedExponentVector|))))
+   "\\spad{eval1a(p,{} r,{} pss)} evaluates \\spad{p} at \\spad{r}. \\spad{p} must be polynomial in single variable. \\spad{pss} is global state."))
+ (|ldegree|
+  (((|NonNegativeInteger|) |#1| (|Symbol|))
+   "\\spad{ldegree(p,{} v)} computes degree of \\spad{p} with respect to \\spad{v}. \\spad{v} must be one of auxiliary variables and must be lexicographically first variable which appears in \\spad{p}. Moreover,{} \\spad{p} must be a polynomial in \\spad{v} (not a rational function)."))
+ (|degree|
+  (((|NonNegativeInteger|) |#2| (|Symbol|))
+   "\\spad{degree(p,{} v)} computes degree of \\spad{p} with respect to \\spad{v}.")))
+(("documentation" 0 3807) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3800) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3062) ("modemaps" 0 1038) ("sourceFile" 0 1000)
+ ("constructorCategory" 0 175) ("constructorModemap" 0 67)
+ ("constructorKind" 0 56) ("constructorForm" 0 20))

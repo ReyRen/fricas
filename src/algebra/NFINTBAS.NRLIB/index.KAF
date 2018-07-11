@@ -1,0 +1,78 @@
+5207                (|NumberFieldIntegralBasis| UP F)
+|package|
+(((|NumberFieldIntegralBasis| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |discriminant| ((|Integer|)))
+   (SIGNATURE |integralBasis|
+    ((|Record| (|:| |basis| (|Matrix| (|Integer|)))
+               (|:| |basisDen| (|Integer|))
+               (|:| |basisInv| (|Matrix| (|Integer|))))))
+   (SIGNATURE |localIntegralBasis|
+    ((|Record| (|:| |basis| (|Matrix| (|Integer|)))
+               (|:| |basisDen| (|Integer|))
+               (|:| |basisInv| (|Matrix| (|Integer|))))
+     (|Integer|))))
+  (|UnivariatePolynomialCategory| (|Integer|))
+  (|FramedAlgebra| (|Integer|) |#1|))
+ (T |NumberFieldIntegralBasis|))
+(CATEGORY |package| (SIGNATURE |discriminant| ((|Integer|)))
+ (SIGNATURE |integralBasis|
+  ((|Record| (|:| |basis| (|Matrix| (|Integer|))) (|:| |basisDen| (|Integer|))
+             (|:| |basisInv| (|Matrix| (|Integer|))))))
+ (SIGNATURE |localIntegralBasis|
+  ((|Record| (|:| |basis| (|Matrix| (|Integer|))) (|:| |basisDen| (|Integer|))
+             (|:| |basisInv| (|Matrix| (|Integer|))))
+   (|Integer|))))
+"/git/fricas/src/algebra/NFINTBAS.spad"
+((|localIntegralBasis| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+       (|isDomain| *2
+                   (|Record| (|:| |basis| (|Matrix| (|Integer|)))
+                             (|:| |basisDen| (|Integer|))
+                             (|:| |basisInv| (|Matrix| (|Integer|)))))
+       (|isDomain| *1 (|NumberFieldIntegralBasis| *4 *5))
+       (|ofCategory| *5 (|FramedAlgebra| *3 *4))))
+ (|integralBasis| (*1 *2)
+  (AND (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))
+       (|isDomain| *2
+                   (|Record| (|:| |basis| (|Matrix| (|Integer|)))
+                             (|:| |basisDen| (|Integer|))
+                             (|:| |basisInv| (|Matrix| (|Integer|)))))
+       (|isDomain| *1 (|NumberFieldIntegralBasis| *3 *4))
+       (|ofCategory| *4 (|FramedAlgebra| (|Integer|) *3))))
+ (|discriminant| (*1 *2)
+  (AND (|ofCategory| *3 (|UnivariatePolynomialCategory| *2))
+       (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|NumberFieldIntegralBasis| *3 *4))
+       (|ofCategory| *4 (|FramedAlgebra| *2 *3)))))
+((|localIntegralBasis|
+  (((|Record| (|:| |basis| (|Matrix| (|Integer|))) (|:| |basisDen| (|Integer|))
+              (|:| |basisInv| (|Matrix| (|Integer|))))
+    (|Integer|))
+   55))
+ (|integralBasis|
+  (((|Record| (|:| |basis| (|Matrix| (|Integer|))) (|:| |basisDen| (|Integer|))
+              (|:| |basisInv| (|Matrix| (|Integer|)))))
+   53))
+ (|discriminant| (((|Integer|)) 66)))
+NFINTBAS
+((|constructor|
+  (NIL
+   "In this package \\spad{F} is a framed algebra over the integers (typically \\spad{F = Z[a]} for some algebraic integer a). The package provides functions to compute the integral closure of \\spad{Z} in the quotient field of \\spad{F}."))
+ (|localIntegralBasis|
+  (((|Record| (|:| |basis| (|Matrix| (|Integer|))) (|:| |basisDen| (|Integer|))
+              (|:| |basisInv| (|Matrix| (|Integer|))))
+    (|Integer|))
+   "\\spad{integralBasis(p)} returns a record \\spad{[basis,{} basisDen,{} basisInv]} containing information regarding the local integral closure of \\spad{Z} at the prime \\spad{p} in the quotient field of \\spad{F},{} where \\spad{F} is a framed algebra with \\spad{Z}-module basis \\spad{w1,{} w2,{} ...,{} wn}. If \\spad{basis} is the matrix \\spad{(aij,{} i = 1..n,{} j = 1..n)},{} then the \\spad{i}th element of the integral basis is \\spad{\\spad{vi} = (1/basisDen) * sum(aij * wj,{} j = 1..n)},{} \\spadignore{i.e.} the \\spad{i}th row of \\spad{basis} contains the coordinates of the \\spad{i}th basis vector. Similarly,{} the \\spad{i}th row of the matrix \\spad{basisInv} contains the coordinates of \\spad{\\spad{wi}} with respect to the basis \\spad{v1,{} ...,{} vn}: if \\spad{basisInv} is the matrix \\spad{(bij,{} i = 1..n,{} j = 1..n)},{} then \\spad{\\spad{wi} = sum(bij * vj,{} j = 1..n)}."))
+ (|integralBasis|
+  (((|Record| (|:| |basis| (|Matrix| (|Integer|))) (|:| |basisDen| (|Integer|))
+              (|:| |basisInv| (|Matrix| (|Integer|)))))
+   "\\spad{integralBasis()} returns a record \\spad{[basis,{} basisDen,{} basisInv]} containing information regarding the integral closure of \\spad{Z} in the quotient field of \\spad{F},{} where \\spad{F} is a framed algebra with \\spad{Z}-module basis \\spad{w1,{} w2,{} ...,{} wn}. If \\spad{basis} is the matrix \\spad{(aij,{} i = 1..n,{} j = 1..n)},{} then the \\spad{i}th element of the integral basis is \\spad{\\spad{vi} = (1/basisDen) * sum(aij * wj,{} j = 1..n)},{} \\spadignore{i.e.} the \\spad{i}th row of \\spad{basis} contains the coordinates of the \\spad{i}th basis vector. Similarly,{} the \\spad{i}th row of the matrix \\spad{basisInv} contains the coordinates of \\spad{\\spad{wi}} with respect to the basis \\spad{v1,{} ...,{} vn}: if \\spad{basisInv} is the matrix \\spad{(bij,{} i = 1..n,{} j = 1..n)},{} then \\spad{\\spad{wi} = sum(bij * vj,{} j = 1..n)}."))
+ (|discriminant|
+  (((|Integer|))
+   "\\spad{discriminant()} returns the discriminant of the integral closure of \\spad{Z} in the quotient field of the framed algebra \\spad{F}.")))
+(("documentation" 0 2635) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2626) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2243) ("modemaps" 0 1125) ("sourceFile" 0 1085)
+ ("constructorCategory" 0 677) ("constructorModemap" 0 64)
+ ("constructorKind" 0 54) ("constructorForm" 0 20))

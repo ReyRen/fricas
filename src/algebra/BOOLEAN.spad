@@ -1,0 +1,72 @@
+)abbrev domain BOOLEAN Boolean
+++ Author: Stephen M. Watt
+++ Basic Operations: true, false, not, and, or, xor, nand, nor, implies
+++ Related Constructors:
+++ Keywords: boolean
+++ Description:  \spadtype{Boolean} is the elementary logic with 2 values:
+++ true and false
+
+Boolean() : Join(OrderedSet, Finite, Logic, ConvertibleTo InputForm) with
+    _not : % -> %
+      ++ not n returns the negation of n.
+    _and  : (%, %) -> %
+      ++ a and b  returns the logical {\em and} of Boolean \spad{a} and b.
+    _or  : (%, %) -> %
+      ++ a or b returns the logical inclusive {\em or}
+      ++ of Boolean \spad{a} and b.
+    xor    : (%, %) -> %
+      ++ xor(a, b) returns the logical exclusive {\em or}
+      ++ of Boolean \spad{a} and b.
+    nand   : (%, %) -> %
+      ++ nand(a, b) returns the logical negation of \spad{a} and b.
+    nor    : (%, %) -> %
+      ++ nor(a, b) returns the logical negation of \spad{a} or b.
+    implies : (%, %) -> %
+      ++ implies(a, b) returns the logical implication
+      ++ of Boolean \spad{a} and b.
+    test : % -> Boolean
+      ++ test(b) returns b and is provided for compatibility with the new compiler.
+  == add
+    nt : % -> %
+
+    test a        == a pretend Boolean
+
+    nt b          == (b pretend Boolean => false; true)
+    true          == EQ(2, 2)$Lisp   --well, 1 is rather special
+    false         == NIL$Lisp
+    -- sample()      == true
+    not b         == NOT(b)$Lisp
+    _~ b          == NOT(b)$Lisp
+    _and(a, b)    == AND(a, b)$Lisp
+    _/_\(a, b)    == AND(a, b)$Lisp
+    _or(a, b)     == OR(a, b)$Lisp
+    _\_/(a, b)    == OR(a, b)$Lisp
+    xor(a, b)     == (test a => nt b; b)
+    nor(a, b)     == (test a => false; nt b)
+    nand(a, b)    == (test a => nt b; true)
+    a = b         == BooleanEquality(a, b)$Lisp
+    implies(a, b) == (test a => b; true)
+    a < b         == (test b => not(test a);false)
+
+    import from Integer
+
+    size()        == 2
+    index i       ==
+      even?(i::Integer) => false
+      true
+    lookup a      ==
+      a pretend Boolean => 1
+      2
+    random()      ==
+      even?(random(2)$Integer) => false
+      true
+
+    convert(x : %) : InputForm ==
+      x pretend Boolean => convert('true)
+      convert('false)
+
+    coerce(x : %) : OutputForm ==
+      x pretend Boolean => message "true"
+      message "false"
+
+

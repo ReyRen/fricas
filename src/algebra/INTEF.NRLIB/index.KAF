@@ -1,0 +1,68 @@
+3078                (|ElementaryIntegration| R F)
+|package|
+(((|ElementaryIntegration| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |lfextendedint|
+    ((|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeff| |#2|)) "failed") |#2|
+     (|Symbol|) |#2|))
+   (SIGNATURE |lfintegrate| ((|IntegrationResult| |#2|) |#2| (|Symbol|))))
+  (|Join| (|GcdDomain|) (|Comparable|) (|CharacteristicZero|)
+          (|PolynomialFactorizationExplicit|) (|RetractableTo| (|Integer|))
+          (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|AlgebraicallyClosedField|) (|TranscendentalFunctionCategory|)
+          (|FunctionSpace| |#1|)))
+ (T |ElementaryIntegration|))
+(CATEGORY |package|
+ (SIGNATURE |lfextendedint|
+  ((|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeff| |#2|)) "failed") |#2|
+   (|Symbol|) |#2|))
+ (SIGNATURE |lfintegrate| ((|IntegrationResult| |#2|) |#2| (|Symbol|))))
+"/git/fricas/src/algebra/INTEF.spad"
+((|lfintegrate| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *5
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2 (|IntegrationResult| *3))
+       (|isDomain| *1 (|ElementaryIntegration| *5 *3))
+       (|ofCategory| *3
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|FunctionSpace| *5)))))
+ (|lfextendedint| (*1 *2 *3 *4 *3)
+  (|partial| AND (|isDomain| *4 (|Symbol|))
+   (|ofCategory| *5
+                 (|Join| (|GcdDomain|) (|Comparable|) (|CharacteristicZero|)
+                         (|PolynomialFactorizationExplicit|)
+                         (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *2 (|Record| (|:| |ratpart| *3) (|:| |coeff| *3)))
+   (|isDomain| *1 (|ElementaryIntegration| *5 *3))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| *5))))))
+((|lfintegrate| (((|IntegrationResult| |#2|) |#2| (|Symbol|)) 43))
+ (|lfextendedint|
+  (((|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeff| |#2|)) "failed") |#2|
+    (|Symbol|) |#2|)
+   36)))
+INTEF
+((|constructor|
+  (NIL
+   "This package provides functions for integration,{} limited integration,{} extended integration and the risch differential equation for elemntary functions."))
+ (|lfintegrate|
+  (((|IntegrationResult| |#2|) |#2| (|Symbol|))
+   "\\spad{lfintegrate(f,{} x)} = \\spad{g} such that \\spad{dg/dx = f}."))
+ (|lfextendedint|
+  (((|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeff| |#2|)) "failed") |#2|
+    (|Symbol|) |#2|)
+   "\\spad{lfextendedint(f,{} x,{} g)} returns functions \\spad{[h,{} c]} such that \\spad{dh/dx = f - cg},{} if (\\spad{h},{} \\spad{c}) exist,{} \"failed\" otherwise.")))
+(("documentation" 0 2461) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2455) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2261) ("modemaps" 0 910) ("sourceFile" 0 873)
+ ("constructorCategory" 0 653) ("constructorModemap" 0 60)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

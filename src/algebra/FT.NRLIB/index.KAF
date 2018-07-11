@@ -1,0 +1,154 @@
+6834                (MAKEPROP '|FortranType| 'NILADIC T)
+(|FortranType|)
+|domain|
+(((|FortranType|)
+  (|Join| (|SetCategory|)
+          (CATEGORY |domain| (SIGNATURE |coerce| ((|OutputForm|) $))
+           (SIGNATURE |coerce| ($ (|FortranScalarType|)))
+           (SIGNATURE |scalarTypeOf|
+            ((|Union| (|:| |fst| (|FortranScalarType|)) (|:| |void| #1="void"))
+             $))
+           (SIGNATURE |dimensionsOf| ((|List| (|Polynomial| (|Integer|))) $))
+           (SIGNATURE |external?| ((|Boolean|) $))
+           (SIGNATURE |construct|
+            ($ (|Union| (|:| |fst| (|FortranScalarType|)) (|:| |void| #1#))
+             (|List| (|Symbol|)) (|Boolean|)))
+           (SIGNATURE |construct|
+            ($ (|Union| (|:| |fst| (|FortranScalarType|)) (|:| |void| #1#))
+             (|List| (|Polynomial| (|Integer|))) (|Boolean|)))
+           (SIGNATURE |fortranReal| ($)) (SIGNATURE |fortranDouble| ($))
+           (SIGNATURE |fortranInteger| ($)) (SIGNATURE |fortranLogical| ($))
+           (SIGNATURE |fortranComplex| ($))
+           (SIGNATURE |fortranDoubleComplex| ($))
+           (SIGNATURE |fortranCharacter| ($)))))
+ (T |FortranType|))
+(|Join| (|SetCategory|)
+        (CATEGORY |domain| (SIGNATURE |coerce| ((|OutputForm|) $))
+         (SIGNATURE |coerce| ($ (|FortranScalarType|)))
+         (SIGNATURE |scalarTypeOf|
+          ((|Union| (|:| |fst| (|FortranScalarType|)) (|:| |void| #1="void"))
+           $))
+         (SIGNATURE |dimensionsOf| ((|List| (|Polynomial| (|Integer|))) $))
+         (SIGNATURE |external?| ((|Boolean|) $))
+         (SIGNATURE |construct|
+          ($ (|Union| (|:| |fst| (|FortranScalarType|)) (|:| |void| #1#))
+           (|List| (|Symbol|)) (|Boolean|)))
+         (SIGNATURE |construct|
+          ($ (|Union| (|:| |fst| (|FortranScalarType|)) (|:| |void| #1#))
+           (|List| (|Polynomial| (|Integer|))) (|Boolean|)))
+         (SIGNATURE |fortranReal| ($)) (SIGNATURE |fortranDouble| ($))
+         (SIGNATURE |fortranInteger| ($)) (SIGNATURE |fortranLogical| ($))
+         (SIGNATURE |fortranComplex| ($))
+         (SIGNATURE |fortranDoubleComplex| ($))
+         (SIGNATURE |fortranCharacter| ($))))
+"/git/fricas/src/algebra/FT.spad"
+((|coerce| (*1 *2 *1)
+           (AND (|isDomain| *2 (|OutputForm|))
+                (|isDomain| *1 (|FortranType|))))
+ (|coerce| (*1 *1 *2)
+           (AND (|isDomain| *2 (|FortranScalarType|))
+                (|isDomain| *1 (|FortranType|))))
+ (|scalarTypeOf| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|Union| (|:| |fst| (|FortranScalarType|))
+                        (|:| |void| #1="void")))
+   (|isDomain| *1 (|FortranType|))))
+ (|dimensionsOf| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|Polynomial| (|Integer|))))
+       (|isDomain| *1 (|FortranType|))))
+ (|external?| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|FortranType|))))
+ (|construct| (*1 *1 *2 *3 *4)
+              (AND
+               (|isDomain| *2
+                           (|Union| (|:| |fst| (|FortranScalarType|))
+                                    (|:| |void| #1#)))
+               (|isDomain| *3 (|List| (|Symbol|))) (|isDomain| *4 (|Boolean|))
+               (|isDomain| *1 (|FortranType|))))
+ (|construct| (*1 *1 *2 *3 *4)
+              (AND
+               (|isDomain| *2
+                           (|Union| (|:| |fst| (|FortranScalarType|))
+                                    (|:| |void| #1#)))
+               (|isDomain| *3 (|List| (|Polynomial| (|Integer|))))
+               (|isDomain| *4 (|Boolean|)) (|isDomain| *1 (|FortranType|))))
+ (|fortranReal| (*1 *1) (|isDomain| *1 (|FortranType|)))
+ (|fortranDouble| (*1 *1) (|isDomain| *1 (|FortranType|)))
+ (|fortranInteger| (*1 *1) (|isDomain| *1 (|FortranType|)))
+ (|fortranLogical| (*1 *1) (|isDomain| *1 (|FortranType|)))
+ (|fortranComplex| (*1 *1) (|isDomain| *1 (|FortranType|)))
+ (|fortranDoubleComplex| (*1 *1) (|isDomain| *1 (|FortranType|)))
+ (|fortranCharacter| (*1 *1) (|isDomain| *1 (|FortranType|))))
+((~= (((|Boolean|) $ $) NIL))
+ (|scalarTypeOf|
+  (((|Union| (|:| |fst| (|FortranScalarType|)) (|:| |void| #1="void")) $) 10))
+ (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|fortranReal| (($) 32))
+ (|fortranLogical| (($) 38)) (|fortranInteger| (($) 34))
+ (|fortranDoubleComplex| (($) 36)) (|fortranDouble| (($) 33))
+ (|fortranComplex| (($) 35)) (|fortranCharacter| (($) 37))
+ (|external?| (((|Boolean|) $) 8))
+ (|dimensionsOf| (((|List| (|Polynomial| (|Integer|))) $) 18))
+ (|construct|
+  (($ (|Union| (|:| |fst| (|FortranScalarType|)) (|:| |void| #1#))
+    (|List| (|Symbol|)) (|Boolean|))
+   27)
+  (($ (|Union| (|:| |fst| (|FortranScalarType|)) (|:| |void| #1#))
+    (|List| (|Polynomial| (|Integer|))) (|Boolean|))
+   28))
+ (|coerce| (((|OutputForm|) $) 23) (($ (|FortranScalarType|)) 30))
+ (= (((|Boolean|) $ $) NIL)))
+FT
+(((|SetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "Creates and manipulates objects which correspond to FORTRAN data types,{} including array dimensions."))
+ (|fortranCharacter|
+  (($)
+   "\\spad{fortranCharacter()} returns CHARACTER,{} an element of FortranType"))
+ (|fortranDoubleComplex|
+  (($)
+   "\\spad{fortranDoubleComplex()} returns DOUBLE COMPLEX,{} an element of FortranType"))
+ (|fortranComplex|
+  (($)
+   "\\spad{fortranComplex()} returns COMPLEX,{} an element of FortranType"))
+ (|fortranLogical|
+  (($)
+   "\\spad{fortranLogical()} returns LOGICAL,{} an element of FortranType"))
+ (|fortranInteger|
+  (($)
+   "\\spad{fortranInteger()} returns INTEGER,{} an element of FortranType"))
+ (|fortranDouble|
+  (($)
+   "\\spad{fortranDouble()} returns DOUBLE PRECISION,{} an element of FortranType"))
+ (|fortranReal|
+  (($) "\\spad{fortranReal()} returns REAL,{} an element of FortranType"))
+ (|construct|
+  (($ (|Union| (|:| |fst| (|FortranScalarType|)) (|:| |void| #1="void"))
+    (|List| (|Polynomial| (|Integer|))) (|Boolean|))
+   "\\spad{construct(type,{} dims)} creates an element of FortranType")
+  (($ (|Union| (|:| |fst| (|FortranScalarType|)) (|:| |void| #1#))
+    (|List| (|Symbol|)) (|Boolean|))
+   "\\spad{construct(type,{} dims)} creates an element of FortranType"))
+ (|external?|
+  (((|Boolean|) $)
+   "\\spad{external?(u)} returns \\spad{true} if \\spad{u} is declared to be EXTERNAL"))
+ (|dimensionsOf|
+  (((|List| (|Polynomial| (|Integer|))) $)
+   "\\spad{dimensionsOf(t)} returns the dimensions of \\spad{t}"))
+ (|scalarTypeOf|
+  (((|Union| (|:| |fst| (|FortranScalarType|)) (|:| |void| #1#)) $)
+   "\\spad{scalarTypeOf(t)} returns the FORTRAN data type of \\spad{t}"))
+ (|coerce|
+  (($ (|FortranScalarType|))
+   "\\spad{coerce(t)} creates an element from a scalar type")
+  (((|OutputForm|) $)
+   "\\spad{coerce(x)} provides a printable form for \\spad{x}")))
+(("documentation" 0 4974) ("ancestors" 0 4893) ("parents" 0 4869)
+ ("abbreviation" 0 4866) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3964) ("modemaps" 0 2193) ("sourceFile" 0 2159)
+ ("constructorCategory" 0 1159) ("constructorModemap" 0 82)
+ ("constructorKind" 0 73) ("constructorForm" 0 57) ("NILADIC" 0 20))

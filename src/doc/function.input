@@ -1,0 +1,58 @@
+
+-- Input for page RationatFunctionPage
+)clear all
+
+f := (x - y) / (x + y)
+numer f
+denom f
+eval(f, x = 1/x)
+eval(f, [x = y, y = x])
+
+-- Input for page AlgebraicFunctionPage
+)clear all
+
+f := sqrt(1 + x ^ (1/3))
+y := rootOf(y^3 + y^2 - x*y + x^3 - 1, y)
+differentiate(y, x)
+(y + 1) ^ 3
+g := inv f
+ratDenom g
+
+-- Input for page FunctionPage
+)clear all
+
+
+-- Input for page ElementaryFunctionPage
+)clear all
+
+f := x * log y * sin(1/(x+y))
+eval(f, [x = y, y = x])
+eval(f, log y = acosh(x + sqrt y))
+
+-- Input for page FunctionSimplificationPage
+)clear all
+
+f := cos(x)/sec(x) * log(sin(x)^2/(cos(x)^2+sin(x)^2))
+g := simplify f
+h := sin2csc cos2sec g
+expandLog h
+f1 := sqrt((x+1)^3)
+rootSimp f1
+g1 := sin(x + cos x)
+g2 := complexElementary g1
+trigs g2
+h1 := sinh(x + cosh x)
+h2 := realElementary h1
+htrigs h2
+
+-- Input for page SpecialFunctionPage
+)clear all
+
+f := besselJ(v, z)
+
+-- Input for page UnknownFunctionPage
+)clear all
+
+f := operator 'f
+g := D(f(x), x)
+integrate(g, x)

@@ -1,0 +1,150 @@
+6727                (|BinaryRecursiveAggregate| S)
+|category|
+(((|BinaryRecursiveAggregate| |#1|) (|Category|) (|Type|))
+ (T |BinaryRecursiveAggregate|))
+(|Join| (|RecursiveAggregate| |t#1|)
+        (CATEGORY |domain| (SIGNATURE |left| ($ $))
+         (SIGNATURE |elt| ($ $ "left")) (SIGNATURE |right| ($ $))
+         (SIGNATURE |elt| ($ $ "right"))
+         (IF (|has| $ (|shallowlyMutable|))
+             (PROGN
+              (SIGNATURE |setelt!| ($ $ "left" $))
+              (SIGNATURE |setleft!| ($ $ $))
+              (SIGNATURE |setelt!| ($ $ "right" $))
+              (SIGNATURE |setright!| ($ $ $)))
+             |noBranch|)))
+"/git/fricas/src/algebra/BRAGG.spad"
+((|left| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|BinaryRecursiveAggregate| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|elt| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 "left") (|ofCategory| *1 (|BinaryRecursiveAggregate| *3))
+       (|ofCategory| *3 (|Type|))))
+ (|right| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|BinaryRecursiveAggregate| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|elt| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 "right")
+       (|ofCategory| *1 (|BinaryRecursiveAggregate| *3))
+       (|ofCategory| *3 (|Type|))))
+ (|setelt!| (*1 *1 *1 *2 *1)
+  (AND (|isDomain| *2 "left") (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|BinaryRecursiveAggregate| *3))
+       (|ofCategory| *3 (|Type|))))
+ (|setleft!| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|BinaryRecursiveAggregate| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|setelt!| (*1 *1 *1 *2 *1)
+  (AND (|isDomain| *2 "right") (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|BinaryRecursiveAggregate| *3))
+       (|ofCategory| *3 (|Type|))))
+ (|setright!| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|BinaryRecursiveAggregate| *2))
+       (|ofCategory| *2 (|Type|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|value| ((|#1| $) 6)) (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|setvalue!| ((|#1| $ |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|setright!| (($ $ $) 6 (|has| $ (|shallowlyMutable|))))
+ (|setleft!| (($ $ $) 6 (|has| $ (|shallowlyMutable|))))
+ (|setelt!| ((|#1| $ #1="value" |#1|) 6 (|has| $ (|shallowlyMutable|)))
+  (($ $ "left" $) 6 (|has| $ (|shallowlyMutable|)))
+  (($ $ "right" $) 6 (|has| $ (|shallowlyMutable|))))
+ (|setchildren!| (($ $ (|List| $)) 6 (|has| $ (|shallowlyMutable|))))
+ (|sample| (($) 6 T CONST)) (|right| (($ $) 6))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|nodes| (((|List| $) $) 6))
+ (|node?| (((|Boolean|) $ $) 6 (|has| |#1| (|BasicType|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6)) (|left| (($ $) 6))
+ (|leaves| (((|List| |#1|) $) 6)) (|leaf?| (((|Boolean|) $) 6))
+ (|latex| (((|String|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|elt| ((|#1| $ #1#) 6) (($ $ "left") 6) (($ $ "right") 6))
+ (|distance| (((|Integer|) $ $) 6)) (|cyclic?| (((|Boolean|) $) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|coerce| (((|OutputForm|) $) 6 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|children| (((|List| $) $) 6))
+ (|child?| (((|Boolean|) $ $) 6 (|has| |#1| (|BasicType|))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+BRAGG
+(((|RecursiveAggregate| |#1|) . T))
+(((|Aggregate|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|RecursiveAggregate| |#1|) . T)
+ ((|SetCategory|) |has| |t#1| (|SetCategory|)) ((|Type|) . T))
+((|constructor|
+  (NIL
+   "A binary-recursive aggregate has 0,{} 1 or 2 children and serves as a model for a binary tree or a doubly-linked aggregate structure"))
+ (|setright!|
+  (($ $ $)
+   "\\spad{setright!(a,{} b)} sets the right child of \\spad{a} to be \\spad{b}."))
+ (|setleft!|
+  (($ $ $)
+   "\\spad{setleft!(a,{} b)} sets the left child of \\spad{a} to be \\spad{b}."))
+ (|setelt!|
+  (($ $ "right" $)
+   "\\spad{setelt!(a,{} \"right\",{} b)} (also written \\spad{a.right := b}) is equivalent to \\spad{setright!(a,{} b)}.")
+  (($ $ "left" $)
+   "\\spad{setelt!(a,{} \"left\",{} b)} (also written \\spad{a.left := b}) is equivalent to \\spad{setleft!(a,{} b)}."))
+ (|right| (($ $) "\\spad{right(a)} returns the right child."))
+ (|elt|
+  (($ $ "right")
+   "\\spad{elt(a,{} \"right\")} (also written: \\spad{a.right}) is equivalent to \\spad{right(a)}.")
+  (($ $ "left")
+   "\\spad{elt(u,{} \"left\")} (also written: \\spad{a.left}) is equivalent to \\spad{left(a)}."))
+ (|left| (($ $) "\\spad{left(u)} returns the left child.")))
+(("documentation" 0 5691) ("ancestors" 0 5148) ("parents" 0 5112)
+ ("abbreviation" 0 5106) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1901) ("modemaps" 0 673) ("sourceFile" 0 636)
+ ("constructorCategory" 0 154) ("constructorModemap" 0 62)
+ ("constructorKind" 0 51) ("constructorForm" 0 20))

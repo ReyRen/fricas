@@ -1,0 +1,42 @@
+1932                (|FunctionSpaceAssertions| R F)
+|package|
+(((|FunctionSpaceAssertions| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |constant| (|#2| |#2|))
+   (SIGNATURE |optional| (|#2| |#2|)) (SIGNATURE |multiple| (|#2| |#2|)))
+  (|Comparable|) (|FunctionSpace| |#1|))
+ (T |FunctionSpaceAssertions|))
+(CATEGORY |package| (SIGNATURE |constant| (|#2| |#2|))
+ (SIGNATURE |optional| (|#2| |#2|)) (SIGNATURE |multiple| (|#2| |#2|)))
+"/git/fricas/src/algebra/PMASSFS.spad"
+((|multiple| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|Comparable|))
+       (|isDomain| *1 (|FunctionSpaceAssertions| *3 *2))
+       (|ofCategory| *2 (|FunctionSpace| *3))))
+ (|optional| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|Comparable|))
+       (|isDomain| *1 (|FunctionSpaceAssertions| *3 *2))
+       (|ofCategory| *2 (|FunctionSpace| *3))))
+ (|constant| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|Comparable|))
+       (|isDomain| *1 (|FunctionSpaceAssertions| *3 *2))
+       (|ofCategory| *2 (|FunctionSpace| *3)))))
+((|optional| ((|#2| |#2|) 24)) (|multiple| ((|#2| |#2|) 25))
+ (|constant| ((|#2| |#2|) 23)))
+PMASSFS
+((|constructor|
+  (NIL
+   "Attaching assertions to symbols for pattern matching; Date Created: 21 Mar 1989"))
+ (|multiple|
+  ((|#2| |#2|)
+   "\\spad{multiple(x)} tells the pattern matcher that \\spad{x} should preferably match a multi-term quantity in a sum or product. For matching on lists,{} multiple(\\spad{x}) tells the pattern matcher that \\spad{x} should match a list instead of an element of a list. Error: if \\spad{x} is not a symbol."))
+ (|optional|
+  ((|#2| |#2|)
+   "\\spad{optional(x)} tells the pattern matcher that \\spad{x} can match an identity (0 in a sum,{} 1 in a product or exponentiation). Error: if \\spad{x} is not a symbol."))
+ (|constant|
+  ((|#2| |#2|)
+   "\\spad{constant(x)} tells the pattern matcher that \\spad{x} should match only the symbol \\spad{'x} and no other quantity. Error: if \\spad{x} is not a symbol.")))
+(("documentation" 0 1081) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1073) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 980) ("modemaps" 0 472) ("sourceFile" 0 433)
+ ("constructorCategory" 0 306) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

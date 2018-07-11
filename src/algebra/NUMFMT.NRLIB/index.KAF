@@ -1,0 +1,81 @@
+3861                (MAKEPROP '|NumberFormats| 'NILADIC T)
+(|NumberFormats|)
+|package|
+(((|NumberFormats|)
+  (CATEGORY |package|
+   (SIGNATURE |FormatArabic| ((|String|) (|PositiveInteger|)))
+   (SIGNATURE |ScanArabic| ((|PositiveInteger|) (|String|)))
+   (SIGNATURE |FormatRoman| ((|String|) (|PositiveInteger|)))
+   (SIGNATURE |ScanRoman| ((|PositiveInteger|) (|String|)))
+   (SIGNATURE |ScanFloatIgnoreSpaces| ((|Float|) (|String|)))
+   (SIGNATURE |ScanFloatIgnoreSpacesIfCan|
+    ((|Union| (|Float|) "failed") (|String|)))
+   (SIGNATURE |FormatRadix| ((|String|) (|Integer|) (|Integer|)))))
+ (T |NumberFormats|))
+(CATEGORY |package| (SIGNATURE |FormatArabic| ((|String|) (|PositiveInteger|)))
+ (SIGNATURE |ScanArabic| ((|PositiveInteger|) (|String|)))
+ (SIGNATURE |FormatRoman| ((|String|) (|PositiveInteger|)))
+ (SIGNATURE |ScanRoman| ((|PositiveInteger|) (|String|)))
+ (SIGNATURE |ScanFloatIgnoreSpaces| ((|Float|) (|String|)))
+ (SIGNATURE |ScanFloatIgnoreSpacesIfCan|
+  ((|Union| (|Float|) "failed") (|String|)))
+ (SIGNATURE |FormatRadix| ((|String|) (|Integer|) (|Integer|))))
+"/git/fricas/src/algebra/NUMFMT.spad"
+((|FormatRadix| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|Integer|)) (|isDomain| *2 (|String|))
+       (|isDomain| *1 (|NumberFormats|))))
+ (|ScanFloatIgnoreSpacesIfCan| (*1 *2 *3)
+  (|partial| AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Float|))
+   (|isDomain| *1 (|NumberFormats|))))
+ (|ScanFloatIgnoreSpaces| (*1 *2 *3)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Float|))
+       (|isDomain| *1 (|NumberFormats|))))
+ (|ScanRoman| (*1 *2 *3)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|NumberFormats|))))
+ (|FormatRoman| (*1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|)) (|isDomain| *2 (|String|))
+       (|isDomain| *1 (|NumberFormats|))))
+ (|ScanArabic| (*1 *2 *3)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|NumberFormats|))))
+ (|FormatArabic| (*1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|)) (|isDomain| *2 (|String|))
+       (|isDomain| *1 (|NumberFormats|)))))
+((|ScanRoman| (((|PositiveInteger|) (|String|)) 59))
+ (|ScanFloatIgnoreSpacesIfCan| (((|Union| (|Float|) "failed") (|String|)) 21))
+ (|ScanFloatIgnoreSpaces| (((|Float|) (|String|)) 23))
+ (|ScanArabic| (((|PositiveInteger|) (|String|)) 48))
+ (|FormatRoman| (((|String|) (|PositiveInteger|)) 51))
+ (|FormatRadix| (((|String|) (|Integer|) (|Integer|)) 60))
+ (|FormatArabic| (((|String|) (|PositiveInteger|)) 45)))
+NUMFMT
+((|constructor|
+  (NIL
+   "NumberFormats provides function to format and read arabic and roman numbers,{} to convert numbers to strings and to read floating-point numbers."))
+ (|FormatRadix|
+  (((|String|) (|Integer|) (|Integer|))
+   "\\spad{FormatRadix(n,{} r)} forms a string from an integer \\spad{n} in radix \\spad{r}."))
+ (|ScanFloatIgnoreSpacesIfCan|
+  (((|Union| (|Float|) "failed") (|String|))
+   "\\spad{ScanFloatIgnoreSpacesIfCan(s)} tries to form a floating point number from the string \\spad{s} ignoring any spaces."))
+ (|ScanFloatIgnoreSpaces|
+  (((|Float|) (|String|))
+   "\\spad{ScanFloatIgnoreSpaces(s)} forms a floating point number from the string \\spad{s} ignoring any spaces. Error is generated if the string is not recognised as a floating point number."))
+ (|ScanRoman|
+  (((|PositiveInteger|) (|String|))
+   "\\spad{ScanRoman(s)} forms an integer from a Roman numeral string \\spad{s}."))
+ (|FormatRoman|
+  (((|String|) (|PositiveInteger|))
+   "\\spad{FormatRoman(n)} forms a Roman numeral string from an integer \\spad{n}."))
+ (|ScanArabic|
+  (((|PositiveInteger|) (|String|))
+   "\\spad{ScanArabic(s)} forms an integer from an Arabic numeral string \\spad{s}."))
+ (|FormatArabic|
+  (((|String|) (|PositiveInteger|))
+   "\\spad{FormatArabic(n)} forms an Arabic numeral string from an integer \\spad{n}.")))
+(("documentation" 0 2527) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2520) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2108) ("modemaps" 0 1123) ("sourceFile" 0 1085)
+ ("constructorCategory" 0 617) ("constructorModemap" 0 87)
+ ("constructorKind" 0 77) ("constructorForm" 0 59) ("NILADIC" 0 20))

@@ -1,0 +1,98 @@
+)abbrev package XML ExportXml
+++ Author: Martin John Baker
+++ Date Created: September 2010
+++ Basic Operations: writeXml, writeVRML
+++ Related Constructors: xmlAttribute, xmlElement
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/graph/
+++ Description:
+++ This package provides support for XML files
+
+
+ExportXml() : with
+
+  writeXml : (content : XmlElement, filename : String) -> Void
+    ++ writeXml(content, filename) writes an xml element and all the
+    ++ elements below it to an xml file. This assumes that all
+    ++ elements, in a file, have a single root which is usually the case.
+  writeVRML : (content : XmlElement, filename : String) -> Void
+    ++ writeVRML(content, filename) writes the element as VRML2. VRML2 is
+    ++ not xml but it has the same semantics and node names as X3D
+    ++ but a different syntax so it makes sense to create an XML structure
+    ++ and then format the output differently.
+
+ == add
+
+  -- writeXml(content, filename) writes an xml element and all the
+  -- elements below it to an xml file. This assumes that all
+  -- elements, in a file, have a single root which is usually the case.
+  writeXml(content : XmlElement, filename : String) : Void ==
+    f1:TextFile := open(filename::FileName,"output")
+    s1:String := "<?xml version="
+    s1 := concat(s1, quote())
+    s1 := concat(s1,"1.0")
+    s1 := concat(s1, quote())
+    s1 := concat(s1," encoding=")
+    s1 := concat(s1, quote())
+    s1 := concat(s1,"UTF-8")
+    s1 := concat(s1, quote())
+    s1 := concat(s1," standalone=")
+    s1 := concat(s1, quote())
+    s1 := concat(s1,"no")
+    s1 := concat(s1, quote())
+    s1 := concat(s1,"?>")
+    writeLine!(f1, s1)
+    lines := content::List String
+    for line in lines repeat
+      writeLine!(f1, line)
+    close! f1
+
+  -- writeVRML(content, filename) writes the element as VRML2. VRML2 is
+  -- not xml but it has the same semantics and node names as X3D
+  -- but a different syntax so it makes sense to create an XML structure
+  -- and then format the output differently.
+  writeVRML(content : XmlElement, filename : String) : Void ==
+    f1:TextFile := open(filename::FileName,"output")
+    writeLine!(f1,"#VRML V2.0 utf8")
+    outputVRML(content, f1)
+    close! f1
+
+)if false
+
+\section{Scene domain}
+Usually, when programming using SPAD, I try to use a functional programming
+style as much as possible, for instance making objects (representations)
+immutable. However I don't think it would be practical to implement the
+scenegraph in this way. A design requirement is that the scenegraph needs
+to hold a large amount of information, A 3D scene might be made from
+thousands (perhaps millions?) of polygons. For the sake of efficiency we
+need to be able to modify it without copying the whole thing into a new
+object for each change.
+
+The object oriented style of programming would seem to be ideal for a
+scenegraph. Each type of node in the scenegraph could be a different object
+all inheriting from a common object. Unfortunately is is not easy to do
+this in SPAD because it does not support polymorphism.
+
+So what I have ended up with is perhaps the worst of both styles of
+programming? each node type is distinguished by a different symbol value
+in its rep. I find this very messy as it leads to lots of bits of code like this:
+\begin{verbatim}
+if typ = "ROOT"::Symbol then
+...
+if typ = "GROUP"::Symbol then
+...
+if typ = "LINE"::Symbol then
+...
+\end{verbatim}
+
+so if we want to change a particular node type we have to search through
+all these categories, domains and packages to find everywhere it is referred
+to and change each occurrence. If we could use object oriented programming
+then the code for each node type could be grouped together as a separate
+object.
+)endif
+

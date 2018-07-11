@@ -1,0 +1,68 @@
+3187                (|ReduceLODE| F L UP A LO)
+|package|
+(((|ReduceLODE| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package|
+   (SIGNATURE |reduceLODE|
+    ((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#1|))) |#5|
+     |#4|))
+   (SIGNATURE |reduceLODE|
+    ((|Record| (|:| |mat| (|Matrix| |#2|))
+               (|:| |vecs| (|List| (|Vector| |#1|))))
+     |#5| (|List| |#4|))))
+  (|Field|) (|LinearOrdinaryDifferentialOperatorCategory| |#1|)
+  (|UnivariatePolynomialCategory| |#1|) (|MonogenicAlgebra| |#1| |#3|)
+  (|LinearOrdinaryDifferentialOperatorCategory| |#4|))
+ (T |ReduceLODE|))
+(CATEGORY |package|
+ (SIGNATURE |reduceLODE|
+  ((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#1|))) |#5|
+   |#4|))
+ (SIGNATURE |reduceLODE|
+  ((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vecs| (|List| (|Vector| |#1|))))
+   |#5| (|List| |#4|))))
+"/git/fricas/src/algebra/ODERED.spad"
+((|reduceLODE| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|List| *8)) (|ofCategory| *8 (|MonogenicAlgebra| *5 *7))
+       (|ofCategory| *5 (|Field|))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| *5))
+       (|isDomain| *2
+                   (|Record| (|:| |mat| (|Matrix| *6))
+                             (|:| |vecs| (|List| (|Vector| *5)))))
+       (|isDomain| *1 (|ReduceLODE| *5 *6 *7 *8 *3))
+       (|ofCategory| *6 (|LinearOrdinaryDifferentialOperatorCategory| *5))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *8))))
+ (|reduceLODE| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|Field|))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *4 (|MonogenicAlgebra| *5 *7))
+       (|isDomain| *2
+                   (|Record| (|:| |mat| (|Matrix| *6))
+                             (|:| |vec| (|Vector| *5))))
+       (|isDomain| *1 (|ReduceLODE| *5 *6 *7 *4 *3))
+       (|ofCategory| *6 (|LinearOrdinaryDifferentialOperatorCategory| *5))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *4)))))
+((|reduceLODE|
+  (((|Record| (|:| |mat| (|Matrix| |#2|))
+              (|:| |vecs| (|List| (|Vector| |#1|))))
+    |#5| (|List| |#4|))
+   48)
+  (((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#1|))) |#5|
+    |#4|)
+   45)))
+ODERED
+((|constructor|
+  (NIL
+   "Elimination of an algebraic from the coefficients of a linear ordinary differential equation."))
+ (|reduceLODE|
+  (((|Record| (|:| |mat| (|Matrix| |#2|))
+              (|:| |vecs| (|List| (|Vector| |#1|))))
+    |#5| (|List| |#4|))
+   "\\spad{reduceLODE(op,{} [g1,{} ...,{} gn])} returns \\spad{[m,{} [v1,{} ...,{} vn]]} such that any solution in \\spad{A} of \\spad{op z = c1*g1 + ... + cn*gn} where \\spad{ci} are constants satisfy the differential system \\spad{M.z = c1*v1 + ... + cn*vn}")
+  (((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#1|))) |#5|
+    |#4|)
+   "\\spad{reduceLODE(op,{} g)} returns \\spad{[m,{} v]} such that any solution in \\spad{A} of \\spad{op z = g} is of the form \\spad{z = (z_1,{} ...,{} z_m) . (b_1,{} ...,{} b_m)} where the \\spad{b_i's} are the basis of \\spad{A} over \\spad{F} returned by \\spadfun{basis}() from \\spad{A},{} and the \\spad{z_i's} satisfy the differential system \\spad{M.z = v}.")))
+(("documentation" 0 2209) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2202) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1966) ("modemaps" 0 895) ("sourceFile" 0 857)
+ ("constructorCategory" 0 597) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

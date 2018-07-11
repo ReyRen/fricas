@@ -1,0 +1,458 @@
+24744               (|LinearAggregate| S)
+|category|
+(((|LinearAggregate| |#1|) (|Category|) (|Type|)) (T |LinearAggregate|))
+(|Join| (|IndexedAggregate| (|Integer|) |t#1|) (|Collection| |t#1|)
+        (|Eltable| (|UniversalSegment| (|Integer|)) $)
+        (CATEGORY |domain| (SIGNATURE |new| ($ (|NonNegativeInteger|) |t#1|))
+         (SIGNATURE |concat| ($ $ |t#1|)) (SIGNATURE |concat| ($ |t#1| $))
+         (SIGNATURE |concat| ($ $ $)) (SIGNATURE |concat| ($ (|List| $)))
+         (SIGNATURE |map| ($ (|Mapping| |t#1| |t#1| |t#1|) $ $))
+         (SIGNATURE |delete| ($ $ (|Integer|)))
+         (SIGNATURE |delete| ($ $ (|UniversalSegment| (|Integer|))))
+         (SIGNATURE |first| ($ $ (|NonNegativeInteger|)))
+         (SIGNATURE |insert| ($ |t#1| $ (|Integer|)))
+         (SIGNATURE |insert| ($ $ $ (|Integer|)))
+         (IF (|has| $ (|shallowlyMutable|))
+             (SIGNATURE |setelt!|
+              (|t#1| $ (|UniversalSegment| (|Integer|)) |t#1|))
+             |noBranch|)
+         (IF (|has| $ (|finiteAggregate|))
+             (PROGN
+              (SIGNATURE |merge| ($ (|Mapping| (|Boolean|) |t#1| |t#1|) $ $))
+              (SIGNATURE |reverse| ($ $))
+              (SIGNATURE |sort| ($ (|Mapping| (|Boolean|) |t#1| |t#1|) $))
+              (SIGNATURE |sorted?|
+               ((|Boolean|) (|Mapping| (|Boolean|) |t#1| |t#1|) $))
+              (SIGNATURE |position|
+               ((|Integer|) (|Mapping| (|Boolean|) |t#1|) $))
+              (IF (|has| |t#1| (|BasicType|))
+                  (PROGN
+                   (SIGNATURE |position| ((|Integer|) |t#1| $))
+                   (SIGNATURE |position| ((|Integer|) |t#1| $ (|Integer|)))
+                   (SIGNATURE |leftTrim| ($ $ |t#1|))
+                   (SIGNATURE |rightTrim| ($ $ |t#1|))
+                   (SIGNATURE |trim| ($ $ |t#1|)))
+                  |noBranch|)
+              (IF (|has| |t#1| (|Comparable|))
+                  (ATTRIBUTE (|Comparable|))
+                  |noBranch|)
+              (IF (|has| |t#1| (|OrderedSet|))
+                  (PROGN
+                   (ATTRIBUTE (|OrderedSet|))
+                   (SIGNATURE |merge| ($ $ $))
+                   (SIGNATURE |sort| ($ $))
+                   (SIGNATURE |sorted?| ((|Boolean|) $)))
+                  |noBranch|)
+              (IF (|has| $ (|shallowlyMutable|))
+                  (PROGN
+                   (SIGNATURE |copyInto!| ($ $ $ (|Integer|)))
+                   (SIGNATURE |reverse!| ($ $))
+                   (SIGNATURE |sort!|
+                    ($ (|Mapping| (|Boolean|) |t#1| |t#1|) $))
+                   (IF (|has| |t#1| (|OrderedSet|))
+                       (SIGNATURE |sort!| ($ $))
+                       |noBranch|))
+                  |noBranch|))
+             |noBranch|)))
+"/git/fricas/src/algebra/LNAGG.spad"
+((|new| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|ofCategory| *1 (|LinearAggregate| *3)) (|ofCategory| *3 (|Type|))))
+ (|concat| (*1 *1 *1 *2)
+           (AND (|ofCategory| *1 (|LinearAggregate| *2))
+                (|ofCategory| *2 (|Type|))))
+ (|concat| (*1 *1 *2 *1)
+           (AND (|ofCategory| *1 (|LinearAggregate| *2))
+                (|ofCategory| *2 (|Type|))))
+ (|concat| (*1 *1 *1 *1)
+           (AND (|ofCategory| *1 (|LinearAggregate| *2))
+                (|ofCategory| *2 (|Type|))))
+ (|concat| (*1 *1 *2)
+           (AND (|isDomain| *2 (|List| *1))
+                (|ofCategory| *1 (|LinearAggregate| *3))
+                (|ofCategory| *3 (|Type|))))
+ (|map| (*1 *1 *2 *1 *1)
+  (AND (|isDomain| *2 (|Mapping| *3 *3 *3))
+       (|ofCategory| *1 (|LinearAggregate| *3)) (|ofCategory| *3 (|Type|))))
+ (|delete| (*1 *1 *1 *2)
+           (AND (|isDomain| *2 (|Integer|))
+                (|ofCategory| *1 (|LinearAggregate| *3))
+                (|ofCategory| *3 (|Type|))))
+ (|delete| (*1 *1 *1 *2)
+           (AND (|isDomain| *2 (|UniversalSegment| (|Integer|)))
+                (|ofCategory| *1 (|LinearAggregate| *3))
+                (|ofCategory| *3 (|Type|))))
+ (|first| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|ofCategory| *1 (|LinearAggregate| *3)) (|ofCategory| *3 (|Type|))))
+ (|insert| (*1 *1 *2 *1 *3)
+           (AND (|isDomain| *3 (|Integer|))
+                (|ofCategory| *1 (|LinearAggregate| *2))
+                (|ofCategory| *2 (|Type|))))
+ (|insert| (*1 *1 *1 *1 *2)
+           (AND (|isDomain| *2 (|Integer|))
+                (|ofCategory| *1 (|LinearAggregate| *3))
+                (|ofCategory| *3 (|Type|))))
+ (|setelt!| (*1 *2 *1 *3 *2)
+  (AND (|isDomain| *3 (|UniversalSegment| (|Integer|)))
+       (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|LinearAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|merge| (*1 *1 *2 *1 *1)
+  (AND (|isDomain| *2 (|Mapping| (|Boolean|) *3 *3))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|LinearAggregate| *3)) (|ofCategory| *3 (|Type|))))
+ (|reverse| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|LinearAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|sort| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|Mapping| (|Boolean|) *3 *3))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|LinearAggregate| *3)) (|ofCategory| *3 (|Type|))))
+ (|sorted?| (*1 *2 *3 *1)
+  (AND (|isDomain| *3 (|Mapping| (|Boolean|) *4 *4))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|LinearAggregate| *4)) (|ofCategory| *4 (|Type|))
+       (|isDomain| *2 (|Boolean|))))
+ (|position| (*1 *2 *3 *1)
+             (AND (|isDomain| *3 (|Mapping| (|Boolean|) *4))
+                  (|ofCategory| *1 (|finiteAggregate|))
+                  (|ofCategory| *1 (|LinearAggregate| *4))
+                  (|ofCategory| *4 (|Type|)) (|isDomain| *2 (|Integer|))))
+ (|position| (*1 *2 *3 *1)
+             (AND (|ofCategory| *1 (|finiteAggregate|))
+                  (|ofCategory| *1 (|LinearAggregate| *3))
+                  (|ofCategory| *3 (|Type|)) (|ofCategory| *3 (|BasicType|))
+                  (|isDomain| *2 (|Integer|))))
+ (|position| (*1 *2 *3 *1 *2)
+             (AND (|isDomain| *2 (|Integer|))
+                  (|ofCategory| *1 (|finiteAggregate|))
+                  (|ofCategory| *1 (|LinearAggregate| *3))
+                  (|ofCategory| *3 (|Type|)) (|ofCategory| *3 (|BasicType|))))
+ (|leftTrim| (*1 *1 *1 *2)
+             (AND (|ofCategory| *1 (|finiteAggregate|))
+                  (|ofCategory| *1 (|LinearAggregate| *2))
+                  (|ofCategory| *2 (|Type|)) (|ofCategory| *2 (|BasicType|))))
+ (|rightTrim| (*1 *1 *1 *2)
+              (AND (|ofCategory| *1 (|finiteAggregate|))
+                   (|ofCategory| *1 (|LinearAggregate| *2))
+                   (|ofCategory| *2 (|Type|)) (|ofCategory| *2 (|BasicType|))))
+ (|trim| (*1 *1 *1 *2)
+  (AND (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|LinearAggregate| *2)) (|ofCategory| *2 (|Type|))
+       (|ofCategory| *2 (|BasicType|))))
+ (|merge| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|LinearAggregate| *2)) (|ofCategory| *2 (|Type|))
+       (|ofCategory| *2 (|OrderedSet|))))
+ (|sort| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|LinearAggregate| *2)) (|ofCategory| *2 (|Type|))
+       (|ofCategory| *2 (|OrderedSet|))))
+ (|sorted?| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|LinearAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|ofCategory| *3 (|OrderedSet|)) (|isDomain| *2 (|Boolean|))))
+ (|copyInto!| (*1 *1 *1 *1 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|LinearAggregate| *3)) (|ofCategory| *3 (|Type|))))
+ (|reverse!| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|LinearAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|sort!| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|Mapping| (|Boolean|) *3 *3))
+       (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|LinearAggregate| *3)) (|ofCategory| *3 (|Type|))))
+ (|sort!| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|LinearAggregate| *2)) (|ofCategory| *2 (|Type|))
+       (|ofCategory| *2 (|OrderedSet|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|trim|
+  (($ $ |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|swap!|
+  (((|Void|) $ (|Integer|) (|Integer|)) 6 (|has| $ (|shallowlyMutable|))))
+ (|sorted?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1| |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|Boolean|) $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|sort!|
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $) 6
+   (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|))))
+  (($ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|shallowlyMutable|))
+        (|has| $ (|finiteAggregate|)))))
+ (|sort|
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  (($ $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|smaller?|
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|setelt!| ((|#1| $ (|Integer|) |#1|) 6 (|has| $ (|shallowlyMutable|)))
+  ((|#1| $ (|UniversalSegment| (|Integer|)) |#1|) 6
+   (|has| $ (|shallowlyMutable|))))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|sample| (($) 6 T CONST))
+ (|rightTrim|
+  (($ $ |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|reverse!|
+  (($ $) 6 (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|)))))
+ (|reverse| (($ $) 6 (|has| $ (|finiteAggregate|))))
+ (|removeDuplicates|
+  (($ $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove|
+  (($ |#1| $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|qsetelt!| ((|#1| $ (|Integer|) |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|qelt| ((|#1| $ (|Integer|)) 6))
+ (|position|
+  (((|Integer|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|Integer|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (((|Integer|) |#1| $ (|Integer|)) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|new| (($ (|NonNegativeInteger|) |#1|) 6))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|minIndex| (((|Integer|) $) 6 (|has| (|Integer|) (|OrderedSet|))))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (($ $ $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|merge|
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $ $) 6 (|has| $ (|finiteAggregate|)))
+  (($ $ $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|maxIndex| (((|Integer|) $) 6 (|has| (|Integer|) (|OrderedSet|))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (($ $ $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6) (($ (|Mapping| |#1| |#1| |#1|) $ $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|leftTrim|
+  (($ $ |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|latex|
+  (((|String|) $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|insert| (($ |#1| $ (|Integer|)) 6) (($ $ $ (|Integer|)) 6))
+ (|indices| (((|List| (|Integer|)) $) 6))
+ (|index?| (((|Boolean|) (|Integer|) $) 6))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|hash|
+  (((|SingleInteger|) $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|first| ((|#1| $) 6 (|has| (|Integer|) (|OrderedSet|)))
+  (($ $ (|NonNegativeInteger|)) 6))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) 6))
+ (|fill!| (($ $ |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6))
+ (|entry?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|entries| (((|List| |#1|) $) 6)) (|empty?| (((|Boolean|) $) 6))
+ (|empty| (($) 6))
+ (|elt| ((|#1| $ (|Integer|) |#1|) 6) ((|#1| $ (|Integer|)) 6)
+  (($ $ (|UniversalSegment| (|Integer|))) 6))
+ (|delete| (($ $ (|Integer|)) 6) (($ $ (|UniversalSegment| (|Integer|))) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copyInto!|
+  (($ $ $ (|Integer|)) 6
+   (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|convert| (((|InputForm|) $) 6 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 6))
+ (|concat| (($ $ |#1|) 6) (($ |#1| $) 6) (($ $ $) 6) (($ (|List| $)) 6))
+ (|coerce|
+  (((|OutputForm|) $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|CoercibleTo| (|OutputForm|))))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (>=
+  (((|Boolean|) $ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (>
+  (((|Boolean|) $ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (<=
+  (((|Boolean|) $ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (<
+  (((|Boolean|) $ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+LNAGG
+(((|IndexedAggregate| (|Integer|) |#1|) . T) ((|Collection| |#1|) . T)
+ ((|Eltable| (|UniversalSegment| (|Integer|)) $) . T)
+ ((|OrderedSet|) AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))
+ ((|Comparable|) AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|Comparable|))))
+(((|Aggregate|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|)))
+  (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+  (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|))))
+ ((|CoercibleTo| (|OutputForm|)) OR
+  (|has| |t#1| (|CoercibleTo| (|OutputForm|)))
+  (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+  (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|))))
+ ((|Collection| |#1|) . T)
+ ((|Comparable|) OR
+  (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+  (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|))))
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Eltable| (|UniversalSegment| (|Integer|)) $) . T)
+ ((|Eltable| |t#1| |t#2|) . T) ((|EltableAggregate| |t#1| |t#2|) . T)
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T) ((|HomogeneousAggregate| |t#2|) . T)
+ ((|IndexedAggregate| (|Integer|) |#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|OrderedSet|) AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+ ((|PartialOrder|) AND (|has| |#1| (|OrderedSet|))
+  (|has| $ (|finiteAggregate|)))
+ ((|SetCategory|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+  (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|))))
+ ((|Type|) . T))
+((|constructor|
+  (NIL
+   "A linear aggregate is an aggregate whose elements are indexed by integers. Examples of linear aggregates are strings,{} lists,{} and arrays. Most of the exported operations for linear aggregates are non-destructive but are not always efficient for a particular aggregate. For example,{} \\spadfun{concat} of two lists needs only to copy its first argument,{} whereas \\spadfun{concat} of two arrays needs to copy both arguments. Most of the operations exported here apply to infinite objects (\\spadignore{e.g.} streams) as well to finite ones. If the aggregate is a finite aggregate then it has several additional exports such as \\spadfun{reverse},{} \\spadfun{sort},{} and so on."))
+ (|sort!|
+  (($ $)
+   "\\spad{sort!(u)} returns \\spad{u} with its elements in ascending order.")
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $)
+   "\\spad{sort!(p,{} u)} returns \\spad{u} with its elements ordered by \\spad{p}."))
+ (|reverse!|
+  (($ $)
+   "\\spad{reverse!(u)} returns \\spad{u} with its elements in reverse order."))
+ (|copyInto!|
+  (($ $ $ (|Integer|))
+   "\\spad{copyInto!(u,{} v,{} i)} returns aggregate \\spad{u} containing a copy of \\spad{v} inserted at element \\spad{i}."))
+ (|trim|
+  (($ $ |#1|)
+   "\\spad{trim(u,{} x)} returns a copy of \\spad{u} with all occurrences of \\spad{x} deleted from right and left ends. For example,{} \\spad{trim(\" abc \",{} char \" \")} returns \\spad{\"abc\"}."))
+ (|rightTrim|
+  (($ $ |#1|)
+   "\\spad{rightTrim(u,{} x)} returns a copy of \\spad{u} with all trailing occurrences of \\spad{x} deleted. For example,{} \\spad{rightTrim(\" abc \",{} char \" \")} returns \\spad{\" abc\"}."))
+ (|leftTrim|
+  (($ $ |#1|)
+   "\\spad{leftTrim(u,{} x)} returns a copy of \\spad{u} with all leading \\spad{x} deleted. For example,{} \\spad{leftTrim(\" abc \",{} char \" \")} returns \\spad{\"abc \"}."))
+ (|position|
+  (((|Integer|) |#1| $ (|Integer|))
+   "\\spad{position(x,{} a,{} n)} returns the index \\spad{i} of the first occurrence of \\spad{x} in \\spad{a} where \\spad{i >= n},{} and \\spad{minIndex(a) - 1} if no such \\spad{x} is found.")
+  (((|Integer|) |#1| $)
+   "\\spad{position(x,{} a)} returns the index \\spad{i} of the first occurrence of \\spad{x} in a,{} and \\spad{minIndex(a) - 1} if there is no such \\spad{x}.")
+  (((|Integer|) (|Mapping| (|Boolean|) |#1|) $)
+   "\\spad{position(p,{} a)} returns the index \\spad{i} of the first \\spad{x} in \\spad{a} such that \\spad{p(x)} is \\spad{true},{} and \\spad{minIndex(a) - 1} if there is no such \\spad{x}."))
+ (|sorted?|
+  (((|Boolean|) $)
+   "\\spad{sorted?(u)} tests if the elements of \\spad{u} are in ascending order.")
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1| |#1|) $)
+   "\\spad{sorted?(p,{} a)} tests if \\spad{a} is sorted according to predicate \\spad{p}."))
+ (|sort|
+  (($ $)
+   "\\spad{sort(u)} returns an \\spad{u} with elements in ascending order. Note: \\spad{sort(u) = sort(<=,{} u)}.")
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $)
+   "\\spad{sort(p,{} a)} returns a copy of \\spad{a} sorted using total ordering predicate \\spad{p}."))
+ (|reverse|
+  (($ $)
+   "\\spad{reverse(a)} returns a copy of \\spad{a} with elements in reverse order."))
+ (|merge|
+  (($ $ $)
+   "\\spad{merge(u,{} v)} merges \\spad{u} and \\spad{v} in ascending order. Note: \\spad{merge(u,{} v) = merge(<=,{} u,{} v)}.")
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $ $)
+   "\\spad{merge(p,{} a,{} b)} returns an aggregate \\spad{c} which merges \\spad{a} and \\spad{b}. The result is produced by examining each element \\spad{x} of \\spad{a} and \\spad{y} of \\spad{b} successively. If \\spad{p(x,{} y)} is \\spad{true},{} then \\spad{x} is inserted into the result; otherwise \\spad{y} is inserted. If \\spad{x} is chosen,{} the next element of \\spad{a} is examined,{} and so on. When all the elements of one aggregate are examined,{} the remaining elements of the other are appended. For example,{} \\spad{merge(<,{} [1,{} 3],{} [2,{} 7,{} 5])} returns \\spad{[1,{} 2,{} 3,{} 7,{} 5]}."))
+ (|setelt!|
+  ((|#1| $ (|UniversalSegment| (|Integer|)) |#1|)
+   "\\spad{setelt!(u,{} i..j,{} x)} (also written: \\spad{u(i..j) := x}) destructively replaces each element in the segment \\spad{u(i..j)} by \\spad{x}. The value \\spad{x} is returned. Note: \\spad{u} is destructively changed so that \\spad{u.k := x for k in i..j}; its length remains unchanged."))
+ (|insert|
+  (($ $ $ (|Integer|))
+   "\\spad{insert(v,{} u,{} i)} returns a copy of \\spad{u} having \\spad{v} inserted beginning at the \\spad{i}th element. Note: \\spad{insert(v,{} u,{} i) = concat(u(minIndex(u)..i-1),{} concat(v,{} u(i..)))}.")
+  (($ |#1| $ (|Integer|))
+   "\\spad{insert(x,{} u,{} i)} returns a copy of \\spad{u} having \\spad{x} as its \\spad{i}th element. Note: \\spad{insert(x,{} u,{} i) = concat(u(minIndex(u)..i-1),{} concat(x,{} u(i..)))}."))
+ (|first|
+  (($ $ (|NonNegativeInteger|))
+   "\\spad{first(u,{} n)} returns a copy of the first \\spad{n} elements of \\spad{u}. Error: if \\spad{u} has less than \\spad{n} elements."))
+ (|delete|
+  (($ $ (|UniversalSegment| (|Integer|)))
+   "\\spad{delete(u,{} i..j)} returns a copy of \\spad{u} with the \\spad{i}th through \\spad{j}th element deleted. Note: \\spad{delete(u,{} i..j) = concat(u(minIndex(u)..i-1),{} u(j+1..))}.")
+  (($ $ (|Integer|))
+   "\\spad{delete(u,{} i)} returns a copy of \\spad{u} with the \\spad{i}th element deleted. Note: \\spad{delete(u,{} i) = concat(u(minIndex(u)..i - 1),{} u(i + 1..))}."))
+ (|map|
+  (($ (|Mapping| |#1| |#1| |#1|) $ $)
+   "\\spad{map(f,{} u,{} v)} returns a new aggregate \\spad{w} with elements \\spad{z = f(x,{} y)} for corresponding elements \\spad{x} and \\spad{y} from \\spad{u} and \\spad{v}. Note: \\spad{w.i = f(u.i,{} v.i)}."))
+ (|concat|
+  (($ (|List| $))
+   "\\spad{concat(u)},{} where \\spad{u} is a list of aggregates \\spad{[a,{} b,{} ...,{} c]},{} returns a single aggregate consisting of the elements of \\spad{a} followed by those of \\spad{b} followed ... by the elements of \\spad{c}. Note: \\spad{concat([a,{} b,{} ...,{} c]) = concat(a,{} concat([b,{} ...,{} c]))}.")
+  (($ $ $)
+   "\\spad{concat(u,{} v)} returns an aggregate consisting of the elements of \\spad{u} followed by the elements of \\spad{v}. Note: if \\spad{w = concat(u,{} v)} then \\spad{w.i = u.i for i in indices u} and \\spad{w.(j + maxIndex u) = v.j for j in indices v}.")
+  (($ |#1| $)
+   "\\spad{concat(x,{} u)} returns aggregate \\spad{u} with additional element \\spad{x} at the front. Note: for lists: \\spad{concat(x,{} u) = concat([x],{} u)}.")
+  (($ $ |#1|)
+   "\\spad{concat(u,{} x)} returns aggregate \\spad{u} with additional element \\spad{x} at the end. Note: for lists,{} \\spad{concat(u,{} x) = concat(u,{} [x])}."))
+ (|new|
+  (($ (|NonNegativeInteger|) |#1|)
+   "\\spad{new(n,{} x)} returns a new aggregate of size \\spad{n} all of whose entries are \\spad{x}.")))
+(("documentation" 0 17875) ("ancestors" 0 16329) ("parents" 0 16043)
+ ("abbreviation" 0 16037) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 8391) ("modemaps" 0 2784) ("sourceFile" 0 2747)
+ ("constructorCategory" 0 126) ("constructorModemap" 0 53)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

@@ -1,0 +1,40 @@
+2304                (|TriangularMatrixOperations| R |Row| |Col| M)
+|package|
+(((|TriangularMatrixOperations| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |UpTriBddDenomInv| (|#4| |#4| |#1|))
+   (SIGNATURE |LowTriBddDenomInv| (|#4| |#4| |#1|)))
+  (|IntegralDomain|) (|FiniteLinearAggregate| |#1|)
+  (|FiniteLinearAggregate| |#1|) (|MatrixCategory| |#1| |#2| |#3|))
+ (T |TriangularMatrixOperations|))
+(CATEGORY |package| (SIGNATURE |UpTriBddDenomInv| (|#4| |#4| |#1|))
+ (SIGNATURE |LowTriBddDenomInv| (|#4| |#4| |#1|)))
+"/git/fricas/src/algebra/TRIMAT.spad"
+((|LowTriBddDenomInv| (*1 *2 *2 *3)
+  (AND (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *4 (|FiniteLinearAggregate| *3))
+       (|ofCategory| *5 (|FiniteLinearAggregate| *3))
+       (|isDomain| *1 (|TriangularMatrixOperations| *3 *4 *5 *2))
+       (|ofCategory| *2 (|MatrixCategory| *3 *4 *5))))
+ (|UpTriBddDenomInv| (*1 *2 *2 *3)
+  (AND (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *4 (|FiniteLinearAggregate| *3))
+       (|ofCategory| *5 (|FiniteLinearAggregate| *3))
+       (|isDomain| *1 (|TriangularMatrixOperations| *3 *4 *5 *2))
+       (|ofCategory| *2 (|MatrixCategory| *3 *4 *5)))))
+((|UpTriBddDenomInv| ((|#4| |#4| |#1|) 27))
+ (|LowTriBddDenomInv| ((|#4| |#4| |#1|) 28)))
+TRIMAT
+((|constructor|
+  (NIL
+   "This package provides functions that compute \"fraction-free\" inverses of upper and lower triangular matrices over a integral domain. By \"fraction-free inverses\" we mean the following: given a matrix \\spad{B} with entries in \\spad{R} and an element \\spad{d} of \\spad{R} such that \\spad{d} * inv(\\spad{B}) also has entries in \\spad{R},{} we return \\spad{d} * inv(\\spad{B}). Thus,{} it is not necessary to pass to the quotient field in any of our computations."))
+ (|LowTriBddDenomInv|
+  ((|#4| |#4| |#1|)
+   "\\spad{LowTriBddDenomInv(B,{} d)} returns \\spad{M},{} where \\spad{B} is a non-singular lower triangular matrix and \\spad{d} is an element of \\spad{R} such that \\spad{M = d * inv(B)} has entries in \\spad{R}."))
+ (|UpTriBddDenomInv|
+  ((|#4| |#4| |#1|)
+   "\\spad{UpTriBddDenomInv(B,{} d)} returns \\spad{M},{} where \\spad{B} is a non-singular upper triangular matrix and \\spad{d} is an element of \\spad{R} such that \\spad{M = d * inv(B)} has entries in \\spad{R}.")))
+(("documentation" 0 1280) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1273) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1183) ("modemaps" 0 565) ("sourceFile" 0 527)
+ ("constructorCategory" 0 408) ("constructorModemap" 0 77)
+ ("constructorKind" 0 67) ("constructorForm" 0 20))

@@ -1,0 +1,133 @@
+5970                (|ArrayStack| S)
+|domain|
+(((|ArrayStack| |#1|)
+  (|Join| (|StackAggregate| |#1|)
+          (CATEGORY |domain| (SIGNATURE |arrayStack| ($ (|List| |#1|)))))
+  (|SetCategory|))
+ (T |ArrayStack|))
+(|Join| (|StackAggregate| |#1|)
+        (CATEGORY |domain| (SIGNATURE |arrayStack| ($ (|List| |#1|)))))
+"/git/fricas/src/algebra/ASTACK.spad"
+((|arrayStack| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *1 (|ArrayStack| *3)))))
+((~=
+  (((|Boolean|) $ $) NIL
+   (OR (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|top| ((|#1| $) 29)) (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) NIL (|has| $ (|finiteAggregate|))))
+ (|sample| (($) NIL T CONST))
+ (|removeDuplicates|
+  (($ $) NIL (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|remove|
+  (($ (|Mapping| (|Boolean|) |#1|) $) NIL (|has| $ (|finiteAggregate|)))
+  (($ |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) NIL (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) NIL (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|push!| ((|#1| |#1| $) 31)) (|pop!| ((|#1| $) 27))
+ (|parts| (((|List| |#1|) $) 34 (|has| $ (|finiteAggregate|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|min|
+  ((|#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (|members| (((|List| |#1|) $) NIL (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  ((|#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 47 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 45))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|latex| (((|String|) $) NIL (|has| |#1| (|SetCategory|))))
+ (|inspect| ((|#1| $) 30)) (|insert!| (($ |#1| $) 32))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 50 (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) NIL (|has| |#1| (|SetCategory|))))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) NIL))
+ (|extract!| ((|#1| $) 28))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) NIL)) (|empty?| (((|Boolean|) $) 16))
+ (|empty| (($) 42))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|copy| (($ $) 15))
+ (|convert|
+  (((|InputForm|) $) NIL (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 39))
+ (|coerce| (((|OutputForm|) $) 25 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|arrayStack| (($ (|List| |#1|)) 40))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 13
+   (OR (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|#| (((|NonNegativeInteger|) $) 10 (|has| $ (|finiteAggregate|)))))
+((|HasCategory| |#1| '(|SetCategory|))
+ (AND (|HasCategory| |#1| (LIST '|Evalable| (|devaluate| |#1|)))
+      (|HasCategory| |#1| '(|SetCategory|)))
+ (|HasCategory| |#1| (LIST '|ConvertibleTo| '(|InputForm|)))
+ (|HasCategory| |#1| '(|OrderedSet|)) (|HasCategory| |#1| '(|BasicType|))
+ (OR (|HasCategory| |#1| '(|BasicType|)) (|HasCategory| |#1| '(|SetCategory|)))
+ (|HasCategory| |#1| (LIST '|CoercibleTo| '(|OutputForm|)))
+ (OR (|HasCategory| |#1| (LIST '|CoercibleTo| '(|OutputForm|)))
+     (AND (|HasCategory| |#1| (LIST '|Evalable| (|devaluate| |#1|)))
+          (|HasCategory| |#1| '(|SetCategory|))))
+ (|HasCategory| $ '(|shallowlyMutable|)) (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| |#1| '(|OrderedSet|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (AND (|HasCategory| |#1| '(|BasicType|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (OR
+  (AND (|HasCategory| |#1| '(|BasicType|))
+       (|HasCategory| $ '(|finiteAggregate|)))
+  (|HasCategory| |#1| '(|SetCategory|))))
+ASTACK
+(((|StackAggregate| |#1|) . T))
+(((|Aggregate|) . T) ((|BagAggregate| |t#1|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Collection| |t#1|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|SetCategory|) |has| |t#1| (|SetCategory|)) ((|StackAggregate| |#1|) . T)
+ ((|Type|) . T) ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor| (NIL "A stack represented as a flexible array."))
+ (|arrayStack|
+  (($ (|List| |#1|))
+   "\\spad{arrayStack([x,{} y,{} ...,{} z])} creates an array stack with first (top) element \\spad{x},{} second element \\spad{y},{} ...,{} and last element \\spad{z}.")))
+(("documentation" 0 5695) ("ancestors" 0 4967) ("parents" 0 4935)
+ ("abbreviation" 0 4928) ("predicates" 0 3927) ("superDomain" 0 NIL)
+ ("operationAlist" 0 495) ("modemaps" 0 356) ("sourceFile" 0 318)
+ ("constructorCategory" 0 214) ("constructorModemap" 0 46)
+ ("constructorKind" 0 37) ("constructorForm" 0 20))

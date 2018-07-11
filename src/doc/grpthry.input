@@ -1,0 +1,37 @@
+
+-- Input for page GroupTheoryPage
+)clear all
+
+
+-- Input for page InfoRepTheoryPage
+)clear all
+
+
+-- Input for page RepA6Page
+)clear all
+
+genA6 : LIST PERM INT := [cycle [1,2,3],cycle [2,3,4,5,6]]
+pRA6 := permutationRepresentation (genA6, 6)
+sp0 := meatAxe (pRA6::(LIST MATRIX PF 2))
+sp1 := meatAxe sp0.1
+isAbsolutelyIrreducible? sp1.2
+d2211 := irreducibleRepresentation ([2,2,1,1],genA6)
+d2211m2 := d2211:: (LIST MATRIX PF 2); sp2 := meatAxe d2211m2
+isAbsolutelyIrreducible? sp2.1
+areEquivalent? (sp1.2, sp2.1)
+dA6d16 := tensorProduct(sp1.2,sp2.1); meatAxe dA6d16
+isAbsolutelyIrreducible? dA6d16
+sp3 := meatAxe (dA6d16 :: (LIST MATRIX FF(2,2)))
+isAbsolutelyIrreducible? sp3.1
+isAbsolutelyIrreducible? sp3.2
+areEquivalent? (sp3.1,sp3.2)
+sp0.2
+sp1.2
+sp2.1
+sp3.1
+sp3.2
+dA6d16
+
+-- Input for page InfoGroupTheoryPage
+)clear all
+

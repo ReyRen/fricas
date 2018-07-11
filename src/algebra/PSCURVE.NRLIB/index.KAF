@@ -1,0 +1,53 @@
+2501                (MAKEPROP '|PlottableSpaceCurveCategory| 'NILADIC T)
+(|PlottableSpaceCurveCategory|)
+|category|
+(((|PlottableSpaceCurveCategory|) (|Category|))
+ (T |PlottableSpaceCurveCategory|))
+(|Join| (|CoercibleTo| (|OutputForm|))
+        (CATEGORY |domain|
+         (SIGNATURE |listBranches|
+          ((|List| (|List| (|Point| (|DoubleFloat|)))) $))
+         (SIGNATURE |xRange| ((|Segment| (|DoubleFloat|)) $))
+         (SIGNATURE |yRange| ((|Segment| (|DoubleFloat|)) $))
+         (SIGNATURE |zRange| ((|Segment| (|DoubleFloat|)) $))))
+"/git/fricas/src/algebra/PSCURVE.spad"
+((|listBranches| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|PlottableSpaceCurveCategory|))
+       (|isDomain| *2 (|List| (|List| (|Point| (|DoubleFloat|)))))))
+ (|xRange| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|PlottableSpaceCurveCategory|))
+       (|isDomain| *2 (|Segment| (|DoubleFloat|)))))
+ (|yRange| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|PlottableSpaceCurveCategory|))
+       (|isDomain| *2 (|Segment| (|DoubleFloat|)))))
+ (|zRange| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|PlottableSpaceCurveCategory|))
+       (|isDomain| *2 (|Segment| (|DoubleFloat|))))))
+((|zRange| (((|Segment| (|DoubleFloat|)) $) 6))
+ (|yRange| (((|Segment| (|DoubleFloat|)) $) 6))
+ (|xRange| (((|Segment| (|DoubleFloat|)) $) 6))
+ (|listBranches| (((|List| (|List| (|Point| (|DoubleFloat|)))) $) 6))
+ (|coerce| (((|OutputForm|) $) 6)))
+PSCURVE
+(((|CoercibleTo| (|OutputForm|)) . T))
+(((|CoercibleTo| (|OutputForm|)) . T))
+((|constructor|
+  (NIL
+   "PlottableSpaceCurveCategory is the category of curves in 3-space which may be plotted via the graphics facilities. Functions are provided for obtaining lists of lists of points,{} representing the branches of the curve,{} and for determining the ranges of the \\spad{x-},{} \\spad{y-},{} and \\spad{z}-coordinates of the points on the curve."))
+ (|zRange|
+  (((|Segment| (|DoubleFloat|)) $)
+   "\\spad{zRange(c)} returns the range of the \\spad{z}-coordinates of the points on the curve \\spad{c}."))
+ (|yRange|
+  (((|Segment| (|DoubleFloat|)) $)
+   "\\spad{yRange(c)} returns the range of the \\spad{y}-coordinates of the points on the curve \\spad{c}."))
+ (|xRange|
+  (((|Segment| (|DoubleFloat|)) $)
+   "\\spad{xRange(c)} returns the range of the \\spad{x}-coordinates of the points on the curve \\spad{c}."))
+ (|listBranches|
+  (((|List| (|List| (|Point| (|DoubleFloat|)))) $)
+   "\\spad{listBranches(c)} returns a list of lists of points,{} representing the branches of the curve \\spad{c}.")))
+(("documentation" 0 1474) ("ancestors" 0 1435) ("parents" 0 1396)
+ ("abbreviation" 0 1388) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1138) ("modemaps" 0 587) ("sourceFile" 0 548)
+ ("constructorCategory" 0 200) ("constructorModemap" 0 116)
+ ("constructorKind" 0 105) ("constructorForm" 0 73) ("NILADIC" 0 20))

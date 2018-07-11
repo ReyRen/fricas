@@ -1,0 +1,79 @@
+4502                (|UnivariatePolynomialSquareFree| RC P)
+|package|
+(((|UnivariatePolynomialSquareFree| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |squareFree| ((|Factored| |#2|) |#2|))
+   (SIGNATURE |squareFreePart| (|#2| |#2|))
+   (SIGNATURE |BumInSepFFE|
+    ((|Record| (|:| |flag| (|Union| #1="nil" #2="sqfr" #3="irred" #4="prime"))
+               (|:| |factor| |#2|) (|:| |exponent| (|NonNegativeInteger|)))
+     (|Record| (|:| |flag| (|Union| #1# #2# #3# #4#)) (|:| |factor| |#2|)
+               (|:| |exponent| (|NonNegativeInteger|))))))
+  (|IntegralDomain|)
+  (|Join| (|UnivariatePolynomialCategory| |#1|) (|IntegralDomain|)
+          (CATEGORY |domain| (SIGNATURE |gcd| ($ $ $)))))
+ (T |UnivariatePolynomialSquareFree|))
+(CATEGORY |package| (SIGNATURE |squareFree| ((|Factored| |#2|) |#2|))
+ (SIGNATURE |squareFreePart| (|#2| |#2|))
+ (SIGNATURE |BumInSepFFE|
+  ((|Record| (|:| |flag| (|Union| #1="nil" #2="sqfr" #3="irred" #4="prime"))
+             (|:| |factor| |#2|) (|:| |exponent| (|NonNegativeInteger|)))
+   (|Record| (|:| |flag| (|Union| #1# #2# #3# #4#)) (|:| |factor| |#2|)
+             (|:| |exponent| (|NonNegativeInteger|))))))
+"/git/fricas/src/algebra/UPSQFREE.spad"
+((|BumInSepFFE| (*1 *2 *2)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |flag| (|Union| "nil" "sqfr" "irred" "prime"))
+                         (|:| |factor| *4)
+                         (|:| |exponent| (|NonNegativeInteger|))))
+   (|ofCategory| *4
+                 (|Join| (|UnivariatePolynomialCategory| *3) (|IntegralDomain|)
+                         (CATEGORY |domain| (SIGNATURE |gcd| ($ $ $)))))
+   (|ofCategory| *3 (|IntegralDomain|))
+   (|isDomain| *1 (|UnivariatePolynomialSquareFree| *3 *4))))
+ (|squareFreePart| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|UnivariatePolynomialSquareFree| *3 *2))
+       (|ofCategory| *2
+                     (|Join| (|UnivariatePolynomialCategory| *3)
+                             (|IntegralDomain|)
+                             (CATEGORY |domain| (SIGNATURE |gcd| ($ $ $)))))))
+ (|squareFree| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|)) (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|UnivariatePolynomialSquareFree| *4 *3))
+       (|ofCategory| *3
+                     (|Join| (|UnivariatePolynomialCategory| *4)
+                             (|IntegralDomain|)
+                             (CATEGORY |domain| (SIGNATURE |gcd| ($ $ $))))))))
+((|squareFreePart| ((|#2| |#2|) 12))
+ (|squareFree| (((|Factored| |#2|) |#2|) 14))
+ (|BumInSepFFE|
+  (((|Record| (|:| |flag| (|Union| #1="nil" #2="sqfr" #3="irred" #4="prime"))
+              (|:| |factor| |#2|) (|:| |exponent| (|NonNegativeInteger|)))
+    (|Record| (|:| |flag| (|Union| #1# #2# #3# #4#)) (|:| |factor| |#2|)
+              (|:| |exponent| (|NonNegativeInteger|))))
+   27)))
+UPSQFREE
+((|constructor|
+  (NIL
+   "This package provides for square-free decomposition of univariate polynomials over arbitrary rings,{} \\spadignore{i.e.} a partial factorization such that each factor is a product of irreducibles with multiplicity one and the factors are pairwise relatively prime. If the ring has characteristic zero,{} the result is guaranteed to satisfy this condition. If the ring is an infinite ring of finite characteristic,{} then it may not be possible to decide when polynomials contain factors which are \\spad{p}th powers. In this case,{} the flag associated with that polynomial is set to \"nil\" (meaning that that polynomials are not guaranteed to be square-free)."))
+ (|BumInSepFFE|
+  (((|Record| (|:| |flag| (|Union| #1="nil" #2="sqfr" #3="irred" #4="prime"))
+              (|:| |factor| |#2|) (|:| |exponent| (|NonNegativeInteger|)))
+    (|Record| (|:| |flag| (|Union| #1# #2# #3# #4#)) (|:| |factor| |#2|)
+              (|:| |exponent| (|NonNegativeInteger|))))
+   "\\spad{BumInSepFFE(f)} is a local function,{} exported only because it has multiple conditional definitions."))
+ (|squareFreePart|
+  ((|#2| |#2|)
+   "\\spad{squareFreePart(p)} returns a polynomial which has the same irreducible factors as the univariate polynomial \\spad{p},{} but each factor has multiplicity one."))
+ (|squareFree|
+  (((|Factored| |#2|) |#2|)
+   "\\spad{squareFree(p)} computes the square-free factorization of the univariate polynomial \\spad{p}. Each factor has no repeated roots,{} and the factors are pairwise relatively prime."))
+ (|gcd|
+  (($ $ $)
+   "\\spad{gcd(p,{} q)} computes the greatest-common-divisor of \\spad{p} and \\spad{q}.")))
+(("documentation" 0 2842) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2833) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2443) ("modemaps" 0 1192) ("sourceFile" 0 1152)
+ ("constructorCategory" 0 734) ("constructorModemap" 0 70)
+ ("constructorKind" 0 60) ("constructorForm" 0 20))

@@ -1,0 +1,35 @@
+1693                (|LaplaceTransform| R F)
+|package|
+(((|LaplaceTransform| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |laplace| (|#2| |#2| (|Symbol|) (|Symbol|))))
+  (|Join| (|PolynomialFactorizationExplicit|) (|Comparable|)
+          (|CharacteristicZero|) (|RetractableTo| (|Integer|))
+          (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|TranscendentalFunctionCategory|) (|PrimitiveFunctionCategory|)
+          (|AlgebraicallyClosedFunctionSpace| |#1|)))
+ (T |LaplaceTransform|))
+(CATEGORY |package| (SIGNATURE |laplace| (|#2| |#2| (|Symbol|) (|Symbol|))))
+"/git/fricas/src/algebra/LAPLACE.spad"
+((|laplace| (*1 *2 *2 *3 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|ofCategory| *4
+                     (|Join| (|PolynomialFactorizationExplicit|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *1 (|LaplaceTransform| *4 *2))
+       (|ofCategory| *2
+                     (|Join| (|TranscendentalFunctionCategory|)
+                             (|PrimitiveFunctionCategory|)
+                             (|AlgebraicallyClosedFunctionSpace| *4))))))
+((|laplace| ((|#2| |#2| (|Symbol|) (|Symbol|)) 17)))
+LAPLACE
+((|constructor| (NIL "This package computes the forward Laplace Transform."))
+ (|laplace|
+  ((|#2| |#2| (|Symbol|) (|Symbol|))
+   "\\spad{laplace(f,{} t,{} s)} returns the Laplace transform of \\spad{f(t)} using \\spad{s} as the new variable. This is \\spad{integral(exp(-s*t)*f(t),{} t = 0..\\%plusInfinity)}. Returns the formal object \\spad{laplace(f,{} t,{} s)} if it cannot compute the transform.")))
+(("documentation" 0 1287) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1279) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1226) ("modemaps" 0 609) ("sourceFile" 0 570)
+ ("constructorCategory" 0 493) ("constructorModemap" 0 55)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

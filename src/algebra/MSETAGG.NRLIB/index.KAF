@@ -1,0 +1,104 @@
+4764                (|MultisetAggregate| S)
+|category|
+(((|MultisetAggregate| |#1|) (|Category|) (|SetCategory|))
+ (T |MultisetAggregate|))
+(|Join| (|MultiDictionary| |t#1|) (|SetAggregate| |t#1|))
+"/git/fricas/src/algebra/MSETAGG.spad"
+((~= (((|Boolean|) $ $) 6)) (|union| (($ |#1| $) 6) (($ $ |#1|) 6) (($ $ $) 6))
+ (|symmetricDifference| (($ $ $) 6)) (|subset?| (((|Boolean|) $ $) 6))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|set| (($ (|List| |#1|)) 6) (($) 6))
+ (|select!|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|sample| (($) 6 T CONST)) (|removeDuplicates!| (($ $) 6))
+ (|removeDuplicates|
+  (($ $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove!|
+  (($ |#1| $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|remove| (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+           (($ |#1| $) 6
+            (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|latex| (((|String|) $) 6)) (|intersect| (($ $ $) 6))
+ (|inspect| ((|#1| $) 6))
+ (|insert!| (($ |#1| $) 6) (($ |#1| $ (|NonNegativeInteger|)) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) 6))
+ (|extract!| ((|#1| $) 6))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|duplicates|
+  (((|List| (|Record| (|:| |entry| |#1|) (|:| |count| (|NonNegativeInteger|))))
+    $)
+   6))
+ (|difference| (($ $ |#1|) 6) (($ $ $) 6))
+ (|dictionary| (($) 6) (($ (|List| |#1|)) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|convert| (((|InputForm|) $) 6 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (>= (((|Boolean|) $ $) 6)) (> (((|Boolean|) $ $) 6)) (= (((|Boolean|) $ $) 6))
+ (<= (((|Boolean|) $ $) 6)) (< (((|Boolean|) $ $) 6))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+MSETAGG
+(((|MultiDictionary| |#1|) . T) ((|SetAggregate| |#1|) . T))
+(((|Aggregate|) . T) ((|BagAggregate| |t#1|) . T) ((|BasicType|) . T)
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|Collection| |t#1|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|DictionaryOperations| |t#1|) . T)
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|MultiDictionary| |#1|) . T) ((|PartialOrder|) . T)
+ ((|SetAggregate| |#1|) . T) ((|SetCategory|) . T) ((|Type|) . T)
+ ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "A multi-set aggregate is a set which keeps track of the multiplicity of its elements.")))
+(("documentation" 0 4647) ("ancestors" 0 4014) ("parents" 0 3953)
+ ("abbreviation" 0 3945) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 237) ("modemaps" 0 NIL) ("sourceFile" 0 198)
+ ("constructorCategory" 0 140) ("constructorModemap" 0 55)
+ ("constructorKind" 0 44) ("constructorForm" 0 20))

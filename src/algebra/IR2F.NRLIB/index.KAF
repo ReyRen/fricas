@@ -1,0 +1,69 @@
+3492                (|IntegrationResultToFunction| R F)
+|package|
+(((|IntegrationResultToFunction| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |split| ((|IntegrationResult| |#2|) (|IntegrationResult| |#2|)))
+   (SIGNATURE |expand| ((|List| |#2|) (|IntegrationResult| |#2|) (|Symbol|)))
+   (SIGNATURE |complexExpand| (|#2| (|IntegrationResult| |#2|))))
+  (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|)) (|Comparable|)
+          (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|AlgebraicallyClosedFunctionSpace| |#1|)
+          (|TranscendentalFunctionCategory|)))
+ (T |IntegrationResultToFunction|))
+(CATEGORY |package|
+ (SIGNATURE |split| ((|IntegrationResult| |#2|) (|IntegrationResult| |#2|)))
+ (SIGNATURE |expand| ((|List| |#2|) (|IntegrationResult| |#2|) (|Symbol|)))
+ (SIGNATURE |complexExpand| (|#2| (|IntegrationResult| |#2|))))
+"/git/fricas/src/algebra/IR2F.spad"
+((|complexExpand| (*1 *2 *3)
+  (AND (|isDomain| *3 (|IntegrationResult| *2))
+       (|ofCategory| *2
+                     (|Join| (|AlgebraicallyClosedFunctionSpace| *4)
+                             (|TranscendentalFunctionCategory|)))
+       (|isDomain| *1 (|IntegrationResultToFunction| *4 *2))
+       (|ofCategory| *4
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|)
+                             (|LinearlyExplicitOver| (|Integer|))))))
+ (|expand| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|IntegrationResult| *6)) (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *6
+                     (|Join| (|AlgebraicallyClosedFunctionSpace| *5)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *5
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2 (|List| *6))
+       (|isDomain| *1 (|IntegrationResultToFunction| *5 *6))))
+ (|split| (*1 *2 *2)
+  (AND (|isDomain| *2 (|IntegrationResult| *4))
+       (|ofCategory| *4
+                     (|Join| (|AlgebraicallyClosedFunctionSpace| *3)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *3
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *1 (|IntegrationResultToFunction| *3 *4)))))
+((|split| (((|IntegrationResult| |#2|) (|IntegrationResult| |#2|)) 35))
+ (|expand| (((|List| |#2|) (|IntegrationResult| |#2|) (|Symbol|)) 37))
+ (|complexExpand| ((|#2| (|IntegrationResult| |#2|)) 44)))
+IR2F
+((|constructor|
+  (NIL
+   "This package allows a sum of logs over the roots of a polynomial to be expressed as explicit logarithms and arc tangents,{} provided that the indexing polynomial can be factored into quadratics."))
+ (|complexExpand|
+  ((|#2| (|IntegrationResult| |#2|))
+   "\\spad{complexExpand(i)} returns the expanded complex function corresponding to \\spad{i}."))
+ (|expand|
+  (((|List| |#2|) (|IntegrationResult| |#2|) (|Symbol|))
+   "\\spad{expand(i,{} x)} returns the list of possible real functions of \\spad{x} corresponding to \\spad{i}."))
+ (|split|
+  (((|IntegrationResult| |#2|) (|IntegrationResult| |#2|))
+   "\\spad{split(u(x) + sum_{P(a)=0} Q(a,{} x))} returns \\spad{u(x) + sum_{P1(a)=0} Q(a,{} x) + ... + sum_{Pn(a)=0} Q(a,{} x)} where \\spad{P1},{} ...,{} \\spad{Pn} are the factors of \\spad{P}.")))
+(("documentation" 0 2662) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2657) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2455) ("modemaps" 0 880) ("sourceFile" 0 844)
+ ("constructorCategory" 0 607) ("constructorModemap" 0 66)
+ ("constructorKind" 0 56) ("constructorForm" 0 20))

@@ -1,0 +1,40 @@
+
+-- Input for page LazardSetSolvingPackageXmpPage
+)clear all
+
+R := Integer
+ls : List Symbol := [b1,x,y,z,t,v,u,w]
+V := OVAR(ls)
+E := IndexedExponents V
+P := NSMP(R, V)
+b1: P := 'b1
+x: P := 'x
+y: P := 'y
+z: P := 'z
+t: P := 't
+u: P := 'u
+v: P := 'v
+w: P := 'w
+T := REGSET(R,E,V,P)
+p0 := b1 + y + z - t - w
+p1 := 2*z*u + 2*y*v + 2*t*w - 2*w^2 - w - 1
+p2 := 3*z*u^2 + 3*y*v^2 - 3*t*w^2 + 3*w^3 + 3*w^2 - t + 4*w
+p3 := 6*x*z*v - 6*t*w^2 + 6*w^3 - 3*t*w + 6*w^2 - t + 4*w
+p4 := 4*z*u^3+ 4*y*v^3+ 4*t*w^3- 4*w^4 - 6*w^3+ 4*t*w- 10*w^2- w- 1
+p5 := 8*x*z*u*v +8*t*w^3 -8*w^4 +4*t*w^2 -12*w^3 +4*t*w -14*w^2 -3*w -1
+p6 := 12*x*z*v^2+12*t*w^3 -12*w^4 +12*t*w^2 -18*w^3 +8*t*w -14*w^2 -w -1
+p7 := -24*t*w^3 + 24*w^4 - 24*t*w^2 + 36*w^3 - 8*t*w + 26*w^2 + 7*w + 1
+lp := [p0, p1, p2, p3, p4, p5, p6, p7]
+lts := zeroSetSplit(lp,false)$T
+[coHeight(ts) for ts in lts]
+ST := SREGSET(R,E,V,P)
+pack := LAZM3PK(R,E,V,P,T,ST)
+zeroSetSplit(lp,false)$pack
+f0 := (w - v) ^ 2 + (u - t) ^ 2 - 1
+f1 := t ^ 2 - v ^ 3
+f2 := 2 * t * (w - v) + 3 * v ^ 2 * (u - t)
+f3 := (3 * z * v ^ 2 - 1) * (2 * z * t - 1)
+lf := [f0, f1, f2, f3]
+zeroSetSplit(lf,true)$T
+zeroSetSplit(lf,false)$T
+zeroSetSplit(lf,false)$pack

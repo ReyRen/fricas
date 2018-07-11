@@ -1,0 +1,49 @@
+2569                (|FiniteDivisorCategory&| S F UP UPUP R)
+|domain|
+(((|FiniteDivisorCategory&| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |domain| (SIGNATURE |principal?| ((|Boolean|) |#1|)))
+  (|FiniteDivisorCategory| |#2| |#3| |#4| |#5|) (|Field|)
+  (|UnivariatePolynomialCategory| |#2|)
+  (|UnivariatePolynomialCategory| (|Fraction| |#3|))
+  (|FunctionFieldCategory| |#2| |#3| |#4|))
+ (T |FiniteDivisorCategory&|))
+(CATEGORY |domain| (SIGNATURE |principal?| ((|Boolean|) |#1|)))
+"/git/fricas/src/algebra/FDIVCAT.spad"
+((|principal?| (((|Boolean|) $) 14)))
+FDIVCAT-
+((|constructor|
+  (NIL
+   "This category describes finite rational divisors on a curve,{} that is finite formal sums SUM(\\spad{n} * \\spad{P}) where the \\spad{n}\\spad{'s} are integers and the \\spad{P}\\spad{'s} are finite rational points on the curve."))
+ (|generator|
+  (((|Union| |#5| "failed") $)
+   "\\spad{generator(d)} returns \\spad{f} if \\spad{(f) = d},{} \"failed\" if \\spad{d} is not principal."))
+ (|principal?|
+  (((|Boolean|) $)
+   "\\spad{principal?(D)} tests if the argument is the divisor of a function."))
+ (|reduce|
+  (($ $)
+   "\\spad{reduce(D)} converts \\spad{D} to some reduced form (the reduced forms can be differents in different implementations)."))
+ (|decompose|
+  (((|Record| (|:| |id| (|FractionalIdeal| |#3| (|Fraction| |#3|) |#4| |#5|))
+              (|:| |principalPart| |#5|))
+    $)
+   "\\spad{decompose(d)} returns \\spad{[id,{} f]} where \\spad{d = (id) + div(f)}."))
+ (|divisor|
+  (($ |#5| |#3| |#3| |#3| |#2|)
+   "\\spad{divisor(h,{} d,{} d',{} g,{} r)} returns the sum of all the finite points where \\spad{h/d} has residue \\spad{r}. \\spad{h} must be integral. \\spad{d} must be squarefree. \\spad{d'} is some derivative of \\spad{d} (not necessarily dd/dx). \\spad{g = gcd(d,{} discriminant)} contains the ramified zeros of \\spad{d}")
+  (($ |#2| |#2| (|Integer|))
+   "\\spad{divisor(a,{} b,{} n)} makes the divisor \\spad{nP} where \\spad{P:} \\spad{(x = a,{} y = b)}. \\spad{P} is allowed to be singular if \\spad{n} is a multiple of the rank.")
+  (($ |#2| |#2|)
+   "\\spad{divisor(a,{} b)} makes the divisor \\spad{P:} \\spad{(x = a,{} y = b)}. Error: if \\spad{P} is singular.")
+  (($ |#5|)
+   "\\spad{divisor(g)} returns the divisor of the function \\spad{g}.")
+  (($ (|FractionalIdeal| |#3| (|Fraction| |#3|) |#4| |#5|))
+   "\\spad{divisor(I)} makes a divisor \\spad{D} from an ideal \\spad{I}."))
+ (|ideal|
+  (((|FractionalIdeal| |#3| (|Fraction| |#3|) |#4| |#5|) $)
+   "\\spad{ideal(D)} returns the ideal corresponding to a divisor \\spad{D}.")))
+(("documentation" 0 566) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 557) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 519) ("modemaps" 0 NIL) ("sourceFile" 0 480)
+ ("constructorCategory" 0 416) ("constructorModemap" 0 70)
+ ("constructorKind" 0 61) ("constructorForm" 0 20))

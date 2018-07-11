@@ -1,0 +1,467 @@
+)abbrev domain JBE JetBundleExpression
+++ Description:
+++ \spadtype{JetBundleExpression} defines expressions over a jet bundle
+++ based on \spadtype{Expression Integer}. It allows all kind of algebraic
+++ operations. \spad{simplify} is implemented using Groebner bases in
+++ polynomials over kernels. Thus it might not work correctly for general
+++ expressions. This also affects \spad{dimension}.
+
+JetBundleExpression(JB : JBC) : Cat == Def where
+
+  Sy    ==> Symbol
+  PI    ==> PositiveInteger
+  NNI   ==> NonNegativeInteger
+  I     ==> Integer
+  B     ==> Boolean
+  L     ==> List
+  K     ==> Kernel %
+  BOP   ==> BasicOperator
+  SMP   ==> SparseMultivariatePolynomial(I, K)
+  IE    ==> IndexedExponents K
+  GB    ==> GroebnerPackage(I, IE, SMP)
+  FLAF1 ==> FiniteLinearAggregateFunctions2(%, L %, SMP, L SMP)
+  FLAF2 ==> FiniteLinearAggregateFunctions2(SMP, L SMP, %, L %)
+  EI    ==> Expression Integer
+  FS    ==> FunctionSpace Integer
+  ACFS  ==> AlgebraicallyClosedFunctionSpace Integer
+  TFC   ==> TranscendentalFunctionCategory
+  COC   ==> CombinatorialOpsCategory
+  LFC   ==> LiouvillianFunctionCategory
+  SFC   ==> SpecialFunctionCategory
+  JBC   ==> JetBundleCategory
+  JBE   ==> JetBundleExpression JB
+  JBX   ==> JetBundleXExpression JB
+  JBFC  ==> JetBundleFunctionCategory JB
+  JP    ==> SparseMultivariatePolynomial(EI, JB)
+  OUT   ==> OutputForm
+  SEM   ==> SparseEchelonMatrix(JB, %)
+
+  SIMPREC ==> Record(Sys : L %, JM : SEM, Depend : Union("failed", L L NNI))
+  ROWREC  ==> Record(Indices : L JB, Entries : L %)
+  LDREC   ==> Record(Fun : %, JMR : ROWREC, Depend : L NNI)
+
+  Const   ==> "Const"::Sy
+  Indep   ==> "Indep"::Sy
+  Dep     ==> "Dep"::Sy
+  Deriv   ==> "Deriv"::Sy
+
+  Cat ==> Join(JBFC, FS, ACFS, TFC, COC, LFC, SFC) with
+
+    coerce : EI -> %
+    coerce : %  -> EI
+
+    coerce : SMP -> %
+
+    coerce : JP -> %
+    numerJP : % -> JP
+      ++ \spad{numerJP(f)} writes \spad{f} as polynomial over \spad{JB}.
+
+    reduce : % -> %
+      ++ \spad{reduce(x)} reduces algebraics in \spad{x}.
+
+    function : (Sy, L %, NNI) -> %
+      ++ \spad{function(f, arg, show)} generates a function with name \spad{f}
+      ++ and arguments \spad{arg}. In the output only the first \spad{show}
+      ++ arguments are shown.
+
+  Def ==> EI add
+
+    -- -------------- --
+    -- Representation --
+    -- -------------- --
+
+    Rep := EI
+
+    coerce(jv : JB) : % == jv::EI
+
+    coerce(exp : EI) : % == exp@Rep
+
+    coerce(f : %) : EI == f::Rep
+
+    coerce(p : SMP) : % == p / 1$SMP
+
+    numerJP(f : %) : JP ==
+        res : JP := 0
+        p : SMP := numer f
+        PM := primitiveMonomials p
+        CO := coefficients p
+        for mon in PM  for co in CO repeat
+            JV : L JB := empty
+            Exp : L NNI := empty
+            newco : EI := co::EI
+            for v in variables mon repeat
+                vs := v::%
+                jv : Union(JB, "failed") := retractIfCan vs
+                if jv case "failed" then
+                    newco := newco * (vs::EI)
+                else
+                    JV := cons(jv::JB, JV)
+                    Exp := cons(degree(mon, v), Exp)
+            res := res + newco*monomial(1, reverse! JV, reverse! Exp)
+        res
+
+    coerce(p : JP) : % ==
+        res : % := 0
+        PM := primitiveMonomials p
+        CO := coefficients p
+        for mon in PM  for co in CO repeat
+            prod := co
+            for v in variables mon repeat
+                prod := prod * (v::%)^degree(p, v)
+            res := res + prod
+        res
+
+    gcd(f1 : %, f2 : %) : % == gcd(numer f1, numer f2)$SMP ::%
+
+    f1 : % exquo f2 : % ==
+        p := (numer(f1) exquo$SMP numer(f2))
+        p case "failed" => "failed"
+        p::SMP::%
+
+    recip(f : %) : Union(%, "failed") == 1/f
+
+    -- --------- --
+    -- Dimension --
+    ------------ --
+
+    purge(l : L K, q : NNI) : L K == [k  for k in l | order(k::%) = q]
+
+    dimrec(lmv : L L K, indVars : L K, remVars : L K, sets : L L K) : L L K ==
+        -- recursive computation of independent sets
+        res := sets
+        newVars := remVars
+        while not empty? newVars repeat
+            jk := first newVars
+            newVars := rest newVars
+            elem : B := false
+            indK := concat(indVars, jk)
+            for lv in lmv  until elem repeat
+                elem := (lv = indK)
+            if not elem then
+                res := dimrec(lmv, indK, newVars, res)
+        elem := false
+        for m in res  until elem repeat
+            elem := reduce("and", [member?(ik, m)  for ik in indVars], true)
+        if not elem then
+            res := cons(indVars, res)
+        res
+
+    dimension(sys : L %, jm : SEM, q : NNI) : NNI ==
+        polys : L SMP := map(numer, sys)$FLAF1
+        lmv := [sort! variables leadingMonomial p  for p in polys]
+        allvars := first lmv
+        for lv in rest lmv repeat
+            allvars := removeDuplicates! merge(lv, allvars)
+        dim0 := (dimJ(q)$JB - #allvars)::NNI
+        indSets := dimrec(lmv, empty, allvars, empty)
+        dim : NNI := 0
+        for ind in indSets repeat
+            dim := max(dim, #ind)
+        dim0 + dim --reduce(max, [#ind  for ind in indSets], 0)
+
+    orderDim(sys : L %, jm : SEM, q : NNI) : NNI ==
+        polys : L SMP := map(numer, sys)$FLAF1
+        lmv := [sort! purge(variables(leadingMonomial(p)), q)  for p in polys]
+        allvars := first lmv
+        for lv in rest lmv repeat
+            allvars := removeDuplicates! merge(lv, allvars)
+        dim0 := (dimS(q)$JB - #allvars)::NNI
+        indSets := dimrec(lmv, empty, allvars, empty)
+        dim : NNI := 0
+        for ind in indSets repeat
+            dim := max(dim, #ind)
+        dim0 + dim --reduce(max, [#ind  for ind in indSets], 0)
+
+    -- -------------- --
+    -- Simplification --
+    -- -------------- --
+
+    simpSMP(p : SMP) : SMP ==
+        -- local function to support simplification
+        ground? p => 1
+        tv := mainVariable p
+        tv case "failed" => error "inconsistent system"
+        --print("simpSMP")$OUT
+        v := tv::K
+        up := univariate(p, v)
+        monomial? up =>
+            --print("  monomial")$OUT
+            lc := leadingCoefficient up
+            mainVariable(lc) case "failed" =>
+                --print("End simpSMP")$OUT
+                monomial(1, v, 1)
+            --print("End simpSMP (Rekursion)")$OUT
+            monomial(simpSMP lc, v, 1)
+        (md := minimumDegree up) > 0 =>
+            --print("  reduce degree")$OUT
+            up := monicDivide(up, monomial(1, md)).quotient
+            --print("END simpSMP")$OUT
+            multivariate(up, v)
+        --print("END simpSMP")$OUT
+        p
+
+    simpOne(f : %) : % ==
+        zero? f => 0
+        simpSMP(numer f)::%
+
+    greaterLD(r1 : LDREC, r2 : LDREC) : B ==
+        -- local function for sorting purposes
+        empty? r1.JMR.Indices => false
+        empty? r2.JMR.Indices => true
+        ind1 := r1.JMR.Indices
+        ind2 := r2.JMR.Indices
+        first(ind1) = first(ind2) => #ind1 < #ind2
+        first(ind1) > first(ind2)
+
+    groebner(sys : L %) : L % ==
+         polys : L SMP := map(numer, sys)$FLAF1
+         --print("groebner")$OUT
+         print(assign(message("polys"), polys::OUT))$OUT
+         gbase := groebner(polys)$GB
+         --print("END groebner")$OUT
+         map(coerce, gbase)$FLAF2
+
+    groebnerSimp(sysL : L LDREC, ind : L JB) : L LDREC ==
+        -- Simplification using Groebner bases for truly non-linear
+        -- equations. Looses all information about dependencies.
+        print(assign(message("groebnerSimp: #"), (#sysL)::OUT))$OUT
+        tmp : L L NNI := [rec.Depend  for rec in sysL]
+        resDep : L NNI := reduce(setUnion, tmp, empty)
+        resSys := groebner([rec.Fun  for rec in sysL])
+        resJM := jacobiMatrix(resSys, [ind  for eq in resSys])
+        print(message("END groebnerSimp"))$OUT
+        [[fun, row(resJM, i), resDep]  for fun in resSys  for i in 1..]
+
+    linearSimp(sysL : L LDREC, ind : L JB) : L LDREC ==
+        -- Tries to find an equation which is linear in its leading
+        -- derivative, in order to avoid Groebner bases.
+        --print(assign("linearSimp: #", (#sysL)::OUT))$OUT
+        solved? : B := false
+        srec : LDREC
+        sld : JB
+        rsysL : L LDREC := empty
+        while not(solved? or empty? sysL) repeat
+            rec := first sysL
+            sysL := rest sysL
+            ld := first rec.JMR.Indices
+            s := solveFor(rec.Fun, ld)
+            solved? := s case %
+            if solved? then
+                srec := rec
+                sld := ld
+            else
+                rsysL := cons(rec, rsysL)
+        rsysL := concat!(reverse! rsysL, sysL)
+        solved? =>
+            ssub := s::%
+            res : L LDREC := [srec]
+            sdep := srec.Depend
+            for rec in rsysL repeat
+                newFun := simpOne subst(rec.Fun, sld, ssub)
+                if not zero? newFun then
+                    newJMR := row(jacobiMatrix([newFun], [ind]), 1)$SEM
+                    newDep := removeDuplicates! append(rec.Depend, sdep)
+                    res := cons([newFun, newJMR, newDep], res)
+            --print("END linearSimp")$OUT
+            reverse! res
+        --print("END linearSimp")$OUT
+        groebnerSimp(rsysL, ind)
+
+    simpRec(sysL : L LDREC, ind : L JB) : L LDREC ==
+        -- Checks whether a leading derivative occurs more than once.
+        -- If yes, linearSimp is called to simplify all equations with
+        -- same leading derivative. These equations are sorted according
+        -- to the number of jet variables occurring in them.
+        #sysL < 2 => sysL
+        --print("simpRec")$OUT
+        frec := first sysL
+        fld := first frec.JMR.Indices
+        sysL := rest sysL
+        srec := first sysL
+        sld := first srec.JMR.Indices
+        fld > sld =>
+            --print("END simpRec")$OUT
+            cons(frec, simpRec(sysL, ind))
+        eqLD : L LDREC := [frec]
+        while not(empty? sysL) and (sld = fld) repeat
+            eqLD := cons(srec, eqLD)
+            sysL := rest sysL
+            if not empty? sysL then
+                srec := first sysL
+                sld := first srec.JMR.Indices
+        eqLD := sort!(greaterLD, linearSimp(reverse! eqLD, ind))
+        srec := first eqLD
+        sld := first srec.JMR.Indices
+        resLD : L LDREC := empty
+        while not(empty? eqLD) and (sld = fld) repeat
+            resLD := cons(srec, resLD)
+            eqLD := rest eqLD
+            if not empty? eqLD then
+                srec := first eqLD
+                sld := first srec.JMR.Indices
+        newSysL : L LDREC := merge(greaterLD, eqLD, sysL)
+        --print("END simpRec")$OUT
+        concat!(reverse! resLD, simpRec(newSysL, ind))
+
+    simplify(sys : L %, jm : SEM) : SIMPREC ==
+        -- Sorts equations according to their leading derivatives.
+        -- Ambiguities are resolved either by solving one equation
+        -- for its leading derivative or by Groebner bases.
+        --print("##### SIMPLIFY #####")$OUT
+        inds := allIndices jm
+        sysL : L LDREC := empty
+        for eq in sys | not zero? eq  for i in 1.. repeat
+            neq := simpOne eq
+            if neq = eq then
+                r := row(jm, i)
+            else
+                r := row(jacobiMatrix([neq], [row(jm, i).Indices]), 1)
+            empty?(r.Indices) or (type(first r.Indices) = Indep) =>
+                error "inconsistent system"
+            sysL := cons([neq, r, [i::NNI]], sysL)
+        empty? sysL => [empty, new(empty, 0), empty]
+        sysL := simpRec(sort!(greaterLD, sysL), inds)
+
+        resSys : L % := empty
+        resJM : SEM := new(inds, #sysL)
+        resDep : L L NNI := empty
+        for rec in sysL  for i in 1.. repeat
+            empty?(rec.JMR.Indices) or (first rec.JMR.Indices < U(1)$JB) =>
+                error "inconsistent system"
+            resSys := cons(rec.Fun, resSys)
+            setRow!(resJM, i, rec.JMR)
+            resDep := cons(rec.Depend, resDep)
+        --print("##### END SIMPLIFY #####")$OUT
+        [reverse! resSys, resJM, reverse! resDep]
+
+    -- -------------- --
+    -- JBFC Functions --
+    -- -------------- --
+
+    jetVariables(Phi : %) : L JB ==
+        JV : L JB := empty
+        LKernels := tower Phi
+        LOps := [operator Ke  for Ke in LKernels]
+        for Ke in LKernels  for Op in LOps | has?(Op, "%jet"::Symbol)$BOP repeat
+            typ := property(Op, "%jet"::Symbol)::None pretend Sy
+            arg := argument Ke
+            if typ = Indep then
+                xindex : I := retract(second arg)
+                JV := cons(X(xindex::PI)$JB, JV)
+            else if typ = Dep then
+                uindex : I := retract(second arg)
+                JV := cons(U(uindex::PI)$JB, JV)
+            else
+                pupindex : I := retract(second arg)
+                mindex : L I := [retract i for i in rest rest arg]
+                pmindex := [i::NNI for i in mindex]
+                JV := cons(P(pupindex::PI, pmindex)$JB, JV)
+        sort(">", removeDuplicates! JV)
+
+    differentiate(fun : %, jv : JB) : % ==
+        x := name jv
+        differentiate(fun, x)
+
+    differentiate(fun : %, x : Sy) : % == differentiate(fun::EI, x)$Rep
+
+    subst(f : %, jv : JB, exp : %) : % ==
+        --print("subst")$OUT
+        res := eval(f::Rep, jv::Rep = exp::Rep)
+        --print("END subst")$OUT
+        res
+
+    solveFor(f : %, jv : JB) : Union(%, "failed") ==
+        -- Succeeds only if f is linear in jv!
+        fun := numer f
+        var : K := retract(jv::%)
+        md := monicDivide(fun, var::SMP, var)
+        vrem := variables md.remainder
+        vquo := variables md.quotient
+        member?(var, append(vrem, vquo)) => "failed"
+        zero? md.remainder =>
+            empty? vquo => 0
+            "failed"
+        - md.remainder / md.quotient
+
+    -- --------- --
+    -- Functions --
+    -- --------- --
+
+    -- Hack around the problem with the kernels. Courtesy M. Bronstein.
+
+    kernel0(op : BOP, ls : L %) : % == kernel(op, ls pretend L EI)$EI
+
+    sy2jbe(s : Sy) : % == s::EI
+
+    -- The following hacks are necessary due to the not very satisfactory
+    -- treatment of differentiation in FunctionSpace. They ensure that
+    -- partial differentiations commute and that derivatives hide the same
+    -- arguments as the original functions.
+
+    hidedisp(l : L %) : OUT ==
+        -- Yields output form for functions with hidden arguments.
+        -- l is supposed to have the following structure:
+        --    l = [name, #args, #shown args, args, diff]
+        -- diff is a list of integers showing previous differentiations.
+        name : Sy := retract first l
+        l := rest l
+        num : I := retract first l
+        l := rest l
+        show : I := retract first l
+        l := rest l
+        args : L OUT := empty
+        for k in 1..show repeat
+            args := concat!(args, [first(l)::OUT])
+            l := rest l
+        for k in (show + 1)..num repeat
+            l := rest l
+        if empty? l then
+            op := name::OUT
+        else
+            op := sub(name::OUT, commaSeparate [e::OUT  for e in l])
+        empty? args => op
+        prefix(op, args)
+
+    hidediff(l : L %, x : Sy) : % ==
+        -- Differentiates functions generated by function.
+        -- l has the same form as in hidedisp
+        oldarg := copy l
+        name : Sy := retract first l
+        l := rest l
+        num : I := retract first l
+        zero? num => 0
+        l := rest l
+        show : I := retract first l
+        l := rest l
+        args : L % := empty
+        for k in 1..num repeat
+            args := cons(first l, args)
+            l := rest l
+        diff : L I := [retract k  for k in l]
+
+        oldarg := first(oldarg, (num + 3)::NNI)
+        op := operator(name)$BOP
+        setProperty(op, "%specialDisp"::Symbol,
+                    hidedisp@(L % -> OUT) pretend None)
+        setProperty(op, "%specialDiff"::Symbol,
+                    hidediff@((L %, Sy) -> %) pretend None)
+        res : % := 0
+        for k in num..1 by -1  for arg in args repeat
+            da := differentiate(arg, x)
+            if not zero? da then
+                newarg := append(oldarg, [j::%  for j in merge(diff, [k])])
+                res := res + kernel0(op, newarg)*da
+        res
+
+    function(f : Sy, arg : L %, show : NNI) : % ==
+        -- Special output and differentiation routines are added using the
+        -- two hooks provided by FunctionSpace and BasicOperator.
+        op := operator(f)$BOP
+        setProperty(op, "%specialDisp"::Symbol,
+                    hidedisp@(L % -> OUT) pretend None)
+        setProperty(op, "%specialDiff"::Symbol,
+                    hidediff@((L %, Sy) -> %) pretend None)
+        args := append([sy2jbe f, #arg::%, show::%], arg)
+        kernel0(op, args)
+
+

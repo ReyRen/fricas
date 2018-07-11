@@ -1,0 +1,51 @@
+2186                (|InnerPolySum| E V R P)
+|package|
+(((|InnerPolySum| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |sum|
+    ((|Record| (|:| |num| |#4|) (|:| |den| (|Integer|))) |#4| |#2|
+     (|Segment| |#4|)))
+   (SIGNATURE |sum|
+    ((|Record| (|:| |num| |#4|) (|:| |den| (|Integer|))) |#4| |#2|)))
+  (|OrderedAbelianMonoidSup|) (|OrderedSet|) (|IntegralDomain|)
+  (|PolynomialCategory| |#3| |#1| |#2|))
+ (T |InnerPolySum|))
+(CATEGORY |package|
+ (SIGNATURE |sum|
+  ((|Record| (|:| |num| |#4|) (|:| |den| (|Integer|))) |#4| |#2|
+   (|Segment| |#4|)))
+ (SIGNATURE |sum|
+  ((|Record| (|:| |num| |#4|) (|:| |den| (|Integer|))) |#4| |#2|)))
+"/git/fricas/src/algebra/ISUMP.spad"
+((|sum| (*1 *2 *3 *4)
+        (AND (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+             (|ofCategory| *4 (|OrderedSet|))
+             (|ofCategory| *6 (|IntegralDomain|))
+             (|isDomain| *2 (|Record| (|:| |num| *3) (|:| |den| (|Integer|))))
+             (|isDomain| *1 (|InnerPolySum| *5 *4 *6 *3))
+             (|ofCategory| *3 (|PolynomialCategory| *6 *5 *4))))
+ (|sum| (*1 *2 *3 *4 *5)
+        (AND (|isDomain| *5 (|Segment| *3))
+             (|ofCategory| *3 (|PolynomialCategory| *7 *6 *4))
+             (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+             (|ofCategory| *4 (|OrderedSet|))
+             (|ofCategory| *7 (|IntegralDomain|))
+             (|isDomain| *2 (|Record| (|:| |num| *3) (|:| |den| (|Integer|))))
+             (|isDomain| *1 (|InnerPolySum| *6 *4 *7 *3)))))
+((|sum| (((|Record| (|:| |num| |#4|) (|:| |den| (|Integer|))) |#4| |#2|) 23)
+        (((|Record| (|:| |num| |#4|) (|:| |den| (|Integer|))) |#4| |#2|
+          (|Segment| |#4|))
+         32)))
+ISUMP
+((|constructor| (NIL "tools for the summation packages."))
+ (|sum|
+  (((|Record| (|:| |num| |#4|) (|:| |den| (|Integer|))) |#4| |#2|)
+   "\\spad{sum(p(n),{} n)} returns \\spad{P(n)},{} the indefinite sum of \\spad{p(n)} with respect to upward difference on \\spad{n},{} \\spadignore{i.e.} \\spad{P(n+1) - P(n) = a(n)}.")
+  (((|Record| (|:| |num| |#4|) (|:| |den| (|Integer|))) |#4| |#2|
+    (|Segment| |#4|))
+   "\\spad{sum(p(n),{} n = a..b)} returns \\spad{p(a) + p(a+1) + ... + p(b)}.")))
+(("documentation" 0 1695) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1689) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1497) ("modemaps" 0 691) ("sourceFile" 0 654)
+ ("constructorCategory" 0 443) ("constructorModemap" 0 55)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

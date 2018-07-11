@@ -1,0 +1,43 @@
+)abbrev category MAGMA Magma
+++ Authors: J. Grabmeier, R. Wisbauer
+++ Basic Operations: *, ^
+++ Related Constructors: SemiGroup, Monoid, MagmaWithUnit
+++ Also See:
+++ AMS Classifications:
+++ Keywords: Magma,  binary operation
+++ Reference:
+++  N. Jacobson: Structure and Representations of Jordan Algebras
+++  AMS, Providence, 1968
+++ Description:
+++  Magma is the class of all multiplicative magmas, i.e. sets
+++  with a binary operation.
+Magma() : Category == SetCategory with
+    --operations
+      "*": (%,%) -> %
+        ++ a*b is the product of \spad{a} and b in a set with
+        ++ a binary operation.
+      rightPower : (%, PositiveInteger) -> %
+        ++ rightPower(a, n) returns the \spad{n}-th right power of \spad{a},
+        ++ i.e. \spad{rightPower(a, n) := rightPower(a, n-1) * a} and
+        ++ \spad{rightPower(a, 1) := a}.
+      leftPower : (%, PositiveInteger) -> %
+        ++ leftPower(a, n) returns the \spad{n}-th left power of \spad{a},
+        ++ i.e. \spad{leftPower(a, n) := a * leftPower(a, n-1)} and
+        ++ \spad{leftPower(a, 1) := a}.
+      "^": (%,PositiveInteger) -> %
+        ++ a^n returns the \spad{n}-th power of \spad{a},
+        ++ defined by repeated squaring.
+    add
+      import from RepeatedSquaring(%)
+      x : % ^ n : PositiveInteger == expt(x, n)
+      rightPower(a, n) ==
+        (n = 1) => a
+        res := a
+        for i in 1..(n-1) repeat res := res * a
+        res
+      leftPower(a, n) ==
+        (n = 1) => a
+        res := a
+        for i in 1..(n-1) repeat res := a * res
+        res
+

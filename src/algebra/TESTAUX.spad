@@ -1,0 +1,237 @@
+)abbrev package TESTAUX UnittestAux
+++ Author: Martin Rubey
+++ Description: UnittestAux is an auxiliary package to Unittest, that performs
+++              checking of tests, dealing also with fatal errors.
+UnittestAux(R : BasicType) : with
+
+     testEqualsAux : (String, R, R) -> Void
+       ++ testEquals(inp, ex1, ex2) states that ex1 and ex2 should be equal.
+       ++ To sidestep the possibility that the equality function of the domain
+       ++ R performs some simplifications, we convert ex1 and ex2 to
+       ++ \spad{InputForm}, if possible.
+
+     xftestEqualsAux : (String, R, R) -> Void
+       ++ like testEquals, but expects failure.
+
+     testNotEqualsAux : (String, R, R) -> Void
+       ++ testNotEquals(inp, ex1, ex2) states that ex1 and ex2 should be
+       ++ different.
+
+     xftestNotEqualsAux : (String, R, R) -> Void
+       ++ like testEquals, but expects failure.
+
+     testTrueAux : (String, R) -> Void
+       ++ testTrueAux(inp, ex) states that ex should be true.
+
+     xftestTrueAux : (String, R) -> Void
+       ++ like testEquals, but expects failure.
+
+     testLibraryErrorAux : (String, R) -> Void
+       ++ testLibraryErrorAux(inp, ex) states that ex should throw an
+       ++ error. Such a test will never count as a fatal error.
+
+     xftestLibraryErrorAux : (String, R) -> Void
+       ++ like testEquals, but expects failure.
+
+     testEqualsAuxCmp : (R, R) -> Boolean
+       ++ testEqualsAuxCmp should be local but is conditional
+
+     if R has RealNumberSystem then
+         testRealEqualsAux : (String, R, R) -> Void
+           ++ testRealEqualsAux(inp, ex1, ex2) states that ex1 and ex2 should
+           ++ be approximately equal as real numbers, taking into acount
+           ++ \spadfun{testAbsolutePrecision} and
+           ++ \spadfun{testRelativePrecision}.
+
+         xftestRealEqualsAux : (String, R, R) -> Void
+           ++ like testEquals, but expects failure.
+
+         testComplexEqualsAux : (String, Complex R, Complex R) -> Void
+           ++ testComplexEqualsAux(inp ex1, ex2) states that ex1 and ex2 should
+           ++ be approximately equal as complex numbers, taking into acount
+           ++ \spadfun{testAbsolutePrecision} and
+           ++ \spadfun{testRelativePrecision}.
+
+         xftestComplexEqualsAux : (String, Complex R, Complex R) -> Void
+           ++ like testEquals, but expects failure.
+
+         testAbsolutePrecision : R -> R
+           ++ testAbsolutePrecision(eps) returns the current absolute precision
+           ++ used for floating point comparison, and then sets it to eps.  The
+           ++ default value is 1.0e-15.
+
+         testRelativePrecision : R -> R
+           ++ testRelativePrecision(eps) returns the current absolute precision
+           ++ used for floating point comparison, and then sets it to eps.  The
+           ++ default value is 1.0e-15.
+
+  == add
+
+     O ==> OutputForm
+     U ==> UnittestCount
+
+     REPF ==> (String, List OutputForm) -> Void
+
+     nPassInc : REPF
+     nPassInc(s, o) == incPass()$U
+
+     nFailInc : REPF
+     nFailInc(s, o) == incFail(s, o)$U
+
+     xPassInc : REPF
+     xPassInc(s, o) == incXfPass(s, o)$U
+
+     xFailInc : REPF
+     xFailInc(s, o) == incXfFail()$U
+
+     testEqualsAux0 : (String, R, R, REPF, REPF) -> Void
+     -- testEqualsAuxCmp: (R, R) -> Boolean
+
+     if R has ConvertibleTo InputForm then
+
+         testEqualsAuxCmp(ex1, ex2) ==
+             (convert(ex1)@InputForm = convert(ex2)@InputForm)@Boolean
+
+     else if R is InputForm then
+
+         testEqualsAuxCmp(ex1, ex2) ==
+             (ex1 = ex2)@Boolean
+
+     else
+
+         testEqualsAuxCmp(ex1, ex2) ==
+             addWarning(message("testing in a domain without InputForm!")$O)$U
+             (ex1 = ex2)@Boolean
+
+     testEqualsAux0(inp, ex1, ex2, prep, frep) ==
+             if testEqualsAuxCmp(ex1, ex2)
+             then
+                 if R has CoercibleTo O
+                 then prep(inp, [ex1::O, ex2::O])
+                 else prep(inp, [])
+             else
+                 if R has CoercibleTo O
+                 then frep(inp, [ex1::O, ex2::O])
+                 else prep(inp, [])
+
+     testEqualsAux(inp, ex1, ex2) ==
+         testEqualsAux0(inp, ex1, ex2, nPassInc, nFailInc)
+
+     xftestEqualsAux(inp, ex1, ex2) ==
+         testEqualsAux0(inp, ex1, ex2, xPassInc, xFailInc)
+
+     if R has RealNumberSystem then
+
+         epsilonRelative := 10::R^(-15)
+         epsilonAbsolute := 10::R^(-15)
+
+         testRelativePrecision eps ==
+             old := epsilonRelative
+             epsilonRelative := eps
+             old
+
+         testAbsolutePrecision eps ==
+             old := epsilonAbsolute
+             epsilonAbsolute := eps
+             old
+
+         testRealEqualsAux0 : (String, R, R, REPF, REPF) -> Void
+
+         testRealEqualsAux0(inp, ex1, ex2, prep, frep) ==
+             absolute : R := norm(ex1-ex2)$R
+             if not zero? ex2
+             then relative : R := norm(ex1/ex2-1)$R
+             else relative : R := 0
+             res : List O := []
+             if relative > epsilonRelative then
+                 if R has CoercibleTo O
+                 then res := cons(hconcat(message("rel err: ")$O,
+                                          relative::O), res)
+                 else res := cons(message("rel err ")$O, res)
+
+             if absolute > epsilonAbsolute then
+                 if R has CoercibleTo O
+                 then res := cons(hconcat(message("abs err: ")$O,
+                                          absolute::O), res)
+                 else res := cons(message("abs err ")$O, res)
+
+             if empty? res
+             then prep(inp, [ex1::O, ex2::O])
+             else frep(inp, concat([ex1::O, ex2::O], res))
+
+         testRealEqualsAux(inp, ex1, ex2) ==
+             testRealEqualsAux0(inp, ex1, ex2, nPassInc, nFailInc)
+
+         xftestRealEqualsAux(inp, ex1, ex2) ==
+             testRealEqualsAux0(inp, ex1, ex2, xPassInc, xFailInc)
+
+         testComplexEqualsAux0 : (String, Complex R, Complex R, REPF,
+                                 REPF) -> Void
+
+         testComplexEqualsAux0(inp, ex1, ex2, prep, frep) ==
+             absolute : R := norm(ex1-ex2)$Complex(R)
+             if not zero? ex2
+             then relative : R := norm(ex1/ex2-1)$Complex(R)
+             else relative : R := 0
+             res : List O := []
+             if relative > epsilonRelative then
+                 if R has CoercibleTo O
+                 then res := cons(hconcat(message("rel err: ")$O,
+                                          relative::O), res)
+                 else res := cons(message("rel err ")$O, res)
+
+             if absolute > epsilonAbsolute then
+                 if R has CoercibleTo O
+                 then res := cons(hconcat(message("abs err: ")$O,
+                                          absolute::O), res)
+                 else res := cons(message("abs err ")$O, res)
+
+             if empty? res
+             then prep(inp, [ex1::O, ex2::O])
+             else frep(inp, concat([ex1::O, ex2::O], res))
+
+         testComplexEqualsAux(inp, ex1, ex2) ==
+             testComplexEqualsAux0(inp, ex1, ex2, nPassInc, nFailInc)
+
+         xftestComplexEqualsAux(inp, ex1, ex2) ==
+             testComplexEqualsAux0(inp, ex1, ex2, xPassInc, xFailInc)
+
+
+     testNotEqualsAux(inp, ex1, ex2) ==
+         testEqualsAux0(inp, ex1, ex2, nFailInc, nPassInc)
+
+     xftestNotEqualsAux(inp, ex1, ex2) ==
+         testEqualsAux0(inp, ex1, ex2, xFailInc, xPassInc)
+
+     testTrueAux0 : (String, R, REPF, REPF) -> Void
+
+     testTrueAux0(inp, ex, prep, frep) ==
+         if R is Boolean then
+             if ex
+             then prep(inp, [ex::Boolean::O])
+             else frep(inp, [ex::Boolean::O])
+         else
+             if R has CoercibleTo O
+             then frep(inp, [ex::O])
+             else frep(inp, [])
+
+     testTrueAux(inp, ex) ==
+         testTrueAux0(inp, ex, nPassInc, nFailInc)
+
+     xftestTrueAux(inp, ex) ==
+         testTrueAux0(inp, ex, xPassInc, xFailInc)
+
+     testLibraryErrorAux(inp, ex) ==
+-- at this point, ex was already evaluated.
+-- this will only be called if ex (unexpectedly) did not fail fatally
+         if R has CoercibleTo O
+         then incLibraryError(inp, [ex::O])$U
+         else incLibraryError(inp, [])$U
+
+     xftestLibraryErrorAux(inp, ex) ==
+-- at this point, ex was already evaluated.
+-- this will only be called if ex (expectedly) did not fail fatally
+         if R has CoercibleTo O
+         then incXfLibraryError(inp, [ex::O])$U
+         else incXfLibraryError(inp, [])$U
+

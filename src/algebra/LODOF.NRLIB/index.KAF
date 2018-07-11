@@ -1,0 +1,106 @@
+5168                (|LinearOrdinaryDifferentialOperatorFactorizer| F UP)
+|package|
+(((|LinearOrdinaryDifferentialOperatorFactorizer| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |factor|
+    ((|List| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+     (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+     (|Mapping| (|List| |#1|) |#2|)))
+   (IF (|has| |#1| (|AlgebraicallyClosedField|))
+       (PROGN
+        (SIGNATURE |factor|
+         ((|List| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+          (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))))
+        (SIGNATURE |factor1|
+         ((|List| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+          (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))))
+       |noBranch|))
+  (|Join| (|Field|) (|CharacteristicZero|) (|RetractableTo| (|Integer|))
+          (|RetractableTo| (|Fraction| (|Integer|))))
+  (|UnivariatePolynomialCategory| |#1|))
+ (T |LinearOrdinaryDifferentialOperatorFactorizer|))
+(CATEGORY |package|
+ (SIGNATURE |factor|
+  ((|List| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+   (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+   (|Mapping| (|List| |#1|) |#2|)))
+ (IF (|has| |#1| (|AlgebraicallyClosedField|))
+     (PROGN
+      (SIGNATURE |factor|
+       ((|List| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+        (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))))
+      (SIGNATURE |factor1|
+       ((|List| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+        (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))))
+     |noBranch|))
+"/git/fricas/src/algebra/LODOF.spad"
+((|factor1| (*1 *2 *3)
+  (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| (|Fraction| *5)))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+       (|ofCategory| *4 (|AlgebraicallyClosedField|))
+       (|ofCategory| *4
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|isDomain| *2
+                   (|List|
+                    (|LinearOrdinaryDifferentialOperator1| (|Fraction| *5))))
+       (|isDomain| *1 (|LinearOrdinaryDifferentialOperatorFactorizer| *4 *5))))
+ (|factor| (*1 *2 *3)
+  (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| (|Fraction| *5)))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+       (|ofCategory| *4 (|AlgebraicallyClosedField|))
+       (|ofCategory| *4
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|isDomain| *2
+                   (|List|
+                    (|LinearOrdinaryDifferentialOperator1| (|Fraction| *5))))
+       (|isDomain| *1 (|LinearOrdinaryDifferentialOperatorFactorizer| *4 *5))))
+ (|factor| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| (|Fraction| *6)))
+       (|isDomain| *4 (|Mapping| (|List| *5) *6))
+       (|ofCategory| *5
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|isDomain| *2
+                   (|List|
+                    (|LinearOrdinaryDifferentialOperator1| (|Fraction| *6))))
+       (|isDomain| *1 (|LinearOrdinaryDifferentialOperatorFactorizer| *5 *6)))))
+((|factor1|
+  (((|List| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+   73 (|has| |#1| (|AlgebraicallyClosedField|))))
+ (|factor|
+  (((|List| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+   72 (|has| |#1| (|AlgebraicallyClosedField|)))
+  (((|List| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+    (|Mapping| (|List| |#1|) |#2|))
+   15)))
+((|HasCategory| |#1| '(|AlgebraicallyClosedField|)))
+LODOF
+((|constructor|
+  (NIL
+   "\\spadtype{LinearOrdinaryDifferentialOperatorFactorizer} provides a factorizer for linear ordinary differential operators whose coefficients are rational functions."))
+ (|factor1|
+  (((|List| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+   "\\spad{factor1(a)} returns the factorisation of a,{} assuming that a has no first-order right factor."))
+ (|factor|
+  (((|List| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+   "\\spad{factor(a)} returns the factorisation of a.")
+  (((|List| (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+    (|Mapping| (|List| |#1|) |#2|))
+   "\\spad{factor(a,{} zeros)} returns the factorisation of a. \\spad{zeros} is a zero finder in \\spad{UP}.")))
+(("documentation" 0 4235) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4229) ("predicates" 0 4176) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3608) ("modemaps" 0 1681) ("sourceFile" 0 1644)
+ ("constructorCategory" 0 1019) ("constructorModemap" 0 84)
+ ("constructorKind" 0 74) ("constructorForm" 0 20))

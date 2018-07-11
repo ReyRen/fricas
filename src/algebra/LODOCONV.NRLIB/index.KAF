@@ -1,0 +1,62 @@
+3140                (|LODOConvertions| |Coeff| |Ab| R)
+|package|
+(((|LODOConvertions| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |convert|
+    ((|LinearOrdinaryDifferentialOperator3| |#1| |#2| |#3|)
+     (|LinearOrdinaryDifferentialOperator1| |#3|)))
+   (SIGNATURE |convert|
+    ((|LinearOrdinaryDifferentialOperator1| |#3|)
+     (|LinearOrdinaryDifferentialOperator3| |#1| |#2| |#3|))))
+  (|Ring|) (|AbelianMonoidRing| |#1| (|NonNegativeInteger|))
+  (|Join| (|DifferentialRing|) (|LeftModule| |#2|)))
+ (T |LODOConvertions|))
+(CATEGORY |package|
+ (SIGNATURE |convert|
+  ((|LinearOrdinaryDifferentialOperator3| |#1| |#2| |#3|)
+   (|LinearOrdinaryDifferentialOperator1| |#3|)))
+ (SIGNATURE |convert|
+  ((|LinearOrdinaryDifferentialOperator1| |#3|)
+   (|LinearOrdinaryDifferentialOperator3| |#1| |#2| |#3|))))
+"/git/fricas/src/algebra/LODOCONV.spad"
+((|convert| (*1 *2 *3)
+            (AND
+             (|isDomain| *3 (|LinearOrdinaryDifferentialOperator3| *4 *5 *6))
+             (|ofCategory| *4 (|Ring|))
+             (|ofCategory| *5 (|AbelianMonoidRing| *4 (|NonNegativeInteger|)))
+             (|ofCategory| *6 (|Join| (|DifferentialRing|) (|LeftModule| *5)))
+             (|isDomain| *2 (|LinearOrdinaryDifferentialOperator1| *6))
+             (|isDomain| *1 (|LODOConvertions| *4 *5 *6))))
+ (|convert| (*1 *2 *3)
+            (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| *6))
+                 (|ofCategory| *6
+                               (|Join| (|DifferentialRing|) (|LeftModule| *5)))
+                 (|ofCategory| *5
+                               (|AbelianMonoidRing| *4 (|NonNegativeInteger|)))
+                 (|ofCategory| *4 (|Ring|))
+                 (|isDomain| *2
+                             (|LinearOrdinaryDifferentialOperator3| *4 *5 *6))
+                 (|isDomain| *1 (|LODOConvertions| *4 *5 *6)))))
+((|convert|
+  (((|LinearOrdinaryDifferentialOperator1| |#3|)
+    (|LinearOrdinaryDifferentialOperator3| |#1| |#2| |#3|))
+   45)
+  (((|LinearOrdinaryDifferentialOperator3| |#1| |#2| |#3|)
+    (|LinearOrdinaryDifferentialOperator1| |#3|))
+   32)))
+LODOCONV
+((|constructor|
+  (NIL
+   "\\spadtype{LODOConvertions} implements convertion between \\indented{1}{\\spadtype{LinearOrdinaryDifferentialOperator1} and} \\indented{1}{\\spadtype{LinearOrdinaryDifferentialOperator3} and back.}"))
+ (|convert|
+  (((|LinearOrdinaryDifferentialOperator1| |#3|)
+    (|LinearOrdinaryDifferentialOperator3| |#1| |#2| |#3|))
+   "\\spad{convert(l3)} converts an operator \\spad{l3} from \\spadtype{LinearOrdinaryDifferentialOperator3} to \\spadtype{LinearOrdinaryDifferentialOperator1} such that the resultant operator gives the same result as the original one on application to an element of domain \\spad{R}.")
+  (((|LinearOrdinaryDifferentialOperator3| |#1| |#2| |#3|)
+    (|LinearOrdinaryDifferentialOperator1| |#3|))
+   "\\spad{convert(l1)} converts an operator \\spad{l1} from \\spadtype{LinearOrdinaryDifferentialOperator1} to \\spadtype{LinearOrdinaryDifferentialOperator3} such that the resultant operator gives the same result as the original one on application to an element of domain \\spad{R}.")))
+(("documentation" 0 2106) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2097) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1851) ("modemaps" 0 856) ("sourceFile" 0 816)
+ ("constructorCategory" 0 535) ("constructorModemap" 0 65)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

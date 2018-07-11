@@ -1,0 +1,508 @@
+29034               (|GaloisGroupFactorizer| UP)
+|package|
+(((|GaloisGroupFactorizer| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |makeFR|
+    ((|Factored| |#1|)
+     (|Record| (|:| |contp| (|Integer|))
+               (|:| |factors|
+                    (|List|
+                     (|Record| (|:| |irr| |#1|)
+                               (|:| |pow| (|NonNegativeInteger|))))))))
+   (SIGNATURE |degreePartition|
+    ((|Multiset| (|NonNegativeInteger|))
+     (|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|))))))
+   (SIGNATURE |musserTrials| ((|PositiveInteger|)))
+   (SIGNATURE |musserTrials| ((|PositiveInteger|) (|PositiveInteger|)))
+   (SIGNATURE |stopMusserTrials| ((|PositiveInteger|)))
+   (SIGNATURE |stopMusserTrials| ((|PositiveInteger|) (|PositiveInteger|)))
+   (SIGNATURE |numberOfFactors|
+    ((|NonNegativeInteger|)
+     (|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|))))))
+   (SIGNATURE |modularFactor|
+    ((|Record| (|:| |prime| (|Integer|)) (|:| |factors| (|List| |#1|))) |#1|
+     (|Set| (|NonNegativeInteger|))))
+   (SIGNATURE |useSingleFactorBound?| ((|Boolean|)))
+   (SIGNATURE |useSingleFactorBound| ((|Boolean|) (|Boolean|)))
+   (SIGNATURE |useEisensteinCriterion?| ((|Boolean|)))
+   (SIGNATURE |useEisensteinCriterion| ((|Boolean|) (|Boolean|)))
+   (SIGNATURE |eisensteinIrreducible?| ((|Boolean|) |#1|))
+   (SIGNATURE |tryFunctionalDecomposition?| ((|Boolean|)))
+   (SIGNATURE |tryFunctionalDecomposition| ((|Boolean|) (|Boolean|)))
+   (SIGNATURE |factor| ((|Factored| |#1|) |#1|))
+   (SIGNATURE |factor| ((|Factored| |#1|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |factor|
+    ((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |factor|
+    ((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |factor|
+    ((|Factored| |#1|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |factorSquareFree| ((|Factored| |#1|) |#1|))
+   (SIGNATURE |factorSquareFree|
+    ((|Factored| |#1|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |factorSquareFree|
+    ((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |factorSquareFree|
+    ((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |factorSquareFree|
+    ((|Factored| |#1|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |factorOfDegree|
+    ((|Union| |#1| "failed") (|PositiveInteger|) |#1|))
+   (SIGNATURE |factorOfDegree|
+    ((|Union| |#1| "failed") (|PositiveInteger|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |factorOfDegree|
+    ((|Union| |#1| "failed") (|PositiveInteger|) |#1|
+     (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |factorOfDegree|
+    ((|Union| |#1| "failed") (|PositiveInteger|) |#1|
+     (|List| (|NonNegativeInteger|)) (|NonNegativeInteger|)))
+   (SIGNATURE |factorOfDegree|
+    ((|Union| |#1| "failed") (|PositiveInteger|) |#1|
+     (|List| (|NonNegativeInteger|)) (|NonNegativeInteger|) (|Boolean|)))
+   (SIGNATURE |henselFact|
+    ((|Record| (|:| |contp| (|Integer|))
+               (|:| |factors|
+                    (|List|
+                     (|Record| (|:| |irr| |#1|)
+                               (|:| |pow| (|NonNegativeInteger|))))))
+     |#1| (|Boolean|)))
+   (SIGNATURE |btwFact|
+    ((|Record| (|:| |contp| (|Integer|))
+               (|:| |factors|
+                    (|List|
+                     (|Record| (|:| |irr| |#1|)
+                               (|:| |pow| (|NonNegativeInteger|))))))
+     |#1| (|Boolean|) (|Set| (|NonNegativeInteger|)) (|NonNegativeInteger|))))
+  (|UnivariatePolynomialCategory| (|Integer|)))
+ (T |GaloisGroupFactorizer|))
+(CATEGORY |package|
+ (SIGNATURE |makeFR|
+  ((|Factored| |#1|)
+   (|Record| (|:| |contp| (|Integer|))
+             (|:| |factors|
+                  (|List|
+                   (|Record| (|:| |irr| |#1|)
+                             (|:| |pow| (|NonNegativeInteger|))))))))
+ (SIGNATURE |degreePartition|
+  ((|Multiset| (|NonNegativeInteger|))
+   (|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|))))))
+ (SIGNATURE |musserTrials| ((|PositiveInteger|)))
+ (SIGNATURE |musserTrials| ((|PositiveInteger|) (|PositiveInteger|)))
+ (SIGNATURE |stopMusserTrials| ((|PositiveInteger|)))
+ (SIGNATURE |stopMusserTrials| ((|PositiveInteger|) (|PositiveInteger|)))
+ (SIGNATURE |numberOfFactors|
+  ((|NonNegativeInteger|)
+   (|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|))))))
+ (SIGNATURE |modularFactor|
+  ((|Record| (|:| |prime| (|Integer|)) (|:| |factors| (|List| |#1|))) |#1|
+   (|Set| (|NonNegativeInteger|))))
+ (SIGNATURE |useSingleFactorBound?| ((|Boolean|)))
+ (SIGNATURE |useSingleFactorBound| ((|Boolean|) (|Boolean|)))
+ (SIGNATURE |useEisensteinCriterion?| ((|Boolean|)))
+ (SIGNATURE |useEisensteinCriterion| ((|Boolean|) (|Boolean|)))
+ (SIGNATURE |eisensteinIrreducible?| ((|Boolean|) |#1|))
+ (SIGNATURE |tryFunctionalDecomposition?| ((|Boolean|)))
+ (SIGNATURE |tryFunctionalDecomposition| ((|Boolean|) (|Boolean|)))
+ (SIGNATURE |factor| ((|Factored| |#1|) |#1|))
+ (SIGNATURE |factor| ((|Factored| |#1|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |factor| ((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |factor|
+  ((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |factor|
+  ((|Factored| |#1|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |factorSquareFree| ((|Factored| |#1|) |#1|))
+ (SIGNATURE |factorSquareFree| ((|Factored| |#1|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |factorSquareFree|
+  ((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |factorSquareFree|
+  ((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |factorSquareFree|
+  ((|Factored| |#1|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |factorOfDegree|
+  ((|Union| |#1| "failed") (|PositiveInteger|) |#1|))
+ (SIGNATURE |factorOfDegree|
+  ((|Union| |#1| "failed") (|PositiveInteger|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |factorOfDegree|
+  ((|Union| |#1| "failed") (|PositiveInteger|) |#1|
+   (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |factorOfDegree|
+  ((|Union| |#1| "failed") (|PositiveInteger|) |#1|
+   (|List| (|NonNegativeInteger|)) (|NonNegativeInteger|)))
+ (SIGNATURE |factorOfDegree|
+  ((|Union| |#1| "failed") (|PositiveInteger|) |#1|
+   (|List| (|NonNegativeInteger|)) (|NonNegativeInteger|) (|Boolean|)))
+ (SIGNATURE |henselFact|
+  ((|Record| (|:| |contp| (|Integer|))
+             (|:| |factors|
+                  (|List|
+                   (|Record| (|:| |irr| |#1|)
+                             (|:| |pow| (|NonNegativeInteger|))))))
+   |#1| (|Boolean|)))
+ (SIGNATURE |btwFact|
+  ((|Record| (|:| |contp| (|Integer|))
+             (|:| |factors|
+                  (|List|
+                   (|Record| (|:| |irr| |#1|)
+                             (|:| |pow| (|NonNegativeInteger|))))))
+   |#1| (|Boolean|) (|Set| (|NonNegativeInteger|)) (|NonNegativeInteger|))))
+"/git/fricas/src/algebra/GALFACT.spad"
+((|btwFact| (*1 *2 *3 *4 *5 *6)
+  (AND (|isDomain| *4 (|Boolean|))
+       (|isDomain| *5 (|Set| (|NonNegativeInteger|)))
+       (|isDomain| *6 (|NonNegativeInteger|))
+       (|isDomain| *2
+                   (|Record| (|:| |contp| (|Integer|))
+                             (|:| |factors|
+                                  (|List|
+                                   (|Record| (|:| |irr| *3)
+                                             (|:| |pow|
+                                                  (|NonNegativeInteger|)))))))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|henselFact| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Boolean|))
+       (|isDomain| *2
+                   (|Record| (|:| |contp| (|Integer|))
+                             (|:| |factors|
+                                  (|List|
+                                   (|Record| (|:| |irr| *3)
+                                             (|:| |pow|
+                                                  (|NonNegativeInteger|)))))))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factorOfDegree| (*1 *2 *3 *2 *4 *5 *6)
+  (|partial| AND (|isDomain| *3 (|PositiveInteger|))
+   (|isDomain| *4 (|List| (|NonNegativeInteger|)))
+   (|isDomain| *5 (|NonNegativeInteger|)) (|isDomain| *6 (|Boolean|))
+   (|isDomain| *1 (|GaloisGroupFactorizer| *2))
+   (|ofCategory| *2 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factorOfDegree| (*1 *2 *3 *2 *4 *5)
+  (|partial| AND (|isDomain| *3 (|PositiveInteger|))
+   (|isDomain| *4 (|List| (|NonNegativeInteger|)))
+   (|isDomain| *5 (|NonNegativeInteger|))
+   (|isDomain| *1 (|GaloisGroupFactorizer| *2))
+   (|ofCategory| *2 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factorOfDegree| (*1 *2 *3 *2 *4)
+  (|partial| AND (|isDomain| *3 (|PositiveInteger|))
+   (|isDomain| *4 (|List| (|NonNegativeInteger|)))
+   (|isDomain| *1 (|GaloisGroupFactorizer| *2))
+   (|ofCategory| *2 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factorOfDegree| (*1 *2 *3 *2 *4)
+  (|partial| AND (|isDomain| *3 (|PositiveInteger|))
+   (|isDomain| *4 (|NonNegativeInteger|))
+   (|isDomain| *1 (|GaloisGroupFactorizer| *2))
+   (|ofCategory| *2 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factorOfDegree| (*1 *2 *3 *2)
+  (|partial| AND (|isDomain| *3 (|PositiveInteger|))
+   (|isDomain| *1 (|GaloisGroupFactorizer| *2))
+   (|ofCategory| *2 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factorSquareFree| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factorSquareFree| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *4 (|List| (|NonNegativeInteger|)))
+       (|isDomain| *5 (|NonNegativeInteger|)) (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factorSquareFree| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|List| (|NonNegativeInteger|)))
+       (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factorSquareFree| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factorSquareFree| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factor| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factor| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *4 (|List| (|NonNegativeInteger|)))
+       (|isDomain| *5 (|NonNegativeInteger|)) (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factor| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|List| (|NonNegativeInteger|)))
+       (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factor| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|factor| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|tryFunctionalDecomposition| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|tryFunctionalDecomposition?| (*1 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|eisensteinIrreducible?| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|useEisensteinCriterion| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|useEisensteinCriterion?| (*1 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|useSingleFactorBound| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|useSingleFactorBound?| (*1 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|modularFactor| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Set| (|NonNegativeInteger|)))
+       (|isDomain| *2
+                   (|Record| (|:| |prime| (|Integer|))
+                             (|:| |factors| (|List| *3))))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|numberOfFactors| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |factor| *4) (|:| |degree| (|Integer|)))))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Integer|)))
+   (|isDomain| *2 (|NonNegativeInteger|))
+   (|isDomain| *1 (|GaloisGroupFactorizer| *4))))
+ (|stopMusserTrials| (*1 *2 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|stopMusserTrials| (*1 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|musserTrials| (*1 *2 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|musserTrials| (*1 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|GaloisGroupFactorizer| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| (|Integer|)))))
+ (|degreePartition| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |factor| *4) (|:| |degree| (|Integer|)))))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Integer|)))
+   (|isDomain| *2 (|Multiset| (|NonNegativeInteger|)))
+   (|isDomain| *1 (|GaloisGroupFactorizer| *4))))
+ (|makeFR| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |contp| (|Integer|))
+                         (|:| |factors|
+                              (|List|
+                               (|Record| (|:| |irr| *4)
+                                         (|:| |pow|
+                                              (|NonNegativeInteger|)))))))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Integer|)))
+   (|isDomain| *2 (|Factored| *4))
+   (|isDomain| *1 (|GaloisGroupFactorizer| *4)))))
+((|useSingleFactorBound?| (((|Boolean|)) 17))
+ (|useSingleFactorBound| (((|Boolean|) (|Boolean|)) 18))
+ (|useEisensteinCriterion?| (((|Boolean|)) 13))
+ (|useEisensteinCriterion| (((|Boolean|) (|Boolean|)) 14))
+ (|tryFunctionalDecomposition?| (((|Boolean|)) 15))
+ (|tryFunctionalDecomposition| (((|Boolean|) (|Boolean|)) 16))
+ (|stopMusserTrials| (((|PositiveInteger|) (|PositiveInteger|)) 21)
+  (((|PositiveInteger|)) 20))
+ (|numberOfFactors|
+  (((|NonNegativeInteger|)
+    (|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|)))))
+   42))
+ (|musserTrials| (((|PositiveInteger|) (|PositiveInteger|)) 23)
+  (((|PositiveInteger|)) 22))
+ (|modularFactor|
+  (((|Record| (|:| |prime| (|Integer|)) (|:| |factors| (|List| |#1|))) |#1|
+    (|Set| (|NonNegativeInteger|)))
+   88))
+ (|makeFR|
+  (((|Factored| |#1|)
+    (|Record| (|:| |contp| (|Integer|))
+              (|:| |factors|
+                   (|List|
+                    (|Record| (|:| |irr| |#1|)
+                              (|:| |pow| (|NonNegativeInteger|)))))))
+   149))
+ (|henselFact|
+  (((|Record| (|:| |contp| (|Integer|))
+              (|:| |factors|
+                   (|List|
+                    (|Record| (|:| |irr| |#1|)
+                              (|:| |pow| (|NonNegativeInteger|))))))
+    |#1| (|Boolean|))
+   173))
+ (|factorSquareFree|
+  (((|Factored| |#1|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)) 186)
+  (((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))
+    (|NonNegativeInteger|))
+   183)
+  (((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))) 185)
+  (((|Factored| |#1|) |#1| (|NonNegativeInteger|)) 184)
+  (((|Factored| |#1|) |#1|) 182))
+ (|factorOfDegree|
+  (((|Union| |#1| "failed") (|PositiveInteger|) |#1|
+    (|List| (|NonNegativeInteger|)) (|NonNegativeInteger|) (|Boolean|))
+   188)
+  (((|Union| |#1| "failed") (|PositiveInteger|) |#1|
+    (|List| (|NonNegativeInteger|)) (|NonNegativeInteger|))
+   189)
+  (((|Union| |#1| "failed") (|PositiveInteger|) |#1|
+    (|List| (|NonNegativeInteger|)))
+   191)
+  (((|Union| |#1| "failed") (|PositiveInteger|) |#1| (|NonNegativeInteger|))
+   190)
+  (((|Union| |#1| "failed") (|PositiveInteger|) |#1|) 192))
+ (|factor|
+  (((|Factored| |#1|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)) 181)
+  (((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))
+    (|NonNegativeInteger|))
+   177)
+  (((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))) 179)
+  (((|Factored| |#1|) |#1| (|NonNegativeInteger|)) 178)
+  (((|Factored| |#1|) |#1|) 176))
+ (|eisensteinIrreducible?| (((|Boolean|) |#1|) 37))
+ (|degreePartition|
+  (((|Multiset| (|NonNegativeInteger|))
+    (|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|)))))
+   93))
+ (|btwFact|
+  (((|Record| (|:| |contp| (|Integer|))
+              (|:| |factors|
+                   (|List|
+                    (|Record| (|:| |irr| |#1|)
+                              (|:| |pow| (|NonNegativeInteger|))))))
+    |#1| (|Boolean|) (|Set| (|NonNegativeInteger|)) (|NonNegativeInteger|))
+   175)))
+GALFACT
+((|constructor|
+  (NIL
+   "\\spadtype{GaloisGroupFactorizer} provides functions to factor resolvents."))
+ (|btwFact|
+  (((|Record| (|:| |contp| (|Integer|))
+              (|:| |factors|
+                   (|List|
+                    (|Record| (|:| |irr| |#1|)
+                              (|:| |pow| (|NonNegativeInteger|))))))
+    |#1| (|Boolean|) (|Set| (|NonNegativeInteger|)) (|NonNegativeInteger|))
+   "\\spad{btwFact(p,{} sqf,{} pd,{} r)} returns the factorization of \\spad{p},{} the result is a Record such that \\spad{contp=}content \\spad{p},{} \\spad{factors=}List of irreducible factors of \\spad{p} with exponent. If \\spad{sqf=true} the polynomial is assumed to be square free (\\spadignore{i.e.} without repeated factors). \\spad{pd} is the \\spadtype{Set} of possible degrees. \\spad{r} is a lower bound for the number of factors of \\spad{p}. Please do not use this function in your code because its design may change."))
+ (|henselFact|
+  (((|Record| (|:| |contp| (|Integer|))
+              (|:| |factors|
+                   (|List|
+                    (|Record| (|:| |irr| |#1|)
+                              (|:| |pow| (|NonNegativeInteger|))))))
+    |#1| (|Boolean|))
+   "\\spad{henselFact(p,{} sqf)} returns the factorization of \\spad{p},{} the result is a Record such that \\spad{contp=}content \\spad{p},{} \\spad{factors=}List of irreducible factors of \\spad{p} with exponent. If \\spad{sqf=true} the polynomial is assumed to be square free (\\spadignore{i.e.} without repeated factors)."))
+ (|factorOfDegree|
+  (((|Union| |#1| "failed") (|PositiveInteger|) |#1|
+    (|List| (|NonNegativeInteger|)) (|NonNegativeInteger|) (|Boolean|))
+   "\\spad{factorOfDegree(d,{} p,{} listOfDegrees,{} r,{} sqf)} returns a factor of \\spad{p} of degree \\spad{d} knowing that \\spad{p} has for possible splitting of its degree \\spad{listOfDegrees},{} and that \\spad{p} has at least \\spad{r} factors. If \\spad{sqf=true} the polynomial is assumed to be square free (\\spadignore{i.e.} without repeated factors).")
+  (((|Union| |#1| "failed") (|PositiveInteger|) |#1|
+    (|List| (|NonNegativeInteger|)) (|NonNegativeInteger|))
+   "\\spad{factorOfDegree(d,{} p,{} listOfDegrees,{} r)} returns a factor of \\spad{p} of degree \\spad{d} knowing that \\spad{p} has for possible splitting of its degree \\spad{listOfDegrees},{} and that \\spad{p} has at least \\spad{r} factors.")
+  (((|Union| |#1| "failed") (|PositiveInteger|) |#1|
+    (|List| (|NonNegativeInteger|)))
+   "\\spad{factorOfDegree(d,{} p,{} listOfDegrees)} returns a factor of \\spad{p} of degree \\spad{d} knowing that \\spad{p} has for possible splitting of its degree listOfDegrees.")
+  (((|Union| |#1| "failed") (|PositiveInteger|) |#1| (|NonNegativeInteger|))
+   "\\spad{factorOfDegree(d,{} p,{} r)} returns a factor of \\spad{p} of degree \\spad{d} knowing that \\spad{p} has at least \\spad{r} factors.")
+  (((|Union| |#1| "failed") (|PositiveInteger|) |#1|)
+   "\\spad{factorOfDegree(d,{} p)} returns a factor of \\spad{p} of degree \\spad{d}."))
+ (|factorSquareFree|
+  (((|Factored| |#1|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{factorSquareFree(p,{} d,{} r)} factorizes the polynomial \\spad{p} using the single factor bound algorithm,{} knowing that \\spad{d} divides the degree of all factors of \\spad{p} and that \\spad{p} has at least \\spad{r} factors. \\spad{p} is supposed not having any repeated factor (this is not checked).")
+  (((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))
+    (|NonNegativeInteger|))
+   "\\spad{factorSquareFree(p,{} listOfDegrees,{} r)} factorizes the polynomial \\spad{p} using the single factor bound algorithm,{} knowing that \\spad{p} has for possible splitting of its degree \\spad{listOfDegrees} and that \\spad{p} has at least \\spad{r} factors. \\spad{p} is supposed not having any repeated factor (this is not checked).")
+  (((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|)))
+   "\\spad{factorSquareFree(p,{} listOfDegrees)} factorizes the polynomial \\spad{p} using the single factor bound algorithm and knowing that \\spad{p} has for possible splitting of its degree listOfDegrees. \\spad{p} is supposed not having any repeated factor (this is not checked).")
+  (((|Factored| |#1|) |#1| (|NonNegativeInteger|))
+   "\\spad{factorSquareFree(p,{} r)} factorizes the polynomial \\spad{p} using the single factor bound algorithm and knowing that \\spad{p} has at least \\spad{r} factors. \\spad{p} is supposed not having any repeated factor (this is not checked).")
+  (((|Factored| |#1|) |#1|)
+   "\\spad{factorSquareFree(p)} returns the factorization of \\spad{p} which is supposed not having any repeated factor (this is not checked)."))
+ (|factor|
+  (((|Factored| |#1|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{factor(p,{} d,{} r)} factorizes the polynomial \\spad{p} using the single factor bound algorithm,{} knowing that \\spad{d} divides the degree of all factors of \\spad{p} and that \\spad{p} has at least \\spad{r} factors.")
+  (((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|))
+    (|NonNegativeInteger|))
+   "\\spad{factor(p,{} listOfDegrees,{} r)} factorizes the polynomial \\spad{p} using the single factor bound algorithm,{} knowing that \\spad{p} has for possible splitting of its degree \\spad{listOfDegrees} and that \\spad{p} has at least \\spad{r} factors.")
+  (((|Factored| |#1|) |#1| (|List| (|NonNegativeInteger|)))
+   "\\spad{factor(p,{} listOfDegrees)} factorizes the polynomial \\spad{p} using the single factor bound algorithm and knowing that \\spad{p} has for possible splitting of its degree listOfDegrees.")
+  (((|Factored| |#1|) |#1| (|NonNegativeInteger|))
+   "\\spad{factor(p,{} r)} factorizes the polynomial \\spad{p} using the single factor bound algorithm and knowing that \\spad{p} has at least \\spad{r} factors.")
+  (((|Factored| |#1|) |#1|)
+   "\\spad{factor(p)} returns the factorization of \\spad{p} over the integers."))
+ (|tryFunctionalDecomposition|
+  (((|Boolean|) (|Boolean|))
+   "\\spad{tryFunctionalDecomposition(b)} chooses whether factorizers have to look for functional decomposition of polynomials (\\spad{true}) or not (\\spad{false}). Returns the previous value."))
+ (|tryFunctionalDecomposition?|
+  (((|Boolean|))
+   "\\spad{tryFunctionalDecomposition?()} returns \\spad{true} if factorizers try functional decomposition of polynomials before factoring them."))
+ (|eisensteinIrreducible?|
+  (((|Boolean|) |#1|)
+   "\\spad{eisensteinIrreducible?(p)} returns \\spad{true} if \\spad{p} can be shown to be irreducible by Eisenstein\\spad{'s} criterion,{} \\spad{false} is inconclusive."))
+ (|useEisensteinCriterion|
+  (((|Boolean|) (|Boolean|))
+   "\\spad{useEisensteinCriterion(b)} chooses whether factorizers check Eisenstein\\spad{'s} criterion before factoring: \\spad{true} for using it,{} \\spad{false} else. Returns the previous value."))
+ (|useEisensteinCriterion?|
+  (((|Boolean|))
+   "\\spad{useEisensteinCriterion?()} returns \\spad{true} if factorizers check Eisenstein\\spad{'s} criterion before factoring."))
+ (|useSingleFactorBound|
+  (((|Boolean|) (|Boolean|))
+   "\\spad{useSingleFactorBound(b)} chooses the algorithm to be used by the factorizers: \\spad{true} for algorithm with single factor bound,{} \\spad{false} for algorithm with overall bound. Returns the previous value."))
+ (|useSingleFactorBound?|
+  (((|Boolean|))
+   "\\spad{useSingleFactorBound?()} returns \\spad{true} if algorithm with single factor bound is used for factorization,{} \\spad{false} for algorithm with overall bound."))
+ (|modularFactor|
+  (((|Record| (|:| |prime| (|Integer|)) (|:| |factors| (|List| |#1|))) |#1|
+    (|Set| (|NonNegativeInteger|)))
+   "\\spad{modularFactor(f,{} d)} chooses a \"good\" prime and returns the factorization of \\spad{f} modulo this prime in a form that may be used by \\spadfunFrom{completeHensel}{GeneralHenselPackage}. If prime is zero it means that \\spad{f} has been proved to be irreducible over the integers or that \\spad{f} is a unit (\\spadignore{i.e.} 1 or \\spad{-1}). \\spad{f} shall be primitive (\\spadignore{i.e.} content(\\spad{p})\\spad{=1}) and square free (\\spadignore{i.e.} without repeated factors). \\spad{d} is set of possible degrees of factors."))
+ (|numberOfFactors|
+  (((|NonNegativeInteger|)
+    (|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|)))))
+   "\\spad{numberOfFactors(ddfactorization)} returns the number of factors of the polynomial \\spad{f} modulo \\spad{p} where \\spad{ddfactorization} is the distinct degree factorization of \\spad{f} computed by \\spadfunFrom{ddFact}{ModularDistinctDegreeFactorizer} for some prime \\spad{p}."))
+ (|stopMusserTrials|
+  (((|PositiveInteger|) (|PositiveInteger|))
+   "\\spad{stopMusserTrials(n)} sets to \\spad{n} the bound on the number of factors for which \\spadfun{modularFactor} stops to look for an other prime. You will have to remember that the step of recombining the extraneous factors may take up to \\spad{2^n} trials. Returns the previous value.")
+  (((|PositiveInteger|))
+   "\\spad{stopMusserTrials()} returns the bound on the number of factors for which \\spadfun{modularFactor} stops to look for an other prime. You will have to remember that the step of recombining the extraneous factors may take up to \\spad{2^stopMusserTrials()} trials."))
+ (|musserTrials|
+  (((|PositiveInteger|) (|PositiveInteger|))
+   "\\spad{musserTrials(n)} sets to \\spad{n} the number of primes to be tried in \\spadfun{modularFactor} and returns the previous value.")
+  (((|PositiveInteger|))
+   "\\spad{musserTrials()} returns the number of primes that are tried in \\spadfun{modularFactor}."))
+ (|degreePartition|
+  (((|Multiset| (|NonNegativeInteger|))
+    (|List| (|Record| (|:| |factor| |#1|) (|:| |degree| (|Integer|)))))
+   "\\spad{degreePartition(ddfactorization)} returns the degree partition of the polynomial \\spad{f} modulo \\spad{p} where \\spad{ddfactorization} is the distinct degree factorization of \\spad{f} computed by \\spadfunFrom{ddFact}{ModularDistinctDegreeFactorizer} for some prime \\spad{p}."))
+ (|makeFR|
+  (((|Factored| |#1|)
+    (|Record| (|:| |contp| (|Integer|))
+              (|:| |factors|
+                   (|List|
+                    (|Record| (|:| |irr| |#1|)
+                              (|:| |pow| (|NonNegativeInteger|)))))))
+   "\\spad{makeFR(flist)} turns the final factorization of henselFact into a \\spadtype{Factored} object.")))
+(("documentation" 0 18593) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 18585) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 15582) ("modemaps" 0 7057) ("sourceFile" 0 7018)
+ ("constructorCategory" 0 3670) ("constructorModemap" 0 59)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

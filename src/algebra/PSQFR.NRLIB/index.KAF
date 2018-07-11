@@ -1,0 +1,28 @@
+1461                (|PolynomialSquareFree| |VarSet| E RC P)
+|package|
+(((|PolynomialSquareFree| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |squareFree| ((|Factored| |#4|) |#4|)))
+  (|OrderedSet|) (|OrderedAbelianMonoidSup|) (|GcdDomain|)
+  (|PolynomialCategory| |#3| |#2| |#1|))
+ (T |PolynomialSquareFree|))
+(CATEGORY |package| (SIGNATURE |squareFree| ((|Factored| |#4|) |#4|)))
+"/git/fricas/src/algebra/PSQFR.spad"
+((|squareFree| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|OrderedSet|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|GcdDomain|)) (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|PolynomialSquareFree| *4 *5 *6 *3))
+       (|ofCategory| *3 (|PolynomialCategory| *6 *5 *4)))))
+((|squareFree| (((|Factored| |#4|) |#4|) 47)))
+PSQFR
+((|constructor|
+  (NIL
+   "This package computes square-free decomposition of multivariate polynomials over a coefficient ring which is an arbitrary \\spad{gcd} domain. The requirement on the coefficient domain guarantees that the \\spadfun{content} can be removed so that factors will be primitive as well as square-free. Over an infinite ring of finite characteristic,{} it may not be possible to guarantee that the factors are square-free."))
+ (|squareFree|
+  (((|Factored| |#4|) |#4|)
+   "\\spad{squareFree(p)} returns the square-free factorization of the polynomial \\spad{p}. Each factor has no repeated roots,{} and the factors are pairwise relatively prime.")))
+(("documentation" 0 791) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 785) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 738) ("modemaps" 0 428) ("sourceFile" 0 391)
+ ("constructorCategory" 0 320) ("constructorModemap" 0 71)
+ ("constructorKind" 0 61) ("constructorForm" 0 20))

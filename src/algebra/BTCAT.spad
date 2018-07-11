@@ -1,0 +1,57 @@
+)abbrev category BTCAT BinaryTreeCategory
+++ Author: W. H. Burge
+++ Date Created: 17 Feb 1992
+++ Basic Operations:
+++ Related Domains:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+++ Description: \spadtype{BinaryTreeCategory(S)} is the category of
+++ binary trees: a tree which is either empty or has a \spadfun{node} consisting
+++ of a value and a \spadfun{left} and \spadfun{right} which are both binary trees.
+BinaryTreeCategory(S : SetCategory) : Category ==
+     Join(BinaryRecursiveAggregate(S), shallowlyMutable, finiteAggregate) with
+   node : (%, S, %) -> %
+     ++ node(l, v, r) creates a binary tree with value \spad{v},
+     ++ left subtree \spad{l}, and right subtree \spad{r}.
+ add
+     cycleTreeMax ==> 5
+
+     copy t ==
+       empty? t => empty()
+       node(copy left t, value t, copy right t)
+     map(f ,t) ==
+       empty? t => empty()
+       node(map(f, left t), f value t, map(f, right t))
+     map!(f, t) ==
+         empty? t => t
+         t.value := f(t.value)
+         map!(f, left t)
+         map!(f, right t)
+         t
+     treeCount : (%, NonNegativeInteger) -> NonNegativeInteger
+     #t == treeCount(t, 0)
+     treeCount(t, k) ==
+         empty? t => k
+         k := k + 1
+         k = cycleTreeMax and cyclic? t => error "cyclic binary tree"
+         k := treeCount(left t, k)
+         treeCount(right t, k)
+     distance1(t1 : %, t2 : %) : Integer ==
+       t1 = t2 => 0
+       empty? t2 => -1
+       u := [n for t in children t2 | (n := distance1(t1, t)) >= 0]
+       #u > 0 => 1 + "min"/u
+       -1
+     distance(t1, t2) ==
+       n := distance1(t1, t2)
+       n >= 0 => n
+       distance1(t2, t1)
+     hashUpdate!(s : HashState, t : %) : HashState ==
+       empty? t => s
+       s := hashUpdate!(s, value t)
+       s := hashUpdate!(s, left t)
+       hashUpdate!(s, right t)
+

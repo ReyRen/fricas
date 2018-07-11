@@ -1,0 +1,28 @@
+)abbrev package FAMR2 FiniteAbelianMonoidRingFunctions2
+++ Author: Martin Rubey
+++ Description:
+++ This package provides a mapping function for \spadtype{FiniteAbelianMonoidRing}
+FiniteAbelianMonoidRingFunctions2(E : OrderedAbelianMonoid,
+                                  R1 : Ring,
+                                  A1 : FiniteAbelianMonoidRing(R1, E),
+                                  R2 : Ring,
+                                  A2 : FiniteAbelianMonoidRing(R2, E)) _
+                                  : Exports == Implementation where
+  Exports == with
+
+    map : (R1 -> R2, A1) -> A2
+      ++ \spad{map}(f, a) applies the map f to each coefficient in a. It is
+      ++ assumed that f maps 0 to 0
+
+  Implementation == add
+
+    map(f : R1 -> R2, a : A1) : A2 ==
+      if zero? a then 0$A2
+      else
+        monomial(f leadingCoefficient a, degree a)$A2 + map(f, reductum a)
+
+)if false
+
+\section{package FFFG FractionFreeFastGaussian}
+)endif
+

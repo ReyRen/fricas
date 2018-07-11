@@ -1,0 +1,68 @@
+)abbrev category FRAMALG FramedAlgebra
+++ Author: Barry Trager
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ A \spadtype{FramedAlgebra} is a \spadtype{FiniteRankAlgebra} together
+++ with a fixed R-module basis.
+
+FramedAlgebra(R : CommutativeRing, UP : UnivariatePolynomialCategory R):
+ Category == Join(FiniteRankAlgebra(R, UP), FramedModule(R)) with
+    --operations
+      traceMatrix           : () -> Matrix R
+        ++ traceMatrix() is the n-by-n matrix ( \spad{Tr(vi * vj)} ), where
+        ++ v1, ..., vn are the elements of the fixed basis.
+      discriminant          : () -> R
+        ++ discriminant() = determinant(traceMatrix()).
+      regularRepresentation : % -> Matrix R
+        ++ regularRepresentation(a) returns the matrix \spad{m}
+        ++ of the linear map defined by left multiplication by \spad{a}
+        ++ with respect to the fixed basis.  That is for all
+        ++ \spad{x} we have
+        ++ \spad{coordinates(a*x) = m*coordinates(x)}.
+    --attributes
+      --separable <=> discriminant() ~= 0
+  add
+   traceMatrix()           == traceMatrix basis()
+   discriminant()          == discriminant basis()
+   regularRepresentation x == regularRepresentation(x, basis())
+   coordinates(x : %)      == coordinates(x, basis())
+   represents x            == represents(x, basis())
+
+   regularRepresentation x ==
+     m := new(n := rank(), n, 0)$Matrix(R)
+     b := basis()
+     for i in minIndex b .. maxIndex b for j in minRowIndex m .. repeat
+       setRow!(m, j, coordinates(x * qelt(b, i)))
+     transpose m
+
+   -- Condition is redundant, but the compiler can not infer it
+   if UP has CommutativeRing then
+       characteristicPolynomial x ==
+           mat00 := (regularRepresentation x)
+           mat0 : Matrix UP := map(y +-> y::UP, mat00
+                        )$MatrixCategoryFunctions2(R,
+                            Vector R, Vector R, Matrix R, UP,
+                            Vector UP, Vector UP, Matrix UP)
+           mat1 : Matrix UP := scalarMatrix(rank(), monomial(1, 1)$UP)
+           determinant(mat1 - mat0)
+
+   if R has Field then
+
+      import from List(Vector(R))
+
+    -- depends on the ordering of results from nullSpace, also see FFP
+      minimalPolynomial(x : %) : UP ==
+        y : % := 1
+        n := rank()
+        m : Matrix R := zero(n, n+1)
+        for i in 1..n+1 repeat
+          setColumn!(m, i, coordinates(y))
+          y := y*x
+        v := first nullSpace(m)
+        +/[monomial(v.(i+1), i) for i in 0..#v-1]
+

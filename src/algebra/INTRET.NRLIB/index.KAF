@@ -1,0 +1,42 @@
+1680                (|IntegerRetractions| S)
+|package|
+(((|IntegerRetractions| |#1|)
+  (CATEGORY |package| (SIGNATURE |integer| ((|Integer|) |#1|))
+   (SIGNATURE |integer?| ((|Boolean|) |#1|))
+   (SIGNATURE |integerIfCan| ((|Union| (|Integer|) "failed") |#1|)))
+  (|RetractableTo| (|Integer|)))
+ (T |IntegerRetractions|))
+(CATEGORY |package| (SIGNATURE |integer| ((|Integer|) |#1|))
+ (SIGNATURE |integer?| ((|Boolean|) |#1|))
+ (SIGNATURE |integerIfCan| ((|Union| (|Integer|) "failed") |#1|)))
+"/git/fricas/src/algebra/INTRET.spad"
+((|integerIfCan| (*1 *2 *3)
+  (|partial| AND (|isDomain| *2 (|Integer|))
+   (|isDomain| *1 (|IntegerRetractions| *3))
+   (|ofCategory| *3 (|RetractableTo| *2))))
+ (|integer?| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|IntegerRetractions| *3))
+       (|ofCategory| *3 (|RetractableTo| (|Integer|)))))
+ (|integer| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|IntegerRetractions| *3))
+       (|ofCategory| *3 (|RetractableTo| *2)))))
+((|integerIfCan| (((|Union| (|Integer|) "failed") |#1|) 14))
+ (|integer?| (((|Boolean|) |#1|) 13)) (|integer| (((|Integer|) |#1|) 9)))
+INTRET
+((|constructor|
+  (NIL
+   "Provides integer testing and retraction functions. Date Created: March 1990"))
+ (|integerIfCan|
+  (((|Union| (|Integer|) "failed") |#1|)
+   "\\spad{integerIfCan(x)} returns \\spad{x} as an integer,{} \"failed\" if \\spad{x} is not an integer."))
+ (|integer?|
+  (((|Boolean|) |#1|)
+   "\\spad{integer?(x)} is \\spad{true} if \\spad{x} is an integer,{} \\spad{false} otherwise."))
+ (|integer|
+  (((|Integer|) |#1|)
+   "\\spad{integer(x)} returns \\spad{x} as an integer; error if \\spad{x} is not an integer.")))
+(("documentation" 0 1142) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1135) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1000) ("modemaps" 0 531) ("sourceFile" 0 493)
+ ("constructorCategory" 0 322) ("constructorModemap" 0 55)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

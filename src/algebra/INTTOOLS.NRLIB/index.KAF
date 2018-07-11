@@ -1,0 +1,205 @@
+9831                (|IntegrationTools| R F)
+|package|
+(((|IntegrationTools| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |varselect|
+    ((|List| (|Kernel| |#2|)) (|List| (|Kernel| |#2|)) (|Symbol|)))
+   (SIGNATURE |kmax| ((|Kernel| |#2|) (|List| (|Kernel| |#2|))))
+   (SIGNATURE |ksec|
+    ((|Kernel| |#2|) (|Kernel| |#2|) (|List| (|Kernel| |#2|)) (|Symbol|)))
+   (SIGNATURE |union|
+    ((|List| (|Kernel| |#2|)) (|List| (|Kernel| |#2|))
+     (|List| (|Kernel| |#2|))))
+   (SIGNATURE |vark| ((|List| (|Kernel| |#2|)) (|List| |#2|) (|Symbol|)))
+   (IF (|has| |#1| (|IntegralDomain|))
+       (SIGNATURE |removeConstantTerm| (|#2| |#2| (|Symbol|)))
+       |noBranch|)
+   (IF (|has| |#1| (|GcdDomain|))
+       (IF (|has| |#2| (|ElementaryFunctionCategory|))
+           (PROGN
+            (SIGNATURE |mkPrim| (|#2| |#2| (|Symbol|)))
+            (IF (|has| |#1| (|ConvertibleTo| (|Pattern| (|Integer|))))
+                (IF (|has| |#1| (|PatternMatchable| (|Integer|)))
+                    (IF (|has| |#2| (|LiouvillianFunctionCategory|))
+                        (IF (|has| |#2| (|RetractableTo| (|Symbol|)))
+                            (SIGNATURE |intPatternMatch|
+                             ((|IntegrationResult| |#2|) |#2| (|Symbol|)
+                              (|Mapping| (|IntegrationResult| |#2|) |#2|
+                                         (|Symbol|))
+                              (|Mapping|
+                               (|Union|
+                                (|Record| (|:| |special| |#2|)
+                                          (|:| |integrand| |#2|))
+                                "failed")
+                               |#2| (|Symbol|))))
+                            |noBranch|)
+                        |noBranch|)
+                    |noBranch|)
+                |noBranch|))
+           |noBranch|)
+       |noBranch|))
+  (|Comparable|) (|FunctionSpace| |#1|))
+ (T |IntegrationTools|))
+(CATEGORY |package|
+ (SIGNATURE |varselect|
+  ((|List| (|Kernel| |#2|)) (|List| (|Kernel| |#2|)) (|Symbol|)))
+ (SIGNATURE |kmax| ((|Kernel| |#2|) (|List| (|Kernel| |#2|))))
+ (SIGNATURE |ksec|
+  ((|Kernel| |#2|) (|Kernel| |#2|) (|List| (|Kernel| |#2|)) (|Symbol|)))
+ (SIGNATURE |union|
+  ((|List| (|Kernel| |#2|)) (|List| (|Kernel| |#2|)) (|List| (|Kernel| |#2|))))
+ (SIGNATURE |vark| ((|List| (|Kernel| |#2|)) (|List| |#2|) (|Symbol|)))
+ (IF (|has| |#1| (|IntegralDomain|))
+     (SIGNATURE |removeConstantTerm| (|#2| |#2| (|Symbol|)))
+     |noBranch|)
+ (IF (|has| |#1| (|GcdDomain|))
+     (IF (|has| |#2| (|ElementaryFunctionCategory|))
+         (PROGN
+          (SIGNATURE |mkPrim| (|#2| |#2| (|Symbol|)))
+          (IF (|has| |#1| (|ConvertibleTo| (|Pattern| (|Integer|))))
+              (IF (|has| |#1| (|PatternMatchable| (|Integer|)))
+                  (IF (|has| |#2| (|LiouvillianFunctionCategory|))
+                      (IF (|has| |#2| (|RetractableTo| (|Symbol|)))
+                          (SIGNATURE |intPatternMatch|
+                           ((|IntegrationResult| |#2|) |#2| (|Symbol|)
+                            (|Mapping| (|IntegrationResult| |#2|) |#2|
+                                       (|Symbol|))
+                            (|Mapping|
+                             (|Union|
+                              (|Record| (|:| |special| |#2|)
+                                        (|:| |integrand| |#2|))
+                              "failed")
+                             |#2| (|Symbol|))))
+                          |noBranch|)
+                      |noBranch|)
+                  |noBranch|)
+              |noBranch|))
+         |noBranch|)
+     |noBranch|))
+"/git/fricas/src/algebra/INTTOOLS.spad"
+((|intPatternMatch| (*1 *2 *3 *4 *5 *6)
+  (AND (|isDomain| *5 (|Mapping| (|IntegrationResult| *3) *3 (|Symbol|)))
+       (|isDomain| *6
+                   (|Mapping|
+                    (|Union| (|Record| (|:| |special| *3) (|:| |integrand| *3))
+                             "failed")
+                    *3 (|Symbol|)))
+       (|ofCategory| *3 (|ElementaryFunctionCategory|))
+       (|ofCategory| *3 (|LiouvillianFunctionCategory|))
+       (|ofCategory| *3 (|RetractableTo| *4))
+       (|ofCategory| *3 (|FunctionSpace| *7)) (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *7 (|ConvertibleTo| (|Pattern| (|Integer|))))
+       (|ofCategory| *7 (|GcdDomain|))
+       (|ofCategory| *7 (|PatternMatchable| (|Integer|)))
+       (|ofCategory| *7 (|Comparable|))
+       (|isDomain| *2 (|IntegrationResult| *3))
+       (|isDomain| *1 (|IntegrationTools| *7 *3))))
+ (|mkPrim| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|)) (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *4 (|Comparable|))
+       (|isDomain| *1 (|IntegrationTools| *4 *2))
+       (|ofCategory| *2 (|ElementaryFunctionCategory|))
+       (|ofCategory| *2 (|FunctionSpace| *4))))
+ (|removeConstantTerm| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|)) (|ofCategory| *4 (|IntegralDomain|))
+       (|ofCategory| *4 (|Comparable|))
+       (|isDomain| *1 (|IntegrationTools| *4 *2))
+       (|ofCategory| *2 (|FunctionSpace| *4))))
+ (|vark| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *6)) (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *6 (|FunctionSpace| *5)) (|ofCategory| *5 (|Comparable|))
+       (|isDomain| *2 (|List| (|Kernel| *6)))
+       (|isDomain| *1 (|IntegrationTools| *5 *6))))
+ (|union| (*1 *2 *2 *2)
+          (AND (|isDomain| *2 (|List| (|Kernel| *4)))
+               (|ofCategory| *4 (|FunctionSpace| *3))
+               (|ofCategory| *3 (|Comparable|))
+               (|isDomain| *1 (|IntegrationTools| *3 *4))))
+ (|ksec| (*1 *2 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Kernel| *6))) (|isDomain| *4 (|Symbol|))
+       (|isDomain| *2 (|Kernel| *6)) (|ofCategory| *6 (|FunctionSpace| *5))
+       (|ofCategory| *5 (|Comparable|))
+       (|isDomain| *1 (|IntegrationTools| *5 *6))))
+ (|kmax| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Kernel| *5))) (|ofCategory| *4 (|Comparable|))
+       (|isDomain| *2 (|Kernel| *5)) (|isDomain| *1 (|IntegrationTools| *4 *5))
+       (|ofCategory| *5 (|FunctionSpace| *4))))
+ (|varselect| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|List| (|Kernel| *5))) (|isDomain| *3 (|Symbol|))
+       (|ofCategory| *5 (|FunctionSpace| *4)) (|ofCategory| *4 (|Comparable|))
+       (|isDomain| *1 (|IntegrationTools| *4 *5)))))
+((|varselect|
+  (((|List| (|Kernel| |#2|)) (|List| (|Kernel| |#2|)) (|Symbol|)) 19))
+ (|vark| (((|List| (|Kernel| |#2|)) (|List| |#2|) (|Symbol|)) 24))
+ (|union|
+  (((|List| (|Kernel| |#2|)) (|List| (|Kernel| |#2|)) (|List| (|Kernel| |#2|)))
+   11))
+ (|removeConstantTerm|
+  ((|#2| |#2| (|Symbol|)) 51 (|has| |#1| (|IntegralDomain|))))
+ (|mkPrim|
+  ((|#2| |#2| (|Symbol|)) 82
+   (AND (|has| |#2| (|ElementaryFunctionCategory|))
+        (|has| |#1| (|GcdDomain|)))))
+ (|ksec|
+  (((|Kernel| |#2|) (|Kernel| |#2|) (|List| (|Kernel| |#2|)) (|Symbol|)) 26))
+ (|kmax| (((|Kernel| |#2|) (|List| (|Kernel| |#2|))) 25))
+ (|intPatternMatch|
+  (((|IntegrationResult| |#2|) |#2| (|Symbol|)
+    (|Mapping| (|IntegrationResult| |#2|) |#2| (|Symbol|))
+    (|Mapping|
+     (|Union| (|Record| (|:| |special| |#2|) (|:| |integrand| |#2|)) "failed")
+     |#2| (|Symbol|)))
+   106
+   (AND (|has| |#2| (|ElementaryFunctionCategory|))
+        (|has| |#2| (|LiouvillianFunctionCategory|))
+        (|has| |#2| (|RetractableTo| (|Symbol|)))
+        (|has| |#1| (|ConvertibleTo| (|Pattern| (|Integer|))))
+        (|has| |#1| (|GcdDomain|))
+        (|has| |#1| (|PatternMatchable| (|Integer|)))))))
+((AND
+  (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))
+  (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Integer|)))
+  (|HasCategory| |#1| '(|GcdDomain|))
+  (|HasCategory| |#2| (LIST '|RetractableTo| '(|Symbol|)))
+  (|HasCategory| |#2| '(|ElementaryFunctionCategory|))
+  (|HasCategory| |#2| '(|LiouvillianFunctionCategory|)))
+ (AND (|HasCategory| |#1| '(|GcdDomain|))
+      (|HasCategory| |#2| '(|ElementaryFunctionCategory|)))
+ (|HasCategory| |#1| '(|IntegralDomain|)))
+INTTOOLS
+((|constructor|
+  (NIL
+   "\\indented{1}{Tools for the integrator} Author: Manuel Bronstein Date Created: 25 April 1990 Keywords: elementary,{} function,{} integration."))
+ (|intPatternMatch|
+  (((|IntegrationResult| |#2|) |#2| (|Symbol|)
+    (|Mapping| (|IntegrationResult| |#2|) |#2| (|Symbol|))
+    (|Mapping|
+     (|Union| (|Record| (|:| |special| |#2|) (|:| |integrand| |#2|)) "failed")
+     |#2| (|Symbol|)))
+   "\\spad{intPatternMatch(f,{} x,{} int,{} pmint)} tries to integrate \\spad{f} first by using the integration function \\spad{int},{} and then by using the pattern match intetgration function \\spad{pmint} on any remaining unintegrable part."))
+ (|mkPrim|
+  ((|#2| |#2| (|Symbol|))
+   "\\spad{mkPrim(f,{} x)} makes the logs in \\spad{f} which are linear in \\spad{x} primitive with respect to \\spad{x}."))
+ (|removeConstantTerm|
+  ((|#2| |#2| (|Symbol|))
+   "\\spad{removeConstantTerm(f,{} x)} returns \\spad{f} minus any additive constant with respect to \\spad{x}."))
+ (|vark|
+  (((|List| (|Kernel| |#2|)) (|List| |#2|) (|Symbol|))
+   "\\spad{vark([f1,{} ...,{} fn],{} x)} returns the set-theoretic union of \\spad{(varselect(f1,{} x),{} ...,{} varselect(fn,{} x))}."))
+ (|union|
+  (((|List| (|Kernel| |#2|)) (|List| (|Kernel| |#2|)) (|List| (|Kernel| |#2|)))
+   "\\spad{union(l1,{} l2)} returns set-theoretic union of \\spad{l1} and \\spad{l2}."))
+ (|ksec|
+  (((|Kernel| |#2|) (|Kernel| |#2|) (|List| (|Kernel| |#2|)) (|Symbol|))
+   "\\spad{ksec(k,{} [k1,{} ...,{} kn],{} x)} returns the second top-level \\spad{ki} after \\spad{k} involving \\spad{x}."))
+ (|kmax|
+  (((|Kernel| |#2|) (|List| (|Kernel| |#2|)))
+   "\\spad{kmax([k1,{} ...,{} kn])} returns the top-level \\spad{ki} for integration."))
+ (|varselect|
+  (((|List| (|Kernel| |#2|)) (|List| (|Kernel| |#2|)) (|Symbol|))
+   "\\spad{varselect([k1,{} ...,{} kn],{} x)} returns the \\spad{ki} which involve \\spad{x}.")))
+(("documentation" 0 7932) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 7923) ("predicates" 0 7422) ("superDomain" 0 NIL)
+ ("operationAlist" 0 6250) ("modemaps" 0 3633) ("sourceFile" 0 3593)
+ ("constructorCategory" 0 1912) ("constructorModemap" 0 55)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

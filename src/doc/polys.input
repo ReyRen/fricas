@@ -1,0 +1,54 @@
+
+-- Input for page PolynomialPage
+)clear all
+
+
+-- Input for page PolynomialGCDPage
+)clear all
+
+p := 3*x^8 + 2*x^7 + 6*x^2 + 7*x + 2
+q := 2*x^13 + 9*x^7 + 2*x^6 + 10*x + 5
+gcd(p,q)
+resultant(p,q,x)
+discriminant(p, x)
+
+-- Input for page PolynomialSubstitutionPage
+)clear all
+
+p := x^2 + y^2
+eval(p,x=5)
+eval(p,[x = a + b,y = c + d])
+q := x^3 + 5*x - y^4
+eval(q,[x=y,y=x])
+px := eval(p, y = sin(2.0))
+eval(px, x = cos(2.0))
+
+-- Input for page PolynomialRootPage
+)clear all
+
+
+-- Input for page PolynomialBasicPage
+)clear all
+
+p := a*x^2 + b*x*y + c*y^2
+q := 13*x^2 + 3*z
+p + q
+p - 3*q
+p^2 + p*q
+r := (p + q)^2
+setVariableOrder [a,b,c,x,y,z]
+p
+q
+r
+resetVariableOrder()
+p
+coefficient(q,x,2)
+coefficient(r,x,3)
+c := coefficient(r,z,1)
+coefficient(c,x,2)
+coefficient(q^2, [x,z], [2,1])
+coefficient(r, [x,y], [2,2])
+
+-- Input for page PolynomialTypesPage
+)clear all
+

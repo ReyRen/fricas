@@ -1,0 +1,161 @@
+7608                (MAKEPROP '|InnerModularHermitePade| 'NILADIC T)
+(|InnerModularHermitePade|)
+|package|
+(((|InnerModularHermitePade|)
+  (CATEGORY |package|
+   (SIGNATURE |do_modular_solve|
+    ((|Union|
+      (|Record| (|:| |basis| (|TwoDimensionalArray| (|U32Vector|)))
+                (|:| |defects| (|Vector| (|Integer|)))
+                (|:| |cinds| (|Vector| (|Integer|))))
+      "no_solution")
+     (|Vector| (|U32Vector|)) (|Vector| (|Integer|)) (|NonNegativeInteger|)
+     (|U32Vector|) (|Integer|) (|Symbol|)))
+   (SIGNATURE |do_poly_integer|
+    ((|Union|
+      (|Record| (|:| |defects| (|Vector| (|Integer|)))
+                (|:| |cinds| (|Vector| (|Integer|))) (|:| |rowlen| (|Integer|))
+                (|:| |offsetdata| (|Vector| (|Integer|)))
+                (|:| |expdata| (|SortedExponentVector|))
+                (|:| |coeffdata| (|PrimitiveArray| (|Integer|))))
+      "no_solution")
+     (|List| (|Symbol|))
+     (|List| (|PrimitiveArray| (|Fraction| (|Polynomial| (|Integer|)))))
+     (|Vector| (|Integer|)) (|NonNegativeInteger|) (|U32Vector|) (|Symbol|)
+     (|Symbol|)
+     (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+                (|Integer|))))
+   (SIGNATURE |merge_exponents|
+    ((|List| (|List| (|Integer|))) (|Integer|) (|Vector| (|Integer|))
+     (|SortedExponentVector|) (|Vector| (|Integer|)) (|SortedExponentVector|)))
+   (SIGNATURE |merge2|
+    ((|Record| (|:| |offsetdata| (|Vector| (|Integer|)))
+               (|:| |expdata| (|SortedExponentVector|)))
+     (|Integer|) (|List| (|Integer|)) (|List| (|Integer|))
+     (|Vector| (|Integer|)) (|SortedExponentVector|) (|Vector| (|Integer|))
+     (|SortedExponentVector|)))))
+ (T |InnerModularHermitePade|))
+(CATEGORY |package|
+ (SIGNATURE |do_modular_solve|
+  ((|Union|
+    (|Record| (|:| |basis| (|TwoDimensionalArray| (|U32Vector|)))
+              (|:| |defects| (|Vector| (|Integer|)))
+              (|:| |cinds| (|Vector| (|Integer|))))
+    "no_solution")
+   (|Vector| (|U32Vector|)) (|Vector| (|Integer|)) (|NonNegativeInteger|)
+   (|U32Vector|) (|Integer|) (|Symbol|)))
+ (SIGNATURE |do_poly_integer|
+  ((|Union|
+    (|Record| (|:| |defects| (|Vector| (|Integer|)))
+              (|:| |cinds| (|Vector| (|Integer|))) (|:| |rowlen| (|Integer|))
+              (|:| |offsetdata| (|Vector| (|Integer|)))
+              (|:| |expdata| (|SortedExponentVector|))
+              (|:| |coeffdata| (|PrimitiveArray| (|Integer|))))
+    "no_solution")
+   (|List| (|Symbol|))
+   (|List| (|PrimitiveArray| (|Fraction| (|Polynomial| (|Integer|)))))
+   (|Vector| (|Integer|)) (|NonNegativeInteger|) (|U32Vector|) (|Symbol|)
+   (|Symbol|)
+   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+              (|Integer|))))
+ (SIGNATURE |merge_exponents|
+  ((|List| (|List| (|Integer|))) (|Integer|) (|Vector| (|Integer|))
+   (|SortedExponentVector|) (|Vector| (|Integer|)) (|SortedExponentVector|)))
+ (SIGNATURE |merge2|
+  ((|Record| (|:| |offsetdata| (|Vector| (|Integer|)))
+             (|:| |expdata| (|SortedExponentVector|)))
+   (|Integer|) (|List| (|Integer|)) (|List| (|Integer|)) (|Vector| (|Integer|))
+   (|SortedExponentVector|) (|Vector| (|Integer|)) (|SortedExponentVector|))))
+"/git/fricas/src/algebra/IMODHP.spad"
+((|merge2| (*1 *2 *3 *4 *4 *5 *6 *5 *6)
+  (AND (|isDomain| *4 (|List| (|Integer|)))
+       (|isDomain| *5 (|Vector| (|Integer|)))
+       (|isDomain| *6 (|SortedExponentVector|)) (|isDomain| *3 (|Integer|))
+       (|isDomain| *2
+                   (|Record| (|:| |offsetdata| (|Vector| (|Integer|)))
+                             (|:| |expdata| (|SortedExponentVector|))))
+       (|isDomain| *1 (|InnerModularHermitePade|))))
+ (|merge_exponents| (*1 *2 *3 *4 *5 *4 *5)
+  (AND (|isDomain| *4 (|Vector| (|Integer|)))
+       (|isDomain| *5 (|SortedExponentVector|)) (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|List| (|List| (|Integer|))))
+       (|isDomain| *1 (|InnerModularHermitePade|))))
+ (|do_poly_integer| (*1 *2 *3 *4 *5 *6 *7 *8 *8 *9)
+  (AND (|isDomain| *3 (|List| (|Symbol|)))
+       (|isDomain| *4
+                   (|List|
+                    (|PrimitiveArray|
+                     (|Fraction| (|Polynomial| (|Integer|))))))
+       (|isDomain| *5 (|Vector| (|Integer|)))
+       (|isDomain| *6 (|NonNegativeInteger|)) (|isDomain| *8 (|Symbol|))
+       (|isDomain| *9
+                   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                              (|Integer|) (|Integer|)))
+       (|isDomain| *7 (|U32Vector|))
+       (|isDomain| *2
+                   (|Union|
+                    (|Record| (|:| |defects| (|Vector| (|Integer|)))
+                              (|:| |cinds| (|Vector| (|Integer|)))
+                              (|:| |rowlen| (|Integer|))
+                              (|:| |offsetdata| (|Vector| (|Integer|)))
+                              (|:| |expdata| (|SortedExponentVector|))
+                              (|:| |coeffdata| (|PrimitiveArray| (|Integer|))))
+                    "no_solution"))
+       (|isDomain| *1 (|InnerModularHermitePade|))))
+ (|do_modular_solve| (*1 *2 *3 *4 *5 *6 *7 *8)
+  (AND (|isDomain| *3 (|Vector| (|U32Vector|)))
+       (|isDomain| *4 (|Vector| (|Integer|)))
+       (|isDomain| *5 (|NonNegativeInteger|)) (|isDomain| *6 (|U32Vector|))
+       (|isDomain| *7 (|Integer|)) (|isDomain| *8 (|Symbol|))
+       (|isDomain| *2
+                   (|Union|
+                    (|Record|
+                     (|:| |basis| (|TwoDimensionalArray| (|U32Vector|)))
+                     (|:| |defects| (|Vector| (|Integer|)))
+                     (|:| |cinds| (|Vector| (|Integer|))))
+                    "no_solution"))
+       (|isDomain| *1 (|InnerModularHermitePade|)))))
+((|merge_exponents|
+  (((|List| (|List| (|Integer|))) (|Integer|) (|Vector| (|Integer|))
+    (|SortedExponentVector|) (|Vector| (|Integer|)) (|SortedExponentVector|))
+   49))
+ (|merge2|
+  (((|Record| (|:| |offsetdata| (|Vector| (|Integer|)))
+              (|:| |expdata| (|SortedExponentVector|)))
+    (|Integer|) (|List| (|Integer|)) (|List| (|Integer|))
+    (|Vector| (|Integer|)) (|SortedExponentVector|) (|Vector| (|Integer|))
+    (|SortedExponentVector|))
+   52))
+ (|do_poly_integer|
+  (((|Union|
+     (|Record| (|:| |defects| (|Vector| (|Integer|)))
+               (|:| |cinds| (|Vector| (|Integer|))) (|:| |rowlen| (|Integer|))
+               (|:| |offsetdata| (|Vector| (|Integer|)))
+               (|:| |expdata| (|SortedExponentVector|))
+               (|:| |coeffdata| (|PrimitiveArray| (|Integer|))))
+     "no_solution")
+    (|List| (|Symbol|))
+    (|List| (|PrimitiveArray| (|Fraction| (|Polynomial| (|Integer|)))))
+    (|Vector| (|Integer|)) (|NonNegativeInteger|) (|U32Vector|) (|Symbol|)
+    (|Symbol|)
+    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+               (|Integer|)))
+   85))
+ (|do_modular_solve|
+  (((|Union|
+     (|Record| (|:| |basis| (|TwoDimensionalArray| (|U32Vector|)))
+               (|:| |defects| (|Vector| (|Integer|)))
+               (|:| |cinds| (|Vector| (|Integer|))))
+     "no_solution")
+    (|Vector| (|U32Vector|)) (|Vector| (|Integer|)) (|NonNegativeInteger|)
+    (|U32Vector|) (|Integer|) (|Symbol|))
+   42)))
+IMODHP
+((|constructor|
+  (NIL
+   "This package solves Hermite-Pade interpolation problem \\indented{1}{over ring of integer polynomials.\\space{2}We use reduction modulo primes} \\indented{1}{and modular reconstruction to reduce problem to polynomials modulo} \\indented{1}{\\$\\spad{Z_p}\\$.\\space{2}Then we use evaluation and Lagrange interpolation to} \\indented{1}{reduce problem to solving over \\$\\spad{Z_p}\\$.}")))
+(("documentation" 0 7190) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 7183) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5698) ("modemaps" 0 3249) ("sourceFile" 0 3211)
+ ("constructorCategory" 0 1724) ("constructorModemap" 0 107)
+ ("constructorKind" 0 97) ("constructorForm" 0 69) ("NILADIC" 0 20))

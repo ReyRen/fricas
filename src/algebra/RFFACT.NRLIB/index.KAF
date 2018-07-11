@@ -1,0 +1,27 @@
+936                 (|RationalFunctionFactor| UP)
+|package|
+(((|RationalFunctionFactor| |#1|)
+  (CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#1|) |#1|)))
+  (|UnivariatePolynomialCategory| (|Fraction| (|Polynomial| (|Integer|)))))
+ (T |RationalFunctionFactor|))
+(CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#1|) |#1|)))
+"/git/fricas/src/algebra/RFFACT.spad"
+((|factor| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|RationalFunctionFactor| *3))
+       (|ofCategory| *3
+                     (|UnivariatePolynomialCategory|
+                      (|Fraction| (|Polynomial| (|Integer|))))))))
+((|factor| (((|Factored| |#1|) |#1|) 31)))
+RFFACT
+((|constructor|
+  (NIL
+   "Factorization of univariate polynomials with coefficients which are rational functions with integer coefficients."))
+ (|factor|
+  (((|Factored| |#1|) |#1|)
+   "\\spad{factor(p)} returns a prime factorisation of \\spad{p}.")))
+(("documentation" 0 683) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 676) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 633) ("modemaps" 0 375) ("sourceFile" 0 337)
+ ("constructorCategory" 0 270) ("constructorModemap" 0 60)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

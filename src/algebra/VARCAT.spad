@@ -1,0 +1,48 @@
+)abbrev category VARCAT VarCat
+++ Author: Martin Baker
+++ Date Created: April 2011
+++ Basic Operations:
+++ Related Constructors: lambda, ski
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/computation/
+++ Description: VarCat represents a variable in Lambda and Ski domains.
+++ Since we are working in terms of functions then a variable will be a
+++ function (possibly a constant function)
+++ a variable has a name represented by a String. If the Lambda or Ski
+++ calculus is typed then the variable will also have a type.
+
+VarCat() : Category == Join(Type, CoercibleTo(OutputForm)) with
+  var : (n : String) -> %
+    ++ constructs variable with a name but no type.
+  var : (n : String, t : ILogic) -> %
+    ++ constructs variable with a name and also a type.
+  getName : (v : %) -> String
+    ++ returns the name of the variable.
+  getType : (v : %) -> ILogic
+    ++ returns the type of the variable. This may be a compound type, for
+    ++ instance ["a","b"] represents a->b a function from type a to type b
+    ++ untyped implementations return []
+  toString : (v : %) -> String
+    ++ returns the name and the type in string form.
+  parseVar : (t1 : String)-> %
+    ++ construct a variable by parsing a string
+  parseVarTerm : (t1 : String, pin : NonNegativeInteger)-> Record(rft : %, pout : NonNegativeInteger)
+    ++ construct a variable by parsing a string
+    ++ pin is index to string at start of parse
+    ++ pout is index to string at end of parse
+  "=":(x:%, y:%) -> Boolean
+    ++ return true if equal, that is names are equal and if there is
+    ++ a type then they must also be equal
+
+
+)if false
+
+Next an implementation of the above category which is intended to work with
+untyped variables:
+
+\section{domain UNTYPED Untyped}
+)endif
+

@@ -1,0 +1,37 @@
+1830                (|DictionaryOperations&| A S)
+|domain|
+(((|DictionaryOperations&| |#1| |#2|)
+  (CATEGORY |domain| (SIGNATURE |dictionary| (|#1| (|List| |#2|)))
+   (SIGNATURE |dictionary| (|#1|)) (SIGNATURE |construct| (|#1| (|List| |#2|)))
+   (SIGNATURE |coerce| ((|OutputForm|) |#1|)) (SIGNATURE |copy| (|#1| |#1|)))
+  (|DictionaryOperations| |#2|) (|Type|))
+ (T |DictionaryOperations&|))
+(CATEGORY |domain| (SIGNATURE |dictionary| (|#1| (|List| |#2|)))
+ (SIGNATURE |dictionary| (|#1|)) (SIGNATURE |construct| (|#1| (|List| |#2|)))
+ (SIGNATURE |coerce| ((|OutputForm|) |#1|)) (SIGNATURE |copy| (|#1| |#1|)))
+"/git/fricas/src/algebra/DIOPS.spad"
+((|dictionary| (($) 12) (($ (|List| |#2|)) NIL)) (|copy| (($ $) 14))
+ (|construct| (($ (|List| |#2|)) 10)) (|coerce| (((|OutputForm|) $) 21)))
+((|HasCategory| |#2| '(|BasicType|)) (|HasCategory| |#1| '(|finiteAggregate|)))
+DIOPS-
+((|constructor|
+  (NIL
+   "This category is a collection of operations common to both categories \\spadtype{Dictionary} and \\spadtype{MultiDictionary}"))
+ (|select!|
+  (($ (|Mapping| (|Boolean|) |#2|) $)
+   "\\spad{select!(p,{} d)} destructively changes dictionary \\spad{d} by removing all entries \\spad{x} such that \\spad{p(x)} is not \\spad{true}."))
+ (|remove!|
+  (($ (|Mapping| (|Boolean|) |#2|) $)
+   "\\spad{remove!(p,{} d)} destructively changes dictionary \\spad{d} by removing all entries \\spad{x} such that \\spad{p(x)} is \\spad{true}.")
+  (($ |#2| $)
+   "\\spad{remove!(x,{} d)} destructively changes dictionary \\spad{d} by removing all entries \\spad{y} such that \\spad{y = x}."))
+ (|dictionary|
+  (($ (|List| |#2|))
+   "\\spad{dictionary([x,{} y,{} ...,{} z])} creates a dictionary consisting of entries \\spad{x,{} y,{} ...,{} z}.")
+  (($)
+   "\\spad{dictionary()}\\$\\spad{D} creates an empty dictionary of type \\spad{D}.")))
+(("documentation" 0 880) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 873) ("predicates" 0 793) ("superDomain" 0 NIL)
+ ("operationAlist" 0 650) ("modemaps" 0 NIL) ("sourceFile" 0 613)
+ ("constructorCategory" 0 394) ("constructorModemap" 0 59)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

@@ -1,0 +1,47 @@
+1776                (|AttachPredicates| D)
+|package|
+(((|AttachPredicates| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |suchThat|
+    ((|Expression| (|Integer|)) (|Symbol|) (|Mapping| (|Boolean|) |#1|)))
+   (SIGNATURE |suchThat|
+    ((|Expression| (|Integer|)) (|Symbol|)
+     (|List| (|Mapping| (|Boolean|) |#1|)))))
+  (|Type|))
+ (T |AttachPredicates|))
+(CATEGORY |package|
+ (SIGNATURE |suchThat|
+  ((|Expression| (|Integer|)) (|Symbol|) (|Mapping| (|Boolean|) |#1|)))
+ (SIGNATURE |suchThat|
+  ((|Expression| (|Integer|)) (|Symbol|)
+   (|List| (|Mapping| (|Boolean|) |#1|)))))
+"/git/fricas/src/algebra/PMPRED.spad"
+((|suchThat| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|isDomain| *4 (|List| (|Mapping| (|Boolean|) *5)))
+       (|ofCategory| *5 (|Type|)) (|isDomain| *2 (|Expression| (|Integer|)))
+       (|isDomain| *1 (|AttachPredicates| *5))))
+ (|suchThat| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *4 (|Mapping| (|Boolean|) *5))
+       (|ofCategory| *5 (|Type|)) (|isDomain| *2 (|Expression| (|Integer|)))
+       (|isDomain| *1 (|AttachPredicates| *5)))))
+((|suchThat|
+  (((|Expression| (|Integer|)) (|Symbol|)
+    (|List| (|Mapping| (|Boolean|) |#1|)))
+   16)
+  (((|Expression| (|Integer|)) (|Symbol|) (|Mapping| (|Boolean|) |#1|)) 13)))
+PMPRED
+((|constructor|
+  (NIL
+   "Attaching predicates to symbols for pattern matching. Date Created: 21 Mar 1989"))
+ (|suchThat|
+  (((|Expression| (|Integer|)) (|Symbol|)
+    (|List| (|Mapping| (|Boolean|) |#1|)))
+   "\\spad{suchThat(x,{} [f1,{} f2,{} ...,{} fn])} attaches the predicate \\spad{f1} and \\spad{f2} and ... and \\spad{fn} to \\spad{x}.")
+  (((|Expression| (|Integer|)) (|Symbol|) (|Mapping| (|Boolean|) |#1|))
+   "\\spad{suchThat(x,{} foo)} attaches the predicate foo to \\spad{x}.")))
+(("documentation" 0 1281) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1274) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1091) ("modemaps" 0 614) ("sourceFile" 0 576)
+ ("constructorCategory" 0 353) ("constructorModemap" 0 53)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

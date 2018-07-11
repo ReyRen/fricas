@@ -1,0 +1,132 @@
+7013                (|BasicOperatorFunctions1| A)
+|package|
+(((|BasicOperatorFunctions1| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |evaluate|
+    ((|Union| |#1| "failed") (|BasicOperator|) (|List| |#1|)))
+   (SIGNATURE |evaluate|
+    ((|BasicOperator|) (|BasicOperator|) (|Mapping| |#1| (|List| |#1|))))
+   (SIGNATURE |evaluate|
+    ((|BasicOperator|) (|BasicOperator|) (|Mapping| |#1| |#1|)))
+   (SIGNATURE |evaluate|
+    ((|Union| (|Mapping| |#1| (|List| |#1|)) "failed") (|BasicOperator|)))
+   (SIGNATURE |derivative|
+    ((|BasicOperator|) (|BasicOperator|)
+     (|List| (|Mapping| |#1| (|List| |#1|)))))
+   (SIGNATURE |derivative|
+    ((|BasicOperator|) (|BasicOperator|) (|Mapping| |#1| |#1|)))
+   (SIGNATURE |derivative|
+    ((|Union| (|List| (|Mapping| |#1| (|List| |#1|))) "failed")
+     (|BasicOperator|)))
+   (SIGNATURE |constantOperator| ((|BasicOperator|) |#1|))
+   (SIGNATURE |constantOpIfCan| ((|Union| |#1| "failed") (|BasicOperator|))))
+  (|SetCategory|))
+ (T |BasicOperatorFunctions1|))
+(CATEGORY |package|
+ (SIGNATURE |evaluate|
+  ((|Union| |#1| "failed") (|BasicOperator|) (|List| |#1|)))
+ (SIGNATURE |evaluate|
+  ((|BasicOperator|) (|BasicOperator|) (|Mapping| |#1| (|List| |#1|))))
+ (SIGNATURE |evaluate|
+  ((|BasicOperator|) (|BasicOperator|) (|Mapping| |#1| |#1|)))
+ (SIGNATURE |evaluate|
+  ((|Union| (|Mapping| |#1| (|List| |#1|)) "failed") (|BasicOperator|)))
+ (SIGNATURE |derivative|
+  ((|BasicOperator|) (|BasicOperator|)
+   (|List| (|Mapping| |#1| (|List| |#1|)))))
+ (SIGNATURE |derivative|
+  ((|BasicOperator|) (|BasicOperator|) (|Mapping| |#1| |#1|)))
+ (SIGNATURE |derivative|
+  ((|Union| (|List| (|Mapping| |#1| (|List| |#1|))) "failed")
+   (|BasicOperator|)))
+ (SIGNATURE |constantOperator| ((|BasicOperator|) |#1|))
+ (SIGNATURE |constantOpIfCan| ((|Union| |#1| "failed") (|BasicOperator|))))
+"/git/fricas/src/algebra/BOP1.spad"
+((|constantOpIfCan| (*1 *2 *3)
+  (|partial| AND (|isDomain| *3 (|BasicOperator|))
+   (|isDomain| *1 (|BasicOperatorFunctions1| *2))
+   (|ofCategory| *2 (|SetCategory|))))
+ (|constantOperator| (*1 *2 *3)
+  (AND (|isDomain| *2 (|BasicOperator|))
+       (|isDomain| *1 (|BasicOperatorFunctions1| *3))
+       (|ofCategory| *3 (|SetCategory|))))
+ (|derivative| (*1 *2 *3)
+  (|partial| AND (|isDomain| *3 (|BasicOperator|))
+   (|isDomain| *2 (|List| (|Mapping| *4 (|List| *4))))
+   (|isDomain| *1 (|BasicOperatorFunctions1| *4))
+   (|ofCategory| *4 (|SetCategory|))))
+ (|derivative| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|BasicOperator|)) (|isDomain| *3 (|Mapping| *4 *4))
+       (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|BasicOperatorFunctions1| *4))))
+ (|derivative| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|BasicOperator|))
+       (|isDomain| *3 (|List| (|Mapping| *4 (|List| *4))))
+       (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|BasicOperatorFunctions1| *4))))
+ (|evaluate| (*1 *2 *3)
+  (|partial| AND (|isDomain| *3 (|BasicOperator|))
+   (|isDomain| *2 (|Mapping| *4 (|List| *4)))
+   (|isDomain| *1 (|BasicOperatorFunctions1| *4))
+   (|ofCategory| *4 (|SetCategory|))))
+ (|evaluate| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|BasicOperator|)) (|isDomain| *3 (|Mapping| *4 *4))
+       (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|BasicOperatorFunctions1| *4))))
+ (|evaluate| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|BasicOperator|))
+       (|isDomain| *3 (|Mapping| *4 (|List| *4)))
+       (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|BasicOperatorFunctions1| *4))))
+ (|evaluate| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|BasicOperator|)) (|isDomain| *4 (|List| *2))
+   (|isDomain| *1 (|BasicOperatorFunctions1| *2))
+   (|ofCategory| *2 (|SetCategory|)))))
+((|evaluate|
+  (((|Union| (|Mapping| |#1| (|List| |#1|)) "failed") (|BasicOperator|)) 21)
+  (((|BasicOperator|) (|BasicOperator|) (|Mapping| |#1| |#1|)) 16)
+  (((|BasicOperator|) (|BasicOperator|) (|Mapping| |#1| (|List| |#1|))) 14)
+  (((|Union| |#1| "failed") (|BasicOperator|) (|List| |#1|)) 23))
+ (|derivative|
+  (((|Union| (|List| (|Mapping| |#1| (|List| |#1|))) "failed")
+    (|BasicOperator|))
+   27)
+  (((|BasicOperator|) (|BasicOperator|) (|Mapping| |#1| |#1|)) 33)
+  (((|BasicOperator|) (|BasicOperator|)
+    (|List| (|Mapping| |#1| (|List| |#1|))))
+   29))
+ (|constantOperator| (((|BasicOperator|) |#1|) 54))
+ (|constantOpIfCan| (((|Union| |#1| "failed") (|BasicOperator|)) 49)))
+BOP1
+((|constructor|
+  (NIL
+   "This package exports functions to set some commonly used properties of operators,{} including properties which contain functions."))
+ (|constantOpIfCan|
+  (((|Union| |#1| "failed") (|BasicOperator|))
+   "\\spad{constantOpIfCan(op)} returns \\spad{a} if \\spad{op} is the constant nullary operator always returning \\spad{a},{} \"failed\" otherwise."))
+ (|constantOperator|
+  (((|BasicOperator|) |#1|)
+   "\\spad{constantOperator(a)} returns a nullary operator op such that \\spad{op()} always evaluate to \\spad{a}."))
+ (|derivative|
+  (((|Union| (|List| (|Mapping| |#1| (|List| |#1|))) "failed")
+    (|BasicOperator|))
+   "\\spad{derivative(op)} returns the value of the \"\\%diff\" property of \\spad{op} if it has one,{} and \"failed\" otherwise.")
+  (((|BasicOperator|) (|BasicOperator|) (|Mapping| |#1| |#1|))
+   "\\spad{derivative(op,{} foo)} attaches foo as the \"\\%diff\" property of \\spad{op}. If \\spad{op} has an \"\\%diff\" property \\spad{f},{} then applying a derivation \\spad{D} to \\spad{op}(a) returns \\spad{f(a) * D(a)}. Argument \\spad{op} must be unary.")
+  (((|BasicOperator|) (|BasicOperator|)
+    (|List| (|Mapping| |#1| (|List| |#1|))))
+   "\\spad{derivative(op,{} [foo1,{} ...,{} foon])} attaches [\\spad{foo1},{} ...,{} foon] as the \"\\%diff\" property of \\spad{op}. If \\spad{op} has an \"\\%diff\" property \\spad{[f1,{} ...,{} fn]} then applying a derivation \\spad{D} to \\spad{op(a1,{} ...,{} an)} returns \\spad{f1(a1,{} ...,{} an) * D(a1) + ... + fn(a1,{} ...,{} an) * D(an)}."))
+ (|evaluate|
+  (((|Union| (|Mapping| |#1| (|List| |#1|)) "failed") (|BasicOperator|))
+   "\\spad{evaluate(op)} returns the value of the \"\\%eval\" property of \\spad{op} if it has one,{} and \"failed\" otherwise.")
+  (((|BasicOperator|) (|BasicOperator|) (|Mapping| |#1| |#1|))
+   "\\spad{evaluate(op,{} foo)} attaches foo as the \"\\%eval\" property of \\spad{op}. If \\spad{op} has an \"\\%eval\" property \\spad{f},{} then applying \\spad{op} to a returns the result of \\spad{f(a)}. Argument \\spad{op} must be unary.")
+  (((|BasicOperator|) (|BasicOperator|) (|Mapping| |#1| (|List| |#1|)))
+   "\\spad{evaluate(op,{} foo)} attaches foo as the \"\\%eval\" property of \\spad{op}. If \\spad{op} has an \"\\%eval\" property \\spad{f},{} then applying \\spad{op} to \\spad{(a1,{} ...,{} an)} returns the result of \\spad{f(a1,{} ...,{} an)}.")
+  (((|Union| |#1| "failed") (|BasicOperator|) (|List| |#1|))
+   "\\spad{evaluate(op,{} [a1,{}...,{}an])} checks if \\spad{op} has an \"\\%eval\" property \\spad{f}. If it has,{} then \\spad{f(a1,{} ...,{} an)} is returned,{} and \"failed\" otherwise.")))
+(("documentation" 0 4366) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4361) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3671) ("modemaps" 0 1862) ("sourceFile" 0 1826)
+ ("constructorCategory" 0 1005) ("constructorModemap" 0 60)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

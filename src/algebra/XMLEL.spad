@@ -1,0 +1,116 @@
+)abbrev domain XMLEL XmlElement
+++ Author: Martin John Baker
+++ Date Created: September 2010
+++ Basic Operations: writeXml, writeVRML
+++ Related Constructors: xmlAttribute, xmlElement
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/graph/
+++ Description:
+++ This package provides support for XML files
+++ an XML element is something which either has the form:
+++ <tagname attributes> content </tagname>
+++ or
+++ <tagname attributes/>
+++ where content may be a sequence of sub-elements or unstructured text
+
+XmlElement() : Exports==Implementation where
+
+ NNI==> NonNegativeInteger
+
+ Exports == with
+  xmlElement : (name : String, elements : List %, attributes : List XmlAttribute) -> %
+    ++ xmlElement(name, elements, attributes) construct an element with
+    ++ structured elements
+  xmlElement : (name : String, txt : String, attributes : List XmlAttribute) -> %
+    ++ xmlElement(name, txt, attributes) construct an element with
+    ++ unstructured text
+  empty? : (el : %) -> Boolean
+    ++ empty?(el) returns true is this element does not contain anything
+  coerce : % -> List String
+    ++ coerce(x) outputs x as a list of strings. Each element in the
+    ++ list represents a new line. This is an alternative to creating
+    ++ a long single string with 'newline' embedded in it.
+  outputVRML : (rp : %, f1 : TextFile) -> Void
+    ++ outputVRML(rp, f1) writes the element as VRML2. VRML2 is
+    ++ not xml but it has the same semantics and node names as X3D
+    ++ but a different syntax so it makes sense to create an XML structure
+    ++ and then format the output differently.
+
+ Implementation == add
+  Rep := Record(n : String, e : List %, a : List XmlAttribute, content : String)
+    -- e holds child elements.
+    -- a holds attributes.
+    -- content holds unstructured data as a string
+
+  -- construct an element with structured elements
+  xmlElement(name : String, elements : List %, attributes : List XmlAttribute) : % ==
+   [name,elements,attributes,""]
+
+  -- construct an element with unstructured text
+  xmlElement(name : String, txt : String, attributes : List XmlAttribute) : % ==
+   [name, [], attributes, txt]
+
+  -- local function, used to coerce to String, to output information
+  -- structured as xml attributes.
+  outputStructured(rp : %) : List String ==
+   atts := concat([s::String for s in rp.a ])$String
+   -- if there are no child elements then we can out put in the
+   -- shortened form as a single tag
+   #(rp.e) < 1 =>
+    [concat(["<",rp.n,atts," />"])$String]
+   -- res will hold start tag, child elements then end tag
+   res:List String := [concat(["<",rp.n,atts,">"])$String]
+   for el in rp.e repeat
+     res := concat(res, el::(List String))$(List String)
+   concat(res,concat(["</",rp.n,">"])$String)$(List String)
+
+  -- local function, used to coerce to String, to output information
+  -- not structured as xml attributes but as an unstructured string.
+  outputUnstructured(rp : %) : List String ==
+   atts := concat([s::String for s in rp.a ])$String
+   -- start tag
+   res:List String := [concat(["<",rp.n,atts,">"])$String]
+   -- unstructured data
+   res := concat(res, rp.content)$(List String)
+   -- end tag
+   concat(res,concat(["</",rp.n,">"])$String)$(List String)
+
+  -- coerce(rp) outputs rp as a list of strings. Each element in the
+  -- list represents a new line. This is an alternative to creating
+  -- a long single string with 'newline' embedded in it.
+  coerce(rp : %) : List String ==
+   rp.content = "" => outputStructured(rp)
+   outputUnstructured(rp)
+
+  -- empty?(el) returns true is this element does not contain anything
+  empty?(el : %) : Boolean ==
+   if el.n = "" then true else false
+
+  -- outputVRML(rp, f1) writes the element as VRML2. VRML2 is
+  -- not xml but it has the same semantics and node names as X3D
+  -- but a different syntax so it makes sense to create an XML structure
+  -- and then format the output differently.
+  outputVRML(rp : %, f1 : TextFile) : Void ==
+   if rp.n = "X3D" or rp.n = "Scene" then
+     for el in rp.e repeat
+       outputVRML(el, f1)
+     return Void
+   writeLine!(f1,concat(rp.n,"{"))
+   if rp.n = "Shape" then writeLine!(f1,"geometry")
+   for att in rp.a repeat
+     outputVRML(att, f1)$XmlAttribute
+   if (#(rp.e))::NNI > 0::NNI then
+     if rp.n = "Transform" then writeLine!(f1,"children[")
+     for el in rp.e repeat
+       outputVRML(el, f1)
+     if rp.n = "Transform" then writeLine!(f1,"]")
+   writeLine!(f1,"}")
+   Void
+
+)if false
+\section{ExportXml package}
+)endif
+

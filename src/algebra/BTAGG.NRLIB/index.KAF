@@ -1,0 +1,218 @@
+9844                (MAKEPROP '|BitAggregate| 'NILADIC T)
+(|BitAggregate|)
+|category|
+(((|BitAggregate|) (|Category|)) (T |BitAggregate|))
+(|Join| (|OrderedSet|) (|Logic|) (|OneDimensionalArrayAggregate| (|Boolean|))
+        (CATEGORY |domain| (SIGNATURE |not| ($ $)) (SIGNATURE |nand| ($ $ $))
+         (SIGNATURE |nor| ($ $ $)) (SIGNATURE |and| ($ $ $))
+         (SIGNATURE |or| ($ $ $)) (SIGNATURE |xor| ($ $ $))))
+"/git/fricas/src/algebra/BTAGG.spad"
+((|not| (*1 *1 *1) (|ofCategory| *1 (|BitAggregate|)))
+ (|nand| (*1 *1 *1 *1) (|ofCategory| *1 (|BitAggregate|)))
+ (|nor| (*1 *1 *1 *1) (|ofCategory| *1 (|BitAggregate|)))
+ (|and| (*1 *1 *1 *1) (|ofCategory| *1 (|BitAggregate|)))
+ (|or| (*1 *1 *1 *1) (|ofCategory| *1 (|BitAggregate|)))
+ (|xor| (*1 *1 *1 *1) (|ofCategory| *1 (|BitAggregate|))))
+((~= (((|Boolean|) $ $) 6)) (~ (($ $) 6)) (|xor| (($ $ $) 6))
+ (|true| (($) 6 T CONST))
+ (|trim|
+  (($ $ (|Boolean|)) 6
+   (AND (|has| (|Boolean|) (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|swap!|
+  (((|Void|) $ (|Integer|) (|Integer|)) 6 (|has| $ (|shallowlyMutable|))))
+ (|sorted?|
+  (((|Boolean|) $) 6
+   (AND (|has| (|Boolean|) (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Boolean|) (|Boolean|)) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|sort!|
+  (($ $) 6
+   (AND (|has| (|Boolean|) (|OrderedSet|)) (|has| $ (|shallowlyMutable|))
+        (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) (|Boolean|) (|Boolean|)) $) 6
+   (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|)))))
+ (|sort|
+  (($ $) 6
+   (AND (|has| (|Boolean|) (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) (|Boolean|) (|Boolean|)) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|smaller?| (((|Boolean|) $ $) 6))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|setelt!|
+  (((|Boolean|) $ (|UniversalSegment| (|Integer|)) (|Boolean|)) 6
+   (|has| $ (|shallowlyMutable|)))
+  (((|Boolean|) $ (|Integer|) (|Boolean|)) 6 (|has| $ (|shallowlyMutable|))))
+ (|select|
+  (($ (|Mapping| (|Boolean|) (|Boolean|)) $) 6 (|has| $ (|finiteAggregate|))))
+ (|sample| (($) 6 T CONST))
+ (|rightTrim|
+  (($ $ (|Boolean|)) 6
+   (AND (|has| (|Boolean|) (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|reverse!|
+  (($ $) 6 (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|)))))
+ (|reverse| (($ $) 6 (|has| $ (|finiteAggregate|))))
+ (|removeDuplicates|
+  (($ $) 6
+   (AND (|has| (|Boolean|) (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove|
+  (($ (|Mapping| (|Boolean|) (|Boolean|)) $) 6 (|has| $ (|finiteAggregate|)))
+  (($ (|Boolean|) $) 6
+   (AND (|has| (|Boolean|) (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|reduce|
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Boolean|) (|Boolean|)) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Boolean|) (|Boolean|)) $ (|Boolean|))
+   6 (|has| $ (|finiteAggregate|)))
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Boolean|) (|Boolean|)) $ (|Boolean|)
+    (|Boolean|))
+   6 (AND (|has| (|Boolean|) (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|qsetelt!|
+  (((|Boolean|) $ (|Integer|) (|Boolean|)) 6 (|has| $ (|shallowlyMutable|))))
+ (|qelt| (((|Boolean|) $ (|Integer|)) 6))
+ (|position|
+  (((|Integer|) (|Boolean|) $ (|Integer|)) 6
+   (AND (|has| (|Boolean|) (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (((|Integer|) (|Boolean|) $) 6
+   (AND (|has| (|Boolean|) (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (((|Integer|) (|Mapping| (|Boolean|) (|Boolean|)) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|parts| (((|List| (|Boolean|)) $) 6 (|has| $ (|finiteAggregate|))))
+ (|or| (($ $ $) 6)) (|not| (($ $) 6)) (|nor| (($ $ $) 6))
+ (|new| (($ (|NonNegativeInteger|) (|Boolean|)) 6)) (|nand| (($ $ $) 6))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|minIndex| (((|Integer|) $) 6 (|has| (|Integer|) (|OrderedSet|))))
+ (|min| (($ $ $) 6)
+  (((|Boolean|) $) 6
+   (AND (|has| (|Boolean|) (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|merge|
+  (($ $ $) 6
+   (AND (|has| (|Boolean|) (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) (|Boolean|) (|Boolean|)) $ $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|members| (((|List| (|Boolean|)) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) (|Boolean|) $) 6
+   (AND (|has| (|Boolean|) (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|maxIndex| (((|Integer|) $) 6 (|has| (|Integer|) (|OrderedSet|))))
+ (|max| (($ $ $) 6)
+  (((|Boolean|) $) 6
+   (AND (|has| (|Boolean|) (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Boolean|) (|Boolean|)) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|map!|
+  (($ (|Mapping| (|Boolean|) (|Boolean|)) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| (|Boolean|) (|Boolean|) (|Boolean|)) $ $) 6)
+  (($ (|Mapping| (|Boolean|) (|Boolean|)) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|leftTrim|
+  (($ $ (|Boolean|)) 6
+   (AND (|has| (|Boolean|) (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|latex| (((|String|) $) 6))
+ (|insert| (($ $ $ (|Integer|)) 6) (($ (|Boolean|) $ (|Integer|)) 6))
+ (|indices| (((|List| (|Integer|)) $) 6))
+ (|index?| (((|Boolean|) (|Integer|) $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6))
+ (|first| (($ $ (|NonNegativeInteger|)) 6)
+  (((|Boolean|) $) 6 (|has| (|Integer|) (|OrderedSet|))))
+ (|find|
+  (((|Union| (|Boolean|) "failed") (|Mapping| (|Boolean|) (|Boolean|)) $) 6))
+ (|fill!| (($ $ (|Boolean|)) 6 (|has| $ (|shallowlyMutable|))))
+ (|false| (($) 6 T CONST))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Boolean|)) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Boolean|)) (|List| (|Boolean|))) 6
+   (AND (|has| (|Boolean|) (|Evalable| (|Boolean|)))
+        (|has| (|Boolean|) (|SetCategory|))))
+  (($ $ (|Boolean|) (|Boolean|)) 6
+   (AND (|has| (|Boolean|) (|Evalable| (|Boolean|)))
+        (|has| (|Boolean|) (|SetCategory|))))
+  (($ $ (|Equation| (|Boolean|))) 6
+   (AND (|has| (|Boolean|) (|Evalable| (|Boolean|)))
+        (|has| (|Boolean|) (|SetCategory|))))
+  (($ $ (|List| (|Equation| (|Boolean|)))) 6
+   (AND (|has| (|Boolean|) (|Evalable| (|Boolean|)))
+        (|has| (|Boolean|) (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6))
+ (|entry?|
+  (((|Boolean|) (|Boolean|) $) 6
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Boolean|) (|BasicType|)))))
+ (|entries| (((|List| (|Boolean|)) $) 6)) (|empty?| (((|Boolean|) $) 6))
+ (|empty| (($) 6))
+ (|elt| (($ $ (|UniversalSegment| (|Integer|))) 6)
+  (((|Boolean|) $ (|Integer|)) 6) (((|Boolean|) $ (|Integer|) (|Boolean|)) 6))
+ (|delete| (($ $ (|UniversalSegment| (|Integer|))) 6) (($ $ (|Integer|)) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Boolean|) $) 6
+   (AND (|has| (|Boolean|) (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) (|Boolean|)) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|copyInto!|
+  (($ $ $ (|Integer|)) 6
+   (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|convert|
+  (((|InputForm|) $) 6 (|has| (|Boolean|) (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| (|Boolean|))) 6))
+ (|concat| (($ (|List| $)) 6) (($ $ $) 6) (($ (|Boolean|) $) 6)
+           (($ $ (|Boolean|)) 6))
+ (|coerce| (((|OutputForm|) $) 6))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Boolean|)) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|and| (($ $ $) 6)) (|_\|_| (($) 6 T CONST)) (|\\/| (($ $ $) 6))
+ (T$ (($) 6 T CONST)) (>= (((|Boolean|) $ $) 6)) (> (((|Boolean|) $ $) 6))
+ (= (((|Boolean|) $ $) 6)) (<= (((|Boolean|) $ $) 6)) (< (((|Boolean|) $ $) 6))
+ (|/\\| (($ $ $) 6))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+BTAGG
+(((|OrderedSet|) . T) ((|Logic|) . T)
+ ((|OneDimensionalArrayAggregate| (|Boolean|)) . T))
+(((|Aggregate|) . T) ((|BasicType|) . T) ((|BoundedDistributiveLattice|) . T)
+ ((|BoundedJoinSemilattice|) . T) ((|BoundedLattice|) . T)
+ ((|BoundedMeetSemilattice|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|Collection| |t#1|) . T) ((|Comparable|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|DistributiveLattice|) . T)
+ ((|Eltable| (|UniversalSegment| (|Integer|)) $) . T)
+ ((|Eltable| |t#1| |t#2|) . T) ((|EltableAggregate| |t#1| |t#2|) . T)
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|FiniteLinearAggregate| |t#1|) . T) ((|HomogeneousAggregate| |t#1|) . T)
+ ((|HomogeneousAggregate| |t#2|) . T)
+ ((|IndexedAggregate| (|Integer|) |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|JoinSemilattice|) . T) ((|Lattice|) . T) ((|LinearAggregate| |t#1|) . T)
+ ((|Logic|) . T) ((|MeetSemilattice|) . T)
+ ((|OneDimensionalArrayAggregate| (|Boolean|)) . T) ((|OrderedSet|) . T)
+ ((|PartialOrder|) . T) ((|SetCategory|) . T) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "The bit aggregate category models aggregates representing large quantities of Boolean data."))
+ (|xor|
+  (($ $ $)
+   "\\spad{xor(a,{} b)} returns the logical {\\em exclusive-or} of bit aggregates \\spad{a} and \\spad{b}."))
+ (|or|
+  (($ $ $)
+   "\\spad{a or b} returns the logical {\\em or} of bit aggregates \\spad{a} and \\spad{b}."))
+ (|and|
+  (($ $ $)
+   "\\spad{a and b} returns the logical {\\em and} of bit aggregates \\spad{a} and \\spad{b}."))
+ (|nor|
+  (($ $ $)
+   "\\spad{nor(a,{} b)} returns the logical {\\em nor} of bit aggregates \\spad{a} and \\spad{b}."))
+ (|nand|
+  (($ $ $)
+   "\\spad{nand(a,{} b)} returns the logical {\\em nand} of bit aggregates \\spad{a} and \\spad{b}."))
+ (|not|
+  (($ $)
+   "\\spad{not(b)} returns the logical {\\em not} of bit aggregate \\spad{b}.")))
+(("documentation" 0 9022) ("ancestors" 0 7869) ("parents" 0 7778)
+ ("abbreviation" 0 7772) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 801) ("modemaps" 0 455) ("sourceFile" 0 418)
+ ("constructorCategory" 0 139) ("constructorModemap" 0 86)
+ ("constructorKind" 0 75) ("constructorForm" 0 58) ("NILADIC" 0 20))

@@ -1,0 +1,46 @@
+)abbrev domain STACK Stack
+++ Author: Michael Monagan and Stephen Watt
+++ Date Created: June 86 and July 87
+++ Basic Operations:
+++ Related Domains:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+++ Description:
+
+++ Linked List implementation of a Stack
+
+Stack(S : SetCategory) : StackAggregate S with
+    stack : List S -> %
+      ++ stack([x, y, ..., z]) creates a stack with first (top)
+      ++ element x, second element y, ..., and last element z.
+  == add
+    Rep := Reference List S
+    s = t == deref s = deref t
+    parts s == deref s
+    map(f : S -> S, s : %) == ref map(f, deref s)$List(S)
+    map!(f : S -> S, s : %) ==
+        setref(s, map!(f, deref s)$List(S))
+        s
+    copy s == ref copy deref s
+    # s == #deref s
+    pop! (s : %) : S ==
+        empty? s => error "empty stack"
+        e := first deref s
+        setref(s, rest deref s)
+        e
+    extract! (s : %) : S == pop! s
+    top (s : %) : S ==
+        empty? s => error "empty stack"
+        first deref s
+    inspect s == top s
+    push!(e, s) == (setref(s, cons(e, deref s));e)
+    insert!(e : S, s : %) : % == (push!(e, s);s)
+    empty() == ref []$List(S)
+    empty? s == empty?(deref(s))
+    construct s == ref copy s
+    stack s == construct s
+    hashUpdate!(st, s) == hashUpdate!(st, deref s)
+

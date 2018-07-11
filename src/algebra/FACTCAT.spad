@@ -1,0 +1,56 @@
+)abbrev category FACTCAT FacetCategory
+++ Author: Martin Baker
+++ Date Created: April 2016
+++ Basic Operations:
+++ Related Constructors:
+++ Keywords: facet simplex
+++ Description:
+++  This is a category to represent different types of facet, such as,
+++  (1) A single simplex
+++  (2) A single cubical simplex
+++  (3) The product of two facets
+++
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/topology/simplex/
+
+FacetCategory() : Category == Definition where
+ NNI==> NonNegativeInteger
+
+ Definition ==> Join(SetCategory(), OrderedSet()) with
+   getMult : (orf : %) -> Integer
+     ++ returns multiplier of face
+   order : (orf : %) -> NNI
+     ++ number of vertices
+   empty? : (sa : %) -> Boolean
+     ++ is empty if it contains no verticies or if multiplier is zero
+
+  add
+
+   -- is empty if it contains no vertices or if multiplier is zero
+   empty?(orf : %) : Boolean ==
+       if order(orf) = 0 then return true
+       getMult(orf) = 0
+
+)if false
+\section{Oriented Facet}
+
+This domain holds a single facet, that is a single vertex, edge,
+triangle...
+The FiniteSimplicialComplex will then contain multiple oriented Facets.
+See FiniteSimplicialComplex section for more information about that.
+
+I have found it worthwhile and efficient to gather here all the
+operations on a single facet rather than trying to do everything
+inside FiniteSimplicialComplex.
+
+OrientedFacet holds an (ordered) set of vertices not the geometric
+vertices themselves, but indexes which can be used to reference them.
+
+It also holds an orientation, which is held in 'mul'. When we are
+interpreting this as a geometric object it is usually 1 or -1 (to
+reverse direction). When we are interpreting this as a linear algebra
+object then we treat it as an integer.
+
+To allow facets to be checked for equality indexes are stored in order
+)endif
+

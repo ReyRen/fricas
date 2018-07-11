@@ -1,0 +1,114 @@
+)abbrev package LUD LUDecomposition
+++ Description:
+++  \spadtype{LUDecomposition} contains procedures to solve linear systems of
+++  equations or to compute inverses using a LU decomposition.
+
+LUDecomposition(D : Field) : Cat == Def where
+
+  L   ==> List
+  V   ==> Vector
+  VD  ==> Vector D
+  MD  ==> Matrix D
+  I   ==> Integer
+  NNI ==> NonNegativeInteger
+  B   ==> Boolean
+  OUT ==> OutputForm
+
+  Cat ==> with
+
+    LUDecomp : MD -> Record(LU : MD, Perm : V I, Pivots : L D)
+      ++ \spad{LUDecomp(A)} computes a LU decomposition of \spad{A}
+      ++ using the algorithm of Crout. \spad{LU} contains both triangular
+      ++ matrices; \spad{Perm} is the permutation used for partial
+      ++ pivoting and \spad{Pivots} yields the used pivots.
+
+    LUSolve : (MD, V I, VD) -> VD
+      ++ \spad{LUSolve(LU, Perm, B)} uses a previously computed LU
+      ++ decomposition to solve a linear system with right hand side
+      ++ \spad{B}. \spad{LU} and \spad{Perm} are as given by
+      ++ \spad{LUDecomp}.
+
+    LUInverse : MD -> Record(Inv : MD, Pivots : L D)
+      ++ \spad{LUInverse(A)} computes the inverse of \spad{A} using a LU
+      ++ decomposition.
+
+  Def ==> add
+
+    LUDecomp(AA : MD) : Record(LU : MD, Perm : V I, Pivots : L D) ==
+        -- LU decomposition using Crout`s algorithm with partial pivoting.
+        A := copy AA
+        minR := minRowIndex A; maxR := maxRowIndex A
+        minC := minColIndex A; maxC := maxColIndex A
+        maxR ~= maxC => error "LU decomposition only of square matrices"
+        PermV : V I := new((maxR - minR + 1)::NNI, 0)
+        Pivs : L D := empty
+
+        for j in minC..maxC repeat
+            for i in minR..(j-1) repeat
+                s := qelt(A, i, j)
+                for k in minR..(i-1) repeat
+                    s := s - qelt(A, i, k)*qelt(A, k, j)
+                qsetelt!(A, i, j, s)
+
+            i0 : I := -1
+            for i in j..maxR repeat
+                s := qelt(A, i, j)
+                for k in minC..(j-1) repeat
+                    s := s - qelt(A, i, k)*qelt(A, k, j)
+                qsetelt!(A, i, j, s)
+                if not(zero? s) and i0 < 0 then
+                    i0 := i            -- first non-zero pivot
+
+            i0 < 0 => error "singular matrix in LUDecomp"
+            if j ~= i0 then
+                swapRows!(A, j, i0)
+            qsetelt!(PermV, j, i0)
+            Pivs := cons(qelt(A, j, j), Pivs)
+
+            if j ~= maxC then
+                d := 1/qelt(A, j, j)
+                for k in (j+1)..maxR repeat
+                    qsetelt!(A, k, j, d*qelt(A, k, j))
+
+        [A, PermV, Pivs]
+
+    LUSolve(LU : MD, Perm : V I, XX : VD) : VD ==
+        -- Solves LU decomposed linear system for right hand side XX
+        X := copy XX
+        minR := minRowIndex LU; maxR := maxRowIndex LU
+        maxIndex(X) ~= maxR => error "Wrong dimensions in LUSolve"
+        ii : I := -1
+
+        for i in minR..maxR repeat               -- forward substitution
+            ip := qelt(Perm, i)
+            s := qelt(X, ip)
+            qsetelt!(X, ip, qelt(X, i))
+            if ii >= 0 then
+                for j in ii..(i-1) repeat
+                    s := s - qelt(LU, i, j)*qelt(X, j)
+            else
+                if not zero? s then ii := i
+            qsetelt!(X, i, s)
+
+        for i in maxR..minR by -1 repeat       -- back substitution
+            s := qelt(X, i)
+            for j in (i+1)..maxR repeat
+                s := s - qelt(LU, i, j)*qelt(X, j)
+            qsetelt!(X, i, s/qelt(LU, i, i))
+
+        X
+
+    LUInverse(A : MD) : Record(Inv : MD, Pivots : L D) ==
+        -- Inversion via LU decomposition
+        Alu := LUDecomp A
+        n := ncols A
+        res : MD := new(n, n, 0)
+
+        for i in minRowIndex(A)..maxRowIndex(A) repeat
+            v : V D := new(n, 0)
+            qsetelt!(v, i, 1)
+            res := setColumn!(res, i, LUSolve(Alu.LU, Alu.Perm, v))
+
+        [res, Alu.Pivots]
+
+

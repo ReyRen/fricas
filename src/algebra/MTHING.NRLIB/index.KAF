@@ -1,0 +1,24 @@
+893                 (|MergeThing| S)
+|package|
+(((|MergeThing| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |mergeDifference| ((|List| |#1|) (|List| |#1|) (|List| |#1|))))
+  (|OrderedSet|))
+ (T |MergeThing|))
+(CATEGORY |package|
+ (SIGNATURE |mergeDifference| ((|List| |#1|) (|List| |#1|) (|List| |#1|))))
+"/git/fricas/src/algebra/MTHING.spad"
+((|mergeDifference| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|OrderedSet|))
+       (|isDomain| *1 (|MergeThing| *3)))))
+((|mergeDifference| (((|List| |#1|) (|List| |#1|) (|List| |#1|)) 10)))
+MTHING
+((|constructor| (NIL "This package exports tools for merging lists"))
+ (|mergeDifference|
+  (((|List| |#1|) (|List| |#1|) (|List| |#1|))
+   "\\spad{mergeDifference(l1,{} l2)} returns a list of elements in \\spad{l1} not present in \\spad{l2}. Assumes lists are ordered and all \\spad{x} in \\spad{l2} are also in \\spad{l1}.")))
+(("documentation" 0 564) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 557) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 486) ("modemaps" 0 340) ("sourceFile" 0 302)
+ ("constructorCategory" 0 206) ("constructorModemap" 0 47)
+ ("constructorKind" 0 37) ("constructorForm" 0 20))

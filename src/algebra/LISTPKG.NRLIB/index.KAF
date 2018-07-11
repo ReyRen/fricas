@@ -1,0 +1,117 @@
+5765                (|ListPackage| T$)
+|package|
+(((|ListPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |splitList|
+    ((|Record| (|:| |yes| (|List| |#1|)) (|:| |no| (|List| |#1|)))
+     (|Mapping| (|Boolean|) |#1|) (|List| |#1|)))
+   (SIGNATURE |topologicalSort!|
+    ((|List| |#1|) (|Mapping| (|Boolean|) |#1| |#1|) (|List| |#1|)))
+   (SIGNATURE |topologicalSort|
+    ((|List| |#1|) (|Mapping| (|Boolean|) |#1| |#1|) (|List| |#1|)))
+   (SIGNATURE |topologicalSort|
+    ((|List| |#1|) (|List| (|List| (|Boolean|))) (|List| |#1|)))
+   (SIGNATURE |shiftLeft| ((|List| |#1|) (|List| |#1|)))
+   (SIGNATURE |cartesian| ((|List| (|List| |#1|)) (|List| (|List| |#1|))))
+   (SIGNATURE |cartesianPower|
+    ((|List| (|List| |#1|)) (|List| |#1|) (|NonNegativeInteger|)))
+   (IF (|has| |#1| (|OrderedSet|))
+       (SIGNATURE |minShift| ((|List| |#1|) (|List| |#1|)))
+       |noBranch|))
+  (|BasicType|))
+ (T |ListPackage|))
+(CATEGORY |package|
+ (SIGNATURE |splitList|
+  ((|Record| (|:| |yes| (|List| |#1|)) (|:| |no| (|List| |#1|)))
+   (|Mapping| (|Boolean|) |#1|) (|List| |#1|)))
+ (SIGNATURE |topologicalSort!|
+  ((|List| |#1|) (|Mapping| (|Boolean|) |#1| |#1|) (|List| |#1|)))
+ (SIGNATURE |topologicalSort|
+  ((|List| |#1|) (|Mapping| (|Boolean|) |#1| |#1|) (|List| |#1|)))
+ (SIGNATURE |topologicalSort|
+  ((|List| |#1|) (|List| (|List| (|Boolean|))) (|List| |#1|)))
+ (SIGNATURE |shiftLeft| ((|List| |#1|) (|List| |#1|)))
+ (SIGNATURE |cartesian| ((|List| (|List| |#1|)) (|List| (|List| |#1|))))
+ (SIGNATURE |cartesianPower|
+  ((|List| (|List| |#1|)) (|List| |#1|) (|NonNegativeInteger|)))
+ (IF (|has| |#1| (|OrderedSet|))
+     (SIGNATURE |minShift| ((|List| |#1|) (|List| |#1|)))
+     |noBranch|))
+"/git/fricas/src/algebra/LISTPKG.spad"
+((|minShift| (*1 *2 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|OrderedSet|))
+       (|ofCategory| *3 (|BasicType|)) (|isDomain| *1 (|ListPackage| *3))))
+ (|cartesianPower| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|BasicType|)) (|isDomain| *2 (|List| (|List| *5)))
+       (|isDomain| *1 (|ListPackage| *5))))
+ (|cartesian| (*1 *2 *2)
+  (AND (|isDomain| *2 (|List| (|List| *3))) (|ofCategory| *3 (|BasicType|))
+       (|isDomain| *1 (|ListPackage| *3))))
+ (|shiftLeft| (*1 *2 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|BasicType|))
+       (|isDomain| *1 (|ListPackage| *3))))
+ (|topologicalSort| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|List| *4))
+       (|isDomain| *3 (|List| (|List| (|Boolean|))))
+       (|ofCategory| *4 (|BasicType|)) (|isDomain| *1 (|ListPackage| *4))))
+ (|topologicalSort| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|List| *4))
+       (|isDomain| *3 (|Mapping| (|Boolean|) *4 *4))
+       (|ofCategory| *4 (|BasicType|)) (|isDomain| *1 (|ListPackage| *4))))
+ (|topologicalSort!| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|List| *4))
+       (|isDomain| *3 (|Mapping| (|Boolean|) *4 *4))
+       (|ofCategory| *4 (|BasicType|)) (|isDomain| *1 (|ListPackage| *4))))
+ (|splitList| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| (|Boolean|) *5)) (|isDomain| *4 (|List| *5))
+       (|ofCategory| *5 (|BasicType|))
+       (|isDomain| *2
+                   (|Record| (|:| |yes| (|List| *5)) (|:| |no| (|List| *5))))
+       (|isDomain| *1 (|ListPackage| *5)))))
+((|topologicalSort!|
+  (((|List| |#1|) (|Mapping| (|Boolean|) |#1| |#1|) (|List| |#1|)) 14))
+ (|topologicalSort|
+  (((|List| |#1|) (|List| (|List| (|Boolean|))) (|List| |#1|)) 26)
+  (((|List| |#1|) (|Mapping| (|Boolean|) |#1| |#1|) (|List| |#1|)) 16))
+ (|splitList|
+  (((|Record| (|:| |yes| (|List| |#1|)) (|:| |no| (|List| |#1|)))
+    (|Mapping| (|Boolean|) |#1|) (|List| |#1|))
+   10))
+ (|shiftLeft| (((|List| |#1|) (|List| |#1|)) 28))
+ (|minShift| (((|List| |#1|) (|List| |#1|)) 30 (|has| |#1| (|OrderedSet|))))
+ (|cartesianPower|
+  (((|List| (|List| |#1|)) (|List| |#1|) (|NonNegativeInteger|)) 34))
+ (|cartesian| (((|List| (|List| |#1|)) (|List| (|List| |#1|))) 32)))
+((|HasCategory| |#1| '(|OrderedSet|)))
+LISTPKG
+((|constructor| (NIL "splitting lists"))
+ (|minShift|
+  (((|List| |#1|) (|List| |#1|))
+   "\\spad{minShift(l)} returns the lexicographically minimal cyclic rotation of the list \\spad{l}"))
+ (|cartesianPower|
+  (((|List| (|List| |#1|)) (|List| |#1|) (|NonNegativeInteger|))
+   "\\spad{cartesianPower(S,{} n)} returns the \\spad{n}-th cartesian power of the list \\spad{S}"))
+ (|cartesian|
+  (((|List| (|List| |#1|)) (|List| (|List| |#1|)))
+   "\\spad{cartesian([S1,{} S2,{} ...])} returns the set of lists [\\spad{s1},{} \\spad{s2},{} ...] with \\spad{si} in \\spad{Si}"))
+ (|shiftLeft|
+  (((|List| |#1|) (|List| |#1|))
+   "\\spad{leftShift(l)} rotates the list \\spad{l} to the left and inserts the first element at the end"))
+ (|topologicalSort|
+  (((|List| |#1|) (|List| (|List| (|Boolean|))) (|List| |#1|))
+   "\\spad{topologicalSort(xx)} returns a rearrangement of the elements which is compatible with the partial order. (Martin Baker) \\spad{I} added this version because predicate function can be difficult to work with so use table instead.")
+  (((|List| |#1|) (|Mapping| (|Boolean|) |#1| |#1|) (|List| |#1|))
+   "\\spad{topologicalSort(xx)} returns a rearrangement of the elements which is compatible with the partial order."))
+ (|topologicalSort!|
+  (((|List| |#1|) (|Mapping| (|Boolean|) |#1| |#1|) (|List| |#1|))
+   "\\spad{topologicalSort(xx)} returns a rearrangement of the elements which is compatible with the partial order. The argument list \\spad{xx} is destroyed."))
+ (|splitList|
+  (((|Record| (|:| |yes| (|List| |#1|)) (|:| |no| (|List| |#1|)))
+    (|Mapping| (|Boolean|) |#1|) (|List| |#1|))
+   "\\spad{splitList(f,{} x)} splits the list \\spad{x} into a yes part and a no part according to the boolean function \\spad{f}")))
+(("documentation" 0 4015) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4007) ("predicates" 0 3968) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3295) ("modemaps" 0 1734) ("sourceFile" 0 1695)
+ ("constructorCategory" 0 919) ("constructorModemap" 0 49)
+ ("constructorKind" 0 39) ("constructorForm" 0 20))

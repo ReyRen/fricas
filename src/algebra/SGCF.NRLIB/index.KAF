@@ -1,0 +1,189 @@
+13617               (MAKEPROP '|SymmetricGroupCombinatoricFunctions| 'NILADIC T)
+(|SymmetricGroupCombinatoricFunctions|)
+|package|
+(((|SymmetricGroupCombinatoricFunctions|)
+  (CATEGORY |package|
+   (SIGNATURE |coleman|
+    ((|Matrix| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))
+     (|List| (|Integer|))))
+   (SIGNATURE |inverseColeman|
+    ((|List| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))
+     (|Matrix| (|Integer|))))
+   (SIGNATURE |listYoungTableaus|
+    ((|List| (|Matrix| (|Integer|))) (|List| (|Integer|))))
+   (SIGNATURE |makeYoungTableau|
+    ((|Matrix| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))))
+   (SIGNATURE |nextColeman|
+    ((|Matrix| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))
+     (|Matrix| (|Integer|))))
+   (SIGNATURE |nextLatticePermutation|
+    ((|List| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))
+     (|Boolean|)))
+   (SIGNATURE |nextPartition|
+    ((|Vector| (|Integer|)) (|Vector| (|Integer|)) (|Vector| (|Integer|))
+     (|Integer|)))
+   (SIGNATURE |nextPartition|
+    ((|Vector| (|Integer|)) (|List| (|Integer|)) (|Vector| (|Integer|))
+     (|Integer|)))
+   (SIGNATURE |numberOfImproperPartitions|
+    ((|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |subSet|
+    ((|List| (|Integer|)) (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |unrankImproperPartitions0|
+    ((|List| (|Integer|)) (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |unrankImproperPartitions1|
+    ((|List| (|Integer|)) (|Integer|) (|Integer|) (|Integer|)))))
+ (T |SymmetricGroupCombinatoricFunctions|))
+(CATEGORY |package|
+ (SIGNATURE |coleman|
+  ((|Matrix| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))
+   (|List| (|Integer|))))
+ (SIGNATURE |inverseColeman|
+  ((|List| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))
+   (|Matrix| (|Integer|))))
+ (SIGNATURE |listYoungTableaus|
+  ((|List| (|Matrix| (|Integer|))) (|List| (|Integer|))))
+ (SIGNATURE |makeYoungTableau|
+  ((|Matrix| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))))
+ (SIGNATURE |nextColeman|
+  ((|Matrix| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))
+   (|Matrix| (|Integer|))))
+ (SIGNATURE |nextLatticePermutation|
+  ((|List| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|)) (|Boolean|)))
+ (SIGNATURE |nextPartition|
+  ((|Vector| (|Integer|)) (|Vector| (|Integer|)) (|Vector| (|Integer|))
+   (|Integer|)))
+ (SIGNATURE |nextPartition|
+  ((|Vector| (|Integer|)) (|List| (|Integer|)) (|Vector| (|Integer|))
+   (|Integer|)))
+ (SIGNATURE |numberOfImproperPartitions| ((|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |subSet|
+  ((|List| (|Integer|)) (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |unrankImproperPartitions0|
+  ((|List| (|Integer|)) (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |unrankImproperPartitions1|
+  ((|List| (|Integer|)) (|Integer|) (|Integer|) (|Integer|))))
+"/git/fricas/src/algebra/SGCF.spad"
+((|unrankImproperPartitions1| (*1 *2 *3 *3 *3)
+  (AND (|isDomain| *3 (|Integer|)) (|isDomain| *2 (|List| (|Integer|)))
+       (|isDomain| *1 (|SymmetricGroupCombinatoricFunctions|))))
+ (|unrankImproperPartitions0| (*1 *2 *3 *3 *3)
+  (AND (|isDomain| *3 (|Integer|)) (|isDomain| *2 (|List| (|Integer|)))
+       (|isDomain| *1 (|SymmetricGroupCombinatoricFunctions|))))
+ (|subSet| (*1 *2 *3 *3 *3)
+  (AND (|isDomain| *3 (|Integer|)) (|isDomain| *2 (|List| (|Integer|)))
+       (|isDomain| *1 (|SymmetricGroupCombinatoricFunctions|))))
+ (|numberOfImproperPartitions| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|SymmetricGroupCombinatoricFunctions|))))
+ (|nextPartition| (*1 *2 *3 *2 *4)
+  (AND (|isDomain| *2 (|Vector| (|Integer|)))
+       (|isDomain| *3 (|List| (|Integer|))) (|isDomain| *4 (|Integer|))
+       (|isDomain| *1 (|SymmetricGroupCombinatoricFunctions|))))
+ (|nextPartition| (*1 *2 *2 *2 *3)
+  (AND (|isDomain| *2 (|Vector| (|Integer|))) (|isDomain| *3 (|Integer|))
+       (|isDomain| *1 (|SymmetricGroupCombinatoricFunctions|))))
+ (|nextLatticePermutation| (*1 *2 *2 *2 *3)
+  (AND (|isDomain| *2 (|List| (|Integer|))) (|isDomain| *3 (|Boolean|))
+       (|isDomain| *1 (|SymmetricGroupCombinatoricFunctions|))))
+ (|nextColeman| (*1 *2 *3 *3 *2)
+  (AND (|isDomain| *2 (|Matrix| (|Integer|)))
+       (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *1 (|SymmetricGroupCombinatoricFunctions|))))
+ (|makeYoungTableau| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *2 (|Matrix| (|Integer|)))
+       (|isDomain| *1 (|SymmetricGroupCombinatoricFunctions|))))
+ (|listYoungTableaus| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *2 (|List| (|Matrix| (|Integer|))))
+       (|isDomain| *1 (|SymmetricGroupCombinatoricFunctions|))))
+ (|inverseColeman| (*1 *2 *2 *2 *3)
+  (AND (|isDomain| *2 (|List| (|Integer|)))
+       (|isDomain| *3 (|Matrix| (|Integer|)))
+       (|isDomain| *1 (|SymmetricGroupCombinatoricFunctions|))))
+ (|coleman| (*1 *2 *3 *3 *3)
+  (AND (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *2 (|Matrix| (|Integer|)))
+       (|isDomain| *1 (|SymmetricGroupCombinatoricFunctions|)))))
+((|unrankImproperPartitions1|
+  (((|List| (|Integer|)) (|Integer|) (|Integer|) (|Integer|)) 22))
+ (|unrankImproperPartitions0|
+  (((|List| (|Integer|)) (|Integer|) (|Integer|) (|Integer|)) 15))
+ (|subSet| (((|List| (|Integer|)) (|Integer|) (|Integer|) (|Integer|)) 17))
+ (|numberOfImproperPartitions| (((|Integer|) (|Integer|) (|Integer|)) 11))
+ (|nextPartition|
+  (((|Vector| (|Integer|)) (|List| (|Integer|)) (|Vector| (|Integer|))
+    (|Integer|))
+   47)
+  (((|Vector| (|Integer|)) (|Vector| (|Integer|)) (|Vector| (|Integer|))
+    (|Integer|))
+   42))
+ (|nextLatticePermutation|
+  (((|List| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|)) (|Boolean|))
+   29))
+ (|nextColeman|
+  (((|Matrix| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))
+    (|Matrix| (|Integer|)))
+   46))
+ (|makeYoungTableau|
+  (((|Matrix| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))) 33))
+ (|listYoungTableaus|
+  (((|List| (|Matrix| (|Integer|))) (|List| (|Integer|))) 36))
+ (|inverseColeman|
+  (((|List| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))
+    (|Matrix| (|Integer|)))
+   50))
+ (|coleman|
+  (((|Matrix| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))
+    (|List| (|Integer|)))
+   59)))
+SGCF
+((|constructor|
+  (NIL
+   "SymmetricGroupCombinatoricFunctions contains combinatoric functions concerning symmetric groups and representation theory: list young tableaus,{} improper partitions,{} subsets bijection of Coleman."))
+ (|unrankImproperPartitions1|
+  (((|List| (|Integer|)) (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{unrankImproperPartitions1(n,{} m,{} k)} computes the {\\em k}\\spad{-}th improper partition of nonnegative \\spad{n} in at most \\spad{m} nonnegative parts ordered as follows: first,{} in reverse lexicographically according to their non-zero parts,{} then according to their positions (\\spadignore{i.e.} lexicographical order using {\\em subSet}: {\\em [3,{} 0,{} 0] < [0,{} 3,{} 0] < [0,{} 0,{} 3] < [2,{} 1,{} 0] < [2,{} 0,{} 1] < [0,{} 2,{} 1] < [1,{} 2,{} 0] < [1,{} 0,{} 2] < [0,{} 1,{} 2] < [1,{} 1,{} 1]}). Note: counting of subtrees is done by {\\em numberOfImproperPartitionsInternal}."))
+ (|unrankImproperPartitions0|
+  (((|List| (|Integer|)) (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{unrankImproperPartitions0(n,{} m,{} k)} computes the {\\em k}\\spad{-}th improper partition of nonnegative \\spad{n} in \\spad{m} nonnegative parts in reverse lexicographical order. Example: {\\em [0,{} 0,{} 3] < [0,{} 1,{} 2] < [0,{} 2,{} 1] < [0,{} 3,{} 0] < [1,{} 0,{} 2] < [1,{} 1,{} 1] < [1,{} 2,{} 0] < [2,{} 0,{} 1] < [2,{} 1,{} 0] < [3,{} 0,{} 0]}. Error: if \\spad{k} is negative or too big. Note: counting of subtrees is done by \\spadfunFrom{numberOfImproperPartitions}{SymmetricGroupCombinatoricFunctions}."))
+ (|subSet|
+  (((|List| (|Integer|)) (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{subSet(n,{} m,{} k)} calculates the {\\em k}\\spad{-}th {\\em m}-subset of the set {\\em 0,{} 1,{} ...,{} (n-1)} in the lexicographic order considered as a decreasing map from {\\em 0,{} ...,{} (m-1)} into {\\em 0,{} ...,{} (n-1)}. See \\spad{S}.\\spad{G}. Williamson: Theorem 1.60. Error: if not {\\em (0 <= m <= n and 0 < = k < (n choose m))}."))
+ (|numberOfImproperPartitions|
+  (((|Integer|) (|Integer|) (|Integer|))
+   "\\spad{numberOfImproperPartitions(n,{} m)} computes the number of partitions of the nonnegative integer \\spad{n} in \\spad{m} nonnegative parts with regarding the order (improper partitions). Example: {\\em numberOfImproperPartitions (3,{} 3)} is 10,{} since {\\em [0,{} 0,{} 3],{} [0,{} 1,{} 2],{} [0,{} 2,{} 1],{} [0,{} 3,{} 0],{} [1,{} 0,{} 2],{} [1,{} 1,{} 1],{} [1,{} 2,{} 0],{} [2,{} 0,{} 1],{} [2,{} 1,{} 0],{} [3,{} 0,{} 0]} are the possibilities. Note: this operation has a recursive implementation."))
+ (|nextPartition|
+  (((|Vector| (|Integer|)) (|List| (|Integer|)) (|Vector| (|Integer|))
+    (|Integer|))
+   "\\spad{nextPartition(gamma,{} part,{} number)} generates the partition of {\\em number} which follows {\\em part} according to the right-to-left lexicographical order. The partition has the property that its components do not exceed the corresponding components of {\\em gamma}. the first partition is achieved by {\\em part=[]}. Also,{} {\\em []} indicates that {\\em part} is the last partition.")
+  (((|Vector| (|Integer|)) (|Vector| (|Integer|)) (|Vector| (|Integer|))
+    (|Integer|))
+   "\\spad{nextPartition(gamma,{} part,{} number)} generates the partition of {\\em number} which follows {\\em part} according to the right-to-left lexicographical order. The partition has the property that its components do not exceed the corresponding components of {\\em gamma}. The first partition is achieved by {\\em part=[]}. Also,{} {\\em []} indicates that {\\em part} is the last partition."))
+ (|nextLatticePermutation|
+  (((|List| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|)) (|Boolean|))
+   "\\spad{nextLatticePermutation(lambda,{} lattP,{} constructNotFirst)} generates the lattice permutation according to the proper partition {\\em lambda} succeeding the lattice permutation {\\em lattP} in lexicographical order as long as {\\em constructNotFirst} is \\spad{true}. If {\\em constructNotFirst} is \\spad{false},{} the first lattice permutation is returned. The result {\\em []} indicates that {\\em lattP} has no successor."))
+ (|nextColeman|
+  (((|Matrix| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))
+    (|Matrix| (|Integer|)))
+   "\\spad{nextColeman(alpha,{} beta,{} C)} generates the next Coleman matrix of column sums {\\em alpha} and row sums {\\em beta} according to the lexicographical order from bottom-to-top. The first Coleman matrix is achieved by {\\em C=new(1,{} 1,{} 0)}. Also,{} {\\em new(1,{} 1,{} 0)} indicates that \\spad{C} is the last Coleman matrix."))
+ (|makeYoungTableau|
+  (((|Matrix| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|)))
+   "\\spad{makeYoungTableau(lambda,{} gitter)} computes for a given lattice permutation {\\em gitter} and for an improper partition {\\em lambda} the corresponding standard tableau of shape {\\em lambda}. Notes: see {\\em listYoungTableaus}. The entries are from {\\em 0,{} ...,{} n-1}."))
+ (|listYoungTableaus|
+  (((|List| (|Matrix| (|Integer|))) (|List| (|Integer|)))
+   "\\spad{listYoungTableaus(lambda)} where {\\em lambda} is a proper partition generates the list of all standard tableaus of shape {\\em lambda} by means of lattice permutations. The numbers of the lattice permutation are interpreted as column labels. Hence the contents of these lattice permutations are the conjugate of {\\em lambda}. Notes: the functions {\\em nextLatticePermutation} and {\\em makeYoungTableau} are used. The entries are from {\\em 0,{} ...,{} n-1}."))
+ (|inverseColeman|
+  (((|List| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))
+    (|Matrix| (|Integer|)))
+   "\\spad{inverseColeman(alpha,{} beta,{} C)}: there is a bijection from the set of matrices having nonnegative entries and row sums {\\em alpha},{} column sums {\\em beta} to the set of {\\em Salpha - Sbeta} double cosets of the symmetric group {\\em Sn}. ({\\em Salpha} is the Young subgroup corresponding to the improper partition {\\em alpha}). For such a matrix \\spad{C},{} inverseColeman(\\spad{alpha},{} \\spad{beta},{} \\spad{C}) calculates the lexicographical smallest {\\em \\spad{pi}} in the corresponding double coset. Note: the resulting permutation {\\em \\spad{pi}} of {\\em {1,{} 2,{} ...,{} n}} is given in list form. Notes: the inverse of this map is {\\em coleman}. For details,{} see James/Kerber."))
+ (|coleman|
+  (((|Matrix| (|Integer|)) (|List| (|Integer|)) (|List| (|Integer|))
+    (|List| (|Integer|)))
+   "\\spad{coleman(alpha,{} beta,{} \\spad{pi})}: there is a bijection from the set of matrices having nonnegative entries and row sums {\\em alpha},{} column sums {\\em beta} to the set of {\\em Salpha - Sbeta} double cosets of the symmetric group {\\em Sn}. ({\\em Salpha} is the Young subgroup corresponding to the improper partition {\\em alpha}). For a representing element {\\em \\spad{pi}} of such a double coset,{} coleman(\\spad{alpha},{} \\spad{beta},{} \\spad{pi}) generates the Coleman-matrix corresponding to {\\em alpha,{} beta,{} \\spad{pi}}. Note: The permutation {\\em \\spad{pi}} of {\\em {1,{} 2,{} ...,{} n}} has to be given in list form. Note: the inverse of this map is {\\em inverseColeman} (if {\\em \\spad{pi}} is the lexicographical smallest permutation in the coset). For details see James/Kerber.")))
+(("documentation" 0 6317) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 6312) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5101) ("modemaps" 0 2899) ("sourceFile" 0 2863)
+ ("constructorCategory" 0 1574) ("constructorModemap" 0 131)
+ ("constructorKind" 0 121) ("constructorForm" 0 81) ("NILADIC" 0 20))

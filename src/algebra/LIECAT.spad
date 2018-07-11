@@ -1,0 +1,26 @@
+)abbrev category LIECAT LieAlgebra
+++ Author: Michel Petitot (petitot@lifl.fr).
+++ Date Created: 91
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ The category of Lie Algebras.
+++ It is used by the following domains of non-commutative algebra:
+++ \spadtype{LiePolynomial} and
+++ \spadtype{XPBWPolynomial}. \newline Author : Michel Petitot (petitot@lifl.fr).
+LieAlgebra(R : CommutativeRing) : Category ==  Module(R) with
+    construct :  (%, %) -> %
+          ++ \spad{construct(x, y)} returns the Lie bracket of \spad{x} and \spad{y}.
+    if R has Field then
+       "/"   :  (%,R) -> %
+         ++ \spad{x/r} returns the division of \spad{x} by \spad{r}.
+
+
+  add
+    if R has Field then x / r == inv(r)$R * x
+
+

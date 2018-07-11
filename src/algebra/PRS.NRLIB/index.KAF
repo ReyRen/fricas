@@ -1,0 +1,463 @@
+25160               (|PseudoRemainderSequence| R |polR|)
+|package|
+(((|PseudoRemainderSequence| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |resultant| (|#1| |#2| |#2|))
+   (SIGNATURE |resultantEuclidean|
+    ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |resultant| |#1|))
+     |#2| |#2|))
+   (SIGNATURE |semiResultantEuclidean2|
+    ((|Record| (|:| |coef2| |#2|) (|:| |resultant| |#1|)) |#2| |#2|))
+   (SIGNATURE |semiResultantEuclidean1|
+    ((|Record| (|:| |coef1| |#2|) (|:| |resultant| |#1|)) |#2| |#2|))
+   (SIGNATURE |indiceSubResultant| (|#2| |#2| |#2| (|NonNegativeInteger|)))
+   (SIGNATURE |indiceSubResultantEuclidean|
+    ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |subResultant| |#2|))
+     |#2| |#2| (|NonNegativeInteger|)))
+   (SIGNATURE |semiIndiceSubResultantEuclidean|
+    ((|Record| (|:| |coef2| |#2|) (|:| |subResultant| |#2|)) |#2| |#2|
+     (|NonNegativeInteger|)))
+   (SIGNATURE |degreeSubResultant| (|#2| |#2| |#2| (|NonNegativeInteger|)))
+   (SIGNATURE |degreeSubResultantEuclidean|
+    ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |subResultant| |#2|))
+     |#2| |#2| (|NonNegativeInteger|)))
+   (SIGNATURE |semiDegreeSubResultantEuclidean|
+    ((|Record| (|:| |coef2| |#2|) (|:| |subResultant| |#2|)) |#2| |#2|
+     (|NonNegativeInteger|)))
+   (SIGNATURE |lastSubResultant| (|#2| |#2| |#2|))
+   (SIGNATURE |lastSubResultantEuclidean|
+    ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |subResultant| |#2|))
+     |#2| |#2|))
+   (SIGNATURE |semiLastSubResultantEuclidean|
+    ((|Record| (|:| |coef2| |#2|) (|:| |subResultant| |#2|)) |#2| |#2|))
+   (SIGNATURE |subResultantGcd| (|#2| |#2| |#2|))
+   (SIGNATURE |subResultantGcdEuclidean|
+    ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |gcd| |#2|)) |#2|
+     |#2|))
+   (SIGNATURE |semiSubResultantGcdEuclidean2|
+    ((|Record| (|:| |coef2| |#2|) (|:| |gcd| |#2|)) |#2| |#2|))
+   (SIGNATURE |semiSubResultantGcdEuclidean1|
+    ((|Record| (|:| |coef1| |#2|) (|:| |gcd| |#2|)) |#2| |#2|))
+   (SIGNATURE |discriminant| (|#1| |#2|))
+   (SIGNATURE |discriminantEuclidean|
+    ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |discriminant| |#1|))
+     |#2|))
+   (SIGNATURE |semiDiscriminantEuclidean|
+    ((|Record| (|:| |coef2| |#2|) (|:| |discriminant| |#1|)) |#2|))
+   (SIGNATURE |chainSubResultants| ((|List| |#2|) |#2| |#2|))
+   (SIGNATURE |schema| ((|List| (|NonNegativeInteger|)) |#2| |#2|))
+   (IF (|has| |#1| (|GcdDomain|))
+       (PROGN
+        (SIGNATURE |resultantReduit| (|#1| |#2| |#2|))
+        (SIGNATURE |resultantReduitEuclidean|
+         ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|)
+                    (|:| |resultantReduit| |#1|))
+          |#2| |#2|))
+        (SIGNATURE |semiResultantReduitEuclidean|
+         ((|Record| (|:| |coef2| |#2|) (|:| |resultantReduit| |#1|)) |#2|
+          |#2|))
+        (SIGNATURE |gcd| (|#2| |#2| |#2|)))
+       |noBranch|)
+   (SIGNATURE |divide|
+    ((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|))
+   (SIGNATURE |LazardQuotient| (|#1| |#1| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |LazardQuotient2| (|#2| |#2| |#1| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |next_sousResultant2| (|#2| |#2| |#2| |#2| |#1|)))
+  (|IntegralDomain|) (|UnivariatePolynomialCategory| |#1|))
+ (T |PseudoRemainderSequence|))
+(CATEGORY |package| (SIGNATURE |resultant| (|#1| |#2| |#2|))
+ (SIGNATURE |resultantEuclidean|
+  ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |resultant| |#1|)) |#2|
+   |#2|))
+ (SIGNATURE |semiResultantEuclidean2|
+  ((|Record| (|:| |coef2| |#2|) (|:| |resultant| |#1|)) |#2| |#2|))
+ (SIGNATURE |semiResultantEuclidean1|
+  ((|Record| (|:| |coef1| |#2|) (|:| |resultant| |#1|)) |#2| |#2|))
+ (SIGNATURE |indiceSubResultant| (|#2| |#2| |#2| (|NonNegativeInteger|)))
+ (SIGNATURE |indiceSubResultantEuclidean|
+  ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |subResultant| |#2|))
+   |#2| |#2| (|NonNegativeInteger|)))
+ (SIGNATURE |semiIndiceSubResultantEuclidean|
+  ((|Record| (|:| |coef2| |#2|) (|:| |subResultant| |#2|)) |#2| |#2|
+   (|NonNegativeInteger|)))
+ (SIGNATURE |degreeSubResultant| (|#2| |#2| |#2| (|NonNegativeInteger|)))
+ (SIGNATURE |degreeSubResultantEuclidean|
+  ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |subResultant| |#2|))
+   |#2| |#2| (|NonNegativeInteger|)))
+ (SIGNATURE |semiDegreeSubResultantEuclidean|
+  ((|Record| (|:| |coef2| |#2|) (|:| |subResultant| |#2|)) |#2| |#2|
+   (|NonNegativeInteger|)))
+ (SIGNATURE |lastSubResultant| (|#2| |#2| |#2|))
+ (SIGNATURE |lastSubResultantEuclidean|
+  ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |subResultant| |#2|))
+   |#2| |#2|))
+ (SIGNATURE |semiLastSubResultantEuclidean|
+  ((|Record| (|:| |coef2| |#2|) (|:| |subResultant| |#2|)) |#2| |#2|))
+ (SIGNATURE |subResultantGcd| (|#2| |#2| |#2|))
+ (SIGNATURE |subResultantGcdEuclidean|
+  ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |gcd| |#2|)) |#2|
+   |#2|))
+ (SIGNATURE |semiSubResultantGcdEuclidean2|
+  ((|Record| (|:| |coef2| |#2|) (|:| |gcd| |#2|)) |#2| |#2|))
+ (SIGNATURE |semiSubResultantGcdEuclidean1|
+  ((|Record| (|:| |coef1| |#2|) (|:| |gcd| |#2|)) |#2| |#2|))
+ (SIGNATURE |discriminant| (|#1| |#2|))
+ (SIGNATURE |discriminantEuclidean|
+  ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |discriminant| |#1|))
+   |#2|))
+ (SIGNATURE |semiDiscriminantEuclidean|
+  ((|Record| (|:| |coef2| |#2|) (|:| |discriminant| |#1|)) |#2|))
+ (SIGNATURE |chainSubResultants| ((|List| |#2|) |#2| |#2|))
+ (SIGNATURE |schema| ((|List| (|NonNegativeInteger|)) |#2| |#2|))
+ (IF (|has| |#1| (|GcdDomain|))
+     (PROGN
+      (SIGNATURE |resultantReduit| (|#1| |#2| |#2|))
+      (SIGNATURE |resultantReduitEuclidean|
+       ((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|)
+                  (|:| |resultantReduit| |#1|))
+        |#2| |#2|))
+      (SIGNATURE |semiResultantReduitEuclidean|
+       ((|Record| (|:| |coef2| |#2|) (|:| |resultantReduit| |#1|)) |#2| |#2|))
+      (SIGNATURE |gcd| (|#2| |#2| |#2|)))
+     |noBranch|)
+ (SIGNATURE |divide|
+  ((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|))
+ (SIGNATURE |LazardQuotient| (|#1| |#1| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |LazardQuotient2| (|#2| |#2| |#1| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |next_sousResultant2| (|#2| |#2| |#2| |#2| |#1|)))
+"/git/fricas/src/algebra/PRS.spad"
+((|next_sousResultant2| (*1 *2 *2 *2 *2 *3)
+  (AND (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|PseudoRemainderSequence| *3 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|LazardQuotient2| (*1 *2 *2 *3 *3 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|PseudoRemainderSequence| *3 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|LazardQuotient| (*1 *2 *2 *2 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|ofCategory| *2 (|IntegralDomain|))
+       (|isDomain| *1 (|PseudoRemainderSequence| *2 *4))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *2))))
+ (|divide| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|Record| (|:| |quotient| *3) (|:| |remainder| *3)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|gcd| (*1 *2 *2 *2)
+  (AND (|ofCategory| *3 (|GcdDomain|)) (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|PseudoRemainderSequence| *3 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|semiResultantReduitEuclidean| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|GcdDomain|)) (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|Record| (|:| |coef2| *3) (|:| |resultantReduit| *4)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|resultantReduitEuclidean| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|GcdDomain|)) (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record| (|:| |coef1| *3) (|:| |coef2| *3)
+                             (|:| |resultantReduit| *4)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|resultantReduit| (*1 *2 *3 *3)
+  (AND (|ofCategory| *2 (|IntegralDomain|)) (|ofCategory| *2 (|GcdDomain|))
+       (|isDomain| *1 (|PseudoRemainderSequence| *2 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *2))))
+ (|schema| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|List| (|NonNegativeInteger|)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|chainSubResultants| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|)) (|isDomain| *2 (|List| *3))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|semiDiscriminantEuclidean| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|Record| (|:| |coef2| *3) (|:| |discriminant| *4)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|discriminantEuclidean| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record| (|:| |coef1| *3) (|:| |coef2| *3)
+                             (|:| |discriminant| *4)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|discriminant| (*1 *2 *3)
+  (AND (|ofCategory| *2 (|IntegralDomain|))
+       (|isDomain| *1 (|PseudoRemainderSequence| *2 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *2))))
+ (|semiSubResultantGcdEuclidean1| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|Record| (|:| |coef1| *3) (|:| |gcd| *3)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|semiSubResultantGcdEuclidean2| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|Record| (|:| |coef2| *3) (|:| |gcd| *3)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|subResultantGcdEuclidean| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record| (|:| |coef1| *3) (|:| |coef2| *3) (|:| |gcd| *3)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|subResultantGcd| (*1 *2 *2 *2)
+  (AND (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|PseudoRemainderSequence| *3 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|semiLastSubResultantEuclidean| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|Record| (|:| |coef2| *3) (|:| |subResultant| *3)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|lastSubResultantEuclidean| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record| (|:| |coef1| *3) (|:| |coef2| *3)
+                             (|:| |subResultant| *3)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|lastSubResultant| (*1 *2 *2 *2)
+  (AND (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|PseudoRemainderSequence| *3 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|semiDegreeSubResultantEuclidean| (*1 *2 *3 *3 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2 (|Record| (|:| |coef2| *3) (|:| |subResultant| *3)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *5 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *5))))
+ (|degreeSubResultantEuclidean| (*1 *2 *3 *3 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record| (|:| |coef1| *3) (|:| |coef2| *3)
+                             (|:| |subResultant| *3)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *5 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *5))))
+ (|degreeSubResultant| (*1 *2 *2 *2 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))))
+ (|semiIndiceSubResultantEuclidean| (*1 *2 *3 *3 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2 (|Record| (|:| |coef2| *3) (|:| |subResultant| *3)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *5 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *5))))
+ (|indiceSubResultantEuclidean| (*1 *2 *3 *3 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record| (|:| |coef1| *3) (|:| |coef2| *3)
+                             (|:| |subResultant| *3)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *5 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *5))))
+ (|indiceSubResultant| (*1 *2 *2 *2 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))))
+ (|semiResultantEuclidean1| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|Record| (|:| |coef1| *3) (|:| |resultant| *4)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|semiResultantEuclidean2| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|Record| (|:| |coef2| *3) (|:| |resultant| *4)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|resultantEuclidean| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|Record| (|:| |coef1| *3) (|:| |coef2| *3)
+                             (|:| |resultant| *4)))
+       (|isDomain| *1 (|PseudoRemainderSequence| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|resultant| (*1 *2 *3 *3)
+  (AND (|ofCategory| *2 (|IntegralDomain|))
+       (|isDomain| *1 (|PseudoRemainderSequence| *2 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *2)))))
+((|subResultantGcdEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |gcd| |#2|)) |#2|
+    |#2|)
+   81))
+ (|subResultantGcd| ((|#2| |#2| |#2|) 79))
+ (|semiSubResultantGcdEuclidean2|
+  (((|Record| (|:| |coef2| |#2|) (|:| |gcd| |#2|)) |#2| |#2|) 83))
+ (|semiSubResultantGcdEuclidean1|
+  (((|Record| (|:| |coef1| |#2|) (|:| |gcd| |#2|)) |#2| |#2|) 85))
+ (|semiResultantReduitEuclidean|
+  (((|Record| (|:| |coef2| |#2|) (|:| |resultantReduit| |#1|)) |#2| |#2|) 103
+   (|has| |#1| (|GcdDomain|))))
+ (|semiResultantEuclidean2|
+  (((|Record| (|:| |coef2| |#2|) (|:| |resultant| |#1|)) |#2| |#2|) 59))
+ (|semiResultantEuclidean1|
+  (((|Record| (|:| |coef1| |#2|) (|:| |resultant| |#1|)) |#2| |#2|) 61))
+ (|semiLastSubResultantEuclidean|
+  (((|Record| (|:| |coef2| |#2|) (|:| |subResultant| |#2|)) |#2| |#2|) 74))
+ (|semiIndiceSubResultantEuclidean|
+  (((|Record| (|:| |coef2| |#2|) (|:| |subResultant| |#2|)) |#2| |#2|
+    (|NonNegativeInteger|))
+   67))
+ (|semiDiscriminantEuclidean|
+  (((|Record| (|:| |coef2| |#2|) (|:| |discriminant| |#1|)) |#2|) 93))
+ (|semiDegreeSubResultantEuclidean|
+  (((|Record| (|:| |coef2| |#2|) (|:| |subResultant| |#2|)) |#2| |#2|
+    (|NonNegativeInteger|))
+   70))
+ (|schema| (((|List| (|NonNegativeInteger|)) |#2| |#2|) 78))
+ (|resultantReduitEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|)
+              (|:| |resultantReduit| |#1|))
+    |#2| |#2|)
+   101 (|has| |#1| (|GcdDomain|))))
+ (|resultantReduit| ((|#1| |#2| |#2|) 99 (|has| |#1| (|GcdDomain|))))
+ (|resultantEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |resultant| |#1|))
+    |#2| |#2|)
+   57))
+ (|resultant| ((|#1| |#2| |#2|) 52))
+ (|next_sousResultant2| ((|#2| |#2| |#2| |#2| |#1|) 43))
+ (|lastSubResultantEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |subResultant| |#2|))
+    |#2| |#2|)
+   72))
+ (|lastSubResultant| ((|#2| |#2| |#2|) 71))
+ (|indiceSubResultantEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |subResultant| |#2|))
+    |#2| |#2| (|NonNegativeInteger|))
+   65))
+ (|indiceSubResultant| ((|#2| |#2| |#2| (|NonNegativeInteger|)) 63))
+ (|gcd| ((|#2| |#2| |#2|) 104 (|has| |#1| (|GcdDomain|))))
+ (|divide|
+  (((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|) 29))
+ (|discriminantEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |discriminant| |#1|))
+    |#2|)
+   91))
+ (|discriminant| ((|#1| |#2|) 88))
+ (|degreeSubResultantEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |subResultant| |#2|))
+    |#2| |#2| (|NonNegativeInteger|))
+   69))
+ (|degreeSubResultant| ((|#2| |#2| |#2| (|NonNegativeInteger|)) 68))
+ (|chainSubResultants| (((|List| |#2|) |#2| |#2|) 76))
+ (|LazardQuotient2| ((|#2| |#2| |#1| |#1| (|NonNegativeInteger|)) 40))
+ (|LazardQuotient| ((|#1| |#1| |#1| (|NonNegativeInteger|)) 39)))
+((|HasCategory| |#1| '(|GcdDomain|)))
+PRS
+((|constructor|
+  (NIL
+   "This package contains some functions: \\spadopFrom{discriminant}{PseudoRemainderSequence},{} \\spadopFrom{resultant}{PseudoRemainderSequence},{} \\spadopFrom{subResultantGcd}{PseudoRemainderSequence},{} \\spadopFrom{chainSubResultants}{PseudoRemainderSequence},{} \\spadopFrom{degreeSubResultant}{PseudoRemainderSequence},{} \\spadopFrom{lastSubResultant}{PseudoRemainderSequence},{} \\spadopFrom{resultantEuclidean}{PseudoRemainderSequence},{} \\spadopFrom{subResultantGcdEuclidean}{PseudoRemainderSequence},{} \\spadopFrom{\\spad{semiSubResultantGcdEuclidean1}}{PseudoRemainderSequence},{} \\spadopFrom{\\spad{semiSubResultantGcdEuclidean2}}{PseudoRemainderSequence},{} etc. These procedures are coming from improvements of the subresultants algorithm."))
+ (|next_sousResultant2|
+  ((|#2| |#2| |#2| |#2| |#1|)
+   "\\spad{next_sousResultant2(P,{} Q,{} Z,{} s)} returns the subresultant \\spad{S_{e-1}} where \\spad{P ~ S_d,{} Q = S_{d-1},{} Z = S_e,{} s = lc(S_d)}"))
+ (|LazardQuotient2|
+  ((|#2| |#2| |#1| |#1| (|NonNegativeInteger|))
+   "\\spad{LazardQuotient2(F,{} x,{} y,{} n)} computes \\spad{(x^(n-1) * F) exquo y^(n-1)}"))
+ (|LazardQuotient|
+  ((|#1| |#1| |#1| (|NonNegativeInteger|))
+   "\\spad{LazardQuotient(x,{} y,{} n)} computes \\spad{x^n exquo y^(n-1)}"))
+ (|divide|
+  (((|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) |#2| |#2|)
+   "\\spad{divide(F,{} G)} computes quotient and rest of the exact euclidean division of \\spad{F} by \\spad{G}."))
+ (|gcd|
+  ((|#2| |#2| |#2|)
+   "\\spad{gcd(P,{} Q)} returns the \\spad{gcd} of \\spad{P} and \\spad{Q}."))
+ (|semiResultantReduitEuclidean|
+  (((|Record| (|:| |coef2| |#2|) (|:| |resultantReduit| |#1|)) |#2| |#2|)
+   "\\spad{semiResultantReduitEuclidean(P,{} Q)} returns the \"reduce resultant\" and carries out the equality \\spad{... P + coef2*Q = resultantReduit(P,{} Q)}."))
+ (|resultantReduitEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|)
+              (|:| |resultantReduit| |#1|))
+    |#2| |#2|)
+   "\\spad{resultantReduitEuclidean(P,{} Q)} returns the \"reduce resultant\" and carries out the equality \\spad{coef1*P + coef2*Q = resultantReduit(P,{} Q)}."))
+ (|resultantReduit|
+  ((|#1| |#2| |#2|)
+   "\\spad{resultantReduit(P,{}Q)} returns the \"reduce resultant\" of \\spad{P} and \\spad{Q}."))
+ (|schema|
+  (((|List| (|NonNegativeInteger|)) |#2| |#2|)
+   "\\spad{schema(P,{} Q)} returns the list of degrees of non zero subresultants of \\spad{P} and \\spad{Q}."))
+ (|chainSubResultants|
+  (((|List| |#2|) |#2| |#2|)
+   "\\spad{chainSubResultants(P,{} Q)} computes the list of non zero subresultants of \\spad{P} and \\spad{Q}."))
+ (|semiDiscriminantEuclidean|
+  (((|Record| (|:| |coef2| |#2|) (|:| |discriminant| |#1|)) |#2|)
+   "\\spad{discriminantEuclidean(P)} carries out the equality \\spad{... P + coef2 * D(P) = discriminant(P)}. Warning: \\spad{degree(P) >= degree(Q)}."))
+ (|discriminantEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |discriminant| |#1|))
+    |#2|)
+   "\\spad{discriminantEuclidean(P)} carries out the equality \\spad{coef1 * P + coef2 * D(P) = discriminant(P)}."))
+ (|discriminant|
+  ((|#1| |#2|)
+   "\\spad{discriminant(P)} returns the discriminant of \\spad{P}."))
+ (|semiSubResultantGcdEuclidean1|
+  (((|Record| (|:| |coef1| |#2|) (|:| |gcd| |#2|)) |#2| |#2|)
+   "\\spad{semiSubResultantGcdEuclidean1(P,{} Q)} carries out the equality \\spad{coef1*P + ... Q = +/- S_i(P,{} Q)} where the degree (not the indice) of the subresultant \\spad{S_i(P,{} Q)} is as small as possible."))
+ (|semiSubResultantGcdEuclidean2|
+  (((|Record| (|:| |coef2| |#2|) (|:| |gcd| |#2|)) |#2| |#2|)
+   "\\spad{semiSubResultantGcdEuclidean2(P,{} Q)} carries out the equality \\spad{... P + coef2*Q = +/- S_i(P,{} Q)} where the degree (not the indice) of the subresultant \\spad{S_i(P,{} Q)} is as small as possible. Warning: \\spad{degree(P) >= degree(Q)}."))
+ (|subResultantGcdEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |gcd| |#2|)) |#2|
+    |#2|)
+   "\\spad{subResultantGcdEuclidean(P,{} Q)} carries out the equality \\spad{coef1*P + coef2*Q = +/- S_i(P,{} Q)} where the degree (not the indice) of the subresultant \\spad{S_i(P,{} Q)} is as small as possible."))
+ (|subResultantGcd|
+  ((|#2| |#2| |#2|)
+   "\\spad{subResultantGcd(P,{} Q)} returns the \\spad{gcd} of two primitive polynomials \\spad{P} and \\spad{Q}."))
+ (|semiLastSubResultantEuclidean|
+  (((|Record| (|:| |coef2| |#2|) (|:| |subResultant| |#2|)) |#2| |#2|)
+   "\\spad{semiLastSubResultantEuclidean(P,{} Q)} computes the last non zero subresultant \\spad{S} and carries out the equality \\spad{... P + coef2*Q = S}. Warning: \\spad{degree(P) >= degree(Q)}."))
+ (|lastSubResultantEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |subResultant| |#2|))
+    |#2| |#2|)
+   "\\spad{lastSubResultantEuclidean(P,{} Q)} computes the last non zero subresultant \\spad{S} and carries out the equality \\spad{coef1*P + coef2*Q = S}."))
+ (|lastSubResultant|
+  ((|#2| |#2| |#2|)
+   "\\spad{lastSubResultant(P,{} Q)} computes the last non zero subresultant of \\spad{P} and \\spad{Q}"))
+ (|semiDegreeSubResultantEuclidean|
+  (((|Record| (|:| |coef2| |#2|) (|:| |subResultant| |#2|)) |#2| |#2|
+    (|NonNegativeInteger|))
+   "\\spad{semiDegreeSubResultantEuclidean(P,{} Q,{} d)} returns a subresultant \\spad{S_i} of degree \\spad{d} and carries out the equality \\spad{... P + coef2*Q = S_i}. Warning: \\spad{degree(P) >= degree(Q)}."))
+ (|degreeSubResultantEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |subResultant| |#2|))
+    |#2| |#2| (|NonNegativeInteger|))
+   "\\spad{degreeSubResultantEuclidean(P,{} Q,{} d)} returns a subresultant \\spad{S_i} of degree \\spad{d} and carries out the equality \\spad{coef1*P + coef2*Q = S_i}."))
+ (|degreeSubResultant|
+  ((|#2| |#2| |#2| (|NonNegativeInteger|))
+   "\\spad{degreeSubResultant(P,{} Q,{} d)} computes a subresultant of degree \\spad{d}."))
+ (|semiIndiceSubResultantEuclidean|
+  (((|Record| (|:| |coef2| |#2|) (|:| |subResultant| |#2|)) |#2| |#2|
+    (|NonNegativeInteger|))
+   "\\spad{semiIndiceSubResultantEuclidean(P,{} Q,{} i)} returns the subresultant \\spad{S_i(P,{} Q)} and carries out the equality \\spad{... P + coef2*Q = S_i(P,{} Q)} Warning: \\spad{degree(P) >= degree(Q)}."))
+ (|indiceSubResultantEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |subResultant| |#2|))
+    |#2| |#2| (|NonNegativeInteger|))
+   "\\spad{indiceSubResultant(P,{} Q,{} i)} returns the subresultant \\spad{S_i(P,{} Q)} and carries out the equality \\spad{coef1*P + coef2*Q = S_i(P,{} Q)}"))
+ (|indiceSubResultant|
+  ((|#2| |#2| |#2| (|NonNegativeInteger|))
+   "\\spad{indiceSubResultant(P,{} Q,{} i)} returns the subresultant of indice \\spad{i}"))
+ (|semiResultantEuclidean1|
+  (((|Record| (|:| |coef1| |#2|) (|:| |resultant| |#1|)) |#2| |#2|)
+   "\\spad{semiResultantEuclidean1(P,{} Q)} carries out the equality \\spad{coef1.P + ... Q = resultant(P,{} Q)}."))
+ (|semiResultantEuclidean2|
+  (((|Record| (|:| |coef2| |#2|) (|:| |resultant| |#1|)) |#2| |#2|)
+   "\\spad{semiResultantEuclidean2(P,{} Q)} carries out the equality \\spad{... P + coef2*Q = resultant(P,{} Q)}. Warning: \\spad{degree(P) >= degree(Q)}."))
+ (|resultantEuclidean|
+  (((|Record| (|:| |coef1| |#2|) (|:| |coef2| |#2|) (|:| |resultant| |#1|))
+    |#2| |#2|)
+   "\\spad{resultantEuclidean(P,{} Q)} carries out the equality \\spad{coef1*P + coef2*Q = resultant(P,{} Q)}"))
+ (|resultant|
+  ((|#1| |#2| |#2|)
+   "\\spad{resultant(P,{} Q)} returns the resultant of \\spad{P} and \\spad{Q}")))
+(("documentation" 0 17571) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 17567) ("predicates" 0 17529) ("superDomain" 0 NIL)
+ ("operationAlist" 0 14675) ("modemaps" 0 6312) ("sourceFile" 0 6277)
+ ("constructorCategory" 0 3303) ("constructorModemap" 0 67)
+ ("constructorKind" 0 57) ("constructorForm" 0 20))

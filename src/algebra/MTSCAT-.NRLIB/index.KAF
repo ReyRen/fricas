@@ -1,0 +1,55 @@
+2953                (|MultivariateTaylorSeriesCategory&| S |Coef| |Var|)
+|domain|
+(((|MultivariateTaylorSeriesCategory&| |#1| |#2| |#3|)
+  (CATEGORY |domain|
+   (SIGNATURE |coefficient|
+    (|#1| |#1| (|List| |#3|) (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |coefficient| (|#1| |#1| |#3| (|NonNegativeInteger|)))
+   (SIGNATURE |coefficient| (|#2| |#1| (|IndexedExponents| |#3|))))
+  (|MultivariateTaylorSeriesCategory| |#2| |#3|) (|Ring|) (|OrderedSet|))
+ (T |MultivariateTaylorSeriesCategory&|))
+(CATEGORY |domain|
+ (SIGNATURE |coefficient|
+  (|#1| |#1| (|List| |#3|) (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |coefficient| (|#1| |#1| |#3| (|NonNegativeInteger|)))
+ (SIGNATURE |coefficient| (|#2| |#1| (|IndexedExponents| |#3|))))
+"/git/fricas/src/algebra/MTSCAT.spad"
+((|coefficient| ((|#2| $ (|IndexedExponents| |#3|)) NIL)
+  (($ $ |#3| (|NonNegativeInteger|)) 13)
+  (($ $ (|List| |#3|) (|List| (|NonNegativeInteger|))) NIL)))
+((|HasCategory| |#2| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|)))))
+MTSCAT-
+((|constructor|
+  (NIL
+   "\\spadtype{MultivariateTaylorSeriesCategory} is the most general multivariate Taylor series category."))
+ (|integrate|
+  (($ $ |#3|)
+   "\\spad{integrate(f,{} x)} returns the anti-derivative of the power series \\spad{f(x)} with respect to the variable \\spad{x} with constant coefficient 1. We may integrate a series when we can divide coefficients by integers."))
+ (|polynomial|
+  (((|Polynomial| |#2|) $ (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{polynomial(f,{} k1,{} k2)} returns a polynomial consisting of the sum of all terms of \\spad{f} of degree \\spad{d} with \\spad{k1 <= d <= k2}.")
+  (((|Polynomial| |#2|) $ (|NonNegativeInteger|))
+   "\\spad{polynomial(f,{} k)} returns a polynomial consisting of the sum of all terms of \\spad{f} of degree \\spad{<= k}."))
+ (|order|
+  (((|NonNegativeInteger|) $ |#3| (|NonNegativeInteger|))
+   "\\spad{order(f,{} x,{} n)} returns \\spad{min(n,{} order(f,{} x))}.")
+  (((|NonNegativeInteger|) $ |#3|)
+   "\\spad{order(f,{} x)} returns the order of \\spad{f} viewed as a series in \\spad{x} may result in an infinite loop if \\spad{f} has no non-zero terms."))
+ (|monomial|
+  (($ $ (|List| |#3|) (|List| (|NonNegativeInteger|)))
+   "\\spad{monomial(a,{} [x1,{} x2,{} ...,{} xk],{} [n1,{} n2,{} ...,{} nk])} returns \\spad{a * x1^n1 * ... * xk^nk}.")
+  (($ $ |#3| (|NonNegativeInteger|))
+   "\\spad{monomial(a,{} x,{} n)} returns \\spad{a*x^n}."))
+ (|extend|
+  (($ $ (|NonNegativeInteger|))
+   "\\spad{extend(f,{} n)} causes all terms of \\spad{f} of degree \\spad{<= n} to be computed."))
+ (|coefficient|
+  (($ $ (|List| |#3|) (|List| (|NonNegativeInteger|)))
+   "\\spad{coefficient(f,{} [x1,{} x2,{} ...,{} xk],{} [n1,{} n2,{} ...,{} nk])} returns the coefficient of \\spad{x1^n1 * ... * xk^nk} in \\spad{f}.")
+  (($ $ |#3| (|NonNegativeInteger|))
+   "\\spad{coefficient(f,{} x,{} n)} returns the coefficient of \\spad{x^n} in \\spad{f}.")))
+(("documentation" 0 1020) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1012) ("predicates" 0 939) ("superDomain" 0 NIL)
+ ("operationAlist" 0 779) ("modemaps" 0 NIL) ("sourceFile" 0 741)
+ ("constructorCategory" 0 502) ("constructorModemap" 0 82)
+ ("constructorKind" 0 73) ("constructorForm" 0 20))

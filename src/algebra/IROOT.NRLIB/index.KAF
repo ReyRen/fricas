@@ -1,0 +1,93 @@
+4432                (|IntegerRoots| I)
+|package|
+(((|IntegerRoots| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |perfectNthPower?| ((|Boolean|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |perfectNthRoot|
+    ((|Union| |#1| "failed") |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |perfectNthRoot|
+    ((|Record| (|:| |base| |#1|) (|:| |exponent| (|NonNegativeInteger|)))
+     |#1|))
+   (SIGNATURE |approxNthRoot| (|#1| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |perfectSquare?| ((|Boolean|) |#1|))
+   (SIGNATURE |perfectSqrt| ((|Union| |#1| "failed") |#1|))
+   (SIGNATURE |approxSqrt| (|#1| |#1|)))
+  (|IntegerNumberSystem|))
+ (T |IntegerRoots|))
+(CATEGORY |package|
+ (SIGNATURE |perfectNthPower?| ((|Boolean|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |perfectNthRoot|
+  ((|Union| |#1| "failed") |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |perfectNthRoot|
+  ((|Record| (|:| |base| |#1|) (|:| |exponent| (|NonNegativeInteger|))) |#1|))
+ (SIGNATURE |approxNthRoot| (|#1| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |perfectSquare?| ((|Boolean|) |#1|))
+ (SIGNATURE |perfectSqrt| ((|Union| |#1| "failed") |#1|))
+ (SIGNATURE |approxSqrt| (|#1| |#1|)))
+"/git/fricas/src/algebra/IROOT.spad"
+((|approxSqrt| (*1 *2 *2)
+  (AND (|isDomain| *1 (|IntegerRoots| *2))
+       (|ofCategory| *2 (|IntegerNumberSystem|))))
+ (|perfectSqrt| (*1 *2 *2)
+  (|partial| AND (|isDomain| *1 (|IntegerRoots| *2))
+   (|ofCategory| *2 (|IntegerNumberSystem|))))
+ (|perfectSquare?| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|IntegerRoots| *3))
+       (|ofCategory| *3 (|IntegerNumberSystem|))))
+ (|approxNthRoot| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *1 (|IntegerRoots| *2))
+       (|ofCategory| *2 (|IntegerNumberSystem|))))
+ (|perfectNthRoot| (*1 *2 *3)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |base| *3)
+                         (|:| |exponent| (|NonNegativeInteger|))))
+   (|isDomain| *1 (|IntegerRoots| *3))
+   (|ofCategory| *3 (|IntegerNumberSystem|))))
+ (|perfectNthRoot| (*1 *2 *2 *3)
+  (|partial| AND (|isDomain| *3 (|NonNegativeInteger|))
+   (|isDomain| *1 (|IntegerRoots| *2))
+   (|ofCategory| *2 (|IntegerNumberSystem|))))
+ (|perfectNthPower?| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|IntegerRoots| *3))
+       (|ofCategory| *3 (|IntegerNumberSystem|)))))
+((|perfectSquare?| (((|Boolean|) |#1|) 16))
+ (|perfectSqrt| (((|Union| |#1| "failed") |#1|) 14))
+ (|perfectNthRoot|
+  (((|Record| (|:| |base| |#1|) (|:| |exponent| (|NonNegativeInteger|))) |#1|)
+   30)
+  (((|Union| |#1| "failed") |#1| (|NonNegativeInteger|)) 18))
+ (|perfectNthPower?| (((|Boolean|) |#1| (|NonNegativeInteger|)) 19))
+ (|approxSqrt| ((|#1| |#1|) 31))
+ (|approxNthRoot| ((|#1| |#1| (|NonNegativeInteger|)) 33)))
+IROOT
+((|constructor|
+  (NIL
+   "The \\spadtype{IntegerRoots} package computes square roots and \\indented{2}{\\spad{n}th roots of integers efficiently.}"))
+ (|approxSqrt|
+  ((|#1| |#1|)
+   "\\spad{approxSqrt(n)} returns an approximation \\spad{x} to \\spad{sqrt(n)} such that \\spad{-1 < x - sqrt(n) < 1}. Returns 0 if \\spad{n} is negative. A variable precision Newton iteration is used. The running time is \\spad{O( log(n)^2 )}."))
+ (|perfectSqrt|
+  (((|Union| |#1| "failed") |#1|)
+   "\\spad{perfectSqrt(n)} returns the square root of \\spad{n} if \\spad{n} is a perfect square and returns \"failed\" otherwise"))
+ (|perfectSquare?|
+  (((|Boolean|) |#1|)
+   "\\spad{perfectSquare?(n)} returns \\spad{true} if \\spad{n} is a perfect square and \\spad{false} otherwise"))
+ (|approxNthRoot|
+  ((|#1| |#1| (|NonNegativeInteger|))
+   "\\spad{approxRoot(n,{} r)} returns an approximation \\spad{x} to \\spad{n^(1/r)} such that \\spad{-1 < x - n^(1/r) < 1}"))
+ (|perfectNthRoot|
+  (((|Record| (|:| |base| |#1|) (|:| |exponent| (|NonNegativeInteger|))) |#1|)
+   "\\spad{perfectNthRoot(n)} returns \\spad{[x,{} r]},{} where \\spad{n = x\\^r} and \\spad{r} is the largest integer such that \\spad{n} is a perfect \\spad{r}th power")
+  (((|Union| |#1| "failed") |#1| (|NonNegativeInteger|))
+   "\\spad{perfectNthRoot(n,{} r)} returns the \\spad{r}th root of \\spad{n} if \\spad{n} is an \\spad{r}th power and returns \"failed\" otherwise"))
+ (|perfectNthPower?|
+  (((|Boolean|) |#1| (|NonNegativeInteger|))
+   "\\spad{perfectNthPower?(n,{} r)} returns \\spad{true} if \\spad{n} is an \\spad{r}th power and \\spad{false} otherwise")))
+(("documentation" 0 2810) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2804) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2378) ("modemaps" 0 1179) ("sourceFile" 0 1142)
+ ("constructorCategory" 0 644) ("constructorModemap" 0 49)
+ ("constructorKind" 0 39) ("constructorForm" 0 20))

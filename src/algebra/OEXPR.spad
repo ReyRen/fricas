@@ -1,0 +1,25 @@
+)abbrev domain OEXPR OrderedExpression
+
+OrderedExpression() : Join(OrderedRing,
+    Algebra(Fraction(Integer)),
+    RetractableFrom(Expression(Integer))) == Expression(Integer) add
+
+  Rep := Expression(Integer)
+
+  SIGNEF ==> ElementaryFunctionSign(Integer, Expression(Integer))
+
+  retract(e : Expression(Integer)) : % == e pretend %
+
+  coerce(x : %) : Expression(Integer) == x pretend Expression(Integer)
+
+  retractIfCan(x) == retract(x)
+
+  (x : % < y : %) : Boolean ==
+       di := y - x
+       di = 0 => false
+       (s := sign(di pretend Expression(Integer))$SIGNEF) case Integer =>
+           (s::Integer) = 1
+       error "can not determine sign"
+
+
+

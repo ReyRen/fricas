@@ -1,0 +1,14 @@
+
+-- Input for page AssociationListXmpPage
+)clear all
+
+Data := Record(monthsOld : Integer, gender : String)
+al : AssociationList(String,Data)
+al := table()
+al."bob" := [407,"male"]$Data
+al."judith" := [366,"female"]$Data
+al."katie" := [24,"female"]$Data
+al."smokie" := [200,"female"]$Data
+al
+al."katie" := [23,"female"]$Data
+delete!(al,1)

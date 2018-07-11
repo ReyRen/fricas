@@ -1,0 +1,41 @@
+1970                (MAKEPROP '|IntegerSolveLinearPolynomialEquation| 'NILADIC
+                              T)
+(|IntegerSolveLinearPolynomialEquation|)
+|package|
+(((|IntegerSolveLinearPolynomialEquation|)
+  (CATEGORY |package|
+   (SIGNATURE |solveLinearPolynomialEquation|
+    ((|Union| (|List| (|SparseUnivariatePolynomial| (|Integer|))) "failed")
+     (|List| (|SparseUnivariatePolynomial| (|Integer|)))
+     (|SparseUnivariatePolynomial| (|Integer|))))))
+ (T |IntegerSolveLinearPolynomialEquation|))
+(CATEGORY |package|
+ (SIGNATURE |solveLinearPolynomialEquation|
+  ((|Union| (|List| (|SparseUnivariatePolynomial| (|Integer|))) "failed")
+   (|List| (|SparseUnivariatePolynomial| (|Integer|)))
+   (|SparseUnivariatePolynomial| (|Integer|)))))
+"/git/fricas/src/algebra/INTSLPE.spad"
+((|solveLinearPolynomialEquation| (*1 *2 *2 *3)
+  (|partial| AND
+   (|isDomain| *2 (|List| (|SparseUnivariatePolynomial| (|Integer|))))
+   (|isDomain| *3 (|SparseUnivariatePolynomial| (|Integer|)))
+   (|isDomain| *1 (|IntegerSolveLinearPolynomialEquation|)))))
+((|solveLinearPolynomialEquation|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| (|Integer|))) "failed")
+    (|List| (|SparseUnivariatePolynomial| (|Integer|)))
+    (|SparseUnivariatePolynomial| (|Integer|)))
+   24)))
+INTSLPE
+((|constructor|
+  (NIL
+   "This package provides the implementation for the \\spadfun{solveLinearPolynomialEquation} operation over the integers. It uses a lifting technique from the package GenExEuclid"))
+ (|solveLinearPolynomialEquation|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| (|Integer|))) "failed")
+    (|List| (|SparseUnivariatePolynomial| (|Integer|)))
+    (|SparseUnivariatePolynomial| (|Integer|)))
+   "\\spad{solveLinearPolynomialEquation([f1,{} ...,{} fn],{} g)} (where the \\spad{fi} are relatively prime to each other) returns a list of \\spad{ai} such that \\spad{g/prod \\spad{fi} = sum ai/fi} or returns \"failed\" if no such list of \\spad{ai}\\spad{'s} exists.")))
+(("documentation" 0 1276) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1268) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1046) ("modemaps" 0 785) ("sourceFile" 0 746)
+ ("constructorCategory" 0 504) ("constructorModemap" 0 163)
+ ("constructorKind" 0 153) ("constructorForm" 0 112) ("NILADIC" 0 20))

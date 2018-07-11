@@ -1,0 +1,49 @@
+)abbrev package INFORM1 InputFormFunctions1
+
+++ Tools for manipulating input forms
+++ Author: Manuel Bronstein
+++ Description: Tools for manipulating input forms.
+
+InputFormFunctions1(R : Type) : with
+  packageCall : Symbol -> InputForm
+    ++ packageCall(f) returns the input form corresponding to f$R.
+  packageCall : (Symbol, List InputForm) -> InputForm
+    ++ packageCall(f, l) returns the input form corresponding to
+    ++ f(l.1, l.2, ...)$R.
+  coerceToType : InputForm -> InputForm
+    ++ coerceToType(f) returns the input form corresponding to f::R
+  atType : InputForm -> InputForm
+    ++ atType(f) returns the input form corresponding to f@R
+  pretendOfType : InputForm -> InputForm
+    ++ pretendOfType(f) returns the input form corresponding to
+    ++ \spad{f pretend R}
+  getType : () -> InputForm
+    ++ getType() returns the input form corresponding to R
+  interpret : InputForm -> R
+    ++ interpret(f) passes f to the interpreter, and transforms
+    ++ the result into an object of type R.
+ == add
+  Rname := typeToInputForm(R)$Lisp :: InputForm
+
+  getType() == Rname
+
+  packageCall name ==
+    convert([convert("$elt"::Symbol), Rname,
+                                convert name]$List(InputForm))@InputForm
+
+  packageCall(name, args) ==
+    convert cons(packageCall name, args)
+
+
+  coerceToType form == convert([convert("::"::Symbol), form,
+                     Rname]$List(InputForm))@InputForm
+
+  atType form == convert([convert("@"::Symbol), form,
+                     Rname]$List(InputForm))@InputForm
+
+  pretendOfType form == convert([convert('pretend), form,
+                     Rname]$List(InputForm))@InputForm
+
+  interpret form ==
+    retract(interpret(atType form)$InputForm)$AnyFunctions1(R)
+

@@ -1,0 +1,546 @@
+25615               (|AssociationListAggregate| |Key| |Entry|)
+|category|
+(((|AssociationListAggregate| |#1| |#2|) (|Category|) (|SetCategory|) (|Type|))
+ (T |AssociationListAggregate|))
+(|Join| (|TableAggregate| |t#1| |t#2|)
+        (|ListAggregate| (|Record| (|:| |key| |t#1|) (|:| |entry| |t#2|)))
+        (CATEGORY |domain|
+         (SIGNATURE |assoc|
+          ((|Union| (|Record| (|:| |key| |t#1|) (|:| |entry| |t#2|)) "failed")
+           |t#1| $))))
+"/git/fricas/src/algebra/ALAGG.spad"
+((|assoc| (*1 *2 *3 *1)
+          (|partial| AND (|ofCategory| *1 (|AssociationListAggregate| *3 *4))
+           (|ofCategory| *3 (|SetCategory|)) (|ofCategory| *4 (|Type|))
+           (|isDomain| *2 (|Record| (|:| |key| *3) (|:| |entry| *4))))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|Comparable|))
+         (|has| $ (|finiteAggregate|)))
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+         (|has| $ (|finiteAggregate|)))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|))
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+         (|has| $ (|finiteAggregate|)))
+    (|has| |#2| (|SetCategory|))
+    (AND (|has| |#2| (|BasicType|)) (|has| $ (|finiteAggregate|)))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|))
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+         (|has| $ (|finiteAggregate|))))))
+ (|value| (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6))
+ (|trim|
+  (($ $ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+        (|has| $ (|finiteAggregate|)))))
+ (|third| (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6))
+ (|tail| (($ $) 6))
+ (|table| (($) 6)
+  (($ (|List| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))) 6))
+ (|swap!| (((|Void|) $ |#1| |#1|) 6 (|has| $ (|shallowlyMutable|)))
+  (((|Void|) $ (|Integer|) (|Integer|)) 6 (|has| $ (|shallowlyMutable|))))
+ (|split!| (($ $ (|NonNegativeInteger|)) 6 (|has| $ (|shallowlyMutable|))))
+ (|sorted?|
+  (((|Boolean|)
+    (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+    $)
+   6 (|has| $ (|finiteAggregate|)))
+  (((|Boolean|) $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+        (|has| $ (|finiteAggregate|)))))
+ (|sort!|
+  (($
+    (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+    $)
+   6 (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|))))
+  (($ $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+        (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|)))))
+ (|sort|
+  (($
+    (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+    $)
+   6 (|has| $ (|finiteAggregate|)))
+  (($ $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+        (|has| $ (|finiteAggregate|)))))
+ (|smaller?|
+  (((|Boolean|) $ $) 6
+   (OR
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|Comparable|))
+         (|has| $ (|finiteAggregate|)))
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+         (|has| $ (|finiteAggregate|))))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|setvalue!|
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $
+    (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6 (|has| $ (|shallowlyMutable|))))
+ (|setrest!| (($ $ $) 6 (|has| $ (|shallowlyMutable|))))
+ (|setlast!|
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $
+    (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6 (|has| $ (|shallowlyMutable|))))
+ (|setfirst!|
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $
+    (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6 (|has| $ (|shallowlyMutable|))))
+ (|setelt!| ((|#2| $ |#1| |#2|) 6)
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ (|Integer|)
+    (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6 (|has| $ (|shallowlyMutable|)))
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $
+    (|UniversalSegment| (|Integer|))
+    (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6 (|has| $ (|shallowlyMutable|)))
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ #1="last"
+    (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6 (|has| $ (|shallowlyMutable|)))
+  (($ $ #2="rest" $) 6 (|has| $ (|shallowlyMutable|)))
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ #3="first"
+    (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6 (|has| $ (|shallowlyMutable|)))
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ #4="value"
+    (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6 (|has| $ (|shallowlyMutable|))))
+ (|setchildren!| (($ $ (|List| $)) 6 (|has| $ (|shallowlyMutable|))))
+ (|select!|
+  (($ (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $)
+   6 (|has| $ (|finiteAggregate|)))
+  (($ (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $)
+   6))
+ (|select|
+  (($ (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $)
+   6 (|has| $ (|finiteAggregate|))))
+ (|second| (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6))
+ (|search| (((|Union| |#2| #5="failed") |#1| $) 6)) (|sample| (($) 6 T CONST))
+ (|rightTrim|
+  (($ $ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+        (|has| $ (|finiteAggregate|)))))
+ (|reverse!|
+  (($ $) 6 (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|)))))
+ (|reverse| (($ $) 6 (|has| $ (|finiteAggregate|))))
+ (|rest| (($ $ (|NonNegativeInteger|)) 6) (($ $) 6))
+ (|removeDuplicates!|
+  (($ $) 6
+   (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))))
+ (|removeDuplicates|
+  (($ $) 6
+   (OR
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+         (|has| $ (|finiteAggregate|)))
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+         (|has| $ (|finiteAggregate|))))))
+ (|remove!|
+  (($ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+        (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $)
+   6 (|has| $ (|finiteAggregate|)))
+  (((|Union| |#2| #5#) |#1| $) 6)
+  (($ (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $)
+   6)
+  (($ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6
+   (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))))
+ (|remove|
+  (($ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+        (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $)
+   6 (|has| $ (|finiteAggregate|))))
+ (|reduce|
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+    (|Mapping| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+    $ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+    (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+        (|has| $ (|finiteAggregate|))))
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+    (|Mapping| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+    $ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6 (|has| $ (|finiteAggregate|)))
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+    (|Mapping| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+    $)
+   6 (|has| $ (|finiteAggregate|))))
+ (|qsetrest!| (($ $ $) 6 (|has| $ (|shallowlyMutable|))))
+ (|qsetfirst!|
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $
+    (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6 (|has| $ (|shallowlyMutable|))))
+ (|qsetelt!| ((|#2| $ |#1| |#2|) 6 (|has| $ (|shallowlyMutable|)))
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ (|Integer|)
+    (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6 (|has| $ (|shallowlyMutable|))))
+ (|qelt| ((|#2| $ |#1|) 6)
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ (|Integer|)) 6))
+ (|possiblyInfinite?| (((|Boolean|) $) 6))
+ (|position|
+  (((|Integer|)
+    (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $)
+   6 (|has| $ (|finiteAggregate|)))
+  (((|Integer|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+        (|has| $ (|finiteAggregate|))))
+  (((|Integer|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ (|Integer|)) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+        (|has| $ (|finiteAggregate|)))))
+ (|parts| (((|List| |#2|) $) 6 (|has| $ (|finiteAggregate|)))
+  (((|List| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|nodes| (((|List| $) $) 6))
+ (|node?|
+  (((|Boolean|) $ $) 6
+   (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))))
+ (|new|
+  (($ (|NonNegativeInteger|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|minIndex| ((|#1| $) 6 (|has| |#1| (|OrderedSet|)))
+  (((|Integer|) $) 6 (|has| (|Integer|) (|OrderedSet|))))
+ (|min|
+  ((|#2| $) 6 (AND (|has| |#2| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (($ $ $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+        (|has| $ (|finiteAggregate|))))
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+        (|has| $ (|finiteAggregate|)))))
+ (|merge!|
+  (($
+    (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+    $ $)
+   6)
+  (($ $ $) 6
+   (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))))
+ (|merge|
+  (($
+    (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+    $ $)
+   6 (|has| $ (|finiteAggregate|)))
+  (($ $ $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+        (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#2|) $) 6 (|has| $ (|finiteAggregate|)))
+  (((|List| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#2| $) 6
+   (AND (|has| |#2| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (((|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+        (|has| $ (|finiteAggregate|)))))
+ (|maxIndex| ((|#1| $) 6 (|has| |#1| (|OrderedSet|)))
+  (((|Integer|) $) 6 (|has| (|Integer|) (|OrderedSet|))))
+ (|max|
+  ((|#2| $) 6 (AND (|has| |#2| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  ((|#2| (|Mapping| (|Boolean|) |#2| |#2|) $) 6 (|has| $ (|finiteAggregate|)))
+  (($ $ $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+        (|has| $ (|finiteAggregate|))))
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+        (|has| $ (|finiteAggregate|))))
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+    (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+    $)
+   6 (|has| $ (|finiteAggregate|))))
+ (|map!| (($ (|Mapping| |#2| |#2|) $) 6 (|has| $ (|shallowlyMutable|)))
+  (($
+    (|Mapping| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+    $)
+   6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#2| |#2|) $) 6) (($ (|Mapping| |#2| |#2| |#2|) $ $) 6)
+  (($
+    (|Mapping| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+    $ $)
+   6)
+  (($
+    (|Mapping| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+               (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+    $)
+   6))
+ (|list| (($ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|leftTrim|
+  (($ $ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+        (|has| $ (|finiteAggregate|)))))
+ (|leaves| (((|List| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $) 6))
+ (|leaf?| (((|Boolean|) $) 6))
+ (|latex|
+  (((|String|) $) 6
+   (OR
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|Comparable|))
+         (|has| $ (|finiteAggregate|)))
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+         (|has| $ (|finiteAggregate|)))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|))
+    (|has| |#2| (|SetCategory|))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|)))))
+ (|last| (($ $ (|NonNegativeInteger|)) 6)
+         (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6))
+ (|keys| (((|List| |#1|) $) 6)) (|key?| (((|Boolean|) |#1| $) 6))
+ (|inspect| (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6))
+ (|insert!| (($ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6)
+  (($ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ (|Integer|)) 6)
+  (($ $ $ (|Integer|)) 6))
+ (|insert| (($ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ (|Integer|)) 6)
+           (($ $ $ (|Integer|)) 6))
+ (|indices| (((|List| |#1|) $) 6) (((|List| (|Integer|)) $) 6))
+ (|index?| (((|Boolean|) |#1| $) 6) (((|Boolean|) (|Integer|) $) 6))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6
+   (OR
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|Comparable|))
+         (|has| $ (|finiteAggregate|)))
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+         (|has| $ (|finiteAggregate|)))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|))
+    (|has| |#2| (|SetCategory|))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|)))))
+ (|hash|
+  (((|SingleInteger|) $) 6
+   (OR
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|Comparable|))
+         (|has| $ (|finiteAggregate|)))
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+         (|has| $ (|finiteAggregate|)))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|))
+    (|has| |#2| (|SetCategory|))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|)))))
+ (|first| ((|#2| $) 6 (|has| |#1| (|OrderedSet|)))
+  (($ $ (|NonNegativeInteger|)) 6)
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6))
+ (|find|
+  (((|Union| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) "failed")
+    (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $)
+   6))
+ (|fill!| (($ $ |#2|) 6 (|has| $ (|shallowlyMutable|)))
+  (($ $ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) 6
+   (|has| $ (|shallowlyMutable|))))
+ (|extract!| (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6))
+ (|explicitlyFinite?| (((|Boolean|) $) 6))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#2|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|Boolean|)
+    (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $)
+   6 (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| |#2|) (|List| |#2|)) 6
+   (AND (|has| |#2| (|Evalable| |#2|)) (|has| |#2| (|SetCategory|))))
+  (($ $ |#2| |#2|) 6
+   (AND (|has| |#2| (|Evalable| |#2|)) (|has| |#2| (|SetCategory|))))
+  (($ $ (|Equation| |#2|)) 6
+   (AND (|has| |#2| (|Evalable| |#2|)) (|has| |#2| (|SetCategory|))))
+  (($ $ (|List| (|Equation| |#2|))) 6
+   (AND (|has| |#2| (|Evalable| |#2|)) (|has| |#2| (|SetCategory|))))
+  (($ $ (|List| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+    (|List| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))))
+   6
+   (AND
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+           (|Evalable| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|))))
+  (($ $ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+    (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6
+   (AND
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+           (|Evalable| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|))))
+  (($ $ (|Equation| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))) 6
+   (AND
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+           (|Evalable| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|))))
+  (($ $ (|List| (|Equation| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))))) 6
+   (AND
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+           (|Evalable| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6))
+ (|entry?|
+  (((|Boolean|) |#2| $) 6
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#2| (|BasicType|))))
+  (((|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|)))))
+ (|entries| (((|List| |#2|) $) 6)
+  (((|List| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $) 6))
+ (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|elt| ((|#2| $ |#1|) 6) ((|#2| $ |#1| |#2|) 6)
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ (|Integer|)
+    (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))
+   6)
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ (|Integer|)) 6)
+  (($ $ (|UniversalSegment| (|Integer|))) 6)
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ #1#) 6) (($ $ #2#) 6)
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ #3#) 6)
+  (((|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $ #4#) 6))
+ (|distance| (((|Integer|) $ $) 6))
+ (|dictionary| (($) 6)
+  (($ (|List| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))) 6))
+ (|delete!| (($ $ (|Integer|)) 6) (($ $ (|UniversalSegment| (|Integer|))) 6))
+ (|delete| (($ $ (|Integer|)) 6) (($ $ (|UniversalSegment| (|Integer|))) 6))
+ (|cyclic?| (((|Boolean|) $) 6)) (|cycleTail| (($ $) 6))
+ (|cycleSplit!| (($ $) 6 (|has| $ (|shallowlyMutable|))))
+ (|cycleLength| (((|NonNegativeInteger|) $) 6)) (|cycleEntry| (($ $) 6))
+ (|count|
+  (((|NonNegativeInteger|) |#2| $) 6
+   (AND (|has| |#2| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#2|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+        (|has| $ (|finiteAggregate|))))
+  (((|NonNegativeInteger|)
+    (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $)
+   6 (|has| $ (|finiteAggregate|))))
+ (|copyInto!|
+  (($ $ $ (|Integer|)) 6
+   (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|convert|
+  (((|InputForm|) $) 6
+   (OR
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+           (|ConvertibleTo| (|InputForm|)))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+           (|ConvertibleTo| (|InputForm|))))))
+ (|construct| (($ (|List| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)))) 6))
+ (|concat!| (($ $ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) 6)
+  (($ $ $) 6))
+ (|concat| (($ $ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) 6)
+           (($ (|List| $)) 6)
+           (($ (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) $) 6)
+           (($ $ $) 6))
+ (|coerce|
+  (((|OutputForm|) $) 6
+   (OR
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|Comparable|))
+         (|has| $ (|finiteAggregate|)))
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+         (|has| $ (|finiteAggregate|)))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+           (|CoercibleTo| (|OutputForm|)))
+    (|has| |#2| (|CoercibleTo| (|OutputForm|)))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))
+           (|CoercibleTo| (|OutputForm|))))))
+ (|children| (((|List| $) $) 6))
+ (|child?|
+  (((|Boolean|) $ $) 6
+   (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))))
+ (|assoc|
+  (((|Union| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) "failed") |#1| $)
+   6))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#2|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|Boolean|)
+    (|Mapping| (|Boolean|) (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) $)
+   6 (|has| $ (|finiteAggregate|))))
+ (>=
+  (((|Boolean|) $ $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+        (|has| $ (|finiteAggregate|)))))
+ (>
+  (((|Boolean|) $ $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+        (|has| $ (|finiteAggregate|)))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|Comparable|))
+         (|has| $ (|finiteAggregate|)))
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+         (|has| $ (|finiteAggregate|)))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|))
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+         (|has| $ (|finiteAggregate|)))
+    (|has| |#2| (|SetCategory|))
+    (AND (|has| |#2| (|BasicType|)) (|has| $ (|finiteAggregate|)))
+    (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|SetCategory|))
+    (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|BasicType|))
+         (|has| $ (|finiteAggregate|))))))
+ (<=
+  (((|Boolean|) $ $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+        (|has| $ (|finiteAggregate|)))))
+ (<
+  (((|Boolean|) $ $) 6
+   (AND (|has| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) (|OrderedSet|))
+        (|has| $ (|finiteAggregate|)))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+ALAGG
+(((|TableAggregate| |#1| |#2|) . T)
+ ((|ListAggregate| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) . T))
+(((|Aggregate|) . T) ((|BagAggregate| |t#1|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) OR
+  (|has| |t#1| (|CoercibleTo| (|OutputForm|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|))))
+ ((|Collection| |t#1|) . T)
+ ((|Comparable|) OR
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|))))
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Dictionary| (|Record| (|:| |key| |t#1|) (|:| |entry| |t#2|))) . T)
+ ((|DictionaryOperations| |t#1|) . T)
+ ((|Eltable| (|UniversalSegment| (|Integer|)) $) . T)
+ ((|Eltable| |t#1| |t#2|) . T) ((|EltableAggregate| |t#1| |t#2|) . T)
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|ExtensibleLinearAggregate| |t#1|) . T)
+ ((|FiniteLinearAggregate| |t#1|) . T) ((|HomogeneousAggregate| |t#2|) . T)
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|IndexedAggregate| (|Integer|) |t#1|) . T)
+ ((|IndexedAggregate| |t#1| |t#2|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|KeyedDictionary| |t#1| |t#2|) . T) ((|LinearAggregate| |t#1|) . T)
+ ((|ListAggregate| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|))) . T)
+ ((|OrderedSet|) AND (|has| $ (|finiteAggregate|))
+  (|has| |t#1| (|OrderedSet|)))
+ ((|PartialOrder|) AND (|has| $ (|finiteAggregate|))
+  (|has| |t#1| (|OrderedSet|)))
+ ((|RecursiveAggregate| |t#1|) . T)
+ ((|SetCategory|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|))))
+ ((|StreamAggregate| |t#1|) . T) ((|TableAggregate| |#1| |#2|) . T)
+ ((|Type|) . T) ((|UnaryRecursiveAggregate| |t#1|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "An association list is a list of key entry pairs which may be viewed as a table. It is a poor mans version of a table: searching for a key is a linear operation."))
+ (|assoc|
+  (((|Union| (|Record| (|:| |key| |#1|) (|:| |entry| |#2|)) "failed") |#1| $)
+   "\\spad{assoc(k,{} u)} returns the element \\spad{x} in association list \\spad{u} stored with key \\spad{k},{} or \"failed\" if \\spad{u} has no key \\spad{k}.")))
+(("documentation" 0 25167) ("ancestors" 0 23006) ("parents" 0 22897)
+ ("abbreviation" 0 22891) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 742) ("modemaps" 0 495) ("sourceFile" 0 458)
+ ("constructorCategory" 0 187) ("constructorModemap" 0 74)
+ ("constructorKind" 0 63) ("constructorForm" 0 20))

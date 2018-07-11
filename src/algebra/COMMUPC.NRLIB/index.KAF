@@ -1,0 +1,26 @@
+939                 (|CommuteUnivariatePolynomialCategory| R UP UPUP)
+|package|
+(((|CommuteUnivariatePolynomialCategory| |#1| |#2| |#3|)
+  (CATEGORY |package| (SIGNATURE |swap| (|#3| |#3|))) (|Ring|)
+  (|UnivariatePolynomialCategory| |#1|) (|UnivariatePolynomialCategory| |#2|))
+ (T |CommuteUnivariatePolynomialCategory|))
+(CATEGORY |package| (SIGNATURE |swap| (|#3| |#3|)))
+"/git/fricas/src/algebra/COMMUPC.spad"
+((|swap| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|Ring|))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+       (|isDomain| *1 (|CommuteUnivariatePolynomialCategory| *3 *4 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *4)))))
+((|swap| ((|#3| |#3|) 19)))
+COMMUPC
+((|constructor|
+  (NIL
+   "A package for swapping the order of two variables in a tower of two UnivariatePolynomialCategory extensions."))
+ (|swap|
+  ((|#3| |#3|)
+   "\\spad{swap(p(x,{} y))} returns \\spad{p}(\\spad{y},{} \\spad{x}).")))
+(("documentation" 0 701) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 693) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 665) ("modemaps" 0 414) ("sourceFile" 0 375)
+ ("constructorCategory" 0 323) ("constructorModemap" 0 80)
+ ("constructorKind" 0 70) ("constructorForm" 0 20))

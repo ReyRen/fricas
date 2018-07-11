@@ -1,0 +1,174 @@
+7950                (|Tree| S)
+|domain|
+(((|Tree| |#1|)
+  (|Join| (|RecursiveAggregate| |#1|) (|finiteAggregate|) (|shallowlyMutable|)
+          (CATEGORY |domain| (SIGNATURE |tree| ($ |#1| (|List| $)))
+           (SIGNATURE |tree| ($ (|List| |#1|))) (SIGNATURE |tree| ($ |#1|))
+           (SIGNATURE |cyclic?| ((|Boolean|) $)) (SIGNATURE |cyclicCopy| ($ $))
+           (SIGNATURE |cyclicEntries| ((|List| $) $))
+           (SIGNATURE |cyclicEqual?| ((|Boolean|) $ $))
+           (SIGNATURE |cyclicParents| ((|List| $) $))))
+  (|SetCategory|))
+ (T |Tree|))
+(|Join| (|RecursiveAggregate| |#1|) (|finiteAggregate|) (|shallowlyMutable|)
+        (CATEGORY |domain| (SIGNATURE |tree| ($ |#1| (|List| $)))
+         (SIGNATURE |tree| ($ (|List| |#1|))) (SIGNATURE |tree| ($ |#1|))
+         (SIGNATURE |cyclic?| ((|Boolean|) $)) (SIGNATURE |cyclicCopy| ($ $))
+         (SIGNATURE |cyclicEntries| ((|List| $) $))
+         (SIGNATURE |cyclicEqual?| ((|Boolean|) $ $))
+         (SIGNATURE |cyclicParents| ((|List| $) $))))
+"/git/fricas/src/algebra/TREE.spad"
+((|cyclic?| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|Tree| *3))
+       (|ofCategory| *3 (|SetCategory|))))
+ (|tree| (*1 *1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Tree| *2))) (|isDomain| *1 (|Tree| *2))
+       (|ofCategory| *2 (|SetCategory|))))
+ (|tree| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *1 (|Tree| *3))))
+ (|tree| (*1 *1 *2)
+  (AND (|isDomain| *1 (|Tree| *2)) (|ofCategory| *2 (|SetCategory|))))
+ (|cyclicCopy| (*1 *1 *1)
+  (AND (|isDomain| *1 (|Tree| *2)) (|ofCategory| *2 (|SetCategory|))))
+ (|cyclicEntries| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|Tree| *3))) (|isDomain| *1 (|Tree| *3))
+       (|ofCategory| *3 (|SetCategory|))))
+ (|cyclicEqual?| (*1 *2 *1 *1)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|Tree| *3))
+       (|ofCategory| *3 (|SetCategory|))))
+ (|cyclicParents| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|Tree| *3))) (|isDomain| *1 (|Tree| *3))
+       (|ofCategory| *3 (|SetCategory|)))))
+((~=
+  (((|Boolean|) $ $) NIL
+   (OR (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|value| ((|#1| $) 17))
+ (|tree| (($ |#1| (|List| $)) 23) (($ (|List| |#1|)) 27) (($ |#1|) 25))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 52))
+ (|setvalue!| ((|#1| $ |#1|) 14 (|has| $ (|shallowlyMutable|))))
+ (|setelt!| ((|#1| $ #1="value" |#1|) NIL (|has| $ (|shallowlyMutable|))))
+ (|setchildren!| (($ $ (|List| $)) 13 (|has| $ (|shallowlyMutable|))))
+ (|sample| (($) NIL T CONST))
+ (|parts| (((|List| |#1|) $) 56 (|has| $ (|finiteAggregate|))))
+ (|nodes| (((|List| $) $) 47))
+ (|node?| (((|Boolean|) $ $) 35 (|has| |#1| (|BasicType|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 45))
+ (|min|
+  ((|#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (|members| (((|List| |#1|) $) 57 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 55
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  ((|#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 24 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 22))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 43))
+ (|leaves| (((|List| |#1|) $) 40)) (|leaf?| (((|Boolean|) $) 39))
+ (|latex| (((|String|) $) NIL (|has| |#1| (|SetCategory|))))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 62 (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) NIL (|has| |#1| (|SetCategory|))))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 54
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 82)) (|empty?| (((|Boolean|) $) 9))
+ (|empty| (($) 10)) (|elt| ((|#1| $ #1#) NIL))
+ (|distance| (((|Integer|) $ $) 34)) (|cyclicParents| (((|List| $) $) 66))
+ (|cyclicEqual?| (((|Boolean|) $ $) 84)) (|cyclicEntries| (((|List| $) $) 80))
+ (|cyclicCopy| (($ $) 81)) (|cyclic?| (((|Boolean|) $) 63))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 20
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 16
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|copy| (($ $) 65))
+ (|coerce| (((|OutputForm|) $) 68 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|children| (((|List| $) $) 12))
+ (|child?| (((|Boolean|) $ $) 30 (|has| |#1| (|BasicType|))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 53
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 31
+   (OR (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|#| (((|NonNegativeInteger|) $) 42 (|has| $ (|finiteAggregate|)))))
+((|HasCategory| |#1| '(|SetCategory|))
+ (AND (|HasCategory| |#1| (LIST '|Evalable| (|devaluate| |#1|)))
+      (|HasCategory| |#1| '(|SetCategory|)))
+ (|HasCategory| |#1| '(|OrderedSet|)) (|HasCategory| |#1| '(|BasicType|))
+ (OR (|HasCategory| |#1| '(|BasicType|)) (|HasCategory| |#1| '(|SetCategory|)))
+ (|HasCategory| |#1| (LIST '|CoercibleTo| '(|OutputForm|)))
+ (OR (|HasCategory| |#1| (LIST '|CoercibleTo| '(|OutputForm|)))
+     (AND (|HasCategory| |#1| (LIST '|Evalable| (|devaluate| |#1|)))
+          (|HasCategory| |#1| '(|SetCategory|))))
+ (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| |#1| '(|OrderedSet|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (AND (|HasCategory| |#1| '(|BasicType|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (OR
+  (AND (|HasCategory| |#1| '(|BasicType|))
+       (|HasCategory| $ '(|finiteAggregate|)))
+  (|HasCategory| |#1| '(|SetCategory|)))
+ (|HasCategory| $ '(|shallowlyMutable|)))
+TREE
+(((|RecursiveAggregate| |#1|) . T) ((|finiteAggregate|) . T)
+ ((|shallowlyMutable|) . T))
+(((|Aggregate|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|RecursiveAggregate| |#1|) . T)
+ ((|SetCategory|) |has| |t#1| (|SetCategory|)) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "\\spadtype{Tree(S)} is a basic domain of tree structures. Each tree is either empty or has a {\\it node} consisting of a value and a list of (sub)trees."))
+ (|cyclicParents|
+  (((|List| $) $)
+   "\\spad{cyclicParents(t)} returns a list of cycles that are parents of \\spad{t}."))
+ (|cyclicEqual?|
+  (((|Boolean|) $ $)
+   "\\spad{cyclicEqual?(t1,{} t2)} tests if two cyclic trees have the same structure."))
+ (|cyclicEntries|
+  (((|List| $) $)
+   "\\spad{cyclicEntries(t)} returns a list of top-level cycles in tree \\spad{t}."))
+ (|cyclicCopy|
+  (($ $)
+   "\\spad{cyclicCopy(l)} makes a copy of a (possibly) cyclic tree \\spad{l}."))
+ (|cyclic?|
+  (((|Boolean|) $) "\\spad{cyclic?(t)} tests if \\spad{t} is a cyclic tree."))
+ (|tree|
+  (($ |#1|)
+   "\\spad{tree(nd)} creates a tree with value \\spad{nd},{} and no children.")
+  (($ (|List| |#1|))
+   "\\spad{tree(ls)} creates a tree from a list of elements of \\spad{s}.")
+  (($ |#1| (|List| $))
+   "\\spad{tree(nd,{} ls)} creates a tree with value \\spad{nd},{} and children \\spad{ls}.")))
+(("documentation" 0 6881) ("ancestors" 0 6284) ("parents" 0 6194)
+ ("abbreviation" 0 6189) ("predicates" 0 5248) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2055) ("modemaps" 0 1048) ("sourceFile" 0 1012)
+ ("constructorCategory" 0 557) ("constructorModemap" 0 40)
+ ("constructorKind" 0 31) ("constructorForm" 0 20))

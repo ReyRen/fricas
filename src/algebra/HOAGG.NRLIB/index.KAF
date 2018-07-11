@@ -1,0 +1,208 @@
+10757               (|HomogeneousAggregate| S)
+|category|
+(((|HomogeneousAggregate| |#1|) (|Category|) (|Type|))
+ (T |HomogeneousAggregate|))
+(|Join| (|Aggregate|)
+        (CATEGORY |domain|
+         (IF (|has| |t#1| (|CoercibleTo| (|OutputForm|)))
+             (ATTRIBUTE (|CoercibleTo| (|OutputForm|)))
+             |noBranch|)
+         (IF (|has| |t#1| (|SetCategory|))
+             (ATTRIBUTE (|SetCategory|))
+             |noBranch|)
+         (IF (|has| |t#1| (|SetCategory|))
+             (IF (|has| |t#1| (|Evalable| |t#1|))
+                 (ATTRIBUTE (|Evalable| |t#1|))
+                 |noBranch|)
+             |noBranch|)
+         (SIGNATURE |map| ($ (|Mapping| |t#1| |t#1|) $))
+         (IF (|has| $ (|shallowlyMutable|))
+             (SIGNATURE |map!| ($ (|Mapping| |t#1| |t#1|) $))
+             |noBranch|)
+         (IF (|has| $ (|finiteAggregate|))
+             (PROGN
+              (IF (|has| |t#1| (|BasicType|))
+                  (ATTRIBUTE (|BasicType|))
+                  |noBranch|)
+              (SIGNATURE |any?| ((|Boolean|) (|Mapping| (|Boolean|) |t#1|) $))
+              (SIGNATURE |every?|
+               ((|Boolean|) (|Mapping| (|Boolean|) |t#1|) $))
+              (SIGNATURE |count|
+               ((|NonNegativeInteger|) (|Mapping| (|Boolean|) |t#1|) $))
+              (SIGNATURE |parts| ((|List| |t#1|) $))
+              (SIGNATURE |members| ((|List| |t#1|) $))
+              (SIGNATURE |max| (|t#1| (|Mapping| (|Boolean|) |t#1| |t#1|) $))
+              (IF (|has| |t#1| (|OrderedSet|))
+                  (PROGN
+                   (SIGNATURE |min| (|t#1| $))
+                   (SIGNATURE |max| (|t#1| $)))
+                  |noBranch|)
+              (IF (|has| |t#1| (|BasicType|))
+                  (PROGN
+                   (SIGNATURE |count| ((|NonNegativeInteger|) |t#1| $))
+                   (SIGNATURE |member?| ((|Boolean|) |t#1| $)))
+                  |noBranch|))
+             |noBranch|)))
+"/git/fricas/src/algebra/HOAGG.spad"
+((|map| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|Mapping| *3 *3))
+       (|ofCategory| *1 (|HomogeneousAggregate| *3))
+       (|ofCategory| *3 (|Type|))))
+ (|map!| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|Mapping| *3 *3)) (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|HomogeneousAggregate| *3))
+       (|ofCategory| *3 (|Type|))))
+ (|any?| (*1 *2 *3 *1)
+  (AND (|isDomain| *3 (|Mapping| (|Boolean|) *4))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|HomogeneousAggregate| *4)) (|ofCategory| *4 (|Type|))
+       (|isDomain| *2 (|Boolean|))))
+ (|every?| (*1 *2 *3 *1)
+  (AND (|isDomain| *3 (|Mapping| (|Boolean|) *4))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|HomogeneousAggregate| *4)) (|ofCategory| *4 (|Type|))
+       (|isDomain| *2 (|Boolean|))))
+ (|count| (*1 *2 *3 *1)
+  (AND (|isDomain| *3 (|Mapping| (|Boolean|) *4))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|HomogeneousAggregate| *4)) (|ofCategory| *4 (|Type|))
+       (|isDomain| *2 (|NonNegativeInteger|))))
+ (|parts| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|HomogeneousAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|isDomain| *2 (|List| *3))))
+ (|members| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|HomogeneousAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|isDomain| *2 (|List| *3))))
+ (|max| (*1 *2 *3 *1)
+  (AND (|isDomain| *3 (|Mapping| (|Boolean|) *2 *2))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|HomogeneousAggregate| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|min| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|HomogeneousAggregate| *2)) (|ofCategory| *2 (|Type|))
+       (|ofCategory| *2 (|OrderedSet|))))
+ (|max| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|HomogeneousAggregate| *2)) (|ofCategory| *2 (|Type|))
+       (|ofCategory| *2 (|OrderedSet|))))
+ (|count| (*1 *2 *3 *1)
+  (AND (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|HomogeneousAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|ofCategory| *3 (|BasicType|)) (|isDomain| *2 (|NonNegativeInteger|))))
+ (|member?| (*1 *2 *3 *1)
+  (AND (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|HomogeneousAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|ofCategory| *3 (|BasicType|)) (|isDomain| *2 (|Boolean|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|sample| (($) 6 T CONST))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|latex| (((|String|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|coerce| (((|OutputForm|) $) 6 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+HOAGG
+(((|Aggregate|) . T)
+ ((|CoercibleTo| (|OutputForm|)) |has| |#1| (|CoercibleTo| (|OutputForm|)))
+ ((|SetCategory|) |has| |#1| (|SetCategory|))
+ ((|Evalable| |#1|) AND (|has| |#1| (|SetCategory|))
+  (|has| |#1| (|Evalable| |#1|)))
+ ((|BasicType|) AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|))))
+(((|Aggregate|) . T)
+ ((|BasicType|) OR (|has| |#1| (|SetCategory|))
+  (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Evalable| |#1|) AND (|has| |#1| (|Evalable| |#1|))
+  (|has| |#1| (|SetCategory|)))
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |#1| (|Evalable| |#1|))
+  (|has| |#1| (|SetCategory|)))
+ ((|SetCategory|) |has| |#1| (|SetCategory|)) ((|Type|) . T))
+((|constructor|
+  (NIL
+   "A homogeneous aggregate is an aggregate of elements all of the same type. In the current system,{} all aggregates are homogeneous. Two attributes characterize classes of aggregates. Aggregates from domains with attribute \\spadatt{finiteAggregate} have a finite number of members. Of course,{} such a domain may have an infinite number of elements,{} like,{} for example \\spadtype{List}. Those domains with attribute \\spadatt{shallowlyMutable} allow an element to be modified or updated without changing its overall value."))
+ (|member?|
+  (((|Boolean|) |#1| $)
+   "\\spad{member?(x,{} u)} tests if \\spad{x} is a member of \\spad{u}. For collections,{} \\spad{member?(x,{} u) = reduce(or,{} [x=y for y in u],{} false)}. However,{} \\spad{member?(x,{} u)} returns as soon as it finds a member."))
+ (|min|
+  ((|#1| $)
+   "\\spad{min(u)} returns minimal element of \\spad{u}. Error if \\spad{u} is empty."))
+ (|max|
+  ((|#1| $)
+   "\\spad{max(u)} returns maximal element of \\spad{u}. Error if \\spad{u} is empty.")
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $)
+   "\\spad{max(p,{} u)} returns maximal element of \\spad{u} with respect to total ordering predicate \\spad{p}. Error if \\spad{u} is empty."))
+ (|members|
+  (((|List| |#1|) $)
+   "\\spad{members(u)} returns a list of the consecutive elements of \\spad{u}. For multisets \\spadfun{members} gives result with no repetition. See also \\spadfun{parts}."))
+ (|parts|
+  (((|List| |#1|) $)
+   "\\spad{parts(u)} returns a list of the consecutive elements of \\spad{u}. For finite collections,{} \\spad{construct(parts(u)) = u}."))
+ (|count|
+  (((|NonNegativeInteger|) |#1| $)
+   "\\spad{count(x,{} u)} returns the number of occurrences of \\spad{x} in \\spad{u}. For collections,{} \\spad{count(x,{} u) = reduce(+,{} [1 for y in u | x = y],{} 0)}.")
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $)
+   "\\spad{count(p,{} u)} returns the number of elements \\spad{x} in \\spad{u} such that \\spad{p(x)} is \\spad{true}. For collections,{} \\spad{count(p,{} u) = reduce(+,{} [1 for x in u | p(x)],{} 0)}."))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $)
+   "\\spad{every?(p,{} u)} tests if \\spad{p}(\\spad{x}) is \\spad{true} for all elements \\spad{x} of \\spad{u}. Note: for collections,{} \\spad{every?(p,{} u) = reduce(and,{} map(p,{} u),{} true,{} false)}. However,{} \\spad{every?(p,{} u)} returns as soon as it finds an element for which \\spad{p} gives \\spad{false}."))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $)
+   "\\spad{any?(p,{} u)} tests if \\spad{p(x)} is \\spad{true} for any element \\spad{x} of \\spad{u}. Note: for collections,{} \\spad{any?(p,{} u) = reduce(or,{} map(p,{} u),{} false,{} true)}. However,{} \\spad{any?(p,{} u)} returns as soon as it finds an element for which \\spad{p} gives \\spad{true}."))
+ (|map!|
+  (($ (|Mapping| |#1| |#1|) $)
+   "\\spad{map!(f,{} u)} destructively replaces each element \\spad{x} of \\spad{u} by \\spad{f(x)}."))
+ (|map|
+  (($ (|Mapping| |#1| |#1|) $)
+   "\\spad{map(f,{} u)} returns a copy of \\spad{u} with each element \\spad{x} replaced by \\spad{f}(\\spad{x}). For collections,{} \\spad{map(f,{} u) = [f(x) for x in u]}.")))
+(("documentation" 0 7546) ("ancestors" 0 7087) ("parents" 0 6778)
+ ("abbreviation" 0 6772) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4433) ("modemaps" 0 1971) ("sourceFile" 0 1934)
+ ("constructorCategory" 0 142) ("constructorModemap" 0 58)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

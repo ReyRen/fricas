@@ -1,0 +1,144 @@
+)abbrev package EP EigenPackage
+++ Author: P. Gianni
+++ Related Constructors: NumericRealEigenPackage,  NumericComplexEigenPackage,
+++  RadicalEigenPackage, InnerEigenPackage
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++  This is a package for the exact computation of eigenvalues and
+++  eigenvectors.  This package works for matrices with coefficients which
+++  are rational functions over a ring where we can factor polynomials.
+++  Eigenvalues not in base field are represented by their minimal
+++  polynomial.
+EigenPackage(R) : Exports == Implementation where
+   R     : GcdDomain
+   P     ==> Polynomial R
+   F     ==> Fraction P
+   SY    ==> Symbol()
+   M     ==> Matrix(F)
+   NNI   ==> NonNegativeInteger
+   ST    ==> SuchThat(SY, P)
+
+   Eigenvalue  ==> Union(F, ST)
+   EigenForm   ==> Record(eigval : Eigenvalue, eigmult : NNI, eigvec : List M)
+   GenEigen    ==> Record(eigval : Eigenvalue, geneigvec : List M)
+
+   Exports == with
+     characteristicPolynomial :  (M, SY)  ->  P
+       ++ characteristicPolynomial(m, var) returns the
+       ++ characteristicPolynomial of the matrix m using
+       ++ the symbol var as the main variable.
+
+     characteristicPolynomial :      M       ->  P
+       ++ characteristicPolynomial(m) returns the
+       ++ characteristicPolynomial of the matrix m using
+       ++ a new generated symbol symbol as the main variable.
+
+     eigenvector       :   (Eigenvalue, M)  ->  List M
+       ++ eigenvector(eigval, m) returns the eigenvectors
+       ++ belonging to the eigenvalue eigval for the matrix m.
+
+     generalizedEigenvector  : (Eigenvalue, M, NNI, NNI) -> List M
+       ++ generalizedEigenvector(alpha, m, k, g)
+       ++ returns the generalized eigenvectors
+       ++ of the matrix relative to the eigenvalue alpha.
+       ++ The integers k and g are respectively the algebraic and the
+       ++ geometric multiplicity of tye eigenvalue alpha.
+
+     generalizedEigenvector  : (EigenForm, M) -> List M
+       ++ generalizedEigenvector(eigen, m) returns the generalized
+       ++ eigenvectors of the matrix relative to the eigenvalue
+       ++ eigen, as returned by the function eigenvectors.
+
+     if R has PolynomialFactorizationExplicit then
+
+         eigenvalues       :    M        ->  List Eigenvalue
+           ++ eigenvalues(m) returns the eigenvalues of the matrix m.
+
+         generalizedEigenvectors  : M -> List GenEigen
+           ++ generalizedEigenvectors(m) returns the generalized
+           ++ returns the generalized eigenvectors of the matrix m.
+
+         eigenvectors      :    M        ->  List(EigenForm)
+           ++ eigenvectors(m) returns the eigenvalues and eigenvectors
+           ++ for the matrix m.
+           ++ The eigenvalues in base field and the corresponding eigenvectors
+           ++ are explicitely computed, while the other ones are given
+           ++ via their minimal polynomial and the corresponding
+           ++ eigenvectors are expressed in terms of a "generic" root of
+           ++ such a polynomial.
+
+   Implementation == add
+
+      IEP ==> InnerEigenPackage(F)
+
+      UP ==> SparseUnivariatePolynomial(F)
+
+      AV ==> Vector(UP)
+
+      SUP ==> SparseUnivariatePolynomial(P)
+
+      Ei_to_EiF(a : Eigenvalue) : Union(F, UP) ==
+          a case F => a
+          map(coerce, univariate(rhs a, lhs a)
+             )$UnivariatePolynomialCategoryFunctions2(P, SUP, F, UP)
+
+      dummy : SY := new()$SY
+
+      get_x(a : Eigenvalue) : SY ==
+          a case F => dummy
+          lhs a
+
+      UP_to_F(p : UP, x : SY) : F == p(x::P::F)
+
+      AV_to_M(v : AV, x : SY) : M ==
+          matrix([[UP_to_F(v(i), x)] for i in 1..#v])
+
+      characteristicPolynomial(m : M, x : SY) ==
+          numer((characteristicPolynomial(m)$IEP)(x::P::F))
+
+      characteristicPolynomial(m : M) : P ==
+          characteristicPolynomial(m, new()$SY)
+
+      eigenvector(a, m) ==
+          x := get_x(a)
+          res1 := eigenvector(Ei_to_EiF(a), m)$IEP
+          [AV_to_M(v, x) for v in res1]
+
+      generalizedEigenvector(a, m, k, g) ==
+          x := get_x(a)
+          res1 := generalizedEigenvector(Ei_to_EiF(a), m, k, g)$IEP
+          [AV_to_M(v, x) for v in res1]
+
+      generalizedEigenvector(eif, m) ==
+          k := eif.eigmult
+          g := #(eif.eigvec)
+          k = g => eif.eigvec
+          generalizedEigenvector(eif.eigval, m, k, g)
+
+      if F has PolynomialFactorizationExplicit then
+
+          EiF_to_Ei(a : Union(F, UP), x : SY) : Eigenvalue ==
+              a case F => a
+              [x, numer((a::UP)(x::F))]
+
+          eigenvalues(m) ==
+              x := new()$SY
+              res1 := eigenvalues(m)$IEP
+              [EiF_to_Ei(a, x) for a in res1]
+
+          eigenvectors(m) ==
+              x := new()$SY
+              res1 := eigenvectors(m)$IEP
+              [[EiF_to_Ei(ri.eigval, x), ri.eigmult,
+                [AV_to_M(v, x) for v in ri.eigvec]] for ri in res1]
+
+          generalizedEigenvectors(m) ==
+              x := new()$SY
+              res1 := generalizedEigenvectors(m)$IEP
+              [[EiF_to_Ei(ri.eigval, x),
+                [AV_to_M(v, x) for v in ri.geneigvec]] for ri in res1]
+
+

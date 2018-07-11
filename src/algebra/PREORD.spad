@@ -1,0 +1,20 @@
+)abbrev category PREORD Preorder
+++ Author: Martin Baker
+++ Description: implies operation with reflexivity and transitivity
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+++ Related Domains: PartialOrder in catdef.spad
+++ Axiom: reflexivity forall(x): x<=x
+++ Axiom: transitivity forall(x, y, z): x<=y and y<=z implies x<=z
+++ Date Created: Aug 2015
+Preorder(S) : Category == Definition where
+ S : SetCategory
+ NNI ==> NonNegativeInteger
+ Definition ==> FiniteGraph(S) with
+    le : (s : %, NNI, NNI) -> Boolean
+      ++ less than or equal
+      ++ I would have liked to have used: "<=" instead of "le"
+      ++ "<=" compiles but when called gives:
+      ++ Internal Error: The function <= with signature hashcode is
+      ++ missing from domain
+

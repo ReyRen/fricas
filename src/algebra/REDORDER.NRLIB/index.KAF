@@ -1,0 +1,37 @@
+1982                (|ReductionOfOrder| F L)
+|package|
+(((|ReductionOfOrder| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |ReduceOrder| (|#2| |#2| |#1|))
+   (SIGNATURE |ReduceOrder|
+    ((|Record| (|:| |eq| |#2|) (|:| |op| (|List| |#1|))) |#2| (|List| |#1|))))
+  (|Field|) (|LinearOrdinaryDifferentialOperatorCategory| |#1|))
+ (T |ReductionOfOrder|))
+(CATEGORY |package| (SIGNATURE |ReduceOrder| (|#2| |#2| |#1|))
+ (SIGNATURE |ReduceOrder|
+  ((|Record| (|:| |eq| |#2|) (|:| |op| (|List| |#1|))) |#2| (|List| |#1|))))
+"/git/fricas/src/algebra/REDORDER.spad"
+((|ReduceOrder| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|List| *5)) (|ofCategory| *5 (|Field|))
+       (|isDomain| *2 (|Record| (|:| |eq| *3) (|:| |op| (|List| *5))))
+       (|isDomain| *1 (|ReductionOfOrder| *5 *3))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *5))))
+ (|ReduceOrder| (*1 *2 *2 *3)
+  (AND (|ofCategory| *3 (|Field|)) (|isDomain| *1 (|ReductionOfOrder| *3 *2))
+       (|ofCategory| *2 (|LinearOrdinaryDifferentialOperatorCategory| *3)))))
+((|ReduceOrder|
+  (((|Record| (|:| |eq| |#2|) (|:| |op| (|List| |#1|))) |#2| (|List| |#1|)) 22)
+  ((|#2| |#2| |#1|) 17)))
+REDORDER
+((|constructor|
+  (NIL
+   "\\spadtype{ReductionOfOrder} provides functions for reducing the order of linear ordinary differential equations once some solutions are known."))
+ (|ReduceOrder|
+  (((|Record| (|:| |eq| |#2|) (|:| |op| (|List| |#1|))) |#2| (|List| |#1|))
+   "\\spad{ReduceOrder(op,{} [f1,{} ...,{} fk])} returns \\spad{[op1,{} [g1,{} ...,{} gk]]} such that for any solution \\spad{z} of \\spad{op1 z = 0},{} \\spad{y = gk \\int(g_{k-1} \\int(... \\int(g1 \\int z)...))} is a solution of \\spad{op y = 0}. Each \\spad{\\spad{fi}} must satisfy \\spad{op \\spad{fi} = 0}.")
+  ((|#2| |#2| |#1|)
+   "\\spad{ReduceOrder(op,{} s)} returns \\spad{op1} such that for any solution \\spad{z} of \\spad{op1 z = 0},{} \\spad{y = s \\int z} is a solution of \\spad{op y = 0}. \\spad{s} must satisfy \\spad{op s = 0}.")))
+(("documentation" 0 1164) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1155) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1033) ("modemaps" 0 556) ("sourceFile" 0 516)
+ ("constructorCategory" 0 350) ("constructorModemap" 0 55)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

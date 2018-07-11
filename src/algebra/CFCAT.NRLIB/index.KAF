@@ -1,0 +1,30 @@
+1389                (MAKEPROP '|CombinatorialFunctionCategory| 'NILADIC T)
+(|CombinatorialFunctionCategory|)
+|category|
+(((|CombinatorialFunctionCategory|) (|Category|))
+ (T |CombinatorialFunctionCategory|))
+(|Join|
+ (CATEGORY |domain| (SIGNATURE |binomial| ($ $ $))
+  (SIGNATURE |factorial| ($ $)) (SIGNATURE |permutation| ($ $ $))))
+"/git/fricas/src/algebra/CFCAT.spad"
+((|permutation| (*1 *1 *1 *1)
+  (|ofCategory| *1 (|CombinatorialFunctionCategory|)))
+ (|factorial| (*1 *1 *1) (|ofCategory| *1 (|CombinatorialFunctionCategory|)))
+ (|binomial| (*1 *1 *1 *1) (|ofCategory| *1 (|CombinatorialFunctionCategory|))))
+((|permutation| (($ $ $) 6)) (|factorial| (($ $) 6)) (|binomial| (($ $ $) 6)))
+CFCAT
+((|constructor| (NIL "Category for the usual combinatorial functions."))
+ (|permutation|
+  (($ $ $)
+   "\\spad{permutation(n,{} m)} returns the number of permutations of \\spad{n} objects taken \\spad{m} at a time. Note: \\spad{permutation(n,{} m) = n!/(n-m)!}."))
+ (|factorial|
+  (($ $)
+   "\\spad{factorial(n)} computes the factorial of \\spad{n} (denoted in the literature by \\spad{n!}) Note: \\spad{n! = n (n-1)! when n > 0}; also,{} \\spad{0! = 1}."))
+ (|binomial|
+  (($ $ $)
+   "\\spad{binomial(n,{} r)} returns the \\spad{(n,{} r)} binomial coefficient (often denoted in the literature by \\spad{C(n,{} r)}). Note: \\spad{C(n,{} r) = n!/(r!(n-r)!)} where \\spad{n >= r >= 0}.")))
+(("documentation" 0 701) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 695) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 616) ("modemaps" 0 372) ("sourceFile" 0 335)
+ ("constructorCategory" 0 208) ("constructorModemap" 0 120)
+ ("constructorKind" 0 109) ("constructorForm" 0 75) ("NILADIC" 0 20))

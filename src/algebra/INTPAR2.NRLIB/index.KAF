@@ -1,0 +1,208 @@
+9392                (|ParametricIntegration| R F)
+|package|
+(((|ParametricIntegration| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |extendedint|
+    ((|List| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))
+     (|Symbol|) (|List| (|Kernel| |#2|)) (|List| |#2|)))
+   (SIGNATURE |extendedint|
+    ((|Record|
+      (|:| |particular|
+           (|Union|
+            (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))
+            #1="failed"))
+      (|:| |basis|
+           (|List|
+            (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))))
+     |#2| (|Symbol|) (|List| (|Kernel| |#2|)) (|List| |#2|)))
+   (SIGNATURE |extendedint|
+    ((|Record|
+      (|:| |particular|
+           (|Union|
+            (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))
+            #1#))
+      (|:| |basis|
+           (|List|
+            (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))))
+     |#2| (|Symbol|) (|List| |#2|)))
+   (SIGNATURE |logextint|
+    ((|Record| (|:| |logands| (|List| |#2|))
+               (|:| |basis| (|List| (|Vector| (|Fraction| (|Integer|))))))
+     (|Symbol|) (|List| (|Kernel| |#2|)) (|List| |#2|))))
+  (|Join| (|GcdDomain|) (|Comparable|) (|CharacteristicZero|)
+          (|RetractableTo| (|Integer|)) (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|AlgebraicallyClosedField|) (|TranscendentalFunctionCategory|)
+          (|FunctionSpace| |#1|)))
+ (T |ParametricIntegration|))
+(CATEGORY |package|
+ (SIGNATURE |extendedint|
+  ((|List| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))
+   (|Symbol|) (|List| (|Kernel| |#2|)) (|List| |#2|)))
+ (SIGNATURE |extendedint|
+  ((|Record|
+    (|:| |particular|
+         (|Union|
+          (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))
+          #1="failed"))
+    (|:| |basis|
+         (|List|
+          (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))))
+   |#2| (|Symbol|) (|List| (|Kernel| |#2|)) (|List| |#2|)))
+ (SIGNATURE |extendedint|
+  ((|Record|
+    (|:| |particular|
+         (|Union|
+          (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))) #1#))
+    (|:| |basis|
+         (|List|
+          (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))))
+   |#2| (|Symbol|) (|List| |#2|)))
+ (SIGNATURE |logextint|
+  ((|Record| (|:| |logands| (|List| |#2|))
+             (|:| |basis| (|List| (|Vector| (|Fraction| (|Integer|))))))
+   (|Symbol|) (|List| (|Kernel| |#2|)) (|List| |#2|))))
+"/git/fricas/src/algebra/INTPAR2.spad"
+((|logextint| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *4 (|List| (|Kernel| *7)))
+       (|isDomain| *5 (|List| *7))
+       (|ofCategory| *7
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|FunctionSpace| *6)))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Record| (|:| |logands| (|List| *7))
+                             (|:| |basis|
+                                  (|List|
+                                   (|Vector| (|Fraction| (|Integer|)))))))
+       (|isDomain| *1 (|ParametricIntegration| *6 *7))))
+ (|extendedint| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *4 (|Symbol|)) (|isDomain| *5 (|List| *3))
+       (|ofCategory| *3
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|FunctionSpace| *6)))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular|
+                         (|Union|
+                          (|Record| (|:| |ratpart| *3)
+                                    (|:| |coeffs| (|Vector| *3)))
+                          #1="failed"))
+                    (|:| |basis|
+                         (|List|
+                          (|Record| (|:| |ratpart| *3)
+                                    (|:| |coeffs| (|Vector| *3)))))))
+       (|isDomain| *1 (|ParametricIntegration| *6 *3))))
+ (|extendedint| (*1 *2 *3 *4 *5 *6)
+  (AND (|isDomain| *4 (|Symbol|)) (|isDomain| *5 (|List| (|Kernel| *3)))
+       (|isDomain| *6 (|List| *3))
+       (|ofCategory| *3
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|FunctionSpace| *7)))
+       (|ofCategory| *7
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular|
+                         (|Union|
+                          (|Record| (|:| |ratpart| *3)
+                                    (|:| |coeffs| (|Vector| *3)))
+                          #1#))
+                    (|:| |basis|
+                         (|List|
+                          (|Record| (|:| |ratpart| *3)
+                                    (|:| |coeffs| (|Vector| *3)))))))
+       (|isDomain| *1 (|ParametricIntegration| *7 *3))))
+ (|extendedint| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *4 (|List| (|Kernel| *7)))
+       (|isDomain| *5 (|List| *7))
+       (|ofCategory| *7
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|FunctionSpace| *6)))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |ratpart| *7)
+                              (|:| |coeffs| (|Vector| *7)))))
+       (|isDomain| *1 (|ParametricIntegration| *6 *7)))))
+((|logextint|
+  (((|Record| (|:| |logands| (|List| |#2|))
+              (|:| |basis| (|List| (|Vector| (|Fraction| (|Integer|))))))
+    (|Symbol|) (|List| (|Kernel| |#2|)) (|List| |#2|))
+   28))
+ (|extendedint|
+  (((|Record|
+     (|:| |particular|
+          (|Union|
+           (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))
+           #1="failed"))
+     (|:| |basis|
+          (|List|
+           (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))))
+    |#2| (|Symbol|) (|List| |#2|))
+   83)
+  (((|Record|
+     (|:| |particular|
+          (|Union|
+           (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))) #1#))
+     (|:| |basis|
+          (|List|
+           (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))))
+    |#2| (|Symbol|) (|List| (|Kernel| |#2|)) (|List| |#2|))
+   82)
+  (((|List| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))
+    (|Symbol|) (|List| (|Kernel| |#2|)) (|List| |#2|))
+   87)))
+INTPAR2
+((|logextint|
+  (((|Record| (|:| |logands| (|List| |#2|))
+              (|:| |basis| (|List| (|Vector| (|Fraction| (|Integer|))))))
+    (|Symbol|) (|List| (|Kernel| |#2|)) (|List| |#2|))
+   "\\spad{logextint(x,{} lk,{} lg)} returns [[\\spad{u1},{} ...,{} um],{} bas] giving basis of solution of the homogeneous systym \\spad{c1*g1 + ... + cn*gn + c_{n+1}u1'/u1 + ... c_{n+m}um'/um = 0}"))
+ (|extendedint|
+  (((|Record|
+     (|:| |particular|
+          (|Union|
+           (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))
+           #1="failed"))
+     (|:| |basis|
+          (|List|
+           (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))))
+    |#2| (|Symbol|) (|List| |#2|))
+   "\\spad{extendedint(f,{} x,{} [g1,{} ...,{} gn])} returns solution of the system \\spad{f = dh/dx + c1*g1 + ... + cn*gn} and and a basis of the associated homogeneous system \\spad{dh/dx + c1*g1 + ... + cn*gn = 0}. Solutions are in the field generated by kernels of \\spad{f} and \\spad{g1},{} ...,{} \\spad{gn}.")
+  (((|Record|
+     (|:| |particular|
+          (|Union|
+           (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))) #1#))
+     (|:| |basis|
+          (|List|
+           (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))))
+    |#2| (|Symbol|) (|List| (|Kernel| |#2|)) (|List| |#2|))
+   "\\spad{extendedint(f,{} x,{} [k1,{} ...,{} kn],{} [g1,{} ...,{} gn])} is like extendedint(\\spad{f},{} [\\spad{k1},{} ...,{} \\spad{kn}],{} [\\spad{g1},{} ...,{} \\spad{gn}]) but looks for solutions in the field generated by \\spad{k1},{} ...,{} \\spad{kn}.")
+  (((|List| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|))))
+    (|Symbol|) (|List| (|Kernel| |#2|)) (|List| |#2|))
+   "\\spad{extendedint(x,{} [k1,{} ...,{} kn],{} [g1,{} ...,{} gn])} returns a basis of the homogeneous system \\spad{dh/dx + c1*g1 + ... + cn*gn = 0}. Solutions are in the field generated by \\spad{k1},{} ...,{} \\spad{kn}.")))
+(("documentation" 0 7433) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 7425) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 6448) ("modemaps" 0 2524) ("sourceFile" 0 2485)
+ ("constructorCategory" 0 1464) ("constructorModemap" 0 60)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

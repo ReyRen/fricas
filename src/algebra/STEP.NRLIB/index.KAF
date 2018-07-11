@@ -1,0 +1,30 @@
+1614                (MAKEPROP '|StepThrough| 'NILADIC T)
+(|StepThrough|)
+|category|
+(((|StepThrough|) (|Category|)) (T |StepThrough|))
+(|Join| (|SetCategory|)
+        (CATEGORY |domain| (SIGNATURE |init| ($) |constant|)
+         (SIGNATURE |nextItem| ((|Union| $ "failed") $))))
+"/git/fricas/src/algebra/STEP.spad"
+((|init| (*1 *1) (|ofCategory| *1 (|StepThrough|)))
+ (|nextItem| (*1 *1 *1) (|partial| |ofCategory| *1 (|StepThrough|))))
+((~= (((|Boolean|) $ $) 6)) (|nextItem| (((|Union| $ "failed") $) 6))
+ (|latex| (((|String|) $) 6)) (|init| (($) 6 T CONST))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (= (((|Boolean|) $ $) 6)))
+STEP
+(((|SetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "A class of objects which can be 'stepped through'. Repeated applications of \\spadfun{nextItem} is guaranteed never to return duplicate items and only return \"failed\" after exhausting all elements of the domain. This assumes that the sequence starts with \\spad{init()}. For infinite domains,{} repeated application of \\spadfun{nextItem} is not required to reach all possible domain elements starting from any initial element. \\blankline Conditional attributes: \\indented{2}{infinite\\tab{15}repeated \\spad{nextItem}\\spad{'s} are never \"failed\".}"))
+ (|nextItem|
+  (((|Union| $ "failed") $)
+   "\\spad{nextItem(x)} returns the next item,{} or \"failed\" if domain is exhausted."))
+ (|init| (($) "\\spad{init()} chooses an initial object for stepping.")))
+(("documentation" 0 823) ("ancestors" 0 742) ("parents" 0 718)
+ ("abbreviation" 0 713) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 437) ("modemaps" 0 315) ("sourceFile" 0 279)
+ ("constructorCategory" 0 135) ("constructorModemap" 0 84)
+ ("constructorKind" 0 73) ("constructorForm" 0 57) ("NILADIC" 0 20))

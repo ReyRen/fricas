@@ -1,0 +1,212 @@
+8805                (MAKEPROP '|SymbolTable| 'NILADIC T)
+(|SymbolTable|)
+|domain|
+(((|SymbolTable|)
+  (|Join| (|CoercibleTo| (|OutputForm|))
+          (CATEGORY |domain|
+           (SIGNATURE |coerce| ((|Table| (|Symbol|) (|FortranType|)) $))
+           (SIGNATURE |empty| ($))
+           (SIGNATURE |declare!|
+            ((|FortranType|) (|List| (|Symbol|)) (|FortranType|) $))
+           (SIGNATURE |declare!|
+            ((|FortranType|) (|Symbol|) (|FortranType|) $))
+           (SIGNATURE |fortranTypeOf| ((|FortranType|) (|Symbol|) $))
+           (SIGNATURE |parametersOf| ((|List| (|Symbol|)) $))
+           (SIGNATURE |typeList|
+            ((|List|
+              (|Union| (|:| |name| (|Symbol|))
+                       (|:| |bounds|
+                            (|List|
+                             (|Union| (|:| S (|Symbol|))
+                                      (|:| P (|Polynomial| (|Integer|))))))))
+             (|FortranScalarType|) $))
+           (SIGNATURE |externalList| ((|List| (|Symbol|)) $))
+           (SIGNATURE |typeLists|
+            ((|List|
+              (|List|
+               (|Union| (|:| |name| (|Symbol|))
+                        (|:| |bounds|
+                             (|List|
+                              (|Union| (|:| S (|Symbol|))
+                                       (|:| P (|Polynomial| (|Integer|)))))))))
+             $))
+           (SIGNATURE |newTypeLists| ((|SExpression|) $))
+           (SIGNATURE |printTypes| ((|Void|) $))
+           (SIGNATURE |symbolTable|
+            ($
+             (|List|
+              (|Record| (|:| |key| (|Symbol|))
+                        (|:| |entry| (|FortranType|)))))))))
+ (T |SymbolTable|))
+(|Join| (|CoercibleTo| (|OutputForm|))
+        (CATEGORY |domain|
+         (SIGNATURE |coerce| ((|Table| (|Symbol|) (|FortranType|)) $))
+         (SIGNATURE |empty| ($))
+         (SIGNATURE |declare!|
+          ((|FortranType|) (|List| (|Symbol|)) (|FortranType|) $))
+         (SIGNATURE |declare!| ((|FortranType|) (|Symbol|) (|FortranType|) $))
+         (SIGNATURE |fortranTypeOf| ((|FortranType|) (|Symbol|) $))
+         (SIGNATURE |parametersOf| ((|List| (|Symbol|)) $))
+         (SIGNATURE |typeList|
+          ((|List|
+            (|Union| (|:| |name| (|Symbol|))
+                     (|:| |bounds|
+                          (|List|
+                           (|Union| (|:| S (|Symbol|))
+                                    (|:| P (|Polynomial| (|Integer|))))))))
+           (|FortranScalarType|) $))
+         (SIGNATURE |externalList| ((|List| (|Symbol|)) $))
+         (SIGNATURE |typeLists|
+          ((|List|
+            (|List|
+             (|Union| (|:| |name| (|Symbol|))
+                      (|:| |bounds|
+                           (|List|
+                            (|Union| (|:| S (|Symbol|))
+                                     (|:| P (|Polynomial| (|Integer|)))))))))
+           $))
+         (SIGNATURE |newTypeLists| ((|SExpression|) $))
+         (SIGNATURE |printTypes| ((|Void|) $))
+         (SIGNATURE |symbolTable|
+          ($
+           (|List|
+            (|Record| (|:| |key| (|Symbol|)) (|:| |entry| (|FortranType|))))))))
+"/git/fricas/src/algebra/SYMTAB.spad"
+((|coerce| (*1 *2 *1)
+           (AND (|isDomain| *2 (|Table| (|Symbol|) (|FortranType|)))
+                (|isDomain| *1 (|SymbolTable|))))
+ (|empty| (*1 *1) (|isDomain| *1 (|SymbolTable|)))
+ (|declare!| (*1 *2 *3 *2 *1)
+  (AND (|isDomain| *2 (|FortranType|)) (|isDomain| *3 (|List| (|Symbol|)))
+       (|isDomain| *1 (|SymbolTable|))))
+ (|declare!| (*1 *2 *3 *2 *1)
+  (AND (|isDomain| *2 (|FortranType|)) (|isDomain| *3 (|Symbol|))
+       (|isDomain| *1 (|SymbolTable|))))
+ (|fortranTypeOf| (*1 *2 *3 *1)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *2 (|FortranType|))
+       (|isDomain| *1 (|SymbolTable|))))
+ (|parametersOf| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|Symbol|))) (|isDomain| *1 (|SymbolTable|))))
+ (|typeList| (*1 *2 *3 *1)
+  (AND (|isDomain| *3 (|FortranScalarType|))
+       (|isDomain| *2
+                   (|List|
+                    (|Union| (|:| |name| (|Symbol|))
+                             (|:| |bounds|
+                                  (|List|
+                                   (|Union| (|:| S (|Symbol|))
+                                            (|:| P
+                                                 (|Polynomial|
+                                                  (|Integer|)))))))))
+       (|isDomain| *1 (|SymbolTable|))))
+ (|externalList| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|Symbol|))) (|isDomain| *1 (|SymbolTable|))))
+ (|typeLists| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|List|
+                 (|Union| (|:| |name| (|Symbol|))
+                          (|:| |bounds|
+                               (|List|
+                                (|Union| (|:| S (|Symbol|))
+                                         (|:| P
+                                              (|Polynomial|
+                                               (|Integer|))))))))))
+   (|isDomain| *1 (|SymbolTable|))))
+ (|newTypeLists| (*1 *2 *1)
+  (AND (|isDomain| *2 (|SExpression|)) (|isDomain| *1 (|SymbolTable|))))
+ (|printTypes| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Void|)) (|isDomain| *1 (|SymbolTable|))))
+ (|symbolTable| (*1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |key| (|Symbol|))
+                          (|:| |entry| (|FortranType|)))))
+   (|isDomain| *1 (|SymbolTable|)))))
+((|typeLists|
+  (((|List|
+     (|List|
+      (|Union| (|:| |name| (|Symbol|))
+               (|:| |bounds|
+                    (|List|
+                     (|Union| (|:| S (|Symbol|))
+                              (|:| P (|Polynomial| (|Integer|)))))))))
+    $)
+   58))
+ (|typeList|
+  (((|List|
+     (|Union| (|:| |name| (|Symbol|))
+              (|:| |bounds|
+                   (|List|
+                    (|Union| (|:| S (|Symbol|))
+                             (|:| P (|Polynomial| (|Integer|))))))))
+    (|FortranScalarType|) $)
+   41))
+ (|symbolTable|
+  (($ (|List| (|Record| (|:| |key| (|Symbol|)) (|:| |entry| (|FortranType|)))))
+   15))
+ (|printTypes| (((|Void|) $) 68)) (|parametersOf| (((|List| (|Symbol|)) $) 20))
+ (|newTypeLists| (((|SExpression|) $) 54))
+ (|fortranTypeOf| (((|FortranType|) (|Symbol|) $) 27))
+ (|externalList| (((|List| (|Symbol|)) $) 30)) (|empty| (($) 17))
+ (|declare!| (((|FortranType|) (|List| (|Symbol|)) (|FortranType|) $) 25)
+  (((|FortranType|) (|Symbol|) (|FortranType|) $) 24))
+ (|coerce| (((|OutputForm|) $) 9)
+           (((|Table| (|Symbol|) (|FortranType|)) $) 11)))
+SYMTAB
+(((|CoercibleTo| (|OutputForm|)) . T))
+(((|CoercibleTo| (|OutputForm|)) . T))
+((|constructor|
+  (NIL "Create and manipulate a symbol table for generated FORTRAN code"))
+ (|symbolTable|
+  (($ (|List| (|Record| (|:| |key| (|Symbol|)) (|:| |entry| (|FortranType|)))))
+   "\\spad{symbolTable(l)} creates a symbol table from the elements of \\spad{l}."))
+ (|printTypes|
+  (((|Void|) $)
+   "\\spad{printTypes(tab)} produces FORTRAN type declarations from \\spad{tab},{} on the current FORTRAN output stream"))
+ (|newTypeLists|
+  (((|SExpression|) $) "\\spad{newTypeLists(x)} \\undocumented"))
+ (|typeLists|
+  (((|List|
+     (|List|
+      (|Union| (|:| |name| (|Symbol|))
+               (|:| |bounds|
+                    (|List|
+                     (|Union| (|:| S (|Symbol|))
+                              (|:| P (|Polynomial| (|Integer|)))))))))
+    $)
+   "\\spad{typeLists(tab)} returns a list of lists of types of objects in \\spad{tab}"))
+ (|externalList|
+  (((|List| (|Symbol|)) $)
+   "\\spad{externalList(tab)} returns a list of all the external symbols in \\spad{tab}"))
+ (|typeList|
+  (((|List|
+     (|Union| (|:| |name| (|Symbol|))
+              (|:| |bounds|
+                   (|List|
+                    (|Union| (|:| S (|Symbol|))
+                             (|:| P (|Polynomial| (|Integer|))))))))
+    (|FortranScalarType|) $)
+   "\\spad{typeList(t,{} tab)} returns a list of all the objects of type \\spad{t} in tab"))
+ (|parametersOf|
+  (((|List| (|Symbol|)) $)
+   "\\spad{parametersOf(tab)} returns a list of all the symbols declared in \\spad{tab}"))
+ (|fortranTypeOf|
+  (((|FortranType|) (|Symbol|) $)
+   "\\spad{fortranTypeOf(u,{} tab)} returns the type of \\spad{u} in tab"))
+ (|declare!|
+  (((|FortranType|) (|Symbol|) (|FortranType|) $)
+   "\\spad{declare!(u,{} t,{} tab)} creates a new entry in tab,{} declaring \\spad{u} to be of type \\spad{t}")
+  (((|FortranType|) (|List| (|Symbol|)) (|FortranType|) $)
+   "\\spad{declare!(l,{} t,{} tab)} creates new entrys in tab,{} declaring each of \\spad{l} to be of type \\spad{t}"))
+ (|empty| (($) "\\spad{empty()} returns a new,{} empty symbol table"))
+ (|coerce|
+  (((|Table| (|Symbol|) (|FortranType|)) $)
+   "\\spad{coerce(x)} returns a table view of \\spad{x}")))
+(("documentation" 0 6650) ("ancestors" 0 6611) ("parents" 0 6572)
+ ("abbreviation" 0 6565) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5453) ("modemaps" 0 3169) ("sourceFile" 0 3131)
+ ("constructorCategory" 0 1677) ("constructorModemap" 0 82)
+ ("constructorKind" 0 73) ("constructorForm" 0 57) ("NILADIC" 0 20))

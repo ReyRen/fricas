@@ -1,0 +1,75 @@
+)abbrev package STEXPST StreamExponentialSeriesTranscendentalFunctions
+++ Author: Franz Lehner
+++ Date Created: 17.06.2010
+++ Basic Functions:
+++ Related Constructors: StreamTaylorSeriesOperations
+++ Also See:
+++ AMS Classifications:
+++ Keywords: stream, exponential power series
+++ References:
+++ Description:
+++   StreamExponentialSeriesTranscendentalFunctions implements
+++   exp and log of exponential power series,
+++  where a power series is represented by a stream of its coefficients.
+StreamExponentialSeriesTranscendentalFunctions(Coef) : Exports == Implementation
+  where
+    Coef : Join(Algebra Fraction Integer, TranscendentalFunctionCategory, CommutativeRing)
+    STSO ==> StreamTaylorSeriesOperations Coef
+    STE ==> StreamExponentialSeriesOperations Coef
+    YS  ==> Y$ParadoxicalCombinatorsForStreams(Coef)
+    Exports ==> with
+      exp : Stream Coef -> Stream Coef
+      log : Stream Coef -> Stream Coef
+    Implementation ==> add
+      expre : (Coef, Stream Coef, Stream Coef) -> Stream Coef
+      expre(r, e, dx) == lazyIntegrate(r, (e * dx)$STE)$STE
+
+      exp z ==
+        empty? z => cons(1, empty())
+        (coef := frst z) = 0 => YS(y +-> expre(1, y, (deriv z)$STE))
+        YS(y +-> expre(exp coef, y, deriv z))
+
+)if false
+
+For the logarithm we use the following integral equation:
+$z(x)=\log y(x)$ $\iff$ $\exp z(x) = y(x)$, thus
+$$
+z'(x)e^{z(x)}=y'(x)
+$$
+and
+$$
+z(x) = z(0) + \int y'(x)e^{-z(x)}\, dx
+$$
+
+)endif
+      log z ==
+          empty? z => error "log: constant coefficient should not be 0"
+          (c := frst z) = 0 => error "log: constant coefficient should not be 0"
+          YS(y +-> lazyIntegrate(log c, exp((-y)$STSO)*deriv z)$STE)
+
+--Copyright (c) 2011, Franz Lehner <lehner@math.tugraz.at>
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+

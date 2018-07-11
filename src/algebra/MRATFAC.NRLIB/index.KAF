@@ -1,0 +1,34 @@
+1473                (|MRationalFactorize| E OV R P)
+|package|
+(((|MRationalFactorize| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#4|) |#4|)))
+  (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|Join| (|EuclideanDomain|) (|PolynomialFactorizationExplicit|)
+          (|CharacteristicZero|))
+  (|PolynomialCategory| (|Fraction| |#3|) |#1| |#2|))
+ (T |MRationalFactorize|))
+(CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#4|) |#4|)))
+"/git/fricas/src/algebra/MRATFAC.spad"
+((|factor| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|ofCategory| *6
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|MRationalFactorize| *4 *5 *6 *3))
+       (|ofCategory| *3 (|PolynomialCategory| (|Fraction| *6) *4 *5)))))
+((|factor| (((|Factored| |#4|) |#4|) 50)))
+MRATFAC
+((|constructor|
+  (NIL
+   "\\indented{1}{MRationalFactorize contains the factor function for multivariate} polynomials over the quotient field of a ring \\spad{R} such that the package MultivariateFactorize can factor multivariate polynomials over \\spad{R}."))
+ (|factor|
+  (((|Factored| |#4|) |#4|)
+   "\\spad{factor(p)} factors the multivariate polynomial \\spad{p} with coefficients which are fractions of elements of \\spad{R}.")))
+(("documentation" 0 1036) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1028) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 985) ("modemaps" 0 508) ("sourceFile" 0 469)
+ ("constructorCategory" 0 402) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

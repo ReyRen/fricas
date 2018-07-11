@@ -1,0 +1,42 @@
+1729                (|DivisionRing&| S)
+|domain|
+(((|DivisionRing&| |#1|)
+  (CATEGORY |domain| (SIGNATURE ^ (|#1| |#1| (|Integer|)))
+   (SIGNATURE * (|#1| |#1| (|Fraction| (|Integer|))))
+   (SIGNATURE * (|#1| (|Fraction| (|Integer|)) |#1|))
+   (SIGNATURE ^ (|#1| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE * (|#1| (|NonNegativeInteger|) |#1|))
+   (SIGNATURE * (|#1| (|Integer|) |#1|)) (SIGNATURE * (|#1| |#1| |#1|))
+   (SIGNATURE ^ (|#1| |#1| (|PositiveInteger|)))
+   (SIGNATURE * (|#1| (|PositiveInteger|) |#1|)))
+  (|DivisionRing|))
+ (T |DivisionRing&|))
+(CATEGORY |domain| (SIGNATURE ^ (|#1| |#1| (|Integer|)))
+ (SIGNATURE * (|#1| |#1| (|Fraction| (|Integer|))))
+ (SIGNATURE * (|#1| (|Fraction| (|Integer|)) |#1|))
+ (SIGNATURE ^ (|#1| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE * (|#1| (|NonNegativeInteger|) |#1|))
+ (SIGNATURE * (|#1| (|Integer|) |#1|)) (SIGNATURE * (|#1| |#1| |#1|))
+ (SIGNATURE ^ (|#1| |#1| (|PositiveInteger|)))
+ (SIGNATURE * (|#1| (|PositiveInteger|) |#1|)))
+"/git/fricas/src/algebra/DIVRING.spad"
+((^ (($ $ (|PositiveInteger|)) NIL) (($ $ (|NonNegativeInteger|)) NIL)
+  (($ $ (|Integer|)) 16))
+ (* (($ (|PositiveInteger|) $) NIL) (($ $ $) NIL) (($ (|Integer|) $) NIL)
+    (($ (|NonNegativeInteger|) $) NIL) (($ (|Fraction| (|Integer|)) $) 23)
+    (($ $ (|Fraction| (|Integer|))) NIL)))
+DIVRING-
+((|constructor|
+  (NIL
+   "A division ring (sometimes called a skew field),{} \\spadignore{i.e.} a not necessarily commutative ring where all non-zero elements have multiplicative inverses."))
+ (|inv|
+  (($ $)
+   "\\spad{inv x} returns the multiplicative inverse of \\spad{x}. Error: if \\spad{x} is 0."))
+ (^
+  (($ $ (|Integer|))
+   "\\spad{x^n} returns \\spad{x} raised to the integer power \\spad{n}.")))
+(("documentation" 0 1321) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1312) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1023) ("modemaps" 0 NIL) ("sourceFile" 0 984)
+ ("constructorCategory" 0 558) ("constructorModemap" 0 49)
+ ("constructorKind" 0 40) ("constructorForm" 0 20))

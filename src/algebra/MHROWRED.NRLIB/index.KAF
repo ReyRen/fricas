@@ -1,0 +1,64 @@
+3692                (|ModularHermitianRowReduction| R)
+|package|
+(((|ModularHermitianRowReduction| |#1|)
+  (CATEGORY |package| (SIGNATURE |rowEch| ((|Matrix| |#1|) (|Matrix| |#1|)))
+   (SIGNATURE |rowEchelon| ((|Matrix| |#1|) (|Matrix| |#1|) |#1|))
+   (SIGNATURE |rowEchLocal| ((|Matrix| |#1|) (|Matrix| |#1|) |#1|))
+   (SIGNATURE |rowEchelonLocal| ((|Matrix| |#1|) (|Matrix| |#1|) |#1| |#1|))
+   (SIGNATURE |normalizedDivide|
+    ((|Record| (|:| |quotient| |#1|) (|:| |remainder| |#1|)) |#1| |#1|)))
+  (|EuclideanDomain|))
+ (T |ModularHermitianRowReduction|))
+(CATEGORY |package| (SIGNATURE |rowEch| ((|Matrix| |#1|) (|Matrix| |#1|)))
+ (SIGNATURE |rowEchelon| ((|Matrix| |#1|) (|Matrix| |#1|) |#1|))
+ (SIGNATURE |rowEchLocal| ((|Matrix| |#1|) (|Matrix| |#1|) |#1|))
+ (SIGNATURE |rowEchelonLocal| ((|Matrix| |#1|) (|Matrix| |#1|) |#1| |#1|))
+ (SIGNATURE |normalizedDivide|
+  ((|Record| (|:| |quotient| |#1|) (|:| |remainder| |#1|)) |#1| |#1|)))
+"/git/fricas/src/algebra/MHROWRED.spad"
+((|normalizedDivide| (*1 *2 *3 *3)
+  (AND (|isDomain| *2 (|Record| (|:| |quotient| *3) (|:| |remainder| *3)))
+       (|isDomain| *1 (|ModularHermitianRowReduction| *3))
+       (|ofCategory| *3 (|EuclideanDomain|))))
+ (|rowEchelonLocal| (*1 *2 *2 *3 *3)
+  (AND (|isDomain| *2 (|Matrix| *3)) (|ofCategory| *3 (|EuclideanDomain|))
+       (|isDomain| *1 (|ModularHermitianRowReduction| *3))))
+ (|rowEchLocal| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Matrix| *3)) (|ofCategory| *3 (|EuclideanDomain|))
+       (|isDomain| *1 (|ModularHermitianRowReduction| *3))))
+ (|rowEchelon| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Matrix| *3)) (|ofCategory| *3 (|EuclideanDomain|))
+       (|isDomain| *1 (|ModularHermitianRowReduction| *3))))
+ (|rowEch| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| *3)) (|ofCategory| *3 (|EuclideanDomain|))
+       (|isDomain| *1 (|ModularHermitianRowReduction| *3)))))
+((|rowEchelonLocal| (((|Matrix| |#1|) (|Matrix| |#1|) |#1| |#1|) 61))
+ (|rowEchelon| (((|Matrix| |#1|) (|Matrix| |#1|) |#1|) 44))
+ (|rowEchLocal| (((|Matrix| |#1|) (|Matrix| |#1|) |#1|) 62))
+ (|rowEch| (((|Matrix| |#1|) (|Matrix| |#1|)) 45))
+ (|normalizedDivide|
+  (((|Record| (|:| |quotient| |#1|) (|:| |remainder| |#1|)) |#1| |#1|) 60)))
+MHROWRED
+((|constructor|
+  (NIL
+   "\\indented{1}{Modular hermitian row reduction.} Author: Manuel Bronstein Date Created: 22 February 1989 Keywords: matrix,{} reduction."))
+ (|normalizedDivide|
+  (((|Record| (|:| |quotient| |#1|) (|:| |remainder| |#1|)) |#1| |#1|)
+   "\\spad{normalizedDivide(n,{} d)} returns a normalized quotient and remainder such that consistently unique representatives for the residue class are chosen,{} \\spadignore{e.g.} positive remainders"))
+ (|rowEchelonLocal|
+  (((|Matrix| |#1|) (|Matrix| |#1|) |#1| |#1|)
+   "\\spad{rowEchelonLocal(m,{} d,{} p)} computes the row-echelon form of \\spad{m} concatenated with \\spad{d} times the identity matrix over a local ring where \\spad{p} is the only prime."))
+ (|rowEchLocal|
+  (((|Matrix| |#1|) (|Matrix| |#1|) |#1|)
+   "\\spad{rowEchLocal(m,{} p)} computes a modular row-echelon form of \\spad{m},{} finding an appropriate modulus over a local ring where \\spad{p} is the only prime."))
+ (|rowEchelon|
+  (((|Matrix| |#1|) (|Matrix| |#1|) |#1|)
+   "\\spad{rowEchelon(m,{} d)} computes a modular row-echelon form mod \\spad{d} of \\indented{3}{[\\spad{d}\\space{5}]} \\indented{3}{[\\space{2}\\spad{d}\\space{3}]} \\indented{3}{[\\space{4}. ]} \\indented{3}{[\\space{5}\\spad{d}]} \\indented{3}{[\\space{3}\\spad{M}\\space{2}]} where \\spad{M = m mod d}."))
+ (|rowEch|
+  (((|Matrix| |#1|) (|Matrix| |#1|))
+   "\\spad{rowEch(m)} computes a modular row-echelon form of \\spad{m},{} finding an appropriate modulus.")))
+(("documentation" 0 2213) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2204) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1864) ("modemaps" 0 985) ("sourceFile" 0 945)
+ ("constructorCategory" 0 561) ("constructorModemap" 0 65)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

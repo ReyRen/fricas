@@ -1,0 +1,69 @@
+3500                (|TubePlot| |Curve|)
+|domain|
+(((|TubePlot| |#1|)
+  (CATEGORY |domain| (SIGNATURE |getCurve| (|#1| $))
+   (SIGNATURE |listLoops| ((|List| (|List| (|Point| (|DoubleFloat|)))) $))
+   (SIGNATURE |closed?| ((|Boolean|) $)) (SIGNATURE |open?| ((|Boolean|) $))
+   (SIGNATURE |setClosed| ((|Boolean|) $ (|Boolean|)))
+   (SIGNATURE |tube|
+    ($ |#1| (|List| (|List| (|Point| (|DoubleFloat|)))) (|Boolean|))))
+  (|PlottableSpaceCurveCategory|))
+ (T |TubePlot|))
+(CATEGORY |domain| (SIGNATURE |getCurve| (|#1| $))
+ (SIGNATURE |listLoops| ((|List| (|List| (|Point| (|DoubleFloat|)))) $))
+ (SIGNATURE |closed?| ((|Boolean|) $)) (SIGNATURE |open?| ((|Boolean|) $))
+ (SIGNATURE |setClosed| ((|Boolean|) $ (|Boolean|)))
+ (SIGNATURE |tube|
+  ($ |#1| (|List| (|List| (|Point| (|DoubleFloat|)))) (|Boolean|))))
+"/git/fricas/src/algebra/TUBE.spad"
+((|tube| (*1 *1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|List| (|Point| (|DoubleFloat|)))))
+       (|isDomain| *4 (|Boolean|)) (|isDomain| *1 (|TubePlot| *2))
+       (|ofCategory| *2 (|PlottableSpaceCurveCategory|))))
+ (|setClosed| (*1 *2 *1 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|TubePlot| *3))
+       (|ofCategory| *3 (|PlottableSpaceCurveCategory|))))
+ (|open?| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|TubePlot| *3))
+       (|ofCategory| *3 (|PlottableSpaceCurveCategory|))))
+ (|closed?| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|TubePlot| *3))
+       (|ofCategory| *3 (|PlottableSpaceCurveCategory|))))
+ (|listLoops| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|List| (|Point| (|DoubleFloat|)))))
+       (|isDomain| *1 (|TubePlot| *3))
+       (|ofCategory| *3 (|PlottableSpaceCurveCategory|))))
+ (|getCurve| (*1 *2 *1)
+  (AND (|isDomain| *1 (|TubePlot| *2))
+       (|ofCategory| *2 (|PlottableSpaceCurveCategory|)))))
+((|tube| (($ |#1| (|List| (|List| (|Point| (|DoubleFloat|)))) (|Boolean|)) 15))
+ (|setClosed| (((|Boolean|) $ (|Boolean|)) 14)) (|open?| (((|Boolean|) $) 13))
+ (|listLoops| (((|List| (|List| (|Point| (|DoubleFloat|)))) $) 10))
+ (|getCurve| ((|#1| $) 8)) (|closed?| (((|Boolean|) $) 12)))
+TUBE
+((|constructor|
+  (NIL
+   "\\indented{2}{Package for constructing tubes around 3-dimensional parametric curves.} Domain of tubes around 3-dimensional parametric curves."))
+ (|tube|
+  (($ |#1| (|List| (|List| (|Point| (|DoubleFloat|)))) (|Boolean|))
+   "\\spad{tube(c,{} ll,{} b)} creates a tube of the domain \\spadtype{TubePlot} from a space curve \\spad{c} of the category \\spadtype{PlottableSpaceCurveCategory},{} a list of lists of points (loops) \\spad{ll} and a boolean \\spad{b} which if \\spad{true} indicates a closed tube,{} or if \\spad{false} an open tube."))
+ (|setClosed|
+  (((|Boolean|) $ (|Boolean|))
+   "\\spad{setClosed(t,{} b)} declares the given tube plot \\spad{t} to be closed if \\spad{b} is \\spad{true},{} or if \\spad{b} is \\spad{false},{} \\spad{t} is set to be open."))
+ (|open?|
+  (((|Boolean|) $)
+   "\\spad{open?(t)} tests whether the given tube plot \\spad{t} is open."))
+ (|closed?|
+  (((|Boolean|) $)
+   "\\spad{closed?(t)} tests whether the given tube plot \\spad{t} is closed."))
+ (|listLoops|
+  (((|List| (|List| (|Point| (|DoubleFloat|)))) $)
+   "\\spad{listLoops(t)} returns the list of lists of points,{} or the 'loops',{} of the given tube plot \\spad{t}."))
+ (|getCurve|
+  ((|#1| $)
+   "\\spad{getCurve(t)} returns the \\spadtype{PlottableSpaceCurveCategory} representing the parametric curve of the given tube plot \\spad{t}.")))
+(("documentation" 0 2125) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2120) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1832) ("modemaps" 0 850) ("sourceFile" 0 814)
+ ("constructorCategory" 0 474) ("constructorModemap" 0 50)
+ ("constructorKind" 0 41) ("constructorForm" 0 20))

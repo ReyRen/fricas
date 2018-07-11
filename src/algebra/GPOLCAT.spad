@@ -1,0 +1,106 @@
+)abbrev category GPOLCAT MaybeSkewPolynomialCategory
+++ Author:
+++ Basic Functions: Ring, monomial, coefficient, differentiate, eval
+++ Related Constructors: Polynomial, DistributedMultivariatePolynomial
+++ Also See: UnivariatePolynomialCategory
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++  The category for general multi-variate possibly skew polynomials
+++  over a ring R, in variables from VarSet, with exponents from the
+++  \spadtype{OrderedAbelianMonoidSup}.
+
+MaybeSkewPolynomialCategory(R : Join(SemiRng, AbelianMonoid),
+                            E : OrderedAbelianMonoidSup,
+                            VarSet : OrderedSet) : Category ==
+  FiniteAbelianMonoidRing(R, E) with
+    if R has Ring then
+        FullyLinearlyExplicitOver R
+    -- operations
+    degree : (%, VarSet) -> NonNegativeInteger
+      ++ degree(p, v) gives the degree of polynomial p with respect
+      ++ to the variable v.
+    degree : (%, List(VarSet)) -> List(NonNegativeInteger)
+      ++ degree(p, lv) gives the list of degrees of polynomial p
+      ++ with respect to each of the variables in the list lv.
+    coefficient : (%, VarSet, NonNegativeInteger) -> %
+      ++ coefficient(p, v, n) views the polynomial p as a univariate
+      ++ polynomial in v and returns the coefficient of the \spad{v^n} term.
+    coefficient : (%, List VarSet, List NonNegativeInteger) -> %
+      ++ coefficient(p, lv, ln) views the polynomial p as a polynomial
+      ++ in the variables of lv and returns the coefficient of the term
+      ++ \spad{lv^ln}, i.e. \spad{prod(lv_i ^ ln_i)}.
+    monomials : % -> List %
+      ++ monomials(p) returns the list of non-zero monomials of
+      ++ polynomial p, i.e.
+      ++ \spad{monomials(sum(a_(i) X^(i))) = [a_(1) X^(1), ..., a_(n) X^(n)]}.
+    mainVariable  : % -> Union(VarSet,"failed")
+      ++ mainVariable(p) returns the biggest variable which actually
+      ++ occurs in the polynomial p, or "failed" if no variables are
+      ++ present.
+      ++ fails precisely if polynomial satisfies ground?
+    monomial : (%, VarSet, NonNegativeInteger) -> %
+      ++ monomial(a, x, n) creates the monomial \spad{a*x^n} where \spad{a} is
+      ++ a polynomial, x is a variable and n is a nonnegative integer.
+    monomial : (%, List VarSet, List NonNegativeInteger) -> %
+      ++ monomial(a, [v1..vn], [e1..en]) returns \spad{a*prod(vi^ei)}.
+    totalDegree : % -> NonNegativeInteger
+      ++ totalDegree(p) returns the largest sum over all monomials
+      ++ of all exponents of a monomial.
+    totalDegree : (%, List VarSet) -> NonNegativeInteger
+      ++ totalDegree(p, lv) returns the maximum sum (over all monomials
+      ++ of polynomial p) of the variables in the list lv.
+    totalDegreeSorted : (%, List VarSet) -> NonNegativeInteger
+        ++ totalDegreeSorted(p, lv) returns the maximum sum (over all
+        ++ monomials of polynomial p) of the degree in variables in the
+        ++ list lv.  lv is assumed to be sorted in decreasing order.
+    variables : % -> List(VarSet)
+      ++ variables(p) returns the list of those variables actually
+      ++ appearing in the polynomial p.
+    if R has SemiRing then
+      primitiveMonomials : % -> List %
+        ++ primitiveMonomials(p) gives the list of monomials of the
+        ++ polynomial p with their coefficients removed.
+        ++ Note: \spad{primitiveMonomials(sum(a_(i) X^(i))) =
+        ++ [X^(1), ..., X^(n)]}.
+    if R has Comparable then Comparable
+
+    -- assertions
+    if R has canonicalUnitNormal then canonicalUnitNormal
+             ++ we can choose a unique representative for each
+             ++ associate class.
+             ++ This normalization is chosen to be normalization of
+             ++ leading coefficient (by default).
+ add
+    p : %
+    ln : List NonNegativeInteger
+    lv : List VarSet
+
+    monomials p ==
+--      sequential version for efficiency, by WMSIT, 7/30/90
+        ml := empty$List(%)
+        while p ~= 0 repeat
+            ml := concat(leadingMonomial p, ml)
+            p := reductum p
+        reverse! ml
+
+    monomial(p, lv, ln) ==
+        empty? lv =>
+            empty? ln => p
+            error "mismatched lists in monomial"
+        empty? ln  => error "mismatched lists in monomial"
+        monomial(monomial(p, first lv, first ln), rest lv, rest ln)
+
+    if R has SemiRing then
+
+        mkPrim(p : %) : % == monomial(1, degree p)
+
+        primitiveMonomials p ==
+            ml := empty$List(%)
+            while p ~= 0 repeat
+                ml := concat(mkPrim(leadingMonomial p), ml)
+                p := reductum p
+            reverse! ml
+
+

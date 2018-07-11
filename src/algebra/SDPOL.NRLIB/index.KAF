@@ -1,0 +1,739 @@
+36653               (|SequentialDifferentialPolynomial| R)
+|domain|
+(((|SequentialDifferentialPolynomial| |#1|)
+  (|Join|
+   (|DifferentialPolynomialCategory| |#1| (|Symbol|)
+                                     (|SequentialDifferentialVariable|
+                                      (|Symbol|))
+                                     (|IndexedExponents|
+                                      (|SequentialDifferentialVariable|
+                                       (|Symbol|))))
+   (|RetractableTo| (|SparseMultivariatePolynomial| |#1| (|Symbol|))))
+  (|Ring|))
+ (T |SequentialDifferentialPolynomial|))
+(|Join|
+ (|DifferentialPolynomialCategory| |#1| (|Symbol|)
+                                   (|SequentialDifferentialVariable|
+                                    (|Symbol|))
+                                   (|IndexedExponents|
+                                    (|SequentialDifferentialVariable|
+                                     (|Symbol|))))
+ (|RetractableTo| (|SparseMultivariatePolynomial| |#1| (|Symbol|))))
+"/git/fricas/src/algebra/SDPOL.spad"
+((~= (((|Boolean|) $ $) NIL)) (|zero?| (((|Boolean|) $) NIL))
+ (|weights| (((|List| (|NonNegativeInteger|)) $) NIL)
+  (((|List| (|NonNegativeInteger|)) $ (|Symbol|)) NIL))
+ (|weight| (((|NonNegativeInteger|) $) NIL)
+  (((|NonNegativeInteger|) $ (|Symbol|)) NIL))
+ (|variables| (((|List| (|SequentialDifferentialVariable| (|Symbol|))) $) NIL))
+ (|univariate|
+  (((|SparseUnivariatePolynomial| $) $
+    (|SequentialDifferentialVariable| (|Symbol|)))
+   NIL)
+  (((|SparseUnivariatePolynomial| |#1|) $) NIL))
+ (|unitNormal|
+  (((|Record| (|:| |unit| $) (|:| |canonical| $) (|:| |associate| $)) $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|EntireRing|)))))
+ (|unitCanonical|
+  (($ $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|EntireRing|)))))
+ (|unit?|
+  (((|Boolean|) $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|EntireRing|)))))
+ (|totalDegreeSorted|
+  (((|NonNegativeInteger|) $
+    (|List| (|SequentialDifferentialVariable| (|Symbol|))))
+   NIL))
+ (|totalDegree| (((|NonNegativeInteger|) $) NIL)
+  (((|NonNegativeInteger|) $
+    (|List| (|SequentialDifferentialVariable| (|Symbol|))))
+   NIL))
+ (|subtractIfCan| (((|Union| $ "failed") $ $) NIL))
+ (|squareFreePolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   NIL (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ (|squareFreePart| (($ $) NIL (|has| |#1| (|GcdDomain|))))
+ (|squareFree| (((|Factored| $) $) NIL (|has| |#1| (|GcdDomain|))))
+ (|solveLinearPolynomialEquation|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| $)) #1="failed")
+    (|List| (|SparseUnivariatePolynomial| $)) (|SparseUnivariatePolynomial| $))
+   NIL (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ (|smaller?| (((|Boolean|) $ $) NIL (|has| |#1| (|Comparable|))))
+ (|separant| (($ $) NIL)) (|sample| (($) NIL T CONST))
+ (|rightRecip| (((|Union| $ #2="failed") $) NIL))
+ (|rightPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL))
+ (|retractIfCan|
+  (((|Union| (|Integer|) #3="failed") $) NIL
+   (|has| |#1| (|RetractableTo| (|Integer|))))
+  (((|Union| (|Fraction| (|Integer|)) #3#) $) NIL
+   (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|)))))
+  (((|Union| |#1| #3#) $) NIL)
+  (((|Union| (|SequentialDifferentialVariable| (|Symbol|)) #3#) $) NIL
+   (|has| |#1| (|SemiRing|)))
+  (((|Union| (|Symbol|) #3#) $) NIL)
+  (((|Union| (|SparseMultivariatePolynomial| |#1| (|Symbol|)) #3#) $) NIL))
+ (|retract| (((|Integer|) $) NIL (|has| |#1| (|RetractableTo| (|Integer|))))
+            (((|Fraction| (|Integer|)) $) NIL
+             (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|)))))
+            ((|#1| $) NIL)
+            (((|SequentialDifferentialVariable| (|Symbol|)) $) NIL
+             (|has| |#1| (|SemiRing|)))
+            (((|Symbol|) $) NIL)
+            (((|SparseMultivariatePolynomial| |#1| (|Symbol|)) $) NIL))
+ (|resultant|
+  (($ $ $ (|SequentialDifferentialVariable| (|Symbol|))) NIL
+   (|has| |#1| (|CommutativeRing|))))
+ (|reductum| (($ $) NIL))
+ (|reducedSystem|
+  (((|Matrix| (|Integer|)) (|Matrix| $)) NIL
+   (AND (|has| |#1| (|LinearlyExplicitOver| (|Integer|)))
+        (|has| |#1| (|Ring|))))
+  (((|Record| (|:| |mat| (|Matrix| (|Integer|)))
+              (|:| |vec| (|Vector| (|Integer|))))
+    (|Matrix| $) (|Vector| $))
+   NIL
+   (AND (|has| |#1| (|LinearlyExplicitOver| (|Integer|)))
+        (|has| |#1| (|Ring|))))
+  (((|Record| (|:| |mat| (|Matrix| |#1|)) (|:| |vec| (|Vector| |#1|)))
+    (|Matrix| $) (|Vector| $))
+   NIL (|has| |#1| (|Ring|)))
+  (((|Matrix| |#1|) (|Matrix| $)) NIL (|has| |#1| (|Ring|))))
+ (|recip| (((|Union| $ #2#) $) NIL))
+ (|primitivePart| (($ $) NIL (|has| |#1| (|GcdDomain|)))
+  (($ $ (|SequentialDifferentialVariable| (|Symbol|))) NIL
+   (|has| |#1| (|GcdDomain|))))
+ (|primitiveMonomials| (((|List| $) $) NIL (|has| |#1| (|SemiRing|))))
+ (|prime?|
+  (((|Boolean|) $) NIL (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ (|pomopo!|
+  (($ $ |#1| (|IndexedExponents| (|SequentialDifferentialVariable| (|Symbol|)))
+    $)
+   NIL))
+ (|patternMatch|
+  (((|PatternMatchResult| (|Float|) $) $ (|Pattern| (|Float|))
+    (|PatternMatchResult| (|Float|) $))
+   NIL
+   (AND (|has| |#1| (|PatternMatchable| (|Float|))) (|has| |#1| (|Ring|))
+        (|has| (|SequentialDifferentialVariable| (|Symbol|))
+               (|PatternMatchable| (|Float|)))))
+  (((|PatternMatchResult| (|Integer|) $) $ (|Pattern| (|Integer|))
+    (|PatternMatchResult| (|Integer|) $))
+   NIL
+   (AND (|has| |#1| (|PatternMatchable| (|Integer|))) (|has| |#1| (|Ring|))
+        (|has| (|SequentialDifferentialVariable| (|Symbol|))
+               (|PatternMatchable| (|Integer|))))))
+ (|order| (((|NonNegativeInteger|) $ (|Symbol|)) NIL)
+  (((|NonNegativeInteger|) $) NIL))
+ (|opposite?| (((|Boolean|) $ $) NIL)) (|one?| (((|Boolean|) $) NIL))
+ (|numberOfMonomials| (((|NonNegativeInteger|) $) NIL))
+ (|multivariate|
+  (($ (|SparseUnivariatePolynomial| |#1|)
+    (|SequentialDifferentialVariable| (|Symbol|)))
+   NIL)
+  (($ (|SparseUnivariatePolynomial| $)
+    (|SequentialDifferentialVariable| (|Symbol|)))
+   NIL))
+ (|monomials| (((|List| $) $) NIL)) (|monomial?| (((|Boolean|) $) NIL))
+ (|monomial|
+  (($ |#1| (|IndexedExponents| (|SequentialDifferentialVariable| (|Symbol|))))
+   NIL)
+  (($ $ (|SequentialDifferentialVariable| (|Symbol|)) (|NonNegativeInteger|))
+   NIL)
+  (($ $ (|List| (|SequentialDifferentialVariable| (|Symbol|)))
+    (|List| (|NonNegativeInteger|)))
+   NIL))
+ (|monicDivide|
+  (((|Record| (|:| |quotient| $) (|:| |remainder| $)) $ $
+    (|SequentialDifferentialVariable| (|Symbol|)))
+   NIL (|has| |#1| (|Ring|))))
+ (|minimumDegree|
+  (((|IndexedExponents| (|SequentialDifferentialVariable| (|Symbol|))) $) NIL)
+  (((|NonNegativeInteger|) $ (|SequentialDifferentialVariable| (|Symbol|)))
+   NIL)
+  (((|List| (|NonNegativeInteger|)) $
+    (|List| (|SequentialDifferentialVariable| (|Symbol|))))
+   NIL))
+ (|mapExponents|
+  (($
+    (|Mapping|
+     (|IndexedExponents| (|SequentialDifferentialVariable| (|Symbol|)))
+     (|IndexedExponents| (|SequentialDifferentialVariable| (|Symbol|))))
+    $)
+   NIL))
+ (|map| (($ (|Mapping| |#1| |#1|) $) NIL))
+ (|makeVariable| (((|Mapping| $ (|NonNegativeInteger|)) (|Symbol|)) NIL)
+  (((|Mapping| $ (|NonNegativeInteger|)) $) NIL
+   (|has| |#1| (|DifferentialRing|))))
+ (|mainVariable|
+  (((|Union| (|SequentialDifferentialVariable| (|Symbol|)) "failed") $) NIL))
+ (|leftRecip| (((|Union| $ #2#) $) NIL))
+ (|leftPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL))
+ (|leadingMonomial| (($ $) NIL)) (|leadingCoefficient| ((|#1| $) NIL))
+ (|leader| (((|SequentialDifferentialVariable| (|Symbol|)) $) NIL))
+ (|lcmCoef|
+  (((|Record| (|:| |llcm_res| $) (|:| |coeff1| $) (|:| |coeff2| $)) $ $) NIL
+   (|has| |#1| (|GcdDomain|))))
+ (|lcm| (($ (|List| $)) NIL (|has| |#1| (|GcdDomain|)))
+  (($ $ $) NIL (|has| |#1| (|GcdDomain|))))
+ (|latex| (((|String|) $) NIL)) (|isobaric?| (((|Boolean|) $) NIL))
+ (|isTimes|
+  (((|Union| (|List| $) #4="failed") $) NIL (|has| |#1| (|SemiRing|))))
+ (|isPlus| (((|Union| (|List| $) #4#) $) NIL))
+ (|isExpt|
+  (((|Union|
+     (|Record| (|:| |var| (|SequentialDifferentialVariable| (|Symbol|)))
+               (|:| |exponent| (|NonNegativeInteger|)))
+     #4#)
+    $)
+   NIL (|has| |#1| (|SemiRing|))))
+ (|initial| (($ $) NIL)) (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|ground?| (((|Boolean|) $) NIL))
+ (|ground| ((|#1| $) NIL))
+ (|gcdPolynomial|
+  (((|SparseUnivariatePolynomial| $) (|SparseUnivariatePolynomial| $)
+    (|SparseUnivariatePolynomial| $))
+   NIL (|has| |#1| (|GcdDomain|))))
+ (|gcd| (($ (|List| $)) NIL (|has| |#1| (|GcdDomain|)))
+  (($ $ $) NIL (|has| |#1| (|GcdDomain|))))
+ (|fmecg|
+  (($ $ (|IndexedExponents| (|SequentialDifferentialVariable| (|Symbol|))) |#1|
+    $)
+   NIL (|has| |#1| (|Ring|))))
+ (|factorSquareFreePolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   NIL (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ (|factorPolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   NIL (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ (|factor|
+  (((|Factored| $) $) NIL (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ (|exquo| (((|Union| $ "failed") $ |#1|) NIL (|has| |#1| (|EntireRing|)))
+  (((|Union| $ "failed") $ $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|EntireRing|)))))
+ (|eval| (($ $ (|SequentialDifferentialVariable| (|Symbol|)) |#1|) NIL)
+         (($ $ (|List| (|SequentialDifferentialVariable| (|Symbol|)))
+           (|List| |#1|))
+          NIL)
+         (($ $ (|SequentialDifferentialVariable| (|Symbol|)) $) NIL)
+         (($ $ (|List| (|SequentialDifferentialVariable| (|Symbol|)))
+           (|List| $))
+          NIL)
+         (($ $ (|List| (|Equation| $))) NIL (|has| |#1| (|SemiRing|)))
+         (($ $ (|Equation| $)) NIL (|has| |#1| (|SemiRing|)))
+         (($ $ $ $) NIL (|has| |#1| (|SemiRing|)))
+         (($ $ (|List| $) (|List| $)) NIL (|has| |#1| (|SemiRing|)))
+         (($ $ (|Symbol|) $) NIL (|has| |#1| (|DifferentialRing|)))
+         (($ $ (|List| (|Symbol|)) (|List| $)) NIL
+          (|has| |#1| (|DifferentialRing|)))
+         (($ $ (|Symbol|) |#1|) NIL (|has| |#1| (|DifferentialRing|)))
+         (($ $ (|List| (|Symbol|)) (|List| |#1|)) NIL
+          (|has| |#1| (|DifferentialRing|))))
+ (|discriminant|
+  (($ $ (|SequentialDifferentialVariable| (|Symbol|))) NIL
+   (|has| |#1| (|CommutativeRing|))))
+ (|differentiate|
+  (($ $ (|List| (|SequentialDifferentialVariable| (|Symbol|)))
+    (|List| (|NonNegativeInteger|)))
+   NIL (|has| |#1| (|Ring|)))
+  (($ $ (|SequentialDifferentialVariable| (|Symbol|)) (|NonNegativeInteger|))
+   NIL (|has| |#1| (|Ring|)))
+  (($ $ (|List| (|SequentialDifferentialVariable| (|Symbol|)))) NIL
+   (|has| |#1| (|Ring|)))
+  (($ $ (|SequentialDifferentialVariable| (|Symbol|))) NIL
+   (|has| |#1| (|Ring|)))
+  (($ $) NIL (|has| |#1| (|DifferentialRing|)))
+  (($ $ (|NonNegativeInteger|)) NIL (|has| |#1| (|DifferentialRing|)))
+  (($ $ (|Symbol|)) NIL (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|List| (|Symbol|))) NIL
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|Symbol|) (|NonNegativeInteger|)) NIL
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|List| (|Symbol|)) (|List| (|NonNegativeInteger|))) NIL
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|Mapping| |#1| |#1|) (|NonNegativeInteger|)) NIL)
+  (($ $ (|Mapping| |#1| |#1|)) NIL))
+ (|differentialVariables| (((|List| (|Symbol|)) $) NIL))
+ (|degree|
+  (((|IndexedExponents| (|SequentialDifferentialVariable| (|Symbol|))) $) NIL)
+  (((|NonNegativeInteger|) $ (|SequentialDifferentialVariable| (|Symbol|)))
+   NIL)
+  (((|List| (|NonNegativeInteger|)) $
+    (|List| (|SequentialDifferentialVariable| (|Symbol|))))
+   NIL)
+  (((|NonNegativeInteger|) $ (|Symbol|)) NIL))
+ (|convert|
+  (((|Pattern| (|Float|)) $) NIL
+   (AND (|has| |#1| (|ConvertibleTo| (|Pattern| (|Float|))))
+        (|has| |#1| (|Ring|))
+        (|has| (|SequentialDifferentialVariable| (|Symbol|))
+               (|ConvertibleTo| (|Pattern| (|Float|))))))
+  (((|Pattern| (|Integer|)) $) NIL
+   (AND (|has| |#1| (|ConvertibleTo| (|Pattern| (|Integer|))))
+        (|has| |#1| (|Ring|))
+        (|has| (|SequentialDifferentialVariable| (|Symbol|))
+               (|ConvertibleTo| (|Pattern| (|Integer|))))))
+  (((|InputForm|) $) NIL
+   (AND (|has| |#1| (|ConvertibleTo| (|InputForm|)))
+        (|has| (|SequentialDifferentialVariable| (|Symbol|))
+               (|ConvertibleTo| (|InputForm|))))))
+ (|content| ((|#1| $) NIL (|has| |#1| (|GcdDomain|)))
+  (($ $ (|SequentialDifferentialVariable| (|Symbol|))) NIL
+   (|has| |#1| (|GcdDomain|))))
+ (|conditionP|
+  (((|Union| (|Vector| $) #1#) (|Matrix| $)) NIL
+   (AND (|has| $ (|CharacteristicNonZero|))
+        (|has| |#1| (|PolynomialFactorizationExplicit|)))))
+ (|commutator| (($ $ $) NIL))
+ (|coerce| (((|OutputForm|) $) NIL)
+           (($ (|Fraction| (|Integer|))) NIL
+            (OR (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))
+                (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|))))))
+           (($ |#1|) NIL)
+           (($ $) NIL
+            (OR
+             (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+                  (|has| |#1| (|CommutativeRing|)))
+             (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+                  (|has| |#1| (|IntegralDomain|)))
+             (|has| |#1| (|GcdDomain|))))
+           (($ (|SequentialDifferentialVariable| (|Symbol|))) NIL
+            (|has| |#1| (|SemiRing|)))
+           (($ (|Integer|)) NIL) (($ (|Symbol|)) NIL)
+           (($ (|SparseMultivariatePolynomial| |#1| (|Symbol|))) NIL))
+ (|coefficients| (((|List| |#1|) $) NIL))
+ (|coefficient|
+  ((|#1| $ (|IndexedExponents| (|SequentialDifferentialVariable| (|Symbol|))))
+   NIL)
+  (($ $ (|SequentialDifferentialVariable| (|Symbol|)) (|NonNegativeInteger|))
+   NIL)
+  (($ $ (|List| (|SequentialDifferentialVariable| (|Symbol|)))
+    (|List| (|NonNegativeInteger|)))
+   NIL))
+ (|charthRoot|
+  (((|Union| $ #1#) $) NIL
+   (OR
+    (AND (|has| $ (|CharacteristicNonZero|))
+         (|has| |#1| (|PolynomialFactorizationExplicit|)))
+    (|has| |#1| (|CharacteristicNonZero|)))))
+ (|characteristic| (((|NonNegativeInteger|)) NIL))
+ (|binomThmExpt|
+  (($ $ $ (|NonNegativeInteger|)) NIL (|has| $ (|CommutativeRing|))))
+ (|associator| (($ $ $ $) NIL))
+ (|associates?|
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|EntireRing|)))))
+ (|antiCommutator| (($ $ $) NIL)) (|annihilate?| (((|Boolean|) $ $) NIL))
+ (^ (($ $ (|PositiveInteger|)) NIL) (($ $ (|NonNegativeInteger|)) NIL))
+ (|Zero| (($) NIL T CONST)) (|One| (($) NIL T CONST))
+ (D
+  (($ $ (|List| (|SequentialDifferentialVariable| (|Symbol|)))
+    (|List| (|NonNegativeInteger|)))
+   NIL (|has| |#1| (|Ring|)))
+  (($ $ (|SequentialDifferentialVariable| (|Symbol|)) (|NonNegativeInteger|))
+   NIL (|has| |#1| (|Ring|)))
+  (($ $ (|List| (|SequentialDifferentialVariable| (|Symbol|)))) NIL
+   (|has| |#1| (|Ring|)))
+  (($ $ (|SequentialDifferentialVariable| (|Symbol|))) NIL
+   (|has| |#1| (|Ring|)))
+  (($ $) NIL (|has| |#1| (|DifferentialRing|)))
+  (($ $ (|NonNegativeInteger|)) NIL (|has| |#1| (|DifferentialRing|)))
+  (($ $ (|Symbol|)) NIL (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|List| (|Symbol|))) NIL
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|Symbol|) (|NonNegativeInteger|)) NIL
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|List| (|Symbol|)) (|List| (|NonNegativeInteger|))) NIL
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|Mapping| |#1| |#1|) (|NonNegativeInteger|)) NIL)
+  (($ $ (|Mapping| |#1| |#1|)) NIL))
+ (= (((|Boolean|) $ $) NIL)) (/ (($ $ |#1|) NIL (|has| |#1| (|Field|))))
+ (- (($ $) NIL) (($ $ $) NIL)) (+ (($ $ $) NIL))
+ (* (($ (|PositiveInteger|) $) NIL) (($ $ $) NIL) (($ $ |#1|) NIL)
+    (($ |#1| $) NIL)
+    (($ (|Fraction| (|Integer|)) $) NIL
+     (|has| |#1| (|Algebra| (|Fraction| (|Integer|)))))
+    (($ $ (|Fraction| (|Integer|))) NIL
+     (|has| |#1| (|Algebra| (|Fraction| (|Integer|)))))
+    (($ (|NonNegativeInteger|) $) NIL) (($ (|Integer|) $) NIL)))
+((|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+ (|HasCategory| |#1| '(|CharacteristicNonZero|))
+ (|HasCategory| |#1| '(|CharacteristicZero|))
+ (|HasCategory| |#1| (LIST '|RetractableTo| (LIST '|Fraction| '(|Integer|))))
+ (|HasCategory| |#1| (LIST '|RetractableTo| '(|Integer|)))
+ (|HasCategory| |#1| '(|canonicalUnitNormal|))
+ (|HasCategory| |#1| '(|Comparable|)) (|HasCategory| |#1| '(|Ring|))
+ (|HasCategory| |#1| (LIST '|LinearlyExplicitOver| '(|Integer|)))
+ (|HasCategory| |#1| '(|PolynomialFactorizationExplicit|))
+ (|HasCategory| |#1| '(|EntireRing|)) (|HasCategory| |#1| '(|GcdDomain|))
+ (OR (|HasCategory| |#1| '(|GcdDomain|))
+     (|HasCategory| |#1| '(|PolynomialFactorizationExplicit|)))
+ (OR (|HasCategory| |#1| '(|EntireRing|)) (|HasCategory| |#1| '(|GcdDomain|)))
+ (AND (|HasCategory| |#1| (LIST '|ConvertibleTo| '(|InputForm|)))
+      (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                     (LIST '|ConvertibleTo| '(|InputForm|))))
+ (|HasCategory| |#1| '(|SemiRing|)) (|HasCategory| |#1| '(|DifferentialRing|))
+ (|HasCategory| |#1| (LIST '|PartialDifferentialRing| '(|Symbol|)))
+ (|HasCategory| |#1| '(|Field|))
+ (OR (|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+     (|HasCategory| |#1|
+                    (LIST '|RetractableTo| (LIST '|Fraction| '(|Integer|)))))
+ (AND (|HasCategory| |#1| (LIST '|LinearlyExplicitOver| '(|Integer|)))
+      (|HasCategory| |#1| '(|Ring|)))
+ (|HasCategory| |#1| '(|CommutativeRing|))
+ (OR (|HasCategory| |#1| '(|CommutativeRing|))
+     (|HasCategory| |#1| '(|GcdDomain|))
+     (|HasCategory| |#1| '(|PolynomialFactorizationExplicit|)))
+ (|HasCategory| |#1| '(|IntegralDomain|))
+ (OR (|HasCategory| |#1| '(|CommutativeRing|))
+     (|HasCategory| |#1| '(|GcdDomain|))
+     (|HasCategory| |#1| '(|IntegralDomain|))
+     (|HasCategory| |#1| '(|PolynomialFactorizationExplicit|)))
+ (OR (|HasCategory| |#1| '(|GcdDomain|))
+     (|HasCategory| |#1| '(|IntegralDomain|))
+     (|HasCategory| |#1| '(|PolynomialFactorizationExplicit|)))
+ (OR (|HasCategory| |#1| '(|CommutativeRing|))
+     (|HasCategory| |#1| '(|GcdDomain|))
+     (|HasCategory| |#1| '(|IntegralDomain|)))
+ (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Float|)))
+      (|HasCategory| |#1| '(|Ring|))
+      (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                     (LIST '|PatternMatchable| '(|Float|))))
+ (OR
+  (AND (|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+       (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Float|)))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Float|))))
+  (AND (|HasCategory| |#1| (LIST '|LinearlyExplicitOver| '(|Integer|)))
+       (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Float|)))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Float|))))
+  (AND (|HasCategory| |#1| (LIST '|PartialDifferentialRing| '(|Symbol|)))
+       (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Float|)))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Float|))))
+  (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Float|)))
+       (|HasCategory| |#1| '(|CharacteristicNonZero|))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Float|))))
+  (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Float|)))
+       (|HasCategory| |#1| '(|CharacteristicZero|))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Float|))))
+  (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Float|)))
+       (|HasCategory| |#1| '(|DifferentialRing|))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Float|))))
+  (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Float|)))
+       (|HasCategory| |#1| '(|GcdDomain|))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Float|))))
+  (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Float|)))
+       (|HasCategory| |#1| '(|PolynomialFactorizationExplicit|))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Float|))))
+  (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Float|)))
+       (|HasCategory| |#1| '(|Ring|))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Float|)))))
+ (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Integer|)))
+      (|HasCategory| |#1| '(|Ring|))
+      (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                     (LIST '|PatternMatchable| '(|Integer|))))
+ (OR
+  (AND (|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+       (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Integer|)))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Integer|))))
+  (AND (|HasCategory| |#1| (LIST '|LinearlyExplicitOver| '(|Integer|)))
+       (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Integer|)))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Integer|))))
+  (AND (|HasCategory| |#1| (LIST '|PartialDifferentialRing| '(|Symbol|)))
+       (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Integer|)))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Integer|))))
+  (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Integer|)))
+       (|HasCategory| |#1| '(|CharacteristicNonZero|))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Integer|))))
+  (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Integer|)))
+       (|HasCategory| |#1| '(|CharacteristicZero|))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Integer|))))
+  (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Integer|)))
+       (|HasCategory| |#1| '(|DifferentialRing|))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Integer|))))
+  (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Integer|)))
+       (|HasCategory| |#1| '(|GcdDomain|))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Integer|))))
+  (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Integer|)))
+       (|HasCategory| |#1| '(|PolynomialFactorizationExplicit|))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Integer|))))
+  (AND (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Integer|)))
+       (|HasCategory| |#1| '(|Ring|))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|PatternMatchable| '(|Integer|)))))
+ (AND (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|))))
+      (|HasCategory| |#1| '(|Ring|))
+      (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                     (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|)))))
+ (OR
+  (AND (|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+       (|HasCategory| |#1|
+                      (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|))))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|))))
+   (|HasCategory| |#1| (LIST '|LinearlyExplicitOver| '(|Integer|)))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|))))
+   (|HasCategory| |#1| (LIST '|PartialDifferentialRing| '(|Symbol|)))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|))))
+   (|HasCategory| |#1| '(|CharacteristicNonZero|))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|))))
+   (|HasCategory| |#1| '(|CharacteristicZero|))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|))))
+   (|HasCategory| |#1| '(|DifferentialRing|))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|))))
+   (|HasCategory| |#1| '(|GcdDomain|))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|))))
+   (|HasCategory| |#1| '(|PolynomialFactorizationExplicit|))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|))))
+   (|HasCategory| |#1| '(|Ring|))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|))))))
+ (AND
+  (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))
+  (|HasCategory| |#1| '(|Ring|))
+  (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                 (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|)))))
+ (OR
+  (AND (|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+       (|HasCategory| |#1|
+                      (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))
+       (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                      (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))
+   (|HasCategory| |#1| (LIST '|LinearlyExplicitOver| '(|Integer|)))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))
+   (|HasCategory| |#1| (LIST '|PartialDifferentialRing| '(|Symbol|)))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))
+   (|HasCategory| |#1| '(|CharacteristicNonZero|))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))
+   (|HasCategory| |#1| '(|CharacteristicZero|))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))
+   (|HasCategory| |#1| '(|DifferentialRing|))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))
+   (|HasCategory| |#1| '(|GcdDomain|))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))
+   (|HasCategory| |#1| '(|PolynomialFactorizationExplicit|))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|)))))
+  (AND
+   (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))
+   (|HasCategory| |#1| '(|Ring|))
+   (|HasCategory| (|SequentialDifferentialVariable| (|Symbol|))
+                  (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))))
+ (|HasCategory| $ '(|CommutativeRing|))
+ (AND (|HasCategory| |#1| '(|PolynomialFactorizationExplicit|))
+      (|HasCategory| $ '(|CharacteristicNonZero|)))
+ (OR (|HasCategory| |#1| '(|CharacteristicNonZero|))
+     (AND (|HasCategory| |#1| '(|PolynomialFactorizationExplicit|))
+          (|HasCategory| $ '(|CharacteristicNonZero|))))
+ (OR (|HasCategory| |#1| '(|EntireRing|))
+     (AND (|HasCategory| |#1| '(|IntegralDomain|))
+          (|HasCategory| $ '(|VariablesCommuteWithCoefficients|))))
+ (OR
+  (AND (|HasCategory| |#1| '(|CommutativeRing|))
+       (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))
+  (|HasCategory| |#1| '(|GcdDomain|))
+  (AND (|HasCategory| |#1| '(|IntegralDomain|))
+       (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))))
+SDPOL
+(((|DifferentialPolynomialCategory| |#1| (|Symbol|)
+                                    (|SequentialDifferentialVariable|
+                                     (|Symbol|))
+                                    (|IndexedExponents|
+                                     (|SequentialDifferentialVariable|
+                                      (|Symbol|))))
+  . T)
+ ((|RetractableTo| (|SparseMultivariatePolynomial| |#1| (|Symbol|))) . T))
+(((|AbelianGroup|) . T) ((|AbelianMonoid|) . T)
+ ((|AbelianMonoidRing| |t#1| |t#2|) . T) ((|AbelianSemiGroup|) . T)
+ ((|Algebra| (|Fraction| (|Integer|))) |has| |t#1|
+  (|Algebra| (|Fraction| (|Integer|))))
+ ((|Algebra| $) OR (|has| |t#1| (|GcdDomain|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|Algebra| |t#1|) AND (|has| $ (|VariablesCommuteWithCoefficients|))
+  (|has| |t#1| (|CommutativeRing|)))
+ ((|BasicType|) . T) ((|BiModule| |t#1| |t#1|) . T) ((|BiModule| $ $) . T)
+ ((|CancellationAbelianMonoid|) . T)
+ ((|CharacteristicNonZero|) |has| |t#1| (|CharacteristicNonZero|))
+ ((|CharacteristicZero|) |has| |t#1| (|CharacteristicZero|))
+ ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|CommutativeRing|) OR (|has| |t#1| (|GcdDomain|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|CommutativeStar|) OR (|has| |t#1| (|GcdDomain|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|Comparable|) |has| |t#1| (|Comparable|))
+ ((|ConvertibleTo| (|Pattern| (|Integer|))) AND
+  (|has| |t#1| (|ConvertibleTo| (|Pattern| (|Integer|))))
+  (|has| |t#1| (|Ring|))
+  (|has| |t#3| (|ConvertibleTo| (|Pattern| (|Integer|)))))
+ ((|ConvertibleTo| (|Pattern| (|Float|))) AND
+  (|has| |t#1| (|ConvertibleTo| (|Pattern| (|Float|)))) (|has| |t#1| (|Ring|))
+  (|has| |t#3| (|ConvertibleTo| (|Pattern| (|Float|)))))
+ ((|ConvertibleTo| (|InputForm|)) AND
+  (|has| |t#1| (|ConvertibleTo| (|InputForm|)))
+  (|has| |t#3| (|ConvertibleTo| (|InputForm|))))
+ ((|DifferentialExtension| |t#1|) . T)
+ ((|DifferentialPolynomialCategory| |#1| (|Symbol|)
+                                    (|SequentialDifferentialVariable|
+                                     (|Symbol|))
+                                    (|IndexedExponents|
+                                     (|SequentialDifferentialVariable|
+                                      (|Symbol|))))
+  . T)
+ ((|DifferentialRing|) |has| |t#1| (|DifferentialRing|))
+ ((|EntireRing|) OR (|has| |t#1| (|EntireRing|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|Evalable| $) |has| |t#1| (|SemiRing|))
+ ((|FiniteAbelianMonoidRing| |t#1| |t#2|) . T)
+ ((|FullyLinearlyExplicitOver| |t#1|) |has| |t#1| (|Ring|))
+ ((|FullyRetractableTo| |t#1|) . T) ((|GcdDomain|) |has| |t#1| (|GcdDomain|))
+ ((|InnerEvalable| |t#2| |t#1|) |has| |t#1| (|DifferentialRing|))
+ ((|InnerEvalable| |t#2| $) |has| |t#1| (|DifferentialRing|))
+ ((|InnerEvalable| |t#1| |t#1|) |has| |t#1| (|SemiRing|))
+ ((|InnerEvalable| |t#3| $) . T) ((|InnerEvalable| |t#3| |t#1|) . T)
+ ((|IntegralDomain|) OR (|has| |t#1| (|GcdDomain|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|LeftModule| |t#1|) . T) ((|LeftOreRing|) |has| |t#1| (|GcdDomain|))
+ ((|LinearlyExplicitOver| (|Integer|)) AND
+  (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))) (|has| |t#1| (|Ring|)))
+ ((|LinearlyExplicitOver| |t#1|) |has| |t#1| (|Ring|)) ((|Magma|) . T)
+ ((|MagmaWithUnit|) . T)
+ ((|MaybeSkewPolynomialCategory| |t#1| |t#2| |t#3|) . T)
+ ((|Module| |t#1|) OR (|has| |t#1| (|GcdDomain|))
+  (|has| |t#1| (|Algebra| (|Fraction| (|Integer|))))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|Monoid|) . T) ((|NonAssociativeRing|) . T) ((|NonAssociativeRng|) . T)
+ ((|NonAssociativeSemiRing|) . T) ((|NonAssociativeSemiRng|) . T)
+ ((|PartialDifferentialRing| (|Symbol|)) |has| |t#1|
+  (|PartialDifferentialRing| (|Symbol|)))
+ ((|PartialDifferentialRing| |t#3|) |has| |t#1| (|Ring|))
+ ((|PatternMatchable| (|Integer|)) AND
+  (|has| |t#1| (|PatternMatchable| (|Integer|))) (|has| |t#1| (|Ring|))
+  (|has| |t#3| (|PatternMatchable| (|Integer|))))
+ ((|PatternMatchable| (|Float|)) AND
+  (|has| |t#1| (|PatternMatchable| (|Float|))) (|has| |t#1| (|Ring|))
+  (|has| |t#3| (|PatternMatchable| (|Float|))))
+ ((|PolynomialCategory| |t#1| |t#4| |t#3|) . T)
+ ((|PolynomialFactorizationExplicit|) |has| |t#1|
+  (|PolynomialFactorizationExplicit|))
+ ((|RetractableTo| (|SparseMultivariatePolynomial| |#1| (|Symbol|))) . T)
+ ((|RetractableTo| |t#2|) . T)
+ ((|RetractableTo| |t#3|) |has| |t#1| (|SemiRing|))
+ ((|RetractableTo| (|Fraction| (|Integer|))) |has| |t#1|
+  (|RetractableTo| (|Fraction| (|Integer|))))
+ ((|RetractableTo| (|Integer|)) |has| |t#1| (|RetractableTo| (|Integer|)))
+ ((|RetractableTo| |t#1|) . T) ((|RightModule| |t#2|) . T) ((|Ring|) . T)
+ ((|Rng|) . T) ((|SemiGroup|) . T) ((|SemiRing|) . T) ((|SemiRng|) . T)
+ ((|SetCategory|) . T)
+ ((|TwoSidedRecip|) OR (|has| |t#1| (|GcdDomain|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|UniqueFactorizationDomain|) |has| |t#1|
+  (|PolynomialFactorizationExplicit|))
+ ((|VariablesCommuteWithCoefficients|) . T)
+ ((|canonicalUnitNormal|) |has| |t#1| (|canonicalUnitNormal|))
+ ((|noZeroDivisors|) OR (|has| |t#1| (|EntireRing|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|unitsKnown|) . T))
+((|constructor|
+  (NIL
+   "\\spadtype{SequentialDifferentialPolynomial} implements an ordinary differential polynomial ring in arbitrary number of differential indeterminates,{} with coefficients in a ring. The ranking on the differential indeterminate is sequential. \\blankline")))
+(("documentation" 0 36369) ("ancestors" 0 30770) ("parents" 0 30338)
+ ("abbreviation" 0 30332) ("predicates" 0 16702) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1060) ("modemaps" 0 NIL) ("sourceFile" 0 1023)
+ ("constructorCategory" 0 602) ("constructorModemap" 0 68)
+ ("constructorKind" 0 59) ("constructorForm" 0 20))

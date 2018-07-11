@@ -1,0 +1,14 @@
+)abbrev package ITFUN2 InfiniteTupleFunctions2
+++ Functions defined on streams with entries in two sets.
+InfiniteTupleFunctions2(A : Type, B : Type) : Exports == Implementation where
+  IT   ==> InfiniteTuple
+
+  Exports ==> with
+    map : ((A -> B), IT A) -> IT B
+      ++ \spad{map(f, [x0, x1, x2, ...])} returns \spad{[f(x0), f(x1), f(x2), ..]}.
+
+  Implementation ==> add
+
+    map(f, x) ==
+      map(f, x pretend Stream(A))$StreamFunctions2(A, B) pretend IT(B)
+

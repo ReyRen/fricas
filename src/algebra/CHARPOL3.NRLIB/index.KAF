@@ -1,0 +1,71 @@
+3265                (|CharacteristicPolynomial3| R)
+|package|
+(((|CharacteristicPolynomial3| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |char_pol_via_interpolation|
+    ((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|)))
+   (IF (|has| |#1| (|GcdDomain|))
+       (PROGN
+        (SIGNATURE |det_via_common_denominator|
+         ((|Fraction| |#1|) (|Matrix| (|Fraction| |#1|))))
+        (SIGNATURE |char_pol_via_den_interpolation|
+         ((|SparseUnivariatePolynomial| (|Fraction| |#1|))
+          (|Matrix| (|Fraction| |#1|)))))
+       |noBranch|))
+  (|IntegralDomain|))
+ (T |CharacteristicPolynomial3|))
+(CATEGORY |package|
+ (SIGNATURE |char_pol_via_interpolation|
+  ((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|)))
+ (IF (|has| |#1| (|GcdDomain|))
+     (PROGN
+      (SIGNATURE |det_via_common_denominator|
+       ((|Fraction| |#1|) (|Matrix| (|Fraction| |#1|))))
+      (SIGNATURE |char_pol_via_den_interpolation|
+       ((|SparseUnivariatePolynomial| (|Fraction| |#1|))
+        (|Matrix| (|Fraction| |#1|)))))
+     |noBranch|))
+"/git/fricas/src/algebra/CHARPOL3.spad"
+((|char_pol_via_den_interpolation| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| *4)))
+       (|ofCategory| *4 (|GcdDomain|)) (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| (|Fraction| *4)))
+       (|isDomain| *1 (|CharacteristicPolynomial3| *4))))
+ (|det_via_common_denominator| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| *4)))
+       (|isDomain| *2 (|Fraction| *4))
+       (|isDomain| *1 (|CharacteristicPolynomial3| *4))
+       (|ofCategory| *4 (|GcdDomain|)) (|ofCategory| *4 (|IntegralDomain|))))
+ (|char_pol_via_interpolation| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *4)) (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|CharacteristicPolynomial3| *4)))))
+((|det_via_common_denominator|
+  (((|Fraction| |#1|) (|Matrix| (|Fraction| |#1|))) 56
+   (|has| |#1| (|GcdDomain|))))
+ (|char_pol_via_interpolation|
+  (((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|)) 42))
+ (|char_pol_via_den_interpolation|
+  (((|SparseUnivariatePolynomial| (|Fraction| |#1|))
+    (|Matrix| (|Fraction| |#1|)))
+   59 (|has| |#1| (|GcdDomain|)))))
+((|HasCategory| |#1| '(|GcdDomain|)))
+CHARPOL3
+((|constructor|
+  (NIL
+   "This package computes charateristi polynomial \\indented{1}{via interpolation from values at several points.} \\indented{1}{Additionally,{} it computes determinant of matrix of} \\indented{1}{fractions by clearing common denominators of rows.} \\indented{1}{The determinant routine can be used to compute characteristic} \\indented{1}{polynomial instead of regular determinant.}"))
+ (|char_pol_via_den_interpolation|
+  (((|SparseUnivariatePolynomial| (|Fraction| |#1|))
+    (|Matrix| (|Fraction| |#1|)))
+   "\\spad{char_pol_via_den_interpolation(m)} computes characteristic polynomial of \\spad{m}."))
+ (|det_via_common_denominator|
+  (((|Fraction| |#1|) (|Matrix| (|Fraction| |#1|)))
+   "\\spad{det_via_common_denominator(m)} computes determinant of \\spad{m}."))
+ (|char_pol_via_interpolation|
+  (((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|))
+   "\\spad{char_pol_via_interpolation(m)} computes characteristic polynomial of \\spad{m}.")))
+(("documentation" 0 2290) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2281) ("predicates" 0 2243) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1874) ("modemaps" 0 1077) ("sourceFile" 0 1037)
+ ("constructorCategory" 0 607) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

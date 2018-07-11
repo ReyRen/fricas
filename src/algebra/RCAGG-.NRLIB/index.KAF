@@ -1,0 +1,65 @@
+3128                (|RecursiveAggregate&| A S)
+|domain|
+(((|RecursiveAggregate&| |#1| |#2|)
+  (CATEGORY |domain| (SIGNATURE |setelt!| (|#2| |#1| "value" |#2|))
+   (SIGNATURE |child?| ((|Boolean|) |#1| |#1|))
+   (SIGNATURE |leaves| ((|List| |#2|) |#1|))
+   (SIGNATURE |elt| (|#2| |#1| "value")) (SIGNATURE |leaf?| ((|Boolean|) |#1|))
+   (SIGNATURE |parts| ((|List| |#2|) |#1|)))
+  (|RecursiveAggregate| |#2|) (|Type|))
+ (T |RecursiveAggregate&|))
+(CATEGORY |domain| (SIGNATURE |setelt!| (|#2| |#1| "value" |#2|))
+ (SIGNATURE |child?| ((|Boolean|) |#1| |#1|))
+ (SIGNATURE |leaves| ((|List| |#2|) |#1|))
+ (SIGNATURE |elt| (|#2| |#1| "value")) (SIGNATURE |leaf?| ((|Boolean|) |#1|))
+ (SIGNATURE |parts| ((|List| |#2|) |#1|)))
+"/git/fricas/src/algebra/RCAGG.spad"
+((|setelt!| ((|#2| $ "value" |#2|) 22)) (|parts| (((|List| |#2|) $) 27))
+ (|leaves| (((|List| |#2|) $) 20)) (|leaf?| (((|Boolean|) $) 15))
+ (|elt| ((|#2| $ "value") 10)) (|child?| (((|Boolean|) $ $) 25)))
+((|HasCategory| |#1| '(|shallowlyMutable|)) (|HasCategory| |#2| '(|BasicType|)))
+RCAGG-
+((|constructor|
+  (NIL
+   "A recursive aggregate over a type \\spad{S} is a model for a a directed graph containing values of type \\spad{S}. Recursively,{} a recursive aggregate is either empty or a {\\em node} consisting of a \\spadfun{value} from \\spad{S} and 0 or more \\spadfun{children} which are recursive aggregates. A node with no children is called a \\spadfun{leaf} node. A recursive aggregate may be cyclic for which some operations as noted may go into an infinite loop."))
+ (|setvalue!|
+  ((|#2| $ |#2|)
+   "\\spad{setvalue!(u,{} x)} sets the value of node \\spad{u} to \\spad{x}."))
+ (|setelt!|
+  ((|#2| $ "value" |#2|)
+   "\\spad{setelt!(u,{} \"value\",{} x)} (also written \\spad{u.value := x}) is equivalent to \\spad{setvalue!(u,{} x)}"))
+ (|setchildren!|
+  (($ $ (|List| $))
+   "\\spad{setchildren!(u,{} v)} replaces the current children of node \\spad{u} with the members of \\spad{v} in left-to-right order."))
+ (|node?|
+  (((|Boolean|) $ $)
+   "\\spad{node?(u,{} v)} tests if node \\spad{u} is contained in node \\spad{v} (either as a child,{} a child of a child,{} etc.)."))
+ (|child?|
+  (((|Boolean|) $ $)
+   "\\spad{child?(u,{} v)} tests if node \\spad{u} is a child of node \\spad{v}."))
+ (|distance|
+  (((|Integer|) $ $)
+   "\\spad{distance(u,{} v)} returns the path length (an integer) from node \\spad{u} to \\spad{v}."))
+ (|leaves|
+  (((|List| |#2|) $)
+   "\\spad{leaves(u)} returns the list of leaves in aggregate \\spad{u}."))
+ (|cyclic?|
+  (((|Boolean|) $) "\\spad{cyclic?(u)} tests if \\spad{u} has a cycle."))
+ (|elt|
+  ((|#2| $ "value")
+   "\\spad{elt(u,{} \"value\")} (also written: \\spad{u.value}) is equivalent to \\spad{value(u)}."))
+ (|value|
+  ((|#2| $) "\\spad{value(u)} returns the value of the node \\spad{u}."))
+ (|leaf?|
+  (((|Boolean|) $) "\\spad{leaf?(u)} tests if \\spad{u} is a terminal node."))
+ (|nodes|
+  (((|List| $) $)
+   "\\spad{nodes(u)} returns a list of all of the nodes of aggregate \\spad{u}."))
+ (|children|
+  (((|List| $) $)
+   "\\spad{children(u)} returns a list of the children of aggregate \\spad{u}.")))
+(("documentation" 0 1053) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1046) ("predicates" 0 965) ("superDomain" 0 NIL)
+ ("operationAlist" 0 760) ("modemaps" 0 NIL) ("sourceFile" 0 723)
+ ("constructorCategory" 0 447) ("constructorModemap" 0 57)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

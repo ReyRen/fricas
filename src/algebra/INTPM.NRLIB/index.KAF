@@ -1,0 +1,168 @@
+7991                (|PatternMatchIntegration| R F)
+|package|
+(((|PatternMatchIntegration| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |splitConstant|
+    ((|Record| (|:| |const| |#2|) (|:| |nconst| |#2|)) |#2| (|Symbol|)))
+   (IF (|has| |#1| (|ConvertibleTo| (|Pattern| (|Integer|))))
+       (IF (|has| |#1| (|PatternMatchable| (|Integer|)))
+           (PROGN
+            (IF (|has| |#2| (|LiouvillianFunctionCategory|))
+                (PROGN
+                 (SIGNATURE |pmComplexintegrate|
+                  ((|Union|
+                    (|Record| (|:| |special| |#2|) (|:| |integrand| |#2|))
+                    "failed")
+                   |#2| (|Symbol|)))
+                 (SIGNATURE |pmintegrate|
+                  ((|Union|
+                    (|Record| (|:| |special| |#2|) (|:| |integrand| |#2|))
+                    "failed")
+                   |#2| (|Symbol|))))
+                |noBranch|)
+            (IF (|has| |#2| (|SpecialFunctionCategory|))
+                (SIGNATURE |pmintegrate|
+                 ((|Union| |#2| "failed") |#2| (|Symbol|)
+                  (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|)))
+                |noBranch|))
+           |noBranch|)
+       |noBranch|))
+  (|Join| (|Comparable|) (|RetractableTo| (|Integer|)) (|GcdDomain|)
+          (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|AlgebraicallyClosedField|) (|TranscendentalFunctionCategory|)
+          (|FunctionSpace| |#1|)))
+ (T |PatternMatchIntegration|))
+(CATEGORY |package|
+ (SIGNATURE |splitConstant|
+  ((|Record| (|:| |const| |#2|) (|:| |nconst| |#2|)) |#2| (|Symbol|)))
+ (IF (|has| |#1| (|ConvertibleTo| (|Pattern| (|Integer|))))
+     (IF (|has| |#1| (|PatternMatchable| (|Integer|)))
+         (PROGN
+          (IF (|has| |#2| (|LiouvillianFunctionCategory|))
+              (PROGN
+               (SIGNATURE |pmComplexintegrate|
+                ((|Union|
+                  (|Record| (|:| |special| |#2|) (|:| |integrand| |#2|))
+                  "failed")
+                 |#2| (|Symbol|)))
+               (SIGNATURE |pmintegrate|
+                ((|Union|
+                  (|Record| (|:| |special| |#2|) (|:| |integrand| |#2|))
+                  "failed")
+                 |#2| (|Symbol|))))
+              |noBranch|)
+          (IF (|has| |#2| (|SpecialFunctionCategory|))
+              (SIGNATURE |pmintegrate|
+               ((|Union| |#2| "failed") |#2| (|Symbol|)
+                (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|)))
+              |noBranch|))
+         |noBranch|)
+     |noBranch|))
+"/git/fricas/src/algebra/INTPM.spad"
+((|pmintegrate| (*1 *2 *2 *3 *4 *4)
+  (|partial| AND (|isDomain| *3 (|Symbol|))
+   (|isDomain| *4 (|OrderedCompletion| *2))
+   (|ofCategory| *2 (|SpecialFunctionCategory|))
+   (|ofCategory| *2
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| *5)))
+   (|ofCategory| *5 (|ConvertibleTo| (|Pattern| (|Integer|))))
+   (|ofCategory| *5 (|PatternMatchable| (|Integer|)))
+   (|ofCategory| *5
+                 (|Join| (|Comparable|) (|RetractableTo| (|Integer|))
+                         (|GcdDomain|) (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *1 (|PatternMatchIntegration| *5 *2))))
+ (|pmintegrate| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *4 (|Symbol|))
+   (|ofCategory| *5 (|ConvertibleTo| (|Pattern| (|Integer|))))
+   (|ofCategory| *5 (|PatternMatchable| (|Integer|)))
+   (|ofCategory| *5
+                 (|Join| (|Comparable|) (|RetractableTo| (|Integer|))
+                         (|GcdDomain|) (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *2 (|Record| (|:| |special| *3) (|:| |integrand| *3)))
+   (|isDomain| *1 (|PatternMatchIntegration| *5 *3))
+   (|ofCategory| *3 (|LiouvillianFunctionCategory|))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| *5)))))
+ (|pmComplexintegrate| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *4 (|Symbol|))
+   (|ofCategory| *5 (|ConvertibleTo| (|Pattern| (|Integer|))))
+   (|ofCategory| *5 (|PatternMatchable| (|Integer|)))
+   (|ofCategory| *5
+                 (|Join| (|Comparable|) (|RetractableTo| (|Integer|))
+                         (|GcdDomain|) (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *2 (|Record| (|:| |special| *3) (|:| |integrand| *3)))
+   (|isDomain| *1 (|PatternMatchIntegration| *5 *3))
+   (|ofCategory| *3 (|LiouvillianFunctionCategory|))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| *5)))))
+ (|splitConstant| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *5
+                     (|Join| (|Comparable|) (|RetractableTo| (|Integer|))
+                             (|GcdDomain|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2 (|Record| (|:| |const| *3) (|:| |nconst| *3)))
+       (|isDomain| *1 (|PatternMatchIntegration| *5 *3))
+       (|ofCategory| *3
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|FunctionSpace| *5))))))
+((|splitConstant|
+  (((|Record| (|:| |const| |#2|) (|:| |nconst| |#2|)) |#2| (|Symbol|)) 63))
+ (|pmintegrate|
+  (((|Union| |#2| "failed") |#2| (|Symbol|) (|OrderedCompletion| |#2|)
+    (|OrderedCompletion| |#2|))
+   159
+   (AND (|has| |#2| (|SpecialFunctionCategory|))
+        (|has| |#1| (|ConvertibleTo| (|Pattern| (|Integer|))))
+        (|has| |#1| (|PatternMatchable| (|Integer|)))))
+  (((|Union| (|Record| (|:| |special| |#2|) (|:| |integrand| |#2|)) "failed")
+    |#2| (|Symbol|))
+   135
+   (AND (|has| |#2| (|LiouvillianFunctionCategory|))
+        (|has| |#1| (|ConvertibleTo| (|Pattern| (|Integer|))))
+        (|has| |#1| (|PatternMatchable| (|Integer|))))))
+ (|pmComplexintegrate|
+  (((|Union| (|Record| (|:| |special| |#2|) (|:| |integrand| |#2|)) "failed")
+    |#2| (|Symbol|))
+   142
+   (AND (|has| |#2| (|LiouvillianFunctionCategory|))
+        (|has| |#1| (|ConvertibleTo| (|Pattern| (|Integer|))))
+        (|has| |#1| (|PatternMatchable| (|Integer|)))))))
+((AND
+  (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))
+  (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Integer|)))
+  (|HasCategory| |#2| '(|SpecialFunctionCategory|)))
+ (AND
+  (|HasCategory| |#1| (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|))))
+  (|HasCategory| |#1| (LIST '|PatternMatchable| '(|Integer|)))
+  (|HasCategory| |#2| '(|LiouvillianFunctionCategory|))))
+INTPM
+((|constructor|
+  (NIL
+   "\\spadtype{PatternMatchIntegration} provides functions that use the pattern matcher to find some indefinite and definite integrals involving special functions and found in the literature."))
+ (|pmintegrate|
+  (((|Union| |#2| "failed") |#2| (|Symbol|) (|OrderedCompletion| |#2|)
+    (|OrderedCompletion| |#2|))
+   "\\spad{pmintegrate(f,{} x = a..b)} returns the integral of \\spad{f(x)dx} from a to \\spad{b} if it can be found by the built-in pattern matching rules.")
+  (((|Union| (|Record| (|:| |special| |#2|) (|:| |integrand| |#2|)) "failed")
+    |#2| (|Symbol|))
+   "\\spad{pmintegrate(f,{} x)} returns either \"failed\" or \\spad{[g,{}h]} such that \\spad{integrate(f,{} x) = g + integrate(h,{} x)}."))
+ (|pmComplexintegrate|
+  (((|Union| (|Record| (|:| |special| |#2|) (|:| |integrand| |#2|)) "failed")
+    |#2| (|Symbol|))
+   "\\spad{pmComplexintegrate(f,{} x)} returns either \"failed\" or \\spad{[g,{} h]} such that \\spad{integrate(f,{} x) = g + integrate(h,{} x)}. It only looks for special complex integrals that pmintegrate does not return."))
+ (|splitConstant|
+  (((|Record| (|:| |const| |#2|) (|:| |nconst| |#2|)) |#2| (|Symbol|))
+   "\\spad{splitConstant(f,{} x)} returns \\spad{[c,{} g]} such that \\spad{f = c * g} and \\spad{c} does not involve \\spad{t}.")))
+(("documentation" 0 6684) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 6678) ("predicates" 0 6273) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5303) ("modemaps" 0 2561) ("sourceFile" 0 2524)
+ ("constructorCategory" 0 1468) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

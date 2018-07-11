@@ -1,0 +1,39 @@
+1786                (MAKEPROP '|SetCategory| 'NILADIC T)
+(|SetCategory|)
+|category|
+(((|SetCategory|) (|Category|)) (T |SetCategory|))
+(|Join| (|BasicType|) (|CoercibleTo| (|OutputForm|))
+        (CATEGORY |domain| (SIGNATURE |hash| ((|SingleInteger|) $))
+         (SIGNATURE |hashUpdate!| ((|HashState|) (|HashState|) $))
+         (SIGNATURE |latex| ((|String|) $))))
+"/git/fricas/src/algebra/SETCAT.spad"
+((|hash| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|SetCategory|)) (|isDomain| *2 (|SingleInteger|))))
+ (|hashUpdate!| (*1 *2 *2 *1)
+  (AND (|ofCategory| *1 (|SetCategory|)) (|isDomain| *2 (|HashState|))))
+ (|latex| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|SetCategory|)) (|isDomain| *2 (|String|)))))
+((~= (((|Boolean|) $ $) 6)) (|latex| (((|String|) $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (= (((|Boolean|) $ $) 6)))
+SETCAT
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T))
+((|constructor|
+  (NIL
+   "\\spadtype{SetCategory} is the basic category for describing a collection of elements with \\spadop{=} (equality) and \\spadfun{coerce} to output form. \\blankline Conditional Attributes: \\indented{3}{canonical\\tab{15}data structure equality is the same as \\spadop{=}}"))
+ (|latex|
+  (((|String|) $)
+   "\\spad{latex(s)} returns a LaTeX-printable output representation of \\spad{s}."))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $)
+   "\\spad{hashUpdate!(hs,{} s)} computes new HashState from old and \\spad{s} used for incremental computation of hash values. hashUpdate! might destructively work on its first argument."))
+ (|hash|
+  (((|SingleInteger|) $)
+   "\\spad{hash(s)} calculates a hash code for \\spad{s}.")))
+(("documentation" 0 1032) ("ancestors" 0 973) ("parents" 0 914)
+ ("abbreviation" 0 907) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 699) ("modemaps" 0 407) ("sourceFile" 0 369)
+ ("constructorCategory" 0 135) ("constructorModemap" 0 84)
+ ("constructorKind" 0 73) ("constructorForm" 0 57) ("NILADIC" 0 20))

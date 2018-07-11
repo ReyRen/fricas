@@ -1,0 +1,66 @@
+2735                (|MappingPackage1| A)
+|package|
+(((|MappingPackage1| |#1|)
+  (CATEGORY |package| (SIGNATURE |nullary| ((|Mapping| |#1|) |#1|))
+   (SIGNATURE |coerce| ((|Mapping| |#1|) |#1|)) (SIGNATURE |id| (|#1| |#1|))
+   (SIGNATURE ^
+    ((|Mapping| |#1| |#1|) (|Mapping| |#1| |#1|) (|NonNegativeInteger|)))
+   (SIGNATURE |recur|
+    ((|Mapping| |#1| (|NonNegativeInteger|) |#1|)
+     (|Mapping| |#1| (|NonNegativeInteger|) |#1|))))
+  (|SetCategory|))
+ (T |MappingPackage1|))
+(CATEGORY |package| (SIGNATURE |nullary| ((|Mapping| |#1|) |#1|))
+ (SIGNATURE |coerce| ((|Mapping| |#1|) |#1|)) (SIGNATURE |id| (|#1| |#1|))
+ (SIGNATURE ^
+  ((|Mapping| |#1| |#1|) (|Mapping| |#1| |#1|) (|NonNegativeInteger|)))
+ (SIGNATURE |recur|
+  ((|Mapping| |#1| (|NonNegativeInteger|) |#1|)
+   (|Mapping| |#1| (|NonNegativeInteger|) |#1|))))
+"/git/fricas/src/algebra/MAPPKG1.spad"
+((|recur| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Mapping| *3 (|NonNegativeInteger|) *3))
+       (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *1 (|MappingPackage1| *3))))
+ (^ (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Mapping| *4 *4)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|MappingPackage1| *4))))
+ (|id| (*1 *2 *2)
+  (AND (|isDomain| *1 (|MappingPackage1| *2))
+       (|ofCategory| *2 (|SetCategory|))))
+ (|coerce| (*1 *2 *3)
+           (AND (|isDomain| *2 (|Mapping| *3))
+                (|isDomain| *1 (|MappingPackage1| *3))
+                (|ofCategory| *3 (|SetCategory|))))
+ (|nullary| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Mapping| *3)) (|isDomain| *1 (|MappingPackage1| *3))
+       (|ofCategory| *3 (|SetCategory|)))))
+((|recur|
+  (((|Mapping| |#1| (|NonNegativeInteger|) |#1|)
+    (|Mapping| |#1| (|NonNegativeInteger|) |#1|))
+   18))
+ (|nullary| (((|Mapping| |#1|) |#1|) 8)) (|id| ((|#1| |#1|) 10))
+ (|coerce| (((|Mapping| |#1|) |#1|) 9))
+ (^ (((|Mapping| |#1| |#1|) (|Mapping| |#1| |#1|) (|NonNegativeInteger|)) 15)))
+MAPPKG1
+((|constructor| (NIL "various Currying operations."))
+ (|recur|
+  (((|Mapping| |#1| (|NonNegativeInteger|) |#1|)
+    (|Mapping| |#1| (|NonNegativeInteger|) |#1|))
+   "\\spad{recur(g)} is the function \\spad{h} such that \\indented{1}{\\spad{h(n,{} x)= g(n,{} g(n-1,{} ..g(1,{} x)..))}.}"))
+ (^
+  (((|Mapping| |#1| |#1|) (|Mapping| |#1| |#1|) (|NonNegativeInteger|))
+   "\\spad{f^n} is the function which is the \\spad{n}-fold application \\indented{1}{of \\spad{f}.}"))
+ (|id| ((|#1| |#1|) "\\spad{id x} is \\spad{x}."))
+ (|coerce|
+  (((|Mapping| |#1|) |#1|)
+   "\\spad{coerce A} changes its argument into a \\indented{1}{nullary function.}"))
+ (|nullary|
+  (((|Mapping| |#1|) |#1|)
+   "\\spad{nullary A} changes its argument into a \\indented{1}{nullary function.}")))
+(("documentation" 0 1965) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1957) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1655) ("modemaps" 0 867) ("sourceFile" 0 828)
+ ("constructorCategory" 0 482) ("constructorModemap" 0 52)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

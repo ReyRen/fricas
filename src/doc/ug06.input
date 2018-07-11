@@ -1,0 +1,446 @@
+
+-- Input for page ugUserPage
+)clear all
+
+
+-- Input for page ugUserAnonDeclarePage
+)clear all
+
+(x: INT,y: INT): FRAC INT +-> (x + 2*y)/(y - 1)
+(x: INT,y: INT) +-> (x + 2*y)/(y - 1)
+h(x: INT,y: INT): FRAC INT == (x + 2*y)/(y - 1)
+h == (x: INT,y: INT): FRAC INT +-> (x + 2*y)/(y - 1)
+addx x == ((y: Integer): Integer +-> x + y)
+g := addx 10
+g 3
+g(-4)
+
+-- Input for page ugUserPiecePickingPage
+)clear all
+
+eleven(n | n < 1) == n + 11
+eleven(m) == eleven(eleven(m - 12))
+minusEleven(n) ==
+  n >= 0 => n - 11
+  minusEleven (5 + minusEleven(n + 7))
+
+s(0) == 1
+s(n) == (eleven(n) + minusEleven(n))/n
+[s(n) for n in 0..]
+t(1) == s(0)
+t(n | even?(n)) == s(n quo 2)
+t(p) == s(- p quo 2)
+)display value t
+[t(i) for i in 1..]
+t(100)
+
+-- Input for page ugUserPalPage
+)clear all
+
+pal? s == palAux?(s,1,#s)
+palAux?(s,i,j) ==
+  j > i =>
+    (s.i = s.j) and palAux?(s,i+1,i-1)
+  true
+
+pal? "Oxford"
+pal? [4,a,x-1,0,x-1,a,4]
+pal? [1,6,15,20,15,6,1]
+pal?(1441::String)
+ones := [reduce(+,[10^j for j in 0..i]) for i in 1..]
+squares := [x^2 for x in ones]
+[pal?(x::String) for x in squares]
+
+-- Input for page ugUserOnePage
+)clear all
+
+fac n == if n < 3 then n else n * fac(n-1)
+fac 10
+s n == reduce(+,[1/i for i in 1..n])
+s 50
+mersenne i == 2^i - 1
+mersenne
+[mersenne i for i in 1..]
+mersenneIndex := [n for n in 1.. | prime?(mersenne(n))]
+mersennePrime n == mersenne mersenneIndex(n)
+mersennePrime 5
+
+-- Input for page ugUserUsePage
+)clear all
+
+sin x == 1.0
+sin 4.3
+sin(4.3)$Float
+sin(34.6)$Float
+sin x == sin x
+sin 4.3
+sin x == sin(x)$Float
+sin 4.3
+
+-- Input for page ugUserMakePage
+)clear all
+
+p := -x + y^2 - z^3
+function(p,'f0)
+f0
+f0()
+function(p,'f1,'x)
+f1
+f1(3)
+function(p,'f2,'x,'y)
+f2
+f2(3,0)
+function(p,'f3,['x,'y,'z])
+f3
+f3(3,0,-6)
+g: (Integer, Integer) -> Float
+D(sin(x-y)/cos(x+y),x)
+function(%,'g,'x,'y)
+g
+
+-- Input for page ugUserAnonPage
+)clear all
+
+
+-- Input for page ugUserCachePage
+)clear all
+
+)set functions cache 3 f g
+f x == factorial(2^x)
+f(4)
+)set functions cache all
+)set functions cache 0
+)set functions cache 0 f g
+
+-- Input for page ugUserPiecePage
+)clear all
+
+
+-- Input for page ugUserDelayPage
+)clear all
+
+sin24() == sin(24.0)
+sin24()
+sin24
+cos24 == cos(24.0)
+cos24
+
+-- Input for page ugUserRecurPage
+)clear all
+
+[fibonacci(i) for i in 0..]
+fib(1) == 1
+fib(2) == 1
+fib(n) == fib(n-1) + fib(n-2)
+fib(500)
+p(0) == 1
+p(1) == x
+p(n) == ((2*n-1)*x*p(n-1) - (n-1)*p(n-2))/n
+p(6)
+
+-- Input for page ugUserRulesPage
+)clear all
+
+logrule := rule log(x) + log(y) == log(x * y)
+f := log sin x + log x
+logrule f
+logrules := rule
+  log(x) + log(y) == log(x * y)
+  y * log x       == log(x ^ y)
+
+f := a * log(sin x) - 2 * log x
+logrules f
+logrules2 := rule
+  log(x) + log(y)          == log(x * y)
+  (y | integer? y) * log x == log(x ^ y)
+
+f
+logrules2 f
+evenRule := rule cos(x)^(n | integer? n and even? integer n)==(1-sin(x)^2)^(n/2)
+evenRule( cos(x)^2 )
+sinCosProducts == rule
+  sin(x) * sin(y) == (cos(x-y) - cos(x + y))/2
+  cos(x) * cos(y) == (cos(x-y) + cos(x+y))/2
+  sin(x) * cos(y) == (sin(x-y) + sin(x + y))/2
+
+g := sin(a)*sin(b) + cos(b)*cos(a) + sin(2*a)*cos(2*a)
+sinCosProducts g
+exprule := rule exp(a + b) == exp(a) * exp(b)
+exprule exp x
+eirule := rule integral((?y + exp x)/x,x) == integral(y/x,x) + Ei x
+eirule integral(exp u/u, u)
+eirule integral(sin u + exp u/u, u)
+u := operator 'u
+v := operator 'v
+myRule := rule u(x + y) == u x + v y
+myRule u(a + b + c + d)
+myOtherRule := rule u(:x + y) == u x + v y
+myOtherRule u(a + b + c + d)
+
+-- Input for page ugUserIntroPage
+)clear all
+
+factor(12)
+3 + 4
+1 + 2 + 7
+
+-- Input for page ugUserFunMacPage
+)clear all
+
+abs(-8)
+(x +-> if x < 0 then -x else x)(-8)
+
+-- Input for page ugUserBlocksPage
+)clear all
+
+swap(m,i,j) ==
+  temp := m.i
+  m.i := m.j
+  m.j := temp
+
+k := [1,2,3,4,5]
+swap(k,2,4)
+k
+bubbleSort(m) ==
+  n := #m
+  for i in 1..(n-1) repeat
+    for j in n..(i+1) by -1 repeat
+      if m.j < m.(j-1) then swap(m,j,j-1)
+  m
+
+m := [8,4,-3,9]
+bubbleSort(m)
+m
+insertionSort(m) ==
+  for i in 2..#m repeat
+    j := i
+    while j > 1 and m.j < m.(j-1) repeat
+      swap(m,j,j-1)
+      j := j - 1
+  m
+
+m := [8,4,-3,9]
+insertionSort(m)
+m
+bubbleSort2(m: List Integer): List Integer ==
+  empty?(m) => m
+  l := m
+  while not empty?(r := l.rest) repeat
+     r := bubbleSort2 r
+     x := l.first
+     if x < r.first then
+       l.first := r.first
+       r.first := x
+     l.rest := r
+     l := l.rest
+  m
+
+bubbleSort2 [3,7,2]
+
+-- Input for page ugUserMacrosPage
+)clear all
+
+macro df == D
+df(x^2 + x + 1,x)
+macro ff(x) == x^2 + 1
+ff z
+macro gg(x) == ff(2*x - 2/3)
+gg(1/w)
+macro ff(x) == gg(-x)
+macro next == (past := present; present := future; future := past + present)
+present : Integer := 0
+future : Integer := 1
+next
+next
+[next for i in 1..]
+macro fibStream ==
+  present : Integer := 1
+  future : Integer := 1
+  [next for i in 1..] where
+    macro next ==
+      past := present
+      present := future
+      future := past + present
+
+concat([0,1],fibStream)
+[fibonacci i for i in 1..]
+
+-- Input for page ugUserDeclarePage
+)clear all
+
+g: (Integer,Float,Integer) -> String
+g: (INT,FLOAT,INT) -> STRING
+h: () -> POLY INT
+h: () -> Polynomial INT
+h: () -> POLY Integer
+
+-- Input for page ugUserCompIntPage
+)clear all
+
+varPolys(vars) ==
+  for var in vars repeat
+    output(1 :: UnivariatePolynomial(var,Integer))
+
+varPolys ['x,'y,'z]
+for var in ['x,'y,'z] repeat
+  output(1 :: UnivariatePolynomial(var,Integer))
+
+
+-- Input for page ugUserDecUndecPage
+)clear all
+
+f(x: Integer): Integer == x + 1
+f 9
+f(-2.0)
+f(2/3)
+g x == x + 1
+g 9
+g(2/3)
+g("axiom")
+
+-- Input for page ugUserDatabasePage
+)clear all
+
+children("albert") == ["albertJr","richard","diane"]
+children("richard") == ["douglas","daniel","susan"]
+children("douglas") == ["dougie","valerie"]
+children(x) == []
+childOf(x,y) == member?(x,children(y))
+parentOf(x) ==
+  for y in people repeat
+    (if childOf(x,y) then return y)
+  "unknown"
+
+grandParentOf(x) == parentOf parentOf x
+grandchildren(x) == [y for y in people | grandParentOf(y) = x]
+greatGrandParents == [x for x in people |
+  reduce(_or,[not empty? children(y) for y in grandchildren(x)],false)]
+
+descendants(x) ==
+  kids := children(x)
+  empty?(kids) => [x]
+  concat(x,reduce(concat,[descendants(y)
+    for y in kids],[]))
+
+people == descendants "albert"
+grandchildren "richard"
+greatGrandParents
+
+-- Input for page ugUserDecOpersPage
+)clear all
+
+
+-- Input for page ugUserTrianglePage
+)clear all
+
+)set expose add constructor OutputForm
+pascal(1,i) == 1
+pascal(n,n) == 1
+pascal(i,j | 1 < i and i < j) ==
+   pascal(i-1,j-1)+pascal(i,j-1)
+
+pascalRow(n) == [pascal(i,n) for i in 1..n]
+displayRow(n) == output center blankSeparate pascalRow(n)
+for i in 1..7 repeat displayRow i
+pascalRow(n) == [right(pascal(i,n),4) for i in 1..n]
+for i in 1..7 repeat displayRow i
+)set expose drop constructor OutputForm
+
+-- Input for page ugUserFreeLocalPage
+)clear all
+
+counter := 0
+f() ==
+  free counter
+  counter := counter + 1
+
+f()
+counter
+g() ==
+  local counter
+  counter := 7
+
+g()
+counter
+a := b := 1
+h() ==
+  b := a + 1
+  a := b + a
+
+h()
+[a, b]
+)set fun cache all p
+p(i,x) == ( free N; reduce( + , [ (x-i)^n for n in 1..N ] ) )
+N := 1
+p(0, x)
+N := 2
+p(0, x)
+)set fun cache 0 p
+r : Record(i : Integer) := [1]
+resetRecord rr ==
+  rr.i := 2
+  rr := [10]
+
+resetRecord r
+r
+past := present := 1
+index := 2
+fib(n) ==
+  free past, present, index
+  n < 3 => 1
+  n = index - 1 => past
+  if n < index-1 then
+    (past,present) := (1,1)
+    index := 2
+  while (index < n) repeat
+    (past,present) := (present, past+present)
+    index := index + 1
+  present
+
+fibs := [fib(n) for n in 1..]
+fibs 1000
+
+-- Input for page ugUserPiecePredPage
+)clear all
+
+opposite 'right == 'left
+opposite (x | x = 'left) == 'right
+for x in ['right, 'left] repeat output opposite x
+opposite('inbetween)
+inFirstHalfQuadrant(x | x > 0,y | y < x) == true
+inFirstHalfQuadrant(x | x > 0 and y < x,y) == true
+inFirstHalfQuadrant(x,y | x > 0 and y < x) == true
+inFirstHalfQuadrant(x,y) == false
+[inFirstHalfQuadrant(i,3) for i in 1..5]
+
+-- Input for page ugUserAnonExampPage
+)clear all
+
+x +-> if x < 0 then -x else x
+abs1 := %
+(x,y) +-> abs1(x) > abs1(y)
+sort(%,[3,9,-4,10,-3,-1,-9,5])
+ev := ( (i,j) +-> if even?(i+j) then 1 else -1)
+matrix([[ev(row,col) for row in 1..4] for col in 1..4])
+( p +-> not one?(gcd(p,D(p,x))) )(x^2+4*x+4)
+g(x,y,z) == cos(x + sin(y + tan(z)))
+g == (x,y,z) +-> cos(x + sin(y + tan(z)))
+
+-- Input for page ugUserPieceBasicPage
+)clear all
+
+fact(0) == 1
+fact(n | n > 0) == n * fact(n - 1)
+fact(3)
+fact(-3)
+facto(0) == 1
+facto(n | n < 0) == error "arguments to facto must be non-negative"
+facto(n) == n * facto(n - 1)
+facto(3)
+facto(-7)
+)display value facto
+eleven(n | n < 1) == n + 11
+eleven(m) == eleven(eleven(m - 12))
+elevens := [eleven(i) for i in 0..]
+elevens 200
+)display value eleven

@@ -1,0 +1,92 @@
+)abbrev package LSPP LinearSystemPolynomialPackage
+++ Author:  P.Gianni
+++ Date Created: Summer 1985
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References: SystemSolvePackage
+++ Description:
+++ this package finds the solutions of linear systems presented as a
+++ list of polynomials.
+
+LinearSystemPolynomialPackage(R, E, OV, P) : Cat == Capsule where
+    R          :   IntegralDomain
+    OV         :   OrderedSet
+    E          :   OrderedAbelianMonoidSup
+    P          :   PolynomialCategory(R, E, OV)
+
+    F        ==> Fraction P
+    NNI      ==> NonNegativeInteger
+    V        ==> Vector
+    M        ==> Matrix
+    Soln     ==> Record(particular: Union(V F, "failed"), basis: List V F)
+
+    Cat == with
+        linSolve :  (List P, List OV) -> Soln
+          ++ linSolve(lp, lvar) finds the solutions of the linear system
+          ++ of polynomials lp = 0 with respect to the list of symbols lvar.
+        intoMatrix : (List P,   List OV) -> Record(mat : M F, vec : V F)
+          ++ intoMatrix(lp, lvar) converts linear in symbols lvar system
+          ++ of polynomials lp = 0 into matrix form
+
+    Capsule == add
+
+                        ---- Local Functions ----
+
+        poly2vect :    (P,     List OV)    -> Record(coefvec : V F, reductum : F)
+
+        poly2vect(p : P, vs : List OV) : Record(coefvec : V F, reductum : F) ==
+            coefs := new(#vs, 0)$(V F)
+            for v in vs for i in 1.. while p ~= 0 repeat
+              u := univariate(p, v)
+              degree u = 0 => "next v"
+              coefs.i := (c := leadingCoefficient u)::F
+              p := p - monomial(c, v, 1)
+            [coefs, p :: F]
+
+        intoMatrix(ps : List P, vs : List OV ) : Record(mat : M F, vec : V F) ==
+            m := zero(#ps, #vs)$M(F)
+            v := new(#ps, 0)$V(F)
+            for p in ps for i in 1.. repeat
+                totalDegree(p,vs) > 1 => error "The system is not linear"
+                r   := poly2vect(p, vs)
+                m := setRow!(m, i, r.coefvec)
+                v.i := - r.reductum
+            [m, v]
+
+        linSolve(ps, vs) ==
+            r := intoMatrix(ps, vs)
+            solve(r.mat, r.vec)$LinearSystemMatrixPackage(F, V F, V F, M F)
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

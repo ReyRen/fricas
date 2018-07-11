@@ -1,0 +1,496 @@
+)abbrev package CKP CartanKuranishi
+++ Description:
+++ \spadtype{CartanKuranishi} is a package for the completion of a
+++ given differential equation to an involutive equation.
+++ Procedures for Cartan characters and Hilbert polynomial are also provided.
+++ Based on the Cartan-Kuranishi theorem as it is used in formal theory.
+
+CartanKuranishi(JB : JBC, D : JBFC) : Cat == Def where
+
+  L      ==>  List
+  V      ==>  Vector
+  I      ==>  Integer
+  B      ==>  Boolean
+  Sy     ==>  Symbol
+  PI     ==>  PositiveInteger
+  NNI    ==>  NonNegativeInteger
+  OUT    ==>  OutputForm
+  FI     ==>  Fraction Integer
+  PFR    ==>  SparseUnivariatePolynomial(FI)
+  JBC    ==>  JetBundleCategory
+  JBFC   ==>  JetBundleFunctionCategory JB
+  DE     ==>  JetDifferentialEquation(JB, D)
+  SEM    ==>  SparseEchelonMatrix(JB, D)
+  TEX    ==>  TexFormat
+
+  CREC   ==>  Record(IDe : DE, ISys : L D, _
+                   Order : NNI, NumProj : NNI, Dim : NNI, CarChar : L NNI)
+  NREC   ==>  Record(I : NNI, K : NNI, Q : NNI)
+  MVREC  ==> Record(Rank : NNI, NumMultVar : NNI, Betas : L NNI)
+
+  errmsg1 ==> "independent equations lost during prolongation!!!"
+
+  Cat ==> with
+
+      setOutMode : NNI -> NNI
+        ++ \spad{setOutput(i)} controls amount of generated output
+        ++ during the completion algorithm:
+        ++ \spad{i = 0} --> no display,
+        ++ \spad{i = 1} --> result is displayed,
+        ++ \spad{i = 2} --> Cartan characters are displayed,
+        ++ \spad{i = 3} --> integrability conditions are traced,
+        ++ \spad{i = 4} --> intermediate dimensions are traced,
+        ++ \spad{i = 5} --> all intermediate systems are traced,
+        ++ \spad{i = 6} --> all intermediate systems and symbols are traced,
+        ++ if \spad{i > 10} then TeX output is produced.
+        ++ Default is 0. The old value is returned.
+
+      setSimpMode : NNI -> NNI
+        ++ \spad{setSimpMode(i)} sets the simplification mode used in
+        ++ \spad{JetDifferentialEquation}. Returns old value.
+
+      setRedMode : NNI -> NNI
+        ++ \spad{setRedMode(i)} sets the flag for the reduction mode.
+        ++ Returns old value. Current values are:
+        ++ \spad{i = 0} --> No reduction of integrability conditions etc.
+        ++ \spad{i = 1} --> Autoreduction of complete system and reduction
+        ++                 of all integrability conditions.
+        ++ Default is 0.
+
+      stirling : (NNI, NNI, NNI) -> NNI
+        ++ \spad{stirling(i, k, q)} computes the corresponding modified
+        ++ Stirling number.
+
+      alpha : (NNI, L NNI) -> L NNI
+        ++ \spad{alpha(q, beta)} computes the Cartan characters for a
+        ++ differential equation of order \spad{q} and with characters
+        ++ \spad{beta}.
+
+      hilbert : L NNI -> PFR
+        ++ \spad{hilbert(cc)} computes the Hilbert polynomial to the
+        ++ Cartan characters \spad{cc}.
+
+      alphaHilbert : PFR -> L NNI
+        ++ \spad{alphaHilbert(hp)} computes the Cartan characters for the
+        ++ Hilbert polynomial \spad{hp}.
+
+      arbFunctions : (NNI, I, L NNI) -> L I
+        ++ \spad{arbFunctions(q, j, cc)} uses the Cartan characters \spad{cc}
+        ++ to compute the number of arbitrary functions of differentiation
+        ++ order \spad{j} in the general solution of a differential equation
+        ++ of order \spad{q}.
+
+      gauge : (NNI, I, L NNI) -> L I
+        ++ \spad{gauge(q, j, gamma)} computes the gauge corrections to the
+        ++ number of arbitrary functions of differentiation order \spad{j}
+        ++ for a system of order \spad{q} with \spad{gamma} gauge functions.
+
+      gaugeHilbert : (NNI, L NNI) -> PFR
+        ++ \spad{gaugeHilbert(q, gamma)} computes the gauge correction to
+        ++ the Hilbert polynomial for a system of order \spad{q} with
+        ++ \spad{gamma} gauge functions.
+
+      bound : (NNI, NNI, NNI) -> NNI
+        ++ \spad{bound(n, m, q)} computes an upper bound for the number of
+        ++ prolongations needed to make the symbol of an equation of order
+        ++ \spad{q} with \spad{n} independent and \spad{m} dependent
+        ++ variables involutive.
+
+      complete : DE -> Void
+        ++ \spad{complete(de)} completes \spad{de} to an involutive equation.
+        ++ No result is returned; the display depends of the setting of the
+        ++ output flags with \spadfun{setOutput}.
+
+      complete2 : DE -> CREC
+        ++ \spad{complete2(de)} is like \spadfun{complete} but returns
+        ++ the involutive equation \spad{IDe}, a basis \spad{ISys} for the
+        ++ involutive system without prolongations, its order \spad{Order},
+        ++ the number \spad{NumProj} of needed projections and the Cartan
+        ++ characters \spad{CarChar}.
+
+  Def ==> add
+
+      import from JetDifferentialEquation(JB, D)
+
+      n : PI := numIndVar()$JB
+      m : PI := numDepVar()$JB
+        -- global constants for number of independent and dependent variables
+      ode : B := one? n
+
+      -- ----- --
+      -- Flags --
+      -- ----- --
+
+      redMode : NNI := 0          -- global flag for reduction mode
+      TeX : B   := false        -- global flag for TeX output
+      Out : NNI := 0            -- global flag for amount of tracing
+
+      setSimpMode(i : NNI) : NNI == setSimpMode(i)$DE
+
+      setRedMode(i : NNI) : NNI ==
+          j := redMode
+          redMode := i
+          j
+
+      setOutMode(i : NNI) : NNI ==
+          j := Out
+          if TeX then
+              j := j+10
+          TeX := (i > 10)
+          if TeX then
+              Out := i rem 10
+          else
+              Out := i
+          j
+
+      -- ------------------ --
+      -- Display of results --
+      -- ------------------ --
+
+      write(str : OUT) : Void ==
+          -- Prints str according to the setting of TeX.
+          if TeX then
+              display(str::TEX)$TEX
+          else
+              print(str)$OUT
+          void
+
+      outR(q : NNI, s : NNI) : OUT ==
+          -- Output form for R(q, s).
+          zero? s => sub(message "R", q::OUT)
+          supersub(message "R", [q::OUT, paren(s::OUT)])
+
+      outM(q : NNI, s : NNI) : OUT ==
+          -- Output form for M(q, s).
+          zero? s => sub(message "M", q::OUT)
+          supersub(message "M", [q::OUT, paren(s::OUT)])
+
+      info(flag : NNI, q : NNI, s : NNI, dim : NNI) : Void ==
+          -- Displays some trace information.
+          Out < 4 => void
+          write message(" ")
+          if flag = 1 then
+              write(hconcat [message("Symbol "), outM(q, s),
+                             message(" involutive! "),
+                             message("Dimension: "), dim::OUT])
+          else if flag = 2 then
+              write(hconcat [message("Symbol "), outM(q, s),
+                             message(" not involutive! "),
+                             message("Dimension: "), dim::OUT])
+          else
+              write(hconcat [message("Equation "), outR(q, s),
+                             message(" not involutive! "),
+                             message("Dimension: "), dim::OUT])
+          void
+
+      display(q : NNI, s : NNI, Sys : L D, Symb : SEM, DimRq : NNI,
+              DimMq : NNI) : Void ==
+          -- Displays intermediate systems and symbols.
+          Out < 5 => void
+          write message(" ")
+          write message("****************************************")
+          write message(" ")
+          write hconcat(message("Order: "), q::OUT)
+          write hconcat(message("Projections: "), s::OUT)
+          write hconcat(message(
+             "System without prolonged equations. Dimension: "),
+                          DimRq::OUT)
+          write printSys Sys
+          if Out > 5 then
+              write message(" ")
+              write hconcat(message("Symbol. Dimension: "), DimMq::OUT)
+              write(Symb::OUT)
+          void
+
+      displayIntCond(s : NNI, Cond : L D) : Void ==
+          -- Displays integrability conditions.
+          Out < 3 => void
+          write message(" ")
+          write hconcat [message("======= "), s::OUT,
+                         message(". Projection =======")]
+          write message("Integrability condition(s)")
+          write printSys Cond
+          write message("=============================")
+          void
+
+      displayCartan(Sys : L D, dim : NNI, q : NNI, s : NNI,
+                    CarChar : L NNI) : Void ==
+          -- Displays final result.
+          Out = 0 => void
+          write message(" ")
+          write message("*************** Final Result ***************")
+          write message(" ")
+          write hconcat [message("Equation "), outR(q, s),
+                         message(" involutive!")]
+          write hconcat(
+             message("System without prolonged equations. Dimension: "),
+                        dim::OUT)
+          write printSys Sys
+          if Out > 1 then
+              write message(" ")
+              if zero? reduce("+", CarChar, 0) then
+                  write message("System of finite type.")
+              else
+                  write hconcat(message("Cartan characters: "), _
+                          commaSeparate [cc::OUT for cc in CarChar])
+          void
+
+      -- ----------------- --
+      -- Cartan Characters --
+      -- ----------------- --
+
+      -- stirling uses a recursion. To avoid unnecessary recomputations a
+      -- table with already computed values is set up.
+
+      remember : Table(NREC, NNI) := dictionary()
+
+      stirling(i : NNI, k : NNI, q : NNI) : NNI ==
+          -- Evaluates the symmetric polynomial of degree k in i variables
+          -- for the values q+1, ..., q+i.
+          k > i => error "Symmetric polynomial not defined"
+          zero? i => 1
+          zero? k => 1
+          ans := search([i, k, q], remember)
+          ans case NNI => ans::NNI
+
+          if one? k then
+              res := reduce("+", [q + j for j in 1..i])
+          else if k = i then
+              res := reduce("*", [q + j for j in 1..i])
+          else
+              res := stirling((i - 1)::NNI, k, q) + _
+                     (q + i)*stirling((i - 1)::NNI, (k - 1)::NNI, q)
+          setelt!(remember, [i, k, q], res)
+
+      alpha(q : NNI, beta : L NNI) : L NNI ==
+          -- Computes Cartan characters from numbers of
+          -- multiplicative variables.
+          [(m*binomial(q+n-i-1, q-1)$I-bi)::NNI  for bi in beta for i in 1..n]
+
+      hilbert(CarChar : L NNI) : PFR ==
+          -- Construction of Hilbert polynomial.
+          res : PFR := 0
+          ifac : I := 1
+          for i in 0..(n - 1) repeat
+              coeff : FI := 0
+              kfac := ifac
+              for k in i..(n - 1) repeat
+                  if k > 0 then
+                      kfac := k*kfac
+                  coeff := coeff + qelt(CarChar, k + 1) * _
+                               stirling(k::NNI, (k - i)::NNI, 0)/kfac
+              res := res + monomial(retract(coeff), i::NNI)
+              if i > 0 then
+                  ifac := i*ifac
+          res
+
+      alphaHilbert(hilp : PFR) : L NNI ==
+          -- Cartan characters from Hilbert polynomial
+          res : L NNI := empty
+          ifac := factorial(n)$I
+          for i in n..1 by -1 repeat
+              sum : FI := 0
+              kfac := ifac
+              ifac := ifac quo i
+              for k in (i + 1)..n repeat
+                  sum := sum + stirling((k - 1)::NNI, (k - i)::NNI, 0)* _
+                                        qelt(res, k - i)/kfac
+                  kfac := k*kfac
+              ai : I := retract(ifac*(coefficient(hilp, (i - 1)::NNI) - sum))
+              res := cons(ai::NNI, res)
+          res
+
+      arbFunctions(q : NNI, j : I, CarChar : L NNI) : L I ==
+          -- Number of arbitrary functions of differentiation order j
+          -- in general solution.
+          res : L I := [CarChar.n]
+          ifac := factorial(n - 1)$I
+          for i in (n-1)..1 by -1 repeat
+              t : FI := 0
+              ifac := ifac quo i
+              kfac := ifac
+              for k in i..(n-1) repeat
+                  ki := (k - i + 1)::NNI
+                  kfac := k*kfac
+                  t := t + (qelt(CarChar, k + 1)*stirling(k::NNI, ki, 0) - _
+                      qelt(res, ki)*stirling(k::NNI, ki, (q + j)::NNI))/kfac
+              t := qelt(CarChar, i)::FI + t*ifac
+              res := cons(retract(t), res)
+          res
+
+      gauge(q : NNI, j : I, gamma : L NNI) : L I ==
+          -- Gauge corrections to number of arbitrary functions of
+          -- differentiation order j.
+          gp := #gamma
+          zero? gp => new(n, 0)
+          res : L I := [reduce("+", gamma)]
+          n1 : I := n-1
+          ifac := factorial(n1)$I
+          rnf : FI := 1/ifac
+          for i in n1..1 by -1 repeat
+              t : FI := 0
+              for l in 0..(gp-1) for g in gamma repeat
+                  t := t + (g*stirling(n1::NNI, (n - i)::NNI,
+                                       (q + l)::NNI))::I::FI
+              t := t*rnf
+              ifac := ifac quo i
+              kfac := ifac
+              for k in i..n1 repeat
+                  ki := (k - i + 1)::NNI
+                  kfac := k*kfac
+                  t := t - qelt(res, ki)*stirling(k::NNI, ki, (q+j)::NNI)/kfac
+              t := t*ifac
+              res := cons(retract(t), res)
+          res
+
+      gaugeHilbert(q : NNI, gamma : L NNI) : PFR ==
+          -- Gauge correction to Hilbert polynomial.
+          gp := #gamma
+          zero? gp => 0
+          res : PFR := 0
+          rnf : FI := 1/factorial(n - 1)$I
+          for k in 0..(n - 1) repeat
+              t : NNI := 0
+              for l in 0..(gp - 1) for g in gamma repeat
+                  t := t + g*stirling((n - 1)::NNI, (n - k - 1)::NNI, _
+                                      (q + l)::NNI)
+              res := res + monomial(t*rnf, k)
+          res
+
+      -- -------------------- --
+      -- Completion Algorithm --
+      -- -------------------- --
+
+      bound(nn : NNI, mm : NNI, qq : NNI) : NNI ==
+          -- Upper bound for number of needed prolongations.
+          one? qq =>
+              zero? nn => 0
+              tmp := bound((nn - 1)::NNI, mm, 1)
+              (1 + tmp + mm*binomial(nn + tmp, nn - 1)$I)::NNI
+          bound(nn, (mm*binomial(qq + nn - 1, nn)$I)::NNI, 1)
+
+      complete(De : DE) : Void ==
+          tmp := complete2 De
+          void
+
+      complete2(De : DE) : CREC ==
+          -- Completion procedure.
+          -- In the loop all variables with prefix Prev refer to objects
+          -- of order q; all with prefix Cur are of order q+1.
+          PrevDe, CurDe, ProjDe : DE
+          PrevSymb, CurSymb : SEM
+          PrevSymbDim, CurSymbDim : NNI
+          PrevDeDim, CurDeDim, ProjDeDim : NNI
+          PrevMV, CurMV : MVREC
+
+          PrevDe := simplify(De).SDe
+          CompSys := retract PrevDe             -- basis for complete system
+          if redMode > 0 then
+              CompSys := autoReduce CompSys
+          PD := prolong PrevDe
+          CurDe := PD.SDe
+          ICs := PD.IC                          -- integrability conditions
+          if (redMode > 0) and not(empty? ICs) then
+              ICs := autoReduce reduceMod(ICs, CompSys)
+
+          q := order De                         -- counter for order
+          s := 0$NNI                            -- counter for projections
+          q1 := q + 1
+          dimSq := dimS(q)$JB
+          dimSq1 := dimS(q1)$JB
+          InvDe : B := false
+          InvSymb : B := ode
+          solved? : B := (Out > 5)
+
+          until InvDe repeat
+              PrevDeDim := dimension(PrevDe, q)
+              CurDeDim := dimension(CurDe, q1)
+              if not ode then
+                  PrevSymb := extractSymbol(PrevDe, solved?)
+                  PrevMV := analyseSymbol PrevSymb
+                  PrevSymbDim := (dimSq - PrevMV.Rank)::NNI
+                  if zero? PrevSymbDim then
+                      CurSymb := prolongSymbol PrevSymb
+                      CurMV := prolongMV PrevMV
+                      CurSymbDim := 0$NNI
+                  else
+                      CurSymb := extractSymbol(CurDe, solved?)
+                      CurMV := analyseSymbol CurSymb
+                      CurSymbDim := (dimSq1 - CurMV.Rank)::NNI
+                  InvSymb := (PrevMV.NumMultVar = CurMV.Rank)
+
+              display(q, s, CompSys, PrevSymb, PrevDeDim, PrevSymbDim)
+
+              while not InvSymb repeat
+                  CurMV.Rank < PrevMV.NumMultVar => error errmsg1
+                  info(2, q, s, PrevSymbDim)
+                  q := q1                           -- prolongation
+                  q1 := q1+1
+                  dimSq := dimSq1
+                  dimSq1 := dimS(q1)$JB
+
+                  PrevDe := CurDe
+                  PrevSymb := CurSymb
+                  PrevMV := CurMV
+                  PrevDeDim := CurDeDim
+                  PrevSymbDim := CurSymbDim
+
+                  PD := prolong PrevDe
+                  CurDe := PD.SDe
+                  if zero? PrevSymbDim then
+                      CurSymb := prolongSymbol PrevSymb
+                      CurMV := prolongMV PrevMV
+                      CurSymbDim := 0$NNI
+                  else
+                      CurSymb := extractSymbol(CurDe, solved?)
+                      CurMV := analyseSymbol CurSymb
+                      CurSymbDim := (dimSq1 - CurMV.Rank)::NNI
+                  CurDeDim := dimension(CurDe, q1)
+                  if not empty? PD.IC then
+                      if redMode > 0 then
+                          ICs := autoReduce concat!(ICs,
+                                              reduceMod(PD.IC, CompSys))
+                      else
+                          ICs := concat!(ICs, PD.IC)
+                  InvSymb := (PrevMV.NumMultVar = CurMV.Rank)
+
+              if ode then
+                  ProjDe := project(CurDe, q)
+                  ProjDeDim := dimension(ProjDe, q)
+              else
+                  info(1, q, s, PrevSymbDim)
+                  ProjDeDim := (CurDeDim - CurSymbDim)::NNI
+              InvDe := (ProjDeDim = PrevDeDim)
+
+              if not InvDe then
+                  info(3, q, s, PrevDeDim)
+                  s := s + 1                          -- projection
+                  displayIntCond(s, ICs)
+                  if redMode > 0 then
+                      CompSys := autoReduce concat!(CompSys, ICs)
+                  else
+                      CompSys := concat!(CompSys, ICs)
+                  if ode then
+                      PrevDe := ProjDe
+                  else
+                      PrevDe := project(CurDe, q)
+                  PD := prolong(CurDe, q1)
+                  CurDe := PD.SDe
+                  if not empty? PD.IC then
+                      if redMode > 0 then
+                          ICs := autoReduce reduceMod(PD.IC, CompSys)
+                      else
+                          ICs := PD.IC
+                  else
+                      ICs := empty
+
+          if ode then
+              PrevSymb := extractSymbol(PrevDe, false)
+              Cartan : L NNI := [rowEchelon(PrevSymb).Rank]
+          else
+              Cartan := alpha(q, PrevMV.Betas)
+          displayCartan(CompSys, PrevDeDim, q, s, Cartan)
+
+          [PrevDe, CompSys, q, s, PrevDeDim, Cartan]
+
+

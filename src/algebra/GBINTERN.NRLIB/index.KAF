@@ -1,0 +1,624 @@
+27567               (|GroebnerInternalPackage| |Dom| |Expon| |Dpol|)
+|package|
+(((|GroebnerInternalPackage| |#1| |#2| |#3|)
+  (CATEGORY |package| (SIGNATURE |credPol| (|#3| |#3| (|List| |#3|)))
+   (SIGNATURE |redPol| (|#3| |#3| (|List| |#3|)))
+   (SIGNATURE |gbasis| ((|List| |#3|) (|List| |#3|) (|Integer|) (|Integer|)))
+   (SIGNATURE |gbasisExtend|
+    ((|List| |#3|) (|List| |#3|) (|List| |#3|) (|Integer|) (|Integer|)))
+   (SIGNATURE |critT|
+    ((|Boolean|)
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))))
+   (SIGNATURE |critM| ((|Boolean|) |#2| |#2|))
+   (SIGNATURE |critB| ((|Boolean|) |#2| |#2| |#2| |#2|))
+   (SIGNATURE |critBonD|
+    ((|List|
+      (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+                (|:| |poli| |#3|) (|:| |polj| |#3|)))
+     |#3|
+     (|List|
+      (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+                (|:| |poli| |#3|) (|:| |polj| |#3|)))))
+   (SIGNATURE |critMTonD1|
+    ((|List|
+      (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+                (|:| |poli| |#3|) (|:| |polj| |#3|)))
+     (|List|
+      (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+                (|:| |poli| |#3|) (|:| |polj| |#3|)))))
+   (SIGNATURE |critMonD1|
+    ((|List|
+      (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+                (|:| |poli| |#3|) (|:| |polj| |#3|)))
+     |#2|
+     (|List|
+      (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+                (|:| |poli| |#3|) (|:| |polj| |#3|)))))
+   (SIGNATURE |redPo|
+    ((|Record| (|:| |poly| |#3|) (|:| |mult| |#1|)) |#3| (|List| |#3|)))
+   (SIGNATURE |hMonic| (|#3| |#3|))
+   (SIGNATURE |updatF|
+    ((|List| (|Record| (|:| |totdeg| (|NonNegativeInteger|)) (|:| |pol| |#3|)))
+     |#3| (|NonNegativeInteger|)
+     (|List|
+      (|Record| (|:| |totdeg| (|NonNegativeInteger|)) (|:| |pol| |#3|)))))
+   (SIGNATURE |sPol|
+    (|#3|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))))
+   (SIGNATURE |updatD|
+    ((|List|
+      (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+                (|:| |poli| |#3|) (|:| |polj| |#3|)))
+     (|List|
+      (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+                (|:| |poli| |#3|) (|:| |polj| |#3|)))
+     (|List|
+      (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+                (|:| |poli| |#3|) (|:| |polj| |#3|)))))
+   (SIGNATURE |minGbasis| ((|List| |#3|) (|List| |#3|)))
+   (SIGNATURE |lepol| ((|Integer|) |#3|))
+   (SIGNATURE |prinshINFO| ((|Void|) |#3|))
+   (SIGNATURE |prindINFO|
+    ((|Integer|)
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))
+     |#3| |#3| (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |fprindINFO|
+    ((|Integer|)
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))
+     |#3| |#3| (|Integer|) (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |prinpolINFO| ((|Void|) (|List| |#3|)))
+   (SIGNATURE |prinb| ((|Void|) (|Integer|)))
+   (SIGNATURE |critpOrder|
+    ((|Boolean|)
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))))
+   (SIGNATURE |makeCrit|
+    ((|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))
+     (|Record| (|:| |totdeg| (|NonNegativeInteger|)) (|:| |pol| |#3|)) |#3|
+     (|NonNegativeInteger|)))
+   (SIGNATURE |virtualDegree| ((|NonNegativeInteger|) |#3|)))
+  (|GcdDomain|) (|OrderedAbelianMonoidSup|)
+  (|Join| (|FiniteAbelianMonoidRing| |#1| |#2|)
+          (|VariablesCommuteWithCoefficients|)))
+ (T |GroebnerInternalPackage|))
+(CATEGORY |package| (SIGNATURE |credPol| (|#3| |#3| (|List| |#3|)))
+ (SIGNATURE |redPol| (|#3| |#3| (|List| |#3|)))
+ (SIGNATURE |gbasis| ((|List| |#3|) (|List| |#3|) (|Integer|) (|Integer|)))
+ (SIGNATURE |gbasisExtend|
+  ((|List| |#3|) (|List| |#3|) (|List| |#3|) (|Integer|) (|Integer|)))
+ (SIGNATURE |critT|
+  ((|Boolean|)
+   (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+             (|:| |poli| |#3|) (|:| |polj| |#3|))))
+ (SIGNATURE |critM| ((|Boolean|) |#2| |#2|))
+ (SIGNATURE |critB| ((|Boolean|) |#2| |#2| |#2| |#2|))
+ (SIGNATURE |critBonD|
+  ((|List|
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))
+   |#3|
+   (|List|
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))))
+ (SIGNATURE |critMTonD1|
+  ((|List|
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))
+   (|List|
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))))
+ (SIGNATURE |critMonD1|
+  ((|List|
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))
+   |#2|
+   (|List|
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))))
+ (SIGNATURE |redPo|
+  ((|Record| (|:| |poly| |#3|) (|:| |mult| |#1|)) |#3| (|List| |#3|)))
+ (SIGNATURE |hMonic| (|#3| |#3|))
+ (SIGNATURE |updatF|
+  ((|List| (|Record| (|:| |totdeg| (|NonNegativeInteger|)) (|:| |pol| |#3|)))
+   |#3| (|NonNegativeInteger|)
+   (|List| (|Record| (|:| |totdeg| (|NonNegativeInteger|)) (|:| |pol| |#3|)))))
+ (SIGNATURE |sPol|
+  (|#3|
+   (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+             (|:| |poli| |#3|) (|:| |polj| |#3|))))
+ (SIGNATURE |updatD|
+  ((|List|
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))
+   (|List|
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))
+   (|List|
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))))
+ (SIGNATURE |minGbasis| ((|List| |#3|) (|List| |#3|)))
+ (SIGNATURE |lepol| ((|Integer|) |#3|))
+ (SIGNATURE |prinshINFO| ((|Void|) |#3|))
+ (SIGNATURE |prindINFO|
+  ((|Integer|)
+   (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+             (|:| |poli| |#3|) (|:| |polj| |#3|))
+   |#3| |#3| (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |fprindINFO|
+  ((|Integer|)
+   (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+             (|:| |poli| |#3|) (|:| |polj| |#3|))
+   |#3| |#3| (|Integer|) (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |prinpolINFO| ((|Void|) (|List| |#3|)))
+ (SIGNATURE |prinb| ((|Void|) (|Integer|)))
+ (SIGNATURE |critpOrder|
+  ((|Boolean|)
+   (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+             (|:| |poli| |#3|) (|:| |polj| |#3|))
+   (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+             (|:| |poli| |#3|) (|:| |polj| |#3|))))
+ (SIGNATURE |makeCrit|
+  ((|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+             (|:| |poli| |#3|) (|:| |polj| |#3|))
+   (|Record| (|:| |totdeg| (|NonNegativeInteger|)) (|:| |pol| |#3|)) |#3|
+   (|NonNegativeInteger|)))
+ (SIGNATURE |virtualDegree| ((|NonNegativeInteger|) |#3|)))
+"/git/fricas/src/algebra/GBINTERN.spad"
+((|virtualDegree| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *4 *5 *3))
+       (|ofCategory| *3
+                     (|Join| (|FiniteAbelianMonoidRing| *4 *5)
+                             (|VariablesCommuteWithCoefficients|)))))
+ (|makeCrit| (*1 *2 *3 *4 *5)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |totdeg| (|NonNegativeInteger|)) (|:| |pol| *4)))
+   (|isDomain| *5 (|NonNegativeInteger|))
+   (|ofCategory| *4
+                 (|Join| (|FiniteAbelianMonoidRing| *6 *7)
+                         (|VariablesCommuteWithCoefficients|)))
+   (|ofCategory| *6 (|GcdDomain|))
+   (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *2
+               (|Record| (|:| |lcmfij| *7)
+                         (|:| |totdeg| (|NonNegativeInteger|)) (|:| |poli| *4)
+                         (|:| |polj| *4)))
+   (|isDomain| *1 (|GroebnerInternalPackage| *6 *7 *4))))
+ (|critpOrder| (*1 *2 *3 *3)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |lcmfij| *5)
+                         (|:| |totdeg| (|NonNegativeInteger|)) (|:| |poli| *6)
+                         (|:| |polj| *6)))
+   (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *6
+                 (|Join| (|FiniteAbelianMonoidRing| *4 *5)
+                         (|VariablesCommuteWithCoefficients|)))
+   (|ofCategory| *4 (|GcdDomain|)) (|isDomain| *2 (|Boolean|))
+   (|isDomain| *1 (|GroebnerInternalPackage| *4 *5 *6))))
+ (|prinb| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|)) (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *4 *5 *6))
+       (|ofCategory| *6
+                     (|Join| (|FiniteAbelianMonoidRing| *4 *5)
+                             (|VariablesCommuteWithCoefficients|)))))
+ (|prinpolINFO| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *6))
+       (|ofCategory| *6
+                     (|Join| (|FiniteAbelianMonoidRing| *4 *5)
+                             (|VariablesCommuteWithCoefficients|)))
+       (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *4 *5 *6))))
+ (|fprindINFO| (*1 *2 *3 *4 *4 *2 *2 *2 *2)
+  (AND (|isDomain| *2 (|Integer|))
+       (|isDomain| *3
+                   (|Record| (|:| |lcmfij| *6)
+                             (|:| |totdeg| (|NonNegativeInteger|))
+                             (|:| |poli| *4) (|:| |polj| *4)))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *4
+                     (|Join| (|FiniteAbelianMonoidRing| *5 *6)
+                             (|VariablesCommuteWithCoefficients|)))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *5 *6 *4))))
+ (|prindINFO| (*1 *2 *3 *4 *4 *2 *2 *2)
+  (AND (|isDomain| *2 (|Integer|))
+       (|isDomain| *3
+                   (|Record| (|:| |lcmfij| *6)
+                             (|:| |totdeg| (|NonNegativeInteger|))
+                             (|:| |poli| *4) (|:| |polj| *4)))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *4
+                     (|Join| (|FiniteAbelianMonoidRing| *5 *6)
+                             (|VariablesCommuteWithCoefficients|)))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *5 *6 *4))))
+ (|prinshINFO| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *4 *5 *3))
+       (|ofCategory| *3
+                     (|Join| (|FiniteAbelianMonoidRing| *4 *5)
+                             (|VariablesCommuteWithCoefficients|)))))
+ (|lepol| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *4 *5 *3))
+       (|ofCategory| *3
+                     (|Join| (|FiniteAbelianMonoidRing| *4 *5)
+                             (|VariablesCommuteWithCoefficients|)))))
+ (|minGbasis| (*1 *2 *2)
+  (AND (|isDomain| *2 (|List| *5))
+       (|ofCategory| *5
+                     (|Join| (|FiniteAbelianMonoidRing| *3 *4)
+                             (|VariablesCommuteWithCoefficients|)))
+       (|ofCategory| *3 (|GcdDomain|))
+       (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *3 *4 *5))))
+ (|updatD| (*1 *2 *2 *2)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |lcmfij| *4)
+                          (|:| |totdeg| (|NonNegativeInteger|)) (|:| |poli| *5)
+                          (|:| |polj| *5))))
+   (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *5
+                 (|Join| (|FiniteAbelianMonoidRing| *3 *4)
+                         (|VariablesCommuteWithCoefficients|)))
+   (|ofCategory| *3 (|GcdDomain|))
+   (|isDomain| *1 (|GroebnerInternalPackage| *3 *4 *5))))
+ (|sPol| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |lcmfij| *5)
+                         (|:| |totdeg| (|NonNegativeInteger|)) (|:| |poli| *2)
+                         (|:| |polj| *2)))
+   (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *2
+                 (|Join| (|FiniteAbelianMonoidRing| *4 *5)
+                         (|VariablesCommuteWithCoefficients|)))
+   (|isDomain| *1 (|GroebnerInternalPackage| *4 *5 *2))
+   (|ofCategory| *4 (|GcdDomain|))))
+ (|updatF| (*1 *2 *3 *4 *2)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |totdeg| (|NonNegativeInteger|))
+                          (|:| |pol| *3))))
+   (|isDomain| *4 (|NonNegativeInteger|))
+   (|ofCategory| *3
+                 (|Join| (|FiniteAbelianMonoidRing| *5 *6)
+                         (|VariablesCommuteWithCoefficients|)))
+   (|ofCategory| *5 (|GcdDomain|))
+   (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *1 (|GroebnerInternalPackage| *5 *6 *3))))
+ (|hMonic| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|GcdDomain|))
+       (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *3 *4 *2))
+       (|ofCategory| *2
+                     (|Join| (|FiniteAbelianMonoidRing| *3 *4)
+                             (|VariablesCommuteWithCoefficients|)))))
+ (|redPo| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|List| *3))
+       (|ofCategory| *3
+                     (|Join| (|FiniteAbelianMonoidRing| *5 *6)
+                             (|VariablesCommuteWithCoefficients|)))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Record| (|:| |poly| *3) (|:| |mult| *5)))
+       (|isDomain| *1 (|GroebnerInternalPackage| *5 *6 *3))))
+ (|critMonD1| (*1 *2 *3 *2)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |lcmfij| *3)
+                          (|:| |totdeg| (|NonNegativeInteger|)) (|:| |poli| *5)
+                          (|:| |polj| *5))))
+   (|ofCategory| *3 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *5
+                 (|Join| (|FiniteAbelianMonoidRing| *4 *3)
+                         (|VariablesCommuteWithCoefficients|)))
+   (|ofCategory| *4 (|GcdDomain|))
+   (|isDomain| *1 (|GroebnerInternalPackage| *4 *3 *5))))
+ (|critMTonD1| (*1 *2 *2)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |lcmfij| *4)
+                          (|:| |totdeg| (|NonNegativeInteger|)) (|:| |poli| *5)
+                          (|:| |polj| *5))))
+   (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *5
+                 (|Join| (|FiniteAbelianMonoidRing| *3 *4)
+                         (|VariablesCommuteWithCoefficients|)))
+   (|ofCategory| *3 (|GcdDomain|))
+   (|isDomain| *1 (|GroebnerInternalPackage| *3 *4 *5))))
+ (|critBonD| (*1 *2 *3 *2)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |lcmfij| *5)
+                          (|:| |totdeg| (|NonNegativeInteger|)) (|:| |poli| *3)
+                          (|:| |polj| *3))))
+   (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *3
+                 (|Join| (|FiniteAbelianMonoidRing| *4 *5)
+                         (|VariablesCommuteWithCoefficients|)))
+   (|ofCategory| *4 (|GcdDomain|))
+   (|isDomain| *1 (|GroebnerInternalPackage| *4 *5 *3))))
+ (|critB| (*1 *2 *3 *3 *3 *3)
+  (AND (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *3 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *4 *3 *5))
+       (|ofCategory| *5
+                     (|Join| (|FiniteAbelianMonoidRing| *4 *3)
+                             (|VariablesCommuteWithCoefficients|)))))
+ (|critM| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *3 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *4 *3 *5))
+       (|ofCategory| *5
+                     (|Join| (|FiniteAbelianMonoidRing| *4 *3)
+                             (|VariablesCommuteWithCoefficients|)))))
+ (|critT| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |lcmfij| *5)
+                         (|:| |totdeg| (|NonNegativeInteger|)) (|:| |poli| *6)
+                         (|:| |polj| *6)))
+   (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *6
+                 (|Join| (|FiniteAbelianMonoidRing| *4 *5)
+                         (|VariablesCommuteWithCoefficients|)))
+   (|ofCategory| *4 (|GcdDomain|)) (|isDomain| *2 (|Boolean|))
+   (|isDomain| *1 (|GroebnerInternalPackage| *4 *5 *6))))
+ (|gbasisExtend| (*1 *2 *2 *2 *3 *3)
+  (AND (|isDomain| *2 (|List| *6)) (|isDomain| *3 (|Integer|))
+       (|ofCategory| *6
+                     (|Join| (|FiniteAbelianMonoidRing| *4 *5)
+                             (|VariablesCommuteWithCoefficients|)))
+       (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *4 *5 *6))))
+ (|gbasis| (*1 *2 *2 *3 *3)
+  (AND (|isDomain| *2 (|List| *6)) (|isDomain| *3 (|Integer|))
+       (|ofCategory| *6
+                     (|Join| (|FiniteAbelianMonoidRing| *4 *5)
+                             (|VariablesCommuteWithCoefficients|)))
+       (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *4 *5 *6))))
+ (|redPol| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|List| *2))
+       (|ofCategory| *2
+                     (|Join| (|FiniteAbelianMonoidRing| *4 *5)
+                             (|VariablesCommuteWithCoefficients|)))
+       (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *4 *5 *2))))
+ (|credPol| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|List| *2))
+       (|ofCategory| *2
+                     (|Join| (|FiniteAbelianMonoidRing| *4 *5)
+                             (|VariablesCommuteWithCoefficients|)))
+       (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *1 (|GroebnerInternalPackage| *4 *5 *2)))))
+((|virtualDegree| (((|NonNegativeInteger|) |#3|) 11))
+ (|updatF|
+  (((|List| (|Record| (|:| |totdeg| (|NonNegativeInteger|)) (|:| |pol| |#3|)))
+    |#3| (|NonNegativeInteger|)
+    (|List| (|Record| (|:| |totdeg| (|NonNegativeInteger|)) (|:| |pol| |#3|))))
+   34))
+ (|updatD|
+  (((|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|)))
+    (|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|)))
+    (|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))))
+   40))
+ (|sPol|
+  ((|#3|
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))
+   41))
+ (|redPol| ((|#3| |#3| (|List| |#3|)) 42))
+ (|redPo|
+  (((|Record| (|:| |poly| |#3|) (|:| |mult| |#1|)) |#3| (|List| |#3|)) 71))
+ (|prinshINFO| (((|Void|) |#3|) 44))
+ (|prinpolINFO| (((|Void|) (|List| |#3|)) 52))
+ (|prindINFO|
+  (((|Integer|)
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|))
+    |#3| |#3| (|Integer|) (|Integer|) (|Integer|))
+   49))
+ (|prinb| (((|Void|) (|Integer|)) 80))
+ (|minGbasis| (((|List| |#3|) (|List| |#3|)) 78))
+ (|makeCrit|
+  (((|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|))
+    (|Record| (|:| |totdeg| (|NonNegativeInteger|)) (|:| |pol| |#3|)) |#3|
+    (|NonNegativeInteger|))
+   24))
+ (|lepol| (((|Integer|) |#3|) 79)) (|hMonic| ((|#3| |#3|) 29))
+ (|gbasisExtend|
+  (((|List| |#3|) (|List| |#3|) (|List| |#3|) (|Integer|) (|Integer|)) 27))
+ (|gbasis| (((|List| |#3|) (|List| |#3|) (|Integer|) (|Integer|)) 28))
+ (|fprindINFO|
+  (((|Integer|)
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|))
+    |#3| |#3| (|Integer|) (|Integer|) (|Integer|) (|Integer|))
+   90))
+ (|critpOrder|
+  (((|Boolean|)
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|))
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))
+   15))
+ (|critT|
+  (((|Boolean|)
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))
+   59))
+ (|critMonD1|
+  (((|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|)))
+    |#2|
+    (|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))))
+   58))
+ (|critMTonD1|
+  (((|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|)))
+    (|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))))
+   38))
+ (|critM| (((|Boolean|) |#2| |#2|) 57))
+ (|critBonD|
+  (((|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|)))
+    |#3|
+    (|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))))
+   39))
+ (|critB| (((|Boolean|) |#2| |#2| |#2| |#2|) 60))
+ (|credPol| ((|#3| |#3| (|List| |#3|)) 72)))
+GBINTERN
+((|constructor|
+  (NIL
+   "\\indented{1}{Author:} Keywords: References: \\indented{2}{\\spad{R}. Gebauer,{} \\spad{M}. Moeller,{}\\space{2}On an Installation of Buchberger\\spad{'s} Algorithm,{}} \\indented{2}{\\spad{JSC} (1988) 6,{} 275-286.} Description This package provides low level tools for Groebner basis computations"))
+ (|virtualDegree|
+  (((|NonNegativeInteger|) |#3|) "\\spad{virtualDegree }\\undocumented"))
+ (|makeCrit|
+  (((|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|))
+    (|Record| (|:| |totdeg| (|NonNegativeInteger|)) (|:| |pol| |#3|)) |#3|
+    (|NonNegativeInteger|))
+   "\\spad{makeCrit }\\undocumented"))
+ (|critpOrder|
+  (((|Boolean|)
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|))
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))
+   "\\spad{critpOrder }\\undocumented"))
+ (|prinb| (((|Void|) (|Integer|)) "\\spad{prinb }\\undocumented"))
+ (|prinpolINFO|
+  (((|Void|) (|List| |#3|)) "\\spad{prinpolINFO }\\undocumented"))
+ (|fprindINFO|
+  (((|Integer|)
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|))
+    |#3| |#3| (|Integer|) (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{fprindINFO }\\undocumented"))
+ (|prindINFO|
+  (((|Integer|)
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|))
+    |#3| |#3| (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{prindINFO }\\undocumented"))
+ (|prinshINFO| (((|Void|) |#3|) "\\spad{prinshINFO }\\undocumented"))
+ (|lepol| (((|Integer|) |#3|) "\\spad{lepol }\\undocumented"))
+ (|minGbasis|
+  (((|List| |#3|) (|List| |#3|)) "\\spad{minGbasis }\\undocumented"))
+ (|updatD|
+  (((|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|)))
+    (|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|)))
+    (|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))))
+   "\\spad{updatD }\\undocumented"))
+ (|sPol|
+  ((|#3|
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))
+   "\\spad{sPol }\\undocumented"))
+ (|updatF|
+  (((|List| (|Record| (|:| |totdeg| (|NonNegativeInteger|)) (|:| |pol| |#3|)))
+    |#3| (|NonNegativeInteger|)
+    (|List| (|Record| (|:| |totdeg| (|NonNegativeInteger|)) (|:| |pol| |#3|))))
+   "\\spad{updatF }\\undocumented"))
+ (|hMonic| ((|#3| |#3|) "\\spad{hMonic }\\undocumented"))
+ (|redPo|
+  (((|Record| (|:| |poly| |#3|) (|:| |mult| |#1|)) |#3| (|List| |#3|))
+   "\\spad{redPo }\\undocumented"))
+ (|critMonD1|
+  (((|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|)))
+    |#2|
+    (|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))))
+   "\\spad{critMonD1 }\\undocumented"))
+ (|critMTonD1|
+  (((|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|)))
+    (|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))))
+   "\\spad{critMTonD1 }\\undocumented"))
+ (|critBonD|
+  (((|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|)))
+    |#3|
+    (|List|
+     (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+               (|:| |poli| |#3|) (|:| |polj| |#3|))))
+   "\\spad{critBonD }\\undocumented"))
+ (|critB| (((|Boolean|) |#2| |#2| |#2| |#2|) "\\spad{critB }\\undocumented"))
+ (|critM| (((|Boolean|) |#2| |#2|) "\\spad{critM }\\undocumented"))
+ (|critT|
+  (((|Boolean|)
+    (|Record| (|:| |lcmfij| |#2|) (|:| |totdeg| (|NonNegativeInteger|))
+              (|:| |poli| |#3|) (|:| |polj| |#3|)))
+   "\\spad{critT }\\undocumented"))
+ (|gbasisExtend|
+  (((|List| |#3|) (|List| |#3|) (|List| |#3|) (|Integer|) (|Integer|))
+   "\\spad{gbasisExtend(pols,{} gb,{} f1,{} f2)} computes a Groebner basis of concat(\\spad{pols},{} \\spad{gb}) where \\spad{gb} is assumed to be already a Groebner basis,{} \\spadignore{i.e.} no \\spad{S}-polynomials among elements of \\spad{gb} will ever be considered."))
+ (|gbasis|
+  (((|List| |#3|) (|List| |#3|) (|Integer|) (|Integer|))
+   "\\spad{gbasis(pols,{} f1,{} f2)} computes a Groebner basis of \\spad{pols}."))
+ (|redPol| ((|#3| |#3| (|List| |#3|)) "\\spad{redPol }\\undocumented"))
+ (|credPol| ((|#3| |#3| (|List| |#3|)) "\\spad{credPol }\\undocumented")))
+(("documentation" 0 22621) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 22612) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 19057) ("modemaps" 0 7753) ("sourceFile" 0 7713)
+ ("constructorCategory" 0 4090) ("constructorModemap" 0 79)
+ ("constructorKind" 0 69) ("constructorForm" 0 20))

@@ -1,0 +1,93 @@
+)abbrev domain SKSMP SparseMultivariateSkewPolynomial
+++ Description:
+++   SparseMultivariateSkewPolynomial(R, Var, sigma, delta) defines
+++   a mutivariate Ore ring over R in variables from V. \spad{sigma(v)}
+++   gives automorphism of R corresponding to variable \spad{v} and
+++   \spad{delta(v)} gives corresponding derivative.
+++
+SparseMultivariateSkewPolynomial(R : Ring, Var : OrderedSet,
+      sigma : Var -> Automorphism R , delta : Var -> (R -> R)
+    ) : Exports == Implementation where
+  Exports ==> MultivariateSkewPolynomialCategory(R, IndexedExponents(Var),
+                                                 Var) with
+    D : Var -> %
+      ++ D(v) returns operator corresponding to derivative with
+      ++ respect to v in R.
+    if Var has variable : Symbol -> Var then
+        Delta : Symbol -> %
+          ++ Delta(s) returns operator corresponding to derivative with
+          ++ respect to s in R.
+
+  Smp ==> SparseMultivariatePolynomial(R, Var)
+  Implementation ==> Smp add
+
+    D(v : Var) : % == monomial(1, v, 1)
+
+    if Var has with (variable : Symbol -> Union(Var, "failed")) then
+
+        Delta(s : Symbol) : % ==
+            vu := variable(s)
+            vu case "failed" => error "missing variable"
+            D(vu::Var)
+
+    Sup := SparseUnivariatePolynomial(%)
+    Supp := SparseUnivariatePolynomial(Smp)
+
+    -- Fake domain so that we can use UnivariateSkewPolynomialCategoryOps
+    id : Automorphism(%) := morphism((x +-> x)@(% -> %))
+    Upol := SparseUnivariateSkewPolynomial(%, id, (x : %) : % +-> 0)
+
+    lift_map(f : R -> R) : % -> % ==
+        x +-> map(f, x)
+
+    lift_morphism(m : Automorphism R) : Automorphism % ==
+        morphism(lift_map((x : R) : R +-> m(x)),
+                 lift_map((x : R) : R +-> inv(m)(x)))
+
+    import from UnivariateSkewPolynomialCategoryOps(%, Upol)
+
+    x : % * y : % ==
+        ground?(x) => retract(x)@R*y
+        v := mainVariable(x)::Var
+        xu := univariate(x pretend Smp, v)$Smp pretend Upol
+        yu := univariate(y pretend Smp, v)$Smp pretend Upol
+        ru := times(xu, yu, lift_morphism(sigma(v)), lift_map(delta(v)))
+        multivariate(ru pretend Supp, v)$Smp pretend %
+
+    x : % * r : R == x*(r::%)
+
+    if R has IntegralDomain then
+        x : % exquo y : % ==
+            ground?(y) => x exquo retract(y)@R
+            ground?(x) => "failed"
+            maxd := totalDegree(x)
+            ly := leadingMonomial(y) pretend Smp
+            res : % := 0
+            while x ~= 0 repeat
+                lx1 := leadingMonomial(x)
+                totalDegree(lx1) > maxd => return "failed"
+                lx := lx1 pretend Smp
+                cu := lx exquo ly
+                cu case "failed" => return "failed"
+                cc := (cu::Smp) pretend %
+                res := res + cc
+                x := x - cc*y
+            res
+
+    x : % ^ n : PositiveInteger ==
+        res := x
+        for i in 2..n repeat res := res*x
+        res
+
+    x : % ^ n : NonNegativeInteger ==
+        n = 0 => 1
+        x^(qcoerce(n)@PositiveInteger)
+
+    coerce(x : %) : OutputForm ==
+        ground?(x) => (retract(x)@R)::OutputForm
+        v := mainVariable(x)::Var
+        xu := univariate(x pretend Smp, v) pretend Upol
+        outputForm(xu, sub('D::OutputForm, v::OutputForm))
+
+
+

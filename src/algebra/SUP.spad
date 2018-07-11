@@ -1,0 +1,257 @@
+)abbrev domain SUP SparseUnivariatePolynomial
+++ Author: Dave Barton, Barry Trager
+++ Basic Functions: Ring, monomial, coefficient, reductum, differentiate,
+++ elt, map, resultant, discriminant
+++ Related Constructors: UnivariatePolynomial, Polynomial
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ This domain represents univariate polynomials over arbitrary
+++ (not necessarily commutative) coefficient rings. The variable is
+++ unspecified so that the variable displays as \spad{?} in output.
+++ If it is necessary to specify the variable name, use type \spadtype{UnivariatePolynomial}.
+++ The representation is sparse
+++ in the sense that only non-zero terms are represented.
+++ Note: if the coefficient ring is a field, this domain forms a euclidean domain.
+
+SparseUnivariatePolynomial(R : Join(SemiRng, AbelianMonoid)
+                          ) : UnivariatePolynomialCategory(R) with
+     outputForm : (%, OutputForm) -> OutputForm
+        ++ outputForm(p, var) converts the SparseUnivariatePolynomial p to
+        ++ an output form (see \spadtype{OutputForm}) printed as a polynomial in the
+        ++ output form \spad{var}.
+    == PolynomialRing(R, NonNegativeInteger)
+  add
+   --representations
+   Term ==> Record(k : NonNegativeInteger, c : R)
+   Rep  := List Term
+   p : %
+   n : NonNegativeInteger
+   np : PositiveInteger
+   FP ==> SparseUnivariatePolynomial %
+   pp, qq : FP
+   lpp : List FP
+
+)if false
+   -- for karatsuba
+   kBound : NonNegativeInteger := 63
+   upmp := UnivariatePolynomialMultiplicationPackage(R, %)
+)endif
+
+   makeSUP(p : %) : SparseUnivariatePolynomial(R) ==
+       p pretend SparseUnivariatePolynomial(R)
+
+   unmakeSUP(sp : SparseUnivariatePolynomial(R)) : % ==
+       sp pretend %
+
+   if R has FieldOfPrimeCharacteristic  then
+         p ^ np == p^(np::NonNegativeInteger)
+         p ^ n  ==
+            zero? n => 1
+            empty?(p) => 0
+            (n = 1) => p
+            empty? p.rest =>
+              zero?(cc := p.first.c ^ n) => 0
+              [[n * p.first.k, cc]]
+            -- not worth doing special trick if characteristic is too small
+            characteristic()$R < 3 =>
+                expt(p, qcoerce(n)@PositiveInteger)$RepeatedSquaring(%)
+            y : % := 1
+            -- break up exponent in qn * characteristic + rn
+            -- exponentiating by the characteristic is fast
+            rec := divide(n, characteristic()$R)
+            qn := rec.quotient
+            rn := rec.remainder
+            repeat
+                if rn = 1 then y := y * p
+                if rn > 1 then y := y * binomThmExpt([p.first], p.rest, rn)
+                zero? qn => return y
+                -- raise to the characteristic power
+                p := [[t.k * characteristic()$R , primeFrobenius(t.c)$R ]$Term for t in p]
+                rec := divide(qn, characteristic()$R)
+                qn := rec.quotient
+                rn := rec.remainder
+            y
+
+
+
+   zero?(p) : Boolean == empty?(p)
+   if R has SemiRing then
+       one?(p):Boolean ==
+           not empty? p and (empty? rest p and zero? first(p).k and
+             (first(p).c = 1))
+
+   ground?(p) : Boolean == empty? p or (empty? rest p and zero? first(p).k)
+   multiplyExponents(p, n) == [ [u.k*n, u.c] for u in p]
+   divideExponents(p, n) ==
+     empty?(p) => p
+     m := (p.first.k :: Integer exquo n::Integer)
+     m case "failed" => "failed"
+     u := divideExponents(p.rest, n)
+     u case "failed" => "failed"
+     cons([m::Integer::NonNegativeInteger, p.first.c], u)
+   karatsubaDivide(p, n)  ==
+     zero? n => [p, 0]
+     lowp : Rep := p
+     highp : Rep := []
+     repeat
+       if empty? lowp then break
+       t := first lowp
+       if t.k < n then break
+       lowp := rest lowp
+       highp := cons([subtractIfCan(t.k, n)::NonNegativeInteger, t.c]$Term, highp)
+     [ reverse highp,  lowp]
+   shiftRight(p, n)  ==
+      [[subtractIfCan(t.k, n)::NonNegativeInteger, t.c]$Term for t in p]
+   shiftLeft(p, n)  ==
+      [[t.k + n, t.c]$Term for t in p]
+
+-- implementation using karatsuba algorithm conditionally
+--
+--   p1 * p2 ==
+--     xx := p1::Rep
+--     empty? xx => p1
+--     yy := p2::Rep
+--     empty? yy => p2
+--     zero? first(xx).k => first(xx).c * p2
+--     zero? first(yy).k => p1 * first(yy).c
+--     (first(xx).k > kBound) and (first(yy).k > kBound) and (#xx > kBound) and (#yy > kBound) =>
+--       karatsubaOnce(p1, p2)$upmp
+--     xx := reverse xx
+--     res : Rep := empty()
+--     for tx in xx repeat res := rep pomopo!( res, tx.c, tx.k, p2)
+--     res
+
+
+   univariate(p : %) == p pretend SparseUnivariatePolynomial(R)
+   multivariate(sup : SparseUnivariatePolynomial(R), v : SingletonAsOrderedSet) ==
+      sup pretend %
+   univariate(p : %, v : SingletonAsOrderedSet) ==
+     zero? p => 0
+     monomial(leadingCoefficient(p)::%, degree p) +
+         univariate(reductum p, v)
+   multivariate(supp : SparseUnivariatePolynomial(%), v : SingletonAsOrderedSet) ==
+     zero? supp => 0
+     lc := leadingCoefficient supp
+     degree lc > 0 => error "bad form polynomial"
+     monomial(leadingCoefficient lc, degree supp) +
+         multivariate(reductum supp, v)
+   if R has FiniteFieldCategory and R has PolynomialFactorizationExplicit then
+     RXY ==> SparseUnivariatePolynomial SparseUnivariatePolynomial R
+     squareFreePolynomial pp ==
+        squareFree(pp)$UnivariatePolynomialSquareFree(%, FP)
+     factorPolynomial pp ==
+          (generalTwoFactor(pp pretend RXY)$TwoFactorize(R))
+                      pretend Factored SparseUnivariatePolynomial %
+     factorSquareFreePolynomial pp ==
+          (generalTwoFactor(pp pretend RXY)$TwoFactorize(R))
+                      pretend Factored SparseUnivariatePolynomial %
+     factor p == factor(p)$DistinctDegreeFactorize(R, %)
+     solveLinearPolynomialEquation(lpp, pp) ==
+       solveLinearPolynomialEquation(lpp, pp)$FiniteFieldSolveLinearPolynomialEquation(R, %, FP)
+
+   -- Ugly, but we want to avoid conditonal exports or testing
+   -- in inner loops
+   mm_one : R := 0$R
+   m_one : R :=  0$R
+   one_inited : Boolean := false
+
+   init_one() : Void ==
+       one_inited => "done"
+       mm_one -- treat as free variable
+       if R has Ring then
+           mm_one := -1$R
+       m_one -- treat as free variable
+       if R has Monoid then
+           m_one := 1$R
+       one_inited := true
+
+   toutput(t1 : Term, v : OutputForm) : OutputForm ==
+     if not(one_inited) then init_one()
+     t1.k = 0 => t1.c :: OutputForm
+     if t1.k = 1
+       then mon := v
+       else mon := v ^ t1.k::OutputForm
+     t1.c = 0 => empty()
+     t1.c = m_one => mon
+     t1.c = mm_one and
+          ((t1.c :: OutputForm) = (-1$Integer)::OutputForm)@Boolean => - mon
+     t1.c::OutputForm * mon
+   outputForm(p : %, v : OutputForm) ==
+     l : List(OutputForm)
+     l := [toutput(t, v) for t in p]
+     empty?(l) => (0$Integer)::OutputForm -- else FreeModule 0 problems
+     reduce(_+, l)
+
+   coerce(p:%):OutputForm == outputForm(p, message("?"))
+   elt(p : %, val : R) ==
+      empty?(p) => 0$R
+      co := p.first.c
+      n := p.first.k
+      for tm in p.rest repeat
+          co := co * val ^ (n - (n := tm.k))::PositiveInteger + tm.c
+      n = 0 => co
+      co*val^(n::PositiveInteger)
+   elt(p : %, val : %) ==
+      empty?(p) => 0$%
+      coef : % := p.first.c :: %
+      n := p.first.k
+      for tm in p.rest repeat
+          coef := coef * val ^ (n-(n := tm.k))::PositiveInteger+(tm.c::%)
+      n = 0 => coef
+      coef*val^(n::PositiveInteger)
+
+   if R has Ring then
+       monicDivide(p1 : %, p2 : %) ==
+           empty?(p2) => error "monicDivide: division by 0"
+           leadingCoefficient p2 ~= 1 => error "Divisor Not Monic"
+           p2 = 1 => [p1, 0]
+           empty?(p1) => [0, 0]
+           degree p1 < (n := degree p2) => [0, p1]
+           rout : Rep := []
+           p2 := p2.rest
+           while not(empty?(p1)) repeat
+               (u := subtractIfCan(p1.first.k, n)) case "failed" => break
+               rout := cons([u, p1.first.c], rout)
+               p1 := fmecg(p1.rest, rout.first.k, rout.first.c, p2)
+           [reverse!(rout), p1]
+
+   if R has IntegralDomain then
+       discriminant(p) == discriminant(p)$PseudoRemainderSequence(R, %)
+
+       subResultantGcd(p1, p2) == subResultantGcd(p1, p2)$PseudoRemainderSequence(R, %)
+
+       resultant(p1, p2) == resultant(p1, p2)$PseudoRemainderSequence(R, %)
+
+   if R has GcdDomain then
+     content(p) == if empty?(p) then 0$R else "gcd"/[tm.c for tm in p]
+        --make CONTENT more efficient?
+
+     primitivePart(p) ==
+        empty?(p) => p
+        ct := content(p)
+        unitCanonical((p exquo ct)::%)
+               -- exquo  present since % is now an IntegralDomain
+
+     gcd(p1, p2) ==
+          gcdPolynomial(p1 pretend SparseUnivariatePolynomial R,
+                        p2 pretend SparseUnivariatePolynomial R) pretend %
+
+   if R has Field then
+     divide( p1, p2)  ==
+       zero? p2 => error "Division by 0"
+       (p2 = 1) => [p1, 0]
+       ct := inv(p2.first.c)
+       n := p2.first.k
+       p2 := p2.rest
+       rout := empty()$List(Term)
+       while p1 ~= 0 repeat
+          (u := subtractIfCan(p1.first.k, n)) case "failed" => break
+          rout := cons([u, ct * p1.first.c], rout)
+          p1 := fmecg(p1.rest, rout.first.k, rout.first.c, p2)
+       [reverse!(rout), p1]
+
+     p / co == inv(co) * p
+

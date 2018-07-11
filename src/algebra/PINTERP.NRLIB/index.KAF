@@ -1,0 +1,46 @@
+1776                (|PolynomialInterpolation| |xx| F)
+|package|
+(((|PolynomialInterpolation| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |interpolate|
+    ((|UnivariatePolynomial| |#1| |#2|) (|UnivariatePolynomial| |#1| |#2|)
+     (|List| |#2|) (|List| |#2|)))
+   (SIGNATURE |interpolate|
+    ((|SparseUnivariatePolynomial| |#2|) (|List| |#2|) (|List| |#2|))))
+  (|Symbol|) (|Field|))
+ (T |PolynomialInterpolation|))
+(CATEGORY |package|
+ (SIGNATURE |interpolate|
+  ((|UnivariatePolynomial| |#1| |#2|) (|UnivariatePolynomial| |#1| |#2|)
+   (|List| |#2|) (|List| |#2|)))
+ (SIGNATURE |interpolate|
+  ((|SparseUnivariatePolynomial| |#2|) (|List| |#2|) (|List| |#2|))))
+"/git/fricas/src/algebra/PINTERP.spad"
+((|interpolate| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|List| *5)) (|ofCategory| *5 (|Field|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *5))
+       (|isDomain| *1 (|PolynomialInterpolation| *4 *5))
+       (|ofType| *4 (|Symbol|))))
+ (|interpolate| (*1 *2 *2 *3 *3)
+  (AND (|isDomain| *2 (|UnivariatePolynomial| *4 *5))
+       (|isDomain| *3 (|List| *5)) (|ofType| *4 (|Symbol|))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *1 (|PolynomialInterpolation| *4 *5)))))
+((|interpolate|
+  (((|SparseUnivariatePolynomial| |#2|) (|List| |#2|) (|List| |#2|)) 17)
+  (((|UnivariatePolynomial| |#1| |#2|) (|UnivariatePolynomial| |#1| |#2|)
+    (|List| |#2|) (|List| |#2|))
+   13)))
+PINTERP
+((|constructor| (NIL "This package exports interpolation algorithms"))
+ (|interpolate|
+  (((|SparseUnivariatePolynomial| |#2|) (|List| |#2|) (|List| |#2|))
+   "\\spad{interpolate(lf,{} lg)} \\undocumented")
+  (((|UnivariatePolynomial| |#1| |#2|) (|UnivariatePolynomial| |#1| |#2|)
+    (|List| |#2|) (|List| |#2|))
+   "\\spad{interpolate(u,{} lf,{} lg)} \\undocumented")))
+(("documentation" 0 1404) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1396) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1191) ("modemaps" 0 708) ("sourceFile" 0 669)
+ ("constructorCategory" 0 421) ("constructorModemap" 0 65)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

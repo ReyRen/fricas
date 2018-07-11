@@ -1,0 +1,140 @@
+5704                (|OrePolynomialMatrixOperations| F LO)
+|package|
+(((|OrePolynomialMatrixOperations| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |rowEchelon| ((|Matrix| |#2|) (|Matrix| |#2|)))
+   (SIGNATURE |rowEchelon|
+    ((|Record| (|:| |mat| (|Matrix| |#2|))
+               (|:| |vecs| (|List| (|Vector| |#1|))))
+     (|Matrix| |#2|) |#1| (|List| (|Vector| |#1|))))
+   (SIGNATURE |solve|
+    ((|Union|
+      (|Record|
+       (|:| |particular|
+            (|List|
+             (|Record| (|:| |ratpart| (|Vector| |#1|))
+                       (|:| |coeffs| (|Vector| |#1|)))))
+       (|:| |basis| (|List| (|Vector| |#1|))))
+      "failed")
+     (|Matrix| |#2|) |#1| (|List| (|Vector| |#1|))
+     (|Mapping|
+      (|Record|
+       (|:| |particular|
+            (|List|
+             (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+       (|:| |basis| (|List| |#1|)))
+      |#2| (|List| |#1|)))))
+  (|Field|) (|UnivariateSkewPolynomialCategory| |#1|))
+ (T |OrePolynomialMatrixOperations|))
+(CATEGORY |package| (SIGNATURE |rowEchelon| ((|Matrix| |#2|) (|Matrix| |#2|)))
+ (SIGNATURE |rowEchelon|
+  ((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vecs| (|List| (|Vector| |#1|))))
+   (|Matrix| |#2|) |#1| (|List| (|Vector| |#1|))))
+ (SIGNATURE |solve|
+  ((|Union|
+    (|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| (|Vector| |#1|))
+                     (|:| |coeffs| (|Vector| |#1|)))))
+     (|:| |basis| (|List| (|Vector| |#1|))))
+    "failed")
+   (|Matrix| |#2|) |#1| (|List| (|Vector| |#1|))
+   (|Mapping|
+    (|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+     (|:| |basis| (|List| |#1|)))
+    |#2| (|List| |#1|)))))
+"/git/fricas/src/algebra/OREMAT.spad"
+((|solve| (*1 *2 *3 *4 *5 *6)
+  (|partial| AND (|isDomain| *3 (|Matrix| *7))
+   (|isDomain| *5 (|List| (|Vector| *4)))
+   (|isDomain| *6
+               (|Mapping|
+                (|Record|
+                 (|:| |particular|
+                      (|List|
+                       (|Record| (|:| |ratpart| *4)
+                                 (|:| |coeffs| (|Vector| *4)))))
+                 (|:| |basis| (|List| *4)))
+                *7 (|List| *4)))
+   (|ofCategory| *4 (|Field|))
+   (|ofCategory| *7 (|UnivariateSkewPolynomialCategory| *4))
+   (|isDomain| *2
+               (|Record|
+                (|:| |particular|
+                     (|List|
+                      (|Record| (|:| |ratpart| (|Vector| *4))
+                                (|:| |coeffs| (|Vector| *4)))))
+                (|:| |basis| (|List| (|Vector| *4)))))
+   (|isDomain| *1 (|OrePolynomialMatrixOperations| *4 *7))))
+ (|rowEchelon| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Matrix| *6)) (|isDomain| *5 (|List| (|Vector| *4)))
+       (|ofCategory| *4 (|Field|))
+       (|ofCategory| *6 (|UnivariateSkewPolynomialCategory| *4))
+       (|isDomain| *2
+                   (|Record| (|:| |mat| (|Matrix| *6))
+                             (|:| |vecs| (|List| (|Vector| *4)))))
+       (|isDomain| *1 (|OrePolynomialMatrixOperations| *4 *6))))
+ (|rowEchelon| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| *4))
+       (|ofCategory| *4 (|UnivariateSkewPolynomialCategory| *3))
+       (|ofCategory| *3 (|Field|))
+       (|isDomain| *1 (|OrePolynomialMatrixOperations| *3 *4)))))
+((|solve|
+  (((|Union|
+     (|Record|
+      (|:| |particular|
+           (|List|
+            (|Record| (|:| |ratpart| (|Vector| |#1|))
+                      (|:| |coeffs| (|Vector| |#1|)))))
+      (|:| |basis| (|List| (|Vector| |#1|))))
+     "failed")
+    (|Matrix| |#2|) |#1| (|List| (|Vector| |#1|))
+    (|Mapping|
+     (|Record|
+      (|:| |particular|
+           (|List|
+            (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+      (|:| |basis| (|List| |#1|)))
+     |#2| (|List| |#1|)))
+   69))
+ (|rowEchelon|
+  (((|Record| (|:| |mat| (|Matrix| |#2|))
+              (|:| |vecs| (|List| (|Vector| |#1|))))
+    (|Matrix| |#2|) |#1| (|List| (|Vector| |#1|)))
+   13)
+  (((|Matrix| |#2|) (|Matrix| |#2|)) 14)))
+OREMAT
+((|solve|
+  (((|Union|
+     (|Record|
+      (|:| |particular|
+           (|List|
+            (|Record| (|:| |ratpart| (|Vector| |#1|))
+                      (|:| |coeffs| (|Vector| |#1|)))))
+      (|:| |basis| (|List| (|Vector| |#1|))))
+     "failed")
+    (|Matrix| |#2|) |#1| (|List| (|Vector| |#1|))
+    (|Mapping|
+     (|Record|
+      (|:| |particular|
+           (|List|
+            (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+      (|:| |basis| (|List| |#1|)))
+     |#2| (|List| |#1|)))
+   "\\spad{solve(m,{} c,{} lv,{} solf)} returns \"failed\" of [[\\spad{vp1},{} ...,{} vp_m],{} [\\spad{b1},{} ...,{} \\spad{bl}]] such that \\spad{bi}-\\spad{s} are basis of solutions of homogeneous system \\spad{m} \\spad{bi} = 0. Each vpi = [\\spad{r},{} [\\spad{c1},{} ...,{} \\spad{cn}]] is a particuar solution of a parametic matrix equation \\spad{m} \\spad{r} = \\sum \\spad{ci} \\spad{vi} where \\spad{lv} = [\\spad{v1},{} ...,{} \\spad{vn}]. solf is scalar solver,{} \\spad{c} is a paramenter to \\spad{apply} (needed for astion of LO on \\spad{F}). \"failed\" means that system is underdetermined."))
+ (|rowEchelon|
+  (((|Record| (|:| |mat| (|Matrix| |#2|))
+              (|:| |vecs| (|List| (|Vector| |#1|))))
+    (|Matrix| |#2|) |#1| (|List| (|Vector| |#1|)))
+   "\\spad{rowEchelon(m,{} c,{} lv)} returns [\\spad{m2},{} \\spad{lv2}] such that \\spad{m2} is the row echelon form of the matrix \\spad{m}. \\spad{lv2} is transformed \\spad{lv} using \\spad{c} as paramenter to \\spad{apply}.")
+  (((|Matrix| |#2|) (|Matrix| |#2|))
+   "\\spad{rowEchelon(m)} returns the row echelon form of the matrix \\spad{m}.")))
+(("documentation" 0 4067) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4060) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3328) ("modemaps" 0 1794) ("sourceFile" 0 1756)
+ ("constructorCategory" 0 1012) ("constructorModemap" 0 69)
+ ("constructorKind" 0 59) ("constructorForm" 0 20))

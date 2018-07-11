@@ -1,0 +1,39 @@
+2101                (|GosperSummationMethod| E V R P Q)
+|package|
+(((|GosperSummationMethod| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package|
+   (SIGNATURE |GospersMethod|
+    ((|Union| |#5| "failed") |#5| |#2| (|Mapping| |#2|))))
+  (|OrderedAbelianMonoidSup|) (|OrderedSet|) (|IntegralDomain|)
+  (|PolynomialCategory| |#3| |#1| |#2|)
+  (|Join| (|RetractableTo| (|Fraction| (|Integer|))) (|Field|)
+          (CATEGORY |domain| (SIGNATURE |coerce| ($ |#4|))
+           (SIGNATURE |numer| (|#4| $)) (SIGNATURE |denom| (|#4| $)))))
+ (T |GosperSummationMethod|))
+(CATEGORY |package|
+ (SIGNATURE |GospersMethod|
+  ((|Union| |#5| "failed") |#5| |#2| (|Mapping| |#2|))))
+"/git/fricas/src/algebra/GOSPER.spad"
+((|GospersMethod| (*1 *2 *2 *3 *4)
+  (|partial| AND (|isDomain| *4 (|Mapping| *3))
+   (|ofCategory| *3 (|OrderedSet|))
+   (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *6 (|IntegralDomain|))
+   (|ofCategory| *7 (|PolynomialCategory| *6 *5 *3))
+   (|isDomain| *1 (|GosperSummationMethod| *5 *3 *6 *7 *2))
+   (|ofCategory| *2
+                 (|Join| (|RetractableTo| (|Fraction| (|Integer|))) (|Field|)
+                         (CATEGORY |domain| (SIGNATURE |coerce| ($ *7))
+                          (SIGNATURE |numer| (*7 $))
+                          (SIGNATURE |denom| (*7 $))))))))
+((|GospersMethod| (((|Union| |#5| "failed") |#5| |#2| (|Mapping| |#2|)) 35)))
+GOSPER
+((|constructor| (NIL "Gosper\\spad{'s} summation algorithm."))
+ (|GospersMethod|
+  (((|Union| |#5| "failed") |#5| |#2| (|Mapping| |#2|))
+   "\\spad{GospersMethod(b,{} n,{} new)} returns a rational function \\spad{rf(n)} such that \\spad{a(n) * rf(n)} is the indefinite sum of \\spad{a(n)} with respect to upward difference on \\spad{n},{} \\spadignore{i.e.} \\spad{a(n+1) * rf(n+1) - a(n) * rf(n) = a(n)},{} where \\spad{b(n) = a(n)/a(n-1)} is a rational function. Returns \"failed\" if no such rational function \\spad{rf(n)} exists. Note: \\spad{new} is a nullary function returning a new \\spad{V} every time. The condition on \\spad{a(n)} is that \\spad{a(n)/a(n-1)} is a rational function of \\spad{n}.")))
+(("documentation" 0 1389) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1382) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1304) ("modemaps" 0 701) ("sourceFile" 0 663)
+ ("constructorCategory" 0 558) ("constructorModemap" 0 66)
+ ("constructorKind" 0 56) ("constructorForm" 0 20))

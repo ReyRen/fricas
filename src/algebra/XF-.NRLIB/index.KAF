@@ -1,0 +1,51 @@
+2352                (|ExtensionField&| S F)
+|domain|
+(((|ExtensionField&| |#1| |#2|)
+  (CATEGORY |domain| (SIGNATURE |Frobenius| (|#1| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |Frobenius| (|#1| |#1|))
+   (SIGNATURE |transcendent?| ((|Boolean|) |#1|))
+   (SIGNATURE |algebraic?| ((|Boolean|) |#1|)))
+  (|ExtensionField| |#2|) (|Field|))
+ (T |ExtensionField&|))
+(CATEGORY |domain| (SIGNATURE |Frobenius| (|#1| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |Frobenius| (|#1| |#1|))
+ (SIGNATURE |transcendent?| ((|Boolean|) |#1|))
+ (SIGNATURE |algebraic?| ((|Boolean|) |#1|)))
+"/git/fricas/src/algebra/XF.spad"
+((|transcendent?| (((|Boolean|) $) 13)) (|algebraic?| (((|Boolean|) $) 12))
+ (|Frobenius| (($ $) 17) (($ $ (|NonNegativeInteger|)) 18)))
+((|HasCategory| |#2| '(|Finite|))
+ (|HasCategory| |#2| '(|CharacteristicNonZero|))
+ (|HasCategory| |#2| '(|CharacteristicZero|)))
+XF-
+((|constructor|
+  (NIL
+   "ExtensionField {\\em F} is the category of fields which extend the field \\spad{F}"))
+ (|Frobenius|
+  (($ $ (|NonNegativeInteger|))
+   "\\spad{Frobenius(a,{} s)} returns \\spad{a^(q^s)} where \\spad{q} is the size()\\$\\spad{F}.")
+  (($ $)
+   "\\spad{Frobenius(a)} returns \\spad{a ^ q} where \\spad{q} is the \\spad{size()\\$F}."))
+ (|transcendenceDegree|
+  (((|NonNegativeInteger|))
+   "\\spad{transcendenceDegree()} returns the transcendence degree of the field extension,{} 0 if the extension is algebraic."))
+ (|extensionDegree|
+  (((|OnePointCompletion| (|PositiveInteger|)))
+   "\\spad{extensionDegree()} returns the degree of the field extension if the extension is algebraic,{} and \\spad{infinity} if it is not."))
+ (|degree|
+  (((|OnePointCompletion| (|PositiveInteger|)) $)
+   "\\spad{degree(a)} returns the degree of minimal polynomial of an element \\spad{a} if \\spad{a} is algebraic with respect to the ground field \\spad{F},{} and \\spad{infinity} otherwise."))
+ (|inGroundField?|
+  (((|Boolean|) $)
+   "\\spad{inGroundField?(a)} tests whether an element \\spad{a} is already in the ground field \\spad{F}."))
+ (|transcendent?|
+  (((|Boolean|) $)
+   "\\spad{transcendent?(a)} tests whether an element \\spad{a} is transcendent with respect to the ground field \\spad{F}."))
+ (|algebraic?|
+  (((|Boolean|) $)
+   "\\spad{algebraic?(a)} tests whether an element \\spad{a} is algebraic with respect to the ground field \\spad{F}.")))
+(("documentation" 0 877) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 873) ("predicates" 0 743) ("superDomain" 0 NIL)
+ ("operationAlist" 0 606) ("modemaps" 0 NIL) ("sourceFile" 0 572)
+ ("constructorCategory" 0 363) ("constructorModemap" 0 53)
+ ("constructorKind" 0 44) ("constructorForm" 0 20))

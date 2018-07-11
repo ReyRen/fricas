@@ -1,0 +1,62 @@
+)abbrev package DISTPOL DistributionPolynomialPackage
+++ Author: Franz Lehner lehner@math.tugraz.at, Waldek Hebisch
+++ Date Created: 2010
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   A package to apply polynomial transformations to distributions
+++   and integrate polynomials with respect to distributions.
+DistributionPolynomialPackage(R : CommutativeRing,
+                              S : Join(CommutativeRing, Module R),
+                              UPS : UnivariatePolynomialCategory S
+                             ) : Exports == Implementation   where
+  DR ==> Distribution R
+  DS ==> Distribution S
+  FR==> Fraction R
+
+  Exports ==> with
+    eval : (DR, UPS) -> S
+      ++ \spad{eval(d, p)} evaluates the distribution \spad{d}
+      ++ as a linear functional on the polynomial \spad{p}.
+      ++ Same as \spad{integrate(p, d)}.
+
+    integrate : (UPS, DR) -> S
+      ++ \spad{integrate(p, d)} integrates the polynomial \spad{p}
+      ++ against the distribution \spad{d}. Same as \spad{eval(d, p)}.
+
+    apply : (UPS, DR) -> DS
+      ++ \spad{apply(p, d)} computes the distribution
+      ++ of the random variable \spad{p(X)}$ where
+      ++ \spad{X} has distribution \spad{d}.
+  Implementation ==> add
+    eval(x : DR, p : UPS) : S ==
+        -- only 0th moment
+        ground? p => (leadingCoefficient p)*(1$S)
+        res : S := 0
+        while not zero? p repeat
+            res := res + moment(x, degree p)*leadingCoefficient p
+            p := reductum p
+        res
+
+    integrate(p : UPS, x : DR) : S == eval(x, p)
+
+    apply(p : UPS, x : DR) : DS ==
+        -- evaluate x at powers of p
+        IN : Stream Integer := expand([1..])$(UniversalSegment Integer)
+        mompx : Stream S :=
+             map( (k : Integer) : S +-> eval(x, p^(k::PositiveInteger)),
+                  IN)$StreamFunctions2(Integer, S)
+        distributionByMoments sequence mompx
+
+
+)if false
+\section{package DSTCFPG DistributionContinuedFractionPackage}
+It is not possible to work with \spad{UnivariatePolynomialCategory}
+because for the continued fraction we need access to
+\spad{UnivariatePolynomial(Fraction R)}.
+)endif
+

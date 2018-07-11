@@ -1,0 +1,43 @@
+1836                (MAKEPROP '|PolynomialAN2Expression| 'NILADIC T)
+(|PolynomialAN2Expression|)
+|package|
+(((|PolynomialAN2Expression|)
+  (CATEGORY |package|
+   (SIGNATURE |coerce|
+    ((|Expression| (|Integer|)) (|Polynomial| (|AlgebraicNumber|))))
+   (SIGNATURE |coerce|
+    ((|Expression| (|Integer|))
+     (|Fraction| (|Polynomial| (|AlgebraicNumber|)))))))
+ (T |PolynomialAN2Expression|))
+(CATEGORY |package|
+ (SIGNATURE |coerce|
+  ((|Expression| (|Integer|)) (|Polynomial| (|AlgebraicNumber|))))
+ (SIGNATURE |coerce|
+  ((|Expression| (|Integer|)) (|Fraction| (|Polynomial| (|AlgebraicNumber|))))))
+"/git/fricas/src/algebra/PAN2EXPR.spad"
+((|coerce| (*1 *2 *3)
+           (AND (|isDomain| *3 (|Fraction| (|Polynomial| (|AlgebraicNumber|))))
+                (|isDomain| *2 (|Expression| (|Integer|)))
+                (|isDomain| *1 (|PolynomialAN2Expression|))))
+ (|coerce| (*1 *2 *3)
+           (AND (|isDomain| *3 (|Polynomial| (|AlgebraicNumber|)))
+                (|isDomain| *2 (|Expression| (|Integer|)))
+                (|isDomain| *1 (|PolynomialAN2Expression|)))))
+((|coerce|
+  (((|Expression| (|Integer|)) (|Fraction| (|Polynomial| (|AlgebraicNumber|))))
+   21)
+  (((|Expression| (|Integer|)) (|Polynomial| (|AlgebraicNumber|))) 16)))
+PAN2EXPR
+((|constructor|
+  (NIL
+   "This package provides a coerce from polynomials over algebraic numbers to \\spadtype{Expression Integer}."))
+ (|coerce|
+  (((|Expression| (|Integer|)) (|Fraction| (|Polynomial| (|AlgebraicNumber|))))
+   "\\spad{coerce(rf)} converts \\spad{rf},{} a fraction of polynomial \\spad{p} with algebraic number coefficients to \\spadtype{Expression Integer}.")
+  (((|Expression| (|Integer|)) (|Polynomial| (|AlgebraicNumber|)))
+   "\\spad{coerce(p)} converts the polynomial \\spad{p} with algebraic number coefficients to \\spadtype{Expression Integer}.")))
+(("documentation" 0 1259) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1250) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1079) ("modemaps" 0 645) ("sourceFile" 0 605)
+ ("constructorCategory" 0 395) ("constructorModemap" 0 107)
+ ("constructorKind" 0 97) ("constructorForm" 0 69) ("NILADIC" 0 20))

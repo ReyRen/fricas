@@ -1,0 +1,67 @@
+3482                (|PadeApproximantPackage| R |x| |pt|)
+|package|
+(((|PadeApproximantPackage| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |pade|
+    ((|Union| (|Fraction| (|UnivariatePolynomial| |#2| |#1|)) "failed")
+     (|NonNegativeInteger|) (|NonNegativeInteger|)
+     (|UnivariateTaylorSeries| |#1| |#2| |#3|)
+     (|UnivariateTaylorSeries| |#1| |#2| |#3|)))
+   (SIGNATURE |pade|
+    ((|Union| (|Fraction| (|UnivariatePolynomial| |#2| |#1|)) "failed")
+     (|NonNegativeInteger|) (|NonNegativeInteger|)
+     (|UnivariateTaylorSeries| |#1| |#2| |#3|))))
+  (|Field|) (|Symbol|) |#1|)
+ (T |PadeApproximantPackage|))
+(CATEGORY |package|
+ (SIGNATURE |pade|
+  ((|Union| (|Fraction| (|UnivariatePolynomial| |#2| |#1|)) "failed")
+   (|NonNegativeInteger|) (|NonNegativeInteger|)
+   (|UnivariateTaylorSeries| |#1| |#2| |#3|)
+   (|UnivariateTaylorSeries| |#1| |#2| |#3|)))
+ (SIGNATURE |pade|
+  ((|Union| (|Fraction| (|UnivariatePolynomial| |#2| |#1|)) "failed")
+   (|NonNegativeInteger|) (|NonNegativeInteger|)
+   (|UnivariateTaylorSeries| |#1| |#2| |#3|))))
+"/git/fricas/src/algebra/PADEPAC.spad"
+((|pade| (*1 *2 *3 *3 *4)
+  (|partial| AND (|isDomain| *3 (|NonNegativeInteger|))
+   (|isDomain| *4 (|UnivariateTaylorSeries| *5 *6 *7))
+   (|ofCategory| *5 (|Field|)) (|ofType| *6 (|Symbol|)) (|ofType| *7 *5)
+   (|isDomain| *2 (|Fraction| (|UnivariatePolynomial| *6 *5)))
+   (|isDomain| *1 (|PadeApproximantPackage| *5 *6 *7))))
+ (|pade| (*1 *2 *3 *3 *4 *4)
+  (|partial| AND (|isDomain| *3 (|NonNegativeInteger|))
+   (|isDomain| *4 (|UnivariateTaylorSeries| *5 *6 *7))
+   (|ofCategory| *5 (|Field|)) (|ofType| *6 (|Symbol|)) (|ofType| *7 *5)
+   (|isDomain| *2 (|Fraction| (|UnivariatePolynomial| *6 *5)))
+   (|isDomain| *1 (|PadeApproximantPackage| *5 *6 *7)))))
+((|pade|
+  (((|Union| (|Fraction| (|UnivariatePolynomial| |#2| |#1|)) "failed")
+    (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|UnivariateTaylorSeries| |#1| |#2| |#3|))
+   28)
+  (((|Union| (|Fraction| (|UnivariatePolynomial| |#2| |#1|)) "failed")
+    (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|UnivariateTaylorSeries| |#1| |#2| |#3|)
+    (|UnivariateTaylorSeries| |#1| |#2| |#3|))
+   26)))
+PADEPAC
+((|constructor|
+  (NIL
+   "\\indented{1}{This package computes reliable Pad&ea. approximants using} a generalized Viskovatov continued fraction algorithm. Authors: Trager,{} Burge,{} Hassner & Watt. Date Created: April 1987 Keywords: Pade,{} series Examples: References: \\indented{2}{\"Pade Approximants,{} Part I: Basic Theory\",{} Baker & Graves-Morris.}"))
+ (|pade|
+  (((|Union| (|Fraction| (|UnivariatePolynomial| |#2| |#1|)) "failed")
+    (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|UnivariateTaylorSeries| |#1| |#2| |#3|))
+   "\\spad{pade(nd,{} dd,{} s)} computes the quotient of polynomials (if it exists) with numerator degree at most \\spad{nd} and denominator degree at most \\spad{dd} which matches the series \\spad{s} to order \\spad{nd + dd}.")
+  (((|Union| (|Fraction| (|UnivariatePolynomial| |#2| |#1|)) "failed")
+    (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|UnivariateTaylorSeries| |#1| |#2| |#3|)
+    (|UnivariateTaylorSeries| |#1| |#2| |#3|))
+   "\\spad{pade(nd,{} dd,{} ns,{} ds)} computes the approximant as a quotient of polynomials (if it exists) for arguments \\spad{nd} (numerator degree of approximant),{} \\spad{dd} (denominator degree of approximant),{} \\spad{ns} (numerator series of function),{} and \\spad{ds} (denominator series of function).")))
+(("documentation" 0 2182) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2174) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1767) ("modemaps" 0 1103) ("sourceFile" 0 1064)
+ ("constructorCategory" 0 628) ("constructorModemap" 0 68)
+ ("constructorKind" 0 58) ("constructorForm" 0 20))

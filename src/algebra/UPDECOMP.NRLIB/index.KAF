@@ -1,0 +1,116 @@
+6492                (|UnivariatePolynomialDecompositionPackage| R UP)
+|package|
+(((|UnivariatePolynomialDecompositionPackage| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |monicRightFactorIfCan|
+    ((|Union| |#2| "failed") |#2| (|NonNegativeInteger|)))
+   (SIGNATURE |rightFactorIfCan|
+    ((|Union| |#2| "failed") |#2| (|NonNegativeInteger|) |#1|))
+   (SIGNATURE |leftFactorIfCan| ((|Union| |#2| "failed") |#2| |#2|))
+   (SIGNATURE |monicDecomposeIfCan|
+    ((|Union| (|Record| (|:| |left| |#2|) (|:| |right| |#2|)) "failed") |#2|))
+   (SIGNATURE |monicCompleteDecompose| ((|List| |#2|) |#2|))
+   (IF (|has| |#1| (|Field|))
+       (PROGN
+        (SIGNATURE |decomposeIfCan|
+         ((|Union| (|Record| (|:| |left| |#2|) (|:| |right| |#2|)) "failed")
+          |#2|))
+        (SIGNATURE |completeDecompose| ((|List| |#2|) |#2|)))
+       |noBranch|))
+  (|IntegralDomain|) (|UnivariatePolynomialCategory| |#1|))
+ (T |UnivariatePolynomialDecompositionPackage|))
+(CATEGORY |package|
+ (SIGNATURE |monicRightFactorIfCan|
+  ((|Union| |#2| "failed") |#2| (|NonNegativeInteger|)))
+ (SIGNATURE |rightFactorIfCan|
+  ((|Union| |#2| "failed") |#2| (|NonNegativeInteger|) |#1|))
+ (SIGNATURE |leftFactorIfCan| ((|Union| |#2| "failed") |#2| |#2|))
+ (SIGNATURE |monicDecomposeIfCan|
+  ((|Union| (|Record| (|:| |left| |#2|) (|:| |right| |#2|)) "failed") |#2|))
+ (SIGNATURE |monicCompleteDecompose| ((|List| |#2|) |#2|))
+ (IF (|has| |#1| (|Field|))
+     (PROGN
+      (SIGNATURE |decomposeIfCan|
+       ((|Union| (|Record| (|:| |left| |#2|) (|:| |right| |#2|)) "failed")
+        |#2|))
+      (SIGNATURE |completeDecompose| ((|List| |#2|) |#2|)))
+     |noBranch|))
+"/git/fricas/src/algebra/UPDECOMP.spad"
+((|completeDecompose| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|Field|)) (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|List| *3))
+       (|isDomain| *1 (|UnivariatePolynomialDecompositionPackage| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|decomposeIfCan| (*1 *2 *3)
+  (|partial| AND (|ofCategory| *4 (|Field|))
+   (|ofCategory| *4 (|IntegralDomain|))
+   (|isDomain| *2 (|Record| (|:| |left| *3) (|:| |right| *3)))
+   (|isDomain| *1 (|UnivariatePolynomialDecompositionPackage| *4 *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|monicCompleteDecompose| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|)) (|isDomain| *2 (|List| *3))
+       (|isDomain| *1 (|UnivariatePolynomialDecompositionPackage| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|monicDecomposeIfCan| (*1 *2 *3)
+  (|partial| AND (|ofCategory| *4 (|IntegralDomain|))
+   (|isDomain| *2 (|Record| (|:| |left| *3) (|:| |right| *3)))
+   (|isDomain| *1 (|UnivariatePolynomialDecompositionPackage| *4 *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|leftFactorIfCan| (*1 *2 *2 *2)
+  (|partial| AND (|ofCategory| *3 (|IntegralDomain|))
+   (|isDomain| *1 (|UnivariatePolynomialDecompositionPackage| *3 *2))
+   (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|rightFactorIfCan| (*1 *2 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|NonNegativeInteger|))
+   (|ofCategory| *4 (|IntegralDomain|))
+   (|isDomain| *1 (|UnivariatePolynomialDecompositionPackage| *4 *2))
+   (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))))
+ (|monicRightFactorIfCan| (*1 *2 *2 *3)
+  (|partial| AND (|isDomain| *3 (|NonNegativeInteger|))
+   (|ofCategory| *4 (|IntegralDomain|))
+   (|isDomain| *1 (|UnivariatePolynomialDecompositionPackage| *4 *2))
+   (|ofCategory| *2 (|UnivariatePolynomialCategory| *4)))))
+((|rightFactorIfCan|
+  (((|Union| |#2| "failed") |#2| (|NonNegativeInteger|) |#1|) 39))
+ (|monicRightFactorIfCan|
+  (((|Union| |#2| "failed") |#2| (|NonNegativeInteger|)) 40))
+ (|monicDecomposeIfCan|
+  (((|Union| (|Record| (|:| |left| |#2|) (|:| |right| |#2|)) "failed") |#2|)
+   51))
+ (|monicCompleteDecompose| (((|List| |#2|) |#2|) 53))
+ (|leftFactorIfCan| (((|Union| |#2| "failed") |#2| |#2|) 48))
+ (|decomposeIfCan|
+  (((|Union| (|Record| (|:| |left| |#2|) (|:| |right| |#2|)) "failed") |#2|) 56
+   (|has| |#1| (|Field|))))
+ (|completeDecompose| (((|List| |#2|) |#2|) 57 (|has| |#1| (|Field|)))))
+((|HasCategory| |#1| '(|Field|)))
+UPDECOMP
+((|constructor|
+  (NIL
+   "UnivariatePolynomialDecompositionPackage implements functional decomposition of univariate polynomial with coefficients in an \\spad{IntegralDomain} of \\spad{CharacteristicZero}."))
+ (|completeDecompose|
+  (((|List| |#2|) |#2|)
+   "\\spad{completeDecompose(f)} returns a list of factors of \\spad{f} for the functional decomposition of \\spad{f}. [\\spad{f1},{} ...,{} \\spad{fn}] means \\spad{f} = \\spad{f1} \\spad{o} ... \\spad{o} \\spad{fn}."))
+ (|decomposeIfCan|
+  (((|Union| (|Record| (|:| |left| |#2|) (|:| |right| |#2|)) "failed") |#2|)
+   "\\spad{decomposeIfCan(f)} returns a functional decomposition of the polynomial \\spad{f} or \"failed\" if it has not found any."))
+ (|monicCompleteDecompose|
+  (((|List| |#2|) |#2|)
+   "\\spad{monicCompleteDecompose(f)} returns a list of factors of \\spad{f} for the functional decomposition of monic polynomial \\spad{f}. [\\spad{f1},{} ...,{} \\spad{fn}] means \\spad{f} = \\spad{f1} \\spad{o} ... \\spad{o} \\spad{fn}."))
+ (|monicDecomposeIfCan|
+  (((|Union| (|Record| (|:| |left| |#2|) (|:| |right| |#2|)) "failed") |#2|)
+   "\\spad{monicDecomposeIfCan(f)} returns a functional decomposition of the monic polynomial \\spad{f} or \"failed\" if it has not found any."))
+ (|leftFactorIfCan|
+  (((|Union| |#2| "failed") |#2| |#2|)
+   "\\spad{leftFactorIfCan(f,{} h)} returns the left factor (\\spad{g} in \\spad{f} = \\spad{g} \\spad{o} \\spad{h}) of the functional decomposition of the polynomial \\spad{f} with given \\spad{h} or \\spad{\"failed\"} if \\spad{g} does not exist."))
+ (|rightFactorIfCan|
+  (((|Union| |#2| "failed") |#2| (|NonNegativeInteger|) |#1|)
+   "\\spad{rightFactorIfCan(f,{} d,{} c)} returns a candidate to be the right factor (\\spad{h} in \\spad{f} = \\spad{g} \\spad{o} \\spad{h}) of degree \\spad{d} with leading coefficient \\spad{c} of a functional decomposition of the polynomial \\spad{f} or \\spad{\"failed\"} if no such candidate."))
+ (|monicRightFactorIfCan|
+  (((|Union| |#2| "failed") |#2| (|NonNegativeInteger|))
+   "\\spad{monicRightFactorIfCan(f,{} d)} returns a candidate to be the monic right factor (\\spad{h} in \\spad{f} = \\spad{g} \\spad{o} \\spad{h}) of degree \\spad{d} of a functional decomposition of the polynomial \\spad{f} or \\spad{\"failed\"} if no such candidate.")))
+(("documentation" 0 4190) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4181) ("predicates" 0 4147) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3546) ("modemaps" 0 1688) ("sourceFile" 0 1648)
+ ("constructorCategory" 0 963) ("constructorModemap" 0 80)
+ ("constructorKind" 0 70) ("constructorForm" 0 20))

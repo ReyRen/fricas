@@ -1,0 +1,116 @@
+)abbrev domain LSQM LieSquareMatrix
+++ Author: J. Grabmeier
+++ Date Created: 07 March 1991
+++ Basic Operations:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   LieSquareMatrix(n, R) implements the Lie algebra of the n by n
+++   matrices over the commutative ring R.
+++   The Lie bracket (commutator) of the algebra is given by
+++   \spad{a*b := (a *$SQMATRIX(n, R) b - b *$SQMATRIX(n, R) a)},
+++   where \spadfun{*$SQMATRIX(n, R)} is the usual matrix multiplication.
+LieSquareMatrix(n, R) : Exports == Implementation where
+
+  n    : PositiveInteger
+  R    : CommutativeRing
+
+  Row ==> DirectProduct(n, R)
+  Col ==> DirectProduct(n, R)
+
+  Exports ==> Join(CoercibleTo SquareMatrix(n, R),
+                   FramedNonAssociativeAlgebra R) with
+    convert : SquareMatrix(n, R) -> %
+      ++ converts a SquareMatrix to a LieSquareMatrix
+
+  Implementation ==> AssociatedLieAlgebra (R, SquareMatrix(n, R)) add
+
+    Rep :=  AssociatedLieAlgebra (R, SquareMatrix(n, R))
+      -- local functions
+    n2 : PositiveInteger := n*n
+
+    convert(x : SquareMatrix(n, R)) : % ==
+        x::Rep
+
+    convDM : DirectProduct(n2, R) -> %
+    conv : DirectProduct(n2, R) ->  SquareMatrix(n, R)
+      --++ converts n2-vector to (n, n)-matrix row by row
+    conv v  ==
+      cond : Matrix(R) := new(n, n, 0$R)$Matrix(R)
+      z : Integer := 0
+      for i in 1..n repeat
+        for j in 1..n  repeat
+          z := z+1
+          setelt!(cond, i, j, v.z)
+      squareMatrix(cond)$SquareMatrix(n, R)
+
+
+    canonical_coordinates(a : %) : Vector(R) ==
+      res : Vector R := new(n2, 0$R)
+      z : Integer := 0
+      as := a pretend SquareMatrix(n, R)
+      for i in 1..n repeat
+        for j in 1..n repeat
+          z := z+1
+          res(z) := qelt(as, i, j)
+      res
+
+    coordinates(a : %, b : Vector(%)) : Vector(R) ==
+        canonical := true
+        for i in 1..n2 while canonical repeat
+            bv := canonical_coordinates(b(i))
+            canonical := canonical and bv(i) = 1
+            for j in 1..n2 while canonical repeat
+                j = i => "iterate"
+                canonical := canonical and bv(j) = 0
+        not(canonical) => error "coordinates works only in canonical basis"
+        canonical_coordinates(a)
+
+    convDM v ==
+      sq := conv v
+      coerce(sq)$Rep :: %
+
+    basis() ==
+      n2 : PositiveInteger := n*n
+      ldp : List DirectProduct(n2, R) :=
+        [unitVector(i::PositiveInteger)$DirectProduct(n2, R) for i in 1..n2]
+      res : Vector % := vector map(convDM, _
+        ldp)$ListFunctions2(DirectProduct(n2, R), %)
+
+    someBasis() == basis()
+    rank() == n2
+
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

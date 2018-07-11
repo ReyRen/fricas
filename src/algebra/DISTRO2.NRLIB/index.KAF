@@ -1,0 +1,52 @@
+2163                (|DistributionFunctions2| R1 R2)
+|package|
+(((|DistributionFunctions2| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |mapall|
+    ((|Distribution| |#2|) (|Mapping| |#2| |#1|) (|Distribution| |#1|)))
+   (SIGNATURE |coerce| ((|Distribution| |#2|) (|Distribution| |#1|)))
+   (SIGNATURE |R1_to_R2_coercion| (|#2| |#1|)))
+  (|CommutativeRing|) (|CommutativeRing|))
+ (T |DistributionFunctions2|))
+(CATEGORY |package|
+ (SIGNATURE |mapall|
+  ((|Distribution| |#2|) (|Mapping| |#2| |#1|) (|Distribution| |#1|)))
+ (SIGNATURE |coerce| ((|Distribution| |#2|) (|Distribution| |#1|)))
+ (SIGNATURE |R1_to_R2_coercion| (|#2| |#1|)))
+"/git/fricas/src/algebra/DISTRO2.spad"
+((|R1_to_R2_coercion| (*1 *2 *3)
+  (AND (|ofCategory| *2 (|CommutativeRing|))
+       (|isDomain| *1 (|DistributionFunctions2| *3 *2))
+       (|ofCategory| *3 (|CommutativeRing|))))
+ (|coerce| (*1 *2 *3)
+           (AND (|isDomain| *3 (|Distribution| *4))
+                (|ofCategory| *4 (|CommutativeRing|))
+                (|isDomain| *2 (|Distribution| *5))
+                (|isDomain| *1 (|DistributionFunctions2| *4 *5))
+                (|ofCategory| *5 (|CommutativeRing|))))
+ (|mapall| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *6 *5)) (|isDomain| *4 (|Distribution| *5))
+       (|ofCategory| *5 (|CommutativeRing|))
+       (|ofCategory| *6 (|CommutativeRing|))
+       (|isDomain| *2 (|Distribution| *6))
+       (|isDomain| *1 (|DistributionFunctions2| *5 *6)))))
+((|mapall|
+  (((|Distribution| |#2|) (|Mapping| |#2| |#1|) (|Distribution| |#1|)) 20))
+ (|coerce| (((|Distribution| |#2|) (|Distribution| |#1|)) 24))
+ (|R1_to_R2_coercion| ((|#2| |#1|) 22)))
+DISTRO2
+((|constructor|
+  (NIL "A package to map distributions between different rings."))
+ (|R1_to_R2_coercion|
+  ((|#2| |#1|) "\\spad{R1_to_R2_coercion should} be local but conditional"))
+ (|coerce|
+  (((|Distribution| |#2|) (|Distribution| |#1|))
+   "\\spad{coerce(x)} coerces a distribution from the ring \\spad{R1} to \\spad{R2}."))
+ (|mapall|
+  (((|Distribution| |#2|) (|Mapping| |#2| |#1|) (|Distribution| |#1|))
+   "\\spad{map(f,{} x)} maps the moments and cumulants from the ring \\spad{R1} to \\spad{R2}.")))
+(("documentation" 0 1652) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1644) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1453) ("modemaps" 0 677) ("sourceFile" 0 638)
+ ("constructorCategory" 0 412) ("constructorModemap" 0 63)
+ ("constructorKind" 0 53) ("constructorForm" 0 20))

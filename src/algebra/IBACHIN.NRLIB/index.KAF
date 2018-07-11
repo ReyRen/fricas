@@ -1,0 +1,131 @@
+6124                (|ChineseRemainderToolsForIntegralBases| K R UP)
+|package|
+(((|ChineseRemainderToolsForIntegralBases| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |factorList|
+    ((|List| (|SparseUnivariatePolynomial| |#1|)) |#1| (|NonNegativeInteger|)
+     (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |listConjugateBases|
+    ((|List|
+      (|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+                (|:| |basisInv| (|Matrix| |#2|))))
+     (|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+               (|:| |basisInv| (|Matrix| |#2|)))
+     (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |chineseRemainder|
+    ((|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+               (|:| |basisInv| (|Matrix| |#2|)))
+     (|List| |#3|)
+     (|List|
+      (|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+                (|:| |basisInv| (|Matrix| |#2|))))
+     (|NonNegativeInteger|))))
+  (|FiniteFieldCategory|) (|UnivariatePolynomialCategory| |#1|)
+  (|UnivariatePolynomialCategory| |#2|))
+ (T |ChineseRemainderToolsForIntegralBases|))
+(CATEGORY |package|
+ (SIGNATURE |factorList|
+  ((|List| (|SparseUnivariatePolynomial| |#1|)) |#1| (|NonNegativeInteger|)
+   (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |listConjugateBases|
+  ((|List|
+    (|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+              (|:| |basisInv| (|Matrix| |#2|))))
+   (|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+             (|:| |basisInv| (|Matrix| |#2|)))
+   (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |chineseRemainder|
+  ((|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+             (|:| |basisInv| (|Matrix| |#2|)))
+   (|List| |#3|)
+   (|List|
+    (|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+              (|:| |basisInv| (|Matrix| |#2|))))
+   (|NonNegativeInteger|))))
+"/git/fricas/src/algebra/IBACHIN.spad"
+((|chineseRemainder| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|List| *8))
+       (|isDomain| *4
+                   (|List|
+                    (|Record| (|:| |basis| (|Matrix| *7)) (|:| |basisDen| *7)
+                              (|:| |basisInv| (|Matrix| *7)))))
+       (|isDomain| *5 (|NonNegativeInteger|))
+       (|ofCategory| *8 (|UnivariatePolynomialCategory| *7))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| *6))
+       (|ofCategory| *6 (|FiniteFieldCategory|))
+       (|isDomain| *2
+                   (|Record| (|:| |basis| (|Matrix| *7)) (|:| |basisDen| *7)
+                             (|:| |basisInv| (|Matrix| *7))))
+       (|isDomain| *1 (|ChineseRemainderToolsForIntegralBases| *6 *7 *8))))
+ (|listConjugateBases| (*1 *2 *3 *4 *4)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |basis| (|Matrix| *6)) (|:| |basisDen| *6)
+                         (|:| |basisInv| (|Matrix| *6))))
+   (|isDomain| *4 (|NonNegativeInteger|))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+   (|ofCategory| *5 (|FiniteFieldCategory|))
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |basis| (|Matrix| *6)) (|:| |basisDen| *6)
+                          (|:| |basisInv| (|Matrix| *6)))))
+   (|isDomain| *1 (|ChineseRemainderToolsForIntegralBases| *5 *6 *7))
+   (|ofCategory| *7 (|UnivariatePolynomialCategory| *6))))
+ (|factorList| (*1 *2 *3 *4 *4 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *3 (|FiniteFieldCategory|))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *3))
+       (|isDomain| *2 (|List| (|SparseUnivariatePolynomial| *3)))
+       (|isDomain| *1 (|ChineseRemainderToolsForIntegralBases| *3 *5 *6))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5)))))
+((|listConjugateBases|
+  (((|List|
+     (|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+               (|:| |basisInv| (|Matrix| |#2|))))
+    (|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+              (|:| |basisInv| (|Matrix| |#2|)))
+    (|NonNegativeInteger|) (|NonNegativeInteger|))
+   20))
+ (|factorList|
+  (((|List| (|SparseUnivariatePolynomial| |#1|)) |#1| (|NonNegativeInteger|)
+    (|NonNegativeInteger|) (|NonNegativeInteger|))
+   27))
+ (|chineseRemainder|
+  (((|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+              (|:| |basisInv| (|Matrix| |#2|)))
+    (|List| |#3|)
+    (|List|
+     (|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+               (|:| |basisInv| (|Matrix| |#2|))))
+    (|NonNegativeInteger|))
+   80)))
+IBACHIN
+((|constructor|
+  (NIL
+   "\\indented{1}{Author: Clifton Williamson} Date Created: 9 August 1993 Basic Operations: chineseRemainder,{} factorList Related Domains: PAdicWildFunctionFieldIntegralBasis(\\spad{K},{} \\spad{R},{} UP,{} \\spad{F}) Also See: WildFunctionFieldIntegralBasis,{} FunctionFieldIntegralBasis AMS Classifications: Keywords: function field,{} finite field,{} integral basis Examples: References: Description:"))
+ (|chineseRemainder|
+  (((|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+              (|:| |basisInv| (|Matrix| |#2|)))
+    (|List| |#3|)
+    (|List|
+     (|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+               (|:| |basisInv| (|Matrix| |#2|))))
+    (|NonNegativeInteger|))
+   "\\spad{chineseRemainder(lu,{} lr,{} n)} \\undocumented"))
+ (|listConjugateBases|
+  (((|List|
+     (|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+               (|:| |basisInv| (|Matrix| |#2|))))
+    (|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+              (|:| |basisInv| (|Matrix| |#2|)))
+    (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{listConjugateBases(bas,{} q,{} n)} returns the list \\spad{[bas,{} bas^Frob,{} bas^(Frob^2),{} ...bas^(Frob^(n-1))]},{} where \\spad{Frob} raises the coefficients of all polynomials appearing in the basis \\spad{bas} to the \\spad{q}th power."))
+ (|factorList|
+  (((|List| (|SparseUnivariatePolynomial| |#1|)) |#1| (|NonNegativeInteger|)
+    (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{factorList(k,{} n,{} m,{} j)} \\undocumented")))
+(("documentation" 0 4544) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4536) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3741) ("modemaps" 0 1984) ("sourceFile" 0 1945)
+ ("constructorCategory" 0 1136) ("constructorModemap" 0 79)
+ ("constructorKind" 0 69) ("constructorForm" 0 20))

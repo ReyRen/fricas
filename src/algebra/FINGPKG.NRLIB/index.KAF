@@ -1,0 +1,36 @@
+1498                (|FiniteGroupPackage| G)
+|package|
+(((|FiniteGroupPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |permutationRepresentation| ((|Permutation| (|Integer|)) |#1|))
+   (SIGNATURE |regularRepresentation| ((|Matrix| (|Integer|)) |#1|)))
+  (|Join| (|Group|) (|Finite|)))
+ (T |FiniteGroupPackage|))
+(CATEGORY |package|
+ (SIGNATURE |permutationRepresentation| ((|Permutation| (|Integer|)) |#1|))
+ (SIGNATURE |regularRepresentation| ((|Matrix| (|Integer|)) |#1|)))
+"/git/fricas/src/algebra/FINGPKG.spad"
+((|regularRepresentation| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Matrix| (|Integer|)))
+       (|isDomain| *1 (|FiniteGroupPackage| *3))
+       (|ofCategory| *3 (|Join| (|Group|) (|Finite|)))))
+ (|permutationRepresentation| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Permutation| (|Integer|)))
+       (|isDomain| *1 (|FiniteGroupPackage| *3))
+       (|ofCategory| *3 (|Join| (|Group|) (|Finite|))))))
+((|regularRepresentation| (((|Matrix| (|Integer|)) |#1|) 22))
+ (|permutationRepresentation| (((|Permutation| (|Integer|)) |#1|) 16)))
+FINGPKG
+((|constructor|
+  (NIL "A package for permutation representations of finite groups."))
+ (|regularRepresentation|
+  (((|Matrix| (|Integer|)) |#1|)
+   "\\spad{regularRepresentation(x)} returns the matrix representation of the permutation \\spad{permutationRep(x)}"))
+ (|permutationRepresentation|
+  (((|Permutation| (|Integer|)) |#1|)
+   "\\spad{permutationRepresentation(x)} returns the permutation induced by \\spad{x} on \\spad{enumerate()\\$G}")))
+(("documentation" 0 1048) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1040) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 906) ("modemaps" 0 518) ("sourceFile" 0 479)
+ ("constructorCategory" 0 315) ("constructorModemap" 0 55)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

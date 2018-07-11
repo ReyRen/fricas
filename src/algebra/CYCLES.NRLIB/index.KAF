@@ -1,0 +1,210 @@
+10147               (MAKEPROP '|CycleIndicators| 'NILADIC T)
+(|CycleIndicators|)
+|package|
+(((|CycleIndicators|)
+  (CATEGORY |package|
+   (SIGNATURE |complete|
+    ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+   (SIGNATURE |powerSum|
+    ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+   (SIGNATURE |elementary|
+    ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+   (SIGNATURE |alternating|
+    ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+   (SIGNATURE |cyclic|
+    ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+   (SIGNATURE |dihedral|
+    ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+   (SIGNATURE |graphs|
+    ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+   (SIGNATURE |cap|
+    ((|Fraction| (|Integer|)) (|SymmetricPolynomial| (|Fraction| (|Integer|)))
+     (|SymmetricPolynomial| (|Fraction| (|Integer|)))))
+   (SIGNATURE |cup|
+    ((|SymmetricPolynomial| (|Fraction| (|Integer|)))
+     (|SymmetricPolynomial| (|Fraction| (|Integer|)))
+     (|SymmetricPolynomial| (|Fraction| (|Integer|)))))
+   (SIGNATURE |eval|
+    ((|Fraction| (|Integer|))
+     (|SymmetricPolynomial| (|Fraction| (|Integer|)))))
+   (SIGNATURE |wreath|
+    ((|SymmetricPolynomial| (|Fraction| (|Integer|)))
+     (|SymmetricPolynomial| (|Fraction| (|Integer|)))
+     (|SymmetricPolynomial| (|Fraction| (|Integer|)))))
+   (SIGNATURE |SFunction|
+    ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|List| (|Integer|))))
+   (SIGNATURE |skewSFunction|
+    ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|List| (|Integer|))
+     (|List| (|Integer|))))))
+ (T |CycleIndicators|))
+(CATEGORY |package|
+ (SIGNATURE |complete|
+  ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+ (SIGNATURE |powerSum|
+  ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+ (SIGNATURE |elementary|
+  ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+ (SIGNATURE |alternating|
+  ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+ (SIGNATURE |cyclic|
+  ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+ (SIGNATURE |dihedral|
+  ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+ (SIGNATURE |graphs|
+  ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+ (SIGNATURE |cap|
+  ((|Fraction| (|Integer|)) (|SymmetricPolynomial| (|Fraction| (|Integer|)))
+   (|SymmetricPolynomial| (|Fraction| (|Integer|)))))
+ (SIGNATURE |cup|
+  ((|SymmetricPolynomial| (|Fraction| (|Integer|)))
+   (|SymmetricPolynomial| (|Fraction| (|Integer|)))
+   (|SymmetricPolynomial| (|Fraction| (|Integer|)))))
+ (SIGNATURE |eval|
+  ((|Fraction| (|Integer|)) (|SymmetricPolynomial| (|Fraction| (|Integer|)))))
+ (SIGNATURE |wreath|
+  ((|SymmetricPolynomial| (|Fraction| (|Integer|)))
+   (|SymmetricPolynomial| (|Fraction| (|Integer|)))
+   (|SymmetricPolynomial| (|Fraction| (|Integer|)))))
+ (SIGNATURE |SFunction|
+  ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|List| (|Integer|))))
+ (SIGNATURE |skewSFunction|
+  ((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|List| (|Integer|))
+   (|List| (|Integer|)))))
+"/git/fricas/src/algebra/CYCLES.spad"
+((|skewSFunction| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *2 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|CycleIndicators|))))
+ (|SFunction| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *2 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|CycleIndicators|))))
+ (|wreath| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|CycleIndicators|))))
+ (|eval| (*1 *2 *3)
+         (AND (|isDomain| *3 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+              (|isDomain| *2 (|Fraction| (|Integer|)))
+              (|isDomain| *1 (|CycleIndicators|))))
+ (|cup| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|CycleIndicators|))))
+ (|cap| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *2 (|Fraction| (|Integer|)))
+       (|isDomain| *1 (|CycleIndicators|))))
+ (|graphs| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|CycleIndicators|))))
+ (|dihedral| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|CycleIndicators|))))
+ (|cyclic| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|CycleIndicators|))))
+ (|alternating| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|CycleIndicators|))))
+ (|elementary| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|CycleIndicators|))))
+ (|powerSum| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|CycleIndicators|))))
+ (|complete| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|CycleIndicators|)))))
+((|wreath|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|)))
+    (|SymmetricPolynomial| (|Fraction| (|Integer|)))
+    (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+   68))
+ (|skewSFunction|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|List| (|Integer|))
+    (|List| (|Integer|)))
+   77))
+ (|powerSum|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)) 42))
+ (|graphs| (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)) 54))
+ (|eval|
+  (((|Fraction| (|Integer|)) (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+   64))
+ (|elementary|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)) 32))
+ (|dihedral|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)) 50))
+ (|cyclic| (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)) 48))
+ (|cup|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|)))
+    (|SymmetricPolynomial| (|Fraction| (|Integer|)))
+    (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+   62))
+ (|complete|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)) 25))
+ (|cap|
+  (((|Fraction| (|Integer|)) (|SymmetricPolynomial| (|Fraction| (|Integer|)))
+    (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+   66))
+ (|alternating|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|)) 30))
+ (|SFunction|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|List| (|Integer|))) 73)))
+CYCLES
+((|constructor| (NIL "Enumeration by cycle indices."))
+ (|skewSFunction|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|List| (|Integer|))
+    (|List| (|Integer|)))
+   "\\spad{skewSFunction(li1,{} li2)} is the \\spad{S}-function \\indented{1}{of the partition difference \\spad{li1 - li2}} \\indented{1}{expressed in terms of power sum symmetric functions.}"))
+ (|SFunction|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|List| (|Integer|)))
+   "\\spad{SFunction(\\spad{li})} is the \\spad{S}-function of the partition \\spad{\\spad{li}} \\indented{1}{expressed in terms of power sum symmetric functions.}"))
+ (|wreath|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|)))
+    (|SymmetricPolynomial| (|Fraction| (|Integer|)))
+    (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+   "\\spad{wreath(s1,{} s2)} is the cycle index of the wreath product \\indented{1}{of the two groups whose cycle indices are \\spad{s1} and} \\indented{1}{\\spad{s2}.}"))
+ (|eval|
+  (((|Fraction| (|Integer|)) (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+   "\\spad{eval s} is the sum of the coefficients of a cycle index."))
+ (|cup|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|)))
+    (|SymmetricPolynomial| (|Fraction| (|Integer|)))
+    (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+   "\\spad{cup(s1,{} s2)},{} introduced by Redfield,{} \\indented{1}{is the scalar product of two cycle indices,{} in which the} \\indented{1}{power sums are retained to produce a cycle index.}"))
+ (|cap|
+  (((|Fraction| (|Integer|)) (|SymmetricPolynomial| (|Fraction| (|Integer|)))
+    (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+   "\\spad{cap(s1,{} s2)},{} introduced by Redfield,{} \\indented{1}{is the scalar product of two cycle indices.}"))
+ (|graphs|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|))
+   "\\spad{graphs n} is the cycle index of the group induced on \\indented{1}{the edges of a graph by applying the symmetric function to the} \\indented{1}{\\spad{n} nodes.}"))
+ (|dihedral|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|))
+   "\\spad{dihedral n} is the cycle index of the \\indented{1}{dihedral group of degree \\spad{n}.}"))
+ (|cyclic|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|))
+   "\\spad{cyclic n} is the cycle index of the \\indented{1}{cyclic group of degree \\spad{n}.}"))
+ (|alternating|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|))
+   "\\spad{alternating n} is the cycle index of the \\indented{1}{alternating group of degree \\spad{n}.}"))
+ (|elementary|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|))
+   "\\spad{elementary n} is the \\spad{n} th elementary symmetric \\indented{1}{function expressed in terms of power sums.}"))
+ (|powerSum|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|))
+   "\\spad{powerSum n} is the \\spad{n} th power sum symmetric \\indented{1}{function.}"))
+ (|complete|
+  (((|SymmetricPolynomial| (|Fraction| (|Integer|))) (|Integer|))
+   "\\spad{complete n} is the \\spad{n} th complete homogeneous \\indented{1}{symmetric function expressed in terms of power sums.} \\indented{1}{Alternatively it is the cycle index of the symmetric} \\indented{1}{group of degree \\spad{n}.}")))
+(("documentation" 0 6892) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 6885) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5480) ("modemaps" 0 3193) ("sourceFile" 0 3155)
+ ("constructorCategory" 0 1682) ("constructorModemap" 0 91)
+ ("constructorKind" 0 81) ("constructorForm" 0 61) ("NILADIC" 0 20))

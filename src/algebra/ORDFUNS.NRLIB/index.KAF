@@ -1,0 +1,47 @@
+2458                (|OrderingFunctions| |dim| S)
+|package|
+(((|OrderingFunctions| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |pureLex| ((|Boolean|) (|Vector| |#2|) (|Vector| |#2|)))
+   (SIGNATURE |totalLex| ((|Boolean|) (|Vector| |#2|) (|Vector| |#2|)))
+   (SIGNATURE |reverseLex| ((|Boolean|) (|Vector| |#2|) (|Vector| |#2|))))
+  (|NonNegativeInteger|) (|OrderedAbelianMonoid|))
+ (T |OrderingFunctions|))
+(CATEGORY |package|
+ (SIGNATURE |pureLex| ((|Boolean|) (|Vector| |#2|) (|Vector| |#2|)))
+ (SIGNATURE |totalLex| ((|Boolean|) (|Vector| |#2|) (|Vector| |#2|)))
+ (SIGNATURE |reverseLex| ((|Boolean|) (|Vector| |#2|) (|Vector| |#2|))))
+"/git/fricas/src/algebra/ORDFUNS.spad"
+((|reverseLex| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|Vector| *5)) (|ofCategory| *5 (|OrderedAbelianMonoid|))
+       (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|OrderingFunctions| *4 *5))
+       (|ofType| *4 (|NonNegativeInteger|))))
+ (|totalLex| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|Vector| *5)) (|ofCategory| *5 (|OrderedAbelianMonoid|))
+       (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|OrderingFunctions| *4 *5))
+       (|ofType| *4 (|NonNegativeInteger|))))
+ (|pureLex| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|Vector| *5)) (|ofCategory| *5 (|OrderedAbelianMonoid|))
+       (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|OrderingFunctions| *4 *5))
+       (|ofType| *4 (|NonNegativeInteger|)))))
+((|totalLex| (((|Boolean|) (|Vector| |#2|) (|Vector| |#2|)) 15))
+ (|reverseLex| (((|Boolean|) (|Vector| |#2|) (|Vector| |#2|)) 16))
+ (|pureLex| (((|Boolean|) (|Vector| |#2|) (|Vector| |#2|)) 12)))
+ORDFUNS
+((|constructor|
+  (NIL
+   "\\indented{3}{This package provides ordering functions on vectors which} are suitable parameters for OrderedDirectProduct."))
+ (|reverseLex|
+  (((|Boolean|) (|Vector| |#2|) (|Vector| |#2|))
+   "\\spad{reverseLex(v1,{} v2)} return \\spad{true} if the vector \\spad{v1} is less than the vector \\spad{v2} in the ordering which is total degree refined by the reverse lexicographic ordering."))
+ (|totalLex|
+  (((|Boolean|) (|Vector| |#2|) (|Vector| |#2|))
+   "\\spad{totalLex(v1,{} v2)} return \\spad{true} if the vector \\spad{v1} is less than the vector \\spad{v2} in the ordering which is total degree refined by lexicographic ordering."))
+ (|pureLex|
+  (((|Boolean|) (|Vector| |#2|) (|Vector| |#2|))
+   "\\spad{pureLex(v1,{} v2)} return \\spad{true} if the vector \\spad{v1} is less than the vector \\spad{v2} in the lexicographic ordering.")))
+(("documentation" 0 1585) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1577) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1380) ("modemaps" 0 682) ("sourceFile" 0 643)
+ ("constructorCategory" 0 411) ("constructorModemap" 0 60)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

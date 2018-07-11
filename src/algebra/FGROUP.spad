@@ -1,0 +1,110 @@
+)abbrev domain FGROUP FreeGroup
+++ Free group on any set of generators
+++ Author: Stephen M. Watt
+++ Description:
+++ The free group on a set S is the group of finite products of
+++ the form \spad{reduce(*, [si ^ ni])} where the si's are in S, and the ni's
+++ are integers. The multiplication is not commutative.
+FreeGroup(S : SetCategory) : Join(Group, RetractableTo S) with
+        "*":    (S, %) -> %
+          ++ s * x returns the product of x by s on the left.
+        "*":    (%, S) -> %
+          ++ x * s returns the product of x by s on the right.
+        "^"         : (S, Integer) -> %
+          ++ s ^ n returns the product of s by itself n times.
+        size         : % -> NonNegativeInteger
+          ++ size(x) returns the number of monomials in x.
+        nthExpon     : (%, Integer) -> Integer
+          ++ nthExpon(x, n) returns the exponent of the n^th monomial of x.
+        nthFactor    : (%, Integer) -> S
+          ++ nthFactor(x, n) returns the factor of the n^th monomial of x.
+        mapExpon     : (Integer -> Integer, %) -> %
+          ++ mapExpon(f, a1\^e1 ... an\^en) returns \spad{a1\^f(e1) ... an\^f(en)}.
+        mapGen       : (S -> S, %) -> %
+          ++ mapGen(f, a1\^e1 ... an\^en) returns \spad{f(a1)\^e1 ... f(an)\^en}.
+        factors      : % -> List Record(gen : S, exp : Integer)
+          ++ factors(a1\^e1, ..., an\^en) returns \spad{[[a1, e1], ..., [an, en]]}.
+        if S has Comparable then Comparable
+
+    == ListMonoidOps(S, Integer, 1) add
+        Rep := ListMonoidOps(S, Integer, 1)
+
+        1                       == makeUnit()
+        one? f                  == empty? listOfMonoms f
+        s : S ^ n : Integer        == makeTerm(s, n)
+        f : % * s : S               == rightMult(f, s)
+        s : S * f : %               == leftMult(s, f)
+        inv f                   == reverse! mapExpon("-", f)
+        factors f               == copy listOfMonoms f
+        mapExpon(f, x)          == mapExpon(f, x)$Rep
+        mapGen(f, x)            == mapGen(f, x)$Rep
+        coerce(f:%):OutputForm  == outputForm(f, "*", "^", 1)
+
+        f : % * g : % ==
+            one? f => g
+            one? g => f
+            r := reverse listOfMonoms f
+            q := copy listOfMonoms g
+            while not empty? r and not empty? q and r.first.gen = q.first.gen
+                and r.first.exp = -q.first.exp repeat
+                     r := rest r
+                     q := rest q
+            empty? r => makeMulti q
+            empty? q => makeMulti reverse! r
+            r.first.gen = q.first.gen =>
+              -- read 'r.first.exp' before the destructive 'reverse! r'
+              newexp := q.first.exp + r.first.exp
+              setlast!(h := reverse! r, [q.first.gen, newexp])
+              makeMulti concat!(h, rest q)
+            makeMulti concat!(reverse! r, q)
+
+        -- deglex order (with respect to block length)
+        if S has Comparable then
+          smaller?(a, b) ==
+            la := listOfMonoms a
+            lb := listOfMonoms b
+            na : Integer := #la
+            nb : Integer := #lb
+            na < nb => return true
+            nb < na => return false
+            -- case of equal length
+            while not empty? la repeat
+                smaller?(la.first.gen, lb.first.gen) => return true
+                smaller?(lb.first.gen, la.first.gen) => return false
+                la.first.exp < lb.first.exp => return true
+                lb.first.exp < la.first.exp => return false
+                la:= rest la
+                lb:= rest lb
+            false
+
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

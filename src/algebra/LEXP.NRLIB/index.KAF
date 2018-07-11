@@ -1,0 +1,199 @@
+9199                (|LieExponentials| |VarSet| R |Order|)
+|domain|
+(((|LieExponentials| |#1| |#2| |#3|)
+  (|Join| (|Group|)
+          (CATEGORY |domain| (SIGNATURE |exp| ($ (|LiePolynomial| |#1| |#2|)))
+           (SIGNATURE |log| ((|LiePolynomial| |#1| |#2|) $))
+           (SIGNATURE |listOfTerms|
+            ((|List|
+              (|Record| (|:| |k| (|PoincareBirkhoffWittLyndonBasis| |#1|))
+                        (|:| |c| |#2|)))
+             $))
+           (SIGNATURE |coerce| ((|XDistributedPolynomial| |#1| |#2|) $))
+           (SIGNATURE |coerce| ((|XPBWPolynomial| |#1| |#2|) $))
+           (SIGNATURE |mirror| ($ $)) (SIGNATURE |varList| ((|List| |#1|) $))
+           (SIGNATURE |LyndonBasis|
+            ((|List| (|LiePolynomial| |#1| |#2|)) (|List| |#1|)))
+           (SIGNATURE |LyndonCoordinates|
+            ((|List| (|Record| (|:| |k| (|LyndonWord| |#1|)) (|:| |c| |#2|)))
+             $))
+           (SIGNATURE |identification| ((|List| (|Equation| |#2|)) $ $))))
+  (|OrderedSet|)
+  (|Join| (|CommutativeRing|) (|Module| (|Fraction| (|Integer|))))
+  (|PositiveInteger|))
+ (T |LieExponentials|))
+(|Join| (|Group|)
+        (CATEGORY |domain| (SIGNATURE |exp| ($ (|LiePolynomial| |#1| |#2|)))
+         (SIGNATURE |log| ((|LiePolynomial| |#1| |#2|) $))
+         (SIGNATURE |listOfTerms|
+          ((|List|
+            (|Record| (|:| |k| (|PoincareBirkhoffWittLyndonBasis| |#1|))
+                      (|:| |c| |#2|)))
+           $))
+         (SIGNATURE |coerce| ((|XDistributedPolynomial| |#1| |#2|) $))
+         (SIGNATURE |coerce| ((|XPBWPolynomial| |#1| |#2|) $))
+         (SIGNATURE |mirror| ($ $)) (SIGNATURE |varList| ((|List| |#1|) $))
+         (SIGNATURE |LyndonBasis|
+          ((|List| (|LiePolynomial| |#1| |#2|)) (|List| |#1|)))
+         (SIGNATURE |LyndonCoordinates|
+          ((|List| (|Record| (|:| |k| (|LyndonWord| |#1|)) (|:| |c| |#2|))) $))
+         (SIGNATURE |identification| ((|List| (|Equation| |#2|)) $ $))))
+"/git/fricas/src/algebra/LEXP.spad"
+((|exp| (*1 *1 *2)
+  (AND (|isDomain| *2 (|LiePolynomial| *3 *4)) (|ofCategory| *3 (|OrderedSet|))
+       (|ofCategory| *4
+                     (|Join| (|CommutativeRing|)
+                             (|Module| (|Fraction| (|Integer|)))))
+       (|isDomain| *1 (|LieExponentials| *3 *4 *5))
+       (|ofType| *5 (|PositiveInteger|))))
+ (|log| (*1 *2 *1)
+  (AND (|isDomain| *2 (|LiePolynomial| *3 *4))
+       (|isDomain| *1 (|LieExponentials| *3 *4 *5))
+       (|ofCategory| *3 (|OrderedSet|))
+       (|ofCategory| *4
+                     (|Join| (|CommutativeRing|)
+                             (|Module| (|Fraction| (|Integer|)))))
+       (|ofType| *5 (|PositiveInteger|))))
+ (|listOfTerms| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |k| (|PoincareBirkhoffWittLyndonBasis| *3))
+                          (|:| |c| *4))))
+   (|isDomain| *1 (|LieExponentials| *3 *4 *5))
+   (|ofCategory| *3 (|OrderedSet|))
+   (|ofCategory| *4
+                 (|Join| (|CommutativeRing|)
+                         (|Module| (|Fraction| (|Integer|)))))
+   (|ofType| *5 (|PositiveInteger|))))
+ (|coerce| (*1 *2 *1)
+           (AND (|isDomain| *2 (|XDistributedPolynomial| *3 *4))
+                (|isDomain| *1 (|LieExponentials| *3 *4 *5))
+                (|ofCategory| *3 (|OrderedSet|))
+                (|ofCategory| *4
+                              (|Join| (|CommutativeRing|)
+                                      (|Module| (|Fraction| (|Integer|)))))
+                (|ofType| *5 (|PositiveInteger|))))
+ (|coerce| (*1 *2 *1)
+           (AND (|isDomain| *2 (|XPBWPolynomial| *3 *4))
+                (|isDomain| *1 (|LieExponentials| *3 *4 *5))
+                (|ofCategory| *3 (|OrderedSet|))
+                (|ofCategory| *4
+                              (|Join| (|CommutativeRing|)
+                                      (|Module| (|Fraction| (|Integer|)))))
+                (|ofType| *5 (|PositiveInteger|))))
+ (|mirror| (*1 *1 *1)
+  (AND (|isDomain| *1 (|LieExponentials| *2 *3 *4))
+       (|ofCategory| *2 (|OrderedSet|))
+       (|ofCategory| *3
+                     (|Join| (|CommutativeRing|)
+                             (|Module| (|Fraction| (|Integer|)))))
+       (|ofType| *4 (|PositiveInteger|))))
+ (|varList| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| *3)) (|isDomain| *1 (|LieExponentials| *3 *4 *5))
+       (|ofCategory| *3 (|OrderedSet|))
+       (|ofCategory| *4
+                     (|Join| (|CommutativeRing|)
+                             (|Module| (|Fraction| (|Integer|)))))
+       (|ofType| *5 (|PositiveInteger|))))
+ (|LyndonBasis| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4)) (|ofCategory| *4 (|OrderedSet|))
+       (|isDomain| *2 (|List| (|LiePolynomial| *4 *5)))
+       (|isDomain| *1 (|LieExponentials| *4 *5 *6))
+       (|ofCategory| *5
+                     (|Join| (|CommutativeRing|)
+                             (|Module| (|Fraction| (|Integer|)))))
+       (|ofType| *6 (|PositiveInteger|))))
+ (|LyndonCoordinates| (*1 *2 *1)
+  (AND
+   (|isDomain| *2 (|List| (|Record| (|:| |k| (|LyndonWord| *3)) (|:| |c| *4))))
+   (|isDomain| *1 (|LieExponentials| *3 *4 *5))
+   (|ofCategory| *3 (|OrderedSet|))
+   (|ofCategory| *4
+                 (|Join| (|CommutativeRing|)
+                         (|Module| (|Fraction| (|Integer|)))))
+   (|ofType| *5 (|PositiveInteger|))))
+ (|identification| (*1 *2 *1 *1)
+  (AND (|isDomain| *2 (|List| (|Equation| *4)))
+       (|isDomain| *1 (|LieExponentials| *3 *4 *5))
+       (|ofCategory| *3 (|OrderedSet|))
+       (|ofCategory| *4
+                     (|Join| (|CommutativeRing|)
+                             (|Module| (|Fraction| (|Integer|)))))
+       (|ofType| *5 (|PositiveInteger|)))))
+((~= (((|Boolean|) $ $) NIL)) (|varList| (((|List| |#1|) $) NIL))
+ (|sample| (($) NIL T CONST)) (|rightRecip| (((|Union| $ #1="failed") $) NIL))
+ (|rightPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL))
+ (|recip| (((|Union| $ #1#) $) NIL)) (|one?| (((|Boolean|) $) NIL))
+ (|mirror| (($ $) 65)) (|log| (((|LiePolynomial| |#1| |#2|) $) 50))
+ (|listOfTerms|
+  (((|List|
+     (|Record| (|:| |k| (|PoincareBirkhoffWittLyndonBasis| |#1|))
+               (|:| |c| |#2|)))
+    $)
+   34))
+ (|leftRecip| (((|Union| $ #1#) $) NIL))
+ (|leftPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL))
+ (|latex| (((|String|) $) NIL)) (|inv| (($ $) 68))
+ (|identification| (((|List| (|Equation| |#2|)) $ $) 31))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|exp| (($ (|LiePolynomial| |#1| |#2|)) 46)) (|conjugate| (($ $ $) NIL))
+ (|commutator| (($ $ $) NIL))
+ (|coerce| (((|OutputForm|) $) 56)
+           (((|XDistributedPolynomial| |#1| |#2|) $) NIL)
+           (((|XPBWPolynomial| |#1| |#2|) $) 64))
+ (^ (($ $ (|PositiveInteger|)) NIL) (($ $ (|NonNegativeInteger|)) NIL)
+  (($ $ (|Integer|)) NIL))
+ (|One| (($) 51 T CONST))
+ (|LyndonCoordinates|
+  (((|List| (|Record| (|:| |k| (|LyndonWord| |#1|)) (|:| |c| |#2|))) $) 29))
+ (|LyndonBasis| (((|List| (|LiePolynomial| |#1| |#2|)) (|List| |#1|)) 63))
+ (= (((|Boolean|) $ $) 52)) (/ (($ $ $) NIL)) (* (($ $ $) 42)))
+LEXP
+(((|Group|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|Group|) . T)
+ ((|Magma|) . T) ((|MagmaWithUnit|) . T) ((|Monoid|) . T) ((|SemiGroup|) . T)
+ ((|SetCategory|) . T) ((|TwoSidedRecip|) . T) ((|unitsKnown|) . T))
+((|constructor|
+  (NIL
+   "Management of the Lie Group associated with a free nilpotent Lie algebra. Every Lie bracket with length greater than \\spad{Order} are assumed to be null. The implementation inherits from the \\spadtype{XPBWPolynomial} domain constructor: Lyndon coordinates are exponential coordinates of the second kind. \\newline Author: Michel Petitot (petitot@lifl.\\spad{fr})."))
+ (|identification|
+  (((|List| (|Equation| |#2|)) $ $)
+   "\\spad{identification(g,{} h)} returns the list of equations \\spad{g_i = h_i},{} where \\spad{g_i} (resp. \\spad{h_i}) are exponential coordinates of \\spad{g} (resp. \\spad{h})."))
+ (|LyndonCoordinates|
+  (((|List| (|Record| (|:| |k| (|LyndonWord| |#1|)) (|:| |c| |#2|))) $)
+   "\\spad{LyndonCoordinates(g)} returns the exponential coordinates of \\spad{g}."))
+ (|LyndonBasis|
+  (((|List| (|LiePolynomial| |#1| |#2|)) (|List| |#1|))
+   "\\spad{LyndonBasis(lv)} returns the Lyndon basis of the nilpotent free Lie algebra."))
+ (|varList|
+  (((|List| |#1|) $)
+   "\\spad{varList(g)} returns the list of variables of \\spad{g}."))
+ (|mirror|
+  (($ $)
+   "\\spad{mirror(g)} is the mirror of the internal representation of \\spad{g}."))
+ (|coerce|
+  (((|XPBWPolynomial| |#1| |#2|) $)
+   "\\spad{coerce(g)} returns the internal representation of \\spad{g}.")
+  (((|XDistributedPolynomial| |#1| |#2|) $)
+   "\\spad{coerce(g)} returns the internal representation of \\spad{g}."))
+ (|listOfTerms|
+  (((|List|
+     (|Record| (|:| |k| (|PoincareBirkhoffWittLyndonBasis| |#1|))
+               (|:| |c| |#2|)))
+    $)
+   "\\spad{listOfTerms(p)} returns the internal representation of \\spad{p}."))
+ (|log|
+  (((|LiePolynomial| |#1| |#2|) $)
+   "\\spad{log(p)} returns the logarithm of \\spad{p}."))
+ (|exp|
+  (($ (|LiePolynomial| |#1| |#2|))
+   "\\spad{exp(p)} returns the exponential of \\spad{p}.")))
+(("documentation" 0 7353) ("ancestors" 0 7132) ("parents" 0 7114)
+ ("abbreviation" 0 7109) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5666) ("modemaps" 0 1987) ("sourceFile" 0 1951)
+ ("constructorCategory" 0 1116) ("constructorModemap" 0 68)
+ ("constructorKind" 0 59) ("constructorForm" 0 20))

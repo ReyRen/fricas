@@ -1,0 +1,134 @@
+)abbrev package ODEPAL PureAlgebraicLODE
+++ Author: Manuel Bronstein
+++ Date Created: 21 August 1991
+++ Description: In-field solution of an linear ordinary differential equation,
+++ pure algebraic case.
+PureAlgebraicLODE(F, UP, UPUP, R) : Exports == Implementation where
+  F   : Join(Field, CharacteristicZero,
+             RetractableTo Integer, RetractableTo Fraction Integer)
+  UP  : UnivariatePolynomialCategory F
+  UPUP : UnivariatePolynomialCategory Fraction UP
+  R   : FunctionFieldCategory(F, UP, UPUP)
+
+  RF  ==> Fraction UP
+  V   ==> Vector RF
+  U   ==> Union(R, "failed")
+  REC ==> Record(particular: Union(RF, "failed"), basis: List RF)
+  L   ==> LinearOrdinaryDifferentialOperator1 R
+  LQ  ==> LinearOrdinaryDifferentialOperator1 RF
+  Param_Rec_R ==> Record(ratpart : R, coeffs : Vector(F))
+  L_Param_R ==> List Param_Rec_R
+
+  Exports ==> with
+    algDsolve : (L, R) -> Record(particular : U, basis : List R)
+      ++ algDsolve(op, g) returns \spad{["failed", []]} if the equation
+      ++ \spad{op y = g} has no solution in \spad{R}. Otherwise, it returns
+      ++ \spad{[f, [y1, ..., ym]]} where \spad{f} is a particular rational
+      ++ solution and the \spad{y_i's} form a basis for the solutions in
+      ++ \spad{R} of the homogeneous equation.
+    algDsolve : (L, List R) -> Record(particular : L_Param_R, basis : List R)
+      ++ algDsolve(op, lg) is a parametric version of
+      ++ algDsolve(op, g)
+
+  Implementation ==> add
+    import from RationalLODE(F, UP)
+    import from SystemODESolver(RF, LQ)
+    import from ReduceLODE(RF, LQ, UPUP, R, L)
+
+    Param_Rec_F ==> Record(ratpart : RF, coeffs : Vector RF)
+    FPL ==> Record(particular : List Param_Rec_F, basis : List RF)
+
+    rat_solve(l : LQ, lf : List RF) : FPL ==
+        sol := ratDsolve(l, lf)
+        bas := sol.basis
+        ker := nullSpace(sol.mat)
+        empty?(ker) => [[], []]
+        nn := #lf
+        nb := #bas
+        if nb ~= ncols(sol.mat) then
+            error "rat_solve: nb ~= ncols(sol.mat)"
+        m1 := matrix([entries(kv) for kv in ker]$List(List(F)))
+        nn := #lf
+        nc := ncols(m1)
+        nn1 := (nc - nn)::NonNegativeInteger
+        m3 := rowEchelon(m1)
+        nr := nrows(m3)
+        j : Integer := 1
+        i0 : Integer := nr + 1
+        sl : List Param_Rec_F := []
+        for i in 1..nr repeat
+            while j <= nn and m3(i, j) = 0 repeat j := j + 1
+            if j > nn then
+                i0 := i
+                break
+            cv := new(nn, 0)$V
+            for k in 1..nn repeat
+                cv(k) := m3(i, k)::UP::RF
+            s : RF := 0
+            for k in 1..nc for bf in bas repeat
+                s := s + m3(i, k)::UP*bf
+            sl := cons([s, cv], sl)
+        bl : List RF := []
+        for i in i0..nr repeat
+            s : RF := 0
+            for k in 1..nc for bf in bas repeat
+                s := s + m3(i, k)::UP*bf
+            bl := cons(s, bl)
+        [sl, bl]
+
+    RF_to_F(rf : RF) : F == ground(retract(rf)@UP)
+
+    V_to_VF(v : V) : Vector(F) ==
+        map(RF_to_F, v)$VectorFunctions2(RF, F)
+
+    algDsolve(l : L, lg : List R) ==
+        rec := reduceLODE(l, lg)
+        sol := solveInField(rec.mat, rec.vecs, rat_solve)
+        bas : List(R) := [represents v for v in sol.basis]
+        part : L_Param_R := [[represents(be.ratpart), V_to_VF(be.coeffs)]
+                              for be in sol.particular]
+        [part, bas]
+
+    algDsolve(l : L, g : R) ==
+        rec1 := algDsolve(l, [g])
+        bas := rec1.basis
+        empty?(rec1.particular) => ["failed", bas]
+        part1 : Param_Rec_R := first(rec1.particular)
+        c1inv := inv((part1.coeffs)(1))
+        s0 : R := part1.ratpart
+        s1 := c1inv::UP::RF*s0
+        [s1, bas]
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-- Compile order for the differential equation solver:
+-- oderf.spad  odealg.spad  nlode.spad  nlinsol.spad  riccati.spad  odeef.spad

@@ -1,0 +1,654 @@
+31531               (|ComplexCategory| R)
+|category|
+(((|ComplexCategory| |#1|) (|Category|) (|CommutativeRing|))
+ (T |ComplexCategory|))
+(|Join| (|MonogenicAlgebra| |t#1| (|SparseUnivariatePolynomial| |t#1|))
+        (|FullyRetractableTo| |t#1|) (|DifferentialExtension| |t#1|)
+        (|FullyEvalableOver| |t#1|) (|FullyPatternMatchable| |t#1|)
+        (|Patternable| |t#1|) (|FullyLinearlyExplicitOver| |t#1|)
+        (|CommutativeRing|)
+        (CATEGORY |domain| (SIGNATURE |imaginary| ($))
+         (SIGNATURE |conjugate| ($ $)) (SIGNATURE |complex| ($ |t#1| |t#1|))
+         (SIGNATURE |imag| (|t#1| $)) (SIGNATURE |real| (|t#1| $))
+         (SIGNATURE |norm| (|t#1| $))
+         (IF (|has| |t#1| (|Comparable|))
+             (ATTRIBUTE (|Comparable|))
+             |noBranch|)
+         (IF (|has| |t#1| (|IntegralDomain|))
+             (PROGN
+              (ATTRIBUTE (|IntegralDomain|))
+              (SIGNATURE |exquo| ((|Union| $ "failed") $ |t#1|)))
+             |noBranch|)
+         (IF (|has| |t#1| (|EuclideanDomain|))
+             (ATTRIBUTE (|EuclideanDomain|))
+             |noBranch|)
+         (IF (|has| |t#1| (|multiplicativeValuation|))
+             (ATTRIBUTE (|multiplicativeValuation|))
+             |noBranch|)
+         (IF (|has| |t#1| (|additiveValuation|))
+             (ATTRIBUTE (|additiveValuation|))
+             |noBranch|)
+         (IF (|has| |t#1| (|Field|))
+             (ATTRIBUTE (|Field|))
+             |noBranch|)
+         (IF (|has| |t#1| (|ConvertibleTo| (|InputForm|)))
+             (ATTRIBUTE (|ConvertibleTo| (|InputForm|)))
+             |noBranch|)
+         (IF (|has| |t#1| (|CharacteristicZero|))
+             (ATTRIBUTE (|CharacteristicZero|))
+             |noBranch|)
+         (IF (|has| |t#1| (|CharacteristicNonZero|))
+             (ATTRIBUTE (|CharacteristicNonZero|))
+             |noBranch|)
+         (IF (|has| |t#1| (|RealConstant|))
+             (PROGN
+              (ATTRIBUTE (|ConvertibleTo| (|Complex| (|DoubleFloat|))))
+              (ATTRIBUTE (|ConvertibleTo| (|Complex| (|Float|)))))
+             |noBranch|)
+         (IF (|has| |t#1| (|RealNumberSystem|))
+             (SIGNATURE |abs| ($ $))
+             |noBranch|)
+         (IF (|has| |t#1| (|arbitraryPrecision|))
+             (ATTRIBUTE (|arbitraryPrecision|))
+             |noBranch|)
+         (IF (|has| |t#1| (|TranscendentalFunctionCategory|))
+             (PROGN
+              (ATTRIBUTE (|TranscendentalFunctionCategory|))
+              (SIGNATURE |argument| (|t#1| $))
+              (IF (|has| |t#1| (|RadicalCategory|))
+                  (ATTRIBUTE (|RadicalCategory|))
+                  |noBranch|)
+              (IF (|has| |t#1| (|RealNumberSystem|))
+                  (SIGNATURE |polarCoordinates|
+                   ((|Record| (|:| |r| |t#1|) (|:| |phi| |t#1|)) $))
+                  |noBranch|))
+             |noBranch|)
+         (IF (|has| |t#1| (|IntegerNumberSystem|))
+             (PROGN
+              (ATTRIBUTE (|UniqueFactorizationDomain|))
+              (SIGNATURE |rational?| ((|Boolean|) $))
+              (SIGNATURE |rational| ((|Fraction| (|Integer|)) $))
+              (SIGNATURE |rationalIfCan|
+               ((|Union| (|Fraction| (|Integer|)) "failed") $)))
+             |noBranch|)
+         (IF (|has| |t#1| (|PolynomialFactorizationExplicit|))
+             (IF (|has| |t#1| (|EuclideanDomain|))
+                 (ATTRIBUTE (|PolynomialFactorizationExplicit|))
+                 |noBranch|)
+             |noBranch|)))
+"/git/fricas/src/algebra/COMPCAT.spad"
+((|norm| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|ComplexCategory| *2))
+       (|ofCategory| *2 (|CommutativeRing|))))
+ (|imaginary| (*1 *1)
+  (AND (|ofCategory| *1 (|ComplexCategory| *2))
+       (|ofCategory| *2 (|CommutativeRing|))))
+ (|conjugate| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|ComplexCategory| *2))
+       (|ofCategory| *2 (|CommutativeRing|))))
+ (|complex| (*1 *1 *2 *2)
+  (AND (|ofCategory| *1 (|ComplexCategory| *2))
+       (|ofCategory| *2 (|CommutativeRing|))))
+ (|imag| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|ComplexCategory| *2))
+       (|ofCategory| *2 (|CommutativeRing|))))
+ (|real| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|ComplexCategory| *2))
+       (|ofCategory| *2 (|CommutativeRing|))))
+ (|exquo| (*1 *1 *1 *2)
+  (|partial| AND (|ofCategory| *1 (|ComplexCategory| *2))
+   (|ofCategory| *2 (|CommutativeRing|)) (|ofCategory| *2 (|IntegralDomain|))))
+ (|abs| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|ComplexCategory| *2))
+       (|ofCategory| *2 (|CommutativeRing|))
+       (|ofCategory| *2 (|RealNumberSystem|))))
+ (|argument| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|ComplexCategory| *2))
+       (|ofCategory| *2 (|CommutativeRing|))
+       (|ofCategory| *2 (|TranscendentalFunctionCategory|))))
+ (|polarCoordinates| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|ComplexCategory| *3))
+       (|ofCategory| *3 (|CommutativeRing|))
+       (|ofCategory| *3 (|RealNumberSystem|))
+       (|ofCategory| *3 (|TranscendentalFunctionCategory|))
+       (|isDomain| *2 (|Record| (|:| |r| *3) (|:| |phi| *3)))))
+ (|rational?| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|ComplexCategory| *3))
+       (|ofCategory| *3 (|CommutativeRing|))
+       (|ofCategory| *3 (|IntegerNumberSystem|)) (|isDomain| *2 (|Boolean|))))
+ (|rational| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|ComplexCategory| *3))
+       (|ofCategory| *3 (|CommutativeRing|))
+       (|ofCategory| *3 (|IntegerNumberSystem|))
+       (|isDomain| *2 (|Fraction| (|Integer|)))))
+ (|rationalIfCan| (*1 *2 *1)
+  (|partial| AND (|ofCategory| *1 (|ComplexCategory| *3))
+   (|ofCategory| *3 (|CommutativeRing|))
+   (|ofCategory| *3 (|IntegerNumberSystem|))
+   (|isDomain| *2 (|Fraction| (|Integer|))))))
+((~= (((|Boolean|) $ $) 6)) (|zero?| (((|Boolean|) $) 6))
+ (|unitNormal|
+  (((|Record| (|:| |unit| $) (|:| |canonical| $) (|:| |associate| $)) $) 6
+   (OR (|has| |#1| (|IntegralDomain|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|))))))
+ (|unitCanonical|
+  (($ $) 6
+   (OR (|has| |#1| (|IntegralDomain|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|))))))
+ (|unit?|
+  (((|Boolean|) $) 6
+   (OR (|has| |#1| (|IntegralDomain|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|))))))
+ (|traceMatrix| (((|Matrix| |#1|) (|Vector| $)) 6) (((|Matrix| |#1|)) 6))
+ (|trace| ((|#1| $) 6))
+ (|tanh| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|tan| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|tableForDiscreteLogarithm|
+  (((|Table| (|PositiveInteger|) (|NonNegativeInteger|)) (|Integer|)) 6
+   (|has| |#1| (|FiniteFieldCategory|))))
+ (|subtractIfCan| (((|Union| $ "failed") $ $) 6))
+ (|squareFreePolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   6
+   (OR
+    (AND (|has| |#1| (|EuclideanDomain|))
+         (|has| |#1| (|PolynomialFactorizationExplicit|)))
+    (|has| |#1| (|FiniteFieldCategory|)))))
+ (|squareFreePart|
+  (($ $) 6
+   (OR (|has| |#1| (|IntegerNumberSystem|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|)))
+       (|has| |#1| (|Field|)))))
+ (|squareFree|
+  (((|Factored| $) $) 6
+   (OR (|has| |#1| (|IntegerNumberSystem|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|)))
+       (|has| |#1| (|Field|)))))
+ (|sqrt|
+  (($ $) 6
+   (AND (|has| |#1| (|RadicalCategory|))
+        (|has| |#1| (|TranscendentalFunctionCategory|)))))
+ (|solveLinearPolynomialEquation|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| $)) #1="failed")
+    (|List| (|SparseUnivariatePolynomial| $)) (|SparseUnivariatePolynomial| $))
+   6
+   (OR
+    (AND (|has| |#1| (|EuclideanDomain|))
+         (|has| |#1| (|PolynomialFactorizationExplicit|)))
+    (|has| |#1| (|FiniteFieldCategory|)))))
+ (|smaller?| (((|Boolean|) $ $) 6 (|has| |#1| (|Comparable|))))
+ (|sizeLess?| (((|Boolean|) $ $) 6 (|has| |#1| (|EuclideanDomain|))))
+ (|size| (((|NonNegativeInteger|)) 6 (|has| |#1| (|Finite|))))
+ (|sinh| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|sin| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|sech| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|sec| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|sample| (($) 6 T CONST)) (|rightRecip| (((|Union| $ #2="failed") $) 6))
+ (|rightPower| (($ $ (|PositiveInteger|)) 6) (($ $ (|NonNegativeInteger|)) 6))
+ (|retractIfCan|
+  (((|Union| (|Integer|) #3="failed") $) 6
+   (|has| |#1| (|RetractableTo| (|Integer|))))
+  (((|Union| (|Fraction| (|Integer|)) #3#) $) 6
+   (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|)))))
+  (((|Union| |#1| #3#) $) 6))
+ (|retract| (((|Integer|) $) 6 (|has| |#1| (|RetractableTo| (|Integer|))))
+            (((|Fraction| (|Integer|)) $) 6
+             (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|)))))
+            ((|#1| $) 6))
+ (|represents| (($ (|Vector| |#1|) (|Vector| $)) 6) (($ (|Vector| |#1|)) 6))
+ (|representationType|
+  (((|Union| "prime" "polynomial" "normal" "cyclic")) 6
+   (|has| |#1| (|FiniteFieldCategory|))))
+ (|rem| (($ $ $) 6 (|has| |#1| (|EuclideanDomain|))))
+ (|regularRepresentation| (((|Matrix| |#1|) $ (|Vector| $)) 6)
+  (((|Matrix| |#1|) $) 6))
+ (|reducedSystem|
+  (((|Matrix| (|Integer|)) (|Matrix| $)) 6
+   (|has| |#1| (|LinearlyExplicitOver| (|Integer|))))
+  (((|Record| (|:| |mat| (|Matrix| (|Integer|)))
+              (|:| |vec| (|Vector| (|Integer|))))
+    (|Matrix| $) (|Vector| $))
+   6 (|has| |#1| (|LinearlyExplicitOver| (|Integer|))))
+  (((|Record| (|:| |mat| (|Matrix| |#1|)) (|:| |vec| (|Vector| |#1|)))
+    (|Matrix| $) (|Vector| $))
+   6)
+  (((|Matrix| |#1|) (|Matrix| $)) 6))
+ (|reduce| (($ (|SparseUnivariatePolynomial| |#1|)) 6)
+  (((|Union| $ "failed") (|Fraction| (|SparseUnivariatePolynomial| |#1|))) 6
+   (|has| |#1| (|Field|))))
+ (|recip| (((|Union| $ #2#) $) 6)) (|real| ((|#1| $) 6))
+ (|rationalIfCan|
+  (((|Union| (|Fraction| (|Integer|)) "failed") $) 6
+   (|has| |#1| (|IntegerNumberSystem|))))
+ (|rational?| (((|Boolean|) $) 6 (|has| |#1| (|IntegerNumberSystem|))))
+ (|rational|
+  (((|Fraction| (|Integer|)) $) 6 (|has| |#1| (|IntegerNumberSystem|))))
+ (|rank| (((|PositiveInteger|)) 6)) (|random| (($) 6 (|has| |#1| (|Finite|))))
+ (|quo| (($ $ $) 6 (|has| |#1| (|EuclideanDomain|))))
+ (|principalIdeal|
+  (((|Record| (|:| |coef| (|List| $)) (|:| |generator| $)) (|List| $)) 6
+   (|has| |#1| (|EuclideanDomain|))))
+ (|primitiveElement| (($) 6 (|has| |#1| (|FiniteFieldCategory|))))
+ (|primitive?| (((|Boolean|) $) 6 (|has| |#1| (|FiniteFieldCategory|))))
+ (|primeFrobenius|
+  (($ $ (|NonNegativeInteger|)) 6 (|has| |#1| (|FiniteFieldCategory|)))
+  (($ $) 6 (|has| |#1| (|FiniteFieldCategory|))))
+ (|prime?|
+  (((|Boolean|) $) 6
+   (OR (|has| |#1| (|IntegerNumberSystem|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|)))
+       (|has| |#1| (|Field|)))))
+ (|polarCoordinates|
+  (((|Record| (|:| |r| |#1|) (|:| |phi| |#1|)) $) 6
+   (AND (|has| |#1| (|RealNumberSystem|))
+        (|has| |#1| (|TranscendentalFunctionCategory|)))))
+ (|pi| (($) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|patternMatch|
+  (((|PatternMatchResult| (|Integer|) $) $ (|Pattern| (|Integer|))
+    (|PatternMatchResult| (|Integer|) $))
+   6 (|has| |#1| (|PatternMatchable| (|Integer|))))
+  (((|PatternMatchResult| (|Float|) $) $ (|Pattern| (|Float|))
+    (|PatternMatchResult| (|Float|) $))
+   6 (|has| |#1| (|PatternMatchable| (|Float|)))))
+ (|order| (((|PositiveInteger|) $) 6 (|has| |#1| (|FiniteFieldCategory|)))
+  (((|OnePointCompletion| (|PositiveInteger|)) $) 6
+   (|has| |#1| (|FiniteFieldCategory|))))
+ (|opposite?| (((|Boolean|) $ $) 6)) (|one?| (((|Boolean|) $) 6))
+ (|nthRoot|
+  (($ $ (|Integer|)) 6
+   (AND (|has| |#1| (|RadicalCategory|))
+        (|has| |#1| (|TranscendentalFunctionCategory|)))))
+ (|norm| ((|#1| $) 6))
+ (|nextItem| (((|Union| $ "failed") $) 6 (|has| |#1| (|FiniteFieldCategory|))))
+ (|multiEuclidean|
+  (((|Union| (|List| $) #4="failed") (|List| $) $) 6
+   (|has| |#1| (|EuclideanDomain|))))
+ (|minimalPolynomial|
+  (((|SparseUnivariatePolynomial| |#1|) $) 6 (|has| |#1| (|Field|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|lookup| (((|PositiveInteger|) $) 6 (|has| |#1| (|Finite|))))
+ (|log| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|lift| (((|SparseUnivariatePolynomial| |#1|) $) 6))
+ (|leftRecip| (((|Union| $ #2#) $) 6))
+ (|leftPower| (($ $ (|PositiveInteger|)) 6) (($ $ (|NonNegativeInteger|)) 6))
+ (|lcmCoef|
+  (((|Record| (|:| |llcm_res| $) (|:| |coeff1| $) (|:| |coeff2| $)) $ $) 6
+   (OR (|has| |#1| (|EuclideanDomain|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|))))))
+ (|lcm|
+  (($ (|List| $)) 6
+   (OR (|has| |#1| (|EuclideanDomain|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|)))))
+  (($ $ $) 6
+   (OR (|has| |#1| (|EuclideanDomain|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|))))))
+ (|latex| (((|String|) $) 6)) (|inv| (($ $) 6 (|has| |#1| (|Field|))))
+ (|init| (($) 6 (|has| |#1| (|FiniteFieldCategory|)) CONST))
+ (|index| (($ (|PositiveInteger|)) 6 (|has| |#1| (|Finite|))))
+ (|imaginary| (($) 6)) (|imag| ((|#1| $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|generator| (($) 6))
+ (|gcdPolynomial|
+  (((|SparseUnivariatePolynomial| $) (|SparseUnivariatePolynomial| $)
+    (|SparseUnivariatePolynomial| $))
+   6
+   (OR (|has| |#1| (|EuclideanDomain|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|))))))
+ (|gcd|
+  (($ (|List| $)) 6
+   (OR (|has| |#1| (|EuclideanDomain|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|)))))
+  (($ $ $) 6
+   (OR (|has| |#1| (|EuclideanDomain|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|))))))
+ (|factorsOfCyclicGroupSize|
+  (((|List|
+     (|Record| (|:| |factor| (|Integer|))
+               (|:| |exponent| (|NonNegativeInteger|)))))
+   6 (|has| |#1| (|FiniteFieldCategory|))))
+ (|factorSquareFreePolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   6
+   (OR
+    (AND (|has| |#1| (|EuclideanDomain|))
+         (|has| |#1| (|PolynomialFactorizationExplicit|)))
+    (|has| |#1| (|FiniteFieldCategory|)))))
+ (|factorPolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   6
+   (OR
+    (AND (|has| |#1| (|EuclideanDomain|))
+         (|has| |#1| (|PolynomialFactorizationExplicit|)))
+    (|has| |#1| (|FiniteFieldCategory|)))))
+ (|factor|
+  (((|Factored| $) $) 6
+   (OR (|has| |#1| (|IntegerNumberSystem|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|)))
+       (|has| |#1| (|Field|)))))
+ (|extendedEuclidean|
+  (((|Union| (|Record| (|:| |coef1| $) (|:| |coef2| $)) #4#) $ $ $) 6
+   (|has| |#1| (|EuclideanDomain|)))
+  (((|Record| (|:| |coef1| $) (|:| |coef2| $) (|:| |generator| $)) $ $) 6
+   (|has| |#1| (|EuclideanDomain|))))
+ (|exquo| (((|Union| $ "failed") $ |#1|) 6 (|has| |#1| (|IntegralDomain|)))
+  (((|Union| $ "failed") $ $) 6
+   (OR (|has| |#1| (|IntegralDomain|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|))))))
+ (|expressIdealMember|
+  (((|Union| (|List| $) "failed") (|List| $) $) 6
+   (|has| |#1| (|EuclideanDomain|))))
+ (|exp| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|eval| (($ $ (|List| |#1|) (|List| |#1|)) 6 (|has| |#1| (|Evalable| |#1|)))
+         (($ $ |#1| |#1|) 6 (|has| |#1| (|Evalable| |#1|)))
+         (($ $ (|Equation| |#1|)) 6 (|has| |#1| (|Evalable| |#1|)))
+         (($ $ (|List| (|Equation| |#1|))) 6 (|has| |#1| (|Evalable| |#1|)))
+         (($ $ (|List| (|Symbol|)) (|List| |#1|)) 6
+          (|has| |#1| (|InnerEvalable| (|Symbol|) |#1|)))
+         (($ $ (|Symbol|) |#1|) 6
+          (|has| |#1| (|InnerEvalable| (|Symbol|) |#1|))))
+ (|euclideanSize|
+  (((|NonNegativeInteger|) $) 6 (|has| |#1| (|EuclideanDomain|))))
+ (|enumerate| (((|List| $)) 6 (|has| |#1| (|Finite|))))
+ (|elt| (($ $ |#1|) 6 (|has| |#1| (|Eltable| |#1| |#1|))))
+ (|divide|
+  (((|Record| (|:| |quotient| $) (|:| |remainder| $)) $ $) 6
+   (|has| |#1| (|EuclideanDomain|))))
+ (|discriminant| ((|#1| (|Vector| $)) 6) ((|#1|) 6))
+ (|discreteLog|
+  (((|NonNegativeInteger|) $) 6 (|has| |#1| (|FiniteFieldCategory|)))
+  (((|Union| (|NonNegativeInteger|) "failed") $ $) 6
+   (|has| |#1| (|FiniteFieldCategory|))))
+ (|differentiate|
+  (($ $) 6
+   (OR (|has| |#1| (|DifferentialRing|))
+       (|and| (|has| |#1| (|DifferentialRing|)) (|has| |#1| (|Field|)))))
+  (($ $ (|NonNegativeInteger|)) 6
+   (OR (|has| |#1| (|DifferentialRing|))
+       (|and| (|has| |#1| (|DifferentialRing|)) (|has| |#1| (|Field|)))))
+  (($ $ (|Symbol|)) 6 (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|List| (|Symbol|))) 6
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|Symbol|) (|NonNegativeInteger|)) 6
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|List| (|Symbol|)) (|List| (|NonNegativeInteger|))) 6
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|Mapping| |#1| |#1|) (|NonNegativeInteger|)) 6)
+  (($ $ (|Mapping| |#1| |#1|)) 6))
+ (|derivationCoordinates|
+  (((|Matrix| |#1|) (|Vector| $) (|Mapping| |#1| |#1|)) 6
+   (|has| |#1| (|Field|))))
+ (|definingPolynomial| (((|SparseUnivariatePolynomial| |#1|)) 6))
+ (|csch| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|csc| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|createPrimitiveElement| (($) 6 (|has| |#1| (|FiniteFieldCategory|))))
+ (|coth| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|cot| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|cosh| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|cos| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|coordinates| (((|Vector| |#1|) $ (|Vector| $)) 6)
+  (((|Matrix| |#1|) (|Vector| $) (|Vector| $)) 6)
+  (((|Matrix| |#1|) (|Vector| $)) 6) (((|Vector| |#1|) $) 6))
+ (|convert| (($ (|Vector| |#1|)) 6) (((|Vector| |#1|) $) 6)
+            (((|SparseUnivariatePolynomial| |#1|) $) 6)
+            (($ (|SparseUnivariatePolynomial| |#1|)) 6)
+            (((|Pattern| (|Integer|)) $) 6
+             (|has| |#1| (|ConvertibleTo| (|Pattern| (|Integer|)))))
+            (((|Pattern| (|Float|)) $) 6
+             (|has| |#1| (|ConvertibleTo| (|Pattern| (|Float|)))))
+            (((|Complex| (|Float|)) $) 6 (|has| |#1| (|RealConstant|)))
+            (((|Complex| (|DoubleFloat|)) $) 6 (|has| |#1| (|RealConstant|)))
+            (((|InputForm|) $) 6 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|conjugate| (($ $) 6))
+ (|conditionP|
+  (((|Union| (|Vector| $) #1#) (|Matrix| $)) 6
+   (OR
+    (|and| (|has| $ (|CharacteristicNonZero|))
+     (AND (|has| |#1| (|EuclideanDomain|))
+          (|has| |#1| (|PolynomialFactorizationExplicit|))))
+    (|and| (|has| $ (|CharacteristicNonZero|))
+     (|has| |#1| (|FiniteFieldCategory|))))))
+ (|complex| (($ |#1| |#1|) 6)) (|commutator| (($ $ $) 6))
+ (|coerce| (((|OutputForm|) $) 6) (($ (|Integer|)) 6) (($ |#1|) 6) (($ $) 6)
+           (($ (|Fraction| (|Integer|))) 6
+            (OR (|has| |#1| (|Field|))
+                (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|)))))))
+ (|charthRoot| (($ $) 6 (|has| |#1| (|FiniteFieldCategory|)))
+  (((|Union| $ "failed") $) 6
+   (OR
+    (|and| (|has| $ (|CharacteristicNonZero|))
+     (AND (|has| |#1| (|EuclideanDomain|))
+          (|has| |#1| (|PolynomialFactorizationExplicit|))))
+    (|has| |#1| (|CharacteristicNonZero|)))))
+ (|characteristicPolynomial| (((|SparseUnivariatePolynomial| |#1|) $) 6))
+ (|characteristic| (((|NonNegativeInteger|)) 6)) (|basis| (((|Vector| $)) 6))
+ (|atanh| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|atan| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|associator| (($ $ $ $) 6))
+ (|associates?|
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|IntegralDomain|))
+       (AND (|has| |#1| (|EuclideanDomain|))
+            (|has| |#1| (|PolynomialFactorizationExplicit|))))))
+ (|asinh| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|asin| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|asech| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|asec| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|argument| ((|#1| $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|antiCommutator| (($ $ $) 6)) (|annihilate?| (((|Boolean|) $ $) 6))
+ (|acsch| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|acsc| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|acoth| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|acot| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|acosh| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|acos| (($ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|abs| (($ $) 6 (|has| |#1| (|RealNumberSystem|))))
+ (^ (($ $ (|PositiveInteger|)) 6) (($ $ (|NonNegativeInteger|)) 6)
+  (($ $ (|Integer|)) 6 (|has| |#1| (|Field|)))
+  (($ $ (|Fraction| (|Integer|))) 6
+   (AND (|has| |#1| (|RadicalCategory|))
+        (|has| |#1| (|TranscendentalFunctionCategory|))))
+  (($ $ $) 6 (|has| |#1| (|TranscendentalFunctionCategory|))))
+ (|Zero| (($) 6 T CONST)) (|One| (($) 6 T CONST))
+ (D
+  (($ $) 6
+   (OR (|has| |#1| (|DifferentialRing|))
+       (|and| (|has| |#1| (|DifferentialRing|)) (|has| |#1| (|Field|)))))
+  (($ $ (|NonNegativeInteger|)) 6
+   (OR (|has| |#1| (|DifferentialRing|))
+       (|and| (|has| |#1| (|DifferentialRing|)) (|has| |#1| (|Field|)))))
+  (($ $ (|Symbol|)) 6 (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|List| (|Symbol|))) 6
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|Symbol|) (|NonNegativeInteger|)) 6
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|List| (|Symbol|)) (|List| (|NonNegativeInteger|))) 6
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|Mapping| |#1| |#1|) (|NonNegativeInteger|)) 6)
+  (($ $ (|Mapping| |#1| |#1|)) 6))
+ (= (((|Boolean|) $ $) 6)) (/ (($ $ $) 6 (|has| |#1| (|Field|))))
+ (- (($ $ $) 6) (($ $) 6)) (+ (($ $ $) 6))
+ (* (($ (|PositiveInteger|) $) 6) (($ $ $) 6) (($ (|Integer|) $) 6)
+    (($ (|NonNegativeInteger|) $) 6) (($ $ |#1|) 6) (($ |#1| $) 6)
+    (($ (|Fraction| (|Integer|)) $) 6 (|has| |#1| (|Field|)))
+    (($ $ (|Fraction| (|Integer|))) 6 (|has| |#1| (|Field|)))))
+COMPCAT
+(((|MonogenicAlgebra| |#1| (|SparseUnivariatePolynomial| |#1|)) . T)
+ ((|FullyRetractableTo| |#1|) . T) ((|DifferentialExtension| |#1|) . T)
+ ((|FullyEvalableOver| |#1|) . T) ((|FullyPatternMatchable| |#1|) . T)
+ ((|Patternable| |#1|) . T) ((|FullyLinearlyExplicitOver| |#1|) . T)
+ ((|CommutativeRing|) . T) ((|Comparable|) |has| |#1| (|Comparable|))
+ ((|IntegralDomain|) |has| |#1| (|IntegralDomain|))
+ ((|EuclideanDomain|) |has| |#1| (|EuclideanDomain|))
+ ((|multiplicativeValuation|) |has| |#1| (|multiplicativeValuation|))
+ ((|additiveValuation|) |has| |#1| (|additiveValuation|))
+ ((|Field|) |has| |#1| (|Field|))
+ ((|ConvertibleTo| (|InputForm|)) |has| |#1| (|ConvertibleTo| (|InputForm|)))
+ ((|CharacteristicZero|) |has| |#1| (|CharacteristicZero|))
+ ((|CharacteristicNonZero|) |has| |#1| (|CharacteristicNonZero|))
+ ((|ConvertibleTo| (|Complex| (|Float|))) |has| |#1| (|RealConstant|))
+ ((|ConvertibleTo| (|Complex| (|DoubleFloat|))) |has| |#1| (|RealConstant|))
+ ((|arbitraryPrecision|) |has| |#1| (|arbitraryPrecision|))
+ ((|RadicalCategory|) AND (|has| |#1| (|TranscendentalFunctionCategory|))
+  (|has| |#1| (|RadicalCategory|)))
+ ((|TranscendentalFunctionCategory|) |has| |#1|
+  (|TranscendentalFunctionCategory|))
+ ((|UniqueFactorizationDomain|) |has| |#1| (|IntegerNumberSystem|))
+ ((|PolynomialFactorizationExplicit|) AND
+  (|has| |#1| (|PolynomialFactorizationExplicit|))
+  (|has| |#1| (|EuclideanDomain|))))
+(((|AbelianGroup|) . T) ((|AbelianMonoid|) . T) ((|AbelianSemiGroup|) . T)
+ ((|Algebra| (|Fraction| (|Integer|))) OR (|has| |t#1| (|Field|))
+  (|has| |#1| (|Field|)))
+ ((|Algebra| $) . T) ((|Algebra| |t#1|) . T)
+ ((|ArcHyperbolicFunctionCategory|) |has| |#1|
+  (|TranscendentalFunctionCategory|))
+ ((|ArcTrigonometricFunctionCategory|) |has| |#1|
+  (|TranscendentalFunctionCategory|))
+ ((|BasicType|) . T) ((|BiModule| |t#1| |t#1|) . T) ((|BiModule| $ $) . T)
+ ((|CancellationAbelianMonoid|) . T)
+ ((|CharacteristicNonZero|) OR (|has| |t#1| (|CharacteristicNonZero|))
+  (|has| |#1| (|CharacteristicNonZero|)))
+ ((|CharacteristicZero|) OR (|has| |t#1| (|CharacteristicZero|))
+  (|has| |#1| (|CharacteristicZero|)))
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|CommutativeRing|) . T)
+ ((|CommutativeStar|) . T)
+ ((|Comparable|) OR (|has| |t#1| (|Finite|)) (|has| |#1| (|Comparable|)))
+ ((|ConvertibleTo| (|Complex| (|DoubleFloat|))) |has| |#1| (|RealConstant|))
+ ((|ConvertibleTo| (|Complex| (|Float|))) |has| |#1| (|RealConstant|))
+ ((|ConvertibleTo| (|Pattern| (|Float|))) |has| |t#1|
+  (|ConvertibleTo| (|Pattern| (|Float|))))
+ ((|ConvertibleTo| (|Pattern| (|Integer|))) |has| |t#1|
+  (|ConvertibleTo| (|Pattern| (|Integer|))))
+ ((|ConvertibleTo| |t#2|) . T)
+ ((|ConvertibleTo| (|InputForm|)) OR (|has| |t#1| (|Finite|))
+  (|has| |#1| (|ConvertibleTo| (|InputForm|))))
+ ((|DifferentialExtension| |#1|) . T)
+ ((|DifferentialExtension| |t#1|) |has| |t#1| (|Field|))
+ ((|DifferentialRing|) |has| |t#1| (|DifferentialRing|))
+ ((|DivisionRing|) OR (|has| |t#1| (|Field|)) (|has| |#1| (|Field|)))
+ ((|ElementaryFunctionCategory|) |has| |#1| (|TranscendentalFunctionCategory|))
+ ((|Eltable| |t#1| $) |has| |t#1| (|Eltable| |t#1| |t#1|))
+ ((|EntireRing|) OR (|has| |t#1| (|Field|)) (|has| |#1| (|IntegralDomain|))
+  (AND (|has| |#1| (|EuclideanDomain|))
+       (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ ((|EuclideanDomain|) OR (|has| |t#1| (|Field|))
+  (|has| |#1| (|EuclideanDomain|)))
+ ((|Evalable| |t#1|) |has| |t#1| (|Evalable| |t#1|))
+ ((|Field|) OR (|has| |t#1| (|Field|)) (|has| |#1| (|Field|)))
+ ((|FieldOfPrimeCharacteristic|) |has| |t#1| (|FiniteFieldCategory|))
+ ((|Finite|) |has| |t#1| (|Finite|))
+ ((|FiniteFieldCategory|) |has| |t#1| (|FiniteFieldCategory|))
+ ((|FiniteRankAlgebra| |t#1| |t#2|) . T) ((|FramedAlgebra| |t#1| |t#2|) . T)
+ ((|FramedModule| |t#1|) . T) ((|FullyEvalableOver| |#1|) . T)
+ ((|FullyLinearlyExplicitOver| |#1|) . T)
+ ((|FullyLinearlyExplicitOver| |t#1|) . T) ((|FullyPatternMatchable| |#1|) . T)
+ ((|FullyRetractableTo| |#1|) . T) ((|FullyRetractableTo| |t#1|) . T)
+ ((|GcdDomain|) OR (|has| |t#1| (|Field|)) (|has| |#1| (|EuclideanDomain|)))
+ ((|HyperbolicFunctionCategory|) |has| |#1| (|TranscendentalFunctionCategory|))
+ ((|InnerEvalable| (|Symbol|) |t#1|) |has| |t#1|
+  (|InnerEvalable| (|Symbol|) |t#1|))
+ ((|InnerEvalable| |t#1| |t#1|) |has| |t#1| (|Evalable| |t#1|))
+ ((|IntegralDomain|) OR (|has| |t#1| (|Field|)) (|has| |#1| (|IntegralDomain|))
+  (AND (|has| |#1| (|EuclideanDomain|))
+       (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ ((|LeftModule| |t#1|) . T)
+ ((|LeftOreRing|) OR (|has| |t#1| (|Field|)) (|has| |#1| (|EuclideanDomain|)))
+ ((|LinearlyExplicitOver| (|Integer|)) |has| |t#1|
+  (|LinearlyExplicitOver| (|Integer|)))
+ ((|LinearlyExplicitOver| |t#1|) . T) ((|Magma|) . T) ((|MagmaWithUnit|) . T)
+ ((|Module| |t#1|) . T)
+ ((|MonogenicAlgebra| |#1| (|SparseUnivariatePolynomial| |#1|)) . T)
+ ((|Monoid|) . T) ((|NonAssociativeRing|) . T) ((|NonAssociativeRng|) . T)
+ ((|NonAssociativeSemiRing|) . T) ((|NonAssociativeSemiRng|) . T)
+ ((|PartialDifferentialRing| (|Symbol|)) |has| |t#1|
+  (|PartialDifferentialRing| (|Symbol|)))
+ ((|PatternMatchable| (|Float|)) |has| |t#1| (|PatternMatchable| (|Float|)))
+ ((|PatternMatchable| (|Integer|)) |has| |t#1|
+  (|PatternMatchable| (|Integer|)))
+ ((|Patternable| |#1|) . T)
+ ((|PolynomialFactorizationExplicit|) OR (|has| |t#1| (|FiniteFieldCategory|))
+  (AND (|has| |#1| (|EuclideanDomain|))
+       (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ ((|PrincipalIdealDomain|) OR (|has| |t#1| (|Field|))
+  (|has| |#1| (|EuclideanDomain|)))
+ ((|RadicalCategory|) AND (|has| |#1| (|RadicalCategory|))
+  (|has| |#1| (|TranscendentalFunctionCategory|)))
+ ((|RetractableTo| (|Fraction| (|Integer|))) |has| |t#1|
+  (|RetractableTo| (|Fraction| (|Integer|))))
+ ((|RetractableTo| (|Integer|)) |has| |t#1| (|RetractableTo| (|Integer|)))
+ ((|RetractableTo| |t#1|) . T) ((|RightModule| |t#2|) . T) ((|Ring|) . T)
+ ((|Rng|) . T) ((|SemiGroup|) . T) ((|SemiRing|) . T) ((|SemiRng|) . T)
+ ((|SetCategory|) . T) ((|StepThrough|) |has| |t#1| (|FiniteFieldCategory|))
+ ((|TranscendentalFunctionCategory|) |has| |#1|
+  (|TranscendentalFunctionCategory|))
+ ((|TrigonometricFunctionCategory|) |has| |#1|
+  (|TranscendentalFunctionCategory|))
+ ((|TwoSidedRecip|) . T) ((|Type|) . T)
+ ((|UniqueFactorizationDomain|) OR (|has| |t#1| (|Field|))
+  (|has| |#1| (|IntegerNumberSystem|)) (|has| |#1| (|Field|))
+  (AND (|has| |#1| (|EuclideanDomain|))
+       (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ ((|additiveValuation|) |has| |#1| (|additiveValuation|))
+ ((|arbitraryPrecision|) |has| |#1| (|arbitraryPrecision|))
+ ((|canonicalUnitNormal|) OR (|has| |t#1| (|Field|)) (|has| |#1| (|Field|)))
+ ((|canonicalsClosed|) OR (|has| |t#1| (|Field|)) (|has| |#1| (|Field|)))
+ ((|multiplicativeValuation|) |has| |#1| (|multiplicativeValuation|))
+ ((|noZeroDivisors|) OR (|has| |t#1| (|Field|)) (|has| |#1| (|IntegralDomain|))
+  (AND (|has| |#1| (|EuclideanDomain|))
+       (|has| |#1| (|PolynomialFactorizationExplicit|))))
+ ((|unitsKnown|) . T))
+((|constructor|
+  (NIL
+   "This category represents the extension of a ring by a square root of \\spad{-1}."))
+ (|rationalIfCan|
+  (((|Union| (|Fraction| (|Integer|)) "failed") $)
+   "\\spad{rationalIfCan(x)} returns \\spad{x} as a rational number,{} or \"failed\" if \\spad{x} is not a rational number."))
+ (|rational|
+  (((|Fraction| (|Integer|)) $)
+   "\\spad{rational(x)} returns \\spad{x} as a rational number. Error: if \\spad{x} is not a rational number."))
+ (|rational?|
+  (((|Boolean|) $)
+   "\\spad{rational?(x)} tests if \\spad{x} is a rational number."))
+ (|polarCoordinates|
+  (((|Record| (|:| |r| |#1|) (|:| |phi| |#1|)) $)
+   "\\spad{polarCoordinates(x)} returns (\\spad{r},{} phi) such that \\spad{x} = \\spad{r} * exp(\\%\\spad{i} * phi)."))
+ (|argument|
+  ((|#1| $)
+   "\\spad{argument(x)} returns the angle made by (0,{} 1) and (0,{} \\spad{x})."))
+ (|abs|
+  (($ $)
+   "\\spad{abs(x)} returns the absolute value of \\spad{x} = sqrt(norm(\\spad{x}))."))
+ (|exquo|
+  (((|Union| $ "failed") $ |#1|)
+   "\\spad{exquo(x,{} r)} returns the exact quotient of \\spad{x} by \\spad{r},{} or \"failed\" if \\spad{r} does not divide \\spad{x} exactly."))
+ (|norm| ((|#1| $) "\\spad{norm(x)} returns \\spad{x} * conjugate(\\spad{x})"))
+ (|real| ((|#1| $) "\\spad{real(x)} returns real part of \\spad{x}."))
+ (|imag| ((|#1| $) "\\spad{imag(x)} returns imaginary part of \\spad{x}."))
+ (|complex|
+  (($ |#1| |#1|) "\\spad{complex(x,{} y)} constructs \\spad{x} + \\%i*y."))
+ (|conjugate|
+  (($ $)
+   "\\spad{conjugate(x + \\%i y)} returns \\spad{x} - \\%\\spad{i} \\spad{y}."))
+ (|imaginary| (($) "\\spad{imaginary()} = sqrt(\\spad{-1}) = \\%\\spad{i}.")))
+(("documentation" 0 29871) ("ancestors" 0 24240) ("parents" 0 22815)
+ ("abbreviation" 0 22807) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5641) ("modemaps" 0 3509) ("sourceFile" 0 3470)
+ ("constructorCategory" 0 138) ("constructorModemap" 0 53)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

@@ -1,0 +1,38 @@
+1644                (|UnivariatePolynomialFunctions2| |x| R |y| S)
+|package|
+(((|UnivariatePolynomialFunctions2| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |map|
+    ((|UnivariatePolynomial| |#3| |#4|) (|Mapping| |#4| |#2|)
+     (|UnivariatePolynomial| |#1| |#2|))))
+  (|Symbol|) (|Ring|) (|Symbol|) (|Ring|))
+ (T |UnivariatePolynomialFunctions2|))
+(CATEGORY |package|
+ (SIGNATURE |map|
+  ((|UnivariatePolynomial| |#3| |#4|) (|Mapping| |#4| |#2|)
+   (|UnivariatePolynomial| |#1| |#2|))))
+"/git/fricas/src/algebra/UP2.spad"
+((|map| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *8 *6))
+       (|isDomain| *4 (|UnivariatePolynomial| *5 *6)) (|ofType| *5 (|Symbol|))
+       (|ofCategory| *6 (|Ring|)) (|ofCategory| *8 (|Ring|))
+       (|isDomain| *2 (|UnivariatePolynomial| *7 *8))
+       (|isDomain| *1 (|UnivariatePolynomialFunctions2| *5 *6 *7 *8))
+       (|ofType| *7 (|Symbol|)))))
+((|map|
+  (((|UnivariatePolynomial| |#3| |#4|) (|Mapping| |#4| |#2|)
+    (|UnivariatePolynomial| |#1| |#2|))
+   15)))
+UP2
+((|constructor|
+  (NIL
+   "This package lifts a mapping from coefficient rings \\spad{R} to \\spad{S} to a mapping from \\spadtype{UnivariatePolynomial}(\\spad{x},{} \\spad{R}) to \\spadtype{UnivariatePolynomial}(\\spad{y},{} \\spad{S}). Note that the mapping is assumed to send zero to zero,{} since it will only be applied to the non-zero coefficients of the polynomial."))
+ (|map|
+  (((|UnivariatePolynomial| |#3| |#4|) (|Mapping| |#4| |#2|)
+    (|UnivariatePolynomial| |#1| |#2|))
+   "\\spad{map(func,{} poly)} creates a new polynomial by applying \\spad{func} to every non-zero coefficient of the polynomial poly.")))
+(("documentation" 0 1021) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1017) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 899) ("modemaps" 0 537) ("sourceFile" 0 502)
+ ("constructorCategory" 0 363) ("constructorModemap" 0 77)
+ ("constructorKind" 0 67) ("constructorForm" 0 20))

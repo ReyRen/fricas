@@ -1,0 +1,61 @@
+2822                (|GeneralHenselPackage| RP TP)
+|package|
+(((|GeneralHenselPackage| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |HenselLift|
+    ((|Record| (|:| |plist| (|List| |#2|)) (|:| |modulo| |#1|)) |#2|
+     (|List| |#2|) |#1| (|PositiveInteger|)))
+   (SIGNATURE |completeHensel|
+    ((|List| |#2|) |#2| (|List| |#2|) |#1| (|PositiveInteger|)))
+   (SIGNATURE |reduction| (|#2| |#2| |#1|)))
+  (|EuclideanDomain|) (|UnivariatePolynomialCategory| |#1|))
+ (T |GeneralHenselPackage|))
+(CATEGORY |package|
+ (SIGNATURE |HenselLift|
+  ((|Record| (|:| |plist| (|List| |#2|)) (|:| |modulo| |#1|)) |#2|
+   (|List| |#2|) |#1| (|PositiveInteger|)))
+ (SIGNATURE |completeHensel|
+  ((|List| |#2|) |#2| (|List| |#2|) |#1| (|PositiveInteger|)))
+ (SIGNATURE |reduction| (|#2| |#2| |#1|)))
+"/git/fricas/src/algebra/GHENSEL.spad"
+((|reduction| (*1 *2 *2 *3)
+  (AND (|ofCategory| *3 (|EuclideanDomain|))
+       (|isDomain| *1 (|GeneralHenselPackage| *3 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|completeHensel| (*1 *2 *3 *2 *4 *5)
+  (AND (|isDomain| *2 (|List| *3)) (|isDomain| *5 (|PositiveInteger|))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))
+       (|ofCategory| *4 (|EuclideanDomain|))
+       (|isDomain| *1 (|GeneralHenselPackage| *4 *3))))
+ (|HenselLift| (*1 *2 *3 *4 *5 *6)
+  (AND (|isDomain| *4 (|List| *3)) (|isDomain| *6 (|PositiveInteger|))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5 (|EuclideanDomain|))
+       (|isDomain| *2 (|Record| (|:| |plist| (|List| *3)) (|:| |modulo| *5)))
+       (|isDomain| *1 (|GeneralHenselPackage| *5 *3)))))
+((|reduction| ((|#2| |#2| |#1|) 15))
+ (|completeHensel|
+  (((|List| |#2|) |#2| (|List| |#2|) |#1| (|PositiveInteger|)) 66))
+ (|HenselLift|
+  (((|Record| (|:| |plist| (|List| |#2|)) (|:| |modulo| |#1|)) |#2|
+    (|List| |#2|) |#1| (|PositiveInteger|))
+   60)))
+GHENSEL
+((|constructor|
+  (NIL
+   "\\indented{1}{Author : \\spad{P}.Gianni} General Hensel Lifting Used for Factorization of bivariate polynomials over a finite field."))
+ (|reduction|
+  ((|#2| |#2| |#1|)
+   "\\spad{reduction(u,{} pol)} computes the symmetric reduction of \\spad{u} mod pol"))
+ (|completeHensel|
+  (((|List| |#2|) |#2| (|List| |#2|) |#1| (|PositiveInteger|))
+   "\\spad{completeHensel(pol,{} lfact,{} prime,{} bound)} lifts \\spad{lfact},{} the factorization mod \\spad{prime} of \\spad{pol},{} to the factorization mod prime^k>bound. Factors are recombined on the way."))
+ (|HenselLift|
+  (((|Record| (|:| |plist| (|List| |#2|)) (|:| |modulo| |#1|)) |#2|
+    (|List| |#2|) |#1| (|PositiveInteger|))
+   "\\spad{HenselLift(pol,{} lfacts,{} prime,{} bound)} lifts \\spad{lfacts},{} that are the factors of \\spad{pol} mod \\spad{prime},{} to factors of \\spad{pol} mod prime^k > bound. No recombining is done .")))
+(("documentation" 0 1900) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1892) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1632) ("modemaps" 0 823) ("sourceFile" 0 784)
+ ("constructorCategory" 0 493) ("constructorModemap" 0 61)
+ ("constructorKind" 0 51) ("constructorForm" 0 20))

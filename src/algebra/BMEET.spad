@@ -1,0 +1,18 @@
+)abbrev category BMEET BoundedMeetSemilattice
+++ Author: Martin Baker
+++ Date Created: Aug 2015
+++ Basic Operations: Meet
+++ Related Constructors: MeetSemilattice
+++  use BoundedMeetSemilattice if the semilattice has a 'top' which will be
+++  the case for all finite meet semilattice since we can do a meet of
+++  all values
+++ Keywords: Meet Top
+++ Description: meet semilattice with top
+++   Implementations in set, logic and orders
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+++ Axiom: unit forall x: x/\ T=x
+BoundedMeetSemilattice : Category == MeetSemilattice with
+      T : constant -> %
+        ++ Top (true in logic).
+

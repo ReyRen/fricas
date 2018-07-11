@@ -1,0 +1,47 @@
+2619                (|UnivariatePolynomialMultiplicationPackage| R U)
+|package|
+(((|UnivariatePolynomialMultiplicationPackage| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |noKaratsuba| (|#2| |#2| |#2|))
+   (SIGNATURE |karatsubaOnce| (|#2| |#2| |#2|))
+   (SIGNATURE |karatsuba|
+    (|#2| |#2| |#2| (|NonNegativeInteger|) (|NonNegativeInteger|))))
+  (|Ring|) (|UnivariatePolynomialCategory| |#1|))
+ (T |UnivariatePolynomialMultiplicationPackage|))
+(CATEGORY |package| (SIGNATURE |noKaratsuba| (|#2| |#2| |#2|))
+ (SIGNATURE |karatsubaOnce| (|#2| |#2| |#2|))
+ (SIGNATURE |karatsuba|
+  (|#2| |#2| |#2| (|NonNegativeInteger|) (|NonNegativeInteger|))))
+"/git/fricas/src/algebra/UPMP.spad"
+((|karatsuba| (*1 *2 *2 *2 *3 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|)) (|ofCategory| *4 (|Ring|))
+       (|isDomain| *1 (|UnivariatePolynomialMultiplicationPackage| *4 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))))
+ (|karatsubaOnce| (*1 *2 *2 *2)
+  (AND (|ofCategory| *3 (|Ring|))
+       (|isDomain| *1 (|UnivariatePolynomialMultiplicationPackage| *3 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|noKaratsuba| (*1 *2 *2 *2)
+  (AND (|ofCategory| *3 (|Ring|))
+       (|isDomain| *1 (|UnivariatePolynomialMultiplicationPackage| *3 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3)))))
+((|noKaratsuba| ((|#2| |#2| |#2|) 19)) (|karatsubaOnce| ((|#2| |#2| |#2|) 30))
+ (|karatsuba|
+  ((|#2| |#2| |#2| (|NonNegativeInteger|) (|NonNegativeInteger|)) 36)))
+UPMP
+((|constructor|
+  (NIL
+   "This package implements Karatsuba\\spad{'s} trick for multiplying (large) univariate polynomials. It could be improved with a version doing the work on place and also with a special case for squares. We've done this in Basicmath,{} but we believe that this out of the scope of FriCAS."))
+ (|karatsuba|
+  ((|#2| |#2| |#2| (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{karatsuba(a,{} b,{} l,{} k)} returns \\spad{a*b} by applying Karatsuba\\spad{'s} trick provided that both \\spad{a} and \\spad{b} have at least \\spad{l} terms and \\spad{k > 0} holds and by calling \\spad{noKaratsuba} otherwise. The other multiplications are performed by recursive calls with the same third argument and \\spad{k-1} as fourth argument."))
+ (|karatsubaOnce|
+  ((|#2| |#2| |#2|)
+   "\\spad{karatsuba(a,{} b)} returns \\spad{a*b} by applying Karatsuba\\spad{'s} trick once. The other multiplications are performed by calling \\spad{*} from \\spad{U}."))
+ (|noKaratsuba|
+  ((|#2| |#2| |#2|)
+   "\\spad{noKaratsuba(a,{} b)} returns \\spad{a*b} without using Karatsuba\\spad{'s} trick at all.")))
+(("documentation" 0 1504) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1499) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1334) ("modemaps" 0 682) ("sourceFile" 0 646)
+ ("constructorCategory" 0 446) ("constructorModemap" 0 80)
+ ("constructorKind" 0 70) ("constructorForm" 0 20))

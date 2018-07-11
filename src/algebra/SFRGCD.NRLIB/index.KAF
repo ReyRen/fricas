@@ -1,0 +1,279 @@
+13875               (|SquareFreeRegularTriangularSetGcdPackage| R E V P TS)
+|package|
+(((|SquareFreeRegularTriangularSetGcdPackage| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package|
+   (SIGNATURE |startTableGcd!| ((|Void|) (|String|) (|String|) (|String|)))
+   (SIGNATURE |stopTableGcd!| ((|Void|)))
+   (SIGNATURE |startTableInvSet!| ((|Void|) (|String|) (|String|) (|String|)))
+   (SIGNATURE |stopTableInvSet!| ((|Void|)))
+   (SIGNATURE |stosePrepareSubResAlgo|
+    ((|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#4| |#4|
+     |#5|))
+   (SIGNATURE |stoseInternalLastSubResultant|
+    ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|
+     (|Boolean|) (|Boolean|)))
+   (SIGNATURE |stoseInternalLastSubResultant|
+    ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|)))
+     (|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#3|
+     (|Boolean|)))
+   (SIGNATURE |stoseIntegralLastSubResultant|
+    ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|))
+   (SIGNATURE |stoseLastSubResultant|
+    ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|))
+   (SIGNATURE |stoseInvertible?| ((|Boolean|) |#4| |#5|))
+   (SIGNATURE |stoseInvertible?_sqfreg|
+    ((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|))
+   (SIGNATURE |stoseInvertibleSet_sqfreg| ((|List| |#5|) |#4| |#5|))
+   (SIGNATURE |stoseInvertible?_reg|
+    ((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|))
+   (SIGNATURE |stoseInvertibleSet_reg| ((|List| |#5|) |#4| |#5|))
+   (SIGNATURE |stoseInvertible?|
+    ((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|))
+   (SIGNATURE |stoseInvertibleSet| ((|List| |#5|) |#4| |#5|))
+   (SIGNATURE |stoseSquareFreePart|
+    ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#5|)))
+  (|GcdDomain|) (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|RecursivePolynomialCategory| |#1| |#2| |#3|)
+  (|RegularTriangularSetCategory| |#1| |#2| |#3| |#4|))
+ (T |SquareFreeRegularTriangularSetGcdPackage|))
+(CATEGORY |package|
+ (SIGNATURE |startTableGcd!| ((|Void|) (|String|) (|String|) (|String|)))
+ (SIGNATURE |stopTableGcd!| ((|Void|)))
+ (SIGNATURE |startTableInvSet!| ((|Void|) (|String|) (|String|) (|String|)))
+ (SIGNATURE |stopTableInvSet!| ((|Void|)))
+ (SIGNATURE |stosePrepareSubResAlgo|
+  ((|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#4| |#4|
+   |#5|))
+ (SIGNATURE |stoseInternalLastSubResultant|
+  ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|
+   (|Boolean|) (|Boolean|)))
+ (SIGNATURE |stoseInternalLastSubResultant|
+  ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|)))
+   (|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#3|
+   (|Boolean|)))
+ (SIGNATURE |stoseIntegralLastSubResultant|
+  ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|))
+ (SIGNATURE |stoseLastSubResultant|
+  ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|))
+ (SIGNATURE |stoseInvertible?| ((|Boolean|) |#4| |#5|))
+ (SIGNATURE |stoseInvertible?_sqfreg|
+  ((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|))
+ (SIGNATURE |stoseInvertibleSet_sqfreg| ((|List| |#5|) |#4| |#5|))
+ (SIGNATURE |stoseInvertible?_reg|
+  ((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|))
+ (SIGNATURE |stoseInvertibleSet_reg| ((|List| |#5|) |#4| |#5|))
+ (SIGNATURE |stoseInvertible?|
+  ((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|))
+ (SIGNATURE |stoseInvertibleSet| ((|List| |#5|) |#4| |#5|))
+ (SIGNATURE |stoseSquareFreePart|
+  ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#5|)))
+"/git/fricas/src/algebra/SFRGCD.spad"
+((|stoseSquareFreePart| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|List| (|Record| (|:| |val| *3) (|:| |tower| *4))))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|stoseInvertibleSet| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|List| *4))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|stoseInvertible?| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |val| (|Boolean|)) (|:| |tower| *4))))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|stoseInvertibleSet_reg| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|List| *4))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|stoseInvertible?_reg| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |val| (|Boolean|)) (|:| |tower| *4))))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|stoseInvertibleSet_sqfreg| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|List| *4))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|stoseInvertible?_sqfreg| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |val| (|Boolean|)) (|:| |tower| *4))))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|stoseInvertible?| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|stoseLastSubResultant| (*1 *2 *3 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|List| (|Record| (|:| |val| *3) (|:| |tower| *4))))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|stoseIntegralLastSubResultant| (*1 *2 *3 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|List| (|Record| (|:| |val| *3) (|:| |tower| *4))))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|stoseInternalLastSubResultant| (*1 *2 *3 *4 *5)
+  (AND
+   (|isDomain| *3 (|List| (|Record| (|:| |val| (|List| *8)) (|:| |tower| *9))))
+   (|isDomain| *5 (|Boolean|))
+   (|ofCategory| *8 (|RecursivePolynomialCategory| *6 *7 *4))
+   (|ofCategory| *9 (|RegularTriangularSetCategory| *6 *7 *4 *8))
+   (|ofCategory| *6 (|GcdDomain|))
+   (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *4 (|OrderedSet|))
+   (|isDomain| *2 (|List| (|Record| (|:| |val| *8) (|:| |tower| *9))))
+   (|isDomain| *1
+               (|SquareFreeRegularTriangularSetGcdPackage| *6 *7 *4 *8 *9))))
+ (|stoseInternalLastSubResultant| (*1 *2 *3 *3 *4 *5 *5)
+  (AND (|isDomain| *5 (|Boolean|)) (|ofCategory| *6 (|GcdDomain|))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *8 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *6 *7 *8))
+       (|isDomain| *2 (|List| (|Record| (|:| |val| *3) (|:| |tower| *4))))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *6 *7 *8 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *6 *7 *8 *3))))
+ (|stosePrepareSubResAlgo| (*1 *2 *3 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |val| (|List| *3)) (|:| |tower| *4))))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|stopTableInvSet!| (*1 *2)
+  (AND (|ofCategory| *3 (|GcdDomain|))
+       (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|ofCategory| *6 (|RecursivePolynomialCategory| *3 *4 *5))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *3 *4 *5 *6 *7))
+       (|ofCategory| *7 (|RegularTriangularSetCategory| *3 *4 *5 *6))))
+ (|startTableInvSet!| (*1 *2 *3 *3 *3)
+  (AND (|isDomain| *3 (|String|)) (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|))
+       (|ofCategory| *7 (|RecursivePolynomialCategory| *4 *5 *6))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *4 *5 *6 *7 *8))
+       (|ofCategory| *8 (|RegularTriangularSetCategory| *4 *5 *6 *7))))
+ (|stopTableGcd!| (*1 *2)
+  (AND (|ofCategory| *3 (|GcdDomain|))
+       (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|ofCategory| *6 (|RecursivePolynomialCategory| *3 *4 *5))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *3 *4 *5 *6 *7))
+       (|ofCategory| *7 (|RegularTriangularSetCategory| *3 *4 *5 *6))))
+ (|startTableGcd!| (*1 *2 *3 *3 *3)
+  (AND (|isDomain| *3 (|String|)) (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|))
+       (|ofCategory| *7 (|RecursivePolynomialCategory| *4 *5 *6))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1
+                   (|SquareFreeRegularTriangularSetGcdPackage| *4 *5 *6 *7 *8))
+       (|ofCategory| *8 (|RegularTriangularSetCategory| *4 *5 *6 *7)))))
+((|stoseSquareFreePart|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#5|) 93))
+ (|stosePrepareSubResAlgo|
+  (((|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#4| |#4|
+    |#5|)
+   69))
+ (|stoseLastSubResultant|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|)
+   87))
+ (|stoseInvertibleSet_sqfreg| (((|List| |#5|) |#4| |#5|) 108))
+ (|stoseInvertibleSet_reg| (((|List| |#5|) |#4| |#5|) 115))
+ (|stoseInvertibleSet| (((|List| |#5|) |#4| |#5|) 116))
+ (|stoseInvertible?_sqfreg|
+  (((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|)
+   94))
+ (|stoseInvertible?_reg|
+  (((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|)
+   114))
+ (|stoseInvertible?|
+  (((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|)
+   44)
+  (((|Boolean|) |#4| |#5|) 52))
+ (|stoseInternalLastSubResultant|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|)))
+    (|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#3|
+    (|Boolean|))
+   81)
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|
+    (|Boolean|) (|Boolean|))
+   49))
+ (|stoseIntegralLastSubResultant|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|)
+   76))
+ (|stopTableInvSet!| (((|Void|)) 35)) (|stopTableGcd!| (((|Void|)) 25))
+ (|startTableInvSet!| (((|Void|) (|String|) (|String|) (|String|)) 31))
+ (|startTableGcd!| (((|Void|) (|String|) (|String|) (|String|)) 20)))
+SFRGCD
+((|constructor|
+  (NIL
+   "A internal package for computing gcds and resultants of univariate polynomials with coefficients in a tower of simple extensions of a field. There is no need to use directly this package since its main operations are available from \\spad{TS}. \\newline")))
+(("documentation" 0 13590) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 13583) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 12070) ("modemaps" 0 3755) ("sourceFile" 0 3717)
+ ("constructorCategory" 0 2075) ("constructorModemap" 0 86)
+ ("constructorKind" 0 76) ("constructorForm" 0 20))

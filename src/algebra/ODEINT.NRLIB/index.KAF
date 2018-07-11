@@ -1,0 +1,73 @@
+3339                (|ODEIntegration| R F)
+|package|
+(((|ODEIntegration| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |int| (|#2| |#2| (|Symbol|)))
+   (SIGNATURE |expint| (|#2| |#2| (|Symbol|)))
+   (SIGNATURE |diff| ((|Mapping| |#2| |#2|) (|Symbol|))))
+  (|Join| (|Comparable|) (|PolynomialFactorizationExplicit|)
+          (|RetractableTo| (|Integer|)) (|LinearlyExplicitOver| (|Integer|))
+          (|CharacteristicZero|))
+  (|Join| (|AlgebraicallyClosedFunctionSpace| |#1|)
+          (|TranscendentalFunctionCategory|) (|PrimitiveFunctionCategory|)))
+ (T |ODEIntegration|))
+(CATEGORY |package| (SIGNATURE |int| (|#2| |#2| (|Symbol|)))
+ (SIGNATURE |expint| (|#2| |#2| (|Symbol|)))
+ (SIGNATURE |diff| ((|Mapping| |#2| |#2|) (|Symbol|))))
+"/git/fricas/src/algebra/ODEINT.spad"
+((|diff| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|ofCategory| *4
+                     (|Join| (|Comparable|) (|PolynomialFactorizationExplicit|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))
+                             (|CharacteristicZero|)))
+       (|isDomain| *2 (|Mapping| *5 *5))
+       (|isDomain| *1 (|ODEIntegration| *4 *5))
+       (|ofCategory| *5
+                     (|Join| (|AlgebraicallyClosedFunctionSpace| *4)
+                             (|TranscendentalFunctionCategory|)
+                             (|PrimitiveFunctionCategory|)))))
+ (|expint| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|ofCategory| *4
+                     (|Join| (|Comparable|) (|PolynomialFactorizationExplicit|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))
+                             (|CharacteristicZero|)))
+       (|isDomain| *1 (|ODEIntegration| *4 *2))
+       (|ofCategory| *2
+                     (|Join| (|AlgebraicallyClosedFunctionSpace| *4)
+                             (|TranscendentalFunctionCategory|)
+                             (|PrimitiveFunctionCategory|)))))
+ (|int| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|ofCategory| *4
+                     (|Join| (|Comparable|) (|PolynomialFactorizationExplicit|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))
+                             (|CharacteristicZero|)))
+       (|isDomain| *1 (|ODEIntegration| *4 *2))
+       (|ofCategory| *2
+                     (|Join| (|AlgebraicallyClosedFunctionSpace| *4)
+                             (|TranscendentalFunctionCategory|)
+                             (|PrimitiveFunctionCategory|))))))
+((|int| ((|#2| |#2| (|Symbol|)) 15)) (|expint| ((|#2| |#2| (|Symbol|)) 47))
+ (|diff| (((|Mapping| |#2| |#2|) (|Symbol|)) 11)))
+ODEINT
+((|constructor|
+  (NIL
+   "\\spadtype{ODEIntegration} provides an interface to the integrator. This package is intended for use by the differential equations solver but not at top-level."))
+ (|diff|
+  (((|Mapping| |#2| |#2|) (|Symbol|))
+   "\\spad{diff(x)} returns the derivation with respect to \\spad{x}."))
+ (|expint|
+  ((|#2| |#2| (|Symbol|))
+   "\\spad{expint(f,{} x)} returns e^{the integral of \\spad{f} with respect to \\spad{x}}."))
+ (|int|
+  ((|#2| |#2| (|Symbol|))
+   "\\spad{int(f,{} x)} returns the integral of \\spad{f} with respect to \\spad{x}.")))
+(("documentation" 0 2774) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2767) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2640) ("modemaps" 0 776) ("sourceFile" 0 738)
+ ("constructorCategory" 0 576) ("constructorModemap" 0 53)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

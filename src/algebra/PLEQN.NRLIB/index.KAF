@@ -1,0 +1,1493 @@
+74942               (|ParametricLinearEquations| R |Var| |Expon| GR)
+|package|
+(((|ParametricLinearEquations| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |psolve|
+    ((|List|
+      (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+                (|:| |wcond| (|List| (|Polynomial| |#1|)))
+                (|:| |bsoln|
+                     (|Record|
+                      (|:| |partsol|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                      (|:| |basis|
+                           (|List|
+                            (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+     (|Matrix| |#4|) (|List| |#4|)))
+   (SIGNATURE |psolve|
+    ((|List|
+      (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+                (|:| |wcond| (|List| (|Polynomial| |#1|)))
+                (|:| |bsoln|
+                     (|Record|
+                      (|:| |partsol|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                      (|:| |basis|
+                           (|List|
+                            (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+     (|Matrix| |#4|) (|List| (|Symbol|))))
+   (SIGNATURE |psolve|
+    ((|List|
+      (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+                (|:| |wcond| (|List| (|Polynomial| |#1|)))
+                (|:| |bsoln|
+                     (|Record|
+                      (|:| |partsol|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                      (|:| |basis|
+                           (|List|
+                            (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+     (|Matrix| |#4|)))
+   (SIGNATURE |psolve|
+    ((|List|
+      (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+                (|:| |wcond| (|List| (|Polynomial| |#1|)))
+                (|:| |bsoln|
+                     (|Record|
+                      (|:| |partsol|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                      (|:| |basis|
+                           (|List|
+                            (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+     (|Matrix| |#4|) (|List| |#4|) (|PositiveInteger|)))
+   (SIGNATURE |psolve|
+    ((|List|
+      (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+                (|:| |wcond| (|List| (|Polynomial| |#1|)))
+                (|:| |bsoln|
+                     (|Record|
+                      (|:| |partsol|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                      (|:| |basis|
+                           (|List|
+                            (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+     (|Matrix| |#4|) (|List| (|Symbol|)) (|PositiveInteger|)))
+   (SIGNATURE |psolve|
+    ((|List|
+      (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+                (|:| |wcond| (|List| (|Polynomial| |#1|)))
+                (|:| |bsoln|
+                     (|Record|
+                      (|:| |partsol|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                      (|:| |basis|
+                           (|List|
+                            (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+     (|Matrix| |#4|) (|PositiveInteger|)))
+   (SIGNATURE |psolve| ((|Integer|) (|Matrix| |#4|) (|List| |#4|) (|String|)))
+   (SIGNATURE |psolve|
+    ((|Integer|) (|Matrix| |#4|) (|List| (|Symbol|)) (|String|)))
+   (SIGNATURE |psolve| ((|Integer|) (|Matrix| |#4|) (|String|)))
+   (SIGNATURE |psolve|
+    ((|Integer|) (|Matrix| |#4|) (|List| |#4|) (|PositiveInteger|) (|String|)))
+   (SIGNATURE |psolve|
+    ((|Integer|) (|Matrix| |#4|) (|List| (|Symbol|)) (|PositiveInteger|)
+     (|String|)))
+   (SIGNATURE |psolve|
+    ((|Integer|) (|Matrix| |#4|) (|PositiveInteger|) (|String|)))
+   (SIGNATURE |wrregime|
+    ((|Integer|)
+     (|List|
+      (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+                (|:| |wcond| (|List| (|Polynomial| |#1|)))
+                (|:| |bsoln|
+                     (|Record|
+                      (|:| |partsol|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                      (|:| |basis|
+                           (|List|
+                            (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+     (|String|)))
+   (SIGNATURE |rdregime|
+    ((|List|
+      (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+                (|:| |wcond| (|List| (|Polynomial| |#1|)))
+                (|:| |bsoln|
+                     (|Record|
+                      (|:| |partsol|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                      (|:| |basis|
+                           (|List|
+                            (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+     (|String|)))
+   (SIGNATURE |bsolve|
+    ((|Record|
+      (|:| |rgl|
+           (|List|
+            (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+                      (|:| |wcond| (|List| (|Polynomial| |#1|)))
+                      (|:| |bsoln|
+                           (|Record|
+                            (|:| |partsol|
+                                 (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                            (|:| |basis|
+                                 (|List|
+                                  (|Vector|
+                                   (|Fraction| (|Polynomial| |#1|))))))))))
+      (|:| |rgsz| (|Integer|)))
+     (|Matrix| |#4|) (|List| (|Fraction| (|Polynomial| |#1|)))
+     (|NonNegativeInteger|) (|String|) (|Integer|)))
+   (SIGNATURE |dmp2rfi| ((|Fraction| (|Polynomial| |#1|)) |#4|))
+   (SIGNATURE |dmp2rfi|
+    ((|Matrix| (|Fraction| (|Polynomial| |#1|))) (|Matrix| |#4|)))
+   (SIGNATURE |dmp2rfi|
+    ((|List| (|Fraction| (|Polynomial| |#1|))) (|List| |#4|)))
+   (SIGNATURE |se2rfi|
+    ((|List| (|Fraction| (|Polynomial| |#1|))) (|List| (|Symbol|))))
+   (SIGNATURE |pr2dmp| (|#4| (|Polynomial| |#1|)))
+   (SIGNATURE |hasoln|
+    ((|Record| (|:| |sysok| (|Boolean|)) (|:| |z0| (|List| |#4|))
+               (|:| |n0| (|List| |#4|)))
+     (|List| |#4|) (|List| |#4|)))
+   (SIGNATURE |ParCondList|
+    ((|List|
+      (|Record| (|:| |rank| (|NonNegativeInteger|))
+                (|:| |eqns|
+                     (|List|
+                      (|Record| (|:| |det| |#4|)
+                                (|:| |rows| (|List| (|Integer|)))
+                                (|:| |cols| (|List| (|Integer|))))))
+                (|:| |fgb| (|List| |#4|))))
+     (|Matrix| |#4|) (|NonNegativeInteger|)))
+   (SIGNATURE |redpps|
+    ((|Record| (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+               (|:| |basis|
+                    (|List| (|Vector| (|Fraction| (|Polynomial| |#1|))))))
+     (|Record| (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+               (|:| |basis|
+                    (|List| (|Vector| (|Fraction| (|Polynomial| |#1|))))))
+     (|List| |#4|)))
+   (SIGNATURE |B1solve|
+    ((|Record| (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+               (|:| |basis|
+                    (|List| (|Vector| (|Fraction| (|Polynomial| |#1|))))))
+     (|Record| (|:| |mat| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+               (|:| |vec| (|List| (|Fraction| (|Polynomial| |#1|))))
+               (|:| |rank| (|NonNegativeInteger|))
+               (|:| |rows| (|List| (|Integer|)))
+               (|:| |cols| (|List| (|Integer|))))))
+   (SIGNATURE |factorset| ((|List| |#4|) |#4|))
+   (SIGNATURE |maxrank|
+    ((|NonNegativeInteger|)
+     (|List|
+      (|Record| (|:| |rank| (|NonNegativeInteger|))
+                (|:| |eqns|
+                     (|List|
+                      (|Record| (|:| |det| |#4|)
+                                (|:| |rows| (|List| (|Integer|)))
+                                (|:| |cols| (|List| (|Integer|))))))
+                (|:| |fgb| (|List| |#4|))))))
+   (SIGNATURE |minrank|
+    ((|NonNegativeInteger|)
+     (|List|
+      (|Record| (|:| |rank| (|NonNegativeInteger|))
+                (|:| |eqns|
+                     (|List|
+                      (|Record| (|:| |det| |#4|)
+                                (|:| |rows| (|List| (|Integer|)))
+                                (|:| |cols| (|List| (|Integer|))))))
+                (|:| |fgb| (|List| |#4|))))))
+   (SIGNATURE |minset| ((|List| (|List| |#4|)) (|List| (|List| |#4|))))
+   (SIGNATURE |nextSublist|
+    ((|List| (|List| (|Integer|))) (|Integer|) (|Integer|)))
+   (SIGNATURE |overset?| ((|Boolean|) (|List| |#4|) (|List| (|List| |#4|))))
+   (SIGNATURE |ParCond|
+    ((|List|
+      (|Record| (|:| |det| |#4|) (|:| |rows| (|List| (|Integer|)))
+                (|:| |cols| (|List| (|Integer|)))))
+     (|Matrix| |#4|) (|NonNegativeInteger|)))
+   (SIGNATURE |redmat| ((|Matrix| |#4|) (|Matrix| |#4|) (|List| |#4|)))
+   (SIGNATURE |regime|
+    ((|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|))))))))
+     (|Record| (|:| |det| |#4|) (|:| |rows| (|List| (|Integer|)))
+               (|:| |cols| (|List| (|Integer|))))
+     (|Matrix| |#4|) (|List| (|Fraction| (|Polynomial| |#1|)))
+     (|List| (|List| |#4|)) (|NonNegativeInteger|) (|NonNegativeInteger|)
+     (|Integer|)))
+   (SIGNATURE |sqfree| (|#4| |#4|))
+   (SIGNATURE |inconsistent?| ((|Boolean|) (|List| |#4|)))
+   (SIGNATURE |inconsistent?| ((|Boolean|) (|List| (|Polynomial| |#1|)))))
+  (|Join| (|EuclideanDomain|) (|PolynomialFactorizationExplicit|)
+          (|CharacteristicZero|))
+  (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|)))
+  (|OrderedAbelianMonoidSup|) (|PolynomialCategory| |#1| |#3| |#2|))
+ (T |ParametricLinearEquations|))
+(CATEGORY |package|
+ (SIGNATURE |psolve|
+  ((|List|
+    (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+              (|:| |wcond| (|List| (|Polynomial| |#1|)))
+              (|:| |bsoln|
+                   (|Record|
+                    (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                    (|:| |basis|
+                         (|List|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+   (|Matrix| |#4|) (|List| |#4|)))
+ (SIGNATURE |psolve|
+  ((|List|
+    (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+              (|:| |wcond| (|List| (|Polynomial| |#1|)))
+              (|:| |bsoln|
+                   (|Record|
+                    (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                    (|:| |basis|
+                         (|List|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+   (|Matrix| |#4|) (|List| (|Symbol|))))
+ (SIGNATURE |psolve|
+  ((|List|
+    (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+              (|:| |wcond| (|List| (|Polynomial| |#1|)))
+              (|:| |bsoln|
+                   (|Record|
+                    (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                    (|:| |basis|
+                         (|List|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+   (|Matrix| |#4|)))
+ (SIGNATURE |psolve|
+  ((|List|
+    (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+              (|:| |wcond| (|List| (|Polynomial| |#1|)))
+              (|:| |bsoln|
+                   (|Record|
+                    (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                    (|:| |basis|
+                         (|List|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+   (|Matrix| |#4|) (|List| |#4|) (|PositiveInteger|)))
+ (SIGNATURE |psolve|
+  ((|List|
+    (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+              (|:| |wcond| (|List| (|Polynomial| |#1|)))
+              (|:| |bsoln|
+                   (|Record|
+                    (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                    (|:| |basis|
+                         (|List|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+   (|Matrix| |#4|) (|List| (|Symbol|)) (|PositiveInteger|)))
+ (SIGNATURE |psolve|
+  ((|List|
+    (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+              (|:| |wcond| (|List| (|Polynomial| |#1|)))
+              (|:| |bsoln|
+                   (|Record|
+                    (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                    (|:| |basis|
+                         (|List|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+   (|Matrix| |#4|) (|PositiveInteger|)))
+ (SIGNATURE |psolve| ((|Integer|) (|Matrix| |#4|) (|List| |#4|) (|String|)))
+ (SIGNATURE |psolve|
+  ((|Integer|) (|Matrix| |#4|) (|List| (|Symbol|)) (|String|)))
+ (SIGNATURE |psolve| ((|Integer|) (|Matrix| |#4|) (|String|)))
+ (SIGNATURE |psolve|
+  ((|Integer|) (|Matrix| |#4|) (|List| |#4|) (|PositiveInteger|) (|String|)))
+ (SIGNATURE |psolve|
+  ((|Integer|) (|Matrix| |#4|) (|List| (|Symbol|)) (|PositiveInteger|)
+   (|String|)))
+ (SIGNATURE |psolve|
+  ((|Integer|) (|Matrix| |#4|) (|PositiveInteger|) (|String|)))
+ (SIGNATURE |wrregime|
+  ((|Integer|)
+   (|List|
+    (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+              (|:| |wcond| (|List| (|Polynomial| |#1|)))
+              (|:| |bsoln|
+                   (|Record|
+                    (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                    (|:| |basis|
+                         (|List|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+   (|String|)))
+ (SIGNATURE |rdregime|
+  ((|List|
+    (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+              (|:| |wcond| (|List| (|Polynomial| |#1|)))
+              (|:| |bsoln|
+                   (|Record|
+                    (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                    (|:| |basis|
+                         (|List|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+   (|String|)))
+ (SIGNATURE |bsolve|
+  ((|Record|
+    (|:| |rgl|
+         (|List|
+          (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+                    (|:| |wcond| (|List| (|Polynomial| |#1|)))
+                    (|:| |bsoln|
+                         (|Record|
+                          (|:| |partsol|
+                               (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                          (|:| |basis|
+                               (|List|
+                                (|Vector|
+                                 (|Fraction| (|Polynomial| |#1|))))))))))
+    (|:| |rgsz| (|Integer|)))
+   (|Matrix| |#4|) (|List| (|Fraction| (|Polynomial| |#1|)))
+   (|NonNegativeInteger|) (|String|) (|Integer|)))
+ (SIGNATURE |dmp2rfi| ((|Fraction| (|Polynomial| |#1|)) |#4|))
+ (SIGNATURE |dmp2rfi|
+  ((|Matrix| (|Fraction| (|Polynomial| |#1|))) (|Matrix| |#4|)))
+ (SIGNATURE |dmp2rfi|
+  ((|List| (|Fraction| (|Polynomial| |#1|))) (|List| |#4|)))
+ (SIGNATURE |se2rfi|
+  ((|List| (|Fraction| (|Polynomial| |#1|))) (|List| (|Symbol|))))
+ (SIGNATURE |pr2dmp| (|#4| (|Polynomial| |#1|)))
+ (SIGNATURE |hasoln|
+  ((|Record| (|:| |sysok| (|Boolean|)) (|:| |z0| (|List| |#4|))
+             (|:| |n0| (|List| |#4|)))
+   (|List| |#4|) (|List| |#4|)))
+ (SIGNATURE |ParCondList|
+  ((|List|
+    (|Record| (|:| |rank| (|NonNegativeInteger|))
+              (|:| |eqns|
+                   (|List|
+                    (|Record| (|:| |det| |#4|)
+                              (|:| |rows| (|List| (|Integer|)))
+                              (|:| |cols| (|List| (|Integer|))))))
+              (|:| |fgb| (|List| |#4|))))
+   (|Matrix| |#4|) (|NonNegativeInteger|)))
+ (SIGNATURE |redpps|
+  ((|Record| (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+             (|:| |basis|
+                  (|List| (|Vector| (|Fraction| (|Polynomial| |#1|))))))
+   (|Record| (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+             (|:| |basis|
+                  (|List| (|Vector| (|Fraction| (|Polynomial| |#1|))))))
+   (|List| |#4|)))
+ (SIGNATURE |B1solve|
+  ((|Record| (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+             (|:| |basis|
+                  (|List| (|Vector| (|Fraction| (|Polynomial| |#1|))))))
+   (|Record| (|:| |mat| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+             (|:| |vec| (|List| (|Fraction| (|Polynomial| |#1|))))
+             (|:| |rank| (|NonNegativeInteger|))
+             (|:| |rows| (|List| (|Integer|)))
+             (|:| |cols| (|List| (|Integer|))))))
+ (SIGNATURE |factorset| ((|List| |#4|) |#4|))
+ (SIGNATURE |maxrank|
+  ((|NonNegativeInteger|)
+   (|List|
+    (|Record| (|:| |rank| (|NonNegativeInteger|))
+              (|:| |eqns|
+                   (|List|
+                    (|Record| (|:| |det| |#4|)
+                              (|:| |rows| (|List| (|Integer|)))
+                              (|:| |cols| (|List| (|Integer|))))))
+              (|:| |fgb| (|List| |#4|))))))
+ (SIGNATURE |minrank|
+  ((|NonNegativeInteger|)
+   (|List|
+    (|Record| (|:| |rank| (|NonNegativeInteger|))
+              (|:| |eqns|
+                   (|List|
+                    (|Record| (|:| |det| |#4|)
+                              (|:| |rows| (|List| (|Integer|)))
+                              (|:| |cols| (|List| (|Integer|))))))
+              (|:| |fgb| (|List| |#4|))))))
+ (SIGNATURE |minset| ((|List| (|List| |#4|)) (|List| (|List| |#4|))))
+ (SIGNATURE |nextSublist|
+  ((|List| (|List| (|Integer|))) (|Integer|) (|Integer|)))
+ (SIGNATURE |overset?| ((|Boolean|) (|List| |#4|) (|List| (|List| |#4|))))
+ (SIGNATURE |ParCond|
+  ((|List|
+    (|Record| (|:| |det| |#4|) (|:| |rows| (|List| (|Integer|)))
+              (|:| |cols| (|List| (|Integer|)))))
+   (|Matrix| |#4|) (|NonNegativeInteger|)))
+ (SIGNATURE |redmat| ((|Matrix| |#4|) (|Matrix| |#4|) (|List| |#4|)))
+ (SIGNATURE |regime|
+  ((|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+             (|:| |wcond| (|List| (|Polynomial| |#1|)))
+             (|:| |bsoln|
+                  (|Record|
+                   (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                   (|:| |basis|
+                        (|List|
+                         (|Vector| (|Fraction| (|Polynomial| |#1|))))))))
+   (|Record| (|:| |det| |#4|) (|:| |rows| (|List| (|Integer|)))
+             (|:| |cols| (|List| (|Integer|))))
+   (|Matrix| |#4|) (|List| (|Fraction| (|Polynomial| |#1|)))
+   (|List| (|List| |#4|)) (|NonNegativeInteger|) (|NonNegativeInteger|)
+   (|Integer|)))
+ (SIGNATURE |sqfree| (|#4| |#4|))
+ (SIGNATURE |inconsistent?| ((|Boolean|) (|List| |#4|)))
+ (SIGNATURE |inconsistent?| ((|Boolean|) (|List| (|Polynomial| |#1|)))))
+"/git/fricas/src/algebra/PLEQN.spad"
+((|inconsistent?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *4)))
+       (|ofCategory| *4
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))
+       (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))))
+ (|inconsistent?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *7))
+       (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))
+       (|ofCategory| *4
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))))
+ (|sqfree| (*1 *2 *2)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|EuclideanDomain|)
+                         (|PolynomialFactorizationExplicit|)
+                         (|CharacteristicZero|)))
+   (|ofCategory| *4 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+   (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *1 (|ParametricLinearEquations| *3 *4 *5 *2))
+   (|ofCategory| *2 (|PolynomialCategory| *3 *5 *4))))
+ (|regime| (*1 *2 *3 *4 *5 *6 *7 *7 *8)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |det| *12) (|:| |rows| (|List| (|Integer|)))
+                         (|:| |cols| (|List| (|Integer|)))))
+   (|isDomain| *4 (|Matrix| *12))
+   (|isDomain| *5 (|List| (|Fraction| (|Polynomial| *9))))
+   (|isDomain| *6 (|List| (|List| *12))) (|isDomain| *7 (|NonNegativeInteger|))
+   (|isDomain| *8 (|Integer|))
+   (|ofCategory| *9
+                 (|Join| (|EuclideanDomain|)
+                         (|PolynomialFactorizationExplicit|)
+                         (|CharacteristicZero|)))
+   (|ofCategory| *12 (|PolynomialCategory| *9 *11 *10))
+   (|ofCategory| *10 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+   (|ofCategory| *11 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *2
+               (|Record| (|:| |eqzro| (|List| *12)) (|:| |neqzro| (|List| *12))
+                         (|:| |wcond| (|List| (|Polynomial| *9)))
+                         (|:| |bsoln|
+                              (|Record|
+                               (|:| |partsol|
+                                    (|Vector| (|Fraction| (|Polynomial| *9))))
+                               (|:| |basis|
+                                    (|List|
+                                     (|Vector|
+                                      (|Fraction| (|Polynomial| *9)))))))))
+   (|isDomain| *1 (|ParametricLinearEquations| *9 *10 *11 *12))))
+ (|redmat| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Matrix| *7)) (|isDomain| *3 (|List| *7))
+       (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))
+       (|ofCategory| *4
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))))
+ (|ParCond| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *8)) (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *8 (|PolynomialCategory| *5 *7 *6))
+       (|ofCategory| *5
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *6 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |det| *8) (|:| |rows| (|List| (|Integer|)))
+                              (|:| |cols| (|List| (|Integer|))))))
+       (|isDomain| *1 (|ParametricLinearEquations| *5 *6 *7 *8))))
+ (|overset?| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|List| (|List| *8))) (|isDomain| *3 (|List| *8))
+       (|ofCategory| *8 (|PolynomialCategory| *5 *7 *6))
+       (|ofCategory| *5
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *6 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|ParametricLinearEquations| *5 *6 *7 *8))))
+ (|nextSublist| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|ofCategory| *4
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|List| (|List| (|Integer|))))
+       (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))
+       (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))))
+ (|minset| (*1 *2 *2)
+  (AND (|isDomain| *2 (|List| (|List| *6)))
+       (|ofCategory| *6 (|PolynomialCategory| *3 *5 *4))
+       (|ofCategory| *3
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *4 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *1 (|ParametricLinearEquations| *3 *4 *5 *6))))
+ (|minrank| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |rank| (|NonNegativeInteger|))
+                          (|:| |eqns|
+                               (|List|
+                                (|Record| (|:| |det| *7)
+                                          (|:| |rows| (|List| (|Integer|)))
+                                          (|:| |cols| (|List| (|Integer|))))))
+                          (|:| |fgb| (|List| *7)))))
+   (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))
+   (|ofCategory| *4
+                 (|Join| (|EuclideanDomain|)
+                         (|PolynomialFactorizationExplicit|)
+                         (|CharacteristicZero|)))
+   (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+   (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *2 (|NonNegativeInteger|))
+   (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))))
+ (|maxrank| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |rank| (|NonNegativeInteger|))
+                          (|:| |eqns|
+                               (|List|
+                                (|Record| (|:| |det| *7)
+                                          (|:| |rows| (|List| (|Integer|)))
+                                          (|:| |cols| (|List| (|Integer|))))))
+                          (|:| |fgb| (|List| *7)))))
+   (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))
+   (|ofCategory| *4
+                 (|Join| (|EuclideanDomain|)
+                         (|PolynomialFactorizationExplicit|)
+                         (|CharacteristicZero|)))
+   (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+   (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *2 (|NonNegativeInteger|))
+   (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))))
+ (|factorset| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|EuclideanDomain|)
+                         (|PolynomialFactorizationExplicit|)
+                         (|CharacteristicZero|)))
+   (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+   (|ofCategory| *6 (|OrderedAbelianMonoidSup|)) (|isDomain| *2 (|List| *3))
+   (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *3))
+   (|ofCategory| *3 (|PolynomialCategory| *4 *6 *5))))
+ (|B1solve| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |mat| (|Matrix| (|Fraction| (|Polynomial| *4))))
+                         (|:| |vec| (|List| (|Fraction| (|Polynomial| *4))))
+                         (|:| |rank| (|NonNegativeInteger|))
+                         (|:| |rows| (|List| (|Integer|)))
+                         (|:| |cols| (|List| (|Integer|)))))
+   (|ofCategory| *4
+                 (|Join| (|EuclideanDomain|)
+                         (|PolynomialFactorizationExplicit|)
+                         (|CharacteristicZero|)))
+   (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+   (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *2
+               (|Record|
+                (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| *4))))
+                (|:| |basis|
+                     (|List| (|Vector| (|Fraction| (|Polynomial| *4)))))))
+   (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))
+   (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))))
+ (|redpps| (*1 *2 *2 *3)
+  (AND
+   (|isDomain| *2
+               (|Record|
+                (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| *4))))
+                (|:| |basis|
+                     (|List| (|Vector| (|Fraction| (|Polynomial| *4)))))))
+   (|isDomain| *3 (|List| *7))
+   (|ofCategory| *4
+                 (|Join| (|EuclideanDomain|)
+                         (|PolynomialFactorizationExplicit|)
+                         (|CharacteristicZero|)))
+   (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))
+   (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+   (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))))
+ (|ParCondList| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *8)) (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *8 (|PolynomialCategory| *5 *7 *6))
+       (|ofCategory| *5
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *6 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |rank| (|NonNegativeInteger|))
+                              (|:| |eqns|
+                                   (|List|
+                                    (|Record| (|:| |det| *8)
+                                              (|:| |rows| (|List| (|Integer|)))
+                                              (|:| |cols|
+                                                   (|List| (|Integer|))))))
+                              (|:| |fgb| (|List| *8)))))
+       (|isDomain| *1 (|ParametricLinearEquations| *5 *6 *7 *8))))
+ (|hasoln| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|List| *7))
+       (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))
+       (|ofCategory| *4
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|Record| (|:| |sysok| (|Boolean|)) (|:| |z0| (|List| *7))
+                             (|:| |n0| (|List| *7))))
+       (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))))
+ (|pr2dmp| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Polynomial| *4))
+       (|ofCategory| *4
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *2 (|PolynomialCategory| *4 *6 *5))
+       (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *2))
+       (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))))
+ (|se2rfi| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Symbol|)))
+       (|ofCategory| *4
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|List| (|Fraction| (|Polynomial| *4))))
+       (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))
+       (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))))
+ (|dmp2rfi| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *7))
+       (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))
+       (|ofCategory| *4
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|List| (|Fraction| (|Polynomial| *4))))
+       (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))))
+ (|dmp2rfi| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *7))
+       (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))
+       (|ofCategory| *4
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Matrix| (|Fraction| (|Polynomial| *4))))
+       (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))))
+ (|dmp2rfi| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|EuclideanDomain|)
+                         (|PolynomialFactorizationExplicit|)
+                         (|CharacteristicZero|)))
+   (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+   (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *2 (|Fraction| (|Polynomial| *4)))
+   (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *3))
+   (|ofCategory| *3 (|PolynomialCategory| *4 *6 *5))))
+ (|bsolve| (*1 *2 *3 *4 *5 *6 *7)
+  (AND (|isDomain| *3 (|Matrix| *11))
+       (|isDomain| *4 (|List| (|Fraction| (|Polynomial| *8))))
+       (|isDomain| *5 (|NonNegativeInteger|)) (|isDomain| *6 (|String|))
+       (|isDomain| *7 (|Integer|))
+       (|ofCategory| *8
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *11 (|PolynomialCategory| *8 *10 *9))
+       (|ofCategory| *9 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *10 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |rgl|
+                         (|List|
+                          (|Record| (|:| |eqzro| (|List| *11))
+                                    (|:| |neqzro| (|List| *11))
+                                    (|:| |wcond| (|List| (|Polynomial| *8)))
+                                    (|:| |bsoln|
+                                         (|Record|
+                                          (|:| |partsol|
+                                               (|Vector|
+                                                (|Fraction|
+                                                 (|Polynomial| *8))))
+                                          (|:| |basis|
+                                               (|List|
+                                                (|Vector|
+                                                 (|Fraction|
+                                                  (|Polynomial| *8))))))))))
+                    (|:| |rgsz| (|Integer|))))
+       (|isDomain| *1 (|ParametricLinearEquations| *8 *9 *10 *11))))
+ (|rdregime| (*1 *2 *3)
+  (AND (|isDomain| *3 (|String|))
+       (|ofCategory| *4
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |eqzro| (|List| *7))
+                              (|:| |neqzro| (|List| *7))
+                              (|:| |wcond| (|List| (|Polynomial| *4)))
+                              (|:| |bsoln|
+                                   (|Record|
+                                    (|:| |partsol|
+                                         (|Vector|
+                                          (|Fraction| (|Polynomial| *4))))
+                                    (|:| |basis|
+                                         (|List|
+                                          (|Vector|
+                                           (|Fraction|
+                                            (|Polynomial| *4))))))))))
+       (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))
+       (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))))
+ (|wrregime| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |eqzro| (|List| *8)) (|:| |neqzro| (|List| *8))
+                          (|:| |wcond| (|List| (|Polynomial| *5)))
+                          (|:| |bsoln|
+                               (|Record|
+                                (|:| |partsol|
+                                     (|Vector| (|Fraction| (|Polynomial| *5))))
+                                (|:| |basis|
+                                     (|List|
+                                      (|Vector|
+                                       (|Fraction| (|Polynomial| *5))))))))))
+   (|isDomain| *4 (|String|))
+   (|ofCategory| *5
+                 (|Join| (|EuclideanDomain|)
+                         (|PolynomialFactorizationExplicit|)
+                         (|CharacteristicZero|)))
+   (|ofCategory| *8 (|PolynomialCategory| *5 *7 *6))
+   (|ofCategory| *6 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+   (|ofCategory| *7 (|OrderedAbelianMonoidSup|)) (|isDomain| *2 (|Integer|))
+   (|isDomain| *1 (|ParametricLinearEquations| *5 *6 *7 *8))))
+ (|psolve| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Matrix| *9)) (|isDomain| *4 (|PositiveInteger|))
+       (|isDomain| *5 (|String|))
+       (|ofCategory| *9 (|PolynomialCategory| *6 *8 *7))
+       (|ofCategory| *6
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *7 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *8 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|ParametricLinearEquations| *6 *7 *8 *9))))
+ (|psolve| (*1 *2 *3 *4 *5 *6)
+  (AND (|isDomain| *3 (|Matrix| *10)) (|isDomain| *4 (|List| (|Symbol|)))
+       (|isDomain| *5 (|PositiveInteger|)) (|isDomain| *6 (|String|))
+       (|ofCategory| *10 (|PolynomialCategory| *7 *9 *8))
+       (|ofCategory| *7
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *8 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *9 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|ParametricLinearEquations| *7 *8 *9 *10))))
+ (|psolve| (*1 *2 *3 *4 *5 *6)
+  (AND (|isDomain| *3 (|Matrix| *10)) (|isDomain| *4 (|List| *10))
+       (|isDomain| *5 (|PositiveInteger|)) (|isDomain| *6 (|String|))
+       (|ofCategory| *10 (|PolynomialCategory| *7 *9 *8))
+       (|ofCategory| *7
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *8 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *9 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|ParametricLinearEquations| *7 *8 *9 *10))))
+ (|psolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *8)) (|isDomain| *4 (|String|))
+       (|ofCategory| *8 (|PolynomialCategory| *5 *7 *6))
+       (|ofCategory| *5
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *6 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|ParametricLinearEquations| *5 *6 *7 *8))))
+ (|psolve| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Matrix| *9)) (|isDomain| *4 (|List| (|Symbol|)))
+       (|isDomain| *5 (|String|))
+       (|ofCategory| *9 (|PolynomialCategory| *6 *8 *7))
+       (|ofCategory| *6
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *7 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *8 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|ParametricLinearEquations| *6 *7 *8 *9))))
+ (|psolve| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Matrix| *9)) (|isDomain| *4 (|List| *9))
+       (|isDomain| *5 (|String|))
+       (|ofCategory| *9 (|PolynomialCategory| *6 *8 *7))
+       (|ofCategory| *6
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *7 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *8 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|ParametricLinearEquations| *6 *7 *8 *9))))
+ (|psolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *8)) (|isDomain| *4 (|PositiveInteger|))
+       (|ofCategory| *8 (|PolynomialCategory| *5 *7 *6))
+       (|ofCategory| *5
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *6 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |eqzro| (|List| *8))
+                              (|:| |neqzro| (|List| *8))
+                              (|:| |wcond| (|List| (|Polynomial| *5)))
+                              (|:| |bsoln|
+                                   (|Record|
+                                    (|:| |partsol|
+                                         (|Vector|
+                                          (|Fraction| (|Polynomial| *5))))
+                                    (|:| |basis|
+                                         (|List|
+                                          (|Vector|
+                                           (|Fraction|
+                                            (|Polynomial| *5))))))))))
+       (|isDomain| *1 (|ParametricLinearEquations| *5 *6 *7 *8))))
+ (|psolve| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Matrix| *9)) (|isDomain| *4 (|List| (|Symbol|)))
+       (|isDomain| *5 (|PositiveInteger|))
+       (|ofCategory| *9 (|PolynomialCategory| *6 *8 *7))
+       (|ofCategory| *6
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *7 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *8 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |eqzro| (|List| *9))
+                              (|:| |neqzro| (|List| *9))
+                              (|:| |wcond| (|List| (|Polynomial| *6)))
+                              (|:| |bsoln|
+                                   (|Record|
+                                    (|:| |partsol|
+                                         (|Vector|
+                                          (|Fraction| (|Polynomial| *6))))
+                                    (|:| |basis|
+                                         (|List|
+                                          (|Vector|
+                                           (|Fraction|
+                                            (|Polynomial| *6))))))))))
+       (|isDomain| *1 (|ParametricLinearEquations| *6 *7 *8 *9))))
+ (|psolve| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Matrix| *9)) (|isDomain| *4 (|List| *9))
+       (|isDomain| *5 (|PositiveInteger|))
+       (|ofCategory| *9 (|PolynomialCategory| *6 *8 *7))
+       (|ofCategory| *6
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *7 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *8 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |eqzro| (|List| *9))
+                              (|:| |neqzro| (|List| *9))
+                              (|:| |wcond| (|List| (|Polynomial| *6)))
+                              (|:| |bsoln|
+                                   (|Record|
+                                    (|:| |partsol|
+                                         (|Vector|
+                                          (|Fraction| (|Polynomial| *6))))
+                                    (|:| |basis|
+                                         (|List|
+                                          (|Vector|
+                                           (|Fraction|
+                                            (|Polynomial| *6))))))))))
+       (|isDomain| *1 (|ParametricLinearEquations| *6 *7 *8 *9))))
+ (|psolve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *7))
+       (|ofCategory| *7 (|PolynomialCategory| *4 *6 *5))
+       (|ofCategory| *4
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *5 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |eqzro| (|List| *7))
+                              (|:| |neqzro| (|List| *7))
+                              (|:| |wcond| (|List| (|Polynomial| *4)))
+                              (|:| |bsoln|
+                                   (|Record|
+                                    (|:| |partsol|
+                                         (|Vector|
+                                          (|Fraction| (|Polynomial| *4))))
+                                    (|:| |basis|
+                                         (|List|
+                                          (|Vector|
+                                           (|Fraction|
+                                            (|Polynomial| *4))))))))))
+       (|isDomain| *1 (|ParametricLinearEquations| *4 *5 *6 *7))))
+ (|psolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *8)) (|isDomain| *4 (|List| (|Symbol|)))
+       (|ofCategory| *8 (|PolynomialCategory| *5 *7 *6))
+       (|ofCategory| *5
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *6 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |eqzro| (|List| *8))
+                              (|:| |neqzro| (|List| *8))
+                              (|:| |wcond| (|List| (|Polynomial| *5)))
+                              (|:| |bsoln|
+                                   (|Record|
+                                    (|:| |partsol|
+                                         (|Vector|
+                                          (|Fraction| (|Polynomial| *5))))
+                                    (|:| |basis|
+                                         (|List|
+                                          (|Vector|
+                                           (|Fraction|
+                                            (|Polynomial| *5))))))))))
+       (|isDomain| *1 (|ParametricLinearEquations| *5 *6 *7 *8))))
+ (|psolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *8)) (|isDomain| *4 (|List| *8))
+       (|ofCategory| *8 (|PolynomialCategory| *5 *7 *6))
+       (|ofCategory| *5
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *6 (|Join| (|OrderedSet|) (|ConvertibleTo| (|Symbol|))))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |eqzro| (|List| *8))
+                              (|:| |neqzro| (|List| *8))
+                              (|:| |wcond| (|List| (|Polynomial| *5)))
+                              (|:| |bsoln|
+                                   (|Record|
+                                    (|:| |partsol|
+                                         (|Vector|
+                                          (|Fraction| (|Polynomial| *5))))
+                                    (|:| |basis|
+                                         (|List|
+                                          (|Vector|
+                                           (|Fraction|
+                                            (|Polynomial| *5))))))))))
+       (|isDomain| *1 (|ParametricLinearEquations| *5 *6 *7 *8)))))
+((|wrregime|
+  (((|Integer|)
+    (|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|String|))
+   140))
+ (|sqfree| ((|#4| |#4|) 156))
+ (|se2rfi|
+  (((|List| (|Fraction| (|Polynomial| |#1|))) (|List| (|Symbol|))) 115))
+ (|regime|
+  (((|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+              (|:| |wcond| (|List| (|Polynomial| |#1|)))
+              (|:| |bsoln|
+                   (|Record|
+                    (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                    (|:| |basis|
+                         (|List|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))))))
+    (|Record| (|:| |det| |#4|) (|:| |rows| (|List| (|Integer|)))
+              (|:| |cols| (|List| (|Integer|))))
+    (|Matrix| |#4|) (|List| (|Fraction| (|Polynomial| |#1|)))
+    (|List| (|List| |#4|)) (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|Integer|))
+   72))
+ (|redpps|
+  (((|Record| (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+              (|:| |basis|
+                   (|List| (|Vector| (|Fraction| (|Polynomial| |#1|))))))
+    (|Record| (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+              (|:| |basis|
+                   (|List| (|Vector| (|Fraction| (|Polynomial| |#1|))))))
+    (|List| |#4|))
+   55))
+ (|redmat| (((|Matrix| |#4|) (|Matrix| |#4|) (|List| |#4|)) 52))
+ (|rdregime|
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|String|))
+   152))
+ (|psolve| (((|Integer|) (|Matrix| |#4|) (|PositiveInteger|) (|String|)) 133)
+  (((|Integer|) (|Matrix| |#4|) (|List| (|Symbol|)) (|PositiveInteger|)
+    (|String|))
+   132)
+  (((|Integer|) (|Matrix| |#4|) (|List| |#4|) (|PositiveInteger|) (|String|))
+   131)
+  (((|Integer|) (|Matrix| |#4|) (|String|)) 124)
+  (((|Integer|) (|Matrix| |#4|) (|List| (|Symbol|)) (|String|)) 123)
+  (((|Integer|) (|Matrix| |#4|) (|List| |#4|) (|String|)) 122)
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|Matrix| |#4|) (|PositiveInteger|))
+   121)
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|Matrix| |#4|) (|List| (|Symbol|)) (|PositiveInteger|))
+   120)
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|Matrix| |#4|) (|List| |#4|) (|PositiveInteger|))
+   119)
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|Matrix| |#4|))
+   117)
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|Matrix| |#4|) (|List| (|Symbol|)))
+   116)
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|Matrix| |#4|) (|List| |#4|))
+   113))
+ (|pr2dmp| ((|#4| (|Polynomial| |#1|)) 64))
+ (|overset?| (((|Boolean|) (|List| |#4|) (|List| (|List| |#4|))) 153))
+ (|nextSublist| (((|List| (|List| (|Integer|))) (|Integer|) (|Integer|)) 128))
+ (|minset| (((|List| (|List| |#4|)) (|List| (|List| |#4|))) 84))
+ (|minrank|
+  (((|NonNegativeInteger|)
+    (|List|
+     (|Record| (|:| |rank| (|NonNegativeInteger|))
+               (|:| |eqns|
+                    (|List|
+                     (|Record| (|:| |det| |#4|)
+                               (|:| |rows| (|List| (|Integer|)))
+                               (|:| |cols| (|List| (|Integer|))))))
+               (|:| |fgb| (|List| |#4|)))))
+   82))
+ (|maxrank|
+  (((|NonNegativeInteger|)
+    (|List|
+     (|Record| (|:| |rank| (|NonNegativeInteger|))
+               (|:| |eqns|
+                    (|List|
+                     (|Record| (|:| |det| |#4|)
+                               (|:| |rows| (|List| (|Integer|)))
+                               (|:| |cols| (|List| (|Integer|))))))
+               (|:| |fgb| (|List| |#4|)))))
+   81))
+ (|inconsistent?| (((|Boolean|) (|List| (|Polynomial| |#1|))) 17)
+  (((|Boolean|) (|List| |#4|)) 13))
+ (|hasoln|
+  (((|Record| (|:| |sysok| (|Boolean|)) (|:| |z0| (|List| |#4|))
+              (|:| |n0| (|List| |#4|)))
+    (|List| |#4|) (|List| |#4|))
+   68))
+ (|factorset| (((|List| |#4|) |#4|) 46))
+ (|dmp2rfi| (((|List| (|Fraction| (|Polynomial| |#1|))) (|List| |#4|)) 111)
+  (((|Matrix| (|Fraction| (|Polynomial| |#1|))) (|Matrix| |#4|)) 53)
+  (((|Fraction| (|Polynomial| |#1|)) |#4|) 108))
+ (|bsolve|
+  (((|Record|
+     (|:| |rgl|
+          (|List|
+           (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+                     (|:| |wcond| (|List| (|Polynomial| |#1|)))
+                     (|:| |bsoln|
+                          (|Record|
+                           (|:| |partsol|
+                                (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                           (|:| |basis|
+                                (|List|
+                                 (|Vector|
+                                  (|Fraction| (|Polynomial| |#1|))))))))))
+     (|:| |rgsz| (|Integer|)))
+    (|Matrix| |#4|) (|List| (|Fraction| (|Polynomial| |#1|)))
+    (|NonNegativeInteger|) (|String|) (|Integer|))
+   88))
+ (|ParCondList|
+  (((|List|
+     (|Record| (|:| |rank| (|NonNegativeInteger|))
+               (|:| |eqns|
+                    (|List|
+                     (|Record| (|:| |det| |#4|)
+                               (|:| |rows| (|List| (|Integer|)))
+                               (|:| |cols| (|List| (|Integer|))))))
+               (|:| |fgb| (|List| |#4|))))
+    (|Matrix| |#4|) (|NonNegativeInteger|))
+   80))
+ (|ParCond|
+  (((|List|
+     (|Record| (|:| |det| |#4|) (|:| |rows| (|List| (|Integer|)))
+               (|:| |cols| (|List| (|Integer|)))))
+    (|Matrix| |#4|) (|NonNegativeInteger|))
+   97))
+ (|B1solve|
+  (((|Record| (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+              (|:| |basis|
+                   (|List| (|Vector| (|Fraction| (|Polynomial| |#1|))))))
+    (|Record| (|:| |mat| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+              (|:| |vec| (|List| (|Fraction| (|Polynomial| |#1|))))
+              (|:| |rank| (|NonNegativeInteger|))
+              (|:| |rows| (|List| (|Integer|)))
+              (|:| |cols| (|List| (|Integer|)))))
+   45)))
+PLEQN
+((|constructor|
+  (NIL
+   "This package completely solves a parametric linear system of equations by decomposing the set of all parametric values for which the linear system is consistent into a union of quasi-algebraic sets (which need not be irredundant,{} but most of the time is). Each quasi-algebraic set is described by a list of polynomials that vanish on the set,{} and a list of polynomials that vanish at no point of the set. For each quasi-algebraic set,{} the solution of the linear system is given,{} as a particular solution and a basis of the homogeneous system. The parametric linear system should be given in matrix form,{} with a coefficient matrix and a right hand side vector. The entries of the coefficient matrix and right hand side vector should be polynomials in the parametric variables,{} over a Euclidean domain of characteristic zero. \\blankline If the system is homogeneous,{} the right hand side need not be given. The right hand side can also be replaced by an indeterminate vector,{} in which case,{} the conditions required for consistency will also be given."))
+ (|inconsistent?|
+  (((|Boolean|) (|List| (|Polynomial| |#1|)))
+   "\\spad{inconsistent?(pl)} returns \\spad{true} if the system of equations \\spad{p} = 0 for \\spad{p} in \\spad{pl} is inconsistent. It is assumed that \\spad{pl} is a groebner basis.")
+  (((|Boolean|) (|List| |#4|))
+   "\\spad{inconsistent?(pl)} returns \\spad{true} if the system of equations \\spad{p} = 0 for \\spad{p} in \\spad{pl} is inconsistent. It is assumed that \\spad{pl} is a groebner basis."))
+ (|sqfree|
+  ((|#4| |#4|)
+   "\\spad{sqfree(p)} returns the product of square free factors of \\spad{p}"))
+ (|regime|
+  (((|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+              (|:| |wcond| (|List| (|Polynomial| |#1|)))
+              (|:| |bsoln|
+                   (|Record|
+                    (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                    (|:| |basis|
+                         (|List|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))))))
+    (|Record| (|:| |det| |#4|) (|:| |rows| (|List| (|Integer|)))
+              (|:| |cols| (|List| (|Integer|))))
+    (|Matrix| |#4|) (|List| (|Fraction| (|Polynomial| |#1|)))
+    (|List| (|List| |#4|)) (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|Integer|))
+   "\\spad{regime(y,{} c,{} w,{} p,{} r,{} rm,{} m)} returns a regime,{} a list of polynomials specifying the consistency conditions,{} a particular solution and basis representing the general solution of the parametric linear system \\spad{c} \\spad{z} = \\spad{w} on that regime. The regime returned depends on the subdeterminant \\spad{y}.det and the row and column indices. The solutions are simplified using the assumption that the system has rank \\spad{r} and maximum rank \\spad{rm}. The list \\spad{p} represents a list of list of factors of polynomials in a groebner basis of the ideal generated by higher order subdeterminants,{} and ius used for the simplification. The mode \\spad{m} distinguishes the cases when the system is homogeneous,{} or the right hand side is arbitrary,{} or when there is no new right hand side variables."))
+ (|redmat|
+  (((|Matrix| |#4|) (|Matrix| |#4|) (|List| |#4|))
+   "\\spad{redmat(m,{} g)} returns a matrix whose entries are those of \\spad{m} modulo the ideal generated by the groebner basis \\spad{g}"))
+ (|ParCond|
+  (((|List|
+     (|Record| (|:| |det| |#4|) (|:| |rows| (|List| (|Integer|)))
+               (|:| |cols| (|List| (|Integer|)))))
+    (|Matrix| |#4|) (|NonNegativeInteger|))
+   "\\spad{ParCond(m,{} k)} returns the list of all \\spad{k} by \\spad{k} subdeterminants in the matrix \\spad{m}"))
+ (|overset?|
+  (((|Boolean|) (|List| |#4|) (|List| (|List| |#4|)))
+   "\\spad{overset?(s,{} sl)} returns \\spad{true} if \\spad{s} properly a sublist of a member of \\spad{sl}; otherwise it returns \\spad{false}"))
+ (|nextSublist|
+  (((|List| (|List| (|Integer|))) (|Integer|) (|Integer|))
+   "\\spad{nextSublist(n,{} k)} returns a list of \\spad{k}-subsets of {1,{} ...,{} \\spad{n}}."))
+ (|minset|
+  (((|List| (|List| |#4|)) (|List| (|List| |#4|)))
+   "\\spad{minset(sl)} returns the sublist of \\spad{sl} consisting of the minimal lists (with respect to inclusion) in the list \\spad{sl} of lists"))
+ (|minrank|
+  (((|NonNegativeInteger|)
+    (|List|
+     (|Record| (|:| |rank| (|NonNegativeInteger|))
+               (|:| |eqns|
+                    (|List|
+                     (|Record| (|:| |det| |#4|)
+                               (|:| |rows| (|List| (|Integer|)))
+                               (|:| |cols| (|List| (|Integer|))))))
+               (|:| |fgb| (|List| |#4|)))))
+   "\\spad{minrank(r)} returns the minimum rank in the list \\spad{r} of regimes"))
+ (|maxrank|
+  (((|NonNegativeInteger|)
+    (|List|
+     (|Record| (|:| |rank| (|NonNegativeInteger|))
+               (|:| |eqns|
+                    (|List|
+                     (|Record| (|:| |det| |#4|)
+                               (|:| |rows| (|List| (|Integer|)))
+                               (|:| |cols| (|List| (|Integer|))))))
+               (|:| |fgb| (|List| |#4|)))))
+   "\\spad{maxrank(r)} returns the maximum rank in the list \\spad{r} of regimes"))
+ (|factorset|
+  (((|List| |#4|) |#4|)
+   "\\spad{factorset(p)} returns the set of irreducible factors of \\spad{p}."))
+ (|B1solve|
+  (((|Record| (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+              (|:| |basis|
+                   (|List| (|Vector| (|Fraction| (|Polynomial| |#1|))))))
+    (|Record| (|:| |mat| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+              (|:| |vec| (|List| (|Fraction| (|Polynomial| |#1|))))
+              (|:| |rank| (|NonNegativeInteger|))
+              (|:| |rows| (|List| (|Integer|)))
+              (|:| |cols| (|List| (|Integer|)))))
+   "\\spad{B1solve(s)} solves the system (\\spad{s}.mat) \\spad{z} = \\spad{s}.vec for the variables given by the column indices of \\spad{s}.cols in terms of the other variables and the right hand side \\spad{s}.vec by assuming that the rank is \\spad{s}.rank,{} that the system is consistent,{} with the linearly independent equations indexed by the given row indices \\spad{s}.rows; the coefficients in \\spad{s}.mat involving parameters are treated as polynomials. B1solve(\\spad{s}) returns a particular solution to the system and a basis of the homogeneous system (\\spad{s}.mat) \\spad{z} = 0."))
+ (|redpps|
+  (((|Record| (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+              (|:| |basis|
+                   (|List| (|Vector| (|Fraction| (|Polynomial| |#1|))))))
+    (|Record| (|:| |partsol| (|Vector| (|Fraction| (|Polynomial| |#1|))))
+              (|:| |basis|
+                   (|List| (|Vector| (|Fraction| (|Polynomial| |#1|))))))
+    (|List| |#4|))
+   "\\spad{redpps(s,{} g)} returns the simplified form of \\spad{s} after reducing modulo a groebner basis \\spad{g}"))
+ (|ParCondList|
+  (((|List|
+     (|Record| (|:| |rank| (|NonNegativeInteger|))
+               (|:| |eqns|
+                    (|List|
+                     (|Record| (|:| |det| |#4|)
+                               (|:| |rows| (|List| (|Integer|)))
+                               (|:| |cols| (|List| (|Integer|))))))
+               (|:| |fgb| (|List| |#4|))))
+    (|Matrix| |#4|) (|NonNegativeInteger|))
+   "\\spad{ParCondList(c,{} r)} computes a list of subdeterminants of each rank \\spad{>=} \\spad{r} of the matrix \\spad{c} and returns a groebner basis for the ideal they generate"))
+ (|hasoln|
+  (((|Record| (|:| |sysok| (|Boolean|)) (|:| |z0| (|List| |#4|))
+              (|:| |n0| (|List| |#4|)))
+    (|List| |#4|) (|List| |#4|))
+   "\\spad{hasoln(g,{} l)} tests whether the quasi-algebraic set defined by \\spad{p} = 0 for \\spad{p} in \\spad{g} and \\spad{q} \\spad{~=} 0 for \\spad{q} in \\spad{l} is empty or not and returns a simplified definition of the quasi-algebraic set"))
+ (|pr2dmp|
+  ((|#4| (|Polynomial| |#1|))
+   "\\spad{pr2dmp(p)} converts \\spad{p} to target domain"))
+ (|se2rfi|
+  (((|List| (|Fraction| (|Polynomial| |#1|))) (|List| (|Symbol|)))
+   "\\spad{se2rfi(l)} converts \\spad{l} to target domain"))
+ (|dmp2rfi|
+  (((|List| (|Fraction| (|Polynomial| |#1|))) (|List| |#4|))
+   "\\spad{dmp2rfi(l)} converts \\spad{l} to target domain")
+  (((|Matrix| (|Fraction| (|Polynomial| |#1|))) (|Matrix| |#4|))
+   "\\spad{dmp2rfi(m)} converts \\spad{m} to target domain")
+  (((|Fraction| (|Polynomial| |#1|)) |#4|)
+   "\\spad{dmp2rfi(p)} converts \\spad{p} to target domain"))
+ (|bsolve|
+  (((|Record|
+     (|:| |rgl|
+          (|List|
+           (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+                     (|:| |wcond| (|List| (|Polynomial| |#1|)))
+                     (|:| |bsoln|
+                          (|Record|
+                           (|:| |partsol|
+                                (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                           (|:| |basis|
+                                (|List|
+                                 (|Vector|
+                                  (|Fraction| (|Polynomial| |#1|))))))))))
+     (|:| |rgsz| (|Integer|)))
+    (|Matrix| |#4|) (|List| (|Fraction| (|Polynomial| |#1|)))
+    (|NonNegativeInteger|) (|String|) (|Integer|))
+   "\\spad{bsolve(c,{} w,{} r,{} s,{} m)} returns a list of regimes and solutions of the system \\spad{c} \\spad{z} = \\spad{w} for ranks at least \\spad{r}; depending on the mode \\spad{m} chosen,{} it writes the output to a file given by the string \\spad{s}."))
+ (|rdregime|
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|String|))
+   "\\spad{rdregime(s)} reads in a list from a file with name \\spad{s}"))
+ (|wrregime|
+  (((|Integer|)
+    (|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|String|))
+   "\\spad{wrregime(l,{} s)} writes a list of regimes to a file named \\spad{s} and returns the number of regimes written"))
+ (|psolve|
+  (((|Integer|) (|Matrix| |#4|) (|PositiveInteger|) (|String|))
+   "\\spad{psolve(c,{} k,{} s)} solves \\spad{c} \\spad{z} = 0 for all possible ranks \\spad{>=} \\spad{k} of the matrix \\spad{c},{} writes the results to a file named \\spad{s},{} and returns the number of regimes")
+  (((|Integer|) (|Matrix| |#4|) (|List| (|Symbol|)) (|PositiveInteger|)
+    (|String|))
+   "\\spad{psolve(c,{} w,{} k,{} s)} solves \\spad{c} \\spad{z} = \\spad{w} for all possible ranks \\spad{>=} \\spad{k} of the matrix \\spad{c} and indeterminate right hand side \\spad{w},{} writes the results to a file named \\spad{s},{} and returns the number of regimes")
+  (((|Integer|) (|Matrix| |#4|) (|List| |#4|) (|PositiveInteger|) (|String|))
+   "\\spad{psolve(c,{} w,{} k,{} s)} solves \\spad{c} \\spad{z} = \\spad{w} for all possible ranks \\spad{>=} \\spad{k} of the matrix \\spad{c} and given right hand side \\spad{w},{} writes the results to a file named \\spad{s},{} and returns the number of regimes")
+  (((|Integer|) (|Matrix| |#4|) (|String|))
+   "\\spad{psolve(c,{} s)} solves \\spad{c} \\spad{z} = 0 for all possible ranks of the matrix \\spad{c} and given right hand side vector \\spad{w},{} writes the results to a file named \\spad{s},{} and returns the number of regimes")
+  (((|Integer|) (|Matrix| |#4|) (|List| (|Symbol|)) (|String|))
+   "\\spad{psolve(c,{} w,{} s)} solves \\spad{c} \\spad{z} = \\spad{w} for all possible ranks of the matrix \\spad{c} and indeterminate right hand side \\spad{w},{} writes the results to a file named \\spad{s},{} and returns the number of regimes")
+  (((|Integer|) (|Matrix| |#4|) (|List| |#4|) (|String|))
+   "\\spad{psolve(c,{} w,{} s)} solves \\spad{c} \\spad{z} = \\spad{w} for all possible ranks of the matrix \\spad{c} and given right hand side vector \\spad{w},{} writes the results to a file named \\spad{s},{} and returns the number of regimes")
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|Matrix| |#4|) (|PositiveInteger|))
+   "\\spad{psolve(c)} solves the homogeneous linear system \\spad{c} \\spad{z} = 0 for all possible ranks \\spad{>=} \\spad{k} of the matrix \\spad{c}")
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|Matrix| |#4|) (|List| (|Symbol|)) (|PositiveInteger|))
+   "\\spad{psolve(c,{} w,{} k)} solves \\spad{c} \\spad{z} = \\spad{w} for all possible ranks \\spad{>=} \\spad{k} of the matrix \\spad{c} and indeterminate right hand side \\spad{w}")
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|Matrix| |#4|) (|List| |#4|) (|PositiveInteger|))
+   "\\spad{psolve(c,{} w,{} k)} solves \\spad{c} \\spad{z} = \\spad{w} for all possible ranks \\spad{>=} \\spad{k} of the matrix \\spad{c} and given right hand side vector \\spad{w}")
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|Matrix| |#4|))
+   "\\spad{psolve(c)} solves the homogeneous linear system \\spad{c} \\spad{z} = 0 for all possible ranks of the matrix \\spad{c}")
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|Matrix| |#4|) (|List| (|Symbol|)))
+   "\\spad{psolve(c,{} w)} solves \\spad{c} \\spad{z} = \\spad{w} for all possible ranks of the matrix \\spad{c} and indeterminate right hand side \\spad{w}")
+  (((|List|
+     (|Record| (|:| |eqzro| (|List| |#4|)) (|:| |neqzro| (|List| |#4|))
+               (|:| |wcond| (|List| (|Polynomial| |#1|)))
+               (|:| |bsoln|
+                    (|Record|
+                     (|:| |partsol|
+                          (|Vector| (|Fraction| (|Polynomial| |#1|))))
+                     (|:| |basis|
+                          (|List|
+                           (|Vector| (|Fraction| (|Polynomial| |#1|)))))))))
+    (|Matrix| |#4|) (|List| |#4|))
+   "\\spad{psolve(c,{} w)} solves \\spad{c} \\spad{z} = \\spad{w} for all possible ranks of the matrix \\spad{c} and given right hand side vector \\spad{w}")))
+(("documentation" 0 58385) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 58379) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 49312) ("modemaps" 0 19106) ("sourceFile" 0 19069)
+ ("constructorCategory" 0 10055) ("constructorModemap" 0 79)
+ ("constructorKind" 0 69) ("constructorForm" 0 20))

@@ -1,0 +1,38 @@
+)abbrev domain VECTOR Vector
+++ Author:
+++ Basic Functions:
+++ Related Constructors: IndexedVector, DirectProduct
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ This type represents vector like objects with varying lengths
+++ and indexed by a finite segment of integers starting at 1.
+
+Vector(R : Type) : Exports == Implementation where
+ VECTORMININDEX ==> 1       -- if you want to change this, be my guest
+
+ Exports ==> VectorCategory R with
+   vector : List R -> %
+     ++ vector(l) converts the list l to a vector.
+ Implementation ==>
+  IndexedVector(R, VECTORMININDEX) add
+
+     import from List(R)
+
+     -- qelt and qsetelt! are logically unnecessary, but good for
+     -- performance
+     Qelt1 ==> QAREF1O$Lisp
+     Qsetelt1 ==> QSETAREF1O$Lisp
+
+     qelt(x, i) == Qelt1(x, i, VECTORMININDEX@Integer)
+     qsetelt!(x, i, s) == Qsetelt1(x, i, s, VECTORMININDEX@Integer)
+
+     vector l == construct l
+     if R has ConvertibleTo InputForm then
+       convert(x : %) : InputForm ==
+          convert [convert('vector)@InputForm,
+                          convert(parts x)@InputForm]
+
+

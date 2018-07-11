@@ -1,0 +1,70 @@
+2689                (|InnerPolySign| R UP)
+|package|
+(((|InnerPolySign| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |signAround|
+    ((|Union| (|Integer|) #1="failed") |#2| (|Integer|)
+     (|Mapping| (|Union| (|Integer|) #1#) |#1|)))
+   (SIGNATURE |signAround|
+    ((|Union| (|Integer|) #1#) |#2| |#1| (|Integer|)
+     (|Mapping| (|Union| (|Integer|) #1#) |#1|)))
+   (SIGNATURE |signAround|
+    ((|Union| (|Integer|) #1#) |#2| |#1|
+     (|Mapping| (|Union| (|Integer|) #1#) |#1|))))
+  (|Ring|) (|UnivariatePolynomialCategory| |#1|))
+ (T |InnerPolySign|))
+(CATEGORY |package|
+ (SIGNATURE |signAround|
+  ((|Union| (|Integer|) #1="failed") |#2| (|Integer|)
+   (|Mapping| (|Union| (|Integer|) #1#) |#1|)))
+ (SIGNATURE |signAround|
+  ((|Union| (|Integer|) #1#) |#2| |#1| (|Integer|)
+   (|Mapping| (|Union| (|Integer|) #1#) |#1|)))
+ (SIGNATURE |signAround|
+  ((|Union| (|Integer|) #1#) |#2| |#1|
+   (|Mapping| (|Union| (|Integer|) #1#) |#1|))))
+"/git/fricas/src/algebra/INPSIGN.spad"
+((|signAround| (*1 *2 *3 *4 *5)
+  (|partial| AND
+   (|isDomain| *5 (|Mapping| (|Union| (|Integer|) #1="failed") *4))
+   (|ofCategory| *4 (|Ring|)) (|isDomain| *2 (|Integer|))
+   (|isDomain| *1 (|InnerPolySign| *4 *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|signAround| (*1 *2 *3 *4 *2 *5)
+  (|partial| AND (|isDomain| *5 (|Mapping| (|Union| (|Integer|) #1#) *4))
+   (|ofCategory| *4 (|Ring|)) (|isDomain| *2 (|Integer|))
+   (|isDomain| *1 (|InnerPolySign| *4 *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|signAround| (*1 *2 *3 *2 *4)
+  (|partial| AND (|isDomain| *4 (|Mapping| (|Union| (|Integer|) #1#) *5))
+   (|ofCategory| *5 (|Ring|)) (|isDomain| *2 (|Integer|))
+   (|isDomain| *1 (|InnerPolySign| *5 *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *5)))))
+((|signAround|
+  (((|Union| (|Integer|) #1="failed") |#2| |#1|
+    (|Mapping| (|Union| (|Integer|) #1#) |#1|))
+   14)
+  (((|Union| (|Integer|) #1#) |#2| |#1| (|Integer|)
+    (|Mapping| (|Union| (|Integer|) #1#) |#1|))
+   13)
+  (((|Union| (|Integer|) #1#) |#2| (|Integer|)
+    (|Mapping| (|Union| (|Integer|) #1#) |#1|))
+   27)))
+INPSIGN
+((|constructor|
+  (NIL "Find the sign of a polynomial around a point or infinity."))
+ (|signAround|
+  (((|Union| (|Integer|) #1="failed") |#2| |#1|
+    (|Mapping| (|Union| (|Integer|) #1#) |#1|))
+   "\\spad{signAround(u,{} r,{} f)} \\undocumented")
+  (((|Union| (|Integer|) #1#) |#2| |#1| (|Integer|)
+    (|Mapping| (|Union| (|Integer|) #1#) |#1|))
+   "\\spad{signAround(u,{} r,{} i,{} f)} \\undocumented")
+  (((|Union| (|Integer|) #1#) |#2| (|Integer|)
+    (|Mapping| (|Union| (|Integer|) #1#) |#1|))
+   "\\spad{signAround(u,{} i,{} f)} \\undocumented")))
+(("documentation" 0 2132) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2124) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1795) ("modemaps" 0 982) ("sourceFile" 0 943)
+ ("constructorCategory" 0 559) ("constructorModemap" 0 53)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

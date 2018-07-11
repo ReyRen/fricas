@@ -1,0 +1,45 @@
+2324                (|FiniteFieldPolynomialPackage2| F GF)
+|package|
+(((|FiniteFieldPolynomialPackage2| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |rootOfIrreduciblePoly|
+    (|#1| (|SparseUnivariatePolynomial| |#2|))))
+  (|Join| (|FieldOfPrimeCharacteristic|)
+          (CATEGORY |domain| (SIGNATURE |coerce| ($ |#2|))
+           (SIGNATURE |lookup| ((|PositiveInteger|) $))
+           (SIGNATURE |basis| ((|Vector| $) (|PositiveInteger|)))
+           (SIGNATURE |Frobenius| ($ $))))
+  (|FiniteFieldCategory|))
+ (T |FiniteFieldPolynomialPackage2|))
+(CATEGORY |package|
+ (SIGNATURE |rootOfIrreduciblePoly| (|#1| (|SparseUnivariatePolynomial| |#2|))))
+"/git/fricas/src/algebra/FFPOLY2.spad"
+((|rootOfIrreduciblePoly| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|ofCategory| *2
+                     (|Join| (|FieldOfPrimeCharacteristic|)
+                             (CATEGORY |domain| (SIGNATURE |coerce| ($ *4))
+                              (SIGNATURE |lookup| ((|PositiveInteger|) $))
+                              (SIGNATURE |basis|
+                               ((|Vector| $) (|PositiveInteger|)))
+                              (SIGNATURE |Frobenius| ($ $)))))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage2| *2 *4)))))
+((|rootOfIrreduciblePoly| ((|#1| (|SparseUnivariatePolynomial| |#2|)) 50)))
+FFPOLY2
+((|constructor|
+  (NIL
+   "\\spad{FiniteFieldPolynomialPackage2}(\\spad{F},{} \\spad{GF}) exports some functions concerning finite fields,{} which depend on a finite field {\\em GF} and an algebraic extension \\spad{F} of {\\em GF},{} \\spadignore{e.g.} a zero of a polynomial over {\\em GF} in \\spad{F}."))
+ (|rootOfIrreduciblePoly|
+  ((|#1| (|SparseUnivariatePolynomial| |#2|))
+   "\\spad{rootOfIrreduciblePoly(f)} computes one root of the monic,{} irreducible polynomial \\spad{f},{} which degree must divide the extension degree of {\\em F} over {\\em GF},{} \\spadignore{i.e.} \\spad{f} splits into linear factors over {\\em F}."))
+ (|Frobenius| (($ $) "\\spad{Frobenius(x)} \\undocumented{}"))
+ (|basis|
+  (((|Vector| $) (|PositiveInteger|)) "\\spad{basis(n)} \\undocumented{}"))
+ (|lookup| (((|PositiveInteger|) $) "\\spad{lookup(x)} \\undocumented{}"))
+ (|coerce| (($ |#2|) "\\spad{coerce(x)} \\undocumented{}")))
+(("documentation" 0 1401) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1393) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1317) ("modemaps" 0 694) ("sourceFile" 0 655)
+ ("constructorCategory" 0 554) ("constructorModemap" 0 69)
+ ("constructorKind" 0 59) ("constructorForm" 0 20))

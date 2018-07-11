@@ -1,0 +1,401 @@
+17636               (MAKEPROP '|Library| 'NILADIC T)
+(|Library|)
+|domain|
+(((|Library|)
+  (|Join| (|TableAggregate| (|String|) (|Any|))
+          (CATEGORY |domain| (SIGNATURE |library| ($ (|FileName|)))
+           (SIGNATURE |pack!| ($ $)) (SIGNATURE |elt| ((|Any|) $ (|Symbol|)))
+           (SIGNATURE |setelt!| ((|Any|) $ (|Symbol|) (|Any|)))
+           (SIGNATURE |close!| ($ $)))))
+ (T |Library|))
+(|Join| (|TableAggregate| (|String|) (|Any|))
+        (CATEGORY |domain| (SIGNATURE |library| ($ (|FileName|)))
+         (SIGNATURE |pack!| ($ $)) (SIGNATURE |elt| ((|Any|) $ (|Symbol|)))
+         (SIGNATURE |setelt!| ((|Any|) $ (|Symbol|) (|Any|)))
+         (SIGNATURE |close!| ($ $))))
+"/git/fricas/src/algebra/LIB.spad"
+((|library| (*1 *1 *2)
+            (AND (|isDomain| *2 (|FileName|)) (|isDomain| *1 (|Library|))))
+ (|pack!| (*1 *1 *1) (|isDomain| *1 (|Library|)))
+ (|elt| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *2 (|Any|))
+       (|isDomain| *1 (|Library|))))
+ (|setelt!| (*1 *2 *1 *3 *2)
+  (AND (|isDomain| *2 (|Any|)) (|isDomain| *3 (|Symbol|))
+       (|isDomain| *1 (|Library|))))
+ (|close!| (*1 *1 *1) (|isDomain| *1 (|Library|))))
+((~=
+  (((|Boolean|) $ $) NIL
+   (OR (AND (|has| $ (|finiteAggregate|)) (|has| (|Any|) (|BasicType|)))
+       (AND (|has| $ (|finiteAggregate|))
+            (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                   (|BasicType|)))
+       (|has| (|Any|) (|SetCategory|))
+       (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+              (|SetCategory|)))))
+ (|table| (($) NIL)
+  (($ (|List| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))) NIL))
+ (|swap!|
+  (((|Void|) $ (|String|) (|String|)) NIL (|has| $ (|shallowlyMutable|))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|setelt!| (((|Any|) $ (|String|) (|Any|)) 16)
+  (((|Any|) $ (|Symbol|) (|Any|)) 17))
+ (|select!|
+  (($
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|select|
+  (($
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $)
+   NIL (|has| $ (|finiteAggregate|))))
+ (|search| (((|Union| (|Any|) #1="failed") (|String|) $) NIL))
+ (|sample| (($) NIL T CONST))
+ (|removeDuplicates|
+  (($ $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|BasicType|)))))
+ (|remove!|
+  (($ (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|BasicType|))))
+  (($
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|Union| (|Any|) #1#) (|String|) $) NIL))
+ (|remove|
+  (($
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (($ (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|BasicType|)))))
+ (|reduce|
+  (((|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+    (|Mapping| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+    (|Mapping| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $ (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+    (|Mapping| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $ (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+    (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+   NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|BasicType|)))))
+ (|qsetelt!|
+  (((|Any|) $ (|String|) (|Any|)) NIL (|has| $ (|shallowlyMutable|))))
+ (|qelt| (((|Any|) $ (|String|)) NIL))
+ (|parts|
+  (((|List| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (((|List| (|Any|)) $) NIL (|has| $ (|finiteAggregate|))))
+ (|pack!| (($ $) NIL)) (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|minIndex| (((|String|) $) NIL (|has| (|String|) (|OrderedSet|))))
+ (|min|
+  (((|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|OrderedSet|))))
+  (((|Any|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Any|) (|OrderedSet|)))))
+ (|members|
+  (((|List| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (((|List| (|Any|)) $) NIL (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|BasicType|))))
+  (((|Boolean|) (|Any|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Any|) (|BasicType|)))))
+ (|maxIndex| (((|String|) $) NIL (|has| (|String|) (|OrderedSet|))))
+ (|max|
+  (((|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|OrderedSet|))))
+  (((|Any|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Any|) (|OrderedSet|))))
+  (((|Any|) (|Mapping| (|Boolean|) (|Any|) (|Any|)) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|map!|
+  (($
+    (|Mapping| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $)
+   NIL (|has| $ (|shallowlyMutable|)))
+  (($ (|Mapping| (|Any|) (|Any|)) $) NIL (|has| $ (|shallowlyMutable|))))
+ (|map|
+  (($
+    (|Mapping| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $)
+   NIL)
+  (($ (|Mapping| (|Any|) (|Any|)) $) NIL)
+  (($ (|Mapping| (|Any|) (|Any|) (|Any|)) $ $) NIL))
+ (|library| (($ (|FileName|)) 9))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|latex|
+  (((|String|) $) NIL
+   (OR (|has| (|Any|) (|SetCategory|))
+       (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+              (|SetCategory|)))))
+ (|keys| (((|List| (|String|)) $) NIL))
+ (|key?| (((|Boolean|) (|String|) $) NIL))
+ (|inspect| (((|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))) $) NIL))
+ (|insert!|
+  (($ (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))) $) NIL))
+ (|indices| (((|List| (|String|)) $) NIL))
+ (|index?| (((|Boolean|) (|String|) $) NIL))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) NIL
+   (OR (|has| (|Any|) (|SetCategory|))
+       (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+              (|SetCategory|)))))
+ (|hash|
+  (((|SingleInteger|) $) NIL
+   (OR (|has| (|Any|) (|SetCategory|))
+       (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+              (|SetCategory|)))))
+ (|first| (((|Any|) $) NIL (|has| (|String|) (|OrderedSet|))))
+ (|find|
+  (((|Union| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))) "failed")
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $)
+   NIL))
+ (|fill!| (($ $ (|Any|)) NIL (|has| $ (|shallowlyMutable|))))
+ (|extract!| (((|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))) $) NIL))
+ (|every?|
+  (((|Boolean|)
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Any|)) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $
+    (|List|
+     (|Equation| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))))
+   NIL
+   (AND
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+           (|Evalable|
+            (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))))
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+           (|SetCategory|))))
+  (($ $ (|Equation| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))))
+   NIL
+   (AND
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+           (|Evalable|
+            (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))))
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+           (|SetCategory|))))
+  (($ $ (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+    (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+   NIL
+   (AND
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+           (|Evalable|
+            (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))))
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+           (|SetCategory|))))
+  (($ $ (|List| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    (|List| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))))
+   NIL
+   (AND
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+           (|Evalable|
+            (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))))
+    (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+           (|SetCategory|))))
+  (($ $ (|List| (|Any|)) (|List| (|Any|))) NIL
+   (AND (|has| (|Any|) (|Evalable| (|Any|))) (|has| (|Any|) (|SetCategory|))))
+  (($ $ (|Any|) (|Any|)) NIL
+   (AND (|has| (|Any|) (|Evalable| (|Any|))) (|has| (|Any|) (|SetCategory|))))
+  (($ $ (|Equation| (|Any|))) NIL
+   (AND (|has| (|Any|) (|Evalable| (|Any|))) (|has| (|Any|) (|SetCategory|))))
+  (($ $ (|List| (|Equation| (|Any|)))) NIL
+   (AND (|has| (|Any|) (|Evalable| (|Any|))) (|has| (|Any|) (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) NIL))
+ (|entry?|
+  (((|Boolean|) (|Any|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Any|) (|BasicType|)))))
+ (|entries| (((|List| (|Any|)) $) NIL)) (|empty?| (((|Boolean|) $) NIL))
+ (|empty| (($) NIL))
+ (|elt| (((|Any|) $ (|String|)) 14) (((|Any|) $ (|String|) (|Any|)) NIL)
+  (((|Any|) $ (|Symbol|)) 15))
+ (|dictionary| (($) NIL)
+  (($ (|List| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))) NIL))
+ (|count|
+  (((|NonNegativeInteger|)
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|)
+    (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))) $)
+   NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+               (|BasicType|))))
+  (((|NonNegativeInteger|) (|Any|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Any|) (|BasicType|))))
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) (|Any|)) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|copy| (($ $) NIL))
+ (|convert|
+  (((|InputForm|) $) NIL
+   (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+          (|ConvertibleTo| (|InputForm|)))))
+ (|construct|
+  (($ (|List| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))) NIL))
+ (|coerce|
+  (((|OutputForm|) $) NIL
+   (OR (|has| (|Any|) (|CoercibleTo| (|OutputForm|)))
+       (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+              (|CoercibleTo| (|OutputForm|))))))
+ (|close!| (($ $) NIL))
+ (|any?|
+  (((|Boolean|)
+    (|Mapping| (|Boolean|)
+               (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|))))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Any|)) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) NIL
+   (OR (AND (|has| $ (|finiteAggregate|)) (|has| (|Any|) (|BasicType|)))
+       (AND (|has| $ (|finiteAggregate|))
+            (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                   (|BasicType|)))
+       (|has| (|Any|) (|SetCategory|))
+       (|has| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+              (|SetCategory|)))))
+ (|#| (((|NonNegativeInteger|) $) NIL (|has| $ (|finiteAggregate|)))))
+((|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                (LIST '|ConvertibleTo| '(|InputForm|)))
+ (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                '(|OrderedSet|))
+ (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                '(|BasicType|))
+ (|HasCategory| (|String|) '(|OrderedSet|))
+ (OR (|HasCategory| (|Any|) (LIST '|CoercibleTo| '(|OutputForm|)))
+     (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                    (LIST '|CoercibleTo| '(|OutputForm|))))
+ (|HasCategory| (|Any|) '(|BasicType|))
+ (|HasCategory| (|Any|) '(|SetCategory|))
+ (AND (|HasCategory| (|Any|) (LIST '|Evalable| '(|Any|)))
+      (|HasCategory| (|Any|) '(|SetCategory|)))
+ (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                '(|SetCategory|))
+ (AND
+  (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                 (LIST '|Evalable|
+                       (LIST '|Record| (LIST '|:| '|key| '(|String|))
+                             (LIST '|:| '|entry| '(|Any|)))))
+  (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                 '(|SetCategory|)))
+ (OR (|HasCategory| (|Any|) '(|SetCategory|))
+     (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                    '(|SetCategory|)))
+ (OR (|HasCategory| (|Any|) (LIST '|CoercibleTo| '(|OutputForm|)))
+     (|HasCategory| (|Any|) '(|SetCategory|))
+     (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                    (LIST '|CoercibleTo| '(|OutputForm|)))
+     (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                    '(|SetCategory|)))
+ (|HasCategory| (|Any|) '(|OrderedSet|)) (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                     '(|OrderedSet|)))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                     '(|BasicType|)))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| (|Any|) '(|BasicType|)))
+ (OR
+  (AND (|HasCategory| $ '(|finiteAggregate|))
+       (|HasCategory| (|Any|) '(|BasicType|)))
+  (AND (|HasCategory| $ '(|finiteAggregate|))
+       (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                      '(|BasicType|)))
+  (|HasCategory| (|Any|) '(|SetCategory|))
+  (|HasCategory| (|Record| (|:| |key| (|String|)) (|:| |entry| (|Any|)))
+                 '(|SetCategory|)))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| (|Any|) '(|OrderedSet|)))
+ (|HasCategory| $ '(|shallowlyMutable|)))
+LIB
+(((|TableAggregate| (|String|) (|Any|)) . T))
+(((|Aggregate|) . T) ((|BagAggregate| |t#1|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Collection| |t#1|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Dictionary| (|Record| (|:| |key| |t#1|) (|:| |entry| |t#2|))) . T)
+ ((|DictionaryOperations| |t#1|) . T) ((|Eltable| |t#1| |t#2|) . T)
+ ((|EltableAggregate| |t#1| |t#2|) . T)
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#2|) . T) ((|HomogeneousAggregate| |t#1|) . T)
+ ((|IndexedAggregate| |t#1| |t#2|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|KeyedDictionary| |t#1| |t#2|) . T)
+ ((|SetCategory|) |has| |t#1| (|SetCategory|))
+ ((|TableAggregate| (|String|) (|Any|)) . T) ((|Type|) . T)
+ ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL "This domain provides a simple way to save values in files."))
+ (|close!|
+  (($ $)
+   "\\spad{close!(f)} returns the library \\spad{f} closed to input and output."))
+ (|setelt!|
+  (((|Any|) $ (|Symbol|) (|Any|))
+   "\\spad{lib.k := v} saves the value \\spad{v} in the library \\spad{lib}. It can later be extracted using the key \\spad{k}."))
+ (|elt|
+  (((|Any|) $ (|Symbol|))
+   "\\spad{elt(lib,{} k)} or \\spad{lib}.\\spad{k} extracts the value corresponding to the key \\spad{k} from the library \\spad{lib}."))
+ (|pack!|
+  (($ $)
+   "\\spad{pack!(f)} reorganizes the file \\spad{f} on disk to recover unused space."))
+ (|library|
+  (($ (|FileName|)) "\\spad{library(ln)} creates a new library file.")))
+(("documentation" 0 16906) ("ancestors" 0 15894) ("parents" 0 15848)
+ ("abbreviation" 0 15844) ("predicates" 0 13048) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1168) ("modemaps" 0 726) ("sourceFile" 0 691)
+ ("constructorCategory" 0 403) ("constructorModemap" 0 74)
+ ("constructorKind" 0 65) ("constructorForm" 0 53) ("NILADIC" 0 20))

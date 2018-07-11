@@ -1,0 +1,177 @@
+9930                (|PrimitiveRatRicDE| F UP L LQ)
+|package|
+(((|PrimitiveRatRicDE| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |denomRicDE| (|#2| |#3|))
+   (SIGNATURE |leadingCoefficientRicDE|
+    ((|List| (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |eq| |#2|)))
+     |#3|))
+   (SIGNATURE |constantCoefficientRicDE|
+    ((|List| (|Record| (|:| |constant| |#1|) (|:| |eq| |#3|))) |#3|
+     (|Mapping| (|List| |#1|) |#2|)))
+   (SIGNATURE |polyRicDE|
+    ((|List| (|Record| (|:| |poly| |#2|) (|:| |eq| |#3|))) |#3|
+     (|Mapping| (|List| |#1|) |#2|)))
+   (SIGNATURE |singRicDE|
+    ((|List| (|Record| (|:| |frac| (|Fraction| |#2|)) (|:| |eq| |#3|))) |#3|
+     (|Mapping| (|List| |#2|) |#2| (|SparseUnivariatePolynomial| |#2|))
+     (|Mapping| (|Factored| |#2|) |#2|)))
+   (SIGNATURE |changeVar| (|#3| |#3| |#2|))
+   (SIGNATURE |changeVar| (|#3| |#3| (|Fraction| |#2|))))
+  (|Join| (|Field|) (|CharacteristicZero|)
+          (|RetractableTo| (|Fraction| (|Integer|))))
+  (|UnivariatePolynomialCategory| |#1|)
+  (|LinearOrdinaryDifferentialOperatorCategory| |#2|)
+  (|LinearOrdinaryDifferentialOperatorCategory| (|Fraction| |#2|)))
+ (T |PrimitiveRatRicDE|))
+(CATEGORY |package| (SIGNATURE |denomRicDE| (|#2| |#3|))
+ (SIGNATURE |leadingCoefficientRicDE|
+  ((|List| (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |eq| |#2|)))
+   |#3|))
+ (SIGNATURE |constantCoefficientRicDE|
+  ((|List| (|Record| (|:| |constant| |#1|) (|:| |eq| |#3|))) |#3|
+   (|Mapping| (|List| |#1|) |#2|)))
+ (SIGNATURE |polyRicDE|
+  ((|List| (|Record| (|:| |poly| |#2|) (|:| |eq| |#3|))) |#3|
+   (|Mapping| (|List| |#1|) |#2|)))
+ (SIGNATURE |singRicDE|
+  ((|List| (|Record| (|:| |frac| (|Fraction| |#2|)) (|:| |eq| |#3|))) |#3|
+   (|Mapping| (|List| |#2|) |#2| (|SparseUnivariatePolynomial| |#2|))
+   (|Mapping| (|Factored| |#2|) |#2|)))
+ (SIGNATURE |changeVar| (|#3| |#3| |#2|))
+ (SIGNATURE |changeVar| (|#3| |#3| (|Fraction| |#2|))))
+"/git/fricas/src/algebra/ODEPRRIC.spad"
+((|changeVar| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Fraction| *5))
+       (|ofCategory| *4
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+       (|isDomain| *1 (|PrimitiveRatRicDE| *4 *5 *2 *6))
+       (|ofCategory| *2 (|LinearOrdinaryDifferentialOperatorCategory| *5))
+       (|ofCategory| *6 (|LinearOrdinaryDifferentialOperatorCategory| *3))))
+ (|changeVar| (*1 *2 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))
+   (|isDomain| *1 (|PrimitiveRatRicDE| *4 *3 *2 *5))
+   (|ofCategory| *2 (|LinearOrdinaryDifferentialOperatorCategory| *3))
+   (|ofCategory| *5
+                 (|LinearOrdinaryDifferentialOperatorCategory|
+                  (|Fraction| *3)))))
+ (|singRicDE| (*1 *2 *3 *4 *5)
+  (AND
+   (|isDomain| *4 (|Mapping| (|List| *7) *7 (|SparseUnivariatePolynomial| *7)))
+   (|isDomain| *5 (|Mapping| (|Factored| *7) *7))
+   (|ofCategory| *7 (|UnivariatePolynomialCategory| *6))
+   (|ofCategory| *6
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|isDomain| *2
+               (|List| (|Record| (|:| |frac| (|Fraction| *7)) (|:| |eq| *3))))
+   (|isDomain| *1 (|PrimitiveRatRicDE| *6 *7 *3 *8))
+   (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *7))
+   (|ofCategory| *8
+                 (|LinearOrdinaryDifferentialOperatorCategory|
+                  (|Fraction| *7)))))
+ (|polyRicDE| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Mapping| (|List| *5) *6))
+       (|ofCategory| *5
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|isDomain| *2 (|List| (|Record| (|:| |poly| *6) (|:| |eq| *3))))
+       (|isDomain| *1 (|PrimitiveRatRicDE| *5 *6 *3 *7))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *6))
+       (|ofCategory| *7
+                     (|LinearOrdinaryDifferentialOperatorCategory|
+                      (|Fraction| *6)))))
+ (|constantCoefficientRicDE| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Mapping| (|List| *5) *6))
+       (|ofCategory| *5
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|isDomain| *2 (|List| (|Record| (|:| |constant| *5) (|:| |eq| *3))))
+       (|isDomain| *1 (|PrimitiveRatRicDE| *5 *6 *3 *7))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *6))
+       (|ofCategory| *7
+                     (|LinearOrdinaryDifferentialOperatorCategory|
+                      (|Fraction| *6)))))
+ (|leadingCoefficientRicDE| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |eq| *5))))
+   (|isDomain| *1 (|PrimitiveRatRicDE| *4 *5 *3 *6))
+   (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *5))
+   (|ofCategory| *6
+                 (|LinearOrdinaryDifferentialOperatorCategory|
+                  (|Fraction| *5)))))
+ (|denomRicDE| (*1 *2 *3)
+  (AND (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))
+       (|isDomain| *1 (|PrimitiveRatRicDE| *4 *2 *3 *5))
+       (|ofCategory| *4
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *2))
+       (|ofCategory| *5
+                     (|LinearOrdinaryDifferentialOperatorCategory|
+                      (|Fraction| *2))))))
+((|singRicDE|
+  (((|List| (|Record| (|:| |frac| (|Fraction| |#2|)) (|:| |eq| |#3|))) |#3|
+    (|Mapping| (|List| |#2|) |#2| (|SparseUnivariatePolynomial| |#2|))
+    (|Mapping| (|Factored| |#2|) |#2|))
+   119))
+ (|polyRicDE|
+  (((|List| (|Record| (|:| |poly| |#2|) (|:| |eq| |#3|))) |#3|
+    (|Mapping| (|List| |#1|) |#2|))
+   43))
+ (|leadingCoefficientRicDE|
+  (((|List| (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |eq| |#2|)))
+    |#3|)
+   95))
+ (|denomRicDE| ((|#2| |#3|) 37))
+ (|constantCoefficientRicDE|
+  (((|List| (|Record| (|:| |constant| |#1|) (|:| |eq| |#3|))) |#3|
+    (|Mapping| (|List| |#1|) |#2|))
+   80))
+ (|changeVar| ((|#3| |#3| (|Fraction| |#2|)) 60) ((|#3| |#3| |#2|) 77)))
+ODEPRRIC
+((|constructor|
+  (NIL "In-field solution of Riccati equations,{} primitive case."))
+ (|changeVar|
+  ((|#3| |#3| (|Fraction| |#2|))
+   "\\spad{changeVar(+/[\\spad{ai} D^i],{} a)} returns the operator \\spad{+/[\\spad{ai} (D+a)\\spad{^i}]}.")
+  ((|#3| |#3| |#2|)
+   "\\spad{changeVar(+/[\\spad{ai} D^i],{} a)} returns the operator \\spad{+/[\\spad{ai} (D+a)\\spad{^i}]}."))
+ (|singRicDE|
+  (((|List| (|Record| (|:| |frac| (|Fraction| |#2|)) (|:| |eq| |#3|))) |#3|
+    (|Mapping| (|List| |#2|) |#2| (|SparseUnivariatePolynomial| |#2|))
+    (|Mapping| (|Factored| |#2|) |#2|))
+   "\\spad{singRicDE(op,{} zeros,{} ezfactor)} returns \\spad{[[f1,{} L1],{} [f2,{} L2],{} ... ,{} [fk,{} Lk]]} such that the singular part of any rational solution of the associated Riccati equation of \\spad{op y=0} must be one of the \\spad{fi}\\spad{'s} (up to the constant coefficient),{} in which case the equation for \\spad{z=y e^{-int p}} is \\spad{\\spad{Li} z=0}. \\spad{zeros(C(x),{} H(x,{} y))} returns all the \\spad{P_i(x)}\\spad{'s} such that \\spad{H(x,{} P_i(x)) = 0 modulo C(x)}. Argument \\spad{ezfactor} is a factorisation in \\spad{UP},{} not necessarily into irreducibles."))
+ (|polyRicDE|
+  (((|List| (|Record| (|:| |poly| |#2|) (|:| |eq| |#3|))) |#3|
+    (|Mapping| (|List| |#1|) |#2|))
+   "\\spad{polyRicDE(op,{} zeros)} returns \\spad{[[p1,{} L1],{} [p2,{} L2],{} ... ,{} [pk,{} Lk]]} such that the polynomial part of any rational solution of the associated Riccati equation of \\spad{op y=0} must be one of the \\spad{pi}\\spad{'s} (up to the constant coefficient),{} in which case the equation for \\spad{z=y e^{-int p}} is \\spad{\\spad{Li} z =0}. \\spad{zeros} is a zero finder in \\spad{UP}."))
+ (|constantCoefficientRicDE|
+  (((|List| (|Record| (|:| |constant| |#1|) (|:| |eq| |#3|))) |#3|
+    (|Mapping| (|List| |#1|) |#2|))
+   "\\spad{constantCoefficientRicDE(op,{} ric)} returns \\spad{[[a1,{} L1],{} [a2,{} L2],{} ... ,{} [ak,{} Lk]]} such that any rational solution with no polynomial part of the associated Riccati equation of \\spad{op y = 0} must be one of the \\spad{ai}\\spad{'s} in which case the equation for \\spad{z = y e^{-int \\spad{ai}}} is \\spad{\\spad{Li} z = 0}. \\spad{ric} is a Riccati equation solver over \\spad{F},{} whose input is the associated linear equation."))
+ (|leadingCoefficientRicDE|
+  (((|List| (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |eq| |#2|)))
+    |#3|)
+   "\\spad{leadingCoefficientRicDE(op)} returns \\spad{[[m1,{} p1],{} [m2,{} p2],{} ... ,{} [mk,{} pk]]} such that the polynomial part of any rational solution of the associated Riccati equation of \\spad{op y = 0} must have degree \\spad{mj} for some \\spad{j},{} and its leading coefficient is then a zero of \\spad{pj}. In addition,{} \\spad{m1>m2> ... >mk}."))
+ (|denomRicDE|
+  ((|#2| |#3|)
+   "\\spad{denomRicDE(op)} returns a polynomial \\spad{d} such that any rational solution of the associated Riccati equation of \\spad{op y = 0} is of the form \\spad{p/d + q'/q + r} for some polynomials \\spad{p} and \\spad{q} and a reduced \\spad{r}. Also,{} \\spad{deg(p) < deg(d)} and {\\spad{gcd}(\\spad{d},{} \\spad{q}) = 1}.")))
+(("documentation" 0 6786) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 6777) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 6079) ("modemaps" 0 1961) ("sourceFile" 0 1921)
+ ("constructorCategory" 0 1172) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

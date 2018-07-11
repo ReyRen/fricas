@@ -1,0 +1,79 @@
+3661                (|InnerMultFact| OV E R P)
+|package|
+(((|InnerMultFact| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |factor|
+    ((|Factored| |#4|) |#4|
+     (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#3|))
+                (|SparseUnivariatePolynomial| |#3|))))
+   (SIGNATURE |factor|
+    ((|Factored| (|SparseUnivariatePolynomial| |#4|))
+     (|SparseUnivariatePolynomial| |#4|)
+     (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#3|))
+                (|SparseUnivariatePolynomial| |#3|)))))
+  (|OrderedSet|) (|OrderedAbelianMonoidSup|)
+  (|Join| (|EuclideanDomain|) (|CharacteristicZero|))
+  (|PolynomialCategory| |#3| |#2| |#1|))
+ (T |InnerMultFact|))
+(CATEGORY |package|
+ (SIGNATURE |factor|
+  ((|Factored| |#4|) |#4|
+   (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#3|))
+              (|SparseUnivariatePolynomial| |#3|))))
+ (SIGNATURE |factor|
+  ((|Factored| (|SparseUnivariatePolynomial| |#4|))
+   (|SparseUnivariatePolynomial| |#4|)
+   (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#3|))
+              (|SparseUnivariatePolynomial| |#3|)))))
+"/git/fricas/src/algebra/INNMFACT.spad"
+((|factor| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *8))
+       (|isDomain| *4
+                   (|Mapping| (|Factored| (|SparseUnivariatePolynomial| *7))
+                              (|SparseUnivariatePolynomial| *7)))
+       (|ofCategory| *7 (|Join| (|EuclideanDomain|) (|CharacteristicZero|)))
+       (|ofCategory| *8 (|PolynomialCategory| *7 *6 *5))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2 (|Factored| (|SparseUnivariatePolynomial| *8)))
+       (|isDomain| *1 (|InnerMultFact| *5 *6 *7 *8))))
+ (|factor| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *4
+               (|Mapping| (|Factored| (|SparseUnivariatePolynomial| *7))
+                          (|SparseUnivariatePolynomial| *7)))
+   (|ofCategory| *7 (|Join| (|EuclideanDomain|) (|CharacteristicZero|)))
+   (|ofCategory| *5 (|OrderedSet|))
+   (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *2 (|Factored| *3))
+   (|isDomain| *1 (|InnerMultFact| *5 *6 *7 *3))
+   (|ofCategory| *3 (|PolynomialCategory| *7 *6 *5)))))
+((|factor|
+  (((|Factored| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|)
+    (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#3|))
+               (|SparseUnivariatePolynomial| |#3|)))
+   82)
+  (((|Factored| |#4|) |#4|
+    (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#3|))
+               (|SparseUnivariatePolynomial| |#3|)))
+   166)))
+INNMFACT
+((|constructor|
+  (NIL
+   "\\indented{2}{This is an inner package for factoring multivariate polynomials} over various coefficient domains in characteristic 0. The univariate factor operation is passed as a parameter. Multivariate hensel lifting is used to lift the univariate factorization"))
+ (|factor|
+  (((|Factored| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|)
+    (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#3|))
+               (|SparseUnivariatePolynomial| |#3|)))
+   "\\spad{factor(p,{} ufact)} factors the multivariate polynomial \\spad{p} by specializing variables and calling the univariate factorizer ufact. \\spad{p} is represented as a univariate polynomial with multivariate coefficients.")
+  (((|Factored| |#4|) |#4|
+    (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#3|))
+               (|SparseUnivariatePolynomial| |#3|)))
+   "\\spad{factor(p,{} ufact)} factors the multivariate polynomial \\spad{p} by specializing variables and calling the univariate factorizer ufact.")))
+(("documentation" 0 2616) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2607) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2225) ("modemaps" 0 1143) ("sourceFile" 0 1103)
+ ("constructorCategory" 0 691) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

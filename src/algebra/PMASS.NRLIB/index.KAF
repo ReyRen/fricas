@@ -1,0 +1,44 @@
+2105                (MAKEPROP '|PatternMatchAssertions| 'NILADIC T)
+(|PatternMatchAssertions|)
+|package|
+(((|PatternMatchAssertions|)
+  (CATEGORY |package|
+   (SIGNATURE |constant| ((|Expression| (|Integer|)) (|Symbol|)))
+   (SIGNATURE |optional| ((|Expression| (|Integer|)) (|Symbol|)))
+   (SIGNATURE |multiple| ((|Expression| (|Integer|)) (|Symbol|)))))
+ (T |PatternMatchAssertions|))
+(CATEGORY |package|
+ (SIGNATURE |constant| ((|Expression| (|Integer|)) (|Symbol|)))
+ (SIGNATURE |optional| ((|Expression| (|Integer|)) (|Symbol|)))
+ (SIGNATURE |multiple| ((|Expression| (|Integer|)) (|Symbol|))))
+"/git/fricas/src/algebra/PMASS.spad"
+((|multiple| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *2 (|Expression| (|Integer|)))
+       (|isDomain| *1 (|PatternMatchAssertions|))))
+ (|optional| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *2 (|Expression| (|Integer|)))
+       (|isDomain| *1 (|PatternMatchAssertions|))))
+ (|constant| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *2 (|Expression| (|Integer|)))
+       (|isDomain| *1 (|PatternMatchAssertions|)))))
+((|optional| (((|Expression| (|Integer|)) (|Symbol|)) 15))
+ (|multiple| (((|Expression| (|Integer|)) (|Symbol|)) 13))
+ (|constant| (((|Expression| (|Integer|)) (|Symbol|)) 11)))
+PMASS
+((|constructor|
+  (NIL
+   "Attaching assertions to symbols for pattern matching. Date Created: 21 Mar 1989"))
+ (|multiple|
+  (((|Expression| (|Integer|)) (|Symbol|))
+   "\\spad{multiple(x)} tells the pattern matcher that \\spad{x} should preferably match a multi-term quantity in a sum or product. For matching on lists,{} multiple(\\spad{x}) tells the pattern matcher that \\spad{x} should match a list instead of an element of a list."))
+ (|optional|
+  (((|Expression| (|Integer|)) (|Symbol|))
+   "\\spad{optional(x)} tells the pattern matcher that \\spad{x} can match an identity (0 in a sum,{} 1 in a product or exponentiation)."))
+ (|constant|
+  (((|Expression| (|Integer|)) (|Symbol|))
+   "\\spad{constant(x)} tells the pattern matcher that \\spad{x} should match only the symbol \\spad{'x} and no other quantity.")))
+(("documentation" 0 1281) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1275) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1097) ("modemaps" 0 637) ("sourceFile" 0 600)
+ ("constructorCategory" 0 387) ("constructorModemap" 0 105)
+ ("constructorKind" 0 95) ("constructorForm" 0 68) ("NILADIC" 0 20))

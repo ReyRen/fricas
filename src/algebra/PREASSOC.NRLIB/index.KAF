@@ -1,0 +1,31 @@
+1541                (|PrecomputedAssociatedEquations| R L)
+|package|
+(((|PrecomputedAssociatedEquations| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |firstUncouplingMatrix|
+    ((|Union| (|Matrix| |#1|) "failed") |#2| (|PositiveInteger|))))
+  (|IntegralDomain|) (|LinearOrdinaryDifferentialOperatorCategory| |#1|))
+ (T |PrecomputedAssociatedEquations|))
+(CATEGORY |package|
+ (SIGNATURE |firstUncouplingMatrix|
+  ((|Union| (|Matrix| |#1|) "failed") |#2| (|PositiveInteger|))))
+"/git/fricas/src/algebra/PREASSOC.spad"
+((|firstUncouplingMatrix| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *4 (|PositiveInteger|))
+   (|ofCategory| *5 (|IntegralDomain|)) (|isDomain| *2 (|Matrix| *5))
+   (|isDomain| *1 (|PrecomputedAssociatedEquations| *5 *3))
+   (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *5)))))
+((|firstUncouplingMatrix|
+  (((|Union| (|Matrix| |#1|) "failed") |#2| (|PositiveInteger|)) 14)))
+PREASSOC
+((|constructor|
+  (NIL
+   "\\spadtype{PrecomputedAssociatedEquations} stores some generic precomputations which speed up the computations of the associated equations needed for factoring operators."))
+ (|firstUncouplingMatrix|
+  (((|Union| (|Matrix| |#1|) "failed") |#2| (|PositiveInteger|))
+   "\\spad{firstUncouplingMatrix(op,{} m)} returns the matrix A such that \\spad{A w = (W',{} W'',{} ...,{} W^N)} in the corresponding associated equations for right-factors of order \\spad{m} of \\spad{op}. Returns \"failed\" if the matrix A has not been precomputed for the particular combination \\spad{degree(L),{} m}.")))
+(("documentation" 0 922) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 913) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 816) ("modemaps" 0 519) ("sourceFile" 0 479)
+ ("constructorCategory" 0 357) ("constructorModemap" 0 69)
+ ("constructorKind" 0 59) ("constructorForm" 0 20))

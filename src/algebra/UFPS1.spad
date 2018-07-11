@@ -1,0 +1,16 @@
+)abbrev package UFPS1 UnivariateFormalPowerSeriesFunctions
+UnivariateFormalPowerSeriesFunctions(Coef : Ring) : Exports == Implementation
+  where
+
+    UFPS ==> UnivariateFormalPowerSeries Coef
+
+    Exports == with
+
+      hadamard : (UFPS, UFPS) -> UFPS
+
+    Implementation == add
+
+      hadamard(f, g) ==
+        series map((z1 : Coef, z2 : Coef) : Coef +-> z1*z2, coefficients f, coefficients g)
+                  $StreamFunctions3(Coef, Coef, Coef)
+

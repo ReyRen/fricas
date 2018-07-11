@@ -1,0 +1,81 @@
+4033                (|FiniteAbelianMonoidRing&| S R E)
+|domain|
+(((|FiniteAbelianMonoidRing&| |#1| |#2| |#3|)
+  (CATEGORY |domain| (SIGNATURE |exquo| ((|Union| |#1| "failed") |#1| |#1|))
+   (SIGNATURE |primitivePart| (|#1| |#1|)) (SIGNATURE |content| (|#2| |#1|))
+   (SIGNATURE |exquo| ((|Union| |#1| "failed") |#1| |#2|))
+   (SIGNATURE |binomThmExpt| (|#1| |#1| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |fmecg| (|#1| |#1| |#3| |#2| |#1|))
+   (SIGNATURE |pomopo!| (|#1| |#1| |#2| |#3| |#1|))
+   (SIGNATURE |mapExponents| (|#1| (|Mapping| |#3| |#3|) |#1|))
+   (SIGNATURE |coefficients| ((|List| |#2|) |#1|))
+   (SIGNATURE |ground| (|#2| |#1|)) (SIGNATURE |ground?| ((|Boolean|) |#1|))
+   (SIGNATURE / (|#1| |#1| |#2|)))
+  (|FiniteAbelianMonoidRing| |#2| |#3|) (|Join| (|SemiRng|) (|AbelianMonoid|))
+  (|OrderedAbelianMonoid|))
+ (T |FiniteAbelianMonoidRing&|))
+(CATEGORY |domain| (SIGNATURE |exquo| ((|Union| |#1| "failed") |#1| |#1|))
+ (SIGNATURE |primitivePart| (|#1| |#1|)) (SIGNATURE |content| (|#2| |#1|))
+ (SIGNATURE |exquo| ((|Union| |#1| "failed") |#1| |#2|))
+ (SIGNATURE |binomThmExpt| (|#1| |#1| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |fmecg| (|#1| |#1| |#3| |#2| |#1|))
+ (SIGNATURE |pomopo!| (|#1| |#1| |#2| |#3| |#1|))
+ (SIGNATURE |mapExponents| (|#1| (|Mapping| |#3| |#3|) |#1|))
+ (SIGNATURE |coefficients| ((|List| |#2|) |#1|))
+ (SIGNATURE |ground| (|#2| |#1|)) (SIGNATURE |ground?| ((|Boolean|) |#1|))
+ (SIGNATURE / (|#1| |#1| |#2|)))
+"/git/fricas/src/algebra/FAMR.spad"
+((|primitivePart| (($ $) 55)) (|pomopo!| (($ $ |#2| |#3| $) 14))
+ (|mapExponents| (($ (|Mapping| |#3| |#3|) $) 36))
+ (|ground?| (((|Boolean|) $) 28)) (|ground| ((|#2| $) 30))
+ (|fmecg| (($ $ |#3| |#2| $) 16))
+ (|exquo| (((|Union| $ "failed") $ |#2|) 47) (((|Union| $ "failed") $ $) NIL))
+ (|content| ((|#2| $) 51)) (|coefficients| (((|List| |#2|) $) 39))
+ (|binomThmExpt| (($ $ $ (|NonNegativeInteger|)) 24)) (/ (($ $ |#2|) 43)))
+((|HasCategory| |#2| '(|GcdDomain|)) (|HasCategory| |#2| '(|EntireRing|))
+ (|HasCategory| |#1| '(|CommutativeRing|)) (|HasCategory| |#2| '(|Ring|)))
+FAMR-
+((|constructor|
+  (NIL
+   "This category is similar to AbelianMonoidRing,{} except that the sum is assumed to be finite. It is a useful model for polynomials,{} but is somewhat more general."))
+ (|primitivePart|
+  (($ $)
+   "\\spad{primitivePart(p)} returns the unit normalized form of polynomial \\spad{p} divided by the content of \\spad{p}."))
+ (|content|
+  ((|#2| $)
+   "\\spad{content(p)} gives the \\spad{gcd} of the coefficients of polynomial \\spad{p}."))
+ (|exquo|
+  (((|Union| $ "failed") $ |#2|)
+   "\\spad{exquo(p,{}r)} returns the exact quotient of polynomial \\spad{p} by \\spad{r},{} or \"failed\" if none exists."))
+ (|binomThmExpt|
+  (($ $ $ (|NonNegativeInteger|))
+   "\\spad{binomThmExpt(p,{} q,{} n)} returns \\spad{(p+q)^n} by means of the binomial theorem trick."))
+ (|fmecg|
+  (($ $ |#3| |#2| $)
+   "\\spad{fmecg(p1,{} e,{} r,{} p2)} returns \\spad{p1 - monomial(r,{} e) * p2}."))
+ (|pomopo!|
+  (($ $ |#2| |#3| $)
+   "\\spad{pomopo!(p1,{} r,{} e,{} p2)} returns \\spad{p1 + monomial(r,{} e) * p2} and may use \\spad{p1} as workspace. The constant \\spad{r} is assumed to be nonzero."))
+ (|mapExponents|
+  (($ (|Mapping| |#3| |#3|) $)
+   "\\spad{mapExponents(fn,{} u)} maps function \\spad{fn} onto the exponents of the non-zero monomials of polynomial \\spad{u}."))
+ (|minimumDegree|
+  ((|#3| $)
+   "\\spad{minimumDegree(p)} gives the least exponent of a non-zero term of polynomial \\spad{p}. Error: if applied to 0."))
+ (|numberOfMonomials|
+  (((|NonNegativeInteger|) $)
+   "\\spad{numberOfMonomials(p)} gives the number of non-zero monomials in polynomial \\spad{p}."))
+ (|coefficients|
+  (((|List| |#2|) $)
+   "\\spad{coefficients(p)} gives the list of non-zero coefficients of polynomial \\spad{p}."))
+ (|ground|
+  ((|#2| $)
+   "\\spad{ground(p)} retracts polynomial \\spad{p} to the coefficient ring."))
+ (|ground?|
+  (((|Boolean|) $)
+   "\\spad{ground?(p)} tests if polynomial \\spad{p} is a member of the coefficient ring.")))
+(("documentation" 0 2075) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2069) ("predicates" 0 1920) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1490) ("modemaps" 0 NIL) ("sourceFile" 0 1454)
+ ("constructorCategory" 0 862) ("constructorModemap" 0 64)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

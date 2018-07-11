@@ -1,0 +1,298 @@
+15455               (|SquareFreeRegularTriangularSet| R E V P)
+|domain|
+(((|SquareFreeRegularTriangularSet| |#1| |#2| |#3| |#4|)
+  (|Join| (|SquareFreeRegularTriangularSetCategory| |#1| |#2| |#3| |#4|)
+          (CATEGORY |domain|
+           (SIGNATURE |internalAugment|
+            ((|List| $) |#4| $ (|Boolean|) (|Boolean|) (|Boolean|) (|Boolean|)
+             (|Boolean|)))
+           (SIGNATURE |zeroSetSplit|
+            ((|List| $) (|List| |#4|) (|Boolean|) (|Boolean|)))
+           (SIGNATURE |zeroSetSplit|
+            ((|List| $) (|List| |#4|) (|Boolean|) (|Boolean|) (|Boolean|)
+             (|Boolean|)))
+           (SIGNATURE |internalZeroSetSplit|
+            ((|List| $) (|List| |#4|) (|Boolean|) (|Boolean|) (|Boolean|)))
+           (SIGNATURE |pre_process|
+            ((|Record| (|:| |val| (|List| |#4|)) (|:| |towers| (|List| $)))
+             (|List| |#4|) (|Boolean|) (|Boolean|)))))
+  (|GcdDomain|) (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|RecursivePolynomialCategory| |#1| |#2| |#3|))
+ (T |SquareFreeRegularTriangularSet|))
+(|Join| (|SquareFreeRegularTriangularSetCategory| |#1| |#2| |#3| |#4|)
+        (CATEGORY |domain|
+         (SIGNATURE |internalAugment|
+          ((|List| $) |#4| $ (|Boolean|) (|Boolean|) (|Boolean|) (|Boolean|)
+           (|Boolean|)))
+         (SIGNATURE |zeroSetSplit|
+          ((|List| $) (|List| |#4|) (|Boolean|) (|Boolean|)))
+         (SIGNATURE |zeroSetSplit|
+          ((|List| $) (|List| |#4|) (|Boolean|) (|Boolean|) (|Boolean|)
+           (|Boolean|)))
+         (SIGNATURE |internalZeroSetSplit|
+          ((|List| $) (|List| |#4|) (|Boolean|) (|Boolean|) (|Boolean|)))
+         (SIGNATURE |pre_process|
+          ((|Record| (|:| |val| (|List| |#4|)) (|:| |towers| (|List| $)))
+           (|List| |#4|) (|Boolean|) (|Boolean|)))))
+"/git/fricas/src/algebra/SREGSET.spad"
+((|internalAugment| (*1 *2 *3 *1 *4 *4 *4 *4 *4)
+  (AND (|isDomain| *4 (|Boolean|)) (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|isDomain| *2 (|List| (|SquareFreeRegularTriangularSet| *5 *6 *7 *3)))
+       (|isDomain| *1 (|SquareFreeRegularTriangularSet| *5 *6 *7 *3))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))))
+ (|zeroSetSplit| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|List| *8)) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *8 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|isDomain| *2 (|List| (|SquareFreeRegularTriangularSet| *5 *6 *7 *8)))
+       (|isDomain| *1 (|SquareFreeRegularTriangularSet| *5 *6 *7 *8))))
+ (|zeroSetSplit| (*1 *2 *3 *4 *4 *4 *4)
+  (AND (|isDomain| *3 (|List| *8)) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *8 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|isDomain| *2 (|List| (|SquareFreeRegularTriangularSet| *5 *6 *7 *8)))
+       (|isDomain| *1 (|SquareFreeRegularTriangularSet| *5 *6 *7 *8))))
+ (|internalZeroSetSplit| (*1 *2 *3 *4 *4 *4)
+  (AND (|isDomain| *3 (|List| *8)) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *8 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|isDomain| *2 (|List| (|SquareFreeRegularTriangularSet| *5 *6 *7 *8)))
+       (|isDomain| *1 (|SquareFreeRegularTriangularSet| *5 *6 *7 *8))))
+ (|pre_process| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|List| *8)) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *8 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|isDomain| *2
+                   (|Record| (|:| |val| (|List| *8))
+                             (|:| |towers|
+                                  (|List|
+                                   (|SquareFreeRegularTriangularSet| *5 *6 *7
+                                                                     *8)))))
+       (|isDomain| *1 (|SquareFreeRegularTriangularSet| *5 *6 *7 *8)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|zeroSetSplitIntoTriangularSystems|
+  (((|List| (|Record| (|:| |close| $) (|:| |open| (|List| |#4|))))
+    (|List| |#4|))
+   NIL))
+ (|zeroSetSplit| (((|List| $) (|List| |#4|)) 111)
+  (((|List| $) (|List| |#4|) (|Boolean|)) 112)
+  (((|List| $) (|List| |#4|) (|Boolean|) (|Boolean|)) 110)
+  (((|List| $) (|List| |#4|) (|Boolean|) (|Boolean|) (|Boolean|) (|Boolean|))
+   113))
+ (|variables| (((|List| |#3|) $) NIL)) (|trivialIdeal?| (((|Boolean|) $) NIL))
+ (|triangular?| (((|Boolean|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|stronglyReduced?| (((|Boolean|) |#4| $) NIL) (((|Boolean|) $) NIL))
+ (|stronglyReduce| ((|#4| |#4| $) NIL))
+ (|squareFreePart|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| $))) |#4| $) 85))
+ (|sort|
+  (((|Record| (|:| |under| $) (|:| |floor| $) (|:| |upper| $)) $ |#3|) NIL))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#4|) $) NIL (|has| $ (|finiteAggregate|)))
+  (((|Union| |#4| #1="failed") $ |#3|) 63))
+ (|sample| (($) NIL T CONST))
+ (|roughUnitIdeal?| (((|Boolean|) $) 26 (|has| |#1| (|IntegralDomain|))))
+ (|roughSubIdeal?| (((|Boolean|) $ $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|roughEqualIdeals?| (((|Boolean|) $ $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|roughBase?| (((|Boolean|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|rewriteSetWithReduction|
+  (((|List| |#4|) (|List| |#4|) $ (|Mapping| |#4| |#4| |#4|)
+    (|Mapping| (|Boolean|) |#4| |#4|))
+   NIL))
+ (|rewriteIdealWithRemainder|
+  (((|List| |#4|) (|List| |#4|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|rewriteIdealWithHeadRemainder|
+  (((|List| |#4|) (|List| |#4|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|retractIfCan| (((|Union| $ "failed") (|List| |#4|)) NIL))
+ (|retract| (($ (|List| |#4|)) NIL)) (|rest| (((|Union| $ #1#) $) 39))
+ (|removeZero| ((|#4| |#4| $) 66))
+ (|removeDuplicates|
+  (($ $) NIL (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|)))))
+ (|remove|
+  (($ |#4| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|))))
+  (($ (|Mapping| (|Boolean|) |#4|) $) NIL (|has| $ (|finiteAggregate|))))
+ (|remainder|
+  (((|Record| (|:| |rnum| |#1|) (|:| |polnum| |#4|) (|:| |den| |#1|)) |#4| $)
+   79 (|has| |#1| (|IntegralDomain|))))
+ (|reduced?| (((|Boolean|) |#4| $ (|Mapping| (|Boolean|) |#4| |#4|)) NIL))
+ (|reduceByQuasiMonic| ((|#4| |#4| $) NIL))
+ (|reduce|
+  ((|#4| (|Mapping| |#4| |#4| |#4|) $ |#4| |#4|) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|))))
+  ((|#4| (|Mapping| |#4| |#4| |#4|) $ |#4|) NIL (|has| $ (|finiteAggregate|)))
+  ((|#4| (|Mapping| |#4| |#4| |#4|) $) NIL (|has| $ (|finiteAggregate|)))
+  ((|#4| |#4| $ (|Mapping| |#4| |#4| |#4|) (|Mapping| (|Boolean|) |#4| |#4|))
+   NIL))
+ (|quasiComponent|
+  (((|Record| (|:| |close| (|List| |#4|)) (|:| |open| (|List| |#4|))) $) NIL))
+ (|purelyTranscendental?| (((|Boolean|) |#4| $) NIL))
+ (|purelyAlgebraicLeadingMonomial?| (((|Boolean|) |#4| $) NIL))
+ (|purelyAlgebraic?| (((|Boolean|) |#4| $) NIL) (((|Boolean|) $) NIL))
+ (|pre_process|
+  (((|Record| (|:| |val| (|List| |#4|)) (|:| |towers| (|List| $)))
+    (|List| |#4|) (|Boolean|) (|Boolean|))
+   125))
+ (|parts| (((|List| |#4|) $) 16 (|has| $ (|finiteAggregate|))))
+ (|normalized?| (((|Boolean|) |#4| $) NIL) (((|Boolean|) $) NIL))
+ (|mvar| ((|#3| $) 33)) (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|min|
+  ((|#4| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|OrderedSet|)))))
+ (|members| (((|List| |#4|) $) 17 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#4| $) 25
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|)))))
+ (|max|
+  ((|#4| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|OrderedSet|))))
+  ((|#4| (|Mapping| (|Boolean|) |#4| |#4|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|map!| (($ (|Mapping| |#4| |#4|) $) 23 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#4| |#4|) $) 21))
+ (|mainVariables| (((|List| |#3|) $) NIL))
+ (|mainVariable?| (((|Boolean|) |#3| $) NIL))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|latex| (((|String|) $) NIL))
+ (|lastSubResultantElseSplit| (((|Union| |#4| (|List| $)) |#4| |#4| $) NIL))
+ (|lastSubResultant|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| $))) |#4| |#4| $) 104))
+ (|last| (((|Union| |#4| #1#) $) 37))
+ (|invertibleSet| (((|List| $) |#4| $) 89))
+ (|invertibleElseSplit?| (((|Union| (|Boolean|) (|List| $)) |#4| $) NIL))
+ (|invertible?|
+  (((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| $))) |#4| $) 99)
+  (((|Boolean|) |#4| $) 54))
+ (|intersect| (((|List| $) |#4| $) 108) (((|List| $) (|List| |#4|) $) NIL)
+  (((|List| $) (|List| |#4|) (|List| $)) 109)
+  (((|List| $) |#4| (|List| $)) NIL))
+ (|internalZeroSetSplit|
+  (((|List| $) (|List| |#4|) (|Boolean|) (|Boolean|) (|Boolean|)) 120))
+ (|internalAugment| (($ |#4| $) 76) (($ (|List| |#4|) $) 77)
+  (((|List| $) |#4| $ (|Boolean|) (|Boolean|) (|Boolean|) (|Boolean|)
+    (|Boolean|))
+   75))
+ (|initials| (((|List| |#4|) $) NIL))
+ (|initiallyReduced?| (((|Boolean|) |#4| $) NIL) (((|Boolean|) $) NIL))
+ (|initiallyReduce| ((|#4| |#4| $) NIL)) (|infRittWu?| (((|Boolean|) $ $) NIL))
+ (|iexactQuo| ((|#1| |#1| |#1|) NIL (|has| |#1| (|IntegralDomain|))))
+ (|headRemainder|
+  (((|Record| (|:| |num| |#4|) (|:| |den| |#1|)) |#4| $) NIL
+   (|has| |#1| (|IntegralDomain|))))
+ (|headReduced?| (((|Boolean|) |#4| $) NIL) (((|Boolean|) $) NIL))
+ (|headReduce| ((|#4| |#4| $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|first| (((|Union| |#4| #1#) $) 35))
+ (|find| (((|Union| |#4| "failed") (|Mapping| (|Boolean|) |#4|) $) NIL))
+ (|extendIfCan| (((|Union| $ #1#) $ |#4|) 48))
+ (|extend| (($ $ |#4|) NIL) (((|List| $) |#4| $) 91)
+  (((|List| $) |#4| (|List| $)) NIL) (((|List| $) (|List| |#4|) $) NIL)
+  (((|List| $) (|List| |#4|) (|List| $)) 87))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#4|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| |#4|) (|List| |#4|)) NIL
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|))))
+  (($ $ |#4| |#4|) NIL
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|))))
+  (($ $ (|Equation| |#4|)) NIL
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|))))
+  (($ $ (|List| (|Equation| |#4|))) NIL
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) NIL)) (|empty?| (((|Boolean|) $) 15))
+ (|empty| (($) 13)) (|degree| (((|NonNegativeInteger|) $) NIL))
+ (|count|
+  (((|NonNegativeInteger|) |#4| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|))))
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#4|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|copy| (($ $) 12))
+ (|convert|
+  (((|InputForm|) $) NIL (|has| |#4| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#4|)) 20)) (|collectUpper| (($ $ |#3|) 42))
+ (|collectUnder| (($ $ |#3|) 44)) (|collectQuasiMonic| (($ $) NIL))
+ (|collect| (($ $ |#3|) NIL))
+ (|coerce| (((|OutputForm|) $) 31) (((|List| |#4|) $) 40))
+ (|coHeight| (((|NonNegativeInteger|) $) NIL (|has| |#3| (|Finite|))))
+ (|basicSet|
+  (((|Union| (|Record| (|:| |bas| $) (|:| |top| (|List| |#4|))) #1#)
+    (|List| |#4|) (|Mapping| (|Boolean|) |#4| |#4|))
+   NIL)
+  (((|Union| (|Record| (|:| |bas| $) (|:| |top| (|List| |#4|))) #1#)
+    (|List| |#4|) (|Mapping| (|Boolean|) |#4|)
+    (|Mapping| (|Boolean|) |#4| |#4|))
+   NIL))
+ (|autoReduced?|
+  (((|Boolean|) $ (|Mapping| (|Boolean|) |#4| (|List| |#4|))) NIL))
+ (|augment| (((|List| $) |#4| $) 55) (((|List| $) |#4| (|List| $)) NIL)
+  (((|List| $) (|List| |#4|) $) NIL)
+  (((|List| $) (|List| |#4|) (|List| $)) NIL))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#4|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|algebraicVariables| (((|List| |#3|) $) NIL))
+ (|algebraicCoefficients?| (((|Boolean|) |#4| $) NIL))
+ (|algebraic?| (((|Boolean|) |#3| $) 62)) (= (((|Boolean|) $ $) NIL))
+ (|#| (((|NonNegativeInteger|) $) NIL (|has| $ (|finiteAggregate|)))))
+((AND (|HasCategory| |#4| (LIST '|Evalable| (|devaluate| |#4|)))
+      (|HasCategory| |#4| '(|SetCategory|)))
+ (|HasCategory| |#4| (LIST '|ConvertibleTo| '(|InputForm|)))
+ (|HasCategory| |#4| '(|BasicType|)) (|HasCategory| |#4| '(|OrderedSet|))
+ (|HasCategory| |#1| '(|IntegralDomain|)) (|HasCategory| |#3| '(|Finite|))
+ (|HasCategory| $ '(|shallowlyMutable|)) (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| |#4| '(|BasicType|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (AND (|HasCategory| |#4| '(|OrderedSet|))
+      (|HasCategory| $ '(|finiteAggregate|))))
+SREGSET
+(((|SquareFreeRegularTriangularSetCategory| |#1| |#2| |#3| |#4|) . T))
+(((|Aggregate|) . T) ((|BasicType|) . T) ((|CoercibleTo| (|List| |t#4|)) . T)
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|Collection| |t#4|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|PolynomialSetCategory| |t#1| |t#2| |t#3| |t#4|) . T)
+ ((|RegularTriangularSetCategory| |t#1| |t#2| |t#3| |t#4|) . T)
+ ((|RetractableFrom| (|List| |t#4|)) . T) ((|SetCategory|) . T)
+ ((|SquareFreeRegularTriangularSetCategory| |#1| |#2| |#3| |#4|) . T)
+ ((|TriangularSetCategory| |t#1| |t#2| |t#3| |t#4|) . T) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "This domain provides an implementation of square-free regular chains. Moreover,{} the operation \\spadopFrom{zeroSetSplit}{SquareFreeRegularTriangularSetCategory} is an implementation of a new algorithm for solving polynomial systems by means of regular chains.\\newline"))
+ (|pre_process|
+  (((|Record| (|:| |val| (|List| |#4|)) (|:| |towers| (|List| $)))
+    (|List| |#4|) (|Boolean|) (|Boolean|))
+   "\\spad{pre_process(lp,{} b1,{} b2)} is an internal subroutine,{} exported only for developement."))
+ (|internalZeroSetSplit|
+  (((|List| $) (|List| |#4|) (|Boolean|) (|Boolean|) (|Boolean|))
+   "\\spad{internalZeroSetSplit(lp,{} b1,{} b2,{} b3)} is an internal subroutine,{} exported only for developement."))
+ (|zeroSetSplit|
+  (((|List| $) (|List| |#4|) (|Boolean|) (|Boolean|) (|Boolean|) (|Boolean|))
+   "\\spad{zeroSetSplit(lp,{} b1,{} b2.b3,{} b4)} is an internal subroutine,{} exported only for developement.")
+  (((|List| $) (|List| |#4|) (|Boolean|) (|Boolean|))
+   "\\spad{zeroSetSplit(lp,{} clos?,{} info?)} has the same specifications as \\spadopFrom{zeroSetSplit}{RegularTriangularSetCategory} from \\spadtype{RegularTriangularSetCategory} Moreover,{} if \\spad{clos?} then solves in the sense of the Zariski closure else solves in the sense of the regular zeros. If \\spad{info?} then do print messages during the computations."))
+ (|internalAugment|
+  (((|List| $) |#4| $ (|Boolean|) (|Boolean|) (|Boolean|) (|Boolean|)
+    (|Boolean|))
+   "\\spad{internalAugment(p,{} ts,{} b1,{} b2,{} b3,{} b4,{} b5)} is an internal subroutine,{} exported only for developement.")))
+(("documentation" 0 13840) ("ancestors" 0 13005) ("parents" 0 12934)
+ ("abbreviation" 0 12926) ("predicates" 0 12348) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4299) ("modemaps" 0 1836) ("sourceFile" 0 1797)
+ ("constructorCategory" 0 1052) ("constructorModemap" 0 72)
+ ("constructorKind" 0 63) ("constructorForm" 0 20))

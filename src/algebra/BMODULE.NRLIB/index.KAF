@@ -1,0 +1,51 @@
+1941                (|BiModule| R S)
+|category|
+(((|BiModule| |#1| |#2|) (|Category|) (|SemiRng|) (|SemiRng|)) (T |BiModule|))
+(|Join| (|LeftModule| |t#1|) (|RightModule| |t#2|))
+"/git/fricas/src/algebra/BMODULE.spad"
+((~= (((|Boolean|) $ $) 6))
+ (|zero?|
+  (((|Boolean|) $) 6
+   (OR (|has| |#2| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) 6
+   (OR (|has| |#2| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|)))))
+ (|sample|
+  (($) 6 (OR (|has| |#2| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))
+   CONST))
+ (|opposite?|
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#2| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))))
+ (|latex| (((|String|) $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (|Zero|
+  (($) 6 (OR (|has| |#2| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))
+   CONST))
+ (= (((|Boolean|) $ $) 6))
+ (- (($ $) 6 (OR (|has| |#2| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|))))
+    (($ $ $) 6
+     (OR (|has| |#2| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|)))))
+ (+ (($ $ $) 6))
+ (* (($ (|PositiveInteger|) $) 6) (($ |#1| $) 6)
+    (($ (|NonNegativeInteger|) $) 6
+     (OR (|has| |#2| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|))))
+    (($ (|Integer|) $) 6
+     (OR (|has| |#2| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|))))
+    (($ $ |#2|) 6)))
+BMODULE
+(((|LeftModule| |#1|) . T) ((|RightModule| |#2|) . T))
+(((|AbelianGroup|) |has| |t#1| (|AbelianGroup|))
+ ((|AbelianMonoid|) |has| |t#1| (|AbelianMonoid|)) ((|AbelianSemiGroup|) . T)
+ ((|BasicType|) . T)
+ ((|CancellationAbelianMonoid|) |has| |t#1| (|AbelianGroup|))
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|LeftModule| |#1|) . T)
+ ((|RightModule| |#2|) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "A \\spadtype{BiModule} is both a left and right module with respect to potentially different rings. \\blankline")))
+(("documentation" 0 1798) ("ancestors" 0 1473) ("parents" 0 1418)
+ ("abbreviation" 0 1410) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 218) ("modemaps" 0 NIL) ("sourceFile" 0 179)
+ ("constructorCategory" 0 127) ("constructorModemap" 0 48)
+ ("constructorKind" 0 37) ("constructorForm" 0 20))

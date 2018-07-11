@@ -1,0 +1,186 @@
+9216                (MAKEPROP '|PolynomialEvaluationUtilities| 'NILADIC T)
+(|PolynomialEvaluationUtilities|)
+|package|
+(((|PolynomialEvaluationUtilities|)
+  (CATEGORY |package|
+   (SIGNATURE |eval1a|
+    ((|Integer|) (|Polynomial| (|Integer|)) (|Integer|)
+     (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+               (|:| |eval1expbuf| (|SortedExponentVector|)))))
+   (SIGNATURE |eval1|
+    ((|Polynomial| (|Integer|)) (|Polynomial| (|Integer|)) (|Symbol|)
+     (|Integer|)
+     (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+               (|:| |eval1expbuf| (|SortedExponentVector|)))))
+   (SIGNATURE |eval1|
+    ((|Union|
+      (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+                (|:| |denom| (|Polynomial| (|Integer|))))
+      "failed")
+     (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+               (|:| |denom| (|Polynomial| (|Integer|))))
+     (|Symbol|) (|Integer|)
+     (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+               (|:| |eval1expbuf| (|SortedExponentVector|)))))
+   (SIGNATURE |modpreduction|
+    ((|Polynomial| (|Integer|)) (|Polynomial| (|Integer|)) (|Integer|)))
+   (SIGNATURE |modpreduction|
+    ((|Union|
+      (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+                (|:| |denom| (|Polynomial| (|Integer|))))
+      "failed")
+     (|Fraction| (|Polynomial| (|Integer|))) (|Integer|)))
+   (SIGNATURE |modpeval|
+    ((|Integer|) (|Polynomial| (|Integer|)) (|List| (|Symbol|))
+     (|List| (|Integer|)) (|Integer|)))))
+ (T |PolynomialEvaluationUtilities|))
+(CATEGORY |package|
+ (SIGNATURE |eval1a|
+  ((|Integer|) (|Polynomial| (|Integer|)) (|Integer|)
+   (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+             (|:| |eval1expbuf| (|SortedExponentVector|)))))
+ (SIGNATURE |eval1|
+  ((|Polynomial| (|Integer|)) (|Polynomial| (|Integer|)) (|Symbol|) (|Integer|)
+   (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+             (|:| |eval1expbuf| (|SortedExponentVector|)))))
+ (SIGNATURE |eval1|
+  ((|Union|
+    (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+              (|:| |denom| (|Polynomial| (|Integer|))))
+    "failed")
+   (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+             (|:| |denom| (|Polynomial| (|Integer|))))
+   (|Symbol|) (|Integer|)
+   (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+             (|:| |eval1expbuf| (|SortedExponentVector|)))))
+ (SIGNATURE |modpreduction|
+  ((|Polynomial| (|Integer|)) (|Polynomial| (|Integer|)) (|Integer|)))
+ (SIGNATURE |modpreduction|
+  ((|Union|
+    (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+              (|:| |denom| (|Polynomial| (|Integer|))))
+    "failed")
+   (|Fraction| (|Polynomial| (|Integer|))) (|Integer|)))
+ (SIGNATURE |modpeval|
+  ((|Integer|) (|Polynomial| (|Integer|)) (|List| (|Symbol|))
+   (|List| (|Integer|)) (|Integer|))))
+"/git/fricas/src/algebra/PEVALUT.spad"
+((|modpeval| (*1 *2 *3 *4 *5 *2)
+  (AND (|isDomain| *3 (|Polynomial| (|Integer|)))
+       (|isDomain| *4 (|List| (|Symbol|))) (|isDomain| *5 (|List| (|Integer|)))
+       (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|PolynomialEvaluationUtilities|))))
+ (|modpreduction| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Fraction| (|Polynomial| (|Integer|))))
+   (|isDomain| *4 (|Integer|))
+   (|isDomain| *2
+               (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+                         (|:| |denom| (|Polynomial| (|Integer|)))))
+   (|isDomain| *1 (|PolynomialEvaluationUtilities|))))
+ (|modpreduction| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Polynomial| (|Integer|))) (|isDomain| *3 (|Integer|))
+       (|isDomain| *1 (|PolynomialEvaluationUtilities|))))
+ (|eval1| (*1 *2 *2 *3 *4 *5)
+  (|partial| AND
+   (|isDomain| *2
+               (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+                         (|:| |denom| (|Polynomial| (|Integer|)))))
+   (|isDomain| *3 (|Symbol|))
+   (|isDomain| *5
+               (|Record| (|:| |prime| (|Integer|))
+                         (|:| |eval1coeffbuf| (|U32Vector|))
+                         (|:| |eval1expbuf| (|SortedExponentVector|))))
+   (|isDomain| *4 (|Integer|))
+   (|isDomain| *1 (|PolynomialEvaluationUtilities|))))
+ (|eval1| (*1 *2 *2 *3 *4 *5)
+  (AND (|isDomain| *2 (|Polynomial| (|Integer|))) (|isDomain| *3 (|Symbol|))
+       (|isDomain| *5
+                   (|Record| (|:| |prime| (|Integer|))
+                             (|:| |eval1coeffbuf| (|U32Vector|))
+                             (|:| |eval1expbuf| (|SortedExponentVector|))))
+       (|isDomain| *4 (|Integer|))
+       (|isDomain| *1 (|PolynomialEvaluationUtilities|))))
+ (|eval1a| (*1 *2 *3 *2 *4)
+  (AND (|isDomain| *3 (|Polynomial| (|Integer|)))
+       (|isDomain| *4
+                   (|Record| (|:| |prime| (|Integer|))
+                             (|:| |eval1coeffbuf| (|U32Vector|))
+                             (|:| |eval1expbuf| (|SortedExponentVector|))))
+       (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|PolynomialEvaluationUtilities|)))))
+((|modpreduction|
+  (((|Union|
+     (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+               (|:| |denom| (|Polynomial| (|Integer|))))
+     "failed")
+    (|Fraction| (|Polynomial| (|Integer|))) (|Integer|))
+   35)
+  (((|Polynomial| (|Integer|)) (|Polynomial| (|Integer|)) (|Integer|)) 30))
+ (|modpeval|
+  (((|Integer|) (|Polynomial| (|Integer|)) (|List| (|Symbol|))
+    (|List| (|Integer|)) (|Integer|))
+   39))
+ (|eval1a|
+  (((|Integer|) (|Polynomial| (|Integer|)) (|Integer|)
+    (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+              (|:| |eval1expbuf| (|SortedExponentVector|))))
+   16))
+ (|eval1|
+  (((|Union|
+     (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+               (|:| |denom| (|Polynomial| (|Integer|))))
+     "failed")
+    (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+              (|:| |denom| (|Polynomial| (|Integer|))))
+    (|Symbol|) (|Integer|)
+    (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+              (|:| |eval1expbuf| (|SortedExponentVector|))))
+   28)
+  (((|Polynomial| (|Integer|)) (|Polynomial| (|Integer|)) (|Symbol|)
+    (|Integer|)
+    (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+              (|:| |eval1expbuf| (|SortedExponentVector|))))
+   19)))
+PEVALUT
+((|constructor|
+  (NIL
+   "This package implements evaluation functions \\indented{1}{useful for modular algorithms.\\space{2}Computations work} \\indented{1}{on integer polynomials,{} but most is done modulo a prime} \\indented{1}{which is provided via parameters,{} either explicitly or} \\indented{1}{through a state parameter (state also caches needed buffers).} \\indented{1}{Some functions work on fractions.\\space{2}To avoid useless \\spad{GCD}} \\indented{1}{computations during evaluation fractions may be represented} \\indented{1}{as a record.}"))
+ (|modpeval|
+  (((|Integer|) (|Polynomial| (|Integer|)) (|List| (|Symbol|))
+    (|List| (|Integer|)) (|Integer|))
+   "\\spad{modpeval(pol,{} lv,{} lpt,{} p)} evaluates polynomial \\spad{pol} in variables form \\spad{lv} at point from \\spad{lpt} modulo a prime \\spad{p}"))
+ (|modpreduction|
+  (((|Union|
+     (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+               (|:| |denom| (|Polynomial| (|Integer|))))
+     "failed")
+    (|Fraction| (|Polynomial| (|Integer|))) (|Integer|))
+   "\\spad{modpreduction(r,{} p)} reduces a rational function \\spad{r} modulo prime \\spad{p}.")
+  (((|Polynomial| (|Integer|)) (|Polynomial| (|Integer|)) (|Integer|))
+   "\\spad{modpreduction(pol,{} p)} reduces polynomial \\spad{pol} modulo prime \\spad{p}."))
+ (|eval1|
+  (((|Union|
+     (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+               (|:| |denom| (|Polynomial| (|Integer|))))
+     "failed")
+    (|Record| (|:| |numer| (|Polynomial| (|Integer|)))
+              (|:| |denom| (|Polynomial| (|Integer|))))
+    (|Symbol|) (|Integer|)
+    (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+              (|:| |eval1expbuf| (|SortedExponentVector|))))
+   "\\spad{eval1(pq,{} v,{} pt,{} pss)} evaluates fraction of polynomial \\spad{pq} in variable \\spad{v} at \\spad{pt},{} using global state form \\spad{pss}. Computations are done modulo a prime contained in \\spad{pss}.")
+  (((|Polynomial| (|Integer|)) (|Polynomial| (|Integer|)) (|Symbol|)
+    (|Integer|)
+    (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+              (|:| |eval1expbuf| (|SortedExponentVector|))))
+   "\\spad{eval1(pol,{} v,{} pt,{} pss)} evaluates \\spad{pol} in variable \\spad{v} at \\spad{pt},{} using global state form \\spad{pss}. Computations are done modulo a prime contained in \\spad{pss}."))
+ (|eval1a|
+  (((|Integer|) (|Polynomial| (|Integer|)) (|Integer|)
+    (|Record| (|:| |prime| (|Integer|)) (|:| |eval1coeffbuf| (|U32Vector|))
+              (|:| |eval1expbuf| (|SortedExponentVector|))))
+   "\\spad{eval1a(pol,{} pt,{} pss)} evaluates polynomial \\spad{pol} at point \\spad{pt} using global state form \\spad{pss}. Computations are done modulo a prime contained in \\spad{pss}. Note: \\spad{pol} must have at most one variable.")))
+(("documentation" 0 6378) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 6370) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5074) ("modemaps" 0 2978) ("sourceFile" 0 2939)
+ ("constructorCategory" 0 1599) ("constructorModemap" 0 119)
+ ("constructorKind" 0 109) ("constructorForm" 0 75) ("NILADIC" 0 20))

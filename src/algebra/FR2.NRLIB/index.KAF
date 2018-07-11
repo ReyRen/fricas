@@ -1,0 +1,29 @@
+1407                (|FactoredFunctions2| R S)
+|package|
+(((|FactoredFunctions2| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |map|
+    ((|Factored| |#2|) (|Mapping| |#2| |#1|) (|Factored| |#1|))))
+  (|IntegralDomain|) (|IntegralDomain|))
+ (T |FactoredFunctions2|))
+(CATEGORY |package|
+ (SIGNATURE |map| ((|Factored| |#2|) (|Mapping| |#2| |#1|) (|Factored| |#1|))))
+"/git/fricas/src/algebra/FR2.spad"
+((|map| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *6 *5)) (|isDomain| *4 (|Factored| *5))
+       (|ofCategory| *5 (|IntegralDomain|))
+       (|ofCategory| *6 (|IntegralDomain|)) (|isDomain| *2 (|Factored| *6))
+       (|isDomain| *1 (|FactoredFunctions2| *5 *6)))))
+((|map| (((|Factored| |#2|) (|Mapping| |#2| |#1|) (|Factored| |#1|)) 21)))
+FR2
+((|constructor|
+  (NIL
+   "\\spadtype{FactoredFunctions2} contains functions that involve factored objects whose underlying domains may not be the same. For example,{} \\spadfun{map} might be used to coerce an object of type \\spadtype{Factored(Integer)} to \\spadtype{Factored(Complex(Integer))}."))
+ (|map|
+  (((|Factored| |#2|) (|Mapping| |#2| |#1|) (|Factored| |#1|))
+   "\\spad{map(fn,{} u)} is used to apply the function \\userfun{\\spad{fn}} to every factor of \\spadvar{\\spad{u}}. The new factored object will have all its information flags set to \"nil\". This function is used,{} for example,{} to coerce every factor base to another type.")))
+(("documentation" 0 752) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 748) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 673) ("modemaps" 0 403) ("sourceFile" 0 368)
+ ("constructorCategory" 0 268) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

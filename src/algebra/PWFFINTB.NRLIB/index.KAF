@@ -1,0 +1,79 @@
+5502                (|PAdicWildFunctionFieldIntegralBasis| K R UP F)
+|package|
+(((|PAdicWildFunctionFieldIntegralBasis| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |integralBasis|
+    ((|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+               (|:| |basisInv| (|Matrix| |#2|)))))
+   (SIGNATURE |localIntegralBasis|
+    ((|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+               (|:| |basisInv| (|Matrix| |#2|)))
+     |#2|))
+   (SIGNATURE |reducedDiscriminant| (|#2| |#3|)))
+  (|FiniteFieldCategory|) (|UnivariatePolynomialCategory| |#1|)
+  (|UnivariatePolynomialCategory| |#2|) (|MonogenicAlgebra| |#2| |#3|))
+ (T |PAdicWildFunctionFieldIntegralBasis|))
+(CATEGORY |package|
+ (SIGNATURE |integralBasis|
+  ((|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+             (|:| |basisInv| (|Matrix| |#2|)))))
+ (SIGNATURE |localIntegralBasis|
+  ((|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+             (|:| |basisInv| (|Matrix| |#2|)))
+   |#2|))
+ (SIGNATURE |reducedDiscriminant| (|#2| |#3|)))
+"/git/fricas/src/algebra/PWFFINTB.spad"
+((|reducedDiscriminant| (*1 *2 *3)
+  (AND (|ofCategory| *3 (|UnivariatePolynomialCategory| *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))
+       (|isDomain| *1 (|PAdicWildFunctionFieldIntegralBasis| *4 *2 *3 *5))
+       (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|ofCategory| *5 (|MonogenicAlgebra| *2 *3))))
+ (|localIntegralBasis| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *3))
+       (|isDomain| *2
+                   (|Record| (|:| |basis| (|Matrix| *3)) (|:| |basisDen| *3)
+                             (|:| |basisInv| (|Matrix| *3))))
+       (|isDomain| *1 (|PAdicWildFunctionFieldIntegralBasis| *4 *3 *5 *6))
+       (|ofCategory| *6 (|MonogenicAlgebra| *3 *5))))
+ (|integralBasis| (*1 *2)
+  (AND (|ofCategory| *3 (|FiniteFieldCategory|))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+       (|isDomain| *2
+                   (|Record| (|:| |basis| (|Matrix| *4)) (|:| |basisDen| *4)
+                             (|:| |basisInv| (|Matrix| *4))))
+       (|isDomain| *1 (|PAdicWildFunctionFieldIntegralBasis| *3 *4 *5 *6))
+       (|ofCategory| *6 (|MonogenicAlgebra| *4 *5)))))
+((|reducedDiscriminant| ((|#2| |#3|) 34))
+ (|localIntegralBasis|
+  (((|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+              (|:| |basisInv| (|Matrix| |#2|)))
+    |#2|)
+   71))
+ (|integralBasis|
+  (((|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+              (|:| |basisInv| (|Matrix| |#2|))))
+   86)))
+PWFFINTB
+((|constructor|
+  (NIL
+   "In this package \\spad{K} is a finite field,{} \\spad{R} is a ring of univariate polynomials over \\spad{K},{} and \\spad{F} is a monogenic algebra over \\spad{R}. We require that \\spad{F} is monogenic,{} \\spadignore{i.e.} that \\spad{F = K[x,{} y]/(f(x,{} y))},{} because the integral basis algorithm used will factor the polynomial \\spad{f(x,{} y)}. The package provides a function to compute the integral closure of \\spad{R} in the quotient field of \\spad{F} as well as a function to compute a \"local integral basis\" at a specific prime."))
+ (|reducedDiscriminant|
+  ((|#2| |#3|) "\\spad{reducedDiscriminant(up)} \\undocumented"))
+ (|localIntegralBasis|
+  (((|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+              (|:| |basisInv| (|Matrix| |#2|)))
+    |#2|)
+   "\\spad{integralBasis(p)} returns a record \\spad{[basis,{} basisDen,{} basisInv] } containing information regarding the local integral closure of \\spad{R} at the prime \\spad{p} in the quotient field of the framed algebra \\spad{F}. \\spad{F} is a framed algebra with \\spad{R}-module basis \\spad{w1,{} w2,{} ...,{} wn}. If 'basis' is the matrix \\spad{(aij,{} i = 1..n,{} j = 1..n)},{} then the \\spad{i}th element of the local integral basis is \\spad{\\spad{vi} = (1/basisDen) * sum(aij * wj,{} j = 1..n)},{} \\spadignore{i.e.} the \\spad{i}th row of 'basis' contains the coordinates of the \\spad{i}th basis vector. Similarly,{} the \\spad{i}th row of the matrix 'basisInv' contains the coordinates of \\spad{\\spad{wi}} with respect to the basis \\spad{v1,{} ...,{} vn}: if 'basisInv' is the matrix \\spad{(bij,{} i = 1..n,{} j = 1..n)},{} then \\spad{\\spad{wi} = sum(bij * vj,{} j = 1..n)}."))
+ (|integralBasis|
+  (((|Record| (|:| |basis| (|Matrix| |#2|)) (|:| |basisDen| |#2|)
+              (|:| |basisInv| (|Matrix| |#2|))))
+   "\\spad{integralBasis()} returns a record \\spad{[basis,{} basisDen,{} basisInv] } containing information regarding the integral closure of \\spad{R} in the quotient field of the framed algebra \\spad{F}. \\spad{F} is a framed algebra with \\spad{R}-module basis \\spad{w1,{} w2,{} ...,{} wn}. If 'basis' is the matrix \\spad{(aij,{} i = 1..n,{} j = 1..n)},{} then the \\spad{i}th element of the integral basis is \\spad{\\spad{vi} = (1/basisDen) * sum(aij * wj,{} j = 1..n)},{} \\spadignore{i.e.} the \\spad{i}th row of 'basis' contains the coordinates of the \\spad{i}th basis vector. Similarly,{} the \\spad{i}th row of the matrix 'basisInv' contains the coordinates of \\spad{\\spad{wi}} with respect to the basis \\spad{v1,{} ...,{} vn}: if 'basisInv' is the matrix \\spad{(bij,{} i = 1..n,{} j = 1..n)},{} then \\spad{\\spad{wi} = sum(bij * vj,{} j = 1..n)}.")))
+(("documentation" 0 2775) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2766) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2427) ("modemaps" 0 1109) ("sourceFile" 0 1069)
+ ("constructorCategory" 0 704) ("constructorModemap" 0 79)
+ ("constructorKind" 0 69) ("constructorForm" 0 20))

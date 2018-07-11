@@ -1,0 +1,75 @@
+)abbrev domain CYCGRP CyclicGroup
+++ Author: Franz Lehner
+++ Date Created: 30.12.2014
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ A domain for finite cyclic groups.
+CyclicGroup(n: PositiveInteger, g: Symbol) : Exports == Implementation where
+  Exports ==> Join(FiniteGroup, FinitelyGenerated, Comparable,
+                   CommutativeStar, ConvertibleTo SExpression) with
+    generator : () -> %
+    ++ \spad{generator()} returns the generator.
+    exponent : % -> Integer
+    ++ \spad{exponent(g^k)} returns the representative integer $k$.
+  Implementation ==> add
+    Rep := Integer
+
+    rep(x:%) : Rep == x :: Rep
+    per(r:Rep) : % == r :: %
+
+    -- SetCategory
+    coerce(x: %) : OutputForm ==
+        one? x => return coerce(1@Integer)$Integer
+        one?(rep x)$Rep => return g::OutputForm
+        (g::OutputForm)^coerce(rep x)
+
+    hashUpdate!(hs, s) == update!(hs, rep s pretend SingleInteger)$HashState
+
+    convert(x:%) : SExpression ==
+        convert(rep x)$SExpression
+
+    -- Group operations
+    1: % ==
+        per(0$Rep)
+
+    one?(x: %) : Boolean == zero? (rep x)
+
+    order(x: %) == n quo gcd(exponent x,n)
+
+    _*(x:%, y:%) : % == per(addmod(rep x, rep y, n)$Rep)
+
+    inv(x: %) : % ==
+        one? x => 1
+        per((n - rep x)$Rep)
+
+    -- SetCategory
+    _=(x:%, y:%) : Boolean == (rep x = rep y)
+
+    smaller?(x, y) == rep x < rep y
+    -- Finite
+    size() : NonNegativeInteger == n::NonNegativeInteger
+
+    index(i: PositiveInteger) : % ==
+        i > n => error "out of range"
+        imodn := submod(i, 1, n)
+        zero? imodn => return 1
+        per imodn
+
+    lookup(x) == ((rep x) rem n + 1) pretend PositiveInteger
+
+    random() == per random(n)
+
+    enumerate() : List % == [per k for k in 0..n-1]
+
+    -- FinitelyGenerated
+    generator() : % ==  per 1
+
+    exponent(x:%) : Integer ==  rep x
+
+    generators() : List % == [generator()]
+

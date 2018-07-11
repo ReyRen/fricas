@@ -1,0 +1,49 @@
+1974                (|GeneralPolynomialGcdPackage| E OV R P)
+|package|
+(((|GeneralPolynomialGcdPackage| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |gcdPolynomial|
+    ((|SparseUnivariatePolynomial| |#4|) (|SparseUnivariatePolynomial| |#4|)
+     (|SparseUnivariatePolynomial| |#4|)))
+   (SIGNATURE |randomR| (|#3|)))
+  (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|PolynomialFactorizationExplicit|) (|PolynomialCategory| |#3| |#1| |#2|))
+ (T |GeneralPolynomialGcdPackage|))
+(CATEGORY |package|
+ (SIGNATURE |gcdPolynomial|
+  ((|SparseUnivariatePolynomial| |#4|) (|SparseUnivariatePolynomial| |#4|)
+   (|SparseUnivariatePolynomial| |#4|)))
+ (SIGNATURE |randomR| (|#3|)))
+"/git/fricas/src/algebra/GENPGCD.spad"
+((|randomR| (*1 *2)
+  (AND (|ofCategory| *3 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *4 (|OrderedSet|))
+       (|ofCategory| *2 (|PolynomialFactorizationExplicit|))
+       (|isDomain| *1 (|GeneralPolynomialGcdPackage| *3 *4 *2 *5))
+       (|ofCategory| *5 (|PolynomialCategory| *2 *3 *4))))
+ (|gcdPolynomial| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|SparseUnivariatePolynomial| *6))
+       (|ofCategory| *6 (|PolynomialCategory| *5 *3 *4))
+       (|ofCategory| *3 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *4 (|OrderedSet|))
+       (|ofCategory| *5 (|PolynomialFactorizationExplicit|))
+       (|isDomain| *1 (|GeneralPolynomialGcdPackage| *3 *4 *5 *6)))))
+((|randomR| ((|#3|) 35))
+ (|gcdPolynomial|
+  (((|SparseUnivariatePolynomial| |#4|) (|SparseUnivariatePolynomial| |#4|)
+    (|SparseUnivariatePolynomial| |#4|))
+   31)))
+GENPGCD
+((|constructor|
+  (NIL
+   "This package provides operations for \\spad{GCD} computations on polynomials"))
+ (|randomR| ((|#3|) "\\spad{randomR()} should be local but conditional"))
+ (|gcdPolynomial|
+  (((|SparseUnivariatePolynomial| |#4|) (|SparseUnivariatePolynomial| |#4|)
+    (|SparseUnivariatePolynomial| |#4|))
+   "\\spad{gcdPolynomial(p,{} q)} returns the \\spad{GCD} of \\spad{p} and \\spad{q}")))
+(("documentation" 0 1569) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1561) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1392) ("modemaps" 0 722) ("sourceFile" 0 683)
+ ("constructorCategory" 0 488) ("constructorModemap" 0 71)
+ ("constructorKind" 0 61) ("constructorForm" 0 20))

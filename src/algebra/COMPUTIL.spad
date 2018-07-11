@@ -1,0 +1,534 @@
+)abbrev package COMPUTIL compUtil
+++ Author: Martin Baker
+++ Date Created: April 2011
+++ Basic Operations:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/computation/utility/
+++ Description:
+++ The compUtil package provides utilities to convert between the
+++ computational domains: Lambda, Ski and ILogic.
+++ Both Lambda are Ski are Turing complete and can be coerced
+++ to each other. Lambda and Ski are not equal and they are only
+++ isomorphic up to beta-equivalence and beta-equivalence is
+++ undecidable so there is not a direct correspondence
+++ between the nodes in their trees.
+++ Also the names of bound variables and other such constructions
+++ may be lost in Lambda -> Ski -> Lambda round trip.
+++ An element of ILogic cannot be coerced to the other types.
+++ However ILogic can be used to produce a theory which can
+++ be concerted to/from the other domains using Curry-Howard
+++ isomorphism.
+
+compUtil(UT) : Exports == Implementation where
+
+ UT : VarCat
+ LU ==> Lambda UT
+ SU ==> SKICombinators UT
+ NNI==> NonNegativeInteger
+ x<<y ==> hconcat(x::OutputForm,y::OutputForm)
+   ++ macro to simplify output
+
+ Exports ==> with
+    coerce : (s : SU) -> LU
+      ++ coerce SKI combinators to Lambda term.
+      ++ this conversion is done by applying the following rules
+      ++ rule SL1: Ski[I] = \x.0
+      ++ rule SL2: Ski[K] = \x.\y.1
+      ++ rule SL3: Ski[S] = \x.\y.\z.(2 0 (1 0))
+      ++ rule SL4: Ski[(E1 E2)] = (Ski[E1] Ski[E2])
+    coerce : (lam : LU) -> SU
+      ++ coerce Lambda term to SKI combinators.
+      ++ this process is known as abstraction elimination.
+      ++ it is done by applying the following rules until
+      ++ all lambda terms have been eliminated.
+      ++ rule LS1: Lam[x] => x
+      ++ rule LS2: Lam[(E1 E2)] => (Lam[E1] Lam[E2])
+      ++ rule LS3: Lam[\x.E] => (K Lam[E]) (if x does not occur free in E)
+      ++ rule LS4: Lam[\x.x] => I
+      ++ rule LS5: Lam[\x.\y.E] => Lam[\x.Lam[\y.E]] (if x occurs free in E)
+      ++ rule LS6: Lam[\x.(E1 E2)] => (S Lam[\x.E1] Lam[\x.E2])
+    coerce : (s : SU) -> ILogic
+      ++ coerce combinators to intuitionistic logic
+      ++ this is known as the Curry-Howard isomorphism
+      ++ it uses the following rules:
+      ++ rule SI1: Ski[Kab] => a -> (b -> a),
+      ++ rule SI2: Ski[Sabc] => (a -> (b -> c)) -> ((a -> b) -> (a -> c)),
+      ++ rule SI3: Ski[a a->b] => b
+      ++ the last rule is function application (modus ponens)
+
+ Implementation ==> add
+
+  import OutputForm
+
+  -- Keeps count of index number of variables created in Ski2Lambda.
+  -- I am wary of defining a variable outside of a function but
+  -- can't find another non-messy way to update it from several
+  -- functions.
+  varNum : NNI := 0::NNI
+
+  -- used by coerce SKI combinators to Lambda term.
+  Ski2Lambda(s : SU) : LU ==
+    -- if s is an atom then this means that there are no
+    -- parameters for this combinator. If there had been
+    -- they would have been found when this was called on
+    -- the nodes above it.
+    -- print(message "util coerce called for:" << s))
+    if atom?(s)$SU then
+      --print(message "util coerce atom:" << s)
+      if isI?(s)$SU then
+        strVar:String := concat("v",string(varNum))
+        print(message "util coerce rule SL1: Ski[I] = \" << message strVar
+              << message ".0")
+        varNum := varNum +1
+        return parseLambda(concat["\",strVar,".0"])$LU
+      if isK?(s)$SU then
+        strVar1:String := concat("v",string(varNum))
+        strVar2:String := concat("v",string(varNum+1))
+        print(message "util coerce rule SL2: Ski[K] = \" << message strVar1
+              << message ".\" << message strVar2 << message ".1")
+        varNum := varNum +2
+        return parseLambda(concat["\",strVar1,".\",strVar2,".1"])$LU
+      if isS?(s)$SU then
+        strVar1:String := concat("v",string(varNum))
+        strVar2:String := concat("v",string(varNum+1))
+        strVar3:String := concat("v",string(varNum+2))
+        print(message "util coerce rule SL3: Ski[S] = \" << message strVar1
+              << message ".\" << message strVar2 << message ".\" <<
+              message strVar3 << message ".(2 0 (1 0))")
+        varNum := varNum +3
+        return parseLambda(concat["\",strVar1,".\",strVar2,".\",strVar3,".(2 0 (1 0))"])$LU
+      print(message "util coerce pass unbound variable " << _
+        (message getName(getVariable(s)$SU)$UT) << message " unchanged")
+      return lambda(getVariable(s)$SU)$LU
+    subnodes : List SU := getChildren(s)$SU
+    c1 : SU := first subnodes
+    c2 : SU := second subnodes
+    s1 : String := toString(c1)$SU
+    s2 : String := toString(c2)$SU
+    -- print(message "util coerce c1=" << (toString(c1)$SU) << " c2=" <<
+    --       toString(c2))
+    -- look for I x, if found translate x
+    if isI?(c1)$SU then
+      print(message "util coerce apply rule SL1 in:" << s)
+      return Ski2Lambda(c2)
+    if atom?(c1)$SU then
+      print(message "util coerce rule SL4: Ski[(" << message s1 << message" "
+            << message s2 << message ")] = (Ski[" << message s1 <<
+            message "] Ski[" << message s2 << message "])")
+      return lambda(Ski2Lambda(c1), Ski2Lambda(c2))$LU
+    -- look for K x y, if found translate x
+    subsubnodes : List SU := getChildren(c1)$SU
+    c11 : SU := first subsubnodes
+    c12 : SU := second subsubnodes
+    --print(message "util coerce c1=" << (toString(c1)$SU) << _
+    --  message " c2=" << (toString(c2)$SU) << " c11=" << _
+    --  (toString(c11)$SU) << " c12=" << (toString(c12)$SU))
+    if isK?(c11)$SU then
+      s12 : String := getName(getVariable(c12)$SU)$UT
+      print(message "util coerce apply rule SL2 in:" << s)
+      return Ski2Lambda(c12)
+    if atom?(c11)$SU then
+      print(message "util coerce rule SL4: Ski[(" << message s1 << _
+        message " " << message s2 << message ")] = (Ski[" << message s1 << _
+        message "] Ski[" << message s2 << message "])")
+      return lambda(Ski2Lambda(c1), Ski2Lambda(c2))$LU
+    -- look for S x y z, if found translate (x z)(y z)
+    subsubnodes2 : List SU := getChildren(c11)$SU
+    c111 : SU := first subsubnodes2
+    c112 : SU := second subsubnodes2
+    --print(message "util coerce c11=" << (toString(c11)$SU) << _
+    --  message " c12=" << (toString(c12)$SU) << " c111=" << _
+    --  (toString(c111)$SU) << " c112=" << (toString(c112)$SU))
+    -- look for K x y, if found translate x
+    if isS?(c111)$SU then
+      s2 : String := getName(getVariable(c2)$SU)$UT
+      s12 : String := getName(getVariable(c12)$SU)$UT
+      s112 : String := getName(getVariable(c112)$SU)$UT
+      print(message "util coerce apply rule SL3 in:" << s)
+      return lambda(lambda(Ski2Lambda(c112), Ski2Lambda(c2))$LU, lambda(Ski2Lambda(c12), Ski2Lambda(c2))$LU)$LU
+    print(message "util coerce rule SL4: Ski[(" << message s1 << message " "
+          << message s2 << message ")] = (Ski[" << message s1 <<
+          message "] Ski[" << message s2 << message "])")
+    lambda(Ski2Lambda(c1), Ski2Lambda(c2))$LU
+
+  -- coerce SKI combinators to Lambda term.
+  -- this conversion is done by applying the following rules
+  -- rule SL1: Ski[I] = \x.0
+  -- rule SL2: Ski[K] = \x.\y.1
+  -- rule SL3: Ski[S] = \x.\y.\z.(2 0 (1 0))
+  -- rule SL4: Ski[(E1 E2)] = (Ski[E1] Ski[E2])
+  coerce(s : SU) : LU ==
+    varNum := 0
+    term : LU := Ski2Lambda(s)
+    term
+
+  -- when we are coercing Lambda to Ski and we apply rule LS5
+  -- we call this
+  lambdaOverSki(var : UT, sk : SU) : SU ==
+    --print(message "gives \" << (toString(var)$UT) << _
+    --  message "." << toString(sk))
+    if atom?(sk) then
+      if freeVariable?(sk, var)$SU then
+        print(message "util coerce rule LS3' applied to: \" << _
+          var << message "." << sk << _
+          message " giving K " << sk)
+        return ski(K(), sk)
+      print(message "util coerce rule LS4' applied to: \" << _
+        var << message "." << sk << message " giving I")
+      return I()$SU
+    ch : List SU := getChildren(sk)$SU
+    left : SU := first ch
+    right : SU := second ch
+    --print(message "left=" << toString(left) << _
+    --      message " right=" << toString(right))
+    if freeVariable?(sk, var)$SU then
+      print(message "util coerce rule LS3' applied to: \" << _
+        var << message "." << sk << _
+        message " giving K \" << var << message "." << _
+        left << message " \" << var << _
+        message "." << right)
+      return ski(K(), ski(left, right))
+    print(message "util coerce rule LS5' applied to: \" << _
+      var << message "." << sk << _
+      message " giving S \" << var << _
+      message "." << left << message " \" << _
+      var << message "." << right)
+    return ski(ski(S()$SU, lambdaOverSki(var, left)), lambdaOverSki(var, right))
+
+  -- coerce Lambda term to SKI combinators.
+  -- this process is known as abstraction elimination.
+  -- it is done by applying the following rules until
+  -- all lambda terms have been eliminated.
+  -- rule LS1: Lam[x] => x
+  -- rule LS2: Lam[(E1 E2)] => (Lam[E1] Lam[E2])
+  -- rule LS3: Lam[\x.E] => (K Lam[E]) (if x does not occur free in E)
+  -- rule LS4: Lam[\x.x] => I
+  -- rule LS5: Lam[\x.\y.E] => Lam[\x.Lam[\y.E]] (if x occurs free in E)
+  -- rule LS6: Lam[\x.(E1 E2)] => (S Lam[\x.E1] Lam[\x.E2])
+  coerce(lam : LU) : SU ==
+    -- test for rule 1
+    if atom?(lam)$LU then
+      print(message "util coerce rule LS1 applied to:" << _
+        lam << message " giving " << lam)
+      return ski(var(toString(lam)$LU)$UT)$SU
+    if isCompound?(lam)$LU then
+      ch : List LU := getChildren(lam)$LU
+      c1 : LU := first ch
+      c2 : LU := second ch
+      print(message "util coerce rule LS2 applied to:" << _
+        lam << message " giving (" << c1 << _
+        message " " << c2 << message ")")
+      return ski(c1::SU, c2::SU)$SU
+    if isLambda?(lam)$LU then
+      lamUn : LU := unbind(lam)$LU
+      c3 : LU := first getChildren(lamUn)$LU
+      s3 : UT := getVariable(lam)$LU
+      if atom?(c3)$LU then
+        if toString(c3)$LU="0" then
+          print(message "util coerce rule LS4 applied to:" << _
+            lam << message " giving I")
+          return I()$SU
+      if free?(lam)$LU then
+        print(message "util coerce rule LS3 applied to:" << _
+          lam << message " giving K " << c3)
+        return ski(K(), c3::SU)$SU
+      if isLambda?(c3)$LU then
+        c33 : LU := first getChildren(c3)$LU
+        cxx : LU := lambda(c33, getVariable(c3)$LU)$LU
+        print(message "util coerce rule LS5 applied to:" << _
+          lam << message " giving \" << s3 << message "." << cxx)
+        return lambdaOverSki(s3, cxx::SU)
+      if isCompound?(c3) then
+        ch3 : List LU := getChildren(c3)$LU
+        c31 : LU := first ch3
+        c32 : LU := second ch3
+        print(message "util coerce rule LS6 applied to:" << _
+          lam << message " giving S \" << _
+          s3 << message "." << _
+          c31 << message " \" << _
+          s3 << message "." << c32)
+        return ski(ski(S()$SU, lambdaOverSki(s3, c31::SU)), lambdaOverSki(s3, c32::SU))$SU
+    print(message "util coerce warning could not match any rule to:" << lam)
+    I()$SU
+
+  -- coerce combinators to intuitionistic logic
+  -- this is known as the Curry-Howard isomorphism
+  -- it uses the following rules:
+  -- rule SI1: Ski[Ia] => a -> a,
+  -- rule SI2: Ski[Kab] => a -> (b -> a),
+  -- rule SI3: Ski[Sabc] => (a -> (b -> c)) -> ((a -> b) -> (a -> c)),
+  -- rule SI4: Ski[a a->b] => b
+  -- the last rule is function application (modus ponens)
+  coerce(s : SU) : ILogic ==
+    -- if s is an atom then this means that there are no
+    -- parameters for this combinator. If there had been
+    -- they would have been found when this was called on
+    -- the nodes above it.
+    -- I don't know the best way to handle this, really we
+    -- need to add the required number of parameters, do
+    -- the conversion then remove the parameters just added.
+    -- print(message "util coerce called for:" << (toString(s)$SU))
+    if atom?(s) then
+      --print(message "util coerce atom:" << toString(s)$SU)
+      if isI?(s) then
+        print(message "warning I does not have a parameter to act on")
+        print(message "creating x")
+        a :ILogic  := proposition("x")
+        return implies(a, a)
+      if isK?(s) then
+        print(message "warning K does not enough parameters to act on")
+        print(message "creating x and y")
+        a :ILogic  := proposition("x")
+        b :ILogic  := proposition("y")
+        return implies(a, implies(b, a))
+      if isS?(s) then
+        print(message "warning S does not enough parameters to act on")
+        print(message "creating x,y and z")
+        a :ILogic  := proposition("x")
+        b :ILogic  := proposition("y")
+        c :ILogic  := proposition("z")
+        ab : ILogic  := implies(a, b)
+        ac : ILogic  := implies(a, c)
+        bc : ILogic  := implies(b, c)
+        return implies(implies(a, bc), implies(ab, ac))
+      return proposition(getName(getVariable(s)$SU)$UT)
+    subnodes : List SU := getChildren(s)$SU
+    c1 : SU := first subnodes
+    c2 : SU := second subnodes
+    --print(message "util coerce c1=" << c1 << message " c2=" << c2)
+    -- look for I x, if found translate x
+    if isI?(c1) then
+      print(message "util coerce apply rule SI1 in:" << s)
+      a : ILogic  := c1::ILogic
+      return implies(a, a)
+    if atom?(c1) then return _\_/(c1::ILogic, c2::ILogic)
+    -- look for K x y, if found translate x
+    subsubnodes : List SU := getChildren(c1)
+    c11 : SU := first subsubnodes
+    c12 : SU := second subsubnodes
+    --print(message "util coerce c1=" << c1 << _
+    --  message " c2=" << c2 << message " c11=" << _
+    --  c11 << message " c12=" << c12)
+    if isK?(c11) then
+      print(message "util coerce apply rule SI2 in:" << s)
+      a : ILogic  := c2::ILogic
+      b : ILogic  := c12::ILogic
+      return implies(a, implies(b, a))
+    if atom?(c11) then return _\_/(c1::ILogic, c2::ILogic)
+    -- look for S x y z, if found translate (x z)(y z)
+    subsubnodes2 : List SU := getChildren(c11)
+    c111 : SU := first subsubnodes2
+    c112 : SU := second subsubnodes2
+    --print(message "util coerce c11=" << c11 << message " c12=" << _
+    --       c12 << message " c111=" << c111 << message " c112=" << c112)
+    -- look for K x y, if found translate x
+    if isS?(c111) then
+      print(message "util coerce apply rule SI3 in:" << s)
+      a : ILogic  := c2::ILogic
+      b : ILogic  := c12::ILogic
+      c : ILogic  := c112::ILogic
+      ab : ILogic  := implies(a, b)
+      ac : ILogic  := implies(a, c)
+      bc : ILogic  := implies(b, c)
+      return implies(implies(a, bc), implies(ab, ac))
+    _\_/(c1::ILogic, c2::ILogic)
+
+
+)if false
+
+\section{Code Generation Package}
+For more information about this package see:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/computation/codeGen/}
+
+Maps abstract computational structures to real-world FriCAS code.
+
+compCode is a package in the computation framework that allows FriCAS
+source code to be created from the abstract structures in the framework.
+This is done by the following functions:
+
+\section{writePackage}
+
+'writePackage' creates source code for a FriCAS package from a list of
+lambda structures over typed variables. This is reasonably easy to do
+since functions in a FriCAS package have a similar structure to lambda
+functions.
+
+Parameters are:
+\begin{itemize}
+  \item list of lambda structures
+  \item filename
+  \item short name
+  \item long name
+  \item category name
+\end{itemize}
+
+\section{writeCategory}
+
+'writeCategory' creates source code for a FriCAS package from a list of
+ILogic structures. This relies on the Curry-Howard isomorphism between
+intuitionistic logic and types in a computation.
+
+Parameters are:
+\begin{itemize}
+  \item list of intuitionistic logic structures
+  \item filename
+  \item short name
+  \item long name
+\end{itemize}
+
+Example
+
+In intuitionistic logic if we know 'a' and we know 'a->b' then we can
+deduce b (by modus ponens) that is:
+
+\begin{verbatim}
+(a /\ (a -> b) ) -> b
+\end{verbatim}
+
+Curry-Howard isomorphism relates this intuitionistic logic to types
+in a computation so given types 'a' and 'a->b' then we can create
+any of these function types without using additional information
+(other functions or constants):
+
+\begin{verbatim}
+    func1 : (a, a->b) -> a
+    func2 : (a, a->b) -> (a->b)
+    func3 : (a, a->b) -> b
+\end{verbatim}
+
+func3 is more interesting since func1 and func2 can be created by
+passing on one of its parameters and throwing away the other.
+
+So how can we implement this? From the original (a /\ (a -> b) )
+we need to expand out to (a /\ (a -> b) /\ b) containing all factors.
+
+By the Curry-Howard isomorphism we can coerce to the
+intuitionisticLogic from Lambda. This gives an isomorphism where
+theorems in intuitionistic logic correspond to type signatures in
+combinatory logic and programs in intuitionistic logic correspond
+to the proofs of those theorems in combinatory logic.
+
+As an example of this in Haskell see "Djinn, a theorem prover in
+Haskell" [2]
+
+see also : Philip Wadler - Theorems for free! [1]
+\section{Code Generation Package - Tutorial}
+First we may need to expose the required code such as ILOGIC and COMPCODE
+\begin{verbatim}
+(1) -> )expose COMPCODE
+(1) -> )expose ILOGIC
+\end{verbatim}
+We can generate the source code for a FriCAS package from lambda
+expressions. To start we will create some typed variables and lambda
+terms to work with:
+\begin{verbatim}
+(1) -> vx := var("x",proposition("String"))$Typed
+
+   (1)  x:String
+                                                        Type: Typed
+(2) -> vy := var("y",proposition("String"))$Typed
+
+   (2)  y:String
+                                                        Type: Typed
+(3) -> nx := lambda(vx)
+
+   (3)  x:String
+                                                Type: Lambda(Typed)
+(4) -> ny := lambda(vy)
+
+   (4)  y:String
+                                                Type: Lambda(Typed)
+\end{verbatim}
+Now we create some lambda expressions to be converted to source code:
+\begin{verbatim}
+(5) -> pacEx1 : Lambda Typed := lambda(nx, vx)$Lambda Typed
+
+   (5)  (\x.x)
+                                                Type: Lambda(Typed)
+(6) -> pacEx2 : Lambda Typed := lambda(pacEx1, vy)$Lambda Typed
+
+   (6)  (\y.(\x.y))
+                                                Type: Lambda(Typed)
+(7) -> pacEx3 : Lambda Typed := lambda(lambda(nx, ny), vy)$Lambda Typed
+
+   (7)  (\y.(x:String y))
+                                                Type: Lambda(Typed)
+\end{verbatim}
+Now we generate the source code using the writePackage function where:
+\begin{itemize}
+  \item testComp1.spad is the filename
+  \item TESTCCP is the short name
+  \item TestCCP is the long name
+  \item Type is the category name
+\end{itemize}
+\begin{verbatim}
+(8) -> writePackage([pacEx1,pacEx2,pacEx3],"testGeneratedCode.spad","TESTCCP","TestCCP","Type")
+                                                                   Type: Void
+\end{verbatim}
+When we look at the testComp1.spad file we can see the code that has
+been generated:
+
+  )abbrev package TESTCCP TestCCP
+
+  TestCCP() : Exports == Implementation where
+
+   Exports ==> Type with
+
+   Implementation ==> add
+
+    fn1(x : String) : String == x
+    fn2(y : String) : String ==  x+->(y)
+    fn3(y : String) : String ==  x(y)
+
+@
+\end{verbatim}
+This code may have to be tweaked by hand before it can be used.
+
+Now we can move on to generate the source code for a FriCAS category
+from intuitionistic logic expressions. To start we will create some
+intuitionistic logic terms as examples:
+\begin{verbatim}
+(9) -> catEx1:ILogic := implies(proposition("a"),proposition("b"))/\proposition("a")
+
+   (9)  ((a->b)/\a)
+                                                       Type: ILogic
+(10) -> catEx2:ILogic := proposition("a")/\proposition("b")
+
+   (10)  (a/\b)
+                                                       Type: ILogic
+\end{verbatim}
+Now we generate the source code using the writeCategory function where:
+\begin{itemize}
+  \item testComp2.spad is the filename
+  \item TESTCC is the short name
+  \item TestCC is the long name
+\end{itemize}
+\begin{verbatim}
+(11) -> writeCategory([catEx1,catEx2],"testGeneratedCode2.spad","TESTCCP","TestCCP")
+                                                                   Type: Void
+\end{verbatim}
+When we look at the testComp2.spad file we can see the code that has
+been generated:
+\begin{verbatim}
+
+  )abbrev category TESTCC TestCC
+
+  TestCC() : Category == Type with
+
+
+    fn1 : (a->b, a) -> b
+    fn2 : (a, b) -> a
+
+@
+\end{verbatim}
+In fn1 type 'b' was generated from 'a->b' and 'a' (by modus ponens). If
+two or more deductions were made then only the first would be used.
+In fn2 no additional deductions could be made, in this case the first
+parameter is used as the deduction.
+\section{package COMPCODE compCode}
+)endif
+

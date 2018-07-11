@@ -1,0 +1,168 @@
+)abbrev domain JDIFF JetDifferential
+++ Description:
+++  \spad{JetDifferential(JB, D)} implements differentials (one-forms)
+++   over the jet bundle \spad{JB} with coefficients from \spad{D}.
+++   The differentials operate on \spad{JetVectorField(JB, D)}.
+
+JetDifferential(JB : JBC, D : JBFC JB) : Cat == Def where
+
+  PI   ==> PositiveInteger
+  NNI  ==> NonNegativeInteger
+  L    ==> List
+  B    ==> Boolean
+  JBC  ==> JetBundleCategory
+  JBFC ==> JetBundleFunctionCategory
+  VF   ==> JetVectorField(JB, D)
+  OUT  ==> OutputForm
+
+  Cat ==> Module(D) with
+
+    d : JB -> %
+      ++ \spad{d(jb)} returns the differential of \spad{jb}.
+
+    dX : PI -> %
+      ++ \spad{dX(i)} returns the differential of \spad{X(i)}.
+
+    dU : PI -> %
+      ++ \spad{dU(i)} returns the differential of \spad{U(i)}.
+
+    dP : (PI, L NNI) -> %
+      ++ \spad{dP(i, mu)} returns the differential of \spad{P(i, mu)}.
+
+    d : D -> %
+      ++ \spad{d(f)} computes the differential of \spad{f}.
+
+    coefficients : % -> L D
+      ++ \spad{coefficients(om)} yields the coefficients of \spad{om}.
+
+    differentials : % -> L JB
+      ++ \spad{directions(om)} yields the differentials where \spad{om} has
+      ++ non-vanishing coefficients.
+
+    coefficient : (%, JB) -> D
+      ++ \spad{coefficient(om, jb)} returns the coefficient of \spad{om} for
+      ++ the differential of \spad{jb}.
+
+    copy : % -> %
+      ++ \spad{copy(om)} returns a copy of the differential \spad{om}.
+
+    lie : (VF, %) -> %
+      ++ \spad{lie(v, om)} calculates the Lie derivative of \spad{om} with
+      ++ respect to \spad{v}.
+
+    contract : (VF, %) -> D
+      ++ \spad{contract(v, om)} computes the interior derivative of \spad{om}
+      ++ with respect to \spad{v}.
+
+    eval : (%, VF) -> D
+      ++ \spad{eval(om, v)} applies the differential \spad{om} to the vector
+      ++ field \spad{v}.
+
+  Def ==> add
+
+    -- -------------- --
+    -- Representation --
+    -- -------------- --
+
+    Rep := Record(Coeff : L D, Diff : L JB)
+
+    d(jb : JB) : % == [[1], [jb]]
+
+    dX(i : PI) : % == d X(i)$JB
+
+    dU(i : PI) : % == d U(i)$JB
+
+    dP(i : PI, mu : L NNI) : % == d P(i, mu)$JB
+
+    monom(c : D, jb : JB) : OUT ==
+        one? c => hconcat(message("d"), jb::OUT)
+        c::OUT * hconcat(message("d"), jb::OUT)
+
+    coerce(om : %) : OUT ==
+        empty?(om.Diff) => 0$D ::OUT
+        one?(#om.Diff) => monom(first om.Coeff, first om.Diff)
+        reduce("+", [monom(c, jb) for c in om.Coeff for jb in om.Diff])
+
+    coefficients(om : %) : L D == copy om.Coeff
+
+    differentials(om : %) : L JB == copy om.Diff
+
+    coefficient(om : %, jb : JB) : D ==
+        pos := position(jb, om.Diff)
+        pos < minIndex(om.Diff) => 0
+        qelt(om.Coeff, pos)
+
+    copy(om : %) : % == [copy om.Coeff, copy om.Diff]
+
+    -- ---------- --
+    -- Arithmetic --
+    -- ---------- --
+
+    0 : % == [empty, empty]
+
+    zero?(om : %) : B == empty? om.Diff
+
+    - om : % == [[-$D c  for c in om.Coeff], om.Diff]
+
+    om1 : % + om2 : % ==
+        zero? om1 => om2
+        zero? om2 => om1
+        lc2 := copy om2.Coeff
+        lj2 := copy om2.Diff
+        resC := empty()$L(D)
+        resJ := empty()$L(JB)
+
+        for c1 in om1.Coeff  for j1 in om1.Diff repeat
+            while not empty?(lj2) and first(lj2) < j1 repeat
+                resC := cons(first lc2, resC)
+                resJ := cons(first lj2, resJ)
+                lc2 := rest lc2
+                lj2 := rest lj2
+            if not empty?(lj2) and first(lj2) = j1 then
+                sum := c1 +$D first lc2
+                if not zero? sum then
+                    resC := cons(sum, resC)
+                    resJ := cons(j1, resJ)
+                lc2 := rest lc2
+                lj2 := rest lj2
+            else
+                resC := cons(c1, resC)
+                resJ := cons(j1, resJ)
+
+        [concat!(reverse! resC, lc2), concat!(reverse! resJ, lj2)]
+
+    f : D * om : % ==
+        zero? f => 0
+        [[f *$D c  for c in om.Coeff], om.Diff]
+
+    -- -------------------- --
+    -- Geometric Operations --
+    -- -------------------- --
+
+    d(f : D) : % ==
+        JV := reverse! jetVariables f
+        empty? JV => 0
+        Co : L D := [differentiate(f, jv)  for jv in JV]
+        [Co, JV]
+
+    eval(om : %, v : VF) : D ==
+        zero? om => 0
+        zero? v => 0
+        lc2 : L D := copy coefficients v
+        lj2 : L JB := copy directions v
+        res := 0$D
+
+        for c1 in om.Coeff  for j1 in om.Diff repeat
+            while not empty?(lj2) and first(lj2) < j1 repeat
+                lc2 := rest lc2
+                lj2 := rest lj2
+            if not empty?(lj2) and first(lj2) = j1 then
+                res := res + c1*first(lc2)
+                lc2 := rest lc2
+                lj2 := rest lj2
+
+        res
+
+    contract(v : VF, om : %) : D == eval(om, v)
+
+

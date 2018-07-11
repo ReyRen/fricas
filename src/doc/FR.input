@@ -1,0 +1,62 @@
+
+-- Input for page ugxFactoredArithPage
+)clear all
+
+g := factor(4312)
+f := factor(246960)
+f * g
+f^500
+gcd(f,g)
+lcm(f,g)
+f + g
+f - g
+zero?(factor(0))
+zero?(g)
+one?(factor(1))
+one?(f)
+0$Factored(Integer)
+1$Factored(Integer)
+
+-- Input for page ugxFactoredDecompPage
+)clear all
+
+g := factor(4312)
+unit(g)
+numberOfFactors(g)
+[i.factor for i in factorList(g)]
+[i.exponent for i in factorList(g)]
+[i.flag for i in factorList(g)]
+factorList(g)
+factors(g)
+first(%).factor
+
+-- Input for page ugxFactoredExpandPage
+)clear all
+
+g := factor(4312)
+expand(g)
+reduce(*,[t.factor for t in factors(g)])
+
+-- Input for page FactoredXmpPage
+)clear all
+
+
+-- Input for page ugxFactoredVarPage
+)clear all
+
+p := (4*x*x-12*x+9)*y*y + (4*x*x-12*x+9)*y + 28*x*x - 84*x + 63
+fp := factor(p)
+D(p,x)
+D(fp,x)
+numberOfFactors(%)
+
+-- Input for page ugxFactoredNewPage
+)clear all
+
+nilFactor(24,2)
+factorList(%).1.flag
+sqfrFactor(30,2)
+irreducibleFactor(13,10)
+primeFactor(11,5)
+h := factor(-720)
+h - makeFR(unit(h),factorList(h))

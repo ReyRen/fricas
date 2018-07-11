@@ -1,0 +1,70 @@
+2972                (MAKEPROP '|RandomIntegerDistributions| 'NILADIC T)
+(|RandomIntegerDistributions|)
+|package|
+(((|RandomIntegerDistributions|)
+  (CATEGORY |package|
+   (SIGNATURE |uniform| ((|Mapping| (|Integer|)) (|Segment| (|Integer|))))
+   (SIGNATURE |binomial|
+    ((|Mapping| (|Integer|)) (|Integer|) (|Fraction| (|Integer|))))
+   (SIGNATURE |poisson| ((|Mapping| (|Integer|)) (|Fraction| (|Integer|))))
+   (SIGNATURE |geometric| ((|Mapping| (|Integer|)) (|Fraction| (|Integer|))))
+   (SIGNATURE |ridHack1|
+    ((|Integer|) (|Integer|) (|Integer|) (|Integer|) (|Integer|)))))
+ (T |RandomIntegerDistributions|))
+(CATEGORY |package|
+ (SIGNATURE |uniform| ((|Mapping| (|Integer|)) (|Segment| (|Integer|))))
+ (SIGNATURE |binomial|
+  ((|Mapping| (|Integer|)) (|Integer|) (|Fraction| (|Integer|))))
+ (SIGNATURE |poisson| ((|Mapping| (|Integer|)) (|Fraction| (|Integer|))))
+ (SIGNATURE |geometric| ((|Mapping| (|Integer|)) (|Fraction| (|Integer|))))
+ (SIGNATURE |ridHack1|
+  ((|Integer|) (|Integer|) (|Integer|) (|Integer|) (|Integer|))))
+"/git/fricas/src/algebra/RIDIST.spad"
+((|ridHack1| (*1 *2 *2 *2 *2 *2)
+  (AND (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|RandomIntegerDistributions|))))
+ (|geometric| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Fraction| (|Integer|)))
+       (|isDomain| *2 (|Mapping| (|Integer|)))
+       (|isDomain| *1 (|RandomIntegerDistributions|))))
+ (|poisson| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Fraction| (|Integer|)))
+       (|isDomain| *2 (|Mapping| (|Integer|)))
+       (|isDomain| *1 (|RandomIntegerDistributions|))))
+ (|binomial| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Fraction| (|Integer|))) (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|Mapping| (|Integer|)))
+       (|isDomain| *1 (|RandomIntegerDistributions|))))
+ (|uniform| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Segment| (|Integer|)))
+       (|isDomain| *2 (|Mapping| (|Integer|)))
+       (|isDomain| *1 (|RandomIntegerDistributions|)))))
+((|uniform| (((|Mapping| (|Integer|)) (|Segment| (|Integer|))) 31))
+ (|ridHack1|
+  (((|Integer|) (|Integer|) (|Integer|) (|Integer|) (|Integer|)) 28))
+ (|poisson| (((|Mapping| (|Integer|)) (|Fraction| (|Integer|))) NIL))
+ (|geometric| (((|Mapping| (|Integer|)) (|Fraction| (|Integer|))) NIL))
+ (|binomial|
+  (((|Mapping| (|Integer|)) (|Integer|) (|Fraction| (|Integer|))) NIL)))
+RIDIST
+((|constructor| (NIL "This package exports integer distributions"))
+ (|ridHack1|
+  (((|Integer|) (|Integer|) (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{ridHack1(i,{} j,{} k,{} l)} \\undocumented"))
+ (|geometric|
+  (((|Mapping| (|Integer|)) (|Fraction| (|Integer|)))
+   "\\spad{geometric(f)} \\undocumented"))
+ (|poisson|
+  (((|Mapping| (|Integer|)) (|Fraction| (|Integer|)))
+   "\\spad{poisson(f)} \\undocumented"))
+ (|binomial|
+  (((|Mapping| (|Integer|)) (|Integer|) (|Fraction| (|Integer|)))
+   "\\spad{binomial(n,{} f)} \\undocumented"))
+ (|uniform|
+  (((|Mapping| (|Integer|)) (|Segment| (|Integer|)))
+   "\\spad{uniform(s)} \\undocumented")))
+(("documentation" 0 2318) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2311) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1932) ("modemaps" 0 1078) ("sourceFile" 0 1040)
+ ("constructorCategory" 0 619) ("constructorModemap" 0 113)
+ ("constructorKind" 0 103) ("constructorForm" 0 72) ("NILADIC" 0 20))

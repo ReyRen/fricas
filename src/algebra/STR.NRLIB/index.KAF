@@ -1,0 +1,96 @@
+4828                (|STransform| PT)
+|domain|
+(((|STransform| |#1|)
+  (CATEGORY |domain|
+   (SIGNATURE |stransform| ($ (|List| (|List| (|DoubleFloat|)))))
+   (SIGNATURE |stransform| ($ (|Mapping| |#1| |#1|)))
+   (SIGNATURE |stransform|
+    ($ (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|)))))
+   (SIGNATURE |stransform| ($ (|List| (|DoubleFloat|))))
+   (SIGNATURE |stranslate|
+    ($ (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)
+     (|DoubleFloat|) (|DoubleFloat|)))
+   (SIGNATURE |identity| ($)) (SIGNATURE |xform| (|#1| $ |#1|))
+   (SIGNATURE |compound| ($ $ $)) (SIGNATURE |coerce| ((|OutputForm|) $)))
+  (|SPointCategory|))
+ (T |STransform|))
+(CATEGORY |domain|
+ (SIGNATURE |stransform| ($ (|List| (|List| (|DoubleFloat|)))))
+ (SIGNATURE |stransform| ($ (|Mapping| |#1| |#1|)))
+ (SIGNATURE |stransform|
+  ($ (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|)))))
+ (SIGNATURE |stransform| ($ (|List| (|DoubleFloat|))))
+ (SIGNATURE |stranslate|
+  ($ (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)
+   (|DoubleFloat|) (|DoubleFloat|)))
+ (SIGNATURE |identity| ($)) (SIGNATURE |xform| (|#1| $ |#1|))
+ (SIGNATURE |compound| ($ $ $)) (SIGNATURE |coerce| ((|OutputForm|) $)))
+"/git/fricas/src/algebra/STR.spad"
+((|coerce| (*1 *2 *1)
+           (AND (|isDomain| *2 (|OutputForm|))
+                (|isDomain| *1 (|STransform| *3))
+                (|ofCategory| *3 (|SPointCategory|))))
+ (|compound| (*1 *1 *1 *1)
+  (AND (|isDomain| *1 (|STransform| *2)) (|ofCategory| *2 (|SPointCategory|))))
+ (|xform| (*1 *2 *1 *2)
+  (AND (|isDomain| *1 (|STransform| *2)) (|ofCategory| *2 (|SPointCategory|))))
+ (|identity| (*1 *1)
+  (AND (|isDomain| *1 (|STransform| *2)) (|ofCategory| *2 (|SPointCategory|))))
+ (|stranslate| (*1 *1 *2 *2 *2 *2 *2 *2)
+  (AND (|isDomain| *2 (|DoubleFloat|)) (|isDomain| *1 (|STransform| *3))
+       (|ofCategory| *3 (|SPointCategory|))))
+ (|stransform| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|DoubleFloat|)))
+       (|isDomain| *1 (|STransform| *3)) (|ofCategory| *3 (|SPointCategory|))))
+ (|stransform| (*1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|Mapping| (|Complex| (|DoubleFloat|))
+                          (|Complex| (|DoubleFloat|))))
+   (|isDomain| *1 (|STransform| *3)) (|ofCategory| *3 (|SPointCategory|))))
+ (|stransform| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Mapping| *3 *3)) (|ofCategory| *3 (|SPointCategory|))
+       (|isDomain| *1 (|STransform| *3))))
+ (|stransform| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|List| (|DoubleFloat|))))
+       (|isDomain| *1 (|STransform| *3)) (|ofCategory| *3 (|SPointCategory|)))))
+((|xform| ((|#1| $ |#1|) 54))
+ (|stranslate|
+  (($ (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)
+    (|DoubleFloat|) (|DoubleFloat|))
+   39))
+ (|stransform| (($ (|List| (|DoubleFloat|))) 26)
+  (($ (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|)))) 23)
+  (($ (|Mapping| |#1| |#1|)) 17) (($ (|List| (|List| (|DoubleFloat|)))) 15))
+ (|identity| (($) 14)) (|compound| (($ $ $) 57))
+ (|coerce| (((|OutputForm|) $) 51)))
+STR
+((|constructor|
+  (NIL
+   "\\indented{1}{Domains for transform from SPoint to SPoint} STransform transform domain can by used to represent linear transforms for instance when working with SCartesian where its Representation is a matrix of DoubleFloat Other transform domains may not necessarily be linear and will have different representations"))
+ (|coerce| (((|OutputForm|) $) "\\spad{coerce(tr)} output"))
+ (|compound| (($ $ $) "\\spad{compound(tr,{} inpt)} combine two transforms"))
+ (|xform|
+  ((|#1| $ |#1|)
+   "\\spad{xform(tr,{} inpt)} apply transform to a point producing another point"))
+ (|identity|
+  (($)
+   "\\spad{identity()} returns the identity element which is do nothing transform"))
+ (|stranslate|
+  (($ (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)
+    (|DoubleFloat|) (|DoubleFloat|))
+   "\\spad{stranslate(offsetx,{} offsety,{} offsetz,{} scalex,{} scaley,{} scalez)} constructs a transform which represents pure translation we can also combine with scale which,{} for instance,{} is useful when writing to \\spad{SVG} file because the \\spad{y} dimension is inverted"))
+ (|stransform|
+  (($ (|List| (|DoubleFloat|)))
+   "\\spad{stransform(m)} construct transform using a multivector")
+  (($ (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|))))
+   "\\spad{stransform(cpx)} construct transform as function of complex variable can only be used when \\spad{PT} is SArgand so this can be converted to \\spad{PT} \\spad{->} \\spad{PT}")
+  (($ (|Mapping| |#1| |#1|))
+   "\\spad{stransform(gen)} construct transform in general form as a mapping from \\spad{PT} to \\spad{PT}")
+  (($ (|List| (|List| (|DoubleFloat|))))
+   "\\spad{stransform(m)} constructs transform with given matrix elements")))
+(("documentation" 0 3082) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3078) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2627) ("modemaps" 0 1279) ("sourceFile" 0 1244)
+ ("constructorCategory" 0 688) ("constructorModemap" 0 47)
+ ("constructorKind" 0 38) ("constructorForm" 0 20))

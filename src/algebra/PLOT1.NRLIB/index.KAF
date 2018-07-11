@@ -1,0 +1,57 @@
+2831                (|PlotFunctions1| S)
+|package|
+(((|PlotFunctions1| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |plot| ((|Plot|) |#1| (|Symbol|) (|Segment| (|DoubleFloat|))))
+   (SIGNATURE |plot|
+    ((|Plot|) |#1| |#1| (|Symbol|) (|Segment| (|DoubleFloat|))))
+   (SIGNATURE |plotPolar|
+    ((|Plot|) |#1| (|Symbol|) (|Segment| (|DoubleFloat|))))
+   (SIGNATURE |plotPolar| ((|Plot|) |#1| (|Symbol|))))
+  (|ConvertibleTo| (|InputForm|)))
+ (T |PlotFunctions1|))
+(CATEGORY |package|
+ (SIGNATURE |plot| ((|Plot|) |#1| (|Symbol|) (|Segment| (|DoubleFloat|))))
+ (SIGNATURE |plot| ((|Plot|) |#1| |#1| (|Symbol|) (|Segment| (|DoubleFloat|))))
+ (SIGNATURE |plotPolar| ((|Plot|) |#1| (|Symbol|) (|Segment| (|DoubleFloat|))))
+ (SIGNATURE |plotPolar| ((|Plot|) |#1| (|Symbol|))))
+"/git/fricas/src/algebra/PLOT1.spad"
+((|plotPolar| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Symbol|)) (|isDomain| *2 (|Plot|))
+       (|isDomain| *1 (|PlotFunctions1| *3))
+       (|ofCategory| *3 (|ConvertibleTo| (|InputForm|)))))
+ (|plotPolar| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *4 (|Symbol|)) (|isDomain| *5 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *2 (|Plot|)) (|isDomain| *1 (|PlotFunctions1| *3))
+       (|ofCategory| *3 (|ConvertibleTo| (|InputForm|)))))
+ (|plot| (*1 *2 *3 *3 *4 *5)
+  (AND (|isDomain| *4 (|Symbol|)) (|isDomain| *5 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *2 (|Plot|)) (|isDomain| *1 (|PlotFunctions1| *3))
+       (|ofCategory| *3 (|ConvertibleTo| (|InputForm|)))))
+ (|plot| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *4 (|Symbol|)) (|isDomain| *5 (|Segment| (|DoubleFloat|)))
+       (|isDomain| *2 (|Plot|)) (|isDomain| *1 (|PlotFunctions1| *3))
+       (|ofCategory| *3 (|ConvertibleTo| (|InputForm|))))))
+((|plotPolar| (((|Plot|) |#1| (|Symbol|)) 16)
+  (((|Plot|) |#1| (|Symbol|) (|Segment| (|DoubleFloat|))) 20))
+ (|plot| (((|Plot|) |#1| |#1| (|Symbol|) (|Segment| (|DoubleFloat|))) 18)
+  (((|Plot|) |#1| (|Symbol|) (|Segment| (|DoubleFloat|))) 14)))
+PLOT1
+((|constructor|
+  (NIL
+   "\\spad{PlotFunctions1} provides facilities for plotting curves where functions \\spad{SF} \\spad{->} \\spad{SF} are specified by giving an expression"))
+ (|plotPolar|
+  (((|Plot|) |#1| (|Symbol|))
+   "\\spad{plotPolar(f,{} theta)} plots the graph of \\spad{r = f(theta)} as theta ranges from 0 to 2 \\spad{pi}")
+  (((|Plot|) |#1| (|Symbol|) (|Segment| (|DoubleFloat|)))
+   "\\spad{plotPolar(f,{} theta,{} seg)} plots the graph of \\spad{r = f(theta)} as \\spad{theta} ranges over an interval"))
+ (|plot|
+  (((|Plot|) |#1| |#1| (|Symbol|) (|Segment| (|DoubleFloat|)))
+   "\\spad{plot(f,{} g,{} t,{} seg)} plots the graph of \\spad{x = f(t)},{} \\spad{y = g(t)} as \\spad{t} ranges over an interval.")
+  (((|Plot|) |#1| (|Symbol|) (|Segment| (|DoubleFloat|)))
+   "\\spad{plot(fcn,{} x,{} seg)} plots the graph of \\spad{y = f(x)} on a interval")))
+(("documentation" 0 1958) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1952) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1705) ("modemaps" 0 806) ("sourceFile" 0 769)
+ ("constructorCategory" 0 461) ("constructorModemap" 0 51)
+ ("constructorKind" 0 41) ("constructorForm" 0 20))

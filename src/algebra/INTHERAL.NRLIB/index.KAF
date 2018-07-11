@@ -1,0 +1,59 @@
+2609                (|AlgebraicHermiteIntegration| F UP UPUP R)
+|package|
+(((|AlgebraicHermiteIntegration| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |HermiteIntegrate|
+    ((|Record| (|:| |answer| |#4|) (|:| |logpart| |#4|)) |#4|
+     (|Mapping| |#2| |#2|)))
+   (SIGNATURE |HermiteIntegrate|
+    ((|Record| (|:| |answer| |#4|) (|:| |logpart| |#4|)) |#4|
+     (|Mapping| |#2| |#2|) |#4|)))
+  (|Field|) (|UnivariatePolynomialCategory| |#1|)
+  (|UnivariatePolynomialCategory| (|Fraction| |#2|))
+  (|FunctionFieldCategory| |#1| |#2| |#3|))
+ (T |AlgebraicHermiteIntegration|))
+(CATEGORY |package|
+ (SIGNATURE |HermiteIntegrate|
+  ((|Record| (|:| |answer| |#4|) (|:| |logpart| |#4|)) |#4|
+   (|Mapping| |#2| |#2|)))
+ (SIGNATURE |HermiteIntegrate|
+  ((|Record| (|:| |answer| |#4|) (|:| |logpart| |#4|)) |#4|
+   (|Mapping| |#2| |#2|) |#4|)))
+"/git/fricas/src/algebra/INTHERAL.spad"
+((|HermiteIntegrate| (*1 *2 *3 *4 *3)
+  (AND (|isDomain| *4 (|Mapping| *6 *6))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5 (|Field|))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| (|Fraction| *6)))
+       (|isDomain| *2 (|Record| (|:| |answer| *3) (|:| |logpart| *3)))
+       (|isDomain| *1 (|AlgebraicHermiteIntegration| *5 *6 *7 *3))
+       (|ofCategory| *3 (|FunctionFieldCategory| *5 *6 *7))))
+ (|HermiteIntegrate| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Mapping| *6 *6))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5 (|Field|))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| (|Fraction| *6)))
+       (|isDomain| *2 (|Record| (|:| |answer| *3) (|:| |logpart| *3)))
+       (|isDomain| *1 (|AlgebraicHermiteIntegration| *5 *6 *7 *3))
+       (|ofCategory| *3 (|FunctionFieldCategory| *5 *6 *7)))))
+((|HermiteIntegrate|
+  (((|Record| (|:| |answer| |#4|) (|:| |logpart| |#4|)) |#4|
+    (|Mapping| |#2| |#2|) |#4|)
+   15)
+  (((|Record| (|:| |answer| |#4|) (|:| |logpart| |#4|)) |#4|
+    (|Mapping| |#2| |#2|))
+   16)))
+INTHERAL
+((|constructor| (NIL "algebraic Hermite redution."))
+ (|HermiteIntegrate|
+  (((|Record| (|:| |answer| |#4|) (|:| |logpart| |#4|)) |#4|
+    (|Mapping| |#2| |#2|) |#4|)
+   "\\spad{HermiteIntegrate(f,{} ',{} d0)} returns \\spad{[g,{} h]} such that \\spad{f = g' + d0*g + h} and \\spad{h} has a only simple finite normal poles. Note: \\spad{d0} must be integral.")
+  (((|Record| (|:| |answer| |#4|) (|:| |logpart| |#4|)) |#4|
+    (|Mapping| |#2| |#2|))
+   "\\spad{HermiteIntegrate(f,{} ')} returns \\spad{[g,{} h]} such that \\spad{f = g' + h} and \\spad{h} has a only simple finite normal poles.")))
+(("documentation" 0 2012) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2003) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1785) ("modemaps" 0 889) ("sourceFile" 0 849)
+ ("constructorCategory" 0 587) ("constructorModemap" 0 74)
+ ("constructorKind" 0 64) ("constructorForm" 0 20))

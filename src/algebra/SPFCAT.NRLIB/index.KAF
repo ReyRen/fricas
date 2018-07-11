@@ -1,0 +1,298 @@
+16325               (MAKEPROP '|SpecialFunctionCategory| 'NILADIC T)
+(|SpecialFunctionCategory|)
+|category|
+(((|SpecialFunctionCategory|) (|Category|)) (T |SpecialFunctionCategory|))
+(|Join|
+ (CATEGORY |domain| (SIGNATURE |abs| ($ $)) (SIGNATURE |conjugate| ($ $))
+  (SIGNATURE |Gamma| ($ $)) (SIGNATURE |Beta| ($ $ $))
+  (SIGNATURE |digamma| ($ $)) (SIGNATURE |polygamma| ($ $ $))
+  (SIGNATURE |Gamma| ($ $ $)) (SIGNATURE |besselJ| ($ $ $))
+  (SIGNATURE |besselY| ($ $ $)) (SIGNATURE |besselI| ($ $ $))
+  (SIGNATURE |besselK| ($ $ $)) (SIGNATURE |airyAi| ($ $))
+  (SIGNATURE |airyAiPrime| ($ $)) (SIGNATURE |airyBi| ($ $))
+  (SIGNATURE |airyBiPrime| ($ $)) (SIGNATURE |lambertW| ($ $))
+  (SIGNATURE |polylog| ($ $ $)) (SIGNATURE |weierstrassP| ($ $ $ $))
+  (SIGNATURE |weierstrassPPrime| ($ $ $ $))
+  (SIGNATURE |weierstrassSigma| ($ $ $ $))
+  (SIGNATURE |weierstrassZeta| ($ $ $ $))
+  (SIGNATURE |weierstrassPInverse| ($ $ $ $))
+  (SIGNATURE |whittakerM| ($ $ $ $)) (SIGNATURE |whittakerW| ($ $ $ $))
+  (SIGNATURE |angerJ| ($ $ $)) (SIGNATURE |weberE| ($ $ $))
+  (SIGNATURE |struveH| ($ $ $)) (SIGNATURE |struveL| ($ $ $))
+  (SIGNATURE |hankelH1| ($ $ $)) (SIGNATURE |hankelH2| ($ $ $))
+  (SIGNATURE |lommelS1| ($ $ $ $)) (SIGNATURE |lommelS2| ($ $ $ $))
+  (SIGNATURE |kummerM| ($ $ $ $)) (SIGNATURE |kummerU| ($ $ $ $))
+  (SIGNATURE |legendreP| ($ $ $ $)) (SIGNATURE |legendreQ| ($ $ $ $))
+  (SIGNATURE |kelvinBei| ($ $ $)) (SIGNATURE |kelvinBer| ($ $ $))
+  (SIGNATURE |kelvinKei| ($ $ $)) (SIGNATURE |kelvinKer| ($ $ $))
+  (SIGNATURE |ellipticK| ($ $)) (SIGNATURE |ellipticE| ($ $))
+  (SIGNATURE |ellipticE| ($ $ $)) (SIGNATURE |ellipticF| ($ $ $))
+  (SIGNATURE |ellipticPi| ($ $ $ $)) (SIGNATURE |jacobiSn| ($ $ $))
+  (SIGNATURE |jacobiCn| ($ $ $)) (SIGNATURE |jacobiDn| ($ $ $))
+  (SIGNATURE |jacobiZeta| ($ $ $)) (SIGNATURE |jacobiTheta| ($ $ $))
+  (SIGNATURE |lerchPhi| ($ $ $ $)) (SIGNATURE |riemannZeta| ($ $))
+  (SIGNATURE |charlierC| ($ $ $ $)) (SIGNATURE |hermiteH| ($ $ $))
+  (SIGNATURE |jacobiP| ($ $ $ $ $)) (SIGNATURE |laguerreL| ($ $ $ $))
+  (SIGNATURE |meixnerM| ($ $ $ $ $))
+  (IF (|has| $ (|RetractableTo| (|Integer|)))
+      (PROGN
+       (SIGNATURE |hypergeometricF| ($ (|List| $) (|List| $) $))
+       (SIGNATURE |meijerG| ($ (|List| $) (|List| $) (|List| $) (|List| $) $)))
+      |noBranch|)))
+"/git/fricas/src/algebra/SPFCAT.spad"
+((|meijerG| (*1 *1 *2 *2 *2 *2 *1)
+  (AND (|isDomain| *2 (|List| *1))
+       (|ofCategory| *1 (|RetractableTo| (|Integer|)))
+       (|ofCategory| *1 (|SpecialFunctionCategory|))))
+ (|hypergeometricF| (*1 *1 *2 *2 *1)
+  (AND (|isDomain| *2 (|List| *1))
+       (|ofCategory| *1 (|RetractableTo| (|Integer|)))
+       (|ofCategory| *1 (|SpecialFunctionCategory|))))
+ (|meixnerM| (*1 *1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|laguerreL| (*1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|jacobiP| (*1 *1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|hermiteH| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|charlierC| (*1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|riemannZeta| (*1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|lerchPhi| (*1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|jacobiTheta| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|jacobiZeta| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|jacobiDn| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|jacobiCn| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|jacobiSn| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|ellipticPi| (*1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|ellipticF| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|ellipticE| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|ellipticE| (*1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|ellipticK| (*1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|kelvinKer| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|kelvinKei| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|kelvinBer| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|kelvinBei| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|legendreQ| (*1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|legendreP| (*1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|kummerU| (*1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|kummerM| (*1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|lommelS2| (*1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|lommelS1| (*1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|hankelH2| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|hankelH1| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|struveL| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|struveH| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|weberE| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|angerJ| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|whittakerW| (*1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|whittakerM| (*1 *1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|weierstrassPInverse| (*1 *1 *1 *1 *1)
+  (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|weierstrassZeta| (*1 *1 *1 *1 *1)
+  (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|weierstrassSigma| (*1 *1 *1 *1 *1)
+  (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|weierstrassPPrime| (*1 *1 *1 *1 *1)
+  (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|weierstrassP| (*1 *1 *1 *1 *1)
+  (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|polylog| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|lambertW| (*1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|airyBiPrime| (*1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|airyBi| (*1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|airyAiPrime| (*1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|airyAi| (*1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|besselK| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|besselI| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|besselY| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|besselJ| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|Gamma| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|polygamma| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|digamma| (*1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|Beta| (*1 *1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|Gamma| (*1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|conjugate| (*1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|)))
+ (|abs| (*1 *1 *1) (|ofCategory| *1 (|SpecialFunctionCategory|))))
+((|whittakerW| (($ $ $ $) 6)) (|whittakerM| (($ $ $ $) 6))
+ (|weierstrassZeta| (($ $ $ $) 6)) (|weierstrassSigma| (($ $ $ $) 6))
+ (|weierstrassPPrime| (($ $ $ $) 6)) (|weierstrassPInverse| (($ $ $ $) 6))
+ (|weierstrassP| (($ $ $ $) 6)) (|weberE| (($ $ $) 6)) (|struveL| (($ $ $) 6))
+ (|struveH| (($ $ $) 6)) (|riemannZeta| (($ $) 6)) (|polylog| (($ $ $) 6))
+ (|polygamma| (($ $ $) 6)) (|meixnerM| (($ $ $ $ $) 6))
+ (|meijerG|
+  (($ (|List| $) (|List| $) (|List| $) (|List| $) $) 6
+   (|has| $ (|RetractableTo| (|Integer|)))))
+ (|lommelS2| (($ $ $ $) 6)) (|lommelS1| (($ $ $ $) 6))
+ (|lerchPhi| (($ $ $ $) 6)) (|legendreQ| (($ $ $ $) 6))
+ (|legendreP| (($ $ $ $) 6)) (|lambertW| (($ $) 6)) (|laguerreL| (($ $ $ $) 6))
+ (|kummerU| (($ $ $ $) 6)) (|kummerM| (($ $ $ $) 6)) (|kelvinKer| (($ $ $) 6))
+ (|kelvinKei| (($ $ $) 6)) (|kelvinBer| (($ $ $) 6)) (|kelvinBei| (($ $ $) 6))
+ (|jacobiZeta| (($ $ $) 6)) (|jacobiTheta| (($ $ $) 6))
+ (|jacobiSn| (($ $ $) 6)) (|jacobiP| (($ $ $ $ $) 6)) (|jacobiDn| (($ $ $) 6))
+ (|jacobiCn| (($ $ $) 6))
+ (|hypergeometricF|
+  (($ (|List| $) (|List| $) $) 6 (|has| $ (|RetractableTo| (|Integer|)))))
+ (|hermiteH| (($ $ $) 6)) (|hankelH2| (($ $ $) 6)) (|hankelH1| (($ $ $) 6))
+ (|ellipticPi| (($ $ $ $) 6)) (|ellipticK| (($ $) 6)) (|ellipticF| (($ $ $) 6))
+ (|ellipticE| (($ $ $) 6) (($ $) 6)) (|digamma| (($ $) 6))
+ (|conjugate| (($ $) 6)) (|charlierC| (($ $ $ $) 6)) (|besselY| (($ $ $) 6))
+ (|besselK| (($ $ $) 6)) (|besselJ| (($ $ $) 6)) (|besselI| (($ $ $) 6))
+ (|angerJ| (($ $ $) 6)) (|airyBiPrime| (($ $) 6)) (|airyBi| (($ $) 6))
+ (|airyAiPrime| (($ $) 6)) (|airyAi| (($ $) 6)) (|abs| (($ $) 6))
+ (|Gamma| (($ $ $) 6) (($ $) 6)) (|Beta| (($ $ $) 6)))
+SPFCAT
+((|constructor| (NIL "Category for the other special functions."))
+ (|meijerG|
+  (($ (|List| $) (|List| $) (|List| $) (|List| $) $)
+   "\\spad{meijerG(la,{} lb,{} lc,{} ld,{} z)} is the meijerG function."))
+ (|hypergeometricF|
+  (($ (|List| $) (|List| $) $)
+   "\\spad{hypergeometricF(la,{} lb,{} z)} is the generalized hypergeometric function."))
+ (|meixnerM|
+  (($ $ $ $ $) "\\spad{meixnerM(n,{} b,{} c,{} z)} is the Meixner polynomial"))
+ (|laguerreL|
+  (($ $ $ $) "\\spad{laguerreL(n,{} a,{} z)} is the Laguerre polynomial"))
+ (|jacobiP|
+  (($ $ $ $ $) "\\spad{jacobiP(n,{} a,{} b,{} z)} is the Jacobi polynomial"))
+ (|hermiteH| (($ $ $) "\\spad{hermiteH(n,{} z)} is the Hermite polynomial"))
+ (|charlierC|
+  (($ $ $ $) "\\spad{charlierC(n,{} a,{} z)} is the Charlier polynomial"))
+ (|riemannZeta| (($ $) "\\spad{riemannZeta(z)} is the Riemann Zeta function."))
+ (|lerchPhi|
+  (($ $ $ $) "\\spad{lerchPhi(z,{} s,{} a)} is the Lerch Phi function."))
+ (|jacobiTheta|
+  (($ $ $)
+   "\\spad{jacobiTheta(z,{} m)} is the Jacobi Theta function in Jacobi notation."))
+ (|jacobiZeta|
+  (($ $ $)
+   "\\spad{jacobiZeta(z,{} m)} is the Jacobi elliptic zeta function,{} defined by \\spad{D(jacobiZeta(z,{} m),{} z) = jacobiDn(z,{} m)^2 - ellipticE(m)/ellipticK(m)} and \\spad{jacobiZeta(0,{} m) = 0}."))
+ (|jacobiDn|
+  (($ $ $)
+   "\\spad{jacobiDn(z,{} m)} is the Jacobi elliptic \\spad{dn} function,{} defined by \\spad{jacobiDn(z,{} m)^2 + m*jacobiSn(z,{} m)^2 = 1} and \\spad{jacobiDn(0,{} m) = 1}."))
+ (|jacobiCn|
+  (($ $ $)
+   "\\spad{jacobiCn(z,{} m)} is the Jacobi elliptic \\spad{cn} function,{} defined by \\spad{jacobiCn(z,{} m)^2 + jacobiSn(z,{} m)^2 = 1} and \\spad{jacobiCn(0,{} m) = 1}."))
+ (|jacobiSn|
+  (($ $ $)
+   "\\spad{jacobiSn(z,{} m)} is the Jacobi elliptic \\spad{sn} function,{} defined by the formula \\spad{jacobiSn(ellipticF(z,{} m),{} m) = z}."))
+ (|ellipticPi|
+  (($ $ $ $)
+   "\\spad{ellipticPi(z,{} n,{} m)} is the incomplete elliptic integral of the third kind: \\spad{ellipticPi(z,{} n,{} m) = integrate(1/((1-n*t^2)*sqrt((1-t^2)*(1-m*t^2))),{} t = 0..z)}."))
+ (|ellipticF|
+  (($ $ $)
+   "\\spad{ellipticF(z,{} m)} is the incomplete elliptic integral of the first kind : \\spad{ellipticF(z,{} m) = integrate(1/sqrt((1-t^2)*(1-m*t^2)),{} t = 0..z)}."))
+ (|ellipticE|
+  (($ $ $)
+   "\\spad{ellipticE(z,{} m)} is the incomplete elliptic integral of the second kind: \\spad{ellipticE(z,{} m) = integrate(sqrt(1-m*t^2)/sqrt(1-t^2),{} t = 0..z)}.")
+  (($ $)
+   "\\spad{ellipticE(m)} is the complete elliptic integral of the second kind: \\spad{ellipticE(m) = integrate(sqrt(1-m*t^2)/sqrt(1-t^2),{} t = 0..1)}."))
+ (|ellipticK|
+  (($ $)
+   "\\spad{ellipticK(m)} is the complete elliptic integral of the first kind: \\spad{ellipticK(m) = integrate(1/sqrt((1-t^2)*(1-m*t^2)),{} t = 0..1)}."))
+ (|kelvinKer|
+  (($ $ $)
+   "\\spad{kelvinKer(v,{} z)} is the Kelvin kei function defined by equality \\spad{kelvinKer(v,{} z) = real(exp(-v*\\%pi*\\%i/2)*besselK(v,{} exp(\\%pi*\\%i/4)*z))} for \\spad{z} and \\spad{v} real."))
+ (|kelvinKei|
+  (($ $ $)
+   "\\spad{kelvinKei(v,{} z)} is the Kelvin kei function defined by equality \\spad{kelvinKei(v,{} z) = imag(exp(-v*\\%pi*\\%i/2)*besselK(v,{} exp(\\%pi*\\%i/4)*z))} for \\spad{z} and \\spad{v} real."))
+ (|kelvinBer|
+  (($ $ $)
+   "\\spad{kelvinBer(v,{} z)} is the Kelvin ber function defined by equality \\spad{kelvinBer(v,{} z) = real(besselJ(v,{} exp(3*\\%pi*\\%i/4)*z))} for \\spad{z} and \\spad{v} real."))
+ (|kelvinBei|
+  (($ $ $)
+   "\\spad{kelvinBei(v,{} z)} is the Kelvin bei function defined by equality \\spad{kelvinBei(v,{} z) = imag(besselJ(v,{} exp(3*\\%pi*\\%i/4)*z))} for \\spad{z} and \\spad{v} real."))
+ (|legendreQ|
+  (($ $ $ $)
+   "\\spad{legendreQ(nu,{} mu,{} z)} is the Legendre \\spad{Q} function."))
+ (|legendreP|
+  (($ $ $ $)
+   "\\spad{legendreP(nu,{} mu,{} z)} is the Legendre \\spad{P} function."))
+ (|kummerU|
+  (($ $ $ $)
+   "\\spad{kummerU(mu,{} nu,{} z)} is the Kummer \\spad{U} function."))
+ (|kummerM|
+  (($ $ $ $)
+   "\\spad{kummerM(mu,{} nu,{} z)} is the Kummer \\spad{M} function."))
+ (|lommelS2|
+  (($ $ $ $)
+   "\\spad{lommelS2(mu,{} nu,{} z)} is the Lommel \\spad{S} function."))
+ (|lommelS1|
+  (($ $ $ $)
+   "\\spad{lommelS1(mu,{} nu,{} z)} is the Lommel \\spad{s} function."))
+ (|hankelH2|
+  (($ $ $)
+   "\\spad{hankelH2(v,{} z)} is the second Hankel function (Bessel function of the third kind)."))
+ (|hankelH1|
+  (($ $ $)
+   "\\spad{hankelH1(v,{} z)} is first Hankel function (Bessel function of the third kind)."))
+ (|struveL|
+  (($ $ $)
+   "\\spad{struveL(v,{} z)} is the Struve \\spad{L} function defined by the formula \\spad{struveL(v,{} z) = -\\%i^exp(-v*\\%pi*\\%i/2)*struveH(v,{} \\%i*z)}."))
+ (|struveH|
+  (($ $ $) "\\spad{struveH(v,{} z)} is the Struve \\spad{H} function."))
+ (|weberE| (($ $ $) "\\spad{weberE(v,{} z)} is the Weber \\spad{E} function."))
+ (|angerJ| (($ $ $) "\\spad{angerJ(v,{} z)} is the Anger \\spad{J} function."))
+ (|whittakerW|
+  (($ $ $ $)
+   "\\spad{whittakerW(k,{} m,{} z)} is the Whittaker \\spad{W} function."))
+ (|whittakerM|
+  (($ $ $ $)
+   "\\spad{whittakerM(k,{} m,{} z)} is the Whittaker \\spad{M} function."))
+ (|weierstrassPInverse|
+  (($ $ $ $)
+   "\\spad{weierstrassPInverse(g2,{} g3,{} z)} is the inverse of Weierstrass \\spad{P} function,{} defined by the formula \\spad{weierstrassP(g2,{} g3,{} weierstrassPInverse(g2,{} g3,{} z)) = z}."))
+ (|weierstrassZeta|
+  (($ $ $ $)
+   "\\spad{weierstrassZeta(g2,{} g3,{} z)} is the Weierstrass Zeta function."))
+ (|weierstrassSigma|
+  (($ $ $ $)
+   "\\spad{weierstrassSigma(g2,{} g3,{} z)} is the Weierstrass Sigma function."))
+ (|weierstrassPPrime|
+  (($ $ $ $)
+   "\\spad{weierstrassPPrime(g2,{} g3,{} z)} is the derivative of Weierstrass \\spad{P} function."))
+ (|weierstrassP|
+  (($ $ $ $)
+   "\\spad{weierstrassP(g2,{} g3,{} z)} is the Weierstrass \\spad{P} function."))
+ (|polylog|
+  (($ $ $)
+   "\\spad{polylog(s,{} x)} is the polylogarithm of order \\spad{s} at \\spad{x}."))
+ (|lambertW|
+  (($ $)
+   "\\spad{lambertW(z)} = \\spad{w} is the principial branch of the solution to the equation \\spad{we^w = z}."))
+ (|airyBiPrime|
+  (($ $)
+   "airyBiPrime is the derivative of the Airy function \\spad{\\spad{Bi}(x)}."))
+ (|airyBi|
+  (($ $) "\\spad{airyBi(x)} is the Airy function \\spad{\\spad{Bi}(x)}."))
+ (|airyAiPrime|
+  (($ $)
+   "\\spad{airyAiPrime(x)} is the derivative of the Airy function \\spad{\\spad{Ai}(x)}."))
+ (|airyAi|
+  (($ $) "\\spad{airyAi(x)} is the Airy function \\spad{\\spad{Ai}(x)}."))
+ (|besselK|
+  (($ $ $)
+   "\\spad{besselK(v,{} z)} is the modified Bessel function of the second kind."))
+ (|besselI|
+  (($ $ $)
+   "\\spad{besselI(v,{} z)} is the modified Bessel function of the first kind."))
+ (|besselY|
+  (($ $ $)
+   "\\spad{besselY(v,{} z)} is the Bessel function of the second kind."))
+ (|besselJ|
+  (($ $ $)
+   "\\spad{besselJ(v,{} z)} is the Bessel function of the first kind."))
+ (|polygamma|
+  (($ $ $)
+   "\\spad{polygamma(k,{} x)} is the \\spad{k-th} derivative of \\spad{digamma(x)},{} (often written \\spad{psi(k,{} x)} in the literature)."))
+ (|digamma|
+  (($ $)
+   "\\spad{digamma(x)} is the logarithmic derivative of \\spad{Gamma(x)} (often written \\spad{psi(x)} in the literature)."))
+ (|Beta|
+  (($ $ $) "\\spad{Beta(x,{} y)} is \\spad{Gamma(x) * Gamma(y)/Gamma(x+y)}."))
+ (|Gamma| (($ $ $) "\\spad{Gamma(a,{} x)} is the incomplete Gamma function.")
+  (($ $) "\\spad{Gamma(x)} is the Euler Gamma function."))
+ (|conjugate|
+  (($ $) "\\spad{conjugate(x)} returns the conjugate of \\spad{x}."))
+ (|abs| (($ $) "\\spad{abs(x)} returns the absolute value of \\spad{x}.")))
+(("documentation" 0 8709) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 8702) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 7014) ("modemaps" 0 2357) ("sourceFile" 0 2319)
+ ("constructorCategory" 0 183) ("constructorModemap" 0 108)
+ ("constructorKind" 0 97) ("constructorForm" 0 69) ("NILADIC" 0 20))

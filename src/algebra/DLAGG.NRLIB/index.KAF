@@ -1,0 +1,153 @@
+7044                (|DoublyLinkedAggregate| S)
+|category|
+(((|DoublyLinkedAggregate| |#1|) (|Category|) (|Type|))
+ (T |DoublyLinkedAggregate|))
+(|Join| (|RecursiveAggregate| |t#1|)
+        (CATEGORY |domain| (SIGNATURE |last| (|t#1| $))
+         (SIGNATURE |head| ($ $)) (SIGNATURE |tail| ($ $))
+         (SIGNATURE |previous| ($ $)) (SIGNATURE |next| ($ $))
+         (IF (|has| $ (|shallowlyMutable|))
+             (PROGN
+              (SIGNATURE |concat!| ($ $ $))
+              (SIGNATURE |setprevious!| ($ $ $))
+              (SIGNATURE |setnext!| ($ $ $)))
+             |noBranch|)))
+"/git/fricas/src/algebra/DLAGG.spad"
+((|last| (*1 *2 *1)
+         (AND (|ofCategory| *1 (|DoublyLinkedAggregate| *2))
+              (|ofCategory| *2 (|Type|))))
+ (|head| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|DoublyLinkedAggregate| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|tail| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|DoublyLinkedAggregate| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|previous| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|DoublyLinkedAggregate| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|next| (*1 *1 *1)
+         (AND (|ofCategory| *1 (|DoublyLinkedAggregate| *2))
+              (|ofCategory| *2 (|Type|))))
+ (|concat!| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|DoublyLinkedAggregate| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|setprevious!| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|DoublyLinkedAggregate| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|setnext!| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|DoublyLinkedAggregate| *2))
+       (|ofCategory| *2 (|Type|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|value| ((|#1| $) 6)) (|tail| (($ $) 6))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|setvalue!| ((|#1| $ |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|setprevious!| (($ $ $) 6 (|has| $ (|shallowlyMutable|))))
+ (|setnext!| (($ $ $) 6 (|has| $ (|shallowlyMutable|))))
+ (|setelt!| ((|#1| $ #1="value" |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|setchildren!| (($ $ (|List| $)) 6 (|has| $ (|shallowlyMutable|))))
+ (|sample| (($) 6 T CONST)) (|previous| (($ $) 6))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|nodes| (((|List| $) $) 6))
+ (|node?| (((|Boolean|) $ $) 6 (|has| |#1| (|BasicType|)))) (|next| (($ $) 6))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|leaves| (((|List| |#1|) $) 6)) (|leaf?| (((|Boolean|) $) 6))
+ (|latex| (((|String|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|last| ((|#1| $) 6)) (|head| (($ $) 6))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|elt| ((|#1| $ #1#) 6)) (|distance| (((|Integer|) $ $) 6))
+ (|cyclic?| (((|Boolean|) $) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6)) (|concat!| (($ $ $) 6 (|has| $ (|shallowlyMutable|))))
+ (|coerce| (((|OutputForm|) $) 6 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|children| (((|List| $) $) 6))
+ (|child?| (((|Boolean|) $ $) 6 (|has| |#1| (|BasicType|))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+DLAGG
+(((|RecursiveAggregate| |#1|) . T))
+(((|Aggregate|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|RecursiveAggregate| |#1|) . T)
+ ((|SetCategory|) |has| |t#1| (|SetCategory|)) ((|Type|) . T))
+((|constructor|
+  (NIL
+   "A doubly-linked aggregate serves as a model for a doubly-linked list,{} that is,{} a list which has links to both next and previous nodes and thus can be efficiently traversed in both directions."))
+ (|setnext!|
+  (($ $ $)
+   "\\spad{setnext!(u,{} v)} destructively sets the next node of doubly-linked aggregate \\spad{u} to \\spad{v},{} returning \\spad{v}."))
+ (|setprevious!|
+  (($ $ $)
+   "\\spad{setprevious!(u,{} v)} destructively sets the previous node of doubly-linked aggregate \\spad{u} to \\spad{v},{} returning \\spad{v}."))
+ (|concat!|
+  (($ $ $)
+   "\\spad{concat!(u,{} v)} destructively concatenates doubly-linked aggregate \\spad{v} to the end of doubly-linked aggregate \\spad{u}."))
+ (|next|
+  (($ $)
+   "\\spad{next(l)} returns the doubly-linked aggregate beginning with its next element. Error: if \\spad{l} has no next element. Note: \\spad{next(l) = rest(l)} and \\spad{previous(next(l)) = l}."))
+ (|previous|
+  (($ $)
+   "\\spad{previous(l)} returns the doubly-link list beginning with its previous element. Error: if \\spad{l} has no previous element. Note: \\spad{next(previous(l)) = l}."))
+ (|tail|
+  (($ $)
+   "\\spad{tail(l)} returns the doubly-linked aggregate \\spad{l} starting at its second element. Error: if \\spad{l} is empty."))
+ (|head|
+  (($ $)
+   "\\spad{head(l)} returns the first element of a doubly-linked aggregate \\spad{l}. Error: if \\spad{l} is empty."))
+ (|last|
+  ((|#1| $)
+   "\\spad{last(l)} returns the last element of a doubly-linked aggregate \\spad{l}. Error: if \\spad{l} is empty.")))
+(("documentation" 0 5475) ("ancestors" 0 4932) ("parents" 0 4896)
+ ("abbreviation" 0 4890) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1702) ("modemaps" 0 627) ("sourceFile" 0 590)
+ ("constructorCategory" 0 145) ("constructorModemap" 0 59)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

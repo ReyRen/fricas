@@ -1,0 +1,67 @@
+)abbrev domain SEXOF SExpressionOf
+++ Domain for Lisp values over arbitrary atomic types
+++ Author: S.M.Watt
+++ Date Created: July 1987
+++ Description:
+++  This domain allows the manipulation of Lisp values over
+++  arbitrary atomic types.
+-- Allows the names of the atomic types to be chosen.
+-- ^* Warning ^* Although the parameters are declared only to be Sets,
+-- ^* Warning ^* they must have the appropriate representations.
+SExpressionOf(Str, Sym, Int, Flt) : Decl == Body where
+    Str, Sym, Int, Flt : SetCategory
+
+    Decl ==> SExpressionCategory(Str, Sym, Int, Flt)
+
+    Body ==> add
+
+        dotex:OutputForm := INTERN(".")$Lisp
+
+        coerce(b : %) : OutputForm ==
+            null? b => paren empty()
+            string? b => outputForm(b pretend String)
+            atom? b => b pretend OutputForm
+            r := b
+            while not atom? r repeat r := cdr r
+            l1 := [b1::OutputForm for b1 in (l := destruct b)]
+            not null? r =>
+              paren blankSeparate concat!(l1, [dotex, r::OutputForm])
+            #l = 2 and (first(l1) = ('QUOTE)::OutputForm)@Boolean =>
+                quote first rest l1
+            paren blankSeparate l1
+
+        b1 = b2        == EQUAL(b1, b2)$Lisp
+        eq(b1, b2)     == EQ(b1, b2)$Lisp
+
+        null? b      == NULL(b)$Lisp
+        atom? b      == ATOM(b)$Lisp
+        pair? b      == PAIRP(b)$Lisp
+
+        list?    b   == PAIRP(b)$Lisp or NULL(b)$Lisp
+        string?  b   == STRINGP(b)$Lisp
+        symbol?  b   == IDENTP(b)$Lisp
+        integer? b   == INTEGERP(b)$Lisp
+        float?   b   == FLOATP(b)$Lisp
+
+        destruct b == (list? b    => b pretend List %; error "Non-list")
+        string b == (STRINGP(b)$Lisp=> b pretend Str;error "Non-string")
+        symbol b == (IDENTP(b)$Lisp => b pretend Sym;error "Non-symbol")
+        float   b == (FLOATP(b)$Lisp  => b pretend Flt;error "Non-float")
+        integer b == (INTEGERP(b)$Lisp => b pretend Int;error "Non-integer")
+
+        convert(l :  List %) == l  pretend %
+        convert(st : Str)    == st pretend %
+        convert(sy : Sym)    == sy pretend %
+        convert(n :  Int)    == n  pretend %
+        convert(f :  Flt)    == f  pretend %
+
+        car b        == CAR(b)$Lisp
+        cdr b        == CDR(b)$Lisp
+        #   b        == LENGTH(b)$Lisp
+        elt(b : %, i : Integer)       == destruct(b).i
+        elt(b : %, li : List Integer) ==
+          for i in li repeat b := destruct(b).i
+          b
+        hashUpdate!(hs: HashState, s: %): HashState ==
+            update!(hs, SXHASH(s)$Lisp)$HashState
+

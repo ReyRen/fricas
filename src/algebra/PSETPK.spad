@@ -1,0 +1,809 @@
+)abbrev package PSETPK PolynomialSetUtilitiesPackage
+++ Author: Marc Moreno Maza (marc@nag.co.uk)
+++ Date Created: 12/01/1995
+++ SPARC Version
+++ Basic Operations:
+++ Related Domains:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+++ Description:
+++ This package provides modest routines for polynomial system solving.
+++ The aim of many of the operations of this package is to remove certain
+++ factors in some polynomials in order to avoid unnecessary computations
+++ in algorithms involving splitting techniques by partial factorization.
+++ Version: 3
+
+PolynomialSetUtilitiesPackage (R, E, V, P) : Exports == Implementation where
+
+  R : IntegralDomain
+  E : OrderedAbelianMonoidSup
+  V : OrderedSet
+  P : RecursivePolynomialCategory(R, E, V)
+  N ==> NonNegativeInteger
+  Z ==> Integer
+  B ==> Boolean
+  LP ==> List P
+  FP ==> Factored P
+  T ==> GeneralTriangularSet(R, E, V, P)
+  RBT ==> Record(bas : T, top : LP)
+  RUL ==> Record(chs:Union(T,"failed"),rfs:LP)
+  GPS ==> GeneralPolynomialSet(R, E, V, P)
+  pf ==> MultivariateFactorize(V, E, R, P)
+
+  Exports ==  with
+
+     removeRedundantFactors : LP -> LP
+        ++ \spad{removeRedundantFactors(lp)} returns \spad{lq} such that if
+        ++ \spad{lp = [p1, ..., pn]} and \spad{lq = [q1, ..., qm]}
+        ++ then the product \spad{p1*p2*...*pn} vanishes iff the product \spad{q1*q2*...*qm} vanishes,
+        ++ and the product of degrees of the \spad{qi} is not greater than
+        ++ the one of the \spad{pj}, and no polynomial in \spad{lq}
+        ++ divides another polynomial in \spad{lq}. In particular,
+        ++ polynomials lying in the base ring \spad{R} are removed.
+        ++ Moreover, \spad{lq} is sorted w.r.t \spad{infRittWu?}.
+        ++ Furthermore, if R is gcd-domain, the polynomials in \spad{lq} are
+        ++ pairwise without common non trivial factor.
+     removeRedundantFactors : (P, P) -> LP
+        ++ \spad{removeRedundantFactors(p, q)} returns the same as
+        ++ \spad{removeRedundantFactors([p, q])}
+     removeSquaresIfCan : LP -> LP
+        ++ \spad{removeSquaresIfCan(lp)} returns
+        ++ \spad{removeDuplicates [squareFreePart(p)$P for p in lp]}
+        ++ if \spad{R} is gcd-domain else returns \spad{lp}.
+     unprotectedRemoveRedundantFactors : (P, P) -> LP
+        ++ \spad{unprotectedRemoveRedundantFactors(p, q)} returns the same as
+        ++ \spad{removeRedundantFactors(p, q)} but does assume that neither
+        ++ \spad{p} nor \spad{q} lie in the base ring \spad{R} and assumes that
+        ++ \spad{infRittWu?(p, q)} holds. Moreover, if \spad{R} is gcd-domain,
+        ++ then \spad{p} and \spad{q} are assumed to be square free.
+     removeRedundantFactors : (LP, P) -> LP
+        ++ \spad{removeRedundantFactors(lp, q)} returns the same as
+        ++ \spad{removeRedundantFactors(cons(q, lp))} assuming
+        ++ that \spad{removeRedundantFactors(lp)} returns \spad{lp}
+        ++ up to replacing some polynomial \spad{pj} in \spad{lp}
+        ++ by some some polynomial \spad{qj} associated to \spad{pj}.
+     removeRedundantFactors : (LP, LP) -> LP
+        ++ \spad{removeRedundantFactors(lp, lq)} returns the same as
+        ++ \spad{removeRedundantFactors(concat(lp, lq))} assuming
+        ++ that \spad{removeRedundantFactors(lp)} returns \spad{lp}
+        ++ up to replacing some polynomial \spad{pj} in \spad{lp}
+        ++ by some polynomial \spad{qj} associated to \spad{pj}.
+     removeRedundantFactors : (LP, LP, (LP -> LP)) -> LP
+        ++ \spad{removeRedundantFactors(lp, lq, remOp)} returns the same as
+        ++ \spad{concat(remOp(removeRoughlyRedundantFactorsInPols(lp, lq)), lq)}
+        ++ assuming that \spad{remOp(lq)} returns \spad{lq} up to similarity.
+     certainlySubVariety? : (LP, LP) -> B
+        ++ \spad{certainlySubVariety?(newlp, lp)} returns true iff for every \spad{p}
+        ++ in \spad{lp} the remainder of \spad{p} by \spad{newlp} using the division algorithm
+        ++ of Groebner techniques is zero.
+     possiblyNewVariety? : (LP, List LP) -> B
+        ++ \spad{possiblyNewVariety?(newlp, llp)} returns true iff for every \spad{lp}
+        ++ in \spad{llp} certainlySubVariety?(newlp, lp) does not hold.
+     probablyZeroDim? : LP -> B
+        ++ \spad{probablyZeroDim?(lp)} returns true iff the number of polynomials
+        ++ in \spad{lp} is not smaller than the number of variables occurring
+        ++ in these polynomials.
+     selectPolynomials : ((P -> B), LP) -> Record(goodPols : LP, badPols : LP)
+        ++ \spad{selectPolynomials(pred?, ps)} returns \spad{gps, bps} where
+        ++ \spad{gps} is a list of the polynomial \spad{p} in \spad{ps}
+        ++ such that \spad{pred?(p)} holds and \spad{bps} are the other ones.
+     selectOrPolynomials : (List (P -> B), LP) -> Record(goodPols : LP, badPols : LP)
+        ++ \spad{selectOrPolynomials(lpred?, ps)} returns \spad{gps, bps} where
+        ++ \spad{gps} is a list of the polynomial \spad{p} in \spad{ps}
+        ++ such that \spad{pred?(p)} holds for some \spad{pred?} in \spad{lpred?}
+        ++ and \spad{bps} are the other ones.
+     selectAndPolynomials : (List (P -> B), LP) -> Record(goodPols : LP, badPols : LP)
+        ++ \spad{selectAndPolynomials(lpred?, ps)} returns \spad{gps, bps} where
+        ++ \spad{gps} is a list of the polynomial \spad{p} in \spad{ps}
+        ++ such that \spad{pred?(p)} holds for every \spad{pred?} in \spad{lpred?}
+        ++ and \spad{bps} are the other ones.
+     quasiMonicPolynomials : LP -> Record(goodPols : LP, badPols : LP)
+        ++ \spad{quasiMonicPolynomials(lp)} returns \spad{qmps, nqmps} where
+        ++ \spad{qmps} is a list of the quasi-monic polynomials in \spad{lp}
+        ++ and \spad{nqmps} are the other ones.
+     univariate? : P -> B
+        ++ \spad{univariate?(p)} returns true iff \spad{p} involves one and
+        ++ only one variable.
+     univariatePolynomials : LP -> Record(goodPols : LP, badPols : LP)
+        ++ \spad{univariatePolynomials(lp)} returns \spad{ups, nups} where
+        ++ \spad{ups} is a list of the univariate polynomials,
+        ++ and \spad{nups} are the other ones.
+     linear? : P -> B
+        ++ \spad{linear?(p)} returns true iff \spad{p} does not lie
+        ++ in the base ring \spad{R} and has main degree \spad{1}.
+     linearPolynomials : LP -> Record(goodPols : LP, badPols : LP)
+        ++ \spad{linearPolynomials(lp)} returns \spad{lps, nlps} where
+        ++ \spad{lps} is a list of the linear polynomials in lp,
+        ++ and  \spad{nlps} are the other ones.
+     bivariate? : P -> B
+        ++ \spad{bivariate?(p)} returns true iff \spad{p} involves two and
+        ++ only two variables.
+     bivariatePolynomials : LP -> Record(goodPols : LP, badPols : LP)
+        ++ \spad{bivariatePolynomials(lp)} returns \spad{bps, nbps} where
+        ++ \spad{bps} is a list of the bivariate polynomials,
+        ++ and \spad{nbps} are the other ones.
+     removeRoughlyRedundantFactorsInPols : (LP, LP) -> LP
+        ++ \spad{removeRoughlyRedundantFactorsInPols(lp, lf)} returns
+        ++ \spad{newlp}where \spad{newlp} is obtained from \spad{lp}
+        ++ by removing in every polynomial \spad{p} of \spad{lp}
+        ++ any occurrence of a polynomial \spad{f} in \spad{lf}.
+        ++ This may involve a lot of exact-quotients computations.
+     removeRoughlyRedundantFactorsInPols : (LP, LP, B) -> LP
+        ++ \spad{removeRoughlyRedundantFactorsInPols(lp, lf, opt)} returns
+        ++ the same as \spad{removeRoughlyRedundantFactorsInPols(lp, lf)}
+        ++ if \spad{opt} is \spad{false} and if the previous operation
+        ++ does not return any non null and constant polynomial,
+        ++ else return \spad{[1]}.
+     removeRoughlyRedundantFactorsInPol : (P, LP) -> P
+        ++ \spad{removeRoughlyRedundantFactorsInPol(p, lf)} returns the same as
+        ++ removeRoughlyRedundantFactorsInPols([p], lf, true)
+     interReduce : LP -> LP
+        ++ \spad{interReduce(lp)} returns \spad{lq} such that \spad{lp}
+        ++ and \spad{lq} generate the same ideal and no polynomial
+        ++ in \spad{lq} is reducible by the others in the sense
+        ++ of Groebner bases. Since no assumptions are required
+        ++ the result may depend on the ordering the reductions are
+        ++ performed.
+     roughBasicSet : LP -> Union(Record(bas:T,top:LP),"failed")
+        ++ \spad{roughBasicSet(lp)} returns the smallest (with Ritt-Wu
+        ++ ordering) triangular set contained in \spad{lp}.
+     crushedSet : LP -> LP
+        ++ \spad{crushedSet(lp)} returns \spad{lq} such that \spad{lp} and
+        ++ and \spad{lq} generate the same ideal and no rough basic
+        ++ sets reduce (in the sense of Groebner bases) the other
+        ++ polynomials in \spad{lq}.
+     rewriteSetByReducingWithParticularGenerators : (LP, (P->B), ((P, P)->B), ((P, P)->P)) -> LP
+        ++ \spad{rewriteSetByReducingWithParticularGenerators(lp, pred?, redOp?, redOp)}
+        ++ returns \spad{lq} where \spad{lq} is computed by the following
+        ++ algorithm. Chose a basic set w.r.t. the reduction-test \spad{redOp?}
+        ++ among the polynomials satisfying property \spad{pred?},
+        ++ if it is empty then leave, else reduce the other polynomials by
+        ++ this basic set w.r.t. the reduction-operation \spad{redOp}.
+        ++ Repeat while another basic set with smaller rank can be computed.
+        ++ See code. If \spad{pred?} is \spad{quasiMonic?} the ideal is unchanged.
+     rewriteIdealWithQuasiMonicGenerators : (LP, ((P, P)->B), ((P, P)->P)) -> LP
+        ++ \spad{rewriteIdealWithQuasiMonicGenerators(lp, redOp?, redOp)} returns
+        ++ \spad{lq} where \spad{lq} and \spad{lp} generate
+        ++ the same ideal in \spad{R^(-1) P} and \spad{lq}
+        ++ has rank not higher than the one of \spad{lp}.
+        ++ Moreover, \spad{lq} is computed by reducing \spad{lp}
+        ++ w.r.t. some basic set of the ideal generated by
+        ++ the quasi-monic polynomials in \spad{lp}.
+     if R has GcdDomain
+     then
+       squareFreeFactors : P -> LP
+          ++ \spad{squareFreeFactors(p)} returns the square-free factors of \spad{p}
+          ++ over \spad{R}
+       univariatePolynomialsGcds : LP -> LP
+          ++ \spad{univariatePolynomialsGcds(lp)} returns \spad{lg} where
+          ++ \spad{lg} is a list of the gcds of every pair in \spad{lp}
+          ++ of univariate polynomials in the same main variable.
+       univariatePolynomialsGcds : (LP, B) -> LP
+          ++ \spad{univariatePolynomialsGcds(lp, opt)} returns the same as
+          ++ \spad{univariatePolynomialsGcds(lp)} if \spad{opt} is
+          ++ \spad{false} and if the previous operation does not return
+          ++ any non null and constant polynomial, else return \spad{[1]}.
+       removeRoughlyRedundantFactorsInContents : (LP, LP) -> LP
+          ++ \spad{removeRoughlyRedundantFactorsInContents(lp, lf)} returns
+          ++ \spad{newlp}where \spad{newlp} is obtained from \spad{lp}
+          ++ by removing in the content of every polynomial of \spad{lp}
+          ++ any occurence of a polynomial \spad{f} in \spad{lf}. Moreover,
+          ++ squares over \spad{R} are first removed in the content
+          ++ of every polynomial of \spad{lp}.
+       removeRedundantFactorsInContents : (LP, LP) -> LP
+          ++ \spad{removeRedundantFactorsInContents(lp, lf)} returns \spad{newlp}
+          ++ where \spad{newlp} is obtained from \spad{lp} by removing
+          ++ in the content of every polynomial of \spad{lp} any non trivial
+          ++ factor of any polynomial \spad{f} in \spad{lf}. Moreover,
+          ++ squares over \spad{R} are first removed in the content
+          ++ of every polynomial of \spad{lp}.
+       removeRedundantFactorsInPols : (LP, LP) -> LP
+          ++ \spad{removeRedundantFactorsInPols(lp, lf)} returns \spad{newlp}
+          ++ where \spad{newlp} is obtained from \spad{lp} by removing
+          ++ in every polynomial \spad{p} of \spad{lp} any non trivial
+          ++ factor of any polynomial \spad{f} in \spad{lf}. Moreover,
+          ++ squares over \spad{R} are first removed in every
+          ++ polynomial \spad{lp}.
+     if (R has PolynomialFactorizationExplicit) and (R has CharacteristicZero)
+     then
+       irreducibleFactors : LP -> LP
+          ++ \spad{irreducibleFactors(lp)} returns \spad{lf} such that if
+          ++ \spad{lp = [p1, ..., pn]} and \spad{lf = [f1, ..., fm]} then
+          ++ \spad{p1*p2*...*pn=0} means \spad{f1*f2*...*fm=0}, and the \spad{fi}
+          ++ are irreducible over \spad{R} and are pairwise distinct.
+       lazyIrreducibleFactors : LP -> LP
+          ++ \spad{lazyIrreducibleFactors(lp)} returns \spad{lf} such that if
+          ++ \spad{lp = [p1, ..., pn]} and \spad{lf = [f1, ..., fm]} then
+          ++ \spad{p1*p2*...*pn=0} means \spad{f1*f2*...*fm=0}, and the \spad{fi}
+          ++ are irreducible over \spad{R} and are pairwise distinct.
+          ++ The algorithm tries to avoid factorization into irreducible
+          ++ factors as far as possible and makes previously use of gcd
+          ++ techniques over \spad{R}.
+       removeIrreducibleRedundantFactors : (LP, LP) -> LP
+          ++ \spad{removeIrreducibleRedundantFactors(lp, lq)} returns the same
+          ++ as \spad{irreducibleFactors(concat(lp, lq))} assuming
+          ++ that \spad{irreducibleFactors(lp)} returns \spad{lp}
+          ++ up to replacing some polynomial \spad{pj} in \spad{lp}
+          ++ by some polynomial \spad{qj} associated to \spad{pj}.
+
+  Implementation ==  add
+
+     autoRemainder : T -> List(P)
+
+     removeAssociates (lp : LP) : LP ==
+       removeDuplicates [primPartElseUnitCanonical(p) for p in lp]
+
+     selectPolynomials  (pred?, ps) ==
+       gps : LP := []
+       bps : LP := []
+       while not empty? ps repeat
+         p := first ps
+         ps := rest ps
+         if pred?(p)
+           then
+             gps := cons(p, gps)
+           else
+             bps := cons(p, bps)
+       gps := sort(infRittWu?, gps)
+       bps := sort(infRittWu?, bps)
+       [gps, bps]
+
+     selectOrPolynomials (lpred?, ps) ==
+       gps : LP := []
+       bps : LP := []
+       while not empty? ps repeat
+         p := first ps
+         ps := rest ps
+         clpred? :=  lpred?
+         while (not empty? clpred?) and (not (first clpred?)(p)) repeat
+           clpred? :=  rest clpred?
+         if not empty?(clpred?)
+           then
+             gps := cons(p, gps)
+           else
+             bps := cons(p, bps)
+       gps := sort(infRittWu?, gps)
+       bps := sort(infRittWu?, bps)
+       [gps, bps]
+
+     selectAndPolynomials (lpred?, ps) ==
+       gps : LP := []
+       bps : LP := []
+       while not empty? ps repeat
+         p := first ps
+         ps := rest ps
+         clpred? :=  lpred?
+         while (not empty? clpred?) and ((first clpred?)(p)) repeat
+           clpred? :=  rest clpred?
+         if empty?(clpred?)
+           then
+             gps := cons(p, gps)
+           else
+             bps := cons(p, bps)
+       gps := sort(infRittWu?, gps)
+       bps := sort(infRittWu?, bps)
+       [gps, bps]
+
+     linear? p ==
+       ground? p => false
+       (mdeg(p) = 1)
+
+     linearPolynomials  ps ==
+       selectPolynomials(linear?, ps)
+
+     univariate? p ==
+       ground? p => false
+       not(ground?(init(p))) => false
+       tp := tail(p)
+       ground?(tp) => true
+       not (mvar(p) = mvar(tp)) => false
+       univariate?(tp)
+
+     univariatePolynomials ps ==
+       selectPolynomials(univariate?, ps)
+
+     bivariate? p ==
+       ground? p => false
+       ground? tail(p) => univariate?(init(p))
+       vp := mvar(p)
+       vtp := mvar(tail(p))
+       ((ground? init(p)) and (vp = vtp)) => bivariate? tail(p)
+       ((ground? init(p)) and (vp > vtp)) => univariate? tail(p)
+       not univariate?(init(p)) => false
+       vip := mvar(init(p))
+       vip > vtp => false
+       vip = vtp => univariate? tail(p)
+       vtp < vp => false
+       zero? degree(tail(p), vip) => univariate? tail(p)
+       bivariate? tail(p)
+
+     bivariatePolynomials ps ==
+       selectPolynomials(bivariate?, ps)
+
+     quasiMonicPolynomials ps ==
+       selectPolynomials(quasiMonic?, ps)
+
+     removeRoughlyRedundantFactorsInPols (lp, lf, opt) ==
+       empty? lp => lp
+       newlp : LP := []
+       stop : B := false
+       lp := remove(zero?, lp)
+       lf := sort(infRittWu?, lf)
+       test : Union(P,"failed")
+       while (not empty? lp) and (not stop) repeat
+         p := first lp
+         lp := rest lp
+         copylf := lf
+         while (not empty? copylf) and (not ground? p) and (not (mvar(p) < mvar(first copylf))) repeat
+           f := first copylf
+           copylf := rest copylf
+           while (((test := p exquo$P f)) case P) repeat
+             p := test::P
+         stop := opt and ground?(p)
+         newlp := cons(unitCanonical(p), newlp)
+       stop => [1$P]
+       newlp
+
+     removeRoughlyRedundantFactorsInPol(p, lf) ==
+       zero? p => p
+       lp : LP := [p]
+       first removeRoughlyRedundantFactorsInPols (lp, lf, true()$B)
+
+     removeRoughlyRedundantFactorsInPols (lp, lf) ==
+       removeRoughlyRedundantFactorsInPols (lp, lf, false()$B)
+
+     possiblyNewVariety?(newlp, llp) ==
+       while (not empty? llp) and _
+        (not certainlySubVariety?(newlp, first(llp))) repeat
+         llp := rest llp
+       empty? llp
+
+     certainlySubVariety?(lp, lq) ==
+       gs := construct(lp)$GPS
+       while (not empty? lq) and _
+        (zero? (remainder(first(lq), gs)$GPS).polnum) repeat
+         lq := rest lq
+       empty? lq
+
+     probablyZeroDim?(lp : List P) : Boolean ==
+       m := #lp
+       lv : List V := variables(first lp)
+       while not empty? (lp := rest lp) repeat
+         lv := concat(variables(first lp), lv)
+       n := #(removeDuplicates lv)
+       not (n > m)
+
+     interReduce(lp : LP) : LP ==
+       ps := lp
+       rs : List(P) := []
+       repeat
+         empty? ps => return rs
+         ps := sort(supRittWu?, ps)
+         p := first ps
+         ps := rest ps
+         r := remainder(p, [ps]$GPS).polnum
+         zero? r => "iterate"
+         ground? r => return []
+         associates?(r, p) => rs := cons(r, rs)
+         ps := concat(ps, cons(r, rs))
+         rs := []
+
+     roughRed?(p : P, q : P) : B ==
+       ground? p => false
+       ground? q => true
+       mvar(p) > mvar(q)
+
+     roughBasicSet(lp) == basicSet(lp, roughRed?)$T
+
+     autoRemainder(ts : T) : List(P) ==
+       empty? ts => members(ts)
+       lp := sort(infRittWu?, reverse members(ts))
+       newlp : List(P) := [primPartElseUnitCanonical first(lp)]
+       lp := rest(lp)
+       while not empty? lp repeat
+         p := (remainder(first(lp), construct(newlp)$GPS)$GPS).polnum
+         if not zero? p
+           then
+             if ground? p
+               then
+                 newlp := [1$P]
+                 lp := []
+               else
+                 newlp := cons(p, newlp)
+                 lp := rest(lp)
+           else
+             lp := rest(lp)
+       newlp
+
+     crushedSet(lp) ==
+       rec := roughBasicSet(lp)
+       contradiction := (rec case "failed")@B
+       finished : B := false
+       while (not finished) and (not contradiction) repeat
+         bs := (rec::RBT).bas
+         rs := (rec::RBT).top
+         rs :=  rewriteIdealWithRemainder(rs, bs)$T
+         contradiction := ((not empty? rs) and (first(rs) = 1))
+         if not contradiction
+           then
+             rs := concat(rs, autoRemainder(bs))
+             rec := roughBasicSet(rs)
+             contradiction := (rec case "failed")@B
+             not contradiction => finished := not infRittWu?((rec::RBT).bas, bs)
+       contradiction => [1$P]
+       rs
+
+     rewriteSetByReducingWithParticularGenerators (ps, pred?, redOp?, redOp) ==
+       rs : LP := remove(zero?, ps)
+       any?(ground?, rs) => [1$P]
+       contradiction : B := false
+       bs1 : T := empty()$T
+       rec : Union(RBT,"failed")
+       ar : Union(T, List(P))
+       stop : B := false
+       while (not contradiction) and (not stop) repeat
+         rec := basicSet(rs, pred?, redOp?)$T
+         bs2 : T := (rec::RBT).bas
+         rs := (rec::RBT).top
+         -- ar := autoReduce(bs2, lazyPrem, reduced?)@Union(T, List(P))
+         ar := bs2::Union(T, List(P))
+         if (ar case T)@B
+           then
+             bs2 := ar::T
+             if infRittWu?(bs2, bs1)
+               then
+                 rs := rewriteSetWithReduction(rs, bs2, redOp, redOp?)$T
+                 bs1 := bs2
+               else
+                 stop := true
+             rs := concat(members(bs2), rs)
+           else
+             rs := concat(ar::LP, rs)
+         if any?(ground?, rs)
+           then
+             contradiction := true
+             rs := [1$P]
+       rs
+
+     removeRedundantFactors (lp : LP, lq : LP, remOp : (LP -> LP)) ==
+       -- ASSUME remOp(lp) returns lp up to similarity
+       lq := removeRoughlyRedundantFactorsInPols(lq, lp, false)
+       lq := remOp lq
+       sort(infRittWu?, concat(lp, lq))
+
+     removeRedundantFactors (lp : LP, lq : LP) ==
+       lq := removeRoughlyRedundantFactorsInPols(lq, lp, false)
+       lq := removeRedundantFactors lq
+       sort(infRittWu?, concat(lp, lq))
+
+     if (R has PolynomialFactorizationExplicit) and (R has CharacteristicZero)
+     then
+       irreducibleFactors lp ==
+         newlp : LP := []
+         fp : FP
+         while not empty? lp repeat
+           p := first lp
+           lp := rest lp
+           fp := factor(p)$pf
+           lrrz := factorList(fp)$FP
+           lf := remove(ground?, [rrz.factor for rrz in lrrz])
+           newlp := concat(lf, newlp)
+         removeDuplicates newlp
+
+       lazyIrreducibleFactors lp ==
+         lp := removeRedundantFactors(lp)
+         newlp : LP := []
+         fp : FP
+         while not empty? lp repeat
+           p := first lp
+           lp := rest lp
+           fp := factor(p)$pf
+           lrrz := factorList(fp)$FP
+           lf := remove(ground?, [rrz.factor for rrz in lrrz])
+           newlp := concat(lf, newlp)
+         newlp
+
+       removeIrreducibleRedundantFactors (lp : LP, lq : LP) ==
+         -- ASSUME lp only contains irreducible factors over R
+         lq := removeRoughlyRedundantFactorsInPols(lq, lp, false)
+         lq := irreducibleFactors lq
+         sort(infRittWu?, concat(lp, lq))
+
+     if R has GcdDomain
+     then
+
+       squareFreeFactors(p : P) ==
+         sfp : Factored P := squareFree(p)$P
+         lsf : List P := [foo.factor for foo in factorList(sfp)]
+         lsf
+
+       univariatePolynomialsGcds (ps, opt) ==
+         lg : LP := []
+         pInV : LP
+         stop : B := false
+         ps := sort(infRittWu?, ps)
+         p, g : P
+         v : V
+         while (not empty? ps) and (not stop) repeat
+           while (not empty? ps) and (not univariate?((p := first(ps)))) repeat
+             ps := rest ps
+           if not empty? ps
+             then
+               v := mvar(p)$P
+               pInV := [p]
+               while (not empty? ps) and (mvar((p := first(ps))) = v) repeat
+                 if (univariate?(p))
+                   then
+                     pInV := cons(p, pInV)
+                 ps := rest ps
+               g := gcd(pInV)$P
+               stop := opt and (ground? g)
+               lg := cons(g, lg)
+         stop => [1$P]
+         lg
+
+       univariatePolynomialsGcds ps ==
+         univariatePolynomialsGcds (ps, false)
+
+       removeSquaresIfCan lp ==
+         empty? lp => lp
+         removeDuplicates [squareFreePart(p)$P for p in lp]
+
+       rewriteIdealWithQuasiMonicGenerators (ps, redOp?, redOp) ==
+         ups := removeSquaresIfCan(univariatePolynomialsGcds(ps, true))
+         ps := removeDuplicates concat(ups, ps)
+         rewriteSetByReducingWithParticularGenerators(ps, quasiMonic?, redOp?, redOp)
+
+       removeRoughlyRedundantFactorsInContents (ps, lf) ==
+         empty? ps => ps
+         newps : LP := []
+         p, newp, cp, newcp, f, g : P
+         test : Union(P,"failed")
+         copylf : LP
+         while not empty? ps repeat
+           p := first ps
+           ps := rest ps
+           cp := mainContent(p)$P
+           newcp := squareFreePart(cp)$P
+           newp := (p exquo$P cp)::P
+           if not ground? newcp
+             then
+               copylf := [f for f in lf | mvar(f) <= mvar(newcp)]
+               while (not empty? copylf) and (not ground? newcp) repeat
+                 f := first copylf
+                 copylf := rest copylf
+                 test := (newcp exquo$P f)
+                 if (test case P)@B
+                   then
+                     newcp := test::P
+           if ground? newcp
+             then
+               newp := unitCanonical(newp)
+             else
+               newp := unitCanonical(newp * newcp)
+           newps := cons(newp, newps)
+         newps
+
+       removeRedundantFactorsInContents (ps, lf) ==
+         empty? ps => ps
+         newps : LP := []
+         p, newp, cp, newcp, f, g : P
+         while not empty? ps repeat
+           p := first ps
+           ps := rest ps
+           cp := mainContent(p)$P
+           newcp := squareFreePart(cp)$P
+           newp := (p exquo$P cp)::P
+           if not ground? newcp
+             then
+               copylf := lf
+               while (not empty? copylf) and (not ground? newcp) repeat
+                 f := first copylf
+                 copylf := rest copylf
+                 g := gcd(newcp, f)$P
+                 if not ground? g
+                   then
+                     newcp := (newcp exquo$P g)::P
+           if ground? newcp
+             then
+               newp := unitCanonical(newp)
+             else
+               newp := unitCanonical(newp * newcp)
+           newps := cons(newp, newps)
+         newps
+
+       removeRedundantFactorsInPols (ps, lf) ==
+         empty? ps => ps
+         newps : LP := []
+         p, newp, cp, newcp, f, g : P
+         while not empty? ps repeat
+           p := first ps
+           ps := rest ps
+           cp := mainContent(p)$P
+           newcp := squareFreePart(cp)$P
+           newp := (p exquo$P cp)::P
+           newp := squareFreePart(newp)$P
+           copylf := lf
+           while not empty? copylf repeat
+             f := first copylf
+             copylf := rest copylf
+             if not ground? newcp
+               then
+                 g := gcd(newcp, f)$P
+                 if not ground? g
+                   then
+                     newcp := (newcp exquo$P g)::P
+             if not ground? newp
+               then
+                 g := gcd(newp, f)$P
+                 if not ground? g
+                   then
+                     newp := (newp exquo$P g)::P
+           if ground? newcp
+             then
+               newp := unitCanonical(newp)
+             else
+               newp := unitCanonical(newp * newcp)
+           newps := cons(newp, newps)
+         newps
+
+       removeRedundantFactors (a : P, b : P) : LP ==
+         a := primPartElseUnitCanonical(squareFreePart(a))
+         b := primPartElseUnitCanonical(squareFreePart(b))
+         if not infRittWu?(a, b)
+           then
+            (a, b) := (b, a)
+         if ground? a
+           then
+             if ground? b
+               then
+                 return([])
+               else
+                 return([b])
+           else
+             if ground? b
+               then
+                 return([a])
+               else
+                 return(unprotectedRemoveRedundantFactors(a, b))
+
+       unprotectedRemoveRedundantFactors (a, b) ==
+         c := b exquo$P a
+         if (c case P)@B
+           then
+             d : P := c::P
+             if ground? d
+               then
+                 return([a])
+               else
+                 return([a, d])
+           else
+             g : P := gcd(a, b)$P
+             if ground? g
+               then
+                 return([a, b])
+               else
+                 return([g, (a exquo$P g)::P, (b exquo$P g)::P])
+
+     else
+
+       removeSquaresIfCan lp ==
+         lp
+
+       rewriteIdealWithQuasiMonicGenerators (ps, redOp?, redOp) ==
+         rewriteSetByReducingWithParticularGenerators(ps, quasiMonic?, redOp?, redOp)
+
+       removeRedundantFactors (a : P, b : P) ==
+         a := primPartElseUnitCanonical(a)
+         b := primPartElseUnitCanonical(b)
+         if not infRittWu?(a, b)
+           then
+            (a, b) := (b, a)
+         if ground? a
+           then
+             if ground? b
+               then
+                 return([])
+               else
+                 return([b])
+           else
+             if ground? b
+               then
+                 return([a])
+               else
+                 return(unprotectedRemoveRedundantFactors(a, b))
+
+       unprotectedRemoveRedundantFactors (a, b) ==
+         c := b exquo$P a
+         if (c case P)@B
+           then
+             d : P := c::P
+             if ground? d
+               then
+                 return([a])
+               else
+                 if infRittWu?(d, a) then (a, d) := (d, a)
+                 return(unprotectedRemoveRedundantFactors(a, d))
+            else
+              return([a, b])
+
+     removeRedundantFactors (lp : LP) ==
+       lp := remove(ground?, lp)
+       lp := removeDuplicates [primPartElseUnitCanonical(p) for p in lp]
+       lp := removeSquaresIfCan lp
+       lp := removeDuplicates [unitCanonical(p) for p in lp]
+       empty? lp => lp
+       size?(lp, 1$N)$(List P) => lp
+       lp := sort(infRittWu?, lp)
+       p : P := first lp
+       lp := rest lp
+       base : LP := unprotectedRemoveRedundantFactors(p, first lp)
+       top : LP := rest lp
+       while not empty? top repeat
+         p := first top
+         base := removeRedundantFactors(base, p)
+         top := rest top
+       base
+
+     removeRedundantFactors (lp : LP, a : P) ==
+       lp := remove(ground?, lp)
+       lp := sort(infRittWu?, lp)
+       ground? a => lp
+       empty? lp => [a]
+       toSee : LP := lp
+       toSave : LP := []
+       while not empty? toSee repeat
+         b := first toSee
+         toSee := rest toSee
+         if not infRittWu?(b, a)
+           then
+             (c, d) := (a, b)
+           else
+             (c, d) := (b, a)
+         rrf := unprotectedRemoveRedundantFactors(c, d)
+         empty? rrf => error"in removeRedundantFactors : (LP,P) -> LP from PSETPK"
+         c := first rrf
+         rrf := rest rrf
+         if empty? rrf
+           then
+             if associates?(c, b)
+               then
+                 toSave := concat(toSave, toSee)
+                 a := b
+                 toSee := []
+               else
+                 a := c
+                 toSee := concat(toSave, toSee)
+                 toSave := []
+           else
+             d := first rrf
+             rrf := rest rrf
+             if empty? rrf
+               then
+                 if associates?(c, b)
+                   then
+                     toSave := concat(toSave, [b])
+                     a := d
+                   else
+                     if associates?(d, b)
+                       then
+                         toSave := concat(toSave, [b])
+                         a := c
+                       else
+                         toSave := removeRedundantFactors(toSave, c)
+                         a := d
+               else
+                 e := first rrf
+                 not empty? rest(rrf) => error"in removeRedundantFactors:(LP,P)->LP from PSETPK"
+                 -- ASSUME that neither c, nor d, nor e may be associated to b
+                 toSave := removeRedundantFactors(toSave, c)
+                 toSave := removeRedundantFactors(toSave, d)
+                 a := e
+         if empty? toSee
+           then
+             toSave := sort(infRittWu?, cons(a, toSave))
+       toSave
+

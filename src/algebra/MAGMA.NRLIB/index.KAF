@@ -1,0 +1,45 @@
+2064                (MAKEPROP '|Magma| 'NILADIC T)
+(|Magma|)
+|category|
+(((|Magma|) (|Category|)) (T |Magma|))
+(|Join| (|SetCategory|)
+        (CATEGORY |domain| (SIGNATURE * ($ $ $))
+         (SIGNATURE |rightPower| ($ $ (|PositiveInteger|)))
+         (SIGNATURE |leftPower| ($ $ (|PositiveInteger|)))
+         (SIGNATURE ^ ($ $ (|PositiveInteger|)))))
+"/git/fricas/src/algebra/MAGMA.spad"
+((* (*1 *1 *1 *1) (|ofCategory| *1 (|Magma|)))
+ (|rightPower| (*1 *1 *1 *2)
+  (AND (|ofCategory| *1 (|Magma|)) (|isDomain| *2 (|PositiveInteger|))))
+ (|leftPower| (*1 *1 *1 *2)
+  (AND (|ofCategory| *1 (|Magma|)) (|isDomain| *2 (|PositiveInteger|))))
+ (^ (*1 *1 *1 *2)
+  (AND (|ofCategory| *1 (|Magma|)) (|isDomain| *2 (|PositiveInteger|)))))
+((~= (((|Boolean|) $ $) 6)) (|rightPower| (($ $ (|PositiveInteger|)) 6))
+ (|leftPower| (($ $ (|PositiveInteger|)) 6)) (|latex| (((|String|) $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (^ (($ $ (|PositiveInteger|)) 6)) (= (((|Boolean|) $ $) 6)) (* (($ $ $) 6)))
+MAGMA
+(((|SetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "Magma is the class of all multiplicative magmas,{} \\spadignore{i.e.} sets with a binary operation."))
+ (^
+  (($ $ (|PositiveInteger|))
+   "\\spad{a^n} returns the \\spad{n}\\spad{-}th power of \\spad{a},{} defined by repeated squaring."))
+ (|leftPower|
+  (($ $ (|PositiveInteger|))
+   "\\spad{leftPower(a,{} n)} returns the \\spad{n}\\spad{-}th left power of \\spad{a},{} \\spadignore{i.e.} \\spad{leftPower(a,{} n) := a * leftPower(a,{} n-1)} and \\spad{leftPower(a,{} 1) := a}."))
+ (|rightPower|
+  (($ $ (|PositiveInteger|))
+   "\\spad{rightPower(a,{} n)} returns the \\spad{n}\\spad{-}th right power of \\spad{a},{} \\spadignore{i.e.} \\spad{rightPower(a,{} n) := rightPower(a,{} n-1) * a} and \\spad{rightPower(a,{} 1) := a}."))
+ (*
+  (($ $ $)
+   "\\spad{a*b} is the product of \\spad{a} and \\spad{b} in a set with a binary operation.")))
+(("documentation" 0 1192) ("ancestors" 0 1111) ("parents" 0 1087)
+ ("abbreviation" 0 1081) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 733) ("modemaps" 0 391) ("sourceFile" 0 354)
+ ("constructorCategory" 0 111) ("constructorModemap" 0 72)
+ ("constructorKind" 0 61) ("constructorForm" 0 51) ("NILADIC" 0 20))

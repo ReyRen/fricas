@@ -1,0 +1,263 @@
+)abbrev domain WUTSET WuWenTsunTriangularSet
+++ Author: Marc Moreno Maza (marc@nag.co.uk)
+++ Date Created: 11/18/1995
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Description: A domain constructor of the category \spadtype{GeneralTriangularSet}.
+++ The only requirement for a list of polynomials to be a member of such
+++ a domain is the following: no polynomial is constant and two distinct
+++ polynomials have distinct main variables. Such a triangular set may
+++ not be auto-reduced or consistent. The \spadopFrom{construct}{WuWenTsunTriangularSet} operation
+++ does not check the previous requirement. Triangular sets are stored
+++ as sorted lists w.r.t. the main variables of their members.
+++ Furthermore, this domain exports operations dealing with the
+++ characteristic set method of Wu Wen Tsun and some optimizations
+++ mainly proposed by Dong Ming Wang.\newline
+++ References:
+++  [1] W. T. WU "A Zero Structure Theorem for polynomial equations solving"
+++       MM Research Preprints, 1987.
+++  [2] D. M. WANG "An implementation of the characteristic set method in Maple"
+++       Proc. DISCO'92. Bath, England.
+++ Version: 3
+
+WuWenTsunTriangularSet(R, E, V, P) : Exports == Implementation where
+
+  R : IntegralDomain
+  E : OrderedAbelianMonoidSup
+  V : OrderedSet
+  P : RecursivePolynomialCategory(R, E, V)
+  N ==> NonNegativeInteger
+  Z ==> Integer
+  B ==> Boolean
+  LP ==> List P
+  A ==> FiniteEdge P
+  H ==> FiniteSimpleHypergraph P
+  RBT ==> Record(bas : %, top : LP)
+  pa ==> PolynomialSetUtilitiesPackage(R, E, V, P)
+  NLpT ==> SplittingNode(LP, %)
+  ALpT ==> SplittingTree(LP, %)
+  O ==> OutputForm
+  OP ==> OutputPackage
+
+  Exports ==  TriangularSetCategory(R, E, V, P) with
+
+     medialSet : (LP,((P,P)->B),((P,P)->P)) -> Union(%,"failed")
+        ++ \spad{medialSet(ps, redOp?, redOp)} returns \spad{bs} a basic set
+        ++ (in Wu Wen Tsun sense w.r.t the reduction-test \spad{redOp?})
+        ++ of some set generating the same ideal as \spad{ps} (with
+        ++ rank not higher than  any basic set of \spad{ps}), if no non-zero
+        ++ constant polynomials appear during the computations, else
+        ++ \spad{"failed"} is returned. In the former case, \spad{bs} has to be
+        ++ understood as a candidate for being a characteristic set of \spad{ps}.
+        ++ In the original algorithm, \spad{bs} is simply a basic set of \spad{ps}.
+     medialSet : LP -> Union(%,"failed")
+        ++ \spad{medial(ps)} returns the same as
+        ++ \spad{medialSet(ps, initiallyReduced?, initiallyReduce)}.
+     characteristicSet : (LP,((P,P)->B),((P,P)->P)) -> Union(%,"failed")
+        ++ \spad{characteristicSet(ps, redOp?, redOp)} returns a non-contradictory
+        ++ characteristic set of \spad{ps} in Wu Wen Tsun sense w.r.t the
+        ++ reduction-test \spad{redOp?} (using \spad{redOp} to reduce
+        ++ polynomials w.r.t a \spad{redOp?} basic set), if no
+        ++ non-zero constant polynomial appear during those reductions,
+        ++ else \spad{"failed"} is returned.
+        ++ The operations \spad{redOp} and \spad{redOp?} must satisfy
+        ++ the following conditions: \spad{redOp?(redOp(p, q), q)} holds
+        ++ for every polynomials \spad{p, q} and there exists an integer
+        ++ \spad{e} and a polynomial \spad{f} such that we have
+        ++ \spad{init(q)^e*p = f*q + redOp(p, q)}.
+     characteristicSet : LP -> Union(%,"failed")
+        ++ \spad{characteristicSet(ps)} returns the same as
+        ++ \spad{characteristicSet(ps, initiallyReduced?, initiallyReduce)}.
+     characteristicSerie  : (LP, ((P, P)->B), ((P, P)->P)) -> List %
+        ++ \spad{characteristicSerie(ps, redOp?, redOp)} returns a list \spad{lts}
+        ++ of triangular sets such that the zero set of \spad{ps} is the
+        ++ union of the regular zero sets of the members of \spad{lts}.
+        ++ This is made by the Ritt and Wu Wen Tsun process applying
+        ++ the operation \spad{characteristicSet(ps, redOp?, redOp)}
+        ++ to compute characteristic sets in Wu Wen Tsun sense.
+     characteristicSerie : LP ->  List %
+        ++ \spad{characteristicSerie(ps)} returns the same as
+        ++ \spad{characteristicSerie(ps, initiallyReduced?, initiallyReduce)}.
+
+  Implementation == GeneralTriangularSet(R, E, V, P) add
+
+     removeSquares : % -> Union(%,"failed")
+
+     Rep ==> LP
+
+     rep(s : %) : Rep == s pretend Rep
+     per(l : Rep) : % == l pretend %
+
+     removeAssociates (lp : LP) : LP ==
+       removeDuplicates [primPartElseUnitCanonical(p) for p in lp]
+
+     medialSetWithTrace (ps:LP,redOp?:((P,P)->B),redOp:((P,P)->P)):Union(RBT,"failed") ==
+       qs := rewriteIdealWithQuasiMonicGenerators(ps, redOp?, redOp)$pa
+       contradiction : B := any?(ground?, ps)
+       contradiction => "failed"::Union(RBT,"failed")
+       rs : LP := qs
+       bs : %
+       while (not empty? rs) and (not contradiction) repeat
+         rec := basicSet(rs, redOp?)
+         contradiction := (rec case "failed")@B
+         if not contradiction
+           then
+             bs := (rec::RBT).bas
+             rs := (rec::RBT).top
+             rs :=  rewriteIdealWithRemainder(rs, bs)
+             contradiction := ((not empty? rs) and (first(rs) = 1))
+             if (not empty? rs) and (not contradiction)
+               then
+                 rs := rewriteSetWithReduction(rs, bs, redOp, redOp?)
+                 contradiction := ((not empty? rs) and (first(rs) = 1))
+         if (not empty? rs) and (not contradiction)
+           then
+             rs := removeDuplicates concat(rs, members(bs))
+             rs := rewriteIdealWithQuasiMonicGenerators(rs, redOp?, redOp)$pa
+             contradiction := ((not empty? rs) and (first(rs) = 1))
+       contradiction => "failed"::Union(RBT,"failed")
+       ([bs,qs]$RBT)::Union(RBT,"failed")
+
+     medialSet(ps : LP, redOp? : ((P, P)->B), redOp : ((P, P)->P)) ==
+       foo : Union(RBT,"failed") := medialSetWithTrace(ps,redOp?,redOp)
+       (foo case "failed") => "failed" :: Union(%,"failed")
+       ((foo::RBT).bas) :: Union(%,"failed")
+
+     medialSet(ps : LP) == medialSet(ps, initiallyReduced?, initiallyReduce)
+
+     characteristicSetUsingTrace(ps:LP,redOp?:((P,P)->B),redOp:((P,P)->P)):Union(%,"failed") ==
+       ps := removeAssociates ps
+       ps := remove(zero?, ps)
+       contradiction : B := any?(ground?, ps)
+       contradiction => "failed"::Union(%,"failed")
+       rs : LP := ps
+       qs : LP := ps
+       ms : %
+       while (not empty? rs) and (not contradiction) repeat
+         rec := medialSetWithTrace (qs, redOp?, redOp)
+         contradiction := (rec case "failed")@B
+         if not contradiction
+           then
+             ms := (rec::RBT).bas
+             qs := (rec::RBT).top
+             qs := rewriteIdealWithRemainder(qs, ms)
+             contradiction := ((not empty? qs) and (first(qs) = 1))
+             if not contradiction
+               then
+                 rs :=  rewriteSetWithReduction(qs, ms, lazyPrem, reduced?)
+                 contradiction := ((not empty? rs) and (first(rs) = 1))
+             if  (not contradiction) and (not empty? rs)
+               then
+                 qs := removeDuplicates(concat(rs, concat(members(ms), qs)))
+       contradiction => "failed"::Union(%,"failed")
+       ms::Union(%,"failed")
+
+     characteristicSet(ps : LP, redOp? : ((P, P)->B), redOp : ((P, P)->P)) ==
+       characteristicSetUsingTrace(ps, redOp?, redOp)
+
+     characteristicSet(ps : LP) == characteristicSet(ps, initiallyReduced?, initiallyReduce)
+
+     characteristicSerie(ps : LP, redOp? : ((P, P)->B), redOp : ((P, P)->P)) ==
+       a := [[ps, empty()$%]$NLpT]$ALpT
+       while ((esl := extractSplittingLeaf(a)) case ALpT) repeat
+          ps := value(value(esl::ALpT)$ALpT)$NLpT
+          charSet? := characteristicSetUsingTrace(ps, redOp?, redOp)
+          if not (charSet? case %)
+             then
+                setvalue!(esl::ALpT, [[]$LP, empty()$%, true]$NLpT)
+                updateStatus!(a)
+             else
+                cs := (charSet?)::%
+                lics := initials(cs)
+                lics := removeRedundantFactors(lics)$pa
+                lics := sort(infRittWu?, lics)
+                if empty? lics
+                   then
+                      setvalue!(esl::ALpT, [ps, cs, true]$NLpT)
+                      updateStatus!(a)
+                   else
+                      ln : List NLpT := [[[]$LP, cs, true]$NLpT]
+                      while not empty? lics repeat
+                         newps := cons(first(lics), concat(cs::LP, ps))
+                         lics := rest lics
+                         newps := removeDuplicates newps
+                         newps := sort(infRittWu?, newps)
+                         ln := cons([newps, empty()$%, false]$NLpT, ln)
+                      splitNodeOf!(esl::ALpT, a, ln)
+       remove(empty()$%, conditions(a))
+
+     characteristicSerie(ps : LP) ==  characteristicSerie (ps, initiallyReduced?, initiallyReduce)
+
+     if R has GcdDomain
+     then
+
+       removeSquares (ts:%):Union(%,"failed") ==
+         empty?(ts)$% => ts::Union(%,"failed")
+         p := (first ts)::P
+         rsts : Union(%,"failed")
+         rsts := removeSquares((rest ts)::%)
+         not(rsts case %) => "failed"::Union(%,"failed")
+         newts := rsts::%
+         empty? newts =>
+           p := squareFreePart(p)
+           (per([primitivePart(p)]$LP))::Union(%,"failed")
+         zero? initiallyReduce(init(p),newts) => "failed"::Union(%,"failed")
+         p := primitivePart(removeZero(p, newts))
+         ground? p => "failed"::Union(%,"failed")
+         not (mvar(newts) < mvar(p)) => "failed"::Union(%,"failed")
+         p := squareFreePart(p)
+         (per(cons(unitCanonical(p),rep(newts))))::Union(%,"failed")
+
+       zeroSetSplit lp ==
+         lts : List % := characteristicSerie(lp, initiallyReduced?, initiallyReduce)
+         lts := removeDuplicates(lts)$(List %)
+         newlts : List % := []
+         while not empty? lts repeat
+           ts := first lts
+           lts := rest lts
+           iic := removeSquares(ts)
+           if iic case %
+             then
+               newlts := cons(iic::%, newlts)
+         newlts := removeDuplicates(newlts)$(List %)
+         sort(infRittWu?, newlts)
+
+     else
+
+       zeroSetSplit lp ==
+         lts : List % := characteristicSerie(lp, initiallyReduced?, initiallyReduce)
+         sort(infRittWu?, removeDuplicates lts)
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

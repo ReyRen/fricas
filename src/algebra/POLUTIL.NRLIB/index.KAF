@@ -1,0 +1,79 @@
+3805                (|RealPolynomialUtilitiesPackage| |TheField| |ThePols|)
+|package|
+(((|RealPolynomialUtilitiesPackage| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |sylvesterSequence| ((|List| |#2|) |#2| |#2|))
+   (SIGNATURE |sturmSequence| ((|List| |#2|) |#2|))
+   (IF (|has| |#1| (|OrderedRing|))
+       (PROGN
+        (SIGNATURE |boundOfCauchy| (|#1| |#2|))
+        (SIGNATURE |sturmVariationsOf| ((|NonNegativeInteger|) (|List| |#1|)))
+        (SIGNATURE |lazyVariations|
+         ((|NonNegativeInteger|) (|List| |#1|) (|Integer|) (|Integer|))))
+       |noBranch|))
+  (|Field|) (|UnivariatePolynomialCategory| |#1|))
+ (T |RealPolynomialUtilitiesPackage|))
+(CATEGORY |package| (SIGNATURE |sylvesterSequence| ((|List| |#2|) |#2| |#2|))
+ (SIGNATURE |sturmSequence| ((|List| |#2|) |#2|))
+ (IF (|has| |#1| (|OrderedRing|))
+     (PROGN
+      (SIGNATURE |boundOfCauchy| (|#1| |#2|))
+      (SIGNATURE |sturmVariationsOf| ((|NonNegativeInteger|) (|List| |#1|)))
+      (SIGNATURE |lazyVariations|
+       ((|NonNegativeInteger|) (|List| |#1|) (|Integer|) (|Integer|))))
+     |noBranch|))
+"/git/fricas/src/algebra/POLUTIL.spad"
+((|lazyVariations| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|Integer|))
+       (|ofCategory| *5 (|OrderedRing|)) (|ofCategory| *5 (|Field|))
+       (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|RealPolynomialUtilitiesPackage| *5 *6))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))))
+ (|sturmVariationsOf| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4)) (|ofCategory| *4 (|OrderedRing|))
+       (|ofCategory| *4 (|Field|)) (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|RealPolynomialUtilitiesPackage| *4 *5))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))))
+ (|boundOfCauchy| (*1 *2 *3)
+  (AND (|ofCategory| *2 (|Field|)) (|ofCategory| *2 (|OrderedRing|))
+       (|isDomain| *1 (|RealPolynomialUtilitiesPackage| *2 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *2))))
+ (|sturmSequence| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|Field|)) (|isDomain| *2 (|List| *3))
+       (|isDomain| *1 (|RealPolynomialUtilitiesPackage| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|sylvesterSequence| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|Field|)) (|isDomain| *2 (|List| *3))
+       (|isDomain| *1 (|RealPolynomialUtilitiesPackage| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4)))))
+((|sylvesterSequence| (((|List| |#2|) |#2| |#2|) 10))
+ (|sturmVariationsOf|
+  (((|NonNegativeInteger|) (|List| |#1|)) 38 (|has| |#1| (|OrderedRing|))))
+ (|sturmSequence| (((|List| |#2|) |#2|) 11))
+ (|lazyVariations|
+  (((|NonNegativeInteger|) (|List| |#1|) (|Integer|) (|Integer|)) 37
+   (|has| |#1| (|OrderedRing|))))
+ (|boundOfCauchy| ((|#1| |#2|) 33 (|has| |#1| (|OrderedRing|)))))
+((|HasCategory| |#1| '(|OrderedRing|)))
+POLUTIL
+((|constructor|
+  (NIL
+   "\\spadtype{RealPolynomialUtilitiesPackage} provides common functions used by interval coding."))
+ (|lazyVariations|
+  (((|NonNegativeInteger|) (|List| |#1|) (|Integer|) (|Integer|))
+   "\\spad{lazyVariations(l,{} s1,{} sn)} is the number of sign variations in the list of non null numbers [s1::l]\\spad{@sn},{}"))
+ (|sturmVariationsOf|
+  (((|NonNegativeInteger|) (|List| |#1|))
+   "\\spad{sturmVariationsOf(l)} is the number of sign variations in the list of numbers \\spad{l},{} note that the first term counts as a sign"))
+ (|boundOfCauchy|
+  ((|#1| |#2|) "\\spad{boundOfCauchy(p)} bounds the roots of \\spad{p}"))
+ (|sturmSequence|
+  (((|List| |#2|) |#2|)
+   "\\spad{sturmSequence(p) = sylvesterSequence(p,{} p')}"))
+ (|sylvesterSequence|
+  (((|List| |#2|) |#2| |#2|)
+   "\\spad{sylvesterSequence(p,{} q)} is the negated remainder sequence of \\spad{p} and \\spad{q} divided by the last computed term")))
+(("documentation" 0 2870) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2862) ("predicates" 0 2822) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2437) ("modemaps" 0 1122) ("sourceFile" 0 1083)
+ ("constructorCategory" 0 662) ("constructorModemap" 0 86)
+ ("constructorKind" 0 76) ("constructorForm" 0 20))

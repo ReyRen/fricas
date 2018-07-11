@@ -1,0 +1,165 @@
+7850                (|DistinctDegreeFactorize| F FP)
+|package|
+(((|DistinctDegreeFactorize| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#2|) |#2|))
+   (SIGNATURE |factorSquareFree| ((|Factored| |#2|) |#2|))
+   (SIGNATURE |distdfact|
+    ((|Record| (|:| |cont| |#1|)
+               (|:| |factors|
+                    (|List|
+                     (|Record| (|:| |irr| |#2|)
+                               (|:| |pow| (|NonNegativeInteger|))))))
+     |#2| (|Boolean|)))
+   (SIGNATURE |separateDegrees|
+    ((|List| (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |prod| |#2|)))
+     |#2|))
+   (SIGNATURE |separateFactors|
+    ((|List| |#2|)
+     (|List| (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |prod| |#2|)))))
+   (SIGNATURE |exptMod| (|#2| |#2| (|NonNegativeInteger|) |#2|))
+   (SIGNATURE |trace2PowMod| (|#2| |#2| (|NonNegativeInteger|) |#2|))
+   (SIGNATURE |tracePowMod| (|#2| |#2| (|NonNegativeInteger|) |#2|))
+   (SIGNATURE |irreducible?| ((|Boolean|) |#2|)))
+  (|FiniteFieldCategory|) (|UnivariatePolynomialCategory| |#1|))
+ (T |DistinctDegreeFactorize|))
+(CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#2|) |#2|))
+ (SIGNATURE |factorSquareFree| ((|Factored| |#2|) |#2|))
+ (SIGNATURE |distdfact|
+  ((|Record| (|:| |cont| |#1|)
+             (|:| |factors|
+                  (|List|
+                   (|Record| (|:| |irr| |#2|)
+                             (|:| |pow| (|NonNegativeInteger|))))))
+   |#2| (|Boolean|)))
+ (SIGNATURE |separateDegrees|
+  ((|List| (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |prod| |#2|)))
+   |#2|))
+ (SIGNATURE |separateFactors|
+  ((|List| |#2|)
+   (|List| (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |prod| |#2|)))))
+ (SIGNATURE |exptMod| (|#2| |#2| (|NonNegativeInteger|) |#2|))
+ (SIGNATURE |trace2PowMod| (|#2| |#2| (|NonNegativeInteger|) |#2|))
+ (SIGNATURE |tracePowMod| (|#2| |#2| (|NonNegativeInteger|) |#2|))
+ (SIGNATURE |irreducible?| ((|Boolean|) |#2|)))
+"/git/fricas/src/algebra/DDFACT.spad"
+((|irreducible?| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|FiniteFieldCategory|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|DistinctDegreeFactorize| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|tracePowMod| (*1 *2 *2 *3 *2)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *1 (|DistinctDegreeFactorize| *4 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))))
+ (|trace2PowMod| (*1 *2 *2 *3 *2)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *1 (|DistinctDegreeFactorize| *4 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))))
+ (|exptMod| (*1 *2 *2 *3 *2)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *1 (|DistinctDegreeFactorize| *4 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))))
+ (|separateFactors| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |prod| *5))))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+   (|ofCategory| *4 (|FiniteFieldCategory|)) (|isDomain| *2 (|List| *5))
+   (|isDomain| *1 (|DistinctDegreeFactorize| *4 *5))))
+ (|separateDegrees| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |deg| (|NonNegativeInteger|))
+                              (|:| |prod| *3))))
+       (|isDomain| *1 (|DistinctDegreeFactorize| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|distdfact| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Boolean|)) (|ofCategory| *5 (|FiniteFieldCategory|))
+       (|isDomain| *2
+                   (|Record| (|:| |cont| *5)
+                             (|:| |factors|
+                                  (|List|
+                                   (|Record| (|:| |irr| *3)
+                                             (|:| |pow|
+                                                  (|NonNegativeInteger|)))))))
+       (|isDomain| *1 (|DistinctDegreeFactorize| *5 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *5))))
+ (|factorSquareFree| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|DistinctDegreeFactorize| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|factor| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|DistinctDegreeFactorize| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4)))))
+((|tracePowMod| ((|#2| |#2| (|NonNegativeInteger|) |#2|) 44))
+ (|trace2PowMod| ((|#2| |#2| (|NonNegativeInteger|) |#2|) 40))
+ (|separateFactors|
+  (((|List| |#2|)
+    (|List| (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |prod| |#2|))))
+   59))
+ (|separateDegrees|
+  (((|List| (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |prod| |#2|)))
+    |#2|)
+   55))
+ (|irreducible?| (((|Boolean|) |#2|) 52))
+ (|factorSquareFree| (((|Factored| |#2|) |#2|) 73))
+ (|factor| (((|Factored| |#2|) |#2|) 72))
+ (|exptMod| ((|#2| |#2| (|NonNegativeInteger|) |#2|) 38))
+ (|distdfact|
+  (((|Record| (|:| |cont| |#1|)
+              (|:| |factors|
+                   (|List|
+                    (|Record| (|:| |irr| |#2|)
+                              (|:| |pow| (|NonNegativeInteger|))))))
+    |#2| (|Boolean|))
+   65)))
+DDFACT
+((|constructor|
+  (NIL
+   "Package for the factorization of a univariate polynomial with coefficients in a finite field. The algorithm used is the \"distinct degree\" algorithm of Cantor-Zassenhaus,{} modified to use trace instead of the norm and a table for computing Frobenius as suggested by Naudin and Quitte ."))
+ (|irreducible?|
+  (((|Boolean|) |#2|)
+   "\\spad{irreducible?(p)} tests whether the polynomial \\spad{p} is irreducible."))
+ (|tracePowMod|
+  ((|#2| |#2| (|NonNegativeInteger|) |#2|)
+   "\\spad{tracePowMod(u,{} k,{} v)} produces the sum of \\spad{u^(q^i)} for \\spad{i} running and \\spad{q=} size \\spad{F}"))
+ (|trace2PowMod|
+  ((|#2| |#2| (|NonNegativeInteger|) |#2|)
+   "\\spad{trace2PowMod(u,{} k,{} v)} produces the sum of \\spad{u^(2^i)} for \\spad{i} running from 1 to \\spad{k} all computed modulo the polynomial \\spad{v}."))
+ (|exptMod|
+  ((|#2| |#2| (|NonNegativeInteger|) |#2|)
+   "\\spad{exptMod(u,{} k,{} v)} raises the polynomial \\spad{u} to the \\spad{k}th power modulo the polynomial \\spad{v}."))
+ (|separateFactors|
+  (((|List| |#2|)
+    (|List| (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |prod| |#2|))))
+   "\\spad{separateFactors(lfact)} takes the list produced by \\spadfunFrom{separateDegrees}{DistinctDegreeFactorization} and produces the complete list of factors."))
+ (|separateDegrees|
+  (((|List| (|Record| (|:| |deg| (|NonNegativeInteger|)) (|:| |prod| |#2|)))
+    |#2|)
+   "\\spad{separateDegrees(p)} splits the square free polynomial \\spad{p} into factors each of which is a product of irreducibles of the same degree."))
+ (|distdfact|
+  (((|Record| (|:| |cont| |#1|)
+              (|:| |factors|
+                   (|List|
+                    (|Record| (|:| |irr| |#2|)
+                              (|:| |pow| (|NonNegativeInteger|))))))
+    |#2| (|Boolean|))
+   "\\spad{distdfact(p,{} sqfrflag)} produces the complete factorization of the polynomial \\spad{p} returning an internal data structure. If argument sqfrflag is \\spad{true},{} the polynomial is assumed square free."))
+ (|factorSquareFree|
+  (((|Factored| |#2|) |#2|)
+   "\\spad{factorSquareFree(p)} produces the complete factorization of the square free polynomial \\spad{p}."))
+ (|factor|
+  (((|Factored| |#2|) |#2|)
+   "\\spad{factor(p)} produces the complete factorization of the polynomial \\spad{p}.")))
+(("documentation" 0 5517) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 5510) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4703) ("modemaps" 0 1986) ("sourceFile" 0 1948)
+ ("constructorCategory" 0 1093) ("constructorModemap" 0 63)
+ ("constructorKind" 0 53) ("constructorForm" 0 20))

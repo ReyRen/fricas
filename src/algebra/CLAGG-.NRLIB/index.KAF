@@ -1,0 +1,68 @@
+4890                (|Collection&| A S)
+|domain|
+(((|Collection&| |#1| |#2|)
+  (CATEGORY |domain| (SIGNATURE |convert| ((|InputForm|) |#1|))
+   (SIGNATURE |removeDuplicates| (|#1| |#1|))
+   (SIGNATURE |remove| (|#1| |#2| |#1|))
+   (SIGNATURE |reduce| (|#2| (|Mapping| |#2| |#2| |#2|) |#1| |#2| |#2|))
+   (SIGNATURE |select| (|#1| (|Mapping| (|Boolean|) |#2|) |#1|))
+   (SIGNATURE |remove| (|#1| (|Mapping| (|Boolean|) |#2|) |#1|))
+   (SIGNATURE |reduce| (|#2| (|Mapping| |#2| |#2| |#2|) |#1| |#2|))
+   (SIGNATURE |reduce| (|#2| (|Mapping| |#2| |#2| |#2|) |#1|))
+   (SIGNATURE |find|
+    ((|Union| |#2| "failed") (|Mapping| (|Boolean|) |#2|) |#1|)))
+  (|Collection| |#2|) (|Type|))
+ (T |Collection&|))
+(CATEGORY |domain| (SIGNATURE |convert| ((|InputForm|) |#1|))
+ (SIGNATURE |removeDuplicates| (|#1| |#1|))
+ (SIGNATURE |remove| (|#1| |#2| |#1|))
+ (SIGNATURE |reduce| (|#2| (|Mapping| |#2| |#2| |#2|) |#1| |#2| |#2|))
+ (SIGNATURE |select| (|#1| (|Mapping| (|Boolean|) |#2|) |#1|))
+ (SIGNATURE |remove| (|#1| (|Mapping| (|Boolean|) |#2|) |#1|))
+ (SIGNATURE |reduce| (|#2| (|Mapping| |#2| |#2| |#2|) |#1| |#2|))
+ (SIGNATURE |reduce| (|#2| (|Mapping| |#2| |#2| |#2|) |#1|))
+ (SIGNATURE |find| ((|Union| |#2| "failed") (|Mapping| (|Boolean|) |#2|) |#1|)))
+"/git/fricas/src/algebra/CLAGG.spad"
+((|select| (($ (|Mapping| (|Boolean|) |#2|) $) 23))
+ (|removeDuplicates| (($ $) 31))
+ (|remove| (($ (|Mapping| (|Boolean|) |#2|) $) 21) (($ |#2| $) 27))
+ (|reduce| ((|#2| (|Mapping| |#2| |#2| |#2|) $) 16)
+  ((|#2| (|Mapping| |#2| |#2| |#2|) $ |#2|) 18)
+  ((|#2| (|Mapping| |#2| |#2| |#2|) $ |#2| |#2|) 29))
+ (|find| (((|Union| |#2| "failed") (|Mapping| (|Boolean|) |#2|) $) 13))
+ (|convert| (((|InputForm|) $) 41)))
+((|HasCategory| |#2| (LIST '|ConvertibleTo| '(|InputForm|)))
+ (|HasCategory| |#2| '(|BasicType|)) (|HasCategory| |#1| '(|finiteAggregate|)))
+CLAGG-
+((|constructor|
+  (NIL
+   "A collection is a homogeneous aggregate which can be built from a list of members. The operation used to build the aggregate is generically named \\spadfun{construct}. However,{} each collection provides its own special function with the same name as the data type,{} except with an initial lower case letter,{} \\spadignore{e.g.} \\spadfun{list} for \\spadtype{List},{} \\spadfun{flexibleArray} for \\spadtype{FlexibleArray},{} and so on."))
+ (|removeDuplicates|
+  (($ $)
+   "\\spad{removeDuplicates(u)} returns a copy of \\spad{u} with all duplicates removed."))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#2|) $)
+   "\\spad{select(p,{} u)} returns a copy of \\spad{u} containing only those elements such \\spad{p(x)} is \\spad{true}. Note: \\spad{select(p,{} u) = [x for x in u | p(x)]}."))
+ (|remove|
+  (($ |#2| $)
+   "\\spad{remove(x,{} u)} returns a copy of \\spad{u} with all elements equal to \\spad{x} removed. Note: \\spad{remove(x,{} u) = [y for y in u | y ~= x]}.")
+  (($ (|Mapping| (|Boolean|) |#2|) $)
+   "\\spad{remove(p,{} u)} returns a copy of \\spad{u} removing all elements \\spad{x} such that \\spad{p(x)} is \\spad{true}. Note: \\spad{remove(p,{} u) = [x for x in u | not p(x)]}."))
+ (|reduce|
+  ((|#2| (|Mapping| |#2| |#2| |#2|) $ |#2| |#2|)
+   "\\spad{reduce(f,{} u,{} x,{} z)} reduces the binary operation \\spad{f} across \\spad{u},{} stopping when an \"absorbing element\" \\spad{z} is encountered. As for \\spad{reduce(f,{} u,{} x)},{} \\spad{x} is the identity element of \\spad{f}. Same as \\spad{reduce(f,{} u,{} x)} when \\spad{u} contains no element \\spad{z}. Thus the third argument \\spad{x} is returned when \\spad{u} is empty.")
+  ((|#2| (|Mapping| |#2| |#2| |#2|) $ |#2|)
+   "\\spad{reduce(f,{} u,{} x)} reduces the binary operation \\spad{f} across \\spad{u},{} where \\spad{x} is the identity operation of \\spad{f}. Same as \\spad{reduce(f,{} u)} if \\spad{u} has 2 or more elements. Returns \\spad{f(y,{} x)} if \\spad{u} has one element \\spad{y}. Returns \\spad{x} if \\spad{u} is empty. For example,{} \\spad{reduce(+,{} u,{} 0)} returns the sum of the elements of \\spad{u}.")
+  ((|#2| (|Mapping| |#2| |#2| |#2|) $)
+   "\\spad{reduce(f,{} u)} reduces the binary operation \\spad{f} across \\spad{u}. For example,{} if \\spad{u} is \\spad{[x,{} y,{} ...,{} z]} then \\spad{reduce(f,{} u)} returns \\spad{f(..f(f(x,{} y),{} ...),{} z)}. Note: if \\spad{u} has one element \\spad{x},{} \\spad{reduce(f,{} u)} returns \\spad{x}. Error: if \\spad{u} is empty."))
+ (|find|
+  (((|Union| |#2| "failed") (|Mapping| (|Boolean|) |#2|) $)
+   "\\spad{find(p,{} u)} returns the first \\spad{x} in \\spad{u} such that \\spad{p(x)} is \\spad{true},{} and \"failed\" otherwise."))
+ (|construct|
+  (($ (|List| |#2|))
+   "\\spad{construct([x,{} y,{} ...,{} z])} returns the collection of elements \\spad{x,{} y,{} ...,{} z} ordered as given. Equivalently written as \\spad{[x,{} y,{} ...,{} z]\\$D},{} where \\spad{D} is the domain. \\spad{D} may be omitted for those of type List.")))
+(("documentation" 0 1852) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1845) ("predicates" 0 1704) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1288) ("modemaps" 0 NIL) ("sourceFile" 0 1251)
+ ("constructorCategory" 0 701) ("constructorModemap" 0 49)
+ ("constructorKind" 0 40) ("constructorForm" 0 20))

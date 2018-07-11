@@ -1,0 +1,109 @@
+6258                (MAKEPROP '|ViewportPackage| 'NILADIC T)
+(|ViewportPackage|)
+|package|
+(((|ViewportPackage|)
+  (CATEGORY |package|
+   (SIGNATURE |graphCurves|
+    ((|GraphImage|) (|List| (|List| (|Point| (|DoubleFloat|)))) (|Palette|)
+     (|Palette|) (|PositiveInteger|) (|List| (|DrawOption|))))
+   (SIGNATURE |graphCurves|
+    ((|GraphImage|) (|List| (|List| (|Point| (|DoubleFloat|))))))
+   (SIGNATURE |graphCurves|
+    ((|GraphImage|) (|List| (|List| (|Point| (|DoubleFloat|))))
+     (|List| (|DrawOption|))))
+   (SIGNATURE |drawCurves|
+    ((|TwoDimensionalViewport|) (|List| (|List| (|Point| (|DoubleFloat|))))
+     (|Palette|) (|Palette|) (|PositiveInteger|) (|List| (|DrawOption|))))
+   (SIGNATURE |drawCurves|
+    ((|TwoDimensionalViewport|) (|List| (|List| (|Point| (|DoubleFloat|))))
+     (|List| (|DrawOption|))))
+   (SIGNATURE |coerce| ((|TwoDimensionalViewport|) (|GraphImage|)))))
+ (T |ViewportPackage|))
+(CATEGORY |package|
+ (SIGNATURE |graphCurves|
+  ((|GraphImage|) (|List| (|List| (|Point| (|DoubleFloat|)))) (|Palette|)
+   (|Palette|) (|PositiveInteger|) (|List| (|DrawOption|))))
+ (SIGNATURE |graphCurves|
+  ((|GraphImage|) (|List| (|List| (|Point| (|DoubleFloat|))))))
+ (SIGNATURE |graphCurves|
+  ((|GraphImage|) (|List| (|List| (|Point| (|DoubleFloat|))))
+   (|List| (|DrawOption|))))
+ (SIGNATURE |drawCurves|
+  ((|TwoDimensionalViewport|) (|List| (|List| (|Point| (|DoubleFloat|))))
+   (|Palette|) (|Palette|) (|PositiveInteger|) (|List| (|DrawOption|))))
+ (SIGNATURE |drawCurves|
+  ((|TwoDimensionalViewport|) (|List| (|List| (|Point| (|DoubleFloat|))))
+   (|List| (|DrawOption|))))
+ (SIGNATURE |coerce| ((|TwoDimensionalViewport|) (|GraphImage|))))
+"/git/fricas/src/algebra/VIEW.spad"
+((|coerce| (*1 *2 *3)
+           (AND (|isDomain| *3 (|GraphImage|))
+                (|isDomain| *2 (|TwoDimensionalViewport|))
+                (|isDomain| *1 (|ViewportPackage|))))
+ (|drawCurves| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|List| (|Point| (|DoubleFloat|)))))
+       (|isDomain| *4 (|List| (|DrawOption|)))
+       (|isDomain| *2 (|TwoDimensionalViewport|))
+       (|isDomain| *1 (|ViewportPackage|))))
+ (|drawCurves| (*1 *2 *3 *4 *4 *5 *6)
+  (AND (|isDomain| *3 (|List| (|List| (|Point| (|DoubleFloat|)))))
+       (|isDomain| *4 (|Palette|)) (|isDomain| *5 (|PositiveInteger|))
+       (|isDomain| *6 (|List| (|DrawOption|)))
+       (|isDomain| *2 (|TwoDimensionalViewport|))
+       (|isDomain| *1 (|ViewportPackage|))))
+ (|graphCurves| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|List| (|Point| (|DoubleFloat|)))))
+       (|isDomain| *4 (|List| (|DrawOption|))) (|isDomain| *2 (|GraphImage|))
+       (|isDomain| *1 (|ViewportPackage|))))
+ (|graphCurves| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|List| (|Point| (|DoubleFloat|)))))
+       (|isDomain| *2 (|GraphImage|)) (|isDomain| *1 (|ViewportPackage|))))
+ (|graphCurves| (*1 *2 *3 *4 *4 *5 *6)
+  (AND (|isDomain| *3 (|List| (|List| (|Point| (|DoubleFloat|)))))
+       (|isDomain| *4 (|Palette|)) (|isDomain| *5 (|PositiveInteger|))
+       (|isDomain| *6 (|List| (|DrawOption|))) (|isDomain| *2 (|GraphImage|))
+       (|isDomain| *1 (|ViewportPackage|)))))
+((|graphCurves|
+  (((|GraphImage|) (|List| (|List| (|Point| (|DoubleFloat|))))
+    (|List| (|DrawOption|)))
+   17)
+  (((|GraphImage|) (|List| (|List| (|Point| (|DoubleFloat|))))) 16)
+  (((|GraphImage|) (|List| (|List| (|Point| (|DoubleFloat|)))) (|Palette|)
+    (|Palette|) (|PositiveInteger|) (|List| (|DrawOption|)))
+   15))
+ (|drawCurves|
+  (((|TwoDimensionalViewport|) (|List| (|List| (|Point| (|DoubleFloat|))))
+    (|List| (|DrawOption|)))
+   23)
+  (((|TwoDimensionalViewport|) (|List| (|List| (|Point| (|DoubleFloat|))))
+    (|Palette|) (|Palette|) (|PositiveInteger|) (|List| (|DrawOption|)))
+   22))
+ (|coerce| (((|TwoDimensionalViewport|) (|GraphImage|)) 30)))
+VIEW
+((|constructor|
+  (NIL
+   "ViewportPackage provides functions for creating GraphImages and TwoDimensionalViewports from lists of lists of points."))
+ (|coerce|
+  (((|TwoDimensionalViewport|) (|GraphImage|))
+   "\\spad{coerce(\\spad{gi})} converts the indicated \\spadtype{GraphImage},{} \\spad{gi},{} into the \\spadtype{TwoDimensionalViewport} form."))
+ (|drawCurves|
+  (((|TwoDimensionalViewport|) (|List| (|List| (|Point| (|DoubleFloat|))))
+    (|List| (|DrawOption|)))
+   "\\spad{drawCurves([[p0],{} [p1],{} ...,{} [pn]],{} [options])} creates a \\spadtype{TwoDimensionalViewport} from the list of lists of points,{} \\spad{p0} throught \\spad{pn},{} using the options specified in the list \\spad{options}.")
+  (((|TwoDimensionalViewport|) (|List| (|List| (|Point| (|DoubleFloat|))))
+    (|Palette|) (|Palette|) (|PositiveInteger|) (|List| (|DrawOption|)))
+   "\\spad{drawCurves([[p0],{} [p1],{} ...,{} [pn]],{} ptColor,{} lineColor,{} ptSize,{} [options])} creates a \\spadtype{TwoDimensionalViewport} from the list of lists of points,{} \\spad{p0} throught \\spad{pn},{} using the options specified in the list \\spad{options}. The point color is specified by \\spad{ptColor},{} the line color is specified by \\spad{lineColor},{} and the point size is specified by \\spad{ptSize}."))
+ (|graphCurves|
+  (((|GraphImage|) (|List| (|List| (|Point| (|DoubleFloat|))))
+    (|List| (|DrawOption|)))
+   "\\spad{graphCurves([[p0],{} [p1],{} ...,{} [pn]],{} [options])} creates a \\spadtype{GraphImage} from the list of lists of points,{} \\spad{p0} throught \\spad{pn},{} using the options specified in the list \\spad{options}.")
+  (((|GraphImage|) (|List| (|List| (|Point| (|DoubleFloat|)))))
+   "\\spad{graphCurves([[p0],{} [p1],{} ...,{} [pn]])} creates a \\spadtype{GraphImage} from the list of lists of points indicated by \\spad{p0} through \\spad{pn}.")
+  (((|GraphImage|) (|List| (|List| (|Point| (|DoubleFloat|)))) (|Palette|)
+    (|Palette|) (|PositiveInteger|) (|List| (|DrawOption|)))
+   "\\spad{graphCurves([[p0],{} [p1],{} ...,{} [pn]],{} ptColor,{} lineColor,{} ptSize,{} [options])} creates a \\spadtype{GraphImage} from the list of lists of points,{} \\spad{p0} throught \\spad{pn},{} using the options specified in the list \\spad{options}. The graph point color is specified by \\spad{ptColor},{} the graph line color is specified by \\spad{lineColor},{} and the size of the points is specified by \\spad{ptSize}.")))
+(("documentation" 0 3821) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3816) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3145) ("modemaps" 0 1716) ("sourceFile" 0 1680)
+ ("constructorCategory" 0 925) ("constructorModemap" 0 91)
+ ("constructorKind" 0 81) ("constructorForm" 0 61) ("NILADIC" 0 20))

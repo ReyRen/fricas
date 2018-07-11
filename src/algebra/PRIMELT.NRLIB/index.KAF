@@ -1,0 +1,103 @@
+6179                (|PrimitiveElement| F)
+|package|
+(((|PrimitiveElement| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |primitiveElement|
+    ((|Record| (|:| |coef1| (|Integer|)) (|:| |coef2| (|Integer|))
+               (|:| |prim| (|SparseUnivariatePolynomial| |#1|)))
+     (|Polynomial| |#1|) (|Symbol|) (|Polynomial| |#1|) (|Symbol|)))
+   (SIGNATURE |primitiveElement|
+    ((|Record| (|:| |coef| (|List| (|Integer|)))
+               (|:| |poly| (|List| (|SparseUnivariatePolynomial| |#1|)))
+               (|:| |prim| (|SparseUnivariatePolynomial| |#1|)))
+     (|List| (|Polynomial| |#1|)) (|List| (|Symbol|))))
+   (SIGNATURE |primitiveElement|
+    ((|Record| (|:| |coef| (|List| (|Integer|)))
+               (|:| |poly| (|List| (|SparseUnivariatePolynomial| |#1|)))
+               (|:| |prim| (|SparseUnivariatePolynomial| |#1|)))
+     (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)) (|Symbol|))))
+  (|Join| (|Field|) (|CharacteristicZero|)))
+ (T |PrimitiveElement|))
+(CATEGORY |package|
+ (SIGNATURE |primitiveElement|
+  ((|Record| (|:| |coef1| (|Integer|)) (|:| |coef2| (|Integer|))
+             (|:| |prim| (|SparseUnivariatePolynomial| |#1|)))
+   (|Polynomial| |#1|) (|Symbol|) (|Polynomial| |#1|) (|Symbol|)))
+ (SIGNATURE |primitiveElement|
+  ((|Record| (|:| |coef| (|List| (|Integer|)))
+             (|:| |poly| (|List| (|SparseUnivariatePolynomial| |#1|)))
+             (|:| |prim| (|SparseUnivariatePolynomial| |#1|)))
+   (|List| (|Polynomial| |#1|)) (|List| (|Symbol|))))
+ (SIGNATURE |primitiveElement|
+  ((|Record| (|:| |coef| (|List| (|Integer|)))
+             (|:| |poly| (|List| (|SparseUnivariatePolynomial| |#1|)))
+             (|:| |prim| (|SparseUnivariatePolynomial| |#1|)))
+   (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)) (|Symbol|))))
+"/git/fricas/src/algebra/PRIMELT.spad"
+((|primitiveElement| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *6)))
+       (|isDomain| *4 (|List| (|Symbol|))) (|isDomain| *5 (|Symbol|))
+       (|ofCategory| *6 (|Join| (|Field|) (|CharacteristicZero|)))
+       (|isDomain| *2
+                   (|Record| (|:| |coef| (|List| (|Integer|)))
+                             (|:| |poly|
+                                  (|List| (|SparseUnivariatePolynomial| *6)))
+                             (|:| |prim| (|SparseUnivariatePolynomial| *6))))
+       (|isDomain| *1 (|PrimitiveElement| *6))))
+ (|primitiveElement| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5)))
+       (|isDomain| *4 (|List| (|Symbol|)))
+       (|ofCategory| *5 (|Join| (|Field|) (|CharacteristicZero|)))
+       (|isDomain| *2
+                   (|Record| (|:| |coef| (|List| (|Integer|)))
+                             (|:| |poly|
+                                  (|List| (|SparseUnivariatePolynomial| *5)))
+                             (|:| |prim| (|SparseUnivariatePolynomial| *5))))
+       (|isDomain| *1 (|PrimitiveElement| *5))))
+ (|primitiveElement| (*1 *2 *3 *4 *3 *4)
+  (AND (|isDomain| *3 (|Polynomial| *5)) (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *5 (|Join| (|Field|) (|CharacteristicZero|)))
+       (|isDomain| *2
+                   (|Record| (|:| |coef1| (|Integer|))
+                             (|:| |coef2| (|Integer|))
+                             (|:| |prim| (|SparseUnivariatePolynomial| *5))))
+       (|isDomain| *1 (|PrimitiveElement| *5)))))
+((|primitiveElement|
+  (((|Record| (|:| |coef| (|List| (|Integer|)))
+              (|:| |poly| (|List| (|SparseUnivariatePolynomial| |#1|)))
+              (|:| |prim| (|SparseUnivariatePolynomial| |#1|)))
+    (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)) (|Symbol|))
+   23)
+  (((|Record| (|:| |coef| (|List| (|Integer|)))
+              (|:| |poly| (|List| (|SparseUnivariatePolynomial| |#1|)))
+              (|:| |prim| (|SparseUnivariatePolynomial| |#1|)))
+    (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)))
+   24)
+  (((|Record| (|:| |coef1| (|Integer|)) (|:| |coef2| (|Integer|))
+              (|:| |prim| (|SparseUnivariatePolynomial| |#1|)))
+    (|Polynomial| |#1|) (|Symbol|) (|Polynomial| |#1|) (|Symbol|))
+   41)))
+PRIMELT
+((|constructor|
+  (NIL
+   "PrimitiveElement provides functions to compute primitive elements in algebraic extensions."))
+ (|primitiveElement|
+  (((|Record| (|:| |coef| (|List| (|Integer|)))
+              (|:| |poly| (|List| (|SparseUnivariatePolynomial| |#1|)))
+              (|:| |prim| (|SparseUnivariatePolynomial| |#1|)))
+    (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)) (|Symbol|))
+   "\\spad{primitiveElement([p1,{} ...,{} pn],{} [a1,{} ...,{} an],{} a)} returns \\spad{[[c1,{} ...,{} cn],{} [q1,{} ...,{} qn],{} q]} such that then \\spad{k(a1,{} ...,{} an) = k(a)},{} where \\spad{a = a1 c1 + ... + an cn},{} \\spad{\\spad{ai} = \\spad{qi}(a)},{} and \\spad{q(a) = 0}. The \\spad{pi}\\spad{'s} are the defining polynomials for the \\spad{ai}\\spad{'s}. This operation uses the technique of \\spadglossSee{groebner bases}{Groebner basis}.")
+  (((|Record| (|:| |coef| (|List| (|Integer|)))
+              (|:| |poly| (|List| (|SparseUnivariatePolynomial| |#1|)))
+              (|:| |prim| (|SparseUnivariatePolynomial| |#1|)))
+    (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)))
+   "\\spad{primitiveElement([p1,{} ...,{} pn],{} [a1,{} ...,{} an])} returns \\spad{[[c1,{} ...,{} cn],{} [q1,{} ...,{} qn],{} q]} such that then \\spad{k(a1,{} ...,{} an) = k(a)},{} where \\spad{a = a1 c1 + ... + an cn},{} \\spad{\\spad{ai} = \\spad{qi}(a)},{} and \\spad{q(a) = 0}. The \\spad{pi}\\spad{'s} are the defining polynomials for the \\spad{ai}\\spad{'s}. This operation uses the technique of \\spadglossSee{groebner bases}{Groebner basis}.")
+  (((|Record| (|:| |coef1| (|Integer|)) (|:| |coef2| (|Integer|))
+              (|:| |prim| (|SparseUnivariatePolynomial| |#1|)))
+    (|Polynomial| |#1|) (|Symbol|) (|Polynomial| |#1|) (|Symbol|))
+   "\\spad{primitiveElement(p1,{} a1,{} p2,{} a2)} returns \\spad{[c1,{} c2,{} q]} such that \\spad{k(a1,{} a2) = k(a)} where \\spad{a = c1 a1 + c2 a2,{} and q(a) = 0}. The \\spad{pi}\\spad{'s} are the defining polynomials for the \\spad{ai}\\spad{'s}. The \\spad{p2} may involve \\spad{a1},{} but \\spad{p1} must not involve \\spad{a2}. This operation uses \\spadfun{resultant}.")))
+(("documentation" 0 4054) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4046) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3318) ("modemaps" 0 1800) ("sourceFile" 0 1761)
+ ("constructorCategory" 0 971) ("constructorModemap" 0 53)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

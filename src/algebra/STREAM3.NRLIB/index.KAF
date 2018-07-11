@@ -1,0 +1,33 @@
+1311                (|StreamFunctions3| A B C)
+|package|
+(((|StreamFunctions3| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |map|
+    ((|Stream| |#3|) (|Mapping| |#3| |#1| |#2|) (|Stream| |#1|)
+     (|Stream| |#2|))))
+  (|Type|) (|Type|) (|Type|))
+ (T |StreamFunctions3|))
+(CATEGORY |package|
+ (SIGNATURE |map|
+  ((|Stream| |#3|) (|Mapping| |#3| |#1| |#2|) (|Stream| |#1|) (|Stream| |#2|))))
+"/git/fricas/src/algebra/STREAM3.spad"
+((|map| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Mapping| *8 *6 *7)) (|isDomain| *4 (|Stream| *6))
+       (|isDomain| *5 (|Stream| *7)) (|ofCategory| *6 (|Type|))
+       (|ofCategory| *7 (|Type|)) (|ofCategory| *8 (|Type|))
+       (|isDomain| *2 (|Stream| *8))
+       (|isDomain| *1 (|StreamFunctions3| *6 *7 *8)))))
+((|map|
+  (((|Stream| |#3|) (|Mapping| |#3| |#1| |#2|) (|Stream| |#1|) (|Stream| |#2|))
+   21)))
+STREAM3
+((|constructor|
+  (NIL "Functions defined on streams with entries in three sets."))
+ (|map|
+  (((|Stream| |#3|) (|Mapping| |#3| |#1| |#2|) (|Stream| |#1|) (|Stream| |#2|))
+   "\\spad{map(f,{} st1,{} st2)} returns the stream whose elements are the function \\spad{f} applied to the corresponding elements of \\spad{st1} and \\spad{st2}. Note: \\spad{map(f,{} [x0,{} x1,{} x2,{} ..],{} [y0,{} y1,{} y2,{} ..]) = [f(x0,{} y0),{} f(x1,{} y1),{} ..]}.")))
+(("documentation" 0 860) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 852) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 755) ("modemaps" 0 438) ("sourceFile" 0 399)
+ ("constructorCategory" 0 280) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

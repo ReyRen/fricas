@@ -1,0 +1,183 @@
+9660                (|LinearCombinationUtilities| F UP)
+|package|
+(((|LinearCombinationUtilities| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |dehomogenize|
+    ((|Record|
+      (|:| |particular|
+           (|Union|
+            (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))
+            "failed"))
+      (|:| |basis|
+           (|List|
+            (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|))))))
+     (|List| (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|))))))
+   (SIGNATURE |lin_comb| (|#1| (|Vector| |#1|) (|List| |#1|)))
+   (SIGNATURE |lin_comb|
+    (|#1| (|Vector| (|Fraction| (|Integer|))) (|List| |#1|)))
+   (SIGNATURE |lin_comb!|
+    ((|Vector| |#1|) (|Vector| |#1|) (|Vector| |#1|) (|List| (|Vector| |#1|))))
+   (SIGNATURE |lin_comb|
+    ((|Vector| |#1|) (|Vector| |#1|) (|List| (|Vector| |#1|))))
+   (SIGNATURE |lin_comb|
+    ((|Fraction| |#2|) (|Vector| |#1|) (|List| (|Fraction| |#2|))))
+   (SIGNATURE |lin_comb|
+    ((|Fraction| |#2|) (|Vector| (|Fraction| (|Integer|)))
+     (|List| (|Fraction| |#2|))))
+   (SIGNATURE |lin_comb|
+    ((|LaurentPolynomial| |#1| |#2|) (|Vector| |#1|)
+     (|List| (|LaurentPolynomial| |#1| |#2|))))
+   (SIGNATURE |lin_comb| (|#2| (|Vector| |#1|) (|List| |#2|))))
+  (|Field|) (|UnivariatePolynomialCategory| |#1|))
+ (T |LinearCombinationUtilities|))
+(CATEGORY |package|
+ (SIGNATURE |dehomogenize|
+  ((|Record|
+    (|:| |particular|
+         (|Union|
+          (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))
+          "failed"))
+    (|:| |basis|
+         (|List|
+          (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|))))))
+   (|List| (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|))))))
+ (SIGNATURE |lin_comb| (|#1| (|Vector| |#1|) (|List| |#1|)))
+ (SIGNATURE |lin_comb|
+  (|#1| (|Vector| (|Fraction| (|Integer|))) (|List| |#1|)))
+ (SIGNATURE |lin_comb!|
+  ((|Vector| |#1|) (|Vector| |#1|) (|Vector| |#1|) (|List| (|Vector| |#1|))))
+ (SIGNATURE |lin_comb|
+  ((|Vector| |#1|) (|Vector| |#1|) (|List| (|Vector| |#1|))))
+ (SIGNATURE |lin_comb|
+  ((|Fraction| |#2|) (|Vector| |#1|) (|List| (|Fraction| |#2|))))
+ (SIGNATURE |lin_comb|
+  ((|Fraction| |#2|) (|Vector| (|Fraction| (|Integer|)))
+   (|List| (|Fraction| |#2|))))
+ (SIGNATURE |lin_comb|
+  ((|LaurentPolynomial| |#1| |#2|) (|Vector| |#1|)
+   (|List| (|LaurentPolynomial| |#1| |#2|))))
+ (SIGNATURE |lin_comb| (|#2| (|Vector| |#1|) (|List| |#2|))))
+"/git/fricas/src/algebra/LINCOMB.spad"
+((|lin_comb| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Vector| *5)) (|isDomain| *4 (|List| *2))
+       (|ofCategory| *5 (|Field|))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *5))
+       (|isDomain| *1 (|LinearCombinationUtilities| *5 *2))))
+ (|lin_comb| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Vector| *5))
+       (|isDomain| *4 (|List| (|LaurentPolynomial| *5 *6)))
+       (|ofCategory| *5 (|Field|)) (|isDomain| *2 (|LaurentPolynomial| *5 *6))
+       (|isDomain| *1 (|LinearCombinationUtilities| *5 *6))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))))
+ (|lin_comb| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Vector| (|Fraction| (|Integer|))))
+       (|isDomain| *4 (|List| (|Fraction| *6))) (|ofCategory| *5 (|Field|))
+       (|isDomain| *2 (|Fraction| *6))
+       (|isDomain| *1 (|LinearCombinationUtilities| *5 *6))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))))
+ (|lin_comb| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Vector| *5)) (|isDomain| *4 (|List| (|Fraction| *6)))
+       (|ofCategory| *5 (|Field|)) (|isDomain| *2 (|Fraction| *6))
+       (|isDomain| *1 (|LinearCombinationUtilities| *5 *6))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))))
+ (|lin_comb| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Vector| *4))) (|isDomain| *2 (|Vector| *4))
+       (|ofCategory| *4 (|Field|))
+       (|isDomain| *1 (|LinearCombinationUtilities| *4 *5))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))))
+ (|lin_comb!| (*1 *2 *2 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Vector| *4))) (|isDomain| *2 (|Vector| *4))
+       (|ofCategory| *4 (|Field|))
+       (|isDomain| *1 (|LinearCombinationUtilities| *4 *5))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))))
+ (|lin_comb| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Vector| (|Fraction| (|Integer|))))
+       (|isDomain| *4 (|List| *2)) (|ofCategory| *2 (|Field|))
+       (|isDomain| *1 (|LinearCombinationUtilities| *2 *5))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *2))))
+ (|lin_comb| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Vector| *2)) (|isDomain| *4 (|List| *2))
+       (|ofCategory| *2 (|Field|))
+       (|isDomain| *1 (|LinearCombinationUtilities| *2 *5))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *2))))
+ (|dehomogenize| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |ratpart| *4) (|:| |coeffs| (|Vector| *4)))))
+   (|ofCategory| *4 (|Field|))
+   (|isDomain| *2
+               (|Record|
+                (|:| |particular|
+                     (|Union|
+                      (|Record| (|:| |ratpart| *4)
+                                (|:| |coeffs| (|Vector| *4)))
+                      "failed"))
+                (|:| |basis|
+                     (|List|
+                      (|Record| (|:| |ratpart| *4)
+                                (|:| |coeffs| (|Vector| *4)))))))
+   (|isDomain| *1 (|LinearCombinationUtilities| *4 *5))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| *4)))))
+((|lin_comb!|
+  (((|Vector| |#1|) (|Vector| |#1|) (|Vector| |#1|) (|List| (|Vector| |#1|)))
+   42))
+ (|lin_comb| ((|#2| (|Vector| |#1|) (|List| |#2|)) 64)
+  (((|LaurentPolynomial| |#1| |#2|) (|Vector| |#1|)
+    (|List| (|LaurentPolynomial| |#1| |#2|)))
+   60)
+  (((|Fraction| |#2|) (|Vector| (|Fraction| (|Integer|)))
+    (|List| (|Fraction| |#2|)))
+   53)
+  (((|Fraction| |#2|) (|Vector| |#1|) (|List| (|Fraction| |#2|))) 50)
+  (((|Vector| |#1|) (|Vector| |#1|) (|List| (|Vector| |#1|))) 43)
+  ((|#1| (|Vector| (|Fraction| (|Integer|))) (|List| |#1|)) 39)
+  ((|#1| (|Vector| |#1|) (|List| |#1|)) 34))
+ (|dehomogenize|
+  (((|Record|
+     (|:| |particular|
+          (|Union|
+           (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))
+           "failed"))
+     (|:| |basis|
+          (|List|
+           (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|))))))
+    (|List| (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+   31)))
+LINCOMB
+((|lin_comb!|
+  (((|Vector| |#1|) (|Vector| |#1|) (|Vector| |#1|) (|List| (|Vector| |#1|)))
+   "\\spad{lin_comb!(v,{} w,{} [f1,{} ...,{} fn])} computes linear combination \\spad{w} + \\spad{v}(1) \\spad{f1} + ... \\spad{v}(\\spad{n}) \\spad{fn} by modifying \\spad{w} in place. Vector \\spad{v} and list [\\spad{f1},{} ...,{} \\spad{fn}] must be of equal length."))
+ (|lin_comb|
+  ((|#2| (|Vector| |#1|) (|List| |#2|))
+   "\\spad{lin_comb(v,{} [f1,{} ...,{} fn])} computes linear combination \\spad{v}(1) \\spad{f1} + ... \\spad{v}(\\spad{n}) \\spad{fn}. Vector \\spad{v} and list [\\spad{f1},{} ...,{} \\spad{fn}] must be of equal length.")
+  (((|LaurentPolynomial| |#1| |#2|) (|Vector| |#1|)
+    (|List| (|LaurentPolynomial| |#1| |#2|)))
+   "\\spad{lin_comb(v,{} [f1,{} ...,{} fn])} computes linear combination \\spad{v}(1) \\spad{f1} + ... \\spad{v}(\\spad{n}) \\spad{fn}. Vector \\spad{v} and list [\\spad{f1},{} ...,{} \\spad{fn}] must be of equal length.")
+  (((|Fraction| |#2|) (|Vector| (|Fraction| (|Integer|)))
+    (|List| (|Fraction| |#2|)))
+   "\\spad{lin_comb(v,{} [f1,{} ...,{} fn])} computes linear combination \\spad{v}(1) \\spad{f1} + ... \\spad{v}(\\spad{n}) \\spad{fn}. Vector \\spad{v} and list [\\spad{f1},{} ...,{} \\spad{fn}] must be of equal length.")
+  (((|Fraction| |#2|) (|Vector| |#1|) (|List| (|Fraction| |#2|)))
+   "\\spad{lin_comb(v,{} [f1,{} ...,{} fn])} computes linear combination \\spad{v}(1) \\spad{f1} + ... \\spad{v}(\\spad{n}) \\spad{fn}. Vector \\spad{v} and list [\\spad{f1},{} ...,{} \\spad{fn}] must be of equal length.")
+  (((|Vector| |#1|) (|Vector| |#1|) (|List| (|Vector| |#1|)))
+   "\\spad{lin_comb(v,{} [f1,{} ...,{} fn])} computes linear combination \\spad{v}(1) \\spad{f1} + ... \\spad{v}(\\spad{n}) \\spad{fn}. Vector \\spad{v} and list [\\spad{f1},{} ...,{} \\spad{fn}] must be of equal positive length.")
+  ((|#1| (|Vector| (|Fraction| (|Integer|))) (|List| |#1|))
+   "\\spad{lin_comb(v,{} [f1,{} ...,{} fn])} computes linear combination \\spad{v}(1) \\spad{f1} + ... \\spad{v}(\\spad{n}) \\spad{fn}. Vector \\spad{v} and list [\\spad{f1},{} ...,{} \\spad{fn}] must be of equal length.")
+  ((|#1| (|Vector| |#1|) (|List| |#1|))
+   "\\spad{lin_comb(v,{} [f1,{} ...,{} fn])} computes linear combination \\spad{v}(1) \\spad{f1} + ... \\spad{v}(\\spad{n}) \\spad{fn}. Vector \\spad{v} and list [\\spad{f1},{} ...,{} \\spad{fn}] must be of equal length."))
+ (|dehomogenize|
+  (((|Record|
+     (|:| |particular|
+          (|Union|
+           (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))
+           "failed"))
+     (|:| |basis|
+          (|List|
+           (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|))))))
+    (|List| (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+   "\\spad{dehomogenize(ls)} converts list of solutions (a,{} [\\spad{c0},{} \\spad{c1},{} ...,{} \\spad{cn}]) to homogeneous equation \\spad{L}(a) + \\spad{c0} \\spad{f} + \\spad{c1} \\spad{g1} + ... + \\spad{cn} \\spad{gn} = 0 into list of solutions of inhomogeneous equation \\spad{L}(a) + \\spad{f} + \\spad{c1} \\spad{g1} + ... + \\spad{cn} \\spad{gn} = 0. This transformation works the same for all equations,{} so we only need list of solutions as argument")))
+(("documentation" 0 6427) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 6419) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5449) ("modemaps" 0 2478) ("sourceFile" 0 2439)
+ ("constructorCategory" 0 1344) ("constructorModemap" 0 66)
+ ("constructorKind" 0 56) ("constructorForm" 0 20))

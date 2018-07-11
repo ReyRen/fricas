@@ -1,0 +1,63 @@
+2799                (|RealRootCharacterizationCategory&| S |TheField| |ThePols|)
+|domain|
+(((|RealRootCharacterizationCategory&| |#1| |#2| |#3|)
+  (CATEGORY |domain|
+   (SIGNATURE |rootOf| ((|Union| |#1| "failed") |#3| (|PositiveInteger|)))
+   (SIGNATURE |recip| ((|Union| |#3| "failed") |#3| |#1|))
+   (SIGNATURE |positive?| ((|Boolean|) |#3| |#1|))
+   (SIGNATURE |negative?| ((|Boolean|) |#3| |#1|))
+   (SIGNATURE |zero?| ((|Boolean|) |#3| |#1|)))
+  (|RealRootCharacterizationCategory| |#2| |#3|)
+  (|Join| (|OrderedRing|) (|Field|)) (|UnivariatePolynomialCategory| |#2|))
+ (T |RealRootCharacterizationCategory&|))
+(CATEGORY |domain|
+ (SIGNATURE |rootOf| ((|Union| |#1| "failed") |#3| (|PositiveInteger|)))
+ (SIGNATURE |recip| ((|Union| |#3| "failed") |#3| |#1|))
+ (SIGNATURE |positive?| ((|Boolean|) |#3| |#1|))
+ (SIGNATURE |negative?| ((|Boolean|) |#3| |#1|))
+ (SIGNATURE |zero?| ((|Boolean|) |#3| |#1|)))
+"/git/fricas/src/algebra/RRCC.spad"
+((|zero?| (((|Boolean|) |#3| $) 12))
+ (|rootOf| (((|Union| $ "failed") |#3| (|PositiveInteger|)) 24))
+ (|recip| (((|Union| |#3| "failed") |#3| $) 38))
+ (|positive?| (((|Boolean|) |#3| $) 15))
+ (|negative?| (((|Boolean|) |#3| $) 13)))
+RRCC-
+((|constructor|
+  (NIL
+   "\\spadtype{RealRootCharacterizationCategory} provides common access functions for all real root codings."))
+ (|relativeApprox|
+  ((|#2| |#3| $ |#2|)
+   "\\spad{approximate(term,{} root,{} prec)} gives an approximation of \\spad{term} over \\spad{root} with precision \\spad{prec}"))
+ (|approximate|
+  ((|#2| |#3| $ |#2|)
+   "\\spad{approximate(term,{} root,{} prec)} gives an approximation of \\spad{term} over \\spad{root} with precision \\spad{prec}"))
+ (|rootOf|
+  (((|Union| $ "failed") |#3| (|PositiveInteger|))
+   "\\spad{rootOf(pol,{} n)} gives the \\spad{n}th root for the order of the Real Closure"))
+ (|allRootsOf|
+  (((|List| $) |#3|)
+   "\\spad{allRootsOf(pol)} creates all the roots of \\spad{pol} in the Real Closure,{} assumed in order."))
+ (|definingPolynomial|
+  ((|#3| $)
+   "\\spad{definingPolynomial(aRoot)} gives a polynomial such that \\spad{definingPolynomial(aRoot).aRoot = 0}"))
+ (|recip|
+  (((|Union| |#3| "failed") |#3| $)
+   "\\spad{recip(pol,{} aRoot)} tries to inverse \\spad{pol} interpreted as \\spad{aRoot}"))
+ (|positive?|
+  (((|Boolean|) |#3| $)
+   "\\spad{positive?(pol,{} aRoot)} answers if \\spad{pol} interpreted as \\spad{aRoot} is positive"))
+ (|negative?|
+  (((|Boolean|) |#3| $)
+   "\\spad{negative?(pol,{} aRoot)} answers if \\spad{pol} interpreted as \\spad{aRoot} is negative"))
+ (|zero?|
+  (((|Boolean|) |#3| $)
+   "\\spad{zero?(pol,{} aRoot)} answers if \\spad{pol} interpreted as \\spad{aRoot} is \\spad{0}"))
+ (|sign|
+  (((|Integer|) |#3| $)
+   "\\spad{sign(pol,{} aRoot)} gives the sign of \\spad{pol} interpreted as \\spad{aRoot}")))
+(("documentation" 0 1186) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1180) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 946) ("modemaps" 0 NIL) ("sourceFile" 0 910)
+ ("constructorCategory" 0 617) ("constructorModemap" 0 90)
+ ("constructorKind" 0 81) ("constructorForm" 0 20))

@@ -1,0 +1,157 @@
+7592                (|DenominatorIntegration| R F)
+|package|
+(((|DenominatorIntegration| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |li_int|
+    ((|Record| (|:| |answer| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+               (|:| |logpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+               (|:| |ir|
+                    (|IntegrationResult|
+                     (|Fraction| (|SparseUnivariatePolynomial| |#2|)))))
+     (|Fraction| (|SparseUnivariatePolynomial| |#2|)) (|Kernel| |#2|)
+     (|Symbol|)))
+   (SIGNATURE |poly_int|
+    ((|Record| (|:| |answer| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+               (|:| |logpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+               (|:| |ir|
+                    (|IntegrationResult|
+                     (|Fraction| (|SparseUnivariatePolynomial| |#2|)))))
+     (|Fraction| (|SparseUnivariatePolynomial| |#2|)) (|Kernel| |#2|)
+     (|Symbol|)))
+   (SIGNATURE |solve_u|
+    ((|Union| (|List| (|List| |#2|)) "failed") |#2| |#2| (|Symbol|))))
+  (|Join| (|GcdDomain|) (|Comparable|) (|CharacteristicZero|)
+          (|RetractableTo| (|Integer|)) (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|AlgebraicallyClosedField|) (|TranscendentalFunctionCategory|)
+          (|LiouvillianFunctionCategory|) (|SpecialFunctionCategory|)
+          (|FunctionSpace| |#1|)))
+ (T |DenominatorIntegration|))
+(CATEGORY |package|
+ (SIGNATURE |li_int|
+  ((|Record| (|:| |answer| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+             (|:| |logpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+             (|:| |ir|
+                  (|IntegrationResult|
+                   (|Fraction| (|SparseUnivariatePolynomial| |#2|)))))
+   (|Fraction| (|SparseUnivariatePolynomial| |#2|)) (|Kernel| |#2|)
+   (|Symbol|)))
+ (SIGNATURE |poly_int|
+  ((|Record| (|:| |answer| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+             (|:| |logpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+             (|:| |ir|
+                  (|IntegrationResult|
+                   (|Fraction| (|SparseUnivariatePolynomial| |#2|)))))
+   (|Fraction| (|SparseUnivariatePolynomial| |#2|)) (|Kernel| |#2|)
+   (|Symbol|)))
+ (SIGNATURE |solve_u|
+  ((|Union| (|List| (|List| |#2|)) "failed") |#2| |#2| (|Symbol|))))
+"/git/fricas/src/algebra/INTDEN.spad"
+((|solve_u| (*1 *2 *3 *3 *4)
+  (|partial| AND (|isDomain| *4 (|Symbol|))
+   (|ofCategory| *5
+                 (|Join| (|GcdDomain|) (|Comparable|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *2 (|List| (|List| *3)))
+   (|isDomain| *1 (|DenominatorIntegration| *5 *3))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|LiouvillianFunctionCategory|)
+                         (|SpecialFunctionCategory|) (|FunctionSpace| *5)))))
+ (|poly_int| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Fraction| (|SparseUnivariatePolynomial| *7)))
+       (|isDomain| *4 (|Kernel| *7)) (|isDomain| *5 (|Symbol|))
+       (|ofCategory| *7
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|LiouvillianFunctionCategory|)
+                             (|SpecialFunctionCategory|) (|FunctionSpace| *6)))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |answer|
+                         (|Fraction| (|SparseUnivariatePolynomial| *7)))
+                    (|:| |logpart|
+                         (|Fraction| (|SparseUnivariatePolynomial| *7)))
+                    (|:| |ir|
+                         (|IntegrationResult|
+                          (|Fraction| (|SparseUnivariatePolynomial| *7))))))
+       (|isDomain| *1 (|DenominatorIntegration| *6 *7))))
+ (|li_int| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Fraction| (|SparseUnivariatePolynomial| *7)))
+       (|isDomain| *4 (|Kernel| *7)) (|isDomain| *5 (|Symbol|))
+       (|ofCategory| *7
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|LiouvillianFunctionCategory|)
+                             (|SpecialFunctionCategory|) (|FunctionSpace| *6)))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |answer|
+                         (|Fraction| (|SparseUnivariatePolynomial| *7)))
+                    (|:| |logpart|
+                         (|Fraction| (|SparseUnivariatePolynomial| *7)))
+                    (|:| |ir|
+                         (|IntegrationResult|
+                          (|Fraction| (|SparseUnivariatePolynomial| *7))))))
+       (|isDomain| *1 (|DenominatorIntegration| *6 *7)))))
+((|solve_u|
+  (((|Union| (|List| (|List| |#2|)) "failed") |#2| |#2| (|Symbol|)) 116))
+ (|poly_int|
+  (((|Record| (|:| |answer| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+              (|:| |logpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+              (|:| |ir|
+                   (|IntegrationResult|
+                    (|Fraction| (|SparseUnivariatePolynomial| |#2|)))))
+    (|Fraction| (|SparseUnivariatePolynomial| |#2|)) (|Kernel| |#2|)
+    (|Symbol|))
+   169))
+ (|li_int|
+  (((|Record| (|:| |answer| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+              (|:| |logpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+              (|:| |ir|
+                   (|IntegrationResult|
+                    (|Fraction| (|SparseUnivariatePolynomial| |#2|)))))
+    (|Fraction| (|SparseUnivariatePolynomial| |#2|)) (|Kernel| |#2|)
+    (|Symbol|))
+   168)))
+INTDEN
+((|constructor|
+  (NIL
+   "This package generates logarithmic integrals and polylogs corresponding to denominator of the integrand."))
+ (|solve_u|
+  (((|Union| (|List| (|List| |#2|)) "failed") |#2| |#2| (|Symbol|))
+   "\\spad{solve_u(f1,{} u,{} x)} returns [[\\spad{c1},{} \\spad{k1}],{} ...,{} [\\spad{cn},{} \\spad{kn}]] such that \\spad{f1} = \\spad{c1*u^k1} + ... + cn^kn and \\spad{D}(\\spad{ci},{} \\spad{x}) = 0 or \"failed\"."))
+ (|poly_int|
+  (((|Record| (|:| |answer| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+              (|:| |logpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+              (|:| |ir|
+                   (|IntegrationResult|
+                    (|Fraction| (|SparseUnivariatePolynomial| |#2|)))))
+    (|Fraction| (|SparseUnivariatePolynomial| |#2|)) (|Kernel| |#2|)
+    (|Symbol|))
+   "\\spad{poly_int(f,{} k,{} x)} generates polylogarithms."))
+ (|li_int|
+  (((|Record| (|:| |answer| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+              (|:| |logpart| (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+              (|:| |ir|
+                   (|IntegrationResult|
+                    (|Fraction| (|SparseUnivariatePolynomial| |#2|)))))
+    (|Fraction| (|SparseUnivariatePolynomial| |#2|)) (|Kernel| |#2|)
+    (|Symbol|))
+   "\\spad{li_int(f,{} k,{} x)} generates logarithmic integrals.")))
+(("documentation" 0 6243) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 6236) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5351) ("modemaps" 0 2324) ("sourceFile" 0 2286)
+ ("constructorCategory" 0 1387) ("constructorModemap" 0 61)
+ ("constructorKind" 0 51) ("constructorForm" 0 20))

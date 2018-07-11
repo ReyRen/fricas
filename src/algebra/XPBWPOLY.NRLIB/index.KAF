@@ -1,0 +1,313 @@
+15225               (|XPBWPolynomial| |VarSet| R)
+|domain|
+(((|XPBWPolynomial| |#1| |#2|)
+  (|Join| (|XPolynomialsCat| |#1| |#2|)
+          (|FreeModuleCategory| |#2| (|PoincareBirkhoffWittLyndonBasis| |#1|))
+          (CATEGORY |domain|
+           (SIGNATURE |coerce| ($ (|LiePolynomial| |#1| |#2|)))
+           (SIGNATURE |coerce| ((|XDistributedPolynomial| |#1| |#2|) $))
+           (SIGNATURE |coerce| ((|XRecursivePolynomial| |#1| |#2|) $))
+           (SIGNATURE |LiePolyIfCan|
+            ((|Union| (|LiePolynomial| |#1| |#2|) "failed") $))
+           (SIGNATURE |product| ($ $ $ (|NonNegativeInteger|)))
+           (IF (|has| |#2| (|Module| (|Fraction| (|Integer|))))
+               (PROGN
+                (SIGNATURE |exp| ($ $ (|NonNegativeInteger|)))
+                (SIGNATURE |log| ($ $ (|NonNegativeInteger|))))
+               |noBranch|)))
+  (|OrderedSet|) (|CommutativeRing|))
+ (T |XPBWPolynomial|))
+(|Join| (|XPolynomialsCat| |#1| |#2|)
+        (|FreeModuleCategory| |#2| (|PoincareBirkhoffWittLyndonBasis| |#1|))
+        (CATEGORY |domain| (SIGNATURE |coerce| ($ (|LiePolynomial| |#1| |#2|)))
+         (SIGNATURE |coerce| ((|XDistributedPolynomial| |#1| |#2|) $))
+         (SIGNATURE |coerce| ((|XRecursivePolynomial| |#1| |#2|) $))
+         (SIGNATURE |LiePolyIfCan|
+          ((|Union| (|LiePolynomial| |#1| |#2|) "failed") $))
+         (SIGNATURE |product| ($ $ $ (|NonNegativeInteger|)))
+         (IF (|has| |#2| (|Module| (|Fraction| (|Integer|))))
+             (PROGN
+              (SIGNATURE |exp| ($ $ (|NonNegativeInteger|)))
+              (SIGNATURE |log| ($ $ (|NonNegativeInteger|))))
+             |noBranch|)))
+"/git/fricas/src/algebra/XPBWPOLY.spad"
+((|coerce| (*1 *1 *2)
+           (AND (|isDomain| *2 (|LiePolynomial| *3 *4))
+                (|ofCategory| *3 (|OrderedSet|))
+                (|ofCategory| *4 (|CommutativeRing|))
+                (|isDomain| *1 (|XPBWPolynomial| *3 *4))))
+ (|coerce| (*1 *2 *1)
+           (AND (|isDomain| *2 (|XDistributedPolynomial| *3 *4))
+                (|isDomain| *1 (|XPBWPolynomial| *3 *4))
+                (|ofCategory| *3 (|OrderedSet|))
+                (|ofCategory| *4 (|CommutativeRing|))))
+ (|coerce| (*1 *2 *1)
+           (AND (|isDomain| *2 (|XRecursivePolynomial| *3 *4))
+                (|isDomain| *1 (|XPBWPolynomial| *3 *4))
+                (|ofCategory| *3 (|OrderedSet|))
+                (|ofCategory| *4 (|CommutativeRing|))))
+ (|LiePolyIfCan| (*1 *2 *1)
+  (|partial| AND (|isDomain| *2 (|LiePolynomial| *3 *4))
+   (|isDomain| *1 (|XPBWPolynomial| *3 *4)) (|ofCategory| *3 (|OrderedSet|))
+   (|ofCategory| *4 (|CommutativeRing|))))
+ (|product| (*1 *1 *1 *1 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|XPBWPolynomial| *3 *4))
+       (|ofCategory| *3 (|OrderedSet|)) (|ofCategory| *4 (|CommutativeRing|))))
+ (|exp| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|XPBWPolynomial| *3 *4))
+       (|ofCategory| *4 (|Module| (|Fraction| (|Integer|))))
+       (|ofCategory| *3 (|OrderedSet|)) (|ofCategory| *4 (|CommutativeRing|))))
+ (|log| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|XPBWPolynomial| *3 *4))
+       (|ofCategory| *4 (|Module| (|Fraction| (|Integer|))))
+       (|ofCategory| *3 (|OrderedSet|)) (|ofCategory| *4 (|CommutativeRing|)))))
+((~= (((|Boolean|) $ $) NIL)) (|zero?| (((|Boolean|) $) NIL))
+ (|varList| (((|List| |#1|) $) 87)) (|trunc| (($ $ (|NonNegativeInteger|)) 91))
+ (|support| (((|List| (|PoincareBirkhoffWittLyndonBasis| |#1|)) $) NIL))
+ (|sup|
+  (($ $ $) NIL
+   (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+        (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|)))))
+ (|subtractIfCan| (((|Union| $ "failed") $ $) NIL))
+ (|smaller?|
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|Comparable|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|Comparable|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|))))))
+ (|sh| (($ $ $) NIL (|has| |#2| (|CommutativeRing|)))
+  (($ $ (|NonNegativeInteger|)) NIL (|has| |#2| (|CommutativeRing|))))
+ (|sample| (($) NIL T CONST))
+ (|rquo| (($ $ |#1|) NIL) (($ $ (|FreeMonoid| |#1|)) NIL) (($ $ $) NIL))
+ (|rightRecip| (((|Union| $ #1="failed") $) NIL))
+ (|rightPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL))
+ (|retractIfCan| (((|Union| (|FreeMonoid| |#1|) #2="failed") $) NIL)
+  (((|Union| (|PoincareBirkhoffWittLyndonBasis| |#1|) #2#) $) NIL
+   (|has| |#2| (|SemiRing|))))
+ (|retract| (((|FreeMonoid| |#1|) $) NIL)
+            (((|PoincareBirkhoffWittLyndonBasis| |#1|) $) NIL
+             (|has| |#2| (|SemiRing|))))
+ (|reductum|
+  (($ $) 90 (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|Comparable|))))
+ (|recip| (((|Union| $ #1#) $) NIL)) (|quasiRegular?| (((|Boolean|) $) 79))
+ (|quasiRegular| (($ $) 82)) (|product| (($ $ $ (|NonNegativeInteger|)) 92))
+ (|opposite?| (((|Boolean|) $ $) NIL)) (|one?| (((|Boolean|) $) NIL))
+ (|numberOfMonomials| (((|NonNegativeInteger|) $) NIL))
+ (|monomials| (((|List| $) $) NIL)) (|monomial?| (((|Boolean|) $) NIL))
+ (|monomial| (($ |#2| (|PoincareBirkhoffWittLyndonBasis| |#1|)) 27))
+ (|monom| (($ (|FreeMonoid| |#1|) |#2|) NIL)) (|mirror| (($ $) 105))
+ (|mindegTerm|
+  (((|Record| (|:| |k| (|FreeMonoid| |#1|)) (|:| |c| |#2|)) $) NIL))
+ (|mindeg| (((|FreeMonoid| |#1|) $) NIL))
+ (|min|
+  (($ $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|))))))
+ (|maxdeg| (((|FreeMonoid| |#1|) $) NIL))
+ (|max|
+  (($ $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|))))))
+ (|map| (($ (|Mapping| |#2| |#2|) $) NIL))
+ (|lquo| (($ $ |#1|) NIL) (($ $ (|FreeMonoid| |#1|)) NIL) (($ $ $) NIL))
+ (|log|
+  (($ $ (|NonNegativeInteger|)) 99
+   (|has| |#2| (|Module| (|Fraction| (|Integer|))))))
+ (|listOfTerms|
+  (((|List|
+     (|Record| (|:| |k| (|PoincareBirkhoffWittLyndonBasis| |#1|))
+               (|:| |c| |#2|)))
+    $)
+   NIL))
+ (|linearExtend|
+  ((|#2| (|Mapping| |#2| (|PoincareBirkhoffWittLyndonBasis| |#1|)) $) NIL
+   (|has| |#2| (|CommutativeRing|))))
+ (|leftRecip| (((|Union| $ #1#) $) NIL))
+ (|leftPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL))
+ (|leadingTerm|
+  (((|Record| (|:| |k| (|PoincareBirkhoffWittLyndonBasis| |#1|))
+              (|:| |c| |#2|))
+    $)
+   NIL (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|Comparable|))))
+ (|leadingSupport|
+  (((|PoincareBirkhoffWittLyndonBasis| |#1|) $) 72
+   (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|Comparable|))))
+ (|leadingMonomial|
+  (($ $) NIL (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|Comparable|))))
+ (|leadingCoefficient|
+  ((|#2| $) NIL
+   (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|Comparable|))))
+ (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|exp|
+  (($ $ (|NonNegativeInteger|)) 96
+   (|has| |#2| (|Module| (|Fraction| (|Integer|))))))
+ (|degree| (((|NonNegativeInteger|) $) 88))
+ (|constructOrdered|
+  (($
+    (|List|
+     (|Record| (|:| |k| (|PoincareBirkhoffWittLyndonBasis| |#1|))
+               (|:| |c| |#2|))))
+   NIL (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|Comparable|))))
+ (|construct|
+  (($
+    (|List|
+     (|Record| (|:| |k| (|PoincareBirkhoffWittLyndonBasis| |#1|))
+               (|:| |c| |#2|))))
+   NIL))
+ (|constant?| (((|Boolean|) $) 73)) (|constant| ((|#2| $) 77))
+ (|commutator| (($ $ $) NIL))
+ (|coerce| (((|OutputForm|) $) 59) (($ (|Integer|)) NIL) (($ |#2|) 53)
+           (($ (|FreeMonoid| |#1|)) NIL) (($ |#1|) 61)
+           (($ (|PoincareBirkhoffWittLyndonBasis| |#1|)) NIL
+            (|has| |#2| (|SemiRing|)))
+           (($ (|LiePolynomial| |#1| |#2|)) 44)
+           (((|XDistributedPolynomial| |#1| |#2|) $) 66)
+           (((|XRecursivePolynomial| |#1| |#2|) $) 71))
+ (|coefficients| (((|List| |#2|) $) NIL))
+ (|coefficient| ((|#2| $ (|PoincareBirkhoffWittLyndonBasis| |#1|)) NIL))
+ (|coef| ((|#2| $ (|FreeMonoid| |#1|)) NIL) ((|#2| $ $) NIL))
+ (|characteristic| (((|NonNegativeInteger|)) NIL))
+ (|associator| (($ $ $ $) NIL)) (|antiCommutator| (($ $ $) NIL))
+ (|annihilate?| (((|Boolean|) $ $) NIL))
+ (^ (($ $ (|PositiveInteger|)) NIL) (($ $ (|NonNegativeInteger|)) NIL))
+ (|Zero| (($) 21 T CONST)) (|One| (($) 26 T CONST))
+ (|LiePolyIfCan| (((|Union| (|LiePolynomial| |#1| |#2|) "failed") $) 104))
+ (>=
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|))))))
+ (>
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|))))))
+ (= (((|Boolean|) $ $) 67))
+ (<=
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|))))))
+ (<
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|PoincareBirkhoffWittLyndonBasis| |#1|) (|OrderedSet|))))))
+ (- (($ $ $) 97) (($ $) 98)) (+ (($ $ $) 20))
+ (* (($ (|PositiveInteger|) $) NIL) (($ $ $) 45) (($ (|Integer|) $) NIL)
+    (($ (|NonNegativeInteger|) $) NIL) (($ $ |#2|) NIL) (($ |#2| $) 19)
+    (($ |#1| $) NIL) (($ (|PoincareBirkhoffWittLyndonBasis| |#1|) |#2|) NIL)
+    (($ |#2| (|PoincareBirkhoffWittLyndonBasis| |#1|)) NIL)))
+((|HasCategory| |#2| '(|CommutativeRing|))
+ (|HasCategory| |#2| '(|noZeroDivisors|)) (|HasCategory| |#2| '(|SemiRing|))
+ (AND (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))
+      (|HasCategory| (|PoincareBirkhoffWittLyndonBasis| |#1|) '(|OrderedSet|)))
+ (OR
+  (AND (|HasCategory| |#2| '(|OrderedAbelianMonoid|))
+       (|HasCategory| (|PoincareBirkhoffWittLyndonBasis| |#1|)
+                      '(|OrderedSet|)))
+  (AND (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))
+       (|HasCategory| (|PoincareBirkhoffWittLyndonBasis| |#1|)
+                      '(|OrderedSet|))))
+ (|HasCategory| (|PoincareBirkhoffWittLyndonBasis| |#1|) '(|Comparable|))
+ (OR
+  (AND (|HasCategory| |#2| '(|Comparable|))
+       (|HasCategory| (|PoincareBirkhoffWittLyndonBasis| |#1|)
+                      '(|Comparable|)))
+  (AND (|HasCategory| |#2| '(|OrderedAbelianMonoid|))
+       (|HasCategory| (|PoincareBirkhoffWittLyndonBasis| |#1|)
+                      '(|OrderedSet|)))
+  (AND (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))
+       (|HasCategory| (|PoincareBirkhoffWittLyndonBasis| |#1|)
+                      '(|OrderedSet|))))
+ (|HasCategory| |#2| (LIST '|Module| (LIST '|Fraction| '(|Integer|)))))
+XPBWPOLY
+(((|XPolynomialsCat| |#1| |#2|) . T)
+ ((|FreeModuleCategory| |#2| (|PoincareBirkhoffWittLyndonBasis| |#1|)) . T))
+(((|AbelianGroup|) . T) ((|AbelianMonoid|) . T)
+ ((|AbelianProductCategory| |t#1|) . T) ((|AbelianSemiGroup|) . T)
+ ((|Algebra| |t#1|) |has| |t#1| (|CommutativeRing|)) ((|BasicType|) . T)
+ ((|BiModule| |t#1| |t#1|) . T) ((|BiModule| $ $) . T)
+ ((|CancellationAbelianMonoid|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|Comparable|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|Comparable|)) (|has| |t#2| (|Comparable|))))
+ ((|FreeModuleCategory| |#2| (|PoincareBirkhoffWittLyndonBasis| |#1|)) . T)
+ ((|IndexedDirectProductCategory| |t#1| |t#2|) . T) ((|LeftModule| |t#1|) . T)
+ ((|Magma|) . T) ((|MagmaWithUnit|) . T)
+ ((|Module| |t#1|) |has| |t#1| (|CommutativeRing|)) ((|Monoid|) . T)
+ ((|NonAssociativeRing|) . T) ((|NonAssociativeRng|) . T)
+ ((|NonAssociativeSemiRing|) . T) ((|NonAssociativeSemiRng|) . T)
+ ((|OrderedAbelianMonoid|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|OrderedAbelianMonoidSup|) AND (|has| |t#1| (|OrderedAbelianMonoidSup|))
+  (|has| |t#2| (|OrderedSet|)))
+ ((|OrderedAbelianSemiGroup|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|OrderedCancellationAbelianMonoid|) AND
+  (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+ ((|OrderedSet|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|PartialOrder|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|RetractableTo| |t#2|) |has| |t#1| (|SemiRing|))
+ ((|RetractableTo| (|FreeMonoid| |t#1|)) . T) ((|RightModule| |t#2|) . T)
+ ((|Ring|) . T) ((|Rng|) . T) ((|SemiGroup|) . T) ((|SemiRing|) . T)
+ ((|SemiRng|) . T) ((|SetCategory|) . T) ((|XAlgebra| |t#2|) . T)
+ ((|XFreeAlgebra| |t#1| |t#2|) . T) ((|XPolynomialsCat| |#1| |#2|) . T)
+ ((|noZeroDivisors|) |has| |t#2| (|noZeroDivisors|)) ((|unitsKnown|) . T))
+((|constructor|
+  (NIL
+   "This domain constructor implements polynomials in non-commutative variables written in the Poincare-Birkhoff-Witt basis from the Lyndon basis. These polynomials can be used to compute Baker-Campbell-Hausdorff relations. \\newline Author: Michel Petitot (petitot@lifl.\\spad{fr})."))
+ (|log|
+  (($ $ (|NonNegativeInteger|))
+   "\\spad{log(p,{} n)} returns the logarithm of \\spad{p} (truncated up to order \\spad{n})."))
+ (|exp|
+  (($ $ (|NonNegativeInteger|))
+   "\\spad{exp(p,{} n)} returns the exponential of \\spad{p} (truncated up to order \\spad{n})."))
+ (|product|
+  (($ $ $ (|NonNegativeInteger|))
+   "\\spad{product(a,{} b,{} n)} returns \\spad{a*b} (truncated up to order \\spad{n})."))
+ (|LiePolyIfCan|
+  (((|Union| (|LiePolynomial| |#1| |#2|) "failed") $)
+   "\\spad{LiePolyIfCan(p)} return \\spad{p} if \\spad{p} is a Lie polynomial."))
+ (|coerce|
+  (((|XRecursivePolynomial| |#1| |#2|) $)
+   "\\spad{coerce(p)} returns \\spad{p} as a recursive polynomial.")
+  (((|XDistributedPolynomial| |#1| |#2|) $)
+   "\\spad{coerce(p)} returns \\spad{p} as a distributed polynomial.")
+  (($ (|LiePolynomial| |#1| |#2|)) "\\spad{coerce(p)} returns \\spad{p}.")))
+(("documentation" 0 14035) ("ancestors" 0 11725) ("parents" 0 11611)
+ ("abbreviation" 0 11602) ("predicates" 0 10407) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3339) ("modemaps" 0 1680) ("sourceFile" 0 1640)
+ ("constructorCategory" 0 914) ("constructorModemap" 0 59)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

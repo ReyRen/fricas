@@ -1,0 +1,39 @@
+)abbrev category TENSPRP TensorProductProperty
+++ Author: Franz Lehner lehner@finanz.math.tugraz.at, Waldek Hebisch
+++ Date Created: 2009
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   Universal property of tensor products.
+TensorProductProperty(R : CommutativeRing, M : Module(R), N : Module(R), _
+      MxN : TensorProductCategory(R, M, N), S : Module(R)) : Category == with
+    eval : (MxN, (M, N) -> S) -> S
+      ++ \spad{eval(x, f)} evaluates the bivariate function \spad{f}
+      ++ linearly on the tensor product.
+
+)if false
+\section{domain TENSOR TensorProduct}
+Tensor products are universal objects and can only be
+treated in restricted situations.
+For example, both $Z/2$ and $2Z$ are $Z$-modules,
+but their tensor product $Z/2\otimes 2Z$ vanishes.
+
+Here we only allow free modules, where such pathologies do not occur.
+A module $M$ over a ring $R$ is free if it has a basis $(b_i)_{i\in I}$
+such that every element $x\in M$ has a unique decomposition
+$x=\sum r_i b_i$. Given two free modules $M$ and $N$ over the same
+ring $R$ with bases $(b_i)_{i\in I}$ and $(c_j)_{j\in J}$ respectively,
+the tensor product $M\otimes N$ has basis $(b_i\otimes c_j)_{i\in I, j\in J}$.
+Therefore we take the representation of the tensor product to be
+the free module of formal sums over the basis $B\times C$.
+Note that $M$ and $N$ are only required
+to provide a function [[listOfTerms]]
+to create the list of terms with respect to the basis on the fly.
+This list is assumed to be in reverse order with respect to the
+order on the monomials.
+)endif
+

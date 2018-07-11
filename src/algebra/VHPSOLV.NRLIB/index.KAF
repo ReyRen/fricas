@@ -1,0 +1,48 @@
+1792                (MAKEPROP '|VectorHermitePadeSolver| 'NILADIC T)
+(|VectorHermitePadeSolver|)
+|package|
+(((|VectorHermitePadeSolver|)
+  (CATEGORY |package|
+   (SIGNATURE |hp_solve|
+    ((|Matrix| (|SparseUnivariatePolynomial| (|Expression| (|Integer|))))
+     (|List|
+      (|Vector| (|SparseUnivariatePolynomial| (|Expression| (|Integer|)))))
+     (|List| (|NonNegativeInteger|)) (|NonNegativeInteger|)))))
+ (T |VectorHermitePadeSolver|))
+(CATEGORY |package|
+ (SIGNATURE |hp_solve|
+  ((|Matrix| (|SparseUnivariatePolynomial| (|Expression| (|Integer|))))
+   (|List|
+    (|Vector| (|SparseUnivariatePolynomial| (|Expression| (|Integer|)))))
+   (|List| (|NonNegativeInteger|)) (|NonNegativeInteger|))))
+"/git/fricas/src/algebra/VHPSOLV.spad"
+((|hp_solve| (*1 *2 *3 *4 *5)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Vector|
+                 (|SparseUnivariatePolynomial| (|Expression| (|Integer|))))))
+   (|isDomain| *4 (|List| (|NonNegativeInteger|)))
+   (|isDomain| *5 (|NonNegativeInteger|))
+   (|isDomain| *2
+               (|Matrix|
+                (|SparseUnivariatePolynomial| (|Expression| (|Integer|)))))
+   (|isDomain| *1 (|VectorHermitePadeSolver|)))))
+((|hp_solve|
+  (((|Matrix| (|SparseUnivariatePolynomial| (|Expression| (|Integer|))))
+    (|List|
+     (|Vector| (|SparseUnivariatePolynomial| (|Expression| (|Integer|)))))
+    (|List| (|NonNegativeInteger|)) (|NonNegativeInteger|))
+   39)))
+VHPSOLV
+((|hp_solve|
+  (((|Matrix| (|SparseUnivariatePolynomial| (|Expression| (|Integer|))))
+    (|List|
+     (|Vector| (|SparseUnivariatePolynomial| (|Expression| (|Integer|)))))
+    (|List| (|NonNegativeInteger|)) (|NonNegativeInteger|))
+   "\\spad{hp_solve(lv,{} eta,{} K)} solves Hermite-Pade problem with degree bound \\spad{eta} up to order \\spad{K}.")))
+(("documentation" 0 1437) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1429) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1187) ("modemaps" 0 743) ("sourceFile" 0 704)
+ ("constructorCategory" 0 443) ("constructorModemap" 0 107)
+ ("constructorKind" 0 97) ("constructorForm" 0 69) ("NILADIC" 0 20))

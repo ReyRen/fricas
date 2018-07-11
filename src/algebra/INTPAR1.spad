@@ -1,0 +1,303 @@
+)abbrev package INTPAR1 ParametricTranscendentalIntegration
+ParametricTranscendentalIntegration(F, UP) : Exports == Implementation where
+  F  : Field
+  UP : UnivariatePolynomialCategory F
+  Z   ==> Integer
+  Q   ==> Fraction Z
+  RF  ==> Fraction UP
+  Param_Rec_F ==> Record(ratpart : F, coeffs : Vector F)
+  L_Param_F ==> List Param_Rec_F
+  Param_Rec_Q ==> Record(ratpart : RF, coeffs : Vector F)
+  L_Param_Q ==> List Param_Rec_Q
+  Param_Rec_QF ==> Record(logands : List F, basis : List Vector Q)
+  Param_Rec_Q2 ==> Record(logands : List RF, basis : List Vector Q)
+
+  Exports ==> with
+    primextint : (UP -> UP, List F ->  L_Param_F,
+                    Matrix F -> List Vector F, List RF) -> L_Param_Q
+      ++ primextint(', ext, csolve, [g1, ..., gn]) returns
+      ++ a basis of solutions of the homogeneous system
+      ++ \spad{h' + c1*g1 + ... + cn*gn = 0}.
+      ++ Argument ext is an extended integration function on F.
+      ++ csolve is solver over constants.
+    expextint : (UP -> UP, (Z, List F) -> L_Param_F,
+                   Matrix F -> List Vector F, List RF) -> L_Param_Q
+      ++ expextint(', rde, csolve, [g1, ..., gn]) returns
+      ++ a basis of solution of the homogeneous system
+      ++ \spad{h' + c1*g1 + ... + cn*gn = 0}
+      ++ Argument foo is an parametric rde solver on F.
+      ++ csolve is solver over constants.
+    diffextint : (List UP -> L_Param_F, Matrix F -> List Vector F,
+                    List RF) -> L_Param_F
+      ++ diffextint(ext, csolve, [g1, ..., gn]) is like primextint and
+      ++ expextint but for differentialy transcendental extensions.
+    unkextint : (List F ->  L_Param_F, Matrix F -> List Vector F,
+                    List RF) -> L_Param_F
+      ++ unkextint(ext, csolve, [g1, ..., gn]) is like primextint and
+      ++ expextint but for makes no assumption about generator of
+      ++ the extension.
+    logextint : (UP -> UP, UP -> Factored(UP), Matrix F -> List Vector Q,
+                 List UP -> Param_Rec_Q2, List(RF)) -> Param_Rec_Q2
+      ++ logextint(der, ufactor, csolve, rec, [g1, ..., gn])
+      ++ returns [[u1, ..., um], bas] giving basis of solution of
+      ++ the homogeneous systym
+      ++ \spad{c1*g1 + ... + cn*gn + c_{n+1}u1'/u1 + ... c_{n+m}um'/um  = 0}
+    monologextint : (List UP, Matrix F -> List Vector Q,
+                     List F -> Param_Rec_QF) -> Param_Rec_Q2
+      ++ monologextint(lup, csolve, rec) is a helper for logextint
+
+  Implementation ==> add
+
+    N   ==> NonNegativeInteger
+    GP  ==> LaurentPolynomial(F, UP)
+
+    import from LinearCombinationUtilities(F, UP)
+    import from LinearCombinationUtilities(Q, SparseUnivariatePolynomial(Q))
+    import from TranscendentalHermiteIntegration(F, UP)
+
+    monologextint(lup, csolve, rec1) ==
+        n0 := #lup
+        lc0 := [coefficient(p, 0) for p in lup]
+        lup2 := [p - c0::UP for p in lup for c0 in lc0]
+        m1 := matrix([lup2])$Matrix(UP)
+        rs1 : Matrix F := reducedSystem(m1)
+        cb := csolve(rs1)
+        nlc0 := [lin_comb(bv, lc0) for bv in cb]
+        (ll, bl) := rec1(nlc0)
+        empty?(bl) => [[], []]
+        n1 := #cb
+        n2 := #ll
+        n3 := n0 + n2
+        rbl := [new(n3, 0)$Vector(Q) for bv in bl]
+        nl := [le::UP::RF for le in ll]
+        for rbv in rbl for bv in bl repeat
+            pv := lin_comb(bv(1..n1), cb)
+            for i in 1..n0 repeat rbv(i) := pv(i)
+            for i in n0+1..n3 for j in n1+1.. repeat rbv(i) := bv(j)
+        [nl, rbl]
+
+    logextint(der, ufactor, csolve, rec, lg) ==
+        empty?(lg) => [[], []]
+        n0 := #lg
+        lghr := [HermiteIntegrate(g, der) for g in lg]
+        lg1 := [ghr.answer for ghr in lghr]
+        m1 := matrix([lg1])$Matrix(RF)
+        rs1 : Matrix UP := reducedSystem(m1)
+        rs2 : Matrix F := reducedSystem(rs1)
+        cb := csolve(rs2)
+        lg2 := [ghr.logpart for ghr in lghr]
+        lg3 := [lin_comb(bv, lg2) for bv in cb]
+        lden1 := [denom(g) for g in lg3]
+        (mbas, m2) := gcdDecomposition(vector(lden1))$GcdBasis(UP)
+        n1 := #lg3
+        n2 := #mbas
+        mbasl := entries(mbas)
+        mbasfl := [[frr.factor for frr in factorList(ufactor(mbasp))]
+                     for mbasp in mbasl]
+        basl1 := reduce(concat, mbasfl, [])
+        sl := [#fl1 for fl1 in mbasfl]
+        n3 := reduce(_+, sl, 0)
+        m3 := new(n3, n1 + n3, 0)$Matrix(UP)
+        for i in 1..n1 for g in lg3 repeat
+            fl : List(UP) := []
+            jl : List(Z) := []
+            sl1 := sl
+            fl1 : List(UP) := []
+            j0 : Z := 1
+            j1 : Z := 0
+            for j in 1..n3 for fj in basl1 repeat
+                j1 := j1 + 1
+                if j1 > first(sl1) then
+                    sl1 := rest(sl1)
+                    j1 := 0
+                    j0 := j0 + 1
+                if m2(j0, i) = 1 then
+                    fl := cons(fj, fl)
+                    jl := cons(j, jl)
+            nl := decompose(numer(g), fl)$PartialFractionUtilities(F, UP)
+            for num in nl for j in jl repeat
+                m3(j, i) := num
+        lpc : List(RF) := []
+        for j in 1..n3 for bj in basl1 repeat
+            dbj := der(bj)
+            (q, r) := divide(dbj, bj)
+            m3(j, n1 + j) := r
+            lpc := cons(q::RF, lpc)
+        lpc := reverse!(lpc)
+        rs3 := reducedSystem(m3)
+        cb2 := csolve(rs3)
+        cb3 := [bv(1..n1) for bv in cb2]
+        cb3e := [bv(n1+1..n1+n3) for bv in cb2]
+        ncb := [lin_comb(bv, cb) for bv in cb3]
+        nlpc := [lin_comb(bv, lpc) for bv in cb3e]
+        lg4 := [ghr.polypart::RF + ghr.specpart for ghr in lghr]
+        lg5 := [lin_comb(bv, lg4) + pc for bv in ncb for pc in nlpc]
+        lrf : List(RF) := []
+        lg6 : List(RF) := []
+        for g in lg5 repeat
+            den := denom(g)
+            (q, r) := divide(numer(g), den)
+            lrf := cons(r/den, lrf)
+            lg6 := cons(q::RF, lg6)
+        lrf := reverse!(lrf)
+        lg6 := reverse!(lg6)
+        m1 := matrix([lrf])$Matrix(RF)
+        rs1 : Matrix UP := reducedSystem(m1)
+        rs2 : Matrix F := reducedSystem(rs1)
+        cb4 := csolve(rs2)
+        ncb2 := [lin_comb(bv, ncb) for bv in cb4]
+        cb4e := [lin_comb(bv, cb3e) for bv in cb4]
+        lg7 := [lin_comb(bv, lg6) for bv in cb4]
+        n4 := #lg7
+        (flog, fbas) := rec([retract(g)@UP for g in lg7])
+        empty?(fbas) => [[], []]
+        rbasl1 := [up::RF for up in basl1]
+        nlog := concat(rbasl1, flog)
+        n5 := #flog
+        n6 := (n0 + n3 + n5)::N
+        rbas := [new(n6, 0)$Vector(Q) for bv in fbas]
+        for rbv in rbas for bv in fbas repeat
+            bv1 := bv(1..n4)
+            pv := lin_comb(bv1, ncb2)
+            for i in 1..n0 repeat rbv(i) := pv(i)
+            pv := lin_comb(bv1, cb4e)
+            for i in n0 + 1..n0 + n3 for j in 1..n3 repeat rbv(i) := pv(j)
+            for i in n0 + n3 + 1..n6 for j in n4 + 1..n4 + n5 repeat
+                rbv(i) := bv(j)
+        [nlog, rbas]
+
+    RF_to_GP(f : RF) : GP ==
+        (numer(f)::GP exquo denom(f)::GP)::GP
+
+    primextint(der : UP -> UP, ext : List F -> L_Param_F,
+              csolve : Matrix F -> List Vector F,
+              lg : List RF) : L_Param_Q ==
+        empty?(lg) => []
+        n := #lg
+        lghr := [HermiteIntegrate(g, der) for g in lg]
+        lg1 := [ghr.logpart for ghr in lghr]
+        m1 := matrix([lg1])$Matrix(RF)
+        rs1 : Matrix UP := reducedSystem(m1)
+        rs2 : Matrix F := reducedSystem(rs1)
+        cb := csolve(rs2)
+        a1l := [ghr.answer for ghr in lghr]
+        lba : List(RF) := [0 for bv in cb]
+        lg2 := [ghr.polypart for ghr in lghr]
+        vg2 := vector([lg2])$Vector(UP)
+        ldg : List(N) := [degree(g2) for g2 in lg2]
+        d := reduce(max, ldg)
+        dk := retract(der(monomial(1, 1)$UP))@F
+        cba := [0$F for bv in cb]
+        nlba : List(RF)
+        for j in d..0 by -1 repeat
+            n1 := #cb
+            lgj : List(F) := []
+            for i in 1..n repeat
+                gi := vg2(i)
+                gij : F := 0
+                if degree(gi) = j then
+                    gij := leadingCoefficient(gi)
+                    vg2(i) := reductum(gi)
+                lgj := cons(gij, lgj)
+            lgj := reverse!(lgj)
+            lgj1 : List(F) := []
+            for bv in cb for aa in cba repeat
+                ff := lin_comb(bv, lgj) + (j + 1)::F*dk*aa
+                lgj1 := cons(ff, lgj1)
+            lgj1 := reverse!(lgj1)
+            b2 := ext(cons(dk, lgj1))
+            n1p := n1 + 1
+            cb0 := [(be.coeffs)(2..n1p) for be in b2]
+            ncb := [lin_comb(bv, cb) for bv in cb0]
+            cba := [be.ratpart for be in b2]
+            nlba := [lin_comb(bv, lba) +
+                      monomial(be.ratpart, j)$UP::RF +
+                       monomial((be.coeffs)(1)/(j + 1)::F, j + 1)$UP::RF
+                         for be in b2 for bv in cb0]
+            cb := ncb
+            lba := nlba
+        nlba := [ba - lin_comb(bv, a1l) for bv in cb for ba in lba]
+        [[ba, bv] for bv in cb for ba in nlba]
+
+
+    expextint(der : UP -> UP, rde : (Z, List F) -> L_Param_F,
+                 csolve : Matrix F -> List Vector F,
+                 lg : List RF) : L_Param_Q ==
+        empty?(lg) => []
+        lghr := [HermiteIntegrate(g, der) for g in lg]
+        lg1 := [ghr.logpart for ghr in lghr]
+        m1 := matrix([lg1])$Matrix(RF)
+        rs1 : Matrix UP := reducedSystem(m1)
+        rs2 : Matrix F := reducedSystem(rs1)
+        cb := csolve(rs2)
+        a1l := [ghr.answer for ghr in lghr]
+        lba : List(GP) := [0 for bv in cb]
+        lg2 := [ghr.polypart::GP + RF_to_GP(ghr.specpart) for ghr in lghr]
+        vg2 := vector([lg2])$Vector(GP)
+        ldg : List(Z) := [degree(g2) for g2 in lg2]
+        d := reduce(max, ldg)
+        cba := [0$F for bv in cb]
+        j := d
+        repeat
+            last_iter : Boolean := true
+            n1 := #cb
+            lgj : List(F) := []
+            for i in 1..#vg2 repeat
+                gi := vg2(i)
+                gij : F := 0
+                if gi ~= 0 then
+                    last_iter := false
+                    if degree(gi) = j then
+                        gij := leadingCoefficient(gi)
+                        vg2(i) := reductum(gi)
+                lgj := cons(gij, lgj)
+            last_iter => break
+            lgj := reverse!(lgj)
+            lgj1 : List(F) := []
+            for bv in cb repeat
+                ff := lin_comb(bv, lgj)
+                lgj1 := cons(ff, lgj1)
+            lgj1 := reverse!(lgj1)
+            b2 := rde(j, lgj1)
+            empty?(b2) => return []
+            ncb := [lin_comb(be.coeffs, cb) for be in b2]
+            nlba := [lin_comb(be.coeffs, lba) + monomial(be.ratpart, j)$GP
+                         for be in b2]
+            cb := ncb
+            lba := nlba
+            j := j - 1
+        lbar := [convert(ba)@RF - lin_comb(bv, a1l)
+                  for bv in cb for ba in lba]
+        [[bar, bv] for bv in cb for bar in lbar]
+
+    diffextint1(trim : RF -> UP, ext : List UP -> L_Param_F,
+                csolve : Matrix(F) -> List Vector(F),
+                lg : List RF) : L_Param_F ==
+        lup := [trim(g) for g in lg]
+        lg1 := [g - up::RF for g in lg for up in lup]
+        m1 := matrix([lg1])$Matrix(RF)
+        rs1 : Matrix(UP) := reducedSystem(m1)
+        rs2 : Matrix F := reducedSystem(rs1)
+        cb := csolve(rs2)
+        lup1 := [lin_comb(bv, lup) for bv in cb]
+        res1 := ext(lup1)
+        [[re.ratpart, lin_comb(re.coeffs, cb)] for re in res1]
+
+    lin_part(f : RF) : UP ==
+        p := numer(f) quo denom(f)
+        monomial(coefficient(p, 1), 1)$UP + coefficient(p, 0)::UP
+
+    diffextint(ext, csolve, lg) ==
+        diffextint1((x : RF) : UP +-> lin_part(x), ext, csolve, lg)
+
+    coeff0(f : RF) : UP ==
+        p := numer(f) quo denom(f)
+        coefficient(p, 0)::UP
+
+    unkextint(ext, csolve, lg) ==
+        ext1 := (lup : List UP) : L_Param_F +->
+                lf := [retract(p)@F for p in lup]
+                ext(lf)
+        diffextint1((x : RF) : UP +-> coeff0(x), ext1, csolve, lg)
+
+

@@ -1,0 +1,259 @@
+)abbrev domain HOMOL Homology
+++ Author: Martin Baker
+++ Description:
+++   Intended to hold homology which is calculated using SmithNormalForm:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/topology/homology/
+++ Date Created: June 2016
+++ Basic Operations:
+++ Related packages:
+++ Related categories:
+++ Related Domains: FreeModule, FiniteSimplicialComplex
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+
+Homology() : Exports == Impl where
+  NNI ==> NonNegativeInteger
+  GENI ==> Record(vec : Vector(Integer), ord : Integer)
+  SMNI ==> SmithNormalForm(Integer, _
+                       Vector(Integer), _
+                       Vector(Integer), _
+                       Matrix(Integer))
+  SRESI ==> Record(Smith : Matrix(Integer), _
+                       leftEqMat : Matrix(Integer), _
+                       rightEqMat : Matrix(Integer))
+  x<<y ==> hconcat(x::OutputForm, y::OutputForm)
+
+  Exports ==> SetCategory() with
+    homologyGroup : (AInt : Matrix(Integer), BInt : Matrix(Integer)) -> %
+      ++ construct from differential over integers
+      ++ uses method described by Waldek Hebisch here:
+      ++ https://groups.google.com/forum/?hl=en#!topic/fricas-devel/mLOdQ-fwbO0
+    homology : (torsionVec : List(List(Integer)), torsionOrd : List(Integer),
+                free1 : List(List(Integer))) -> %
+      ++ construct from lists
+    homology0 : () -> %
+      ++ construct empty homology, useful in validation code
+    homologyz : () -> %
+      ++ construct Z homology, useful in validation code
+    homologyzz : () -> %
+      ++ construct Z*Z homology, useful in validation code
+    homologyc2 : () -> %
+      ++ construct C2 homology, useful in validation code
+    homologyzc2 : () -> %
+      ++ construct Z+C2 homology, useful in validation code
+    dispGenerators : (s : %) -> OutputForm
+      ++ more detailed output with generators
+
+  Impl ==> add
+   -- Representation holds torsion as vector+order
+   Rep := Record(torsionPart : List(GENI), freePart : List(Vector(Integer)))
+
+   -- construct from differential over integers
+   -- AInt is input delta as matrix
+   -- BInt is output delta as matrix
+   -- where BInt*AInt = 0
+   homologyGroup(AInt : Matrix(Integer), BInt : Matrix(Integer)) : % ==
+       --
+       -- validate input
+       --
+       --if not empty?(BInt) then
+       if nrows(AInt) ~= ncols(BInt) then
+           print(message("homologyGroup validation error - A rows : ") <<_
+                        nrows(AInt) << message("~= B cols : ") << ncols(BInt))
+       else
+           zero : Matrix(Integer) := zero(nrows(BInt), ncols(AInt))
+           if BInt*AInt ~= zero then
+               print(message("homologyGroup validation error - B*A ~= 0 : ")
+                     << BInt*AInt << message("  ~= 0 : ") << zero)
+       --
+       -- calculate torsion part
+       --
+       res : List(GENI) := empty()$List(GENI)
+       smit : SRESI := completeSmith(AInt)$SMNI
+       left : Matrix(Integer) := smit.leftEqMat
+       m : Matrix(Integer) := smit.Smith
+       leftNRows : NNI := nrows(left)
+       mNRows : NNI := nrows(m)
+       mNCols : NNI := ncols(m)
+       for nr in 1..leftNRows repeat
+           r : Vector(Integer) := row(left, nr)
+           order : Integer := 1::Integer
+           if nr <= mNRows and nr <= mNCols then
+               order := elt(m, nr, nr)
+           order <= 1 => "iterate"
+           g : GENI := [r, order]
+           res := concat(res, g)
+       --
+       -- calculate free part
+       --
+       augmented : Matrix(Integer) := vertConcat(transpose(AInt), BInt)
+       --print("homologyGroup free: augmented=" << augmented)
+       smitFree : SRESI := completeSmith(augmented)$SMNI
+       leftFree : Matrix(Integer) := smitFree.leftEqMat
+       mFree : Matrix(Integer) := smitFree.Smith
+       n_rows := nrows(mFree)
+       n_cols := ncols(mFree)
+       kernelFree := []$List(Vector(Integer))
+       for i in 1..n_cols repeat
+           if i > n_rows or mFree(i, i) = 0 then
+               v := new(n_cols, 0)$Vector(Integer)
+               v(i) := 1
+               kernelFree := cons(smitFree.rightEqMat*v, kernelFree)
+       [res, reverse!(kernelFree)]
+
+   -- construct from lists
+   homology(torsionVec : List(List(Integer)), torsionOrd : List(Integer),
+            free1 : List(List(Integer))) : % ==
+       if #torsionVec ~= #torsionOrd then
+           error "attempt to construct homology with #torsionVec ~= #torsionOrd"
+       res : List(GENI) := empty()$List(GENI)
+       for r1 in torsionVec for r2 in torsionOrd repeat
+           r3 : GENI := [vector(r1), r2]
+           res := concat(res, r3)
+       kernelFree : List(Vector(Integer)) := [vector(v) for v in free1]
+       [res, kernelFree]
+
+   -- construct empty homology
+   homology0() : % ==
+       homology([], [], [])
+
+   -- construct Z homology
+   homologyz() : % ==
+       homology([], [], [[1]])
+
+   -- construct ZZ homology
+   homologyzz() : % ==
+       homology([], [], [[1, 0], [0, 1]])
+
+   -- construct C2 homology
+   homologyc2() : % ==
+       homology([[1]], [2], [])
+
+   -- construct Z+C2 homology
+   homologyzc2() : % ==
+       homology([[1, 0]], [2], [[0, 1]])
+
+   -- more detailed output with generators
+   dispGenerators(s : %) : OutputForm ==
+       res : OutputForm := empty()$OutputForm
+       s1 := s::Rep
+       for g in s1.torsionPart repeat
+           ln := hconcat([message("gen="), (g.vec)::OutputForm, _
+               message(" ord="), (g.ord)::OutputForm])$OutputForm
+           res := vconcat(res, ln)
+       ln2 := hconcat([message(" free part="),
+                       (s1.freePart)::OutputForm])$OutputForm
+       res := vconcat(res, ln2)
+       res
+
+   -- equal if same Betti numbers and torsion coefficient
+   -- This form of equality is useful for validating code. We want to check
+   -- that generated homology is essentially the same as we are expecting.
+   _=(a : %, b : %) : Boolean ==
+       --print("homologyGroup torsionPart a : " << a.torsionPart <<_
+       --      " torsionPart b : " << b.torsionPart << _
+       --      " freePart a : " << a.freePart << _
+       --      " numfree a : " << #(a.freePart) << _
+       --      " freePart b : " << b.freePart<< _
+       --      " numfree b : " << #(b.freePart))
+       tora : List(GENI) := a.torsionPart
+       torb : List(GENI) := b.torsionPart
+       noTorsionA : Boolean := true
+       noTorsionB : Boolean := true
+       for ta in tora repeat
+           if (ta.ord ~= 0) and (ta.ord ~= 1) then noTorsionA := false
+       for tb in torb repeat
+           if (tb.ord ~= 0) and (tb.ord ~= 1) then noTorsionB := false
+       if noTorsionA ~= noTorsionA then return false
+       #(a.freePart) = #(b.freePart)
+
+   -- output in terms of Z (free) and C (cycles)
+   -- TODO perhaps this should check if vectors are independant
+   coerce(s : %) : OutputForm ==
+       res : OutputForm := empty()$OutputForm
+       firstTermRead : Boolean := false
+       s1 := s::Rep
+       --print("homologyGroup torsionPart : " << s1.torsionPart <<_
+       --      " freePart : " << s1.freePart)
+       nFree := #(s1.freePart)
+       if nFree > 0 then
+           -- TODO should check for empty list here
+           res := hconcat(res, message("Z"))
+           if nFree > 1 then
+               res := hconcat([res, message("*"),
+                               nFree::OutputForm])$OutputForm
+           firstTermRead := true
+       for t in s1.torsionPart repeat
+           if not (t.ord = 0 or t.ord = 1) then
+               if firstTermRead then
+                   res := hconcat(res, message("+"))
+               ln2 := hconcat([message("C"),
+                               (t.ord)::OutputForm])$OutputForm
+               res := hconcat(res, ln2)
+               firstTermRead := true
+       if not firstTermRead then
+           res := hconcat(res, message("0"))
+       res
+
+--Copyright (c) 2016, Martin J Baker.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of Martin J Baker. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+)if false
+\eject
+\begin{thebibliography}{99}
+For more details see:
+[1] I have put a fuller explanation of this code here:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/finiteGroup/presentation/}
+
+[2] Wikipedia
+\url{http://https://en.wikipedia.org/wiki/Simplicial_complex/}
+
+[3] Finite simplicial complexes in Sage
+\url{http://doc.sagemath.org/html/en/reference/homology/sage/homology/simplicial_complex.html}
+
+[4] Finite simplicial complexes in NPM
+\url{https://www.npmjs.com/package/simplicial-complex}
+
+[5] Simpcomp - a GAP package for working with simplicial complexes
+\url{https://code.google.com/p/simpcomp/}
+
+[6] A Macaulay2 package for working with simplicial complexes
+\url{http://www.math.uiuc.edu/Macaulay2/doc/Macaulay2-1.8.2/share/doc/Macaulay2/SimplicialComplexes/html}
+
+[7] Homology group method described by Waldek Hebisch here:
+\url{https://groups.google.com/forum/?hl=en#!topic/fricas-devel/mLOdQ-fwbO0}
+
+\end{thebibliography}
+\end{document}
+)endif

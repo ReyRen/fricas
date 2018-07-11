@@ -1,0 +1,347 @@
+18580               (|SplittingTree| V C)
+|domain|
+(((|SplittingTree| |#1| |#2|)
+  (|Join| (|RecursiveAggregate| (|SplittingNode| |#1| |#2|))
+          (|shallowlyMutable|) (|finiteAggregate|)
+          (CATEGORY |domain|
+           (SIGNATURE |extractSplittingLeaf| ((|Union| $ "failed") $))
+           (SIGNATURE |updateStatus!| ($ $))
+           (SIGNATURE |construct| ($ (|SplittingNode| |#1| |#2|)))
+           (SIGNATURE |construct| ($ |#1| |#2| (|List| $)))
+           (SIGNATURE |construct|
+            ($ |#1| |#2| (|List| (|SplittingNode| |#1| |#2|))))
+           (SIGNATURE |construct| ($ |#1| |#2| |#1| (|List| |#2|)))
+           (SIGNATURE |conditions| ((|List| |#2|) $))
+           (SIGNATURE |result|
+            ((|List| (|Record| (|:| |val| |#1|) (|:| |tower| |#2|))) $))
+           (SIGNATURE |nodeOf?| ((|Boolean|) (|SplittingNode| |#1| |#2|) $))
+           (SIGNATURE |subNodeOf?|
+            ((|Boolean|) (|SplittingNode| |#1| |#2|) $
+             (|Mapping| (|Boolean|) |#2| |#2|)))
+           (SIGNATURE |remove| ($ (|SplittingNode| |#1| |#2|) $))
+           (SIGNATURE |remove!| ($ (|SplittingNode| |#1| |#2|) $))
+           (SIGNATURE |splitNodeOf!|
+            ($ $ $ (|List| (|SplittingNode| |#1| |#2|))))
+           (SIGNATURE |splitNodeOf!|
+            ($ $ $ (|List| (|SplittingNode| |#1| |#2|))
+             (|Mapping| (|Boolean|) |#2| |#2|)))))
+  (|Join| (|SetCategory|) (|Aggregate|))
+  (|Join| (|SetCategory|) (|Aggregate|)))
+ (T |SplittingTree|))
+(|Join| (|RecursiveAggregate| (|SplittingNode| |#1| |#2|)) (|shallowlyMutable|)
+        (|finiteAggregate|)
+        (CATEGORY |domain|
+         (SIGNATURE |extractSplittingLeaf| ((|Union| $ "failed") $))
+         (SIGNATURE |updateStatus!| ($ $))
+         (SIGNATURE |construct| ($ (|SplittingNode| |#1| |#2|)))
+         (SIGNATURE |construct| ($ |#1| |#2| (|List| $)))
+         (SIGNATURE |construct|
+          ($ |#1| |#2| (|List| (|SplittingNode| |#1| |#2|))))
+         (SIGNATURE |construct| ($ |#1| |#2| |#1| (|List| |#2|)))
+         (SIGNATURE |conditions| ((|List| |#2|) $))
+         (SIGNATURE |result|
+          ((|List| (|Record| (|:| |val| |#1|) (|:| |tower| |#2|))) $))
+         (SIGNATURE |nodeOf?| ((|Boolean|) (|SplittingNode| |#1| |#2|) $))
+         (SIGNATURE |subNodeOf?|
+          ((|Boolean|) (|SplittingNode| |#1| |#2|) $
+           (|Mapping| (|Boolean|) |#2| |#2|)))
+         (SIGNATURE |remove| ($ (|SplittingNode| |#1| |#2|) $))
+         (SIGNATURE |remove!| ($ (|SplittingNode| |#1| |#2|) $))
+         (SIGNATURE |splitNodeOf!|
+          ($ $ $ (|List| (|SplittingNode| |#1| |#2|))))
+         (SIGNATURE |splitNodeOf!|
+          ($ $ $ (|List| (|SplittingNode| |#1| |#2|))
+           (|Mapping| (|Boolean|) |#2| |#2|)))))
+"/git/fricas/src/algebra/SPLTREE.spad"
+((|extractSplittingLeaf| (*1 *1 *1)
+  (|partial| AND (|isDomain| *1 (|SplittingTree| *2 *3))
+   (|ofCategory| *2 (|Join| (|SetCategory|) (|Aggregate|)))
+   (|ofCategory| *3 (|Join| (|SetCategory|) (|Aggregate|)))))
+ (|updateStatus!| (*1 *1 *1)
+  (AND (|isDomain| *1 (|SplittingTree| *2 *3))
+       (|ofCategory| *2 (|Join| (|SetCategory|) (|Aggregate|)))
+       (|ofCategory| *3 (|Join| (|SetCategory|) (|Aggregate|)))))
+ (|construct| (*1 *1 *2)
+              (AND (|isDomain| *2 (|SplittingNode| *3 *4))
+                   (|ofCategory| *3 (|Join| (|SetCategory|) (|Aggregate|)))
+                   (|ofCategory| *4 (|Join| (|SetCategory|) (|Aggregate|)))
+                   (|isDomain| *1 (|SplittingTree| *3 *4))))
+ (|construct| (*1 *1 *2 *3 *4)
+              (AND (|isDomain| *4 (|List| (|SplittingTree| *2 *3)))
+                   (|isDomain| *1 (|SplittingTree| *2 *3))
+                   (|ofCategory| *2 (|Join| (|SetCategory|) (|Aggregate|)))
+                   (|ofCategory| *3 (|Join| (|SetCategory|) (|Aggregate|)))))
+ (|construct| (*1 *1 *2 *3 *4)
+              (AND (|isDomain| *4 (|List| (|SplittingNode| *2 *3)))
+                   (|ofCategory| *2 (|Join| (|SetCategory|) (|Aggregate|)))
+                   (|ofCategory| *3 (|Join| (|SetCategory|) (|Aggregate|)))
+                   (|isDomain| *1 (|SplittingTree| *2 *3))))
+ (|construct| (*1 *1 *2 *3 *2 *4)
+              (AND (|isDomain| *4 (|List| *3))
+                   (|ofCategory| *3 (|Join| (|SetCategory|) (|Aggregate|)))
+                   (|isDomain| *1 (|SplittingTree| *2 *3))
+                   (|ofCategory| *2 (|Join| (|SetCategory|) (|Aggregate|)))))
+ (|conditions| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| *4)) (|isDomain| *1 (|SplittingTree| *3 *4))
+       (|ofCategory| *3 (|Join| (|SetCategory|) (|Aggregate|)))
+       (|ofCategory| *4 (|Join| (|SetCategory|) (|Aggregate|)))))
+ (|result| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|Record| (|:| |val| *3) (|:| |tower| *4))))
+       (|isDomain| *1 (|SplittingTree| *3 *4))
+       (|ofCategory| *3 (|Join| (|SetCategory|) (|Aggregate|)))
+       (|ofCategory| *4 (|Join| (|SetCategory|) (|Aggregate|)))))
+ (|nodeOf?| (*1 *2 *3 *1)
+  (AND (|isDomain| *3 (|SplittingNode| *4 *5))
+       (|ofCategory| *4 (|Join| (|SetCategory|) (|Aggregate|)))
+       (|ofCategory| *5 (|Join| (|SetCategory|) (|Aggregate|)))
+       (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|SplittingTree| *4 *5))))
+ (|subNodeOf?| (*1 *2 *3 *1 *4)
+  (AND (|isDomain| *3 (|SplittingNode| *5 *6))
+       (|isDomain| *4 (|Mapping| (|Boolean|) *6 *6))
+       (|ofCategory| *5 (|Join| (|SetCategory|) (|Aggregate|)))
+       (|ofCategory| *6 (|Join| (|SetCategory|) (|Aggregate|)))
+       (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|SplittingTree| *5 *6))))
+ (|remove| (*1 *1 *2 *1)
+           (AND (|isDomain| *2 (|SplittingNode| *3 *4))
+                (|ofCategory| *3 (|Join| (|SetCategory|) (|Aggregate|)))
+                (|ofCategory| *4 (|Join| (|SetCategory|) (|Aggregate|)))
+                (|isDomain| *1 (|SplittingTree| *3 *4))))
+ (|remove!| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|SplittingNode| *3 *4))
+       (|ofCategory| *3 (|Join| (|SetCategory|) (|Aggregate|)))
+       (|ofCategory| *4 (|Join| (|SetCategory|) (|Aggregate|)))
+       (|isDomain| *1 (|SplittingTree| *3 *4))))
+ (|splitNodeOf!| (*1 *1 *1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|SplittingNode| *3 *4)))
+       (|ofCategory| *3 (|Join| (|SetCategory|) (|Aggregate|)))
+       (|ofCategory| *4 (|Join| (|SetCategory|) (|Aggregate|)))
+       (|isDomain| *1 (|SplittingTree| *3 *4))))
+ (|splitNodeOf!| (*1 *1 *1 *1 *2 *3)
+  (AND (|isDomain| *2 (|List| (|SplittingNode| *4 *5)))
+       (|isDomain| *3 (|Mapping| (|Boolean|) *5 *5))
+       (|ofCategory| *4 (|Join| (|SetCategory|) (|Aggregate|)))
+       (|ofCategory| *5 (|Join| (|SetCategory|) (|Aggregate|)))
+       (|isDomain| *1 (|SplittingTree| *4 *5)))))
+((~=
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| $ (|finiteAggregate|))
+         (|has| (|SplittingNode| |#1| |#2|) (|BasicType|)))
+    (|has| (|SplittingNode| |#1| |#2|) (|SetCategory|)))))
+ (|value| (((|SplittingNode| |#1| |#2|) $) 25)) (|updateStatus!| (($ $) 75))
+ (|subNodeOf?|
+  (((|Boolean|) (|SplittingNode| |#1| |#2|) $
+    (|Mapping| (|Boolean|) |#2| |#2|))
+   84))
+ (|splitNodeOf!| (($ $ $ (|List| (|SplittingNode| |#1| |#2|))) 89)
+  (($ $ $ (|List| (|SplittingNode| |#1| |#2|))
+    (|Mapping| (|Boolean|) |#2| |#2|))
+   90))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|setvalue!|
+  (((|SplittingNode| |#1| |#2|) $ (|SplittingNode| |#1| |#2|)) 42
+   (|has| $ (|shallowlyMutable|))))
+ (|setelt!|
+  (((|SplittingNode| |#1| |#2|) $ #1="value" (|SplittingNode| |#1| |#2|)) NIL
+   (|has| $ (|shallowlyMutable|))))
+ (|setchildren!| (($ $ (|List| $)) 40 (|has| $ (|shallowlyMutable|))))
+ (|sample| (($) NIL T CONST))
+ (|result| (((|List| (|Record| (|:| |val| |#1|) (|:| |tower| |#2|))) $) 79))
+ (|remove!| (($ (|SplittingNode| |#1| |#2|) $) 38))
+ (|remove| (($ (|SplittingNode| |#1| |#2|) $) 30))
+ (|parts|
+  (((|List| (|SplittingNode| |#1| |#2|)) $) NIL (|has| $ (|finiteAggregate|))))
+ (|nodes| (((|List| $) $) 50))
+ (|nodeOf?| (((|Boolean|) (|SplittingNode| |#1| |#2|) $) 81))
+ (|node?|
+  (((|Boolean|) $ $) NIL (|has| (|SplittingNode| |#1| |#2|) (|BasicType|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|min|
+  (((|SplittingNode| |#1| |#2|) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|SplittingNode| |#1| |#2|) (|OrderedSet|)))))
+ (|members|
+  (((|List| (|SplittingNode| |#1| |#2|)) $) 54 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) (|SplittingNode| |#1| |#2|) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|SplittingNode| |#1| |#2|) (|BasicType|)))))
+ (|max|
+  (((|SplittingNode| |#1| |#2|)
+    (|Mapping| (|Boolean|) (|SplittingNode| |#1| |#2|)
+               (|SplittingNode| |#1| |#2|))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|SplittingNode| |#1| |#2|) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|SplittingNode| |#1| |#2|) (|OrderedSet|)))))
+ (|map!|
+  (($ (|Mapping| (|SplittingNode| |#1| |#2|) (|SplittingNode| |#1| |#2|)) $) 46
+   (|has| $ (|shallowlyMutable|))))
+ (|map|
+  (($ (|Mapping| (|SplittingNode| |#1| |#2|) (|SplittingNode| |#1| |#2|)) $)
+   45))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|leaves| (((|List| (|SplittingNode| |#1| |#2|)) $) 52))
+ (|leaf?| (((|Boolean|) $) 41))
+ (|latex|
+  (((|String|) $) NIL (|has| (|SplittingNode| |#1| |#2|) (|SetCategory|))))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) NIL
+   (|has| (|SplittingNode| |#1| |#2|) (|SetCategory|))))
+ (|hash|
+  (((|SingleInteger|) $) NIL
+   (|has| (|SplittingNode| |#1| |#2|) (|SetCategory|))))
+ (|extractSplittingLeaf| (((|Union| $ "failed") $) 74))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) (|SplittingNode| |#1| |#2|)) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| (|SplittingNode| |#1| |#2|)))) NIL
+   (AND
+    (|has| (|SplittingNode| |#1| |#2|)
+           (|Evalable| (|SplittingNode| |#1| |#2|)))
+    (|has| (|SplittingNode| |#1| |#2|) (|SetCategory|))))
+  (($ $ (|Equation| (|SplittingNode| |#1| |#2|))) NIL
+   (AND
+    (|has| (|SplittingNode| |#1| |#2|)
+           (|Evalable| (|SplittingNode| |#1| |#2|)))
+    (|has| (|SplittingNode| |#1| |#2|) (|SetCategory|))))
+  (($ $ (|SplittingNode| |#1| |#2|) (|SplittingNode| |#1| |#2|)) NIL
+   (AND
+    (|has| (|SplittingNode| |#1| |#2|)
+           (|Evalable| (|SplittingNode| |#1| |#2|)))
+    (|has| (|SplittingNode| |#1| |#2|) (|SetCategory|))))
+  (($ $ (|List| (|SplittingNode| |#1| |#2|))
+    (|List| (|SplittingNode| |#1| |#2|)))
+   NIL
+   (AND
+    (|has| (|SplittingNode| |#1| |#2|)
+           (|Evalable| (|SplittingNode| |#1| |#2|)))
+    (|has| (|SplittingNode| |#1| |#2|) (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 49)) (|empty?| (((|Boolean|) $) 22))
+ (|empty| (($) 24)) (|elt| (((|SplittingNode| |#1| |#2|) $ #1#) NIL))
+ (|distance| (((|Integer|) $ $) NIL)) (|cyclic?| (((|Boolean|) $) 43))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) (|SplittingNode| |#1| |#2|))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) (|SplittingNode| |#1| |#2|) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|SplittingNode| |#1| |#2|) (|BasicType|)))))
+ (|copy| (($ $) 48))
+ (|construct| (($ (|SplittingNode| |#1| |#2|)) 9) (($ |#1| |#2| (|List| $)) 12)
+              (($ |#1| |#2| (|List| (|SplittingNode| |#1| |#2|))) 14)
+              (($ |#1| |#2| |#1| (|List| |#2|)) 17))
+ (|conditions| (((|List| |#2|) $) 80))
+ (|coerce|
+  (((|OutputForm|) $) 72
+   (|has| (|SplittingNode| |#1| |#2|) (|CoercibleTo| (|OutputForm|)))))
+ (|children| (((|List| $) $) 28))
+ (|child?|
+  (((|Boolean|) $ $) NIL (|has| (|SplittingNode| |#1| |#2|) (|BasicType|))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) (|SplittingNode| |#1| |#2|)) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 63
+   (OR
+    (AND (|has| $ (|finiteAggregate|))
+         (|has| (|SplittingNode| |#1| |#2|) (|BasicType|)))
+    (|has| (|SplittingNode| |#1| |#2|) (|SetCategory|)))))
+ (|#| (((|NonNegativeInteger|) $) 57 (|has| $ (|finiteAggregate|)))))
+((|HasCategory| (|SplittingNode| |#1| |#2|) '(|SetCategory|))
+ (AND
+  (|HasCategory| (|SplittingNode| |#1| |#2|)
+                 (LIST '|Evalable|
+                       (LIST '|SplittingNode| (|devaluate| |#1|)
+                             (|devaluate| |#2|))))
+  (|HasCategory| (|SplittingNode| |#1| |#2|) '(|SetCategory|)))
+ (|HasCategory| (|SplittingNode| |#1| |#2|) '(|OrderedSet|))
+ (|HasCategory| (|SplittingNode| |#1| |#2|) '(|BasicType|))
+ (OR (|HasCategory| (|SplittingNode| |#1| |#2|) '(|BasicType|))
+     (|HasCategory| (|SplittingNode| |#1| |#2|) '(|SetCategory|)))
+ (|HasCategory| (|SplittingNode| |#1| |#2|)
+                (LIST '|CoercibleTo| '(|OutputForm|)))
+ (OR
+  (|HasCategory| (|SplittingNode| |#1| |#2|)
+                 (LIST '|CoercibleTo| '(|OutputForm|)))
+  (AND
+   (|HasCategory| (|SplittingNode| |#1| |#2|)
+                  (LIST '|Evalable|
+                        (LIST '|SplittingNode| (|devaluate| |#1|)
+                              (|devaluate| |#2|))))
+   (|HasCategory| (|SplittingNode| |#1| |#2|) '(|SetCategory|))))
+ (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| (|SplittingNode| |#1| |#2|) '(|OrderedSet|)))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| (|SplittingNode| |#1| |#2|) '(|BasicType|)))
+ (OR
+  (AND (|HasCategory| $ '(|finiteAggregate|))
+       (|HasCategory| (|SplittingNode| |#1| |#2|) '(|BasicType|)))
+  (|HasCategory| (|SplittingNode| |#1| |#2|) '(|SetCategory|)))
+ (|HasCategory| $ '(|shallowlyMutable|)))
+SPLTREE
+(((|RecursiveAggregate| (|SplittingNode| |#1| |#2|)) . T)
+ ((|shallowlyMutable|) . T) ((|finiteAggregate|) . T))
+(((|Aggregate|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|RecursiveAggregate| (|SplittingNode| |#1| |#2|)) . T)
+ ((|SetCategory|) |has| |t#1| (|SetCategory|)) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "This domain exports a modest implementation of splitting trees. Splitting trees are needed when the evaluation of some quantity under some hypothesis requires to split the hypothesis into sub-cases. For instance by adding some new hypothesis on one hand and its negation on another hand. The computations are terminated for a splitting tree \\spad{a} when \\spad{status(value(a))} is \\spad{true}. Thus,{} if for the splitting tree \\spad{a} the flag \\spad{status(value(a))} is \\spad{true},{} then \\spad{status(value(d))} is \\spad{true} for any subtree \\spad{d} of \\spad{a}. This property of splitting trees is called the termination condition. If no vertex in a splitting tree \\spad{a} is equal to another,{} \\spad{a} is said to satisfy the no-duplicates condition. The splitting tree \\spad{a} will satisfy this condition if nodes are added to \\spad{a} by means of \\spad{splitNodeOf!} and if \\spad{construct} is only used to create the root of \\spad{a} with no children."))
+ (|splitNodeOf!|
+  (($ $ $ (|List| (|SplittingNode| |#1| |#2|))
+    (|Mapping| (|Boolean|) |#2| |#2|))
+   "\\spad{splitNodeOf!(l,{} a,{} ls,{} sub?)} returns \\spad{a} where the children list of \\spad{l} has been set to \\spad{[[s]\\$\\% for s in ls | not subNodeOf?(s,{} a,{} sub?)]}. Thus,{} if \\spad{l} is not a node of \\spad{a},{} this latter splitting tree is unchanged.")
+  (($ $ $ (|List| (|SplittingNode| |#1| |#2|)))
+   "\\spad{splitNodeOf!(l,{} a,{} ls)} returns \\spad{a} where the children list of \\spad{l} has been set to \\spad{[[s]\\$\\% for s in ls | not nodeOf?(s,{} a)]}. Thus,{} if \\spad{l} is not a node of \\spad{a},{} this latter splitting tree is unchanged."))
+ (|remove!|
+  (($ (|SplittingNode| |#1| |#2|) $)
+   "\\spad{remove!(s,{} a)} replaces a by remove(\\spad{s},{} a)"))
+ (|remove|
+  (($ (|SplittingNode| |#1| |#2|) $)
+   "\\spad{remove(s,{} a)} returns the splitting tree obtained from a by removing every sub-tree \\spad{b} such that \\spad{value(b)} and \\spad{s} have the same value,{} condition and status."))
+ (|subNodeOf?|
+  (((|Boolean|) (|SplittingNode| |#1| |#2|) $
+    (|Mapping| (|Boolean|) |#2| |#2|))
+   "\\spad{subNodeOf?(s,{} a,{} sub?)} returns \\spad{true} iff for some node \\spad{n} in \\spad{a} we have \\spad{s = n} or \\spad{status(n)} and \\spad{subNode?(s,{} n,{} sub?)}."))
+ (|nodeOf?|
+  (((|Boolean|) (|SplittingNode| |#1| |#2|) $)
+   "\\spad{nodeOf?(s,{} a)} returns \\spad{true} iff some node of \\spad{a} is equal to \\spad{s}"))
+ (|result|
+  (((|List| (|Record| (|:| |val| |#1|) (|:| |tower| |#2|))) $)
+   "\\spad{result(a)} where \\spad{ls} is the leaves list of \\spad{a} returns \\spad{[[value(s),{} condition(s)]\\$VT for s in ls]} if the computations are terminated in \\spad{a} else an error is produced."))
+ (|conditions|
+  (((|List| |#2|) $)
+   "\\spad{conditions(a)} returns the list of the conditions of the leaves of a"))
+ (|construct|
+  (($ |#1| |#2| |#1| (|List| |#2|))
+   "\\spad{construct(v1,{} t,{} v2,{} lt)} creates a splitting tree with value (\\spadignore{i.e.} root vertex) given by \\spad{[v,{} t]\\$S} and with children list given by \\spad{[[[v,{} t]\\$S]\\$\\% for s in ls]}.")
+  (($ |#1| |#2| (|List| (|SplittingNode| |#1| |#2|)))
+   "\\spad{construct(v,{} t,{} ls)} creates a splitting tree with value (\\spadignore{i.e.} root vertex) given by \\spad{[v,{} t]\\$S} and with children list given by \\spad{[[s]\\$\\% for s in ls]}.")
+  (($ |#1| |#2| (|List| $))
+   "\\spad{construct(v,{} t,{} la)} creates a splitting tree with value (\\spadignore{i.e.} root vertex) given by \\spad{[v,{} t]\\$S} and with \\spad{la} as children list.")
+  (($ (|SplittingNode| |#1| |#2|))
+   "\\spad{construct(s)} creates a splitting tree with value (\\spadignore{i.e.} root vertex) given by \\spad{s} and no children. Thus,{} if the status of \\spad{s} is \\spad{false},{} \\spad{[s]} represents the starting point of the evaluation \\spad{value(s)} under the hypothesis \\spad{condition(s)}."))
+ (|updateStatus!|
+  (($ $)
+   "\\spad{updateStatus!(a)} returns a where the status of the vertices are updated to satisfy the \"termination condition\"."))
+ (|extractSplittingLeaf|
+  (((|Union| $ "failed") $)
+   "\\spad{extractSplittingLeaf(a)} returns the left most leaf (as a tree) whose status is \\spad{false} if any,{} else \"failed\" is returned.")))
+(("documentation" 0 14237) ("ancestors" 0 13617) ("parents" 0 13504)
+ ("abbreviation" 0 13496) ("predicates" 0 11951) ("superDomain" 0 NIL)
+ ("operationAlist" 0 6651) ("modemaps" 0 2769) ("sourceFile" 0 2730)
+ ("constructorCategory" 0 1482) ("constructorModemap" 0 51)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

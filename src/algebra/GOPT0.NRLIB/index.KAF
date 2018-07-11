@@ -1,0 +1,276 @@
+13906               (MAKEPROP '|GuessOptionFunctions0| 'NILADIC T)
+(|GuessOptionFunctions0|)
+|domain|
+(((|GuessOptionFunctions0|)
+  (|Join| (|SetCategory|)
+          (CATEGORY |package|
+           (SIGNATURE |maxDerivative|
+            ((|Union| (|NonNegativeInteger|) "arbitrary")
+             (|List| (|GuessOption|))))
+           (SIGNATURE |maxShift|
+            ((|Union| (|NonNegativeInteger|) "arbitrary")
+             (|List| (|GuessOption|))))
+           (SIGNATURE |maxSubst|
+            ((|Union| (|PositiveInteger|) "arbitrary")
+             (|List| (|GuessOption|))))
+           (SIGNATURE |maxPower|
+            ((|Union| (|PositiveInteger|) "arbitrary")
+             (|List| (|GuessOption|))))
+           (SIGNATURE |homogeneous|
+            ((|Union| (|PositiveInteger|) (|Boolean|))
+             (|List| (|GuessOption|))))
+           (SIGNATURE |Somos|
+            ((|Union| (|PositiveInteger|) (|Boolean|))
+             (|List| (|GuessOption|))))
+           (SIGNATURE |maxLevel|
+            ((|Union| (|NonNegativeInteger|) "arbitrary")
+             (|List| (|GuessOption|))))
+           (SIGNATURE |maxDegree|
+            ((|Union| (|NonNegativeInteger|) "arbitrary")
+             (|List| (|GuessOption|))))
+           (SIGNATURE |maxMixedDegree|
+            ((|NonNegativeInteger|) (|List| (|GuessOption|))))
+           (SIGNATURE |allDegrees| ((|Boolean|) (|List| (|GuessOption|))))
+           (SIGNATURE |safety|
+            ((|NonNegativeInteger|) (|List| (|GuessOption|))))
+           (SIGNATURE |check|
+            ((|Union| "skip" "MonteCarlo" "deterministic")
+             (|List| (|GuessOption|))))
+           (SIGNATURE |checkExtraValues|
+            ((|Boolean|) (|List| (|GuessOption|))))
+           (SIGNATURE |one| ((|Boolean|) (|List| (|GuessOption|))))
+           (SIGNATURE |functionName| ((|Symbol|) (|List| (|GuessOption|))))
+           (SIGNATURE |functionNames|
+            ((|List| (|Symbol|)) (|List| (|GuessOption|))))
+           (SIGNATURE |variableName| ((|Symbol|) (|List| (|GuessOption|))))
+           (SIGNATURE |indexName| ((|Symbol|) (|List| (|GuessOption|))))
+           (SIGNATURE |displayKind| ((|Symbol|) (|List| (|GuessOption|))))
+           (SIGNATURE |debug| ((|Boolean|) (|List| (|GuessOption|))))
+           (SIGNATURE |checkOptions| ((|Void|) (|List| (|GuessOption|)))))))
+ (T |GuessOptionFunctions0|))
+(|Join| (|SetCategory|)
+        (CATEGORY |package|
+         (SIGNATURE |maxDerivative|
+          ((|Union| (|NonNegativeInteger|) "arbitrary")
+           (|List| (|GuessOption|))))
+         (SIGNATURE |maxShift|
+          ((|Union| (|NonNegativeInteger|) "arbitrary")
+           (|List| (|GuessOption|))))
+         (SIGNATURE |maxSubst|
+          ((|Union| (|PositiveInteger|) "arbitrary") (|List| (|GuessOption|))))
+         (SIGNATURE |maxPower|
+          ((|Union| (|PositiveInteger|) "arbitrary") (|List| (|GuessOption|))))
+         (SIGNATURE |homogeneous|
+          ((|Union| (|PositiveInteger|) (|Boolean|)) (|List| (|GuessOption|))))
+         (SIGNATURE |Somos|
+          ((|Union| (|PositiveInteger|) (|Boolean|)) (|List| (|GuessOption|))))
+         (SIGNATURE |maxLevel|
+          ((|Union| (|NonNegativeInteger|) "arbitrary")
+           (|List| (|GuessOption|))))
+         (SIGNATURE |maxDegree|
+          ((|Union| (|NonNegativeInteger|) "arbitrary")
+           (|List| (|GuessOption|))))
+         (SIGNATURE |maxMixedDegree|
+          ((|NonNegativeInteger|) (|List| (|GuessOption|))))
+         (SIGNATURE |allDegrees| ((|Boolean|) (|List| (|GuessOption|))))
+         (SIGNATURE |safety| ((|NonNegativeInteger|) (|List| (|GuessOption|))))
+         (SIGNATURE |check|
+          ((|Union| "skip" "MonteCarlo" "deterministic")
+           (|List| (|GuessOption|))))
+         (SIGNATURE |checkExtraValues| ((|Boolean|) (|List| (|GuessOption|))))
+         (SIGNATURE |one| ((|Boolean|) (|List| (|GuessOption|))))
+         (SIGNATURE |functionName| ((|Symbol|) (|List| (|GuessOption|))))
+         (SIGNATURE |functionNames|
+          ((|List| (|Symbol|)) (|List| (|GuessOption|))))
+         (SIGNATURE |variableName| ((|Symbol|) (|List| (|GuessOption|))))
+         (SIGNATURE |indexName| ((|Symbol|) (|List| (|GuessOption|))))
+         (SIGNATURE |displayKind| ((|Symbol|) (|List| (|GuessOption|))))
+         (SIGNATURE |debug| ((|Boolean|) (|List| (|GuessOption|))))
+         (SIGNATURE |checkOptions| ((|Void|) (|List| (|GuessOption|))))))
+"/git/fricas/src/algebra/GOPT0.spad"
+((|maxDerivative| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2 (|Union| (|NonNegativeInteger|) "arbitrary"))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|maxShift| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2 (|Union| (|NonNegativeInteger|) "arbitrary"))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|maxSubst| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2 (|Union| (|PositiveInteger|) "arbitrary"))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|maxPower| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2 (|Union| (|PositiveInteger|) "arbitrary"))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|homogeneous| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2 (|Union| (|PositiveInteger|) (|Boolean|)))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|Somos| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2 (|Union| (|PositiveInteger|) (|Boolean|)))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|maxLevel| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2 (|Union| (|NonNegativeInteger|) "arbitrary"))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|maxDegree| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2 (|Union| (|NonNegativeInteger|) "arbitrary"))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|maxMixedDegree| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|allDegrees| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|))) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|safety| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|check| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2 (|Union| "skip" "MonteCarlo" "deterministic"))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|checkExtraValues| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|))) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|one| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|))) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|functionName| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|))) (|isDomain| *2 (|Symbol|))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|functionNames| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2 (|List| (|Symbol|)))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|variableName| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|))) (|isDomain| *2 (|Symbol|))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|indexName| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|))) (|isDomain| *2 (|Symbol|))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|displayKind| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|))) (|isDomain| *2 (|Symbol|))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|debug| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|))) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|GuessOptionFunctions0|))))
+ (|checkOptions| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|))) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|GuessOptionFunctions0|)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|variableName| (((|Symbol|) (|List| (|GuessOption|))) 48))
+ (|safety| (((|NonNegativeInteger|) (|List| (|GuessOption|))) 33))
+ (|one| (((|Boolean|) (|List| (|GuessOption|))) 39))
+ (|maxSubst|
+  (((|Union| (|PositiveInteger|) "arbitrary") (|List| (|GuessOption|))) 20))
+ (|maxShift|
+  (((|Union| (|NonNegativeInteger|) "arbitrary") (|List| (|GuessOption|))) 18))
+ (|maxPower|
+  (((|Union| (|PositiveInteger|) "arbitrary") (|List| (|GuessOption|))) 32))
+ (|maxMixedDegree| (((|NonNegativeInteger|) (|List| (|GuessOption|))) 25))
+ (|maxLevel|
+  (((|Union| (|NonNegativeInteger|) "arbitrary") (|List| (|GuessOption|))) 16))
+ (|maxDerivative|
+  (((|Union| (|NonNegativeInteger|) "arbitrary") (|List| (|GuessOption|))) 17))
+ (|maxDegree|
+  (((|Union| (|NonNegativeInteger|) "arbitrary") (|List| (|GuessOption|))) 21))
+ (|latex| (((|String|) $) NIL))
+ (|indexName| (((|Symbol|) (|List| (|GuessOption|))) 54))
+ (|homogeneous|
+  (((|Union| (|PositiveInteger|) (|Boolean|)) (|List| (|GuessOption|))) 44))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|functionNames| (((|List| (|Symbol|)) (|List| (|GuessOption|))) 53))
+ (|functionName| (((|Symbol|) (|List| (|GuessOption|))) 49))
+ (|displayKind| (((|Symbol|) (|List| (|GuessOption|))) 55))
+ (|debug| (((|Boolean|) (|List| (|GuessOption|))) 40))
+ (|coerce| (((|OutputForm|) $) NIL))
+ (|checkOptions| (((|Void|) (|List| (|GuessOption|))) 62))
+ (|checkExtraValues| (((|Boolean|) (|List| (|GuessOption|))) 38))
+ (|check|
+  (((|Union| "skip" "MonteCarlo" "deterministic") (|List| (|GuessOption|)))
+   37))
+ (|allDegrees| (((|Boolean|) (|List| (|GuessOption|))) 29))
+ (|Somos|
+  (((|Union| (|PositiveInteger|) (|Boolean|)) (|List| (|GuessOption|))) 45))
+ (= (((|Boolean|) $ $) NIL)))
+GOPT0
+(((|SetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "\\spad{GuessOptionFunctions0} provides operations that extract the values of options for \\spadtype{Guess}."))
+ (|checkOptions|
+  (((|Void|) (|List| (|GuessOption|)))
+   "\\spad{checkOptions checks} whether the given options are consistent,{} and yields an error otherwise"))
+ (|debug|
+  (((|Boolean|) (|List| (|GuessOption|)))
+   "\\spad{debug returns} whether we want additional output on the progress,{} default being \\spad{false}"))
+ (|displayKind|
+  (((|Symbol|) (|List| (|GuessOption|)))
+   "\\spad{displayKind(d)} specifies kind of the result: generating function,{} recurrence or equation. This option should not be set by the user,{} but rather by the \\spad{HP}-specification."))
+ (|indexName|
+  (((|Symbol|) (|List| (|GuessOption|)))
+   "\\spad{indexName returns} the name of the index variable used for the formulas,{} default being \\spad{n}"))
+ (|variableName|
+  (((|Symbol|) (|List| (|GuessOption|)))
+   "\\spad{variableName returns} the name of the variable used in by the algebraic differential equation,{} default being \\spad{x}"))
+ (|functionNames|
+  (((|List| (|Symbol|)) (|List| (|GuessOption|)))
+   "\\spad{functionNames returns} the names for the function in the algebraic dependence,{} default being \\%\\spad{f1},{} \\%\\spad{f2},{} ..."))
+ (|functionName|
+  (((|Symbol|) (|List| (|GuessOption|)))
+   "\\spad{functionName returns} the name of the function given by the algebraic differential equation,{} default being \\spad{f}"))
+ (|one|
+  (((|Boolean|) (|List| (|GuessOption|)))
+   "\\spad{one returns} whether we need only one solution,{} default being \\spad{true}."))
+ (|checkExtraValues|
+  (((|Boolean|) (|List| (|GuessOption|)))
+   "\\spad{checkExtraValues(d)} specifies whether we want to check the solution beyond the order given by the degree bounds. The default is \\spad{true}."))
+ (|check|
+  (((|Union| "skip" "MonteCarlo" "deterministic") (|List| (|GuessOption|)))
+   "\\spad{check(d)} specifies how we want to check the solution. If the value is \"skip\",{} we return the solutions found by the interpolation routine without checking. If the value is \"MonteCarlo\",{} we use a probabilistic check. The default is \"deterministic\"."))
+ (|safety|
+  (((|NonNegativeInteger|) (|List| (|GuessOption|)))
+   "\\spad{safety returns} the specified safety or 1 as default."))
+ (|allDegrees|
+  (((|Boolean|) (|List| (|GuessOption|)))
+   "\\spad{allDegrees returns} whether all possibilities of the degree vector should be tried,{} the default being \\spad{false}."))
+ (|maxMixedDegree|
+  (((|NonNegativeInteger|) (|List| (|GuessOption|)))
+   "\\spad{maxMixedDegree returns} the specified maxMixedDegree."))
+ (|maxDegree|
+  (((|Union| (|NonNegativeInteger|) "arbitrary") (|List| (|GuessOption|)))
+   "\\spad{maxDegree returns} the specified maxDegree."))
+ (|maxLevel|
+  (((|Union| (|NonNegativeInteger|) "arbitrary") (|List| (|GuessOption|)))
+   "\\spad{maxLevel returns} the specified maxLevel."))
+ (|Somos|
+  (((|Union| (|PositiveInteger|) (|Boolean|)) (|List| (|GuessOption|)))
+   "\\spad{Somos returns} whether we allow only Somos-like operators,{} default being \\spad{false}"))
+ (|homogeneous|
+  (((|Union| (|PositiveInteger|) (|Boolean|)) (|List| (|GuessOption|)))
+   "\\spad{homogeneous returns} whether we allow only homogeneous algebraic differential equations,{} default being \\spad{false}"))
+ (|maxPower|
+  (((|Union| (|PositiveInteger|) "arbitrary") (|List| (|GuessOption|)))
+   "\\spad{maxPower returns} the specified maxPower."))
+ (|maxSubst|
+  (((|Union| (|PositiveInteger|) "arbitrary") (|List| (|GuessOption|)))
+   "\\spad{maxSubst returns} the specified maxSubst."))
+ (|maxShift|
+  (((|Union| (|NonNegativeInteger|) "arbitrary") (|List| (|GuessOption|)))
+   "\\spad{maxShift returns} the specified maxShift."))
+ (|maxDerivative|
+  (((|Union| (|NonNegativeInteger|) "arbitrary") (|List| (|GuessOption|)))
+   "\\spad{maxDerivative returns} the specified maxDerivative.")))
+(("documentation" 0 9956) ("ancestors" 0 9875) ("parents" 0 9851)
+ ("abbreviation" 0 9845) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 8045) ("modemaps" 0 4450) ("sourceFile" 0 4413)
+ ("constructorCategory" 0 2364) ("constructorModemap" 0 102)
+ ("constructorKind" 0 93) ("constructorForm" 0 67) ("NILADIC" 0 20))

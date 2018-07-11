@@ -1,0 +1,36 @@
+)abbrev domain MKCHSET MakeCachableSet
+++ Make a cachable set from any set
+++ Author: Manuel Bronstein
+++ Description:
+++   MakeCachableSet(S) returns a cachable set which is equal to S as a set.
+MakeCachableSet(S : SetCategory) : Exports == Implementation where
+  Exports ==> Join(CachableSet, CoercibleTo S) with
+    coerce : S -> %
+      ++ coerce(s) returns s viewed as an element of %.
+
+  Implementation ==> add
+    import from SortedCache(%)
+
+    Rep := Record(setpart : S, pos : NonNegativeInteger)
+
+    clearCache()
+
+    position x             == x.pos
+    setPosition(x, n)      == (x.pos := n; void)
+    coerce(x : %) : S          == x.setpart
+    coerce(x : %) : OutputForm == x::S::OutputForm
+    coerce(s : S) : %          == enterInCache([s, 0]$Rep,
+                                 (x1 +-> (s = x1::S))@(% -> Boolean))
+
+--    x < y ==
+--      if position(x) = 0 then enterInCache(x, x1+->(x::S = x1::S))
+--      if position(y) = 0 then enterInCache(y, x1+->(y::S = x1::S))
+--      position(x) < position(y)
+
+    x = y ==
+      if position(x) = 0 then enterInCache(x,
+                                 (x1 +-> (x::S = x1::S))@(% -> Boolean))
+      if position(y) = 0 then enterInCache(y,
+                                 (x1 +-> (y::S = x1::S))@(% -> Boolean))
+      position(x) = position(y)
+

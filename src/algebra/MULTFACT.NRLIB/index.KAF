@@ -1,0 +1,55 @@
+2396                (|MultivariateFactorize| OV E R P)
+|package|
+(((|MultivariateFactorize| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#4|) |#4|))
+   (SIGNATURE |factor|
+    ((|Factored| (|SparseUnivariatePolynomial| |#4|))
+     (|SparseUnivariatePolynomial| |#4|))))
+  (|OrderedSet|) (|OrderedAbelianMonoidSup|)
+  (|Join| (|PolynomialFactorizationExplicit|) (|CharacteristicZero|))
+  (|PolynomialCategory| |#3| |#2| |#1|))
+ (T |MultivariateFactorize|))
+(CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#4|) |#4|))
+ (SIGNATURE |factor|
+  ((|Factored| (|SparseUnivariatePolynomial| |#4|))
+   (|SparseUnivariatePolynomial| |#4|))))
+"/git/fricas/src/algebra/MULTFACT.spad"
+((|factor| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *7))
+       (|ofCategory| *7 (|PolynomialCategory| *6 *5 *4))
+       (|ofCategory| *4 (|OrderedSet|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6
+                     (|Join| (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|isDomain| *2 (|Factored| (|SparseUnivariatePolynomial| *7)))
+       (|isDomain| *1 (|MultivariateFactorize| *4 *5 *6 *7))))
+ (|factor| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|OrderedSet|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6
+                     (|Join| (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|MultivariateFactorize| *4 *5 *6 *3))
+       (|ofCategory| *3 (|PolynomialCategory| *6 *5 *4)))))
+((|factor|
+  (((|Factored| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|))
+   29)
+  (((|Factored| |#4|) |#4|) 13)))
+MULTFACT
+((|constructor|
+  (NIL
+   "\\indented{2}{This is the top level package for doing multivariate factorization} over basic domains like \\spadtype{Integer} or \\spadtype{Fraction Integer}."))
+ (|factor|
+  (((|Factored| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|))
+   "\\spad{factor(p)} factors the multivariate polynomial \\spad{p} over its coefficient domain where \\spad{p} is represented as a univariate polynomial with multivariate coefficients")
+  (((|Factored| |#4|) |#4|)
+   "\\spad{factor(p)} factors the multivariate polynomial \\spad{p} over its coefficient domain")))
+(("documentation" 0 1787) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1778) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1632) ("modemaps" 0 709) ("sourceFile" 0 669)
+ ("constructorCategory" 0 488) ("constructorModemap" 0 65)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

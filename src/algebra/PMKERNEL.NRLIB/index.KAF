@@ -1,0 +1,40 @@
+1618                (|PatternMatchKernel| S E)
+|package|
+(((|PatternMatchKernel| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |patternMatch|
+    ((|PatternMatchResult| |#1| |#2|) (|Kernel| |#2|) (|Pattern| |#1|)
+     (|PatternMatchResult| |#1| |#2|))))
+  (|SetCategory|)
+  (|Join| (|Comparable|) (|RetractableTo| (|Kernel| $))
+          (|ConvertibleTo| (|Pattern| |#1|)) (|PatternMatchable| |#1|)))
+ (T |PatternMatchKernel|))
+(CATEGORY |package|
+ (SIGNATURE |patternMatch|
+  ((|PatternMatchResult| |#1| |#2|) (|Kernel| |#2|) (|Pattern| |#1|)
+   (|PatternMatchResult| |#1| |#2|))))
+"/git/fricas/src/algebra/PMKERNEL.spad"
+((|patternMatch| (*1 *2 *3 *4 *2)
+  (AND (|isDomain| *2 (|PatternMatchResult| *5 *6))
+       (|isDomain| *3 (|Kernel| *6)) (|ofCategory| *5 (|SetCategory|))
+       (|ofCategory| *6
+                     (|Join| (|Comparable|) (|RetractableTo| (|Kernel| $))
+                             (|ConvertibleTo| *4) (|PatternMatchable| *5)))
+       (|isDomain| *4 (|Pattern| *5))
+       (|isDomain| *1 (|PatternMatchKernel| *5 *6)))))
+((|patternMatch|
+  (((|PatternMatchResult| |#1| |#2|) (|Kernel| |#2|) (|Pattern| |#1|)
+    (|PatternMatchResult| |#1| |#2|))
+   52)))
+PMKERNEL
+((|constructor|
+  (NIL "This package provides pattern matching functions on kernels."))
+ (|patternMatch|
+  (((|PatternMatchResult| |#1| |#2|) (|Kernel| |#2|) (|Pattern| |#1|)
+    (|PatternMatchResult| |#1| |#2|))
+   "\\spad{patternMatch(f(e1,{} ...,{} en),{} pat,{} res)} matches the pattern \\spad{pat} to \\spad{f(e1,{} ...,{} en)}; res contains the variables of \\spad{pat} which are already matched and their matches.")))
+(("documentation" 0 1192) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1183) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1049) ("modemaps" 0 624) ("sourceFile" 0 584)
+ ("constructorCategory" 0 429) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

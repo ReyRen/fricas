@@ -1,0 +1,72 @@
+)abbrev domain SMPEXPR SparseMultivariatePolynomialExpressions
+SparseMultivariatePolynomialExpressions(R : Ring
+                                       ) : Exports == Implementation where
+
+    Exports ==> PolynomialCategory(R, IndexedExponents NonNegativeInteger,
+                                   NonNegativeInteger) with
+
+        if R has TranscendentalFunctionCategory
+        then TranscendentalFunctionCategory
+
+    Implementation ==> SparseMultivariatePolynomial(R, NonNegativeInteger) add
+
+        if R has TranscendentalFunctionCategory then
+            log(p : %) : % ==
+                ground? p => coerce log ground p
+                output("log p for p=", p::OutputForm)$OutputPackage
+                error "SUPTRAFUN: log only defined for elements of the coefficient ring"
+
+            exp(p : %) : % ==
+                ground? p => coerce exp ground p
+                output("exp p for p=", p::OutputForm)$OutputPackage
+                error "SUPTRAFUN: exp only defined for elements of the coefficient ring"
+            sin(p : %) : % ==
+                ground? p => coerce sin ground p
+                output("sin p for p=", p::OutputForm)$OutputPackage
+                error "SUPTRAFUN: sin only defined for elements of the coefficient ring"
+            asin(p : %) : % ==
+                ground? p => coerce asin ground p
+                output("asin p for p=", p::OutputForm)$OutputPackage
+                error "SUPTRAFUN: asin only defined for elements of the coefficient ring"
+            cos(p : %) : % ==
+                ground? p => coerce cos ground p
+                output("cos p for p=", p::OutputForm)$OutputPackage
+                error "SUPTRAFUN: cos only defined for elements of the coefficient ring"
+            acos(p : %) : % ==
+                ground? p => coerce acos ground p
+                output("acos p for p=", p::OutputForm)$OutputPackage
+                error "SUPTRAFUN: acos only defined for elements of the coefficient ring"
+
+
+)if false
+
+\section{package UTSSOL TaylorSolve}
+
+[[UTSSOL]] is a facility to compute the first few coefficients of a Taylor
+series given only implicitly by a function [[f]] that vanishes when applied to
+the Taylor series.
+
+It uses the method of undetermined coefficients.
+
+\begin{ToDo}
+  Could I either
+  \begin{itemize}
+  \item take a function [[UTSCAT F -> UTSCAT F]] and still be able to compute
+    with undetermined coefficients, or
+  \item take a function [[F -> F]], and do likewise?
+  \end{itemize}
+
+  Let's see.
+
+  Try to compute the equation without resorting to power series. I.e., %
+  [[c : SUP SUP F]], and [[f : SUP SUP F -> SUP SUP F]]. Won't this make the
+  computation of coefficients terribly slow?
+
+  I could also try to replace transcendental kernels with variables\dots
+
+  Unfortunately, [[SUP F]] does not have [[TRANFUN]] -- well, it can't, of
+  course. However, I'd like to be able to compute %
+  [[sin(1+monomial(1, 1)$UFPS SUP EXPR INT)]].
+\end{ToDo}
+)endif
+

@@ -1,0 +1,69 @@
+3667                (|Kovacic| F UP)
+|package|
+(((|Kovacic| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |kovacic|
+    ((|Union| (|SparseUnivariatePolynomial| (|Fraction| |#2|)) "failed")
+     (|Fraction| |#2|) (|Fraction| |#2|) (|Fraction| |#2|)))
+   (SIGNATURE |kovacic|
+    ((|Union| (|SparseUnivariatePolynomial| (|Fraction| |#2|)) "failed")
+     (|Fraction| |#2|) (|Fraction| |#2|) (|Fraction| |#2|)
+     (|Mapping| (|Factored| |#2|) |#2|))))
+  (|Join| (|CharacteristicZero|) (|AlgebraicallyClosedField|)
+          (|RetractableTo| (|Integer|))
+          (|RetractableTo| (|Fraction| (|Integer|))))
+  (|UnivariatePolynomialCategory| |#1|))
+ (T |Kovacic|))
+(CATEGORY |package|
+ (SIGNATURE |kovacic|
+  ((|Union| (|SparseUnivariatePolynomial| (|Fraction| |#2|)) "failed")
+   (|Fraction| |#2|) (|Fraction| |#2|) (|Fraction| |#2|)))
+ (SIGNATURE |kovacic|
+  ((|Union| (|SparseUnivariatePolynomial| (|Fraction| |#2|)) "failed")
+   (|Fraction| |#2|) (|Fraction| |#2|) (|Fraction| |#2|)
+   (|Mapping| (|Factored| |#2|) |#2|))))
+"/git/fricas/src/algebra/KOVACIC.spad"
+((|kovacic| (*1 *2 *3 *3 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Fraction| *6))
+   (|isDomain| *4 (|Mapping| (|Factored| *6) *6))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+   (|ofCategory| *5
+                 (|Join| (|CharacteristicZero|) (|AlgebraicallyClosedField|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|isDomain| *2 (|SparseUnivariatePolynomial| (|Fraction| *6)))
+   (|isDomain| *1 (|Kovacic| *5 *6))))
+ (|kovacic| (*1 *2 *3 *3 *3)
+  (|partial| AND (|isDomain| *3 (|Fraction| *5))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+   (|ofCategory| *4
+                 (|Join| (|CharacteristicZero|) (|AlgebraicallyClosedField|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|isDomain| *2 (|SparseUnivariatePolynomial| (|Fraction| *5)))
+   (|isDomain| *1 (|Kovacic| *4 *5)))))
+((|kovacic|
+  (((|Union| (|SparseUnivariatePolynomial| (|Fraction| |#2|)) "failed")
+    (|Fraction| |#2|) (|Fraction| |#2|) (|Fraction| |#2|)
+    (|Mapping| (|Factored| |#2|) |#2|))
+   13)
+  (((|Union| (|SparseUnivariatePolynomial| (|Fraction| |#2|)) "failed")
+    (|Fraction| |#2|) (|Fraction| |#2|) (|Fraction| |#2|))
+   14)))
+KOVACIC
+((|constructor|
+  (NIL
+   "\\spadtype{Kovacic} provides a modified Kovacic\\spad{'s} algorithm for solving explicitely irreducible 2nd order linear ordinary differential equations."))
+ (|kovacic|
+  (((|Union| (|SparseUnivariatePolynomial| (|Fraction| |#2|)) "failed")
+    (|Fraction| |#2|) (|Fraction| |#2|) (|Fraction| |#2|)
+    (|Mapping| (|Factored| |#2|) |#2|))
+   "\\spad{kovacic(a_0,{}a_1,{}a_2,{}ezfactor)} returns either \"failed\" or \\spad{P}(\\spad{u}) such that \\spad{\\$e^{\\int(-a_1/2a_2)} e^{\\int u}\\$} is a solution of \\indented{5}{\\spad{\\$a_2 y'' + a_1 y' + a0 y = 0\\$}} whenever \\spad{u} is a solution of \\spad{P u = 0}. The equation must be already irreducible over the rational functions. Argument \\spad{ezfactor} is a factorisation in \\spad{UP},{} not necessarily into irreducibles.")
+  (((|Union| (|SparseUnivariatePolynomial| (|Fraction| |#2|)) "failed")
+    (|Fraction| |#2|) (|Fraction| |#2|) (|Fraction| |#2|))
+   "\\spad{kovacic(a_0,{}a_1,{}a_2)} returns either \"failed\" or \\spad{P}(\\spad{u}) such that \\spad{\\$e^{\\int(-a_1/2a_2)} e^{\\int u}\\$} is a solution of \\indented{5}{\\spad{a_2 y'' + a_1 y' + a0 y = 0}} whenever \\spad{u} is a solution of \\spad{P u = 0}. The equation must be already irreducible over the rational functions.")))
+(("documentation" 0 2380) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2372) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2043) ("modemaps" 0 1065) ("sourceFile" 0 1026)
+ ("constructorCategory" 0 663) ("constructorModemap" 0 47)
+ ("constructorKind" 0 37) ("constructorForm" 0 20))

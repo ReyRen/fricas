@@ -1,0 +1,285 @@
+)abbrev package ALGMANIP AlgebraicManipulations
+++ Author: Manuel Bronstein
+++ Date Created: 28 Mar 1988
+++ Description:
+++ AlgebraicManipulations provides functions to simplify and expand
+++ expressions involving algebraic operators.
+++ Keywords: algebraic, manipulation.
+AlgebraicManipulations(R, F) : Exports == Implementation where
+  R : IntegralDomain
+  F : Join(Field, ExpressionSpace) with
+    numer  : % -> SparseMultivariatePolynomial(R, Kernel %)
+        ++ numer(x) \undocumented
+    denom  : % -> SparseMultivariatePolynomial(R, Kernel %)
+        ++ denom(x) \undocumented
+    coerce : SparseMultivariatePolynomial(R, Kernel %) -> %
+        ++ coerce(x) \undocumented
+
+  N  ==> NonNegativeInteger
+  Z  ==> Integer
+  OP ==> BasicOperator
+  SY ==> Symbol
+  K  ==> Kernel F
+  P  ==> SparseMultivariatePolynomial(R, K)
+  RF ==> Fraction P
+  REC ==> Record(ker : List K, exponent : List Z)
+
+  Exports ==> with
+    rootSplit : F -> F
+      ++ rootSplit(f) transforms every radical of the form
+      ++ \spad{(a/b)^(1/n)} appearing in f into \spad{a^(1/n) / b^(1/n)}.
+      ++ This transformation is not in general valid for all
+      ++ complex numbers \spad{a} and b.
+    ratDenom  : F -> F
+      ++ ratDenom(f) rationalizes the denominators appearing in f
+      ++ by moving all the algebraic quantities into the numerators.
+    ratDenom  : (F, F) -> F
+      ++ ratDenom(f, a) removes \spad{a} from the denominators in f
+      ++ if \spad{a} is an algebraic kernel.
+    ratDenom  : (F, List F) -> F
+      ++ ratDenom(f, [a1, ..., an]) removes the ai's which are
+      ++ algebraic kernels from the denominators in f.
+    ratDenom  : (F, List K) -> F
+      ++ ratDenom(f, [a1, ..., an]) removes the ai's which are
+      ++ algebraic from the denominators in f.
+    ratPoly  : F -> SparseUnivariatePolynomial F
+      ++ ratPoly(f) returns a polynomial p such that p has no
+      ++ algebraic coefficients, and \spad{p(f) = 0}.
+    if R has Join(Comparable, GcdDomain, RetractableTo Integer)
+      and F has FunctionSpace(R) then
+        if R has UniqueFactorizationDomain then
+            rootFactor : F -> F
+              ++ rootFactor(f) transforms every radical of the form
+              ++ \spad{(a1*...*am)^(1/n)} appearing in f into
+              ++ \spad{a^(1/n)*...*am^(1/n)}.
+              ++ This transformation is not in general valid for all
+              ++ complex numbers \spad{a} and b.
+        rootPower  : F -> F
+          ++ rootPower(f) transforms every radical power of the form
+          ++ \spad{(a^(1/n))^m} into a simpler form if \spad{m} and
+          ++ \spad{n} have a common factor.
+        rootProduct : F -> F
+          ++ rootProduct(f) combines every product of the form
+          ++ \spad{(a^(1/n))^m * (a^(1/s))^t} into a single power
+          ++ of a root of \spad{a}, and transforms every radical power
+          ++ of the form \spad{(a^(1/n))^m} into a simpler form.
+        rootSimp   : F -> F
+          ++ rootSimp(f) transforms every radical of the form
+          ++ \spad{(a * b^(q*n+r))^(1/n)} appearing in f into
+          ++ \spad{b^q * (a * b^r)^(1/n)}.
+          ++ This transformation is not in general valid for all
+          ++ complex numbers b.
+        rootKerSimp : (OP, F, N) -> F
+          ++ rootKerSimp(op, f, n) should be local but conditional.
+
+  Implementation ==> add
+
+    import from PolynomialCategoryQuotientFunctions(IndexedExponents K, K, R, P, F)
+    import from BasicOperator
+    import from Fraction(SparseUnivariatePolynomial(F))
+    import from List(F)
+    import from List(Z)
+
+    ALGOP := '%alg
+
+    innerRF    : (F, List K) -> F
+    rootExpand : K -> F
+    algkernels : List K -> List K
+    rootkernels : List K -> List K
+
+    dummy := kernel(new()$SY)$K
+
+    ratDenom x                == innerRF(x, algkernels tower x)
+    ratDenom(x : F, l : List K) : F == innerRF(x, algkernels l)
+    ratDenom(x : F, y : F)        == ratDenom(x, [y])
+    ratDenom(x : F, l : List F)   == ratDenom(x, [retract(y)@K for y in l
+                                                 ]$List(K))
+    algkernels(l) == select((z1 : K) : Boolean +-> has?(operator z1, ALGOP), l)
+    rootkernels l == select!((z1 : K) : Boolean +->
+                                is?(operator z1, 'nthRoot), l)
+
+    ratPoly x ==
+      numer univariate(denom(ratDenom inv(dummy::P::F - x))::F, dummy)
+
+    rootSplit x ==
+      lk := rootkernels tower x
+      eval(x, lk, [rootExpand k for k in lk])
+
+    rootExpand k ==
+      x  := first argument k
+      n  := second argument k
+      op := operator k
+      op(numer(x)::F, n) / op(denom(x)::F, n)
+
+-- all the kernels in ll must be algebraic
+    innerRF(x, ll) ==
+      empty?(l := sort!((z1 : K, z2 : K) : Boolean +-> z1 > z2, kernels x)$List(K)) or
+        empty? setIntersection(ll, tower x) => x
+      lk := empty()$List(K)
+      while not member?(k := first l, ll) repeat
+        lk := concat(k, lk)
+        empty?(l := rest l) =>
+          return eval(x, lk, [map((z1 : F) : F +-> innerRF(z1, ll), kk) for kk in lk])
+      q := univariate(eval(x, lk,
+                 [map((z1 : F) : F +-> innerRF(z1, ll), kk) for kk in lk]), k, minPoly k)
+      map((z1 : F) : F +-> innerRF(z1, ll), q) (map((z1 : F) : F +-> innerRF(z1, ll), k))
+
+    if R has Join(Comparable, GcdDomain, RetractableTo Integer)
+     and F has FunctionSpace(R) then
+      import from PolynomialRoots(IndexedExponents K, K, R, P, F)
+
+      sroot  : (K, List K, List F) -> F
+      inroot : (OP, F, N) -> F
+      radeval : (P, K) -> F
+      breakup : List K -> List REC
+
+      if R has UniqueFactorizationDomain then
+
+          MPfact := GeneralizedMultivariateFactorize(K, IndexedExponents K,
+                       R, R, P)
+
+          fp_root(fp : Factored(P), op : OP, n : N) : F ==
+              res : F := 1
+              if (u := unit(fp)) ~= 1 then
+                  res := kernel(op, [u::F, n::F])::F
+              for fr in factorList(fp) repeat
+                  ne : N := fr.exponent rem n
+                  ng := gcd(ne, n)
+                  nn := (n exquo ng)::Z
+                  ne := (ne exquo ng)::Z::N
+                  ce : N := fr.exponent quo n
+                  rr :=
+                      nn > 1 => kernel(op, [(fr.factor^ne)::F, nn::F])::F
+                      1$F
+                  res := res*((fr.factor)^ce)::F*rr
+              res
+
+          pol_root(p : P, op : OP, n : N) : F ==
+              cp : R := content(p)$P
+              cp::F
+              pp := (p exquo cp::P)::P
+              fp_root(factor(pp)$MPfact, op, n)
+                *fp_root(map(x +-> x::P, factor(cp)
+                            )$FactoredFunctions2(R, P), op, n)
+
+          root_factor_k(k : K) : F ==
+              x  := first argument k
+              nf  := second argument k
+              n := (retract(nf)@Z)::N
+              op := operator k
+              pol_root(numer(x), op, n)/pol_root(denom(x), op, n)
+
+          rootFactor x ==
+              lk := rootkernels tower x
+              eval(x, lk, [root_factor_k k for k in lk])
+
+      if R has RadicalCategory then
+        rootKerSimp(op, x, n) ==
+          (r := retractIfCan(x)@Union(R, "failed")) case R =>
+             nthRoot(r::R, n)::F
+          inroot(op, x, n)
+      else
+        rootKerSimp(op, x, n) == inroot(op, x, n)
+
+      -- l is a list of nth-roots, returns a list of records of the form
+      -- [[a^(1/n1), a^(1/n2), ...], [n1, n2, ...]]
+      -- such that the whole list covers l exactly
+      breakup l ==
+        empty? l => empty()
+        k := first l
+        a := first(arg := argument(k))
+        n := retract(second arg)@Z
+        expo := empty()$List(Z)
+        others := same := empty()$List(K)
+        for kk in rest l repeat
+          if (a = first(arg := argument kk)) then
+            same := concat(kk, same)
+            expo := concat(retract(second arg)@Z, expo)
+          else others := concat(kk, others)
+        ll := breakup others
+        concat([concat(k, same), concat(n, expo)], ll)
+
+      rootProduct x ==
+        for rec in breakup rootkernels tower x repeat
+          k0 := first(l := rec.ker)
+          if not empty? rest l then
+            n  := lcm(rec.exponent)
+            k  := kernel(operator k0, [first argument k0, n::F], height k0)$K
+            lv := [k::F^(n quo m)::N for m in rec.exponent]
+            x := eval(x, l, lv)
+        rootPower x
+
+      rootPower1(x : F, lk : List(K), nlk : List(F)) : F ==
+          x := eval(x, lk, nlk)
+          for k in kernels(x) repeat
+              if is?(operator k, 'nthRoot) then
+                  x := radeval(numer x, k) / radeval(denom x, k)
+          x
+
+      rootPower x ==
+          lk : List(K):= []
+          nlk : List(F) := []
+          for k in tower x repeat
+              -- Here we assume that 'rootPower1' will not mess
+              -- dummy arguments
+              nargs := map(k1 +-> rootPower1(k1, lk, nlk), argument k)
+              nk := (operator k)(nargs)
+              lk := cons(k, lk)
+              nlk := cons(nk, nlk)
+          rootPower1(x, lk, nlk)
+
+-- 'k' is a nthRoot kernel: 'a^(1/n)'.  This function
+-- replaces '(a^(1/n))^m' in 'p' by a power of a simpler radical of 'a' if
+-- n and m have a common factor.  If 'a' itself is a nthRoot kernel
+-- 'b^(1/l)', then 'k' is replaced by simpler radical of 'b'.
+      radeval(p, k) ==
+        a := first(arg := argument k)
+        n := (retract(second arg)@Integer)::NonNegativeInteger
+        ans : F := 0
+        q := univariate(p, k)
+        -- Check if 'a' itself is nthRoot.
+        ka1 := retractIfCan(a)@Union(K, "failed")
+        if ka1 case K and is?(ka1::K, 'nthRoot) then
+            ka := ka1::K
+            arg := argument ka
+            a := first arg
+            n := n * (retract(second arg)@Integer::NonNegativeInteger)
+            k := kernel(operator ka, [a, n::F], height ka)
+        while (d := degree q) > 0 repeat
+            term :F :=
+                g := gcd(d, n)
+                (g = n) => a^(d quo g)
+                (g = 1) => monomial(1, k, d)::F
+                monomial(1, kernel(operator k, [a, (n quo g)::F], height k),
+                         d quo g)::F
+            ans := ans + leadingCoefficient(q)::F * term
+            q := reductum q
+        leadingCoefficient(q)::F + ans
+
+      inroot(op, x, n) ==
+        (x = 1) => x
+        (x ~= -1) and (((num := numer x) = 1) or (num = -1)) =>
+          inv inroot(op, (num * denom x)::F, n)
+        (u := isExpt(x, op)) case "failed" => kernel(op, [x, n::F])
+        pr := u::Record(var : K, exponent : Integer)
+        q := pr.exponent /$Fraction(Z)
+                                (n * retract(second argument(pr.var))@Z)
+        qr := divide(numer q, denom q)
+        x  := first argument(pr.var)
+        x ^ qr.quotient * rootKerSimp(op, x, denom(q)::N) ^ qr.remainder
+
+      sroot(k, lk, nlk) ==
+        narg1 := eval(first(arg := argument(k)), lk, nlk)
+        pr := froot(narg1, (retract(second arg)@Z)::N)
+        pr.coef * rootKerSimp(operator k, pr.radicand, pr.exponent)
+
+      rootSimp x ==
+        tk := rootkernels tower x
+        lk : List K := []
+        nlk : List F := []
+        for k in tk repeat
+            nk := sroot(k, lk, nlk)
+            lk := cons(k, lk)
+            nlk := cons(nk, nlk)
+        eval(x, lk, nlk)
+

@@ -1,0 +1,79 @@
+3630                (|FunctionSpaceToExponentialExpansion| R FE |x| |cen|)
+|package|
+(((|FunctionSpaceToExponentialExpansion| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |exprToXXP|
+    ((|Union| (|:| |%expansion| (|ExponentialExpansion| |#1| |#2| |#3| |#4|))
+              (|:| |%problem|
+                   (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+     |#2| (|Boolean|)))
+   (SIGNATURE |localAbs| (|#2| |#2|)))
+  (|Join| (|GcdDomain|) (|Comparable|) (|RetractableTo| (|Integer|))
+          (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|AlgebraicallyClosedField|) (|TranscendentalFunctionCategory|)
+          (|FunctionSpace| |#1|))
+  (|Symbol|) |#2|)
+ (T |FunctionSpaceToExponentialExpansion|))
+(CATEGORY |package|
+ (SIGNATURE |exprToXXP|
+  ((|Union| (|:| |%expansion| (|ExponentialExpansion| |#1| |#2| |#3| |#4|))
+            (|:| |%problem|
+                 (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+   |#2| (|Boolean|)))
+ (SIGNATURE |localAbs| (|#2| |#2|)))
+"/git/fricas/src/algebra/FS2EXPXP.spad"
+((|localAbs| (*1 *2 *2)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|GcdDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *1 (|FunctionSpaceToExponentialExpansion| *3 *2 *4 *5))
+   (|ofCategory| *2
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| *3)))
+   (|ofType| *4 (|Symbol|)) (|ofType| *5 *2)))
+ (|exprToXXP| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Union|
+                    (|:| |%expansion| (|ExponentialExpansion| *5 *3 *6 *7))
+                    (|:| |%problem|
+                         (|Record| (|:| |func| (|String|))
+                                   (|:| |prob| (|String|))))))
+       (|isDomain| *1 (|FunctionSpaceToExponentialExpansion| *5 *3 *6 *7))
+       (|ofCategory| *3
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|FunctionSpace| *5)))
+       (|ofType| *6 (|Symbol|)) (|ofType| *7 *3))))
+((|localAbs| ((|#2| |#2|) 160))
+ (|exprToXXP|
+  (((|Union| (|:| |%expansion| (|ExponentialExpansion| |#1| |#2| |#3| |#4|))
+             (|:| |%problem|
+                  (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+    |#2| (|Boolean|))
+   53)))
+FS2EXPXP
+((|constructor|
+  (NIL
+   "This package converts expressions in some function space to exponential expansions."))
+ (|localAbs|
+  ((|#2| |#2|)
+   "\\spad{localAbs(fcn)} = \\spad{abs(fcn)} or \\spad{sqrt(fcn^2)} depending on whether or not FE has a function \\spad{abs}. This should be a local function,{} but the compiler won\\spad{'t} allow it."))
+ (|exprToXXP|
+  (((|Union| (|:| |%expansion| (|ExponentialExpansion| |#1| |#2| |#3| |#4|))
+             (|:| |%problem|
+                  (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+    |#2| (|Boolean|))
+   "\\spad{exprToXXP(fcn,{} posCheck?)} converts the expression \\spad{fcn} to an exponential expansion. If \\spad{posCheck?} is \\spad{true},{} log\\spad{'s} of negative numbers are not allowed nor are \\spad{n}th roots of negative numbers with \\spad{n} even. If \\spad{posCheck?} is \\spad{false},{} these are allowed.")))
+(("documentation" 0 2735) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2726) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2464) ("modemaps" 0 1059) ("sourceFile" 0 1019)
+ ("constructorCategory" 0 734) ("constructorModemap" 0 85)
+ ("constructorKind" 0 75) ("constructorForm" 0 20))

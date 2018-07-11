@@ -1,0 +1,91 @@
+3779                (|PointsOfFiniteOrderRational| UP UPUP R)
+|package|
+(((|PointsOfFiniteOrderRational| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |order|
+    ((|Union| (|NonNegativeInteger|) "failed")
+     (|FiniteDivisor| (|Fraction| (|Integer|)) |#1| |#2| |#3|)))
+   (SIGNATURE |torsion?|
+    ((|Boolean|) (|FiniteDivisor| (|Fraction| (|Integer|)) |#1| |#2| |#3|)))
+   (SIGNATURE |torsionIfCan|
+    ((|Union|
+      (|Record| (|:| |order| (|NonNegativeInteger|)) (|:| |function| |#3|))
+      "failed")
+     (|FiniteDivisor| (|Fraction| (|Integer|)) |#1| |#2| |#3|))))
+  (|UnivariatePolynomialCategory| (|Fraction| (|Integer|)))
+  (|UnivariatePolynomialCategory| (|Fraction| |#1|))
+  (|FunctionFieldCategory| (|Fraction| (|Integer|)) |#1| |#2|))
+ (T |PointsOfFiniteOrderRational|))
+(CATEGORY |package|
+ (SIGNATURE |order|
+  ((|Union| (|NonNegativeInteger|) "failed")
+   (|FiniteDivisor| (|Fraction| (|Integer|)) |#1| |#2| |#3|)))
+ (SIGNATURE |torsion?|
+  ((|Boolean|) (|FiniteDivisor| (|Fraction| (|Integer|)) |#1| |#2| |#3|)))
+ (SIGNATURE |torsionIfCan|
+  ((|Union|
+    (|Record| (|:| |order| (|NonNegativeInteger|)) (|:| |function| |#3|))
+    "failed")
+   (|FiniteDivisor| (|Fraction| (|Integer|)) |#1| |#2| |#3|))))
+"/git/fricas/src/algebra/PFOQ.spad"
+((|torsionIfCan| (*1 *2 *3)
+  (|partial| AND
+   (|isDomain| *3 (|FiniteDivisor| (|Fraction| (|Integer|)) *4 *5 *6))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Fraction| (|Integer|))))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| (|Fraction| *4)))
+   (|ofCategory| *6 (|FunctionFieldCategory| (|Fraction| (|Integer|)) *4 *5))
+   (|isDomain| *2
+               (|Record| (|:| |order| (|NonNegativeInteger|))
+                         (|:| |function| *6)))
+   (|isDomain| *1 (|PointsOfFiniteOrderRational| *4 *5 *6))))
+ (|torsion?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|FiniteDivisor| (|Fraction| (|Integer|)) *4 *5 *6))
+       (|ofCategory| *4
+                     (|UnivariatePolynomialCategory| (|Fraction| (|Integer|))))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| (|Fraction| *4)))
+       (|ofCategory| *6
+                     (|FunctionFieldCategory| (|Fraction| (|Integer|)) *4 *5))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|PointsOfFiniteOrderRational| *4 *5 *6))))
+ (|order| (*1 *2 *3)
+  (|partial| AND
+   (|isDomain| *3 (|FiniteDivisor| (|Fraction| (|Integer|)) *4 *5 *6))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| (|Fraction| (|Integer|))))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| (|Fraction| *4)))
+   (|ofCategory| *6 (|FunctionFieldCategory| (|Fraction| (|Integer|)) *4 *5))
+   (|isDomain| *2 (|NonNegativeInteger|))
+   (|isDomain| *1 (|PointsOfFiniteOrderRational| *4 *5 *6)))))
+((|torsionIfCan|
+  (((|Union|
+     (|Record| (|:| |order| (|NonNegativeInteger|)) (|:| |function| |#3|))
+     "failed")
+    (|FiniteDivisor| (|Fraction| (|Integer|)) |#1| |#2| |#3|))
+   56))
+ (|torsion?|
+  (((|Boolean|) (|FiniteDivisor| (|Fraction| (|Integer|)) |#1| |#2| |#3|)) 13))
+ (|order|
+  (((|Union| (|NonNegativeInteger|) "failed")
+    (|FiniteDivisor| (|Fraction| (|Integer|)) |#1| |#2| |#3|))
+   11)))
+PFOQ
+((|constructor|
+  (NIL
+   "This package provides function for testing whether a divisor on a curve is a torsion divisor."))
+ (|torsionIfCan|
+  (((|Union|
+     (|Record| (|:| |order| (|NonNegativeInteger|)) (|:| |function| |#3|))
+     "failed")
+    (|FiniteDivisor| (|Fraction| (|Integer|)) |#1| |#2| |#3|))
+   "\\spad{torsionIfCan(f)} \\undocumented"))
+ (|torsion?|
+  (((|Boolean|) (|FiniteDivisor| (|Fraction| (|Integer|)) |#1| |#2| |#3|))
+   "\\spad{torsion?(f)} \\undocumented"))
+ (|order|
+  (((|Union| (|NonNegativeInteger|) "failed")
+    (|FiniteDivisor| (|Fraction| (|Integer|)) |#1| |#2| |#3|))
+   "\\spad{order(f)} \\undocumented")))
+(("documentation" 0 3137) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3132) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2720) ("modemaps" 0 1266) ("sourceFile" 0 1230)
+ ("constructorCategory" 0 793) ("constructorModemap" 0 72)
+ ("constructorKind" 0 62) ("constructorForm" 0 20))

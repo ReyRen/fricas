@@ -1,0 +1,457 @@
+)abbrev category JBC JetBundleCategory
+++ Description:
+++ \spadtype{JetBundleCategory} provides basic data structures and
+++ procedures for jet bundles. Nearly all necessary functions are implemented
+++ already here. Only the representation and functions which direct access
+++ to it must be implemented in a domain.
+++ Two notations of derivatives are supported. Default is multi-index
+++ notation, where the i-th entry of the index denotes the number of
+++ differentiations taken with respect to \spad{x^i}. In repeated index
+++ notation each entry \spad{i} in the index denotes a differentiation
+++ with respect to \spad{x^i}. The choice affects, however, only in-
+++ and output. Internally, multi-index notation is used throughout.
+
+JetBundleCategory() : Category == Def where
+
+  V    ==> Vector
+  B    ==> Boolean
+  Sy   ==> Symbol
+  I    ==> Integer
+  PI   ==> PositiveInteger
+  NNI  ==> NonNegativeInteger
+  L    ==> List
+  EI   ==> Expression Integer
+  OUT  ==> OutputForm
+
+  errmsg1  ==> "Improper multi-index"
+  errmsg2  ==> "Improper upper index"
+  errmsg3  ==> "Integration not possible"
+  Const    ==> "Const"::Sy
+  Indep    ==> "Indep"::Sy
+  Dep      ==> "Dep"::Sy
+  Deriv    ==> "Deriv"::Sy
+  Multi    ==> "Multi"::Sy
+  Repeated ==> "Repeated"::Sy
+  DerMode  ==> [Multi, Repeated]@L Sy
+
+
+  Def ==> Join(OrderedSet, CoercibleTo EI) with
+
+      setNotation : Sy -> Sy
+        ++ \spad{setNotation(s)} chooses the notation used for derivatives.
+        ++ Returns the old value.
+
+      getNotation : () -> Sy
+        ++ \spad{getNotation()} shows the currently used notation.
+
+      multiIndex : % -> L NNI
+        ++ \spad{multiIndex(jv)} returns the multi-index of the jet
+        ++ variable \spad{jv}.
+
+      repeatedIndex : % -> L PI
+        ++ \spad{repeatedIndex(jv)} returns the multi-index of the jet
+        ++ variable \spad{jv} in repeated index notation.
+
+      r2m : L PI -> L NNI
+        ++ \spad{r2m(ind)} transforms a repeated index into a multi-index.
+
+      m2r : L NNI -> L PI
+        ++ \spad{m2r(ind)} transforms a multi-index into a repeated index.
+
+      allRepeated : L NNI -> L L PI
+        ++ \spad{allRepeated(ind)} returns a list of all possible realizations
+        ++ of a given multi-index as repeated index.
+
+      index : % -> PI
+        ++ \spad{index(jv)} yields number of the jet variable \spad{jv}.
+
+      type : % -> Sy
+        ++ \spad{type(jv)} yields the type (\spad{Const, Indep, Dep, Deriv})
+        ++ of the jet variable \spad{jv}.
+
+      name : % -> Sy
+        ++ \spad{name(jv)} yields the name of the jet variable \spad{jv}.
+
+      class : L NNI -> NNI
+        ++ \spad{class(ind)} yields the class of the multi-index \spad{ind}
+        ++ (Position for first non-vanishing entry).
+
+      class : % -> NNI
+        ++ \spad{class(jv)} yields the class of the jet variable \spad{jv}
+        ++ (Class of multi-index for derivative, 0 else).
+
+      order : % -> NNI
+        ++ \spad{order(jv)} yields the order of the jet variable \spad{jv}
+        ++ (Order as derivative).
+
+      weight : % -> NNI
+        ++ \spad{weight(jv)} assigns each jet variable a unique integer
+        ++ reflecting its position in the internal ordering. The variable with
+        ++ the greater weight is also greater in this ordering.
+
+      ">" : (%, %) -> B
+        ++ \spad{jv1 > jv2} checks whether \spad{jv1} is greater than
+        ++ \spad{jv2} in the internal ordering.
+
+      differentiate : (%, PI) -> Union(%, "0")
+        ++ \spad{differentiate(jv, i)} differentiates \spad{jv} wrt the
+        ++ \spad{i}-th independent variable.
+
+      derivativeOf? : (%, %) -> L NNI
+        ++ \spad{derivativeOf?(jv1, jv2)} checks whether \spad{jv1} is a
+        ++ derivative of \spad{jv2}. In this case, the difference of their
+        ++ multi-indices is returned. Otherwise, an empty list is returned.
+
+      integrateIfCan : (%, PI) -> Union(%, "failed")
+        ++ \spad{integrate(jv, i)} integrated \spad{jv} wrt the \spad{i}-th
+        ++ independent variable, if possible.
+
+      integrate : (%, PI) -> %
+        ++ \spad{integrate(jv, i)} is like \spad{integrateIfCan(jv, i)} but
+        ++ yields an error, if the integration is not possible.
+
+      X : PI -> %
+        ++ \spad{X(i)} generates the \spad{i}-th independent variable.
+      U : PI -> %
+        ++ \spad{U(i)} generates the \spad{i}-th dependent variable.
+      P : (PI, L NNI) -> %
+        ++ \spad{P(i, ind)} generates the derivative of the \spad{i}-th
+        ++ dependent variable wrt the index \spad{ind}. Whether \spad{ind}
+        ++ is interpreted as multi-index or as repeated index depends on the
+        ++ chosen notation.
+      Pm : (PI, L NNI) -> %
+        ++ \spad{Pm(i, ind)} is like \spad{P(i, ind)} but \spad{ind} is
+        ++ always a multi-index.
+      Pr : (PI, L PI) -> %
+        ++ \spad{Pr(i, ind)} is like \spad{P(i, ind)} but \spad{ind} is
+        ++ always a repeated index.
+
+      1 : constant -> %
+        ++ \spad{1} generates the special "jet variable" 1, which is
+        ++ needed for the representation of linear functions.
+
+      one? : % -> B
+        ++ \spad{one?(jv)} checks whether the jet variables \spad{jv}
+        ++ is the special variable 1.
+
+      -- For the special cases of only one independent or only one dependent
+      -- variable simpler calls are provided.
+      X : () -> %
+        ++ \spad{X()} generates the only independent variable.
+      U : () -> %
+        ++ \spad{U()} generates the only dependent variable.
+      P : L NNI -> %
+        ++ \spad{P(ind)} generates the derivative of the only dependent
+        ++ variable wrt the index \spad{ind}.
+      P : (PI, NNI) -> %
+        ++ \spad{P(i, j)} generates the \spad{j}-th derivative of the
+        ++ \spad{i}-th independent variable wrt the only independent
+        ++ variable.
+      P : NNI -> %
+        ++ \spad{P(i)} generates the \spad{i}-th derivative of the only
+        ++ dependent variable wrt the only independent variable.
+
+      variables : NNI -> L %
+        ++ \spad{variables(q)} computes the list of all jet variables up to
+        ++ order \spad{q}.
+
+      variables : (NNI, PI) -> L %
+        ++ \spad{variables(q, c)} computes all jet variables of order \spad{q}
+        ++ whose class is greater than or equal to \spad{c}.
+
+      dimJ : NNI -> NNI
+        ++ \spad{dimJ(q)} computes the (fibre) dimension of the \spad{q}-th
+        ++ order jet bundle.
+
+      dimS : NNI -> NNI
+        ++ \spad{dimS(q)} computes dimension of SqT x VE
+        ++ (= number of derivatives of order \spad{q}).
+
+      numIndVar : () -> PI
+        ++ \spad{numIndVar} returns the number of independent variables.
+
+      numDepVar : () -> PI
+        ++ \spad{numDepVar} returns the number of dependent variables.
+
+    add
+
+      -- Default section.
+      -- The only procedures not implemented are:
+      --   multiIndex, index, type, name, X, U, Pm (generic case)
+      --   coerce, numIndVar, numDepVar, setNotation, getNotation
+
+      import from Symbol
+      import from List(NNI)
+
+      -- global constants for parameters of jet bundle
+      nn : PI := numIndVar()
+      mm : PI := numDepVar()
+
+      m2r(mi : L NNI) : L PI ==
+          ri : L PI := empty
+          k : PI := 1
+          for i in mi repeat
+              for j in 1..i repeat
+                  ri := cons(k, ri)
+              k := k+1
+          ri
+
+      r2m(ri : L PI) : L NNI ==
+          mi : L NNI := new(numIndVar(), 0)
+          for i in ri repeat
+              i > nn => error errmsg1
+              mi.i := 1 + mi.i
+          mi
+
+      allRepeated(mu : L NNI) : L L PI ==
+          res : L L PI := empty
+          for i in 1..nn  for k in mu repeat
+              if not zero? k then
+                  nu := copy mu
+                  nu.i := (k - 1)::NNI
+                  tmp := allRepeated nu
+                  res := concat!(res, map((x : L PI) : L PI +-> cons(i::PI, x),
+                                          tmp))
+          empty? res => [empty$(L PI)]
+          res
+
+      repeatedIndex(jv : %) : L PI == m2r multiIndex jv
+
+      -- ---------------- --
+      -- Simple Functions --
+      -- ---------------- --
+
+      class(l : L NNI) : NNI ==
+          res : PI := 1
+          for i in l while zero? i repeat
+              res := res + 1
+          res
+
+      class(jv : %) : NNI ==
+          type(jv) ~= Deriv => 0
+          class multiIndex jv
+
+      order(jv : %) : NNI ==
+       type(jv) ~= Deriv => 0
+       sum : NNI := 0
+       for i in multiIndex jv repeat
+           sum := sum+i
+       sum
+
+      dimJ(q : NNI) : NNI ==
+          mm*binomial(q + nn, nn)$Integer ::NNI
+
+      dimS(q : NNI) : NNI ==
+          mm*binomial(q + nn - 1, nn - 1)$Integer ::NNI
+
+      X() : % == X(1)
+
+      U() : % == U(1)
+
+      P(lo : L NNI) : % == P(1, lo)
+
+      P(up : PI, lo : NNI) : % == Pm(up, [lo])
+
+      P(lo : NNI) : % == Pm(1, [lo])
+
+      P(up : PI, lo : L NNI) : % ==
+          getNotation() = Multi => Pm(up, lo)
+          lop : L PI := empty
+          for i in lo repeat
+              zero? i => error errmsg1
+              lop := cons(i::PI, lop)
+          Pr(up, reverse! lop)
+
+      Pr(up : PI, lo : L PI) : % == Pm(up, r2m lo)
+
+      coerce(jv : %) : OUT == name(jv)::OUT
+
+      -- ---------- --
+      -- Dimensions --
+      -- ---------- --
+
+      dimJV : V NNI := new(1, mm)
+      dimSV : V NNI := new(1, mm)
+      mn : Integer := minIndex dimJV
+          -- global vectors with already computed dimensions
+
+      dimJ(q : NNI) : NNI ==
+          q < #dimJV =>
+              res := qelt(dimJV, mn + q)
+              res > 0 => res
+              res := mm*binomial(q + nn, nn)$Integer ::NNI
+              qsetelt!(dimJV, mn + q, res)
+              res
+          oldJV := copy dimJV
+          dimJV := new(q + 1, 0)
+          for qq in mn..(mn + #oldJV - 1) repeat
+              qsetelt!(dimJV, qq, qelt(oldJV, qq))
+          res := mm*binomial(q + nn, nn)$Integer ::NNI
+          qsetelt!(dimJV, mn + q, res)
+          res
+
+      dimS(q : NNI) : NNI ==
+          q < #dimSV =>
+              res := qelt(dimSV, mn + q)
+              res > 0 => res
+              res := mm*binomial(q + nn - 1, nn - 1)$Integer ::NNI
+              qsetelt!(dimSV, mn + q, res)
+              res
+          oldSV := copy dimSV
+          dimSV := new(q + 1, 0)
+          for qq in mn..(mn + #oldSV - 1) repeat
+              qsetelt!(dimSV, qq, qelt(oldSV, qq))
+          res := mm*binomial(q + nn - 1, nn - 1)$Integer ::NNI
+          qsetelt!(dimSV, mn + q, res)
+          res
+
+      -- --------------- --
+      -- Differentiation --
+      -- --------------- --
+
+      differentiate(jv : %, i : PI) : Union(%, "0") ==
+          i > nn => error errmsg2
+          jt := type jv
+          jt = Const => "0"
+          jt = Indep =>
+              index(jv) = i => 1
+              "0"
+          getNotation() = Multi =>
+              mind := multiIndex jv
+              setelt!(mind, i, elt(mind, i - 1 + minIndex(mind)) + 1)
+              Pm(index jv, mind)
+          rind := repeatedIndex jv
+          empty? rind => Pr(index jv, [i])
+          nind : L PI := empty
+          while not empty? rind  while first(rind) > i repeat
+              nind := cons(first(rind), nind)
+              rind := rest rind
+          nind := concat!(reverse!(nind), cons(i, rind))
+          Pr(index jv, nind)
+
+      derivativeOf?(jv1 : %, jv2 : %) : L NNI ==
+          type(jv1) ~= Deriv => empty
+          jt := type jv2
+          jt ~= Deriv and jt ~= Dep => empty
+          index(jv1) ~= index(jv2) => empty
+          res : L NNI := empty
+          for i1 in multiIndex(jv1) for i2 in multiIndex(jv2) repeat
+              i1 < i2 => return empty
+              res := cons((i1 - i2)::NNI, res)
+          reverse! res
+
+      integrateIfCan(jv : %, i : PI) : Union(%, "failed") ==
+          i > nn => error errmsg2
+          type(jv) ~= Deriv => "failed"
+          getNotation() = Multi =>
+              mind := multiIndex jv
+              pos := i - 1 + minIndex mind
+              mi := qelt(mind, pos)
+              zero? mi => "failed"
+              setelt!(mind, pos, (mi - 1)::NNI)
+              Pm(index jv, mind)
+          rind := repeatedIndex jv
+          pos := position(i, rind)
+          pos < minIndex rind => "failed"
+          rind := delete(rind, pos)
+          Pr(index jv, rind)
+
+      integrate(jv : %, i : PI) : % ==
+          ji := integrateIfCan(jv, i)
+          ji case "failed" => error errmsg3
+          ji::%
+
+      -- -------- --
+      -- Ordering --
+      -- -------- --
+
+      weight(jv : %) : NNI ==
+          t := type jv
+          t = Const => 0
+          t = Indep => index jv
+          t = Dep => (nn + 1)*index(jv)
+          pos := nn + 1
+          res := pos*index(jv)
+          for i in repeatedIndex jv repeat
+              pos := pos*(nn + 1)
+              res := res + i*pos
+          res
+
+      one?(jv : %) == type(jv) = Const
+
+      jv1 : % = jv2 : % ==
+          t1 := type jv1
+          t1 = Const => type(jv2) = Const
+          t1 = Indep =>
+              type(jv2) = Indep => index(jv1) = index(jv2)
+              false
+          index(jv1) = index(jv2) and multiIndex(jv1) = multiIndex(jv2)
+
+      jv1 : % < jv2 : % ==
+          -- Implements a total degree and class respecting ordering.
+          -- More efficient than weight(jv1) < weight(jv2).
+          t1 := type jv1
+          t2 := type jv2
+          t2 = Const => false
+          t1 = Const => true
+          t1 = Indep =>
+              t2 = Indep => index(jv1) < index(jv2)
+              true
+          t1 = Dep =>
+              t2 = Indep => false
+              t2 = Dep => index(jv1) < index(jv2)
+              true
+          (t2 = Indep) or (t2 = Dep) => false
+          o1 := order jv1
+          o2 := order jv2
+          o1 = o2 =>
+              for i1 in multiIndex(jv1)  for i2 in multiIndex(jv2) repeat
+                  if i1 ~= i2 then return i1 > i2
+              index(jv1) < index(jv2)
+          o1 < o2
+
+      jv1 : % > jv2 : % == jv2 < jv1
+
+      -- --------- --
+      -- Variables --
+      -- --------- --
+
+      variables(q : NNI) : L % ==
+          -- Generates all jet variables up to order q with the exception of 1.
+          zero? q => [X(i::PI)  for i in nn..1 by -1]
+
+          OIndList : L L PI := [[i::PI]  for i in 1..nn]
+          IndList : L L PI := [[i::PI]  for i in nn..1 by -1]
+
+          for qq in 2..q repeat
+              NIndList : L L PI := empty
+              for ind in OIndList repeat
+                  for j in first(ind)..nn repeat
+                      NIndList := cons(cons(j::PI, ind), NIndList)
+              OIndList := reverse NIndList
+              IndList := concat!(NIndList, IndList)
+
+          JV : L % := empty
+          for ind in IndList repeat
+              for k in 1..mm repeat
+                  JV := cons(Pr(k::PI, ind), JV)
+          concat!(concat!([X(i::PI)  for i in 1..nn], _
+                              [U(i::PI)  for i in 1..mm]), JV)
+
+      variables(q : NNI, c : PI) : L % ==
+          zero? q => empty
+
+          OIndList : L L PI := [[i::PI]  for i in c..nn]
+          for qq in 2..q repeat
+              NIndList : L L PI := empty
+              for ind in OIndList repeat
+                  for j in first(ind)..nn repeat
+                      NIndList := cons(cons(j::PI, ind), NIndList)
+              OIndList := reverse! NIndList
+
+          JV : L % := empty
+          for ind in OIndList repeat
+              for k in 1..mm repeat
+                  JV := cons(Pr(k::PI, ind), JV)
+          JV
+

@@ -1,0 +1,35 @@
+1374                (|PatternMatchIntegerNumberSystem| I)
+|package|
+(((|PatternMatchIntegerNumberSystem| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |patternMatch|
+    ((|PatternMatchResult| (|Integer|) |#1|) |#1| (|Pattern| (|Integer|))
+     (|PatternMatchResult| (|Integer|) |#1|))))
+  (|IntegerNumberSystem|))
+ (T |PatternMatchIntegerNumberSystem|))
+(CATEGORY |package|
+ (SIGNATURE |patternMatch|
+  ((|PatternMatchResult| (|Integer|) |#1|) |#1| (|Pattern| (|Integer|))
+   (|PatternMatchResult| (|Integer|) |#1|))))
+"/git/fricas/src/algebra/PMINS.spad"
+((|patternMatch| (*1 *2 *3 *4 *2)
+  (AND (|isDomain| *2 (|PatternMatchResult| (|Integer|) *3))
+       (|isDomain| *4 (|Pattern| (|Integer|)))
+       (|ofCategory| *3 (|IntegerNumberSystem|))
+       (|isDomain| *1 (|PatternMatchIntegerNumberSystem| *3)))))
+((|patternMatch|
+  (((|PatternMatchResult| (|Integer|) |#1|) |#1| (|Pattern| (|Integer|))
+    (|PatternMatchResult| (|Integer|) |#1|))
+   12)))
+PMINS
+((|constructor|
+  (NIL "This package provides pattern matching functions on integers."))
+ (|patternMatch|
+  (((|PatternMatchResult| (|Integer|) |#1|) |#1| (|Pattern| (|Integer|))
+    (|PatternMatchResult| (|Integer|) |#1|))
+   "\\spad{patternMatch(n,{} pat,{} res)} matches the pattern \\spad{pat} to the integer \\spad{n}; res contains the variables of \\spad{pat} which are already matched and their matches.")))
+(("documentation" 0 959) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 953) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 809) ("modemaps" 0 553) ("sourceFile" 0 516)
+ ("constructorCategory" 0 351) ("constructorModemap" 0 68)
+ ("constructorKind" 0 58) ("constructorForm" 0 20))

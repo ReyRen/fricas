@@ -1,0 +1,68 @@
+)abbrev domain IMATRIX IndexedMatrix
+++ Author: Grabmeier, Gschnitzer, Williamson
+++ Date Created: 1987
+++ Basic Operations:
+++ Related Domains: Matrix, RectangularMatrix, SquareMatrix,
+++   StorageEfficientMatrixOperations
+++ Also See:
+++ AMS Classifications:
+++ Keywords: matrix, linear algebra
+++ Examples:
+++ References:
+++ Description:
+++   An \spad{IndexedMatrix} is a matrix where the minimal row and column
+++   indices are parameters of the type.  The domains Row and Col
+++   are both IndexedVectors.
+++   The index of the 'first' row may be obtained by calling the
+++   function \spadfun{minRowIndex}.  The index of the 'first' column may
+++   be obtained by calling the function \spadfun{minColIndex}.  The index of
+++   the first element of a 'Row' is the same as the index of the
+++   first column in a matrix and vice versa.
+IndexedMatrix(R, mnRow, mnCol) : Exports == Implementation where
+  R : AbelianMonoid
+  mnRow, mnCol : Integer
+  Row ==> IndexedVector(R, mnCol)
+  Col ==> IndexedVector(R, mnRow)
+  MATLIN ==> MatrixLinearAlgebraFunctions(R, Row, Col, %)
+
+  Exports ==> MatrixCategory(R, Row, Col)
+
+  Implementation ==>
+    InnerIndexedTwoDimensionalArray(R, mnRow, mnCol, Row, Col) add
+
+      Qelt2 ==> QAREF2O$Lisp
+      Qsetelt2 ==> QSETAREF2O$Lisp
+
+      swapRows!(x, i1, i2) ==
+        (i1 < minRowIndex(x)) or (i1 > maxRowIndex(x)) or _
+           (i2 < minRowIndex(x)) or (i2 > maxRowIndex(x)) =>
+             error "swapRows!: index out of range"
+        i1 = i2 => x
+        ro := mnRow
+        co := mnCol
+        for j in co..maxColIndex(x) repeat
+            t1 : R := Qelt2(x, i1, j, ro, co)
+            t2 : R := Qelt2(x, i2, j, ro, co)
+            Qsetelt2(x, i1, j, t2, ro, co)
+            Qsetelt2(x, i2, j, t1, ro, co)
+        x
+
+      if R has CommutativeRing then
+
+        determinant x == determinant(x)$MATLIN
+        minordet    x == minordet(x)$MATLIN
+
+      if R has EuclideanDomain then
+
+        rowEchelon  x == rowEchelon(x)$MATLIN
+
+      if R has IntegralDomain then
+
+        rank        x == rank(x)$MATLIN
+        nullity     x == nullity(x)$MATLIN
+        nullSpace   x == nullSpace(x)$MATLIN
+
+      if R has Field then
+
+        inverse     x == inverse(x)$MATLIN
+

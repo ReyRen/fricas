@@ -1,0 +1,17 @@
+)abbrev package STNSR StreamTensor
+StreamTensor(R : Type) : with
+
+        tensorMap : (Stream R, R -> List R) -> Stream R
+          ++ tensorMap([s1, s2, ...], f) returns the stream consisting of all
+          ++ elements of f(s1) followed by all elements of f(s2) and so on.
+
+    == add
+
+        tensorMap(s, f) ==
+            empty? s => empty()
+            concat([f first s], delay tensorMap(rest s, f))
+
+)if false
+\section{domain GOPT GuessOption}
+)endif
+

@@ -1,0 +1,249 @@
+14649               (MAKEPROP '|DrawOptionFunctions0| 'NILADIC T)
+(|DrawOptionFunctions0|)
+|package|
+(((|DrawOptionFunctions0|)
+  (CATEGORY |package|
+   (SIGNATURE |adaptive| ((|Boolean|) (|List| (|DrawOption|)) (|Boolean|)))
+   (SIGNATURE |clipBoolean| ((|Boolean|) (|List| (|DrawOption|)) (|Boolean|)))
+   (SIGNATURE |viewpoint|
+    ((|Record| (|:| |theta| (|DoubleFloat|)) (|:| |phi| (|DoubleFloat|))
+               (|:| |scale| (|DoubleFloat|)) (|:| |scaleX| (|DoubleFloat|))
+               (|:| |scaleY| (|DoubleFloat|)) (|:| |scaleZ| (|DoubleFloat|))
+               (|:| |deltaX| (|DoubleFloat|)) (|:| |deltaY| (|DoubleFloat|)))
+     (|List| (|DrawOption|))
+     (|Record| (|:| |theta| (|DoubleFloat|)) (|:| |phi| (|DoubleFloat|))
+               (|:| |scale| (|DoubleFloat|)) (|:| |scaleX| (|DoubleFloat|))
+               (|:| |scaleY| (|DoubleFloat|)) (|:| |scaleZ| (|DoubleFloat|))
+               (|:| |deltaX| (|DoubleFloat|)) (|:| |deltaY| (|DoubleFloat|)))))
+   (SIGNATURE |title| ((|String|) (|List| (|DrawOption|)) (|String|)))
+   (SIGNATURE |style| ((|String|) (|List| (|DrawOption|)) (|String|)))
+   (SIGNATURE |toScale| ((|Boolean|) (|List| (|DrawOption|)) (|Boolean|)))
+   (SIGNATURE |pointColorPalette|
+    ((|Palette|) (|List| (|DrawOption|)) (|Palette|)))
+   (SIGNATURE |curveColorPalette|
+    ((|Palette|) (|List| (|DrawOption|)) (|Palette|)))
+   (SIGNATURE |ranges|
+    ((|List| (|Segment| (|Float|))) (|List| (|DrawOption|))
+     (|List| (|Segment| (|Float|)))))
+   (SIGNATURE |var1Steps|
+    ((|PositiveInteger|) (|List| (|DrawOption|)) (|PositiveInteger|)))
+   (SIGNATURE |var2Steps|
+    ((|PositiveInteger|) (|List| (|DrawOption|)) (|PositiveInteger|)))
+   (SIGNATURE |space| ((|ThreeSpace| (|DoubleFloat|)) (|List| (|DrawOption|))))
+   (SIGNATURE |tubePoints|
+    ((|PositiveInteger|) (|List| (|DrawOption|)) (|PositiveInteger|)))
+   (SIGNATURE |tubeRadius| ((|Float|) (|List| (|DrawOption|)) (|Float|)))
+   (SIGNATURE |coord|
+    ((|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))
+     (|List| (|DrawOption|))
+     (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))))
+   (SIGNATURE |units|
+    ((|List| (|Float|)) (|List| (|DrawOption|)) (|List| (|Float|))))))
+ (T |DrawOptionFunctions0|))
+(CATEGORY |package|
+ (SIGNATURE |adaptive| ((|Boolean|) (|List| (|DrawOption|)) (|Boolean|)))
+ (SIGNATURE |clipBoolean| ((|Boolean|) (|List| (|DrawOption|)) (|Boolean|)))
+ (SIGNATURE |viewpoint|
+  ((|Record| (|:| |theta| (|DoubleFloat|)) (|:| |phi| (|DoubleFloat|))
+             (|:| |scale| (|DoubleFloat|)) (|:| |scaleX| (|DoubleFloat|))
+             (|:| |scaleY| (|DoubleFloat|)) (|:| |scaleZ| (|DoubleFloat|))
+             (|:| |deltaX| (|DoubleFloat|)) (|:| |deltaY| (|DoubleFloat|)))
+   (|List| (|DrawOption|))
+   (|Record| (|:| |theta| (|DoubleFloat|)) (|:| |phi| (|DoubleFloat|))
+             (|:| |scale| (|DoubleFloat|)) (|:| |scaleX| (|DoubleFloat|))
+             (|:| |scaleY| (|DoubleFloat|)) (|:| |scaleZ| (|DoubleFloat|))
+             (|:| |deltaX| (|DoubleFloat|)) (|:| |deltaY| (|DoubleFloat|)))))
+ (SIGNATURE |title| ((|String|) (|List| (|DrawOption|)) (|String|)))
+ (SIGNATURE |style| ((|String|) (|List| (|DrawOption|)) (|String|)))
+ (SIGNATURE |toScale| ((|Boolean|) (|List| (|DrawOption|)) (|Boolean|)))
+ (SIGNATURE |pointColorPalette|
+  ((|Palette|) (|List| (|DrawOption|)) (|Palette|)))
+ (SIGNATURE |curveColorPalette|
+  ((|Palette|) (|List| (|DrawOption|)) (|Palette|)))
+ (SIGNATURE |ranges|
+  ((|List| (|Segment| (|Float|))) (|List| (|DrawOption|))
+   (|List| (|Segment| (|Float|)))))
+ (SIGNATURE |var1Steps|
+  ((|PositiveInteger|) (|List| (|DrawOption|)) (|PositiveInteger|)))
+ (SIGNATURE |var2Steps|
+  ((|PositiveInteger|) (|List| (|DrawOption|)) (|PositiveInteger|)))
+ (SIGNATURE |space| ((|ThreeSpace| (|DoubleFloat|)) (|List| (|DrawOption|))))
+ (SIGNATURE |tubePoints|
+  ((|PositiveInteger|) (|List| (|DrawOption|)) (|PositiveInteger|)))
+ (SIGNATURE |tubeRadius| ((|Float|) (|List| (|DrawOption|)) (|Float|)))
+ (SIGNATURE |coord|
+  ((|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))
+   (|List| (|DrawOption|))
+   (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))))
+ (SIGNATURE |units|
+  ((|List| (|Float|)) (|List| (|DrawOption|)) (|List| (|Float|)))))
+"/git/fricas/src/algebra/DROPT0.spad"
+((|units| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|List| (|Float|)))
+       (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|coord| (*1 *2 *3 *2)
+  (AND
+   (|isDomain| *2
+               (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))))
+   (|isDomain| *3 (|List| (|DrawOption|)))
+   (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|tubeRadius| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|Float|)) (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|tubePoints| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|space| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *2 (|ThreeSpace| (|DoubleFloat|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|var2Steps| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|var1Steps| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|ranges| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|List| (|Segment| (|Float|))))
+       (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|curveColorPalette| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|Palette|)) (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|pointColorPalette| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|Palette|)) (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|toScale| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|style| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|String|)) (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|title| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|String|)) (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|viewpoint| (*1 *2 *3 *2)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |theta| (|DoubleFloat|))
+                         (|:| |phi| (|DoubleFloat|))
+                         (|:| |scale| (|DoubleFloat|))
+                         (|:| |scaleX| (|DoubleFloat|))
+                         (|:| |scaleY| (|DoubleFloat|))
+                         (|:| |scaleZ| (|DoubleFloat|))
+                         (|:| |deltaX| (|DoubleFloat|))
+                         (|:| |deltaY| (|DoubleFloat|))))
+   (|isDomain| *3 (|List| (|DrawOption|)))
+   (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|clipBoolean| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|))))
+ (|adaptive| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *3 (|List| (|DrawOption|)))
+       (|isDomain| *1 (|DrawOptionFunctions0|)))))
+((|viewpoint|
+  (((|Record| (|:| |theta| (|DoubleFloat|)) (|:| |phi| (|DoubleFloat|))
+              (|:| |scale| (|DoubleFloat|)) (|:| |scaleX| (|DoubleFloat|))
+              (|:| |scaleY| (|DoubleFloat|)) (|:| |scaleZ| (|DoubleFloat|))
+              (|:| |deltaX| (|DoubleFloat|)) (|:| |deltaY| (|DoubleFloat|)))
+    (|List| (|DrawOption|))
+    (|Record| (|:| |theta| (|DoubleFloat|)) (|:| |phi| (|DoubleFloat|))
+              (|:| |scale| (|DoubleFloat|)) (|:| |scaleX| (|DoubleFloat|))
+              (|:| |scaleY| (|DoubleFloat|)) (|:| |scaleZ| (|DoubleFloat|))
+              (|:| |deltaX| (|DoubleFloat|)) (|:| |deltaY| (|DoubleFloat|))))
+   23))
+ (|var2Steps|
+  (((|PositiveInteger|) (|List| (|DrawOption|)) (|PositiveInteger|)) 48))
+ (|var1Steps|
+  (((|PositiveInteger|) (|List| (|DrawOption|)) (|PositiveInteger|)) 47))
+ (|units| (((|List| (|Float|)) (|List| (|DrawOption|)) (|List| (|Float|))) 64))
+ (|tubeRadius| (((|Float|) (|List| (|DrawOption|)) (|Float|)) 54))
+ (|tubePoints|
+  (((|PositiveInteger|) (|List| (|DrawOption|)) (|PositiveInteger|)) 49))
+ (|toScale| (((|Boolean|) (|List| (|DrawOption|)) (|Boolean|)) 25))
+ (|title| (((|String|) (|List| (|DrawOption|)) (|String|)) 18))
+ (|style| (((|String|) (|List| (|DrawOption|)) (|String|)) 24))
+ (|space| (((|ThreeSpace| (|DoubleFloat|)) (|List| (|DrawOption|))) 42))
+ (|ranges|
+  (((|List| (|Segment| (|Float|))) (|List| (|DrawOption|))
+    (|List| (|Segment| (|Float|))))
+   36))
+ (|pointColorPalette| (((|Palette|) (|List| (|DrawOption|)) (|Palette|)) 30))
+ (|curveColorPalette| (((|Palette|) (|List| (|DrawOption|)) (|Palette|)) 31))
+ (|coord|
+  (((|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))
+    (|List| (|DrawOption|))
+    (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))))
+   59))
+ (|clipBoolean| (((|Boolean|) (|List| (|DrawOption|)) (|Boolean|)) 13))
+ (|adaptive| (((|Boolean|) (|List| (|DrawOption|)) (|Boolean|)) 12)))
+DROPT0
+((|constructor| (NIL "This package \\undocumented{}"))
+ (|units|
+  (((|List| (|Float|)) (|List| (|DrawOption|)) (|List| (|Float|)))
+   "\\spad{units(l,{} u)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{unit}. If the option does not exist the value,{} \\spad{u} is returned."))
+ (|coord|
+  (((|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))
+    (|List| (|DrawOption|))
+    (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))))
+   "\\spad{coord(l,{} p)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{coord}. If the option does not exist the value,{} \\spad{p} is returned."))
+ (|tubeRadius|
+  (((|Float|) (|List| (|DrawOption|)) (|Float|))
+   "\\spad{tubeRadius(l,{} n)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{tubeRadius}. If the option does not exist the value,{} \\spad{n} is returned."))
+ (|tubePoints|
+  (((|PositiveInteger|) (|List| (|DrawOption|)) (|PositiveInteger|))
+   "\\spad{tubePoints(l,{} n)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{tubePoints}. If the option does not exist the value,{} \\spad{n} is returned."))
+ (|space|
+  (((|ThreeSpace| (|DoubleFloat|)) (|List| (|DrawOption|)))
+   "\\spad{space(l)} takes a list of draw options,{} \\spad{l},{} and checks to see if it contains the option \\spad{space}. If the the option doesn\\spad{'t} exist,{} then an empty space is returned."))
+ (|var2Steps|
+  (((|PositiveInteger|) (|List| (|DrawOption|)) (|PositiveInteger|))
+   "\\spad{var2Steps(l,{} n)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{var2Steps}. If the option does not exist the value,{} \\spad{n} is returned."))
+ (|var1Steps|
+  (((|PositiveInteger|) (|List| (|DrawOption|)) (|PositiveInteger|))
+   "\\spad{var1Steps(l,{} n)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{var1Steps}. If the option does not exist the value,{} \\spad{n} is returned."))
+ (|ranges|
+  (((|List| (|Segment| (|Float|))) (|List| (|DrawOption|))
+    (|List| (|Segment| (|Float|))))
+   "\\spad{ranges(l,{} r)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{ranges}. If the option does not exist the value,{} \\spad{r} is returned."))
+ (|curveColorPalette|
+  (((|Palette|) (|List| (|DrawOption|)) (|Palette|))
+   "\\spad{curveColorPalette(l,{} p)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{curveColorPalette}. If the option does not exist the value,{} \\spad{p} is returned."))
+ (|pointColorPalette|
+  (((|Palette|) (|List| (|DrawOption|)) (|Palette|))
+   "\\spad{pointColorPalette(l,{} p)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{pointColorPalette}. If the option does not exist the value,{} \\spad{p} is returned."))
+ (|toScale|
+  (((|Boolean|) (|List| (|DrawOption|)) (|Boolean|))
+   "\\spad{toScale(l,{} b)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{toScale}. If the option does not exist the value,{} \\spad{b} is returned."))
+ (|style|
+  (((|String|) (|List| (|DrawOption|)) (|String|))
+   "\\spad{style(l,{} s)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{style}. If the option does not exist the value,{} \\spad{s} is returned."))
+ (|title|
+  (((|String|) (|List| (|DrawOption|)) (|String|))
+   "\\spad{title(l,{} s)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{title}. If the option does not exist the value,{} \\spad{s} is returned."))
+ (|viewpoint|
+  (((|Record| (|:| |theta| (|DoubleFloat|)) (|:| |phi| (|DoubleFloat|))
+              (|:| |scale| (|DoubleFloat|)) (|:| |scaleX| (|DoubleFloat|))
+              (|:| |scaleY| (|DoubleFloat|)) (|:| |scaleZ| (|DoubleFloat|))
+              (|:| |deltaX| (|DoubleFloat|)) (|:| |deltaY| (|DoubleFloat|)))
+    (|List| (|DrawOption|))
+    (|Record| (|:| |theta| (|DoubleFloat|)) (|:| |phi| (|DoubleFloat|))
+              (|:| |scale| (|DoubleFloat|)) (|:| |scaleX| (|DoubleFloat|))
+              (|:| |scaleY| (|DoubleFloat|)) (|:| |scaleZ| (|DoubleFloat|))
+              (|:| |deltaX| (|DoubleFloat|)) (|:| |deltaY| (|DoubleFloat|))))
+   "\\spad{viewpoint(l,{} ls)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{viewpoint}. IF the option does not exist,{} the value \\spad{ls} is returned."))
+ (|clipBoolean|
+  (((|Boolean|) (|List| (|DrawOption|)) (|Boolean|))
+   "\\spad{clipBoolean(l,{} b)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{clipBoolean}. If the option does not exist the value,{} \\spad{b} is returned."))
+ (|adaptive|
+  (((|Boolean|) (|List| (|DrawOption|)) (|Boolean|))
+   "\\spad{adaptive(l,{} b)} takes the list of draw options,{} \\spad{l},{} and checks the list to see if it contains the option \\spad{adaptive}. If the option does not exist the value,{} \\spad{b} is returned.")))
+(("documentation" 0 9280) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 9273) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 7346) ("modemaps" 0 4296) ("sourceFile" 0 4258)
+ ("constructorCategory" 0 2245) ("constructorModemap" 0 101)
+ ("constructorKind" 0 91) ("constructorForm" 0 66) ("NILADIC" 0 20))

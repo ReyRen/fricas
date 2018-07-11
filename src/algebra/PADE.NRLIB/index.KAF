@@ -1,0 +1,58 @@
+2937                (|PadeApproximants| R PS UP)
+|package|
+(((|PadeApproximants| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |pade|
+    ((|Union| (|Fraction| |#3|) "failed") (|NonNegativeInteger|)
+     (|NonNegativeInteger|) |#2| |#2|))
+   (SIGNATURE |padecf|
+    ((|Union| (|ContinuedFraction| |#3|) "failed") (|NonNegativeInteger|)
+     (|NonNegativeInteger|) |#2| |#2|)))
+  (|Field|) (|UnivariateTaylorSeriesCategory| |#1|)
+  (|UnivariatePolynomialCategory| |#1|))
+ (T |PadeApproximants|))
+(CATEGORY |package|
+ (SIGNATURE |pade|
+  ((|Union| (|Fraction| |#3|) "failed") (|NonNegativeInteger|)
+   (|NonNegativeInteger|) |#2| |#2|))
+ (SIGNATURE |padecf|
+  ((|Union| (|ContinuedFraction| |#3|) "failed") (|NonNegativeInteger|)
+   (|NonNegativeInteger|) |#2| |#2|)))
+"/git/fricas/src/algebra/PADE.spad"
+((|padecf| (*1 *2 *3 *3 *4 *4)
+  (|partial| AND (|isDomain| *3 (|NonNegativeInteger|))
+   (|ofCategory| *5 (|Field|)) (|isDomain| *2 (|ContinuedFraction| *6))
+   (|isDomain| *1 (|PadeApproximants| *5 *4 *6))
+   (|ofCategory| *4 (|UnivariateTaylorSeriesCategory| *5))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))))
+ (|pade| (*1 *2 *3 *3 *4 *4)
+  (|partial| AND (|isDomain| *3 (|NonNegativeInteger|))
+   (|ofCategory| *5 (|Field|)) (|isDomain| *2 (|Fraction| *6))
+   (|isDomain| *1 (|PadeApproximants| *5 *4 *6))
+   (|ofCategory| *4 (|UnivariateTaylorSeriesCategory| *5))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5)))))
+((|padecf|
+  (((|Union| (|ContinuedFraction| |#3|) "failed") (|NonNegativeInteger|)
+    (|NonNegativeInteger|) |#2| |#2|)
+   31))
+ (|pade|
+  (((|Union| (|Fraction| |#3|) "failed") (|NonNegativeInteger|)
+    (|NonNegativeInteger|) |#2| |#2|)
+   24)))
+PADE
+((|constructor|
+  (NIL
+   "\\indented{1}{This package computes reliable Pad&ea. approximants using} a generalized Viskovatov continued fraction algorithm. Authors: Burge,{} Hassner & Watt. Date Created: April 1987 Keywords: Pade,{} series Examples: References: \\indented{2}{\"Pade Approximants,{} Part I: Basic Theory\",{} Baker & Graves-Morris.}"))
+ (|padecf|
+  (((|Union| (|ContinuedFraction| |#3|) "failed") (|NonNegativeInteger|)
+    (|NonNegativeInteger|) |#2| |#2|)
+   "\\spad{padecf(nd,{} dd,{} ns,{} ds)} computes the approximant as a continued fraction of polynomials (if it exists) for arguments \\spad{nd} (numerator degree of approximant),{} \\spad{dd} (denominator degree of approximant),{} \\spad{ns} (numerator series of function),{} and \\spad{ds} (denominator series of function)."))
+ (|pade|
+  (((|Union| (|Fraction| |#3|) "failed") (|NonNegativeInteger|)
+    (|NonNegativeInteger|) |#2| |#2|)
+   "\\spad{pade(nd,{} dd,{} ns,{} ds)} computes the approximant as a quotient of polynomials (if it exists) for arguments \\spad{nd} (numerator degree of approximant),{} \\spad{dd} (denominator degree of approximant),{} \\spad{ns} (numerator series of function),{} and \\spad{ds} (denominator series of function).")))
+(("documentation" 0 1706) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1701) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1451) ("modemaps" 0 809) ("sourceFile" 0 773)
+ ("constructorCategory" 0 501) ("constructorModemap" 0 59)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

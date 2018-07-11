@@ -1,0 +1,156 @@
+)abbrev domain JBUNDLE JetBundle
+++ Description:
+++ \spad{JetBundle} implements a jet bundle of arbitrary order with given
+++ names for the independent and dependent variables. It supports only
+++ repeated index notation.
+
+JetBundle(IVar : LS, DVar : LS) : Cat == Def where
+
+  V    ==> Vector
+  B    ==> Boolean
+  Sy   ==> Symbol
+  BOP  ==> BasicOperator
+  I    ==> Integer
+  PI   ==> PositiveInteger
+  NNI  ==> NonNegativeInteger
+  L    ==> List
+  LS   ==> List Symbol
+  EI   ==> Expression Integer
+  OUT  ==> OutputForm
+  JBC  ==> JetBundleCategory
+
+  Cat ==> JBC with
+
+    coerce : Sy -> %
+      ++ \spad{coerce(sy)} allows for the input of jet variables as symbols.
+      ++ Yields an error, if the symbol is not contained in \spad{IVar} or
+      ++ \spad{DVar}.
+
+    D : (Sy, L Sy) -> %
+      ++ \spad{D(U, [X1, ..., Xq])} generates a derivative. \spad{U} must
+      ++ be in \spad{DVar}; all other symbols in \spad{IVar}.
+
+  Def ==> add
+
+    errmsg1  ==> "Improper multi-index"
+    errmsg2  ==> "Improper upper index"
+    errmsg4  ==> "illegal symbol in JetBundle"
+
+
+    -- some global constants
+    nn : NNI := #IVar
+    mm : NNI := #DVar
+
+    nameX := construct(IVar)$V(Sy)
+    nameU := construct(DVar)$V(Sy)
+
+    Rep := L NNI
+      -- The list has length 2 for independent variables, length n+2 for
+      -- derivatives and dependent variables. The first entry is zero for 1,
+      -- one for independent, two for dependent variables and three for
+      -- derivatives.  The second entry is the upper index, the rest the
+      -- multi-index.
+
+    setNotation(s : Sy) : Sy ==
+        print(message("only repeated index notation possible"))$OUT
+        'Repeated
+
+    getNotation() : Sy == 'Repeated
+
+    multiIndex(jv : %) : L NNI == copy rest rest jv::Rep
+
+    index(jv : %) : PI == first(rest jv)::PI
+
+    type(jv : %) : Sy ==
+        t := first jv
+        zero? t => 'Const
+        one? t => 'Indep
+        t = 2 => 'Dep
+        'Deriv
+
+    CheckZeroIndex(il : L NNI) : B ==
+        -- Local function; checks, whether multi-index is zero.
+        for i in il repeat
+            if not zero? i then return false
+        true
+
+    X(up : PI) : % ==
+        up > nn => error errmsg2
+        [1, up::NNI]
+
+    U(up : PI) : % ==
+        up > mm => error errmsg2
+        cons(2, cons(up::NNI, [0$NNI  for i in 1..nn]))
+
+    Pm(up : PI, lo : L NNI) : % ==
+        up > mm => error errmsg2
+        #lo ~= nn => error errmsg1
+        CheckZeroIndex(lo) => U(up)
+        cons(3, cons(up::NNI, lo))
+
+    coerce(s : Sy) : % ==
+        pos := position(s, IVar)
+        pos < minIndex(IVar) =>
+            pos := position(s, DVar)
+            pos < minIndex(DVar) => error errmsg4
+            U(pos::PI)
+        X(pos::PI)
+
+    D(u : Sy, der : L Sy) : % ==
+        up := position(u, DVar)
+        up < minIndex(DVar) => error errmsg4
+        lower : L PI := empty
+        for d in der repeat
+            pos := position(d, IVar)
+            pos < minIndex(IVar) => error errmsg4
+            lower := cons(pos::PI, lower)
+        lower := reverse! lower
+        Pr(up::PI, lower)
+
+    1 : % == [0, 1]
+
+    numIndVar() : PI == nn::PI
+
+    numDepVar() : PI == mm::PI
+
+    -- ----------- --
+    -- Output Form --
+    -- ----------- --
+
+    name(jv : %) : Sy ==
+        (jt := type(jv)) = 'Const => "1"::Sy
+        i := index jv
+        jt = 'Indep => qelt(nameX, i)
+        jt = 'Dep => qelt(nameU, i)
+        mu := repeatedIndex jv
+        res := qelt(nameU, i)
+        lower : L OUT := empty
+        for j in mu repeat
+            lower := cons(qelt(nameX, j)::OUT, lower)
+        lower := reverse! lower
+        subscript(res, lower)
+
+    -- Coerce to Symbol looses all information; therefore
+    -- all important data like type and indices are saved
+    -- as arguments of an operator
+
+    opdisp(l : L OUT) : OUT == first l
+
+    coerce(jv : %) : EI ==
+        -- Name of operator must be unique and the same as jv::Sy
+        -- to allow to differentiate and substitute in EI.
+        type(jv) = 'Const => 1
+        opname : Sy := name jv
+        jop := operator(opname)$BOP
+        display(jop, opdisp)
+        tmp : None := coerce(jv)$NoneFunctions1(%)
+        jop := setProperty(jop, "%symbol"::Symbol, tmp)$BOP
+        tmp := coerce(weight(jv))$NoneFunctions1(NNI)
+        jop := setProperty(jop, "%weight"::Symbol, tmp)$BOP
+        tmp := coerce(type(jv))$NoneFunctions1(Sy)
+        jop := setProperty(jop, "%jet"::Symbol, tmp)$BOP
+        arg : L EI := concat!([opname::EI, index(jv)::EI], _
+                              [i::EI  for i in repeatedIndex jv])
+        kernel(jop, arg)
+
+

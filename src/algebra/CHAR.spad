@@ -1,0 +1,111 @@
+)abbrev domain CHAR Character
+++ Author: Stephen M. Watt
+++ Date Created: July 1986
+++ Basic Operations: char
+++ Related Domains:
+++ Also See:
+++ AMS Classifications:
+++ Keywords: character, string
+++ Examples:
+++ References:
+++ Description:
+++   This domain provides the basic character data type.
+
+Character : OrderedFinite() with
+        ord : % -> Integer
+            ++ ord(c) provides an integral code corresponding to the
+            ++ character c.  It is always true that \spad{char ord c = c}.
+        char : Integer  -> %
+            ++ char(i) provides a character corresponding to the integer
+            ++ code i.  It is always true that \spad{ord char i = i}.
+        char : String   -> %
+            ++ char(s) provides a character from a string s of length one.
+        space :  () -> %
+            ++ space() provides the blank character.
+        quote :  () -> %
+            ++ quote() provides the string quote character, \spad{"}.
+        escape : () -> %
+            ++ escape() provides the escape character, \spad{_}, which
+            ++ is used to allow quotes and other characters {\em within}
+            ++ strings.
+        newline : () -> %
+            ++ newline() provides the newline character.
+        upperCase : % -> %
+            ++ upperCase(c) converts a lower case letter to the corresponding
+            ++ upper case letter.  If c is not a lower case letter, then
+            ++ it is returned unchanged.
+        lowerCase : % -> %
+            ++ lowerCase(c) converts an upper case letter to the corresponding
+            ++ lower case letter.  If c is not an upper case letter, then
+            ++ it is returned unchanged.
+        digit? : % -> Boolean
+            ++ digit?(c) tests if c is a digit character,
+            ++ i.e. one of 0..9.
+        hexDigit? : % -> Boolean
+            ++ hexDigit?(c) tests if c is a hexadecimal numeral,
+            ++ i.e. one of 0..9, a..f or A..F.
+        alphabetic? : % -> Boolean
+            ++ alphabetic?(c) tests if c is a letter,
+            ++ i.e. one of a..z or A..Z.
+        upperCase? : % -> Boolean
+            ++ upperCase?(c) tests if c is an upper case letter,
+            ++ i.e. one of A..Z.
+        lowerCase? : % -> Boolean
+            ++ lowerCase?(c) tests if c is an lower case letter,
+            ++ i.e. one of a..z.
+        alphanumeric? : % -> Boolean
+            ++ alphanumeric?(c) tests if c is either a letter or number,
+            ++ i.e. one of 0..9, a..z or A..Z.
+
+    == add
+        Rep := SingleInteger      -- 0..(1114112 - 1)
+
+        CC ==> CharacterClass()
+        import from CC
+
+        --cl: Record(dig: CC, hex: CC, upp: CC, low: CC, alpha: CC, alnum: CC) :=
+        --    [ digit(), hexDigit(),
+        --      upperCase(), lowerCase(), alphabetic(), alphanumeric() ]
+
+        a = b                  == a =$Rep b
+        a < b                  == a <$Rep b
+        -- size()                 == 256
+        size()                 == 1114112
+        index n                == char((n - 1)::Integer)
+        lookup c               == (1 + ord c)::PositiveInteger
+        char(n : Integer)        == n::%
+        ord c                  == convert(c)$Rep
+        -- random()               == char(random(size())$Integer)
+        -- FIXME: limit to ASCII for now
+        random()               == char(random(128)$Integer)
+        space                  == char 32 -- STR_ELT("   ", 0$Lisp)$Lisp
+        quote                  == char 34 -- STR_ELT("_" ", 0$Lisp)$Lisp
+        escape                 == char 95 -- STR_ELT("__ ", 0$Lisp)$Lisp
+        newline                == char(10)
+        coerce(c : %) : OutputForm == NUM2USTR(ord c)$Lisp
+        digit? c               == member?(c pretend Character, digit())
+        hexDigit? c            == member?(c pretend Character, hexDigit())
+        upperCase? c           == member?(c pretend Character, upperCase())
+        lowerCase? c           == member?(c pretend Character, lowerCase())
+        alphabetic? c          == member?(c pretend Character, alphabetic())
+        alphanumeric? c        == member?(c pretend Character, alphanumeric())
+
+        latex c ==
+            concat("\mbox{`", concat(new(1,c pretend Character)$String, "'}")$String)$String
+
+        char(s : String) == STR_to_CHAR(s)$Lisp
+        --  (#s) = 1 => s(minIndex s) pretend %
+        --  error "String is not a single character"
+
+        upperCase c ==
+            STR_ELT(PNAME(UPCASE(NUM2CHAR(ord c)$Lisp)$Lisp)$Lisp,
+                0$Lisp)$Lisp
+
+        lowerCase c ==
+            STR_ELT(PNAME(DOWNCASE(NUM2CHAR(ord c)$Lisp)$Lisp)$Lisp,
+                0$Lisp)$Lisp
+
+        hashUpdate!(hs : HashState, c : %) : HashState ==
+            update!(hs, c pretend SingleInteger)$HashState
+
+

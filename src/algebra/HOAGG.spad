@@ -1,0 +1,126 @@
+)abbrev category HOAGG HomogeneousAggregate
+++ Author: Michael Monagan; revised by Manuel Bronstein and Richard Jenks
+++ Date Created: August 87 through August 88
+++ Basic Operations:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ A homogeneous aggregate is an aggregate of elements all of the
+++ same type.
+++ In the current system, all aggregates are homogeneous.
+++ Two attributes characterize classes of aggregates.
+++ Aggregates from domains with attribute \spadatt{finiteAggregate}
+++ have a finite number of members. Of course, such a domain may have an
+++ infinite number of elements, like, for example \spadtype{List}.
+++ Those domains with attribute \spadatt{shallowlyMutable} allow an element
+++ to be modified or updated without changing its overall value.
+-- It would probably make sense to make [[HOAGG S]] export [[Finite]],
+-- when this is the case.  The following modifications would be necessary:
+--
+-- 1) we need another attribute, say, [[constantSizeAggregate]], that
+--    says that each aggregate has the same number of members.
+-- 2) we need a way to construct an aggregate given a list of its parts,
+--    i.e., construct : List R -> %
+--
+-- Then, the exports of [[Finite]] could be implemented similar to
+-- [[RectangularMatrixCategory]].
+
+HomogeneousAggregate(S : Type) : Category == Aggregate with
+   if S has CoercibleTo(OutputForm) then CoercibleTo(OutputForm)
+   if S has SetCategory then SetCategory
+   if S has SetCategory then
+      if S has Evalable S then Evalable S
+   map : (S -> S, %) -> %
+     ++ map(f, u) returns a copy of u with each element x replaced by f(x).
+     ++ For collections, \spad{map(f, u) = [f(x) for x in u]}.
+   if % has shallowlyMutable then
+      map! : (S -> S, %) -> %
+        ++ map!(f, u) destructively replaces each element x of u by \spad{f(x)}.
+   if % has finiteAggregate then
+      if S has BasicType then BasicType
+      any? : (S -> Boolean, %) -> Boolean
+        ++ any?(p, u) tests if \spad{p(x)} is true for any element x of u.
+        ++ Note: for collections,
+        ++ \spad{any?(p, u) = reduce(or, map(p, u), false, true)}.
+        ++ However, \spad{any?(p, u)} returns as soon as it finds an element
+        ++ for which \spad{p} gives true.
+      every? : (S -> Boolean, %) -> Boolean
+        ++ every?(p, u) tests if p(x) is true for all elements x of u.
+        ++ Note: for collections,
+        ++ \spad{every?(p, u) = reduce(and, map(p, u), true, false)}.
+        ++ However, \spad{every?(p, u)} returns as soon as it finds an element
+        ++ for which \spad{p} gives false.
+      count : (S -> Boolean, %) -> NonNegativeInteger
+        ++ count(p, u) returns the number of elements x in u
+        ++ such that \spad{p(x)} is true. For collections,
+        ++ \spad{count(p, u) = reduce(+, [1 for x in u | p(x)], 0)}.
+      parts : % -> List S
+        ++ parts(u) returns a list of the consecutive elements of u.
+        ++ For finite collections, \spad{construct(parts(u)) = u}.
+      members : % -> List S
+        ++ members(u) returns a list of the consecutive elements of u.
+        ++ For multisets \spadfun{members} gives result with no repetition.
+        ++ See also \spadfun{parts}.
+      max : ((S, S) -> Boolean, %) -> S
+        ++ max(p, u) returns maximal element of u with respect to total
+        ++ ordering predicate p.  Error if u is empty.
+      if S has OrderedSet then
+        min : % -> S
+          ++ min(u) returns minimal element of u.  Error if u is empty.
+        max : % -> S
+          ++ max(u) returns maximal element of u.  Error if u is empty.
+      if S has BasicType then
+        count : (S, %) -> NonNegativeInteger
+          ++ count(x, u) returns the number of occurrences of x in u.
+          ++ For collections, \spad{count(x, u) = reduce(+, [1 for y in u | x = y], 0)}.
+        member? : (S, %) -> Boolean
+          ++ member?(x, u) tests if x is a member of u.
+          ++ For collections,
+          ++ \spad{member?(x, u) = reduce(or, [x=y for y in u], false)}.
+          ++ However, \spad{member?(x, u)} returns as soon as it finds a
+          ++ member.
+
+  add
+   if S has Evalable S then
+       eval(u : %, l : List Equation S) : % == map(x +-> eval(x, l), u)
+   if % has finiteAggregate then
+
+       import from List(S)
+
+       #c == # parts c
+       any?(f, c) ==
+           for x in parts c | f x repeat return true
+           false
+       every?(f, c) ==
+           for x in parts c | not f x repeat return false
+           true
+       count(f : S -> Boolean, c : %) == _+/[1 for x in parts c | f x]
+       members x == parts x
+
+       max(p : (S, S) -> Boolean, u : %) : S ==
+           empty?(u) => error "empty aggregate"
+           l := parts(u)
+           r := first(l)
+           for x in rest(l) repeat
+               if p(r, x) then r := x
+           r
+
+       if S has OrderedSet then
+           min(u : %) : S == max((x, y) +-> (y < x), u)
+           max(u : %) : S == max((x, y) +-> (x < y), u)
+
+       if S has BasicType then
+           count(e : S, c : %) == count(x +-> e = x, c)
+           member?(e, c) == any?(x +-> e = x, c)
+           x = y ==
+               not size?(x, #y) => false
+               for a in parts x for b in parts y | a ~= b repeat return false
+               true
+       if S has CoercibleTo(OutputForm) then
+           coerce(x : %) : OutputForm ==
+               bracket [a::OutputForm for a in parts x]$List(OutputForm)
+
+

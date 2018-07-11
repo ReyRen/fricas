@@ -1,0 +1,36 @@
+1466                (|PatternMatchListAggregate| S R L)
+|package|
+(((|PatternMatchListAggregate| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |patternMatch|
+    ((|PatternMatchListResult| |#1| |#2| |#3|) |#3| (|Pattern| |#1|)
+     (|PatternMatchListResult| |#1| |#2| |#3|))))
+  (|SetCategory|) (|PatternMatchable| |#1|) (|ListAggregate| |#2|))
+ (T |PatternMatchListAggregate|))
+(CATEGORY |package|
+ (SIGNATURE |patternMatch|
+  ((|PatternMatchListResult| |#1| |#2| |#3|) |#3| (|Pattern| |#1|)
+   (|PatternMatchListResult| |#1| |#2| |#3|))))
+"/git/fricas/src/algebra/PMLSAGG.spad"
+((|patternMatch| (*1 *2 *3 *4 *2)
+  (AND (|isDomain| *2 (|PatternMatchListResult| *5 *6 *3))
+       (|isDomain| *4 (|Pattern| *5)) (|ofCategory| *5 (|SetCategory|))
+       (|ofCategory| *6 (|PatternMatchable| *5))
+       (|ofCategory| *3 (|ListAggregate| *6))
+       (|isDomain| *1 (|PatternMatchListAggregate| *5 *6 *3)))))
+((|patternMatch|
+  (((|PatternMatchListResult| |#1| |#2| |#3|) |#3| (|Pattern| |#1|)
+    (|PatternMatchListResult| |#1| |#2| |#3|))
+   14)))
+PMLSAGG
+((|constructor|
+  (NIL "This package provides pattern matching functions on lists."))
+ (|patternMatch|
+  (((|PatternMatchListResult| |#1| |#2| |#3|) |#3| (|Pattern| |#1|)
+    (|PatternMatchListResult| |#1| |#2| |#3|))
+   "\\spad{patternMatch(l,{} pat,{} res)} matches the pattern \\spad{pat} to the list \\spad{l}; res contains the variables of \\spad{pat} which are already matched and their matches.")))
+(("documentation" 0 1060) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1052) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 911) ("modemaps" 0 586) ("sourceFile" 0 547)
+ ("constructorCategory" 0 385) ("constructorModemap" 0 66)
+ ("constructorKind" 0 56) ("constructorForm" 0 20))

@@ -1,0 +1,49 @@
+2507                (|MakeFloatCompiledFunction| S)
+|package|
+(((|MakeFloatCompiledFunction| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |makeFloatFunction|
+    ((|Mapping| (|DoubleFloat|) (|DoubleFloat|)) |#1| (|Symbol|)))
+   (SIGNATURE |makeFloatFunction|
+    ((|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)) |#1|
+     (|Symbol|) (|Symbol|))))
+  (|ConvertibleTo| (|InputForm|)))
+ (T |MakeFloatCompiledFunction|))
+(CATEGORY |package|
+ (SIGNATURE |makeFloatFunction|
+  ((|Mapping| (|DoubleFloat|) (|DoubleFloat|)) |#1| (|Symbol|)))
+ (SIGNATURE |makeFloatFunction|
+  ((|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)) |#1| (|Symbol|)
+   (|Symbol|))))
+"/git/fricas/src/algebra/MKFLCFN.spad"
+((|makeFloatFunction| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *4 (|Symbol|))
+       (|isDomain| *2
+                   (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)))
+       (|isDomain| *1 (|MakeFloatCompiledFunction| *3))
+       (|ofCategory| *3 (|ConvertibleTo| (|InputForm|)))))
+ (|makeFloatFunction| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Symbol|))
+       (|isDomain| *2 (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+       (|isDomain| *1 (|MakeFloatCompiledFunction| *3))
+       (|ofCategory| *3 (|ConvertibleTo| (|InputForm|))))))
+((|makeFloatFunction|
+  (((|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)) |#1| (|Symbol|)
+    (|Symbol|))
+   33)
+  (((|Mapping| (|DoubleFloat|) (|DoubleFloat|)) |#1| (|Symbol|)) 38)))
+MKFLCFN
+((|constructor|
+  (NIL
+   "MakeFloatCompiledFunction transforms top-level objects into compiled Lisp functions whose arguments are Lisp floats. This by-passes the \\Language{} compiler and interpreter,{} thereby gaining several orders of magnitude."))
+ (|makeFloatFunction|
+  (((|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)) |#1| (|Symbol|)
+    (|Symbol|))
+   "\\spad{makeFloatFunction(expr,{} x,{} y)} returns a Lisp function \\spad{f: (\\spadtype{DoubleFloat},{} \\spadtype{DoubleFloat}) \\spad{->} \\spadtype{DoubleFloat}} defined by \\spad{f(x,{} y) == expr}. Function \\spad{f} is compiled and directly applicable to objects of type \\spad{(\\spadtype{DoubleFloat},{} \\spadtype{DoubleFloat})}.")
+  (((|Mapping| (|DoubleFloat|) (|DoubleFloat|)) |#1| (|Symbol|))
+   "\\spad{makeFloatFunction(expr,{} x)} returns a Lisp function \\spad{f: \\spadtype{DoubleFloat} \\spad{->} \\spadtype{DoubleFloat}} defined by \\spad{f(x) == expr}. Function \\spad{f} is compiled and directly applicable to objects of type \\spadtype{DoubleFloat}.")))
+(("documentation" 0 1456) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1448) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1252) ("modemaps" 0 709) ("sourceFile" 0 670)
+ ("constructorCategory" 0 425) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

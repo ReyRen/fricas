@@ -1,0 +1,43 @@
+1745                (MAKEPROP '|OrdSetInts| 'NILADIC T)
+(|OrdSetInts|)
+|domain|
+(((|OrdSetInts|)
+  (|Join| (|OrderedSet|)
+          (CATEGORY |domain| (SIGNATURE |coerce| ($ (|Integer|)))
+           (SIGNATURE |value| ((|Integer|) $)))))
+ (T |OrdSetInts|))
+(|Join| (|OrderedSet|)
+        (CATEGORY |domain| (SIGNATURE |coerce| ($ (|Integer|)))
+         (SIGNATURE |value| ((|Integer|) $))))
+"/git/fricas/src/algebra/OSI.spad"
+((|coerce| (*1 *1 *2)
+           (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|OrdSetInts|))))
+ (|value| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|OrdSetInts|)))))
+((~= (((|Boolean|) $ $) NIL)) (|value| (((|Integer|) $) 12))
+ (|smaller?| (((|Boolean|) $ $) NIL)) (|min| (($ $ $) NIL))
+ (|max| (($ $ $) NIL)) (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|coerce| (((|OutputForm|) $) 18) (($ (|Integer|)) 11))
+ (>= (((|Boolean|) $ $) NIL)) (> (((|Boolean|) $ $) NIL))
+ (= (((|Boolean|) $ $) 8)) (<= (((|Boolean|) $ $) NIL))
+ (< (((|Boolean|) $ $) 9)))
+OSI
+(((|OrderedSet|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|Comparable|) . T)
+ ((|OrderedSet|) . T) ((|PartialOrder|) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "\\indented{1}{Author : Larry Lambe} Date created : 14 August 1988 Description : A domain used in order to take the free \\spad{R}-module on the Integers \\spad{I}. This is actually the forgetful functor from OrderedRings to OrderedSets applied to \\spad{I}"))
+ (|value|
+  (((|Integer|) $)
+   "\\spad{value(x)} returns the integer associated with \\spad{x}"))
+ (|coerce|
+  (($ (|Integer|))
+   "\\spad{coerce(i)} returns the element corresponding to \\spad{i}")))
+(("documentation" 0 1256) ("ancestors" 0 1109) ("parents" 0 1086)
+ ("abbreviation" 0 1082) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 615) ("modemaps" 0 426) ("sourceFile" 0 391)
+ ("constructorCategory" 0 257) ("constructorModemap" 0 80)
+ ("constructorKind" 0 71) ("constructorForm" 0 56) ("NILADIC" 0 20))

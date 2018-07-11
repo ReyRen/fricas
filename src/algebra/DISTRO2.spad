@@ -1,0 +1,46 @@
+)abbrev package DISTRO2 DistributionFunctions2
+++ Author: Franz Lehner lehner@math.tugraz.at, Waldek Hebisch
+++ Date Created: 16.09.2011
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   A package to map distributions between different rings.
+DistributionFunctions2(R1 : CommutativeRing, R2 : CommutativeRing
+                      ) : Exports == Implementation where
+  DR1 ==> Distribution R1
+  DR2 ==> Distribution R2
+  SR1 ==> Sequence R1
+  SR2 ==> Sequence R2
+  SFR1R2 ==> SequenceFunctions2(R1, R2)
+  Exports ==> with
+    mapall : (R1 -> R2, Distribution R1) -> Distribution R2
+      ++ \spad{map(f, x)} maps the moments and cumulants
+      ++ from the ring R1 to R2.
+    coerce : Distribution R1 -> Distribution R2
+      ++ \spad{coerce(x)} coerces a distribution
+      ++ from the ring R1 to R2.
+    R1_to_R2_coercion : R1 -> R2
+      ++ R1_to_R2_coercion should be local but conditional
+  Implementation ==> add
+    mapall(f : R1 -> R2, x : DR1) : DR2 ==
+        mom2 : SR2 := map(f, moments x)$SFR1R2
+        cum2 : SR2 := map(f, classicalCumulants(x))$SFR1R2
+        fcum2 : SR2 := map(f, freeCumulants x)$SFR1R2
+        bcum2 : SR2 := map(f, booleanCumulants x)$SFR1R2
+        construct(mom2, cum2, fcum2, bcum2)$DR2
+
+    if R2 has coerce : R1 -> R2 then
+        R1_to_R2_coercion(x : R1) : R2 == coerce(x)$R2
+    else if R1 has coerce : R1 -> R2 then
+        R1_to_R2_coercion(x : R1) : R2 == coerce(x)$R1
+    else
+        R1_to_R2_coercion(x : R1) : R2 == error "unimplemented"
+
+    coerce(x : Distribution R1) : Distribution R2 ==
+        mapall(R1_to_R2_coercion, x)
+
+

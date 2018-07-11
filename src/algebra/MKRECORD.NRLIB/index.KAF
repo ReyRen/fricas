@@ -1,0 +1,30 @@
+1119                (|MakeRecord| S T$)
+|package|
+(((|MakeRecord| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |makeRecord|
+    ((|Record| (|:| |part1| |#1|) (|:| |part2| |#2|)) |#1| |#2|)))
+  (|Type|) (|Type|))
+ (T |MakeRecord|))
+(CATEGORY |package|
+ (SIGNATURE |makeRecord|
+  ((|Record| (|:| |part1| |#1|) (|:| |part2| |#2|)) |#1| |#2|)))
+"/git/fricas/src/algebra/MKRECORD.spad"
+((|makeRecord| (*1 *2 *3 *4)
+  (AND (|isDomain| *2 (|Record| (|:| |part1| *3) (|:| |part2| *4)))
+       (|isDomain| *1 (|MakeRecord| *3 *4)) (|ofCategory| *3 (|Type|))
+       (|ofCategory| *4 (|Type|)))))
+((|makeRecord|
+  (((|Record| (|:| |part1| |#1|) (|:| |part2| |#2|)) |#1| |#2|) 9)))
+MKRECORD
+((|constructor|
+  (NIL
+   "MakeRecord is used internally by the interpreter to create record types which are used for doing parallel iterations on streams."))
+ (|makeRecord|
+  (((|Record| (|:| |part1| |#1|) (|:| |part2| |#2|)) |#1| |#2|)
+   "\\spad{makeRecord(a,{} b)} creates a record object with type Record(\\spad{part1} : \\spad{S},{} \\spad{part2} : \\spad{T}),{} where \\spad{part1} is \\spad{a} and \\spad{part2} is \\spad{b}.")))
+(("documentation" 0 681) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 672) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 588) ("modemaps" 0 383) ("sourceFile" 0 343)
+ ("constructorCategory" 0 233) ("constructorModemap" 0 50)
+ ("constructorKind" 0 40) ("constructorForm" 0 20))

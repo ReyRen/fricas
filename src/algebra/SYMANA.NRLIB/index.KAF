@@ -1,0 +1,261 @@
+13815               (|SymmetryAnalysis| JB1 |xi| |eta|)
+|package|
+(((|SymmetryAnalysis| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |ansatz| ((|JetVectorField| |#1| (|JetBundleExpression| |#1|))))
+   (SIGNATURE |transform|
+    ((|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|))
+     (|JetBundleExpression| |#1|)))
+   (SIGNATURE |linearize|
+    ((|List|
+      (|JetBundleLinearFunction| (|JetBundleSymAna| |#1| |#2| |#3|)
+                                 (|JetBundleXExpression|
+                                  (|JetBundleSymAna| |#1| |#2| |#3|))))
+     (|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))))
+   (SIGNATURE |detSys|
+    ((|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))
+     (|List| (|JetBundleExpression| |#1|))))
+   (SIGNATURE |detSys|
+    ((|List| (|JetBundleExpression| |#1|))
+     (|List| (|JetBundleExpression| |#1|))
+     (|JetVectorField| |#1| (|JetBundleExpression| |#1|))))
+   (SIGNATURE |detSys|
+    ((|List| (|JetBundleExpression| |#1|))
+     (|List| (|JetBundleExpression| |#1|)) (|List| |#1|)
+     (|JetVectorField| |#1| (|JetBundleExpression| |#1|))))
+   (SIGNATURE |ncDetSys|
+    ((|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))
+     (|List| (|JetBundleExpression| |#1|))))
+   (SIGNATURE |ncDetSys|
+    ((|List| (|JetBundleExpression| |#1|))
+     (|List| (|JetBundleExpression| |#1|))
+     (|JetVectorField| |#1| (|JetBundleExpression| |#1|))))
+   (SIGNATURE |ncDetSys|
+    ((|List| (|JetBundleExpression| |#1|))
+     (|List| (|JetBundleExpression| |#1|)) (|List| |#1|)
+     (|JetVectorField| |#1| (|JetBundleExpression| |#1|))))
+   (SIGNATURE |detSysNS|
+    ((|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))
+     (|List| (|JetBundleExpression| |#1|))))
+   (SIGNATURE |detSysNS|
+    ((|List| (|JetBundleExpression| |#1|))
+     (|List| (|JetBundleExpression| |#1|))
+     (|JetVectorField| |#1| (|JetBundleExpression| |#1|)))))
+  (|JetBundleCategory|) (|Union| (|Symbol|) (|List| (|Symbol|)))
+  (|Union| (|Symbol|) (|List| (|Symbol|))))
+ (T |SymmetryAnalysis|))
+(CATEGORY |package|
+ (SIGNATURE |ansatz| ((|JetVectorField| |#1| (|JetBundleExpression| |#1|))))
+ (SIGNATURE |transform|
+  ((|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|))
+   (|JetBundleExpression| |#1|)))
+ (SIGNATURE |linearize|
+  ((|List|
+    (|JetBundleLinearFunction| (|JetBundleSymAna| |#1| |#2| |#3|)
+                               (|JetBundleXExpression|
+                                (|JetBundleSymAna| |#1| |#2| |#3|))))
+   (|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))))
+ (SIGNATURE |detSys|
+  ((|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))
+   (|List| (|JetBundleExpression| |#1|))))
+ (SIGNATURE |detSys|
+  ((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+   (|JetVectorField| |#1| (|JetBundleExpression| |#1|))))
+ (SIGNATURE |detSys|
+  ((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+   (|List| |#1|) (|JetVectorField| |#1| (|JetBundleExpression| |#1|))))
+ (SIGNATURE |ncDetSys|
+  ((|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))
+   (|List| (|JetBundleExpression| |#1|))))
+ (SIGNATURE |ncDetSys|
+  ((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+   (|JetVectorField| |#1| (|JetBundleExpression| |#1|))))
+ (SIGNATURE |ncDetSys|
+  ((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+   (|List| |#1|) (|JetVectorField| |#1| (|JetBundleExpression| |#1|))))
+ (SIGNATURE |detSysNS|
+  ((|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))
+   (|List| (|JetBundleExpression| |#1|))))
+ (SIGNATURE |detSysNS|
+  ((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+   (|JetVectorField| |#1| (|JetBundleExpression| |#1|)))))
+"/git/fricas/src/algebra/SYMANA.spad"
+((|detSysNS| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|List| (|JetBundleExpression| *4)))
+       (|isDomain| *3 (|JetVectorField| *4 (|JetBundleExpression| *4)))
+       (|ofCategory| *4 (|JetBundleCategory|))
+       (|isDomain| *1 (|SymmetryAnalysis| *4 *5 *6))
+       (|ofType| *5 (|Union| (|Symbol|) (|List| (|Symbol|))))
+       (|ofType| *6 (|Union| (|Symbol|) (|List| (|Symbol|))))))
+ (|detSysNS| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|JetBundleExpression| *4)))
+       (|ofCategory| *4 (|JetBundleCategory|))
+       (|isDomain| *2
+                   (|List|
+                    (|JetBundleExpression| (|JetBundleSymAna| *4 *5 *6))))
+       (|isDomain| *1 (|SymmetryAnalysis| *4 *5 *6))
+       (|ofType| *5 (|Union| (|Symbol|) (|List| (|Symbol|))))
+       (|ofType| *6 (|Union| (|Symbol|) (|List| (|Symbol|))))))
+ (|ncDetSys| (*1 *2 *2 *3 *4)
+  (AND (|isDomain| *2 (|List| (|JetBundleExpression| *5)))
+       (|isDomain| *3 (|List| *5))
+       (|isDomain| *4 (|JetVectorField| *5 (|JetBundleExpression| *5)))
+       (|ofCategory| *5 (|JetBundleCategory|))
+       (|isDomain| *1 (|SymmetryAnalysis| *5 *6 *7))
+       (|ofType| *6 (|Union| (|Symbol|) (|List| (|Symbol|))))
+       (|ofType| *7 (|Union| (|Symbol|) (|List| (|Symbol|))))))
+ (|ncDetSys| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|List| (|JetBundleExpression| *4)))
+       (|isDomain| *3 (|JetVectorField| *4 (|JetBundleExpression| *4)))
+       (|ofCategory| *4 (|JetBundleCategory|))
+       (|isDomain| *1 (|SymmetryAnalysis| *4 *5 *6))
+       (|ofType| *5 (|Union| (|Symbol|) (|List| (|Symbol|))))
+       (|ofType| *6 (|Union| (|Symbol|) (|List| (|Symbol|))))))
+ (|ncDetSys| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|JetBundleExpression| *4)))
+       (|ofCategory| *4 (|JetBundleCategory|))
+       (|isDomain| *2
+                   (|List|
+                    (|JetBundleExpression| (|JetBundleSymAna| *4 *5 *6))))
+       (|isDomain| *1 (|SymmetryAnalysis| *4 *5 *6))
+       (|ofType| *5 (|Union| (|Symbol|) (|List| (|Symbol|))))
+       (|ofType| *6 (|Union| (|Symbol|) (|List| (|Symbol|))))))
+ (|detSys| (*1 *2 *2 *3 *4)
+  (AND (|isDomain| *2 (|List| (|JetBundleExpression| *5)))
+       (|isDomain| *3 (|List| *5))
+       (|isDomain| *4 (|JetVectorField| *5 (|JetBundleExpression| *5)))
+       (|ofCategory| *5 (|JetBundleCategory|))
+       (|isDomain| *1 (|SymmetryAnalysis| *5 *6 *7))
+       (|ofType| *6 (|Union| (|Symbol|) (|List| (|Symbol|))))
+       (|ofType| *7 (|Union| (|Symbol|) (|List| (|Symbol|))))))
+ (|detSys| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|List| (|JetBundleExpression| *4)))
+       (|isDomain| *3 (|JetVectorField| *4 (|JetBundleExpression| *4)))
+       (|ofCategory| *4 (|JetBundleCategory|))
+       (|isDomain| *1 (|SymmetryAnalysis| *4 *5 *6))
+       (|ofType| *5 (|Union| (|Symbol|) (|List| (|Symbol|))))
+       (|ofType| *6 (|Union| (|Symbol|) (|List| (|Symbol|))))))
+ (|detSys| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|JetBundleExpression| *4)))
+       (|ofCategory| *4 (|JetBundleCategory|))
+       (|isDomain| *2
+                   (|List|
+                    (|JetBundleExpression| (|JetBundleSymAna| *4 *5 *6))))
+       (|isDomain| *1 (|SymmetryAnalysis| *4 *5 *6))
+       (|ofType| *5 (|Union| (|Symbol|) (|List| (|Symbol|))))
+       (|ofType| *6 (|Union| (|Symbol|) (|List| (|Symbol|))))))
+ (|linearize| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|List| (|JetBundleExpression| (|JetBundleSymAna| *4 *5 *6))))
+   (|ofCategory| *4 (|JetBundleCategory|))
+   (|ofType| *5 (|Union| (|Symbol|) (|List| (|Symbol|))))
+   (|ofType| *6 (|Union| (|Symbol|) (|List| (|Symbol|))))
+   (|isDomain| *2
+               (|List|
+                (|JetBundleLinearFunction| (|JetBundleSymAna| *4 *5 *6)
+                                           (|JetBundleXExpression|
+                                            (|JetBundleSymAna| *4 *5 *6)))))
+   (|isDomain| *1 (|SymmetryAnalysis| *4 *5 *6))))
+ (|transform| (*1 *2 *3)
+  (AND (|isDomain| *3 (|JetBundleExpression| *4))
+       (|ofCategory| *4 (|JetBundleCategory|))
+       (|isDomain| *2 (|JetBundleExpression| (|JetBundleSymAna| *4 *5 *6)))
+       (|isDomain| *1 (|SymmetryAnalysis| *4 *5 *6))
+       (|ofType| *5 (|Union| (|Symbol|) (|List| (|Symbol|))))
+       (|ofType| *6 (|Union| (|Symbol|) (|List| (|Symbol|))))))
+ (|ansatz| (*1 *2)
+  (AND (|isDomain| *2 (|JetVectorField| *3 (|JetBundleExpression| *3)))
+       (|isDomain| *1 (|SymmetryAnalysis| *3 *4 *5))
+       (|ofCategory| *3 (|JetBundleCategory|))
+       (|ofType| *4 (|Union| (|Symbol|) (|List| (|Symbol|))))
+       (|ofType| *5 (|Union| (|Symbol|) (|List| (|Symbol|)))))))
+((|transform|
+  (((|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|))
+    (|JetBundleExpression| |#1|))
+   79))
+ (|ncDetSys|
+  (((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+    (|List| |#1|) (|JetVectorField| |#1| (|JetBundleExpression| |#1|)))
+   112)
+  (((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+    (|JetVectorField| |#1| (|JetBundleExpression| |#1|)))
+   114)
+  (((|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))
+    (|List| (|JetBundleExpression| |#1|)))
+   113))
+ (|linearize|
+  (((|List|
+     (|JetBundleLinearFunction| (|JetBundleSymAna| |#1| |#2| |#3|)
+                                (|JetBundleXExpression|
+                                 (|JetBundleSymAna| |#1| |#2| |#3|))))
+    (|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|))))
+   NIL))
+ (|detSysNS|
+  (((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+    (|JetVectorField| |#1| (|JetBundleExpression| |#1|)))
+   NIL)
+  (((|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))
+    (|List| (|JetBundleExpression| |#1|)))
+   NIL))
+ (|detSys|
+  (((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+    (|List| |#1|) (|JetVectorField| |#1| (|JetBundleExpression| |#1|)))
+   81)
+  (((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+    (|JetVectorField| |#1| (|JetBundleExpression| |#1|)))
+   84)
+  (((|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))
+    (|List| (|JetBundleExpression| |#1|)))
+   83))
+ (|ansatz| (((|JetVectorField| |#1| (|JetBundleExpression| |#1|))) 46)))
+SYMANA
+((|constructor|
+  (NIL
+   "\\spad{SymmetryAnalysis(JB,{} \\spad{xi},{} eta)} provides procedures for the symmetry analysis of differential equations over a given jet bundle. Currently there exist only some procedures to set up the determining system for the symmetry generators of Lie point symmetries."))
+ (|detSysNS|
+  (((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+    (|JetVectorField| |#1| (|JetBundleExpression| |#1|)))
+   "\\spad{detSysNS(sys,{} vf)} computes the determining system for symmetry generators without assuming solvability of the equations for some derivatives.")
+  (((|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))
+    (|List| (|JetBundleExpression| |#1|)))
+   "\\spad{detSysNS(sys,{} vf)} computes the determining system for symmetry generators without assuming solvability of the equations for some derivatives."))
+ (|ncDetSys|
+  (((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+    (|List| |#1|) (|JetVectorField| |#1| (|JetBundleExpression| |#1|)))
+   "\\spad{ncDetSys(sys,{} sjb,{} vf)} computes the determining system for generators of conditional symmetries of \\spad{sys}. The meaning of the further arguments is the same as in \\spad{detSys}.")
+  (((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+    (|JetVectorField| |#1| (|JetBundleExpression| |#1|)))
+   "\\spad{ncDetSys(sys,{} vf)} computes the determining system for generators of conditional symmetries of \\spad{sys} with a given ansatz for the vector fields.")
+  (((|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))
+    (|List| (|JetBundleExpression| |#1|)))
+   "\\spad{ncDetSys(sys)} computes the determining system for generators of conditional symmetries of \\spad{sys}. It makes the same assumptions as \\spad{detSys}."))
+ (|detSys|
+  (((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+    (|List| |#1|) (|JetVectorField| |#1| (|JetBundleExpression| |#1|)))
+   "\\spad{detSys(sys,{} sjb,{} vf)} computes the determining system for symmetry generators of the system \\spad{sys} with a given ansatz for the generators. \\spad{sjb} contains jet variables for which the individual equations can be solved.")
+  (((|List| (|JetBundleExpression| |#1|)) (|List| (|JetBundleExpression| |#1|))
+    (|JetVectorField| |#1| (|JetBundleExpression| |#1|)))
+   "\\spad{detSys(sys,{} vf)} computes the determining system for symmetry generators of the system \\spad{sys} with a given ansatz for the generators. It is assumed that each equation can be solved for its leading derivative.")
+  (((|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|)))
+    (|List| (|JetBundleExpression| |#1|)))
+   "\\spad{detSys(sys)} computes the determining system for symmetry generators of the system \\spad{sys}. It is assumed that each equation can be solved for its leading derivative."))
+ (|linearize|
+  (((|List|
+     (|JetBundleLinearFunction| (|JetBundleSymAna| |#1| |#2| |#3|)
+                                (|JetBundleXExpression|
+                                 (|JetBundleSymAna| |#1| |#2| |#3|))))
+    (|List| (|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|))))
+   "\\spad{linearize(sys)} tries to retract all equations in \\spad{sys} to a linear one. If that is not possible,{} an error occurs."))
+ (|transform|
+  (((|JetBundleExpression| (|JetBundleSymAna| |#1| |#2| |#3|))
+    (|JetBundleExpression| |#1|))
+   "\\spad{transform(f)} transforms expressions between the different function types involved."))
+ (|ansatz|
+  (((|JetVectorField| |#1| (|JetBundleExpression| |#1|)))
+   "\\spad{ansatz()} returns a general ansatz for a symmetry generator.")))
+(("documentation" 0 10115) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 10108) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 8450) ("modemaps" 0 3871) ("sourceFile" 0 3833)
+ ("constructorCategory" 0 2083) ("constructorModemap" 0 66)
+ ("constructorKind" 0 56) ("constructorForm" 0 20))

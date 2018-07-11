@@ -1,0 +1,10 @@
+
+-- Input for page LLLReductionXmpPage
+)clear all
+
+digits(24)
+ii := imag(exp(2.0*%i*%pi/5))
+lf := [ii^i for i in 0..4]
+rel := find_relation(lf, 20)$LLLReduction
+pol := reduce(_+, [ci*x^i for ci in rel for i in 0..4])
+eval(pol, x = ii)

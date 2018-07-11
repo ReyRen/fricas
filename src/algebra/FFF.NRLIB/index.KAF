@@ -1,0 +1,183 @@
+8091                (|FiniteFieldFunctions| GF)
+|package|
+(((|FiniteFieldFunctions| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |createZechTable|
+    ((|PrimitiveArray| (|SingleInteger|)) (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |createMultiplicationTable|
+    ((|Vector|
+      (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))
+     (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |createMultiplicationMatrix|
+    ((|Matrix| |#1|)
+     (|Vector|
+      (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))))
+   (SIGNATURE |sizeMultiplication|
+    ((|NonNegativeInteger|)
+     (|Vector|
+      (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))))
+   (SIGNATURE |createLowComplexityTable|
+    ((|Union|
+      (|Vector|
+       (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))
+      "failed")
+     (|PositiveInteger|)))
+   (SIGNATURE |createLowComplexityNormalBasis|
+    ((|Union| (|SparseUnivariatePolynomial| |#1|)
+              (|Vector|
+               (|List|
+                (|Record| (|:| |value| |#1|)
+                          (|:| |index| (|SingleInteger|))))))
+     (|PositiveInteger|))))
+  (|FiniteFieldCategory|))
+ (T |FiniteFieldFunctions|))
+(CATEGORY |package|
+ (SIGNATURE |createZechTable|
+  ((|PrimitiveArray| (|SingleInteger|)) (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |createMultiplicationTable|
+  ((|Vector|
+    (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))
+   (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |createMultiplicationMatrix|
+  ((|Matrix| |#1|)
+   (|Vector|
+    (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))))
+ (SIGNATURE |sizeMultiplication|
+  ((|NonNegativeInteger|)
+   (|Vector|
+    (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))))
+ (SIGNATURE |createLowComplexityTable|
+  ((|Union|
+    (|Vector|
+     (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))
+    "failed")
+   (|PositiveInteger|)))
+ (SIGNATURE |createLowComplexityNormalBasis|
+  ((|Union| (|SparseUnivariatePolynomial| |#1|)
+            (|Vector|
+             (|List|
+              (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|))))))
+   (|PositiveInteger|))))
+"/git/fricas/src/algebra/FFF.spad"
+((|createLowComplexityNormalBasis| (*1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *2
+                   (|Union| (|SparseUnivariatePolynomial| *4)
+                            (|Vector|
+                             (|List|
+                              (|Record| (|:| |value| *4)
+                                        (|:| |index| (|SingleInteger|)))))))
+       (|isDomain| *1 (|FiniteFieldFunctions| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|createLowComplexityTable| (*1 *2 *3)
+  (|partial| AND (|isDomain| *3 (|PositiveInteger|))
+   (|isDomain| *2
+               (|Vector|
+                (|List|
+                 (|Record| (|:| |value| *4) (|:| |index| (|SingleInteger|))))))
+   (|isDomain| *1 (|FiniteFieldFunctions| *4))
+   (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|sizeMultiplication| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|Vector|
+                (|List|
+                 (|Record| (|:| |value| *4) (|:| |index| (|SingleInteger|))))))
+   (|ofCategory| *4 (|FiniteFieldCategory|))
+   (|isDomain| *2 (|NonNegativeInteger|))
+   (|isDomain| *1 (|FiniteFieldFunctions| *4))))
+ (|createMultiplicationMatrix| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|Vector|
+                (|List|
+                 (|Record| (|:| |value| *4) (|:| |index| (|SingleInteger|))))))
+   (|ofCategory| *4 (|FiniteFieldCategory|)) (|isDomain| *2 (|Matrix| *4))
+   (|isDomain| *1 (|FiniteFieldFunctions| *4))))
+ (|createMultiplicationTable| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *2
+                   (|Vector|
+                    (|List|
+                     (|Record| (|:| |value| *4)
+                               (|:| |index| (|SingleInteger|))))))
+       (|isDomain| *1 (|FiniteFieldFunctions| *4))))
+ (|createZechTable| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *2 (|PrimitiveArray| (|SingleInteger|)))
+       (|isDomain| *1 (|FiniteFieldFunctions| *4)))))
+((|sizeMultiplication|
+  (((|NonNegativeInteger|)
+    (|Vector|
+     (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|))))))
+   39))
+ (|createZechTable|
+  (((|PrimitiveArray| (|SingleInteger|)) (|SparseUnivariatePolynomial| |#1|))
+   76))
+ (|createMultiplicationTable|
+  (((|Vector|
+     (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))
+    (|SparseUnivariatePolynomial| |#1|))
+   73))
+ (|createMultiplicationMatrix|
+  (((|Matrix| |#1|)
+    (|Vector|
+     (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|))))))
+   77))
+ (|createLowComplexityTable|
+  (((|Union|
+     (|Vector|
+      (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))
+     "failed")
+    (|PositiveInteger|))
+   10))
+ (|createLowComplexityNormalBasis|
+  (((|Union| (|SparseUnivariatePolynomial| |#1|)
+             (|Vector|
+              (|List|
+               (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|))))))
+    (|PositiveInteger|))
+   15)))
+FFF
+((|constructor|
+  (NIL
+   "FiniteFieldFunctions(\\spad{GF}) is a package with functions concerning finite extension fields of the finite ground field {\\em GF},{} \\spadignore{e.g.} Zech logarithms."))
+ (|createLowComplexityNormalBasis|
+  (((|Union| (|SparseUnivariatePolynomial| |#1|)
+             (|Vector|
+              (|List|
+               (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|))))))
+    (|PositiveInteger|))
+   "\\spad{createLowComplexityNormalBasis(n)} tries to find a a low complexity normal basis of degree {\\em n} over {\\em GF} and returns its multiplication matrix If no low complexity basis is found it calls \\spadfunFrom{createNormalPoly}{FiniteFieldPolynomialPackage}(\\spad{n}) to produce a normal polynomial of degree {\\em n} over {\\em GF}"))
+ (|createLowComplexityTable|
+  (((|Union|
+     (|Vector|
+      (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))
+     "failed")
+    (|PositiveInteger|))
+   "\\spad{createLowComplexityTable(n)} tries to find a low complexity normal basis of degree {\\em n} over {\\em GF} and returns its multiplication matrix Fails,{} if it does not find a low complexity basis"))
+ (|sizeMultiplication|
+  (((|NonNegativeInteger|)
+    (|Vector|
+     (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|))))))
+   "\\spad{sizeMultiplication(m)} returns the number of entries of the multiplication table {\\em m}."))
+ (|createMultiplicationMatrix|
+  (((|Matrix| |#1|)
+    (|Vector|
+     (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|))))))
+   "\\spad{createMultiplicationMatrix(m)} forms the multiplication table {\\em m} into a matrix over the ground field."))
+ (|createMultiplicationTable|
+  (((|Vector|
+     (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))
+    (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{createMultiplicationTable(f)} generates a multiplication table for the normal basis of the field extension determined by {\\em f}. This is needed to perform multiplications between elements represented as coordinate vectors to this basis. See \\spadtype{FFNBP},{} \\spadtype{FFNBX}."))
+ (|createZechTable|
+  (((|PrimitiveArray| (|SingleInteger|)) (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{createZechTable(f)} generates a Zech logarithm table for the cyclic group representation of a extension of the ground field by the primitive polynomial {\\em f(x)},{} \\spadignore{i.e.} \\spad{Z(i)},{} defined by {\\em x^Z(i) = 1+x^i} is stored at index \\spad{i}. This is needed in particular to perform addition of field elements in finite fields represented in this way. See \\spadtype{FFCGP},{} \\spadtype{FFCGX}.")))
+(("documentation" 0 5417) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 5413) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4410) ("modemaps" 0 2303) ("sourceFile" 0 2268)
+ ("constructorCategory" 0 1247) ("constructorModemap" 0 58)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

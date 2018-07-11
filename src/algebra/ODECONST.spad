@@ -1,0 +1,110 @@
+)abbrev package ODECONST ConstantLODE
+++ Author: Manuel Bronstein
+++ Date Created: 18 March 1991
+++ Description: Solution of linear ordinary differential equations, constant coefficient case.
+ConstantLODE(R, F, L) : Exports == Implementation where
+  R : Join(Comparable, PolynomialFactorizationExplicit, RetractableTo Integer,
+          LinearlyExplicitOver Integer, CharacteristicZero)
+  F : Join(AlgebraicallyClosedFunctionSpace R,
+          TranscendentalFunctionCategory, PrimitiveFunctionCategory)
+  L : LinearOrdinaryDifferentialOperatorCategory F
+
+  Z   ==> Integer
+  SY  ==> Symbol
+  K   ==> Kernel F
+  V   ==> Vector F
+  M   ==> Matrix F
+  SUP ==> SparseUnivariatePolynomial F
+
+  Exports ==> with
+    constDsolve : (L, F, SY) -> Record(particular : F, basis : List F)
+      ++ constDsolve(op, g, x) returns \spad{[f, [y1, ..., ym]]}
+      ++ where f is a particular solution of the equation \spad{op y = g},
+      ++ and the \spad{yi}'s form a basis for the solutions of \spad{op y = 0}.
+
+  Implementation ==> add
+    import from ODETools(F, L)
+    import from ODEIntegration(R, F)
+    import from ElementaryFunctionSign(R, F)
+    import from AlgebraicManipulations(R, F)
+    import from FunctionSpaceIntegration(R, F)
+
+    homoBasis : (L, F) -> List F
+    quadSol  : (SUP, F) -> List F
+    basisSqfr : (SUP, F) -> List F
+    basisSol : (SUP, Z, F) -> List F
+
+    constDsolve(op, g, x) ==
+      b := homoBasis(op, x::F)
+      [particularSolution(op, g, b, (f1 : F) : F +-> int(f1, x))::F, b]
+
+    homoBasis(op, x) ==
+      p : SUP := 0
+      while op ~= 0 repeat
+          p  := p + monomial(leadingCoefficient op, degree op)
+          op := reductum op
+      b : List(F) := empty()
+      fp := factorPolynomial(p)$ExpressionFactorPolynomial(R, F)
+      for ff in factorList fp repeat
+        b := concat!(b, basisSol(ff.factor, dec(ff.exponent), x))
+      b
+
+    basisSol(p, n, x) ==
+      l := basisSqfr(p, x)
+      zero? n => l
+      ll := copy l
+      xn := x::F
+      for i in 1..n repeat
+        l := concat!(l, [xn * f for f in ll])
+        xn := x * xn
+      l
+
+    basisSqfr(p, x) ==
+      ((d := degree p) = 1) =>
+        [exp(- coefficient(p, 0) * x / leadingCoefficient p)]
+      d = 2 => quadSol(p, x)
+      [exp(a * x) for a in rootsOf p]
+
+    quadSol(p, x) ==
+      (u := sign(delta := (b := coefficient(p, 1))^2 - 4 *
+        (a := leadingCoefficient p) * (c := coefficient(p, 0))))
+          case Z and negative?(u::Z) =>
+            y := x / (2 * a)
+            r := - b * y
+            i := rootSimp(sqrt(-delta)) * y
+            [exp(r) * cos(i), exp(r) * sin(i)]
+      [exp(a * x) for a in zerosOf p]
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-- Compile order for the differential equation solver:
+-- oderf.spad  odealg.spad  nlode.spad  nlinsol.spad  riccati.spad  odeef.spad

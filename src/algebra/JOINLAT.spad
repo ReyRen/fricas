@@ -1,0 +1,21 @@
+)abbrev category JOINLAT JoinSemilattice
+++ Author: Martin Baker
+++ Date Created: Aug 2015
+++ Basic Operations: Join
+++ Related Constructors: BoundedJoinSemilattice
+++  use BoundedJoinSemilattice if the semilattice has a 'bottom' which will be
+++  the case for all finite join semilattices since we can do a join of all values
+++ Keywords: Join
+++ Description: join semilattice
+++   Different from exterior Grassmann product operator as
+++   that anticommutes.
+++   need to check precedence when used as an infix operator
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+++ Axiom: commutativity forall(x, y): x\/y=y\/x
+++ Axiom: associativity forall(x, y, z): (x\/y)\/z=y\/(x\/z)
+++ Axiom: idempotence forall x: x\/x=x
+JoinSemilattice: Category == SetCategory with
+      _\_/ : (%, %) -> %
+        ++ returns the logical 'join', e.g. 'or'.
+

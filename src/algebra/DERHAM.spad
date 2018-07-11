@@ -1,0 +1,144 @@
+)abbrev domain DERHAM DeRhamComplex
+++ Author: Larry A. Lambe
+++ Date    : 01/26/91.
+++ Revised : 12/01/91.
+++
+++ based on code from '89 (AntiSymmetric)
+++
+++ Needs: LeftAlgebra, ExtAlgBasis, FreeMod(Ring, OrderedSet)
+++
+++ Description: The deRham complex of Euclidean space, that is, the
+++ class of differential forms of arbitary degree over a coefficient ring.
+++ See Flanders, Harley, Differential Forms, With Applications to the Physical
+++ Sciences, New York, Academic Press, 1963.
+
+DeRhamComplex(CoefRing, listIndVar : List Symbol) : Export == Implement where
+  CoefRing :  Join(Ring, Comparable)
+  ASY     ==> AntiSymm(R, listIndVar)
+  DIFRING ==> DifferentialRing
+  LALG    ==> LeftAlgebra
+  FMR     ==> FreeMod(R, EAB)
+  I       ==> Integer
+  L       ==> List
+  EAB     ==> ExtAlgBasis  -- these are exponents of basis elements in order
+  NNI     ==> NonNegativeInteger
+  O       ==> OutputForm
+  R       ==> Expression(CoefRing)
+
+  Export == Join(LALG(R), RetractableTo(R)) with
+      leadingCoefficient : %           -> R
+        ++ leadingCoefficient(df) returns the leading
+        ++ coefficient of differential form df.
+      leadingBasisTerm   : %           -> %
+        ++ leadingBasisTerm(df) returns the leading
+        ++ basis term of differential form df.
+      reductum           : %           -> %
+        ++ reductum(df), where df is a differential form,
+        ++ returns df minus the leading
+        ++ term of df if df has two or more terms, and
+        ++ 0 otherwise.
+      coefficient        : (%, %)     -> R
+        ++ coefficient(df, u), where df is a differential form,
+        ++ returns the coefficient of df containing the basis term u
+        ++ if such a term exists, and 0 otherwise.
+      generator          : NNI         -> %
+        ++ generator(n) returns the nth basis term for a differential form.
+      homogeneous?       : %           -> Boolean
+        ++  homogeneous?(df) tests if all of the terms of
+        ++  differential form df have the same degree.
+      retractable?       : %           -> Boolean
+        ++  retractable?(df) tests if differential form df is a 0-form,
+        ++  i.e., if degree(df) = 0.
+      degree             : %           -> NNI
+        ++  degree(df) returns the homogeneous degree of differential form df.
+      map                : (R -> R, %) -> %
+        ++  map(f, df) replaces each coefficient x of differential
+        ++  form df by \spad{f(x)}.
+      totalDifferential    : R -> %
+        ++  totalDifferential(x) returns the total differential
+        ++  (gradient) form for element x.
+      exteriorDifferential : % -> %
+        ++  exteriorDifferential(df) returns the exterior
+        ++  derivative (gradient, curl, divergence, ...) of
+        ++  the differential form df.
+
+  Implement == ASY add
+      Rep := ASY
+
+      dim := #listIndVar
+
+      totalDifferential(f) ==
+        divs := [differentiate(f, listIndVar.i)*generator(i)$ASY for i in 1..dim]
+        reduce("+",divs)
+
+      termDiff : (R, %) -> %
+      termDiff(r, e) ==
+        totalDifferential(r) * e
+
+      exteriorDifferential(x) ==
+          x = 0 => 0
+          termDiff(leadingCoefficient(x)$Rep, leadingBasisTerm x)
+            + exteriorDifferential(reductum x)
+
+      d(s : Symbol) : Symbol ==
+          ds :=concat["d",string name(s)]::Symbol
+          script(ds, scripts(s))
+
+      lv := [d(liv) for liv in listIndVar]
+
+      displayList : EAB -> O
+      displayList(x) : O ==
+        le : L I := exponents(x)$EAB
+--      reduce(_*, [(lv.i)::O for i in 1..dim | le.i = 1])$L(O)
+        reduce(_*, [(lv.i)::O for i in 1..dim | ((le.i) = 1)])$L(O)
+
+      makeTerm : (R, EAB) -> O
+      makeTerm(r, x) ==
+      -- we know that r ~= 0
+        x = Nul(dim)$EAB  => r::O
+        (r = 1) => displayList(x)
+--      r = 1 => displayList(x)
+        r::O * displayList(x)
+
+      terms : % -> List Record(k : EAB, c : R)
+      terms(a) ==
+        -- it is the case that there are at least two terms in a
+        a pretend List Record(k : EAB, c : R)
+
+      coerce(a) : O ==
+        a           = 0$Rep => 0$I::O
+        ta := terms a
+--      reductum(a) = 0$Rep => makeTerm(leadingCoefficient a, a.first.k)
+        empty?(ta.rest) => makeTerm(ta.first.c, ta.first.k)
+        reduce(_+, [makeTerm(t.c, t.k) for t in ta])$L(O)
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

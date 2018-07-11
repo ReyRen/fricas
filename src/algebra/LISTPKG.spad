@@ -1,0 +1,158 @@
+)abbrev package LISTPKG ListPackage
+++ Author: Franz Lehner
+++ Date Created: 24.04.2008
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ splitting lists
+ListPackage(T : BasicType): Exports == Implementation where
+  NNI ==> NonNegativeInteger
+  Exports ==> with
+    splitList : (T -> Boolean, List T) -> Record(yes : List T, no : List T)
+      ++ \spad{splitList(f, x)} splits the list x into a
+      ++ yes part and a no part according to the boolean function f
+    topologicalSort! : ((T, T) -> Boolean, List T) -> List T
+      ++ \spad{topologicalSort(xx)} returns a rearrangement of the elements
+      ++ which is compatible with the partial order.
+      ++ The argument list xx is destroyed.
+    topologicalSort : ((T, T) -> Boolean, List T) -> List T
+      ++ \spad{topologicalSort(xx)} returns a rearrangement of the elements
+      ++ which is compatible with the partial order.
+    topologicalSort : (List(List(Boolean)), List T) -> List T
+      ++ \spad{topologicalSort(xx)} returns a rearrangement of the elements
+      ++ which is compatible with the partial order.
+      ++ (Martin Baker) I added this version because predicate function can
+      ++ be difficult to work with so use table instead.
+    shiftLeft : List T -> List T
+      ++ \spad{leftShift(l)} rotates the list l to the left and inserts the
+      ++ first element at the end
+    cartesian : List List T -> List List T
+      ++ \spad{cartesian([S1, S2, ...])} returns the set of lists
+      ++ [s1, s2, ...] with si in Si
+    cartesianPower : (List T, NonNegativeInteger) -> List List T
+      ++ \spad{cartesianPower(S, n)} returns the n-th cartesian power of
+      ++ the list S
+    if T has OrderedSet then
+      minShift : List T -> List T
+        ++ \spad{minShift(l)} returns the lexicographically minimal cyclic
+        ++ rotation of the list l
+
+  Implementation ==> add
+
+    splitList(f : T -> Boolean, l : List T
+             ) : Record(yes : List T, no : List T) ==
+        empty? l => [empty(), empty()]
+        -- fill the lists to make concat! work
+        resyes : List T := empty()
+        resno : List T := empty()
+        for t in l repeat
+            if test f(t) then
+              resyes := cons(t, resyes)
+            else
+              resno := cons(t, resno)
+        [reverse! resyes, reverse! resno]
+
+    topologicalSort!(f, xx) ==
+        bucket : List T := empty()
+        res : List List T := empty()
+        while not empty? xx repeat
+            x0 := first xx
+            xx := rest xx
+            bucket := [x0]
+            xx1 : List T := empty()
+            for x in xx repeat
+                if f(x0, x) then
+                    bucket := cons(x, bucket)
+                else
+                    xx1 := cons(x, xx1)
+            res := cons(reverse bucket, res)
+            xx := reverse xx1
+        concat res
+
+    topologicalSort(f : (T, T) -> Boolean, xx) ==
+        xx1 := copy xx
+        topologicalSort!(f, xx1)
+
+    -- \spad{topologicalSort(xx)} returns a rearrangement of the elements
+    -- which is compatible with the partial order.
+    -- (Martin Baker) I added this version because predicate function can
+    -- be difficult to work with so use table instead.
+    topologicalSort(adjacency : List(List(Boolean)), xx : List(T)) ==
+        -- concert to with indexes to work with
+        xi : List(NNI) := [n for n in 1..(#xx)]
+        bucket : List NNI := empty()
+        res : List(List(NNI)) := empty()
+        while not empty? xi repeat
+            x0 := first xi
+            xi := rest xi
+            bucket := [x0]
+            xx1 : List NNI := empty()
+            for x in xi repeat
+                if adjacency.x0.x then
+                    bucket := cons(x, bucket)
+                else
+                    xx1 := cons(x, xx1)
+            res := cons(reverse bucket, res)
+            xi := reverse xx1
+        r : List(NNI) := concat res
+        -- convert back to values from indexes
+        [xx.p for p in r]
+
+    shiftLeft(xx) ==
+        empty? xx => return xx
+        concat (rest xx, first xx)
+
+    if T has OrderedSet then
+
+        minShift(xx) ==
+            empty? xx => return xx
+            empty? rest xx => return xx
+            res := xx
+            xx1 := xx
+            for k in 2..#xx repeat
+                xx1 := shiftLeft xx1
+                if xx1 < res then
+                    res := xx1
+            res
+
+    cartesian(SS : List List T) : List List T ==
+        one? (# SS) => return [[s] for s in first SS]
+        res : List List T := empty()
+        for x in cartesian rest SS repeat
+            for s in first SS repeat
+                res := cons(cons(s, x), res)
+        res
+
+    cartesianPower(S : List T, n : NonNegativeInteger) : List List T ==
+        empty? S or zero? n  => return empty()
+        one? n => return [[s] for s in S]
+        res : List List T := empty()
+        for x in cartesianPower(S, qcoerce(n-1)) repeat
+            for s in S repeat
+                res := cons(cons(s, x), res)
+        res
+
+)if false
+\section{domain INCALG IncidenceAlgebra}
+At the moment my (Martin Baker) poset code uses an adjacency matrix for
+the Rep of a poset (with entries being boolean values - so an adjacency
+array).  See FinitePoset below.
+
+The code here implements the incidence algebra of posets.
+
+Franz Lehner originally used the name IncidenceMatrix for this. I changed
+this because it tends to be used for matrix where: rows are vertices and
+columns are edges as described here:
+\url{https://en.wikipedia.org/wiki/Incidence_matrix}
+So I changed the name IncidenceMatrix to IncidenceAlgebra.
+
+From \url{http://wiki.axiom-developer.org/SandBoxCategoryOfGraphs2}.
+Notes: \axiom{S : Type} does not work because
+\verb|position(i, V)$OneDimensionalArray S|
+requires \axiom{SetCategory}.
+
+)endif

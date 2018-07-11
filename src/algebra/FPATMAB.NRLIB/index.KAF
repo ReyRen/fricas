@@ -1,0 +1,66 @@
+2630                (|FullyPatternMatchable| R)
+|category|
+(((|FullyPatternMatchable| |#1|) (|Category|) (|Type|))
+ (T |FullyPatternMatchable|))
+(|Join| (|Type|)
+        (CATEGORY |package|
+         (IF (|has| |t#1| (|PatternMatchable| (|Integer|)))
+             (ATTRIBUTE (|PatternMatchable| (|Integer|)))
+             |noBranch|)
+         (IF (|has| |t#1| (|PatternMatchable| (|Float|)))
+             (ATTRIBUTE (|PatternMatchable| (|Float|)))
+             |noBranch|)))
+"/git/fricas/src/algebra/FPATMAB.spad"
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|PatternMatchable| (|Integer|)))
+       (|has| |#1| (|PatternMatchable| (|Float|))))))
+ (|patternMatch|
+  (((|PatternMatchResult| (|Float|) $) $ (|Pattern| (|Float|))
+    (|PatternMatchResult| (|Float|) $))
+   6 (|has| |#1| (|PatternMatchable| (|Float|))))
+  (((|PatternMatchResult| (|Integer|) $) $ (|Pattern| (|Integer|))
+    (|PatternMatchResult| (|Integer|) $))
+   6 (|has| |#1| (|PatternMatchable| (|Integer|)))))
+ (|latex|
+  (((|String|) $) 6
+   (OR (|has| |#1| (|PatternMatchable| (|Integer|)))
+       (|has| |#1| (|PatternMatchable| (|Float|))))))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6
+   (OR (|has| |#1| (|PatternMatchable| (|Integer|)))
+       (|has| |#1| (|PatternMatchable| (|Float|))))))
+ (|hash|
+  (((|SingleInteger|) $) 6
+   (OR (|has| |#1| (|PatternMatchable| (|Integer|)))
+       (|has| |#1| (|PatternMatchable| (|Float|))))))
+ (|coerce|
+  (((|OutputForm|) $) 6
+   (OR (|has| |#1| (|PatternMatchable| (|Integer|)))
+       (|has| |#1| (|PatternMatchable| (|Float|))))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|PatternMatchable| (|Integer|)))
+       (|has| |#1| (|PatternMatchable| (|Float|)))))))
+FPATMAB
+(((|Type|) . T)
+ ((|PatternMatchable| (|Integer|)) |has| |#1| (|PatternMatchable| (|Integer|)))
+ ((|PatternMatchable| (|Float|)) |has| |#1| (|PatternMatchable| (|Float|))))
+(((|BasicType|) OR (|has| |#1| (|PatternMatchable| (|Integer|)))
+  (|has| |#1| (|PatternMatchable| (|Float|))))
+ ((|CoercibleTo| (|OutputForm|)) OR
+  (|has| |#1| (|PatternMatchable| (|Integer|)))
+  (|has| |#1| (|PatternMatchable| (|Float|))))
+ ((|PatternMatchable| (|Float|)) |has| |#1| (|PatternMatchable| (|Float|)))
+ ((|PatternMatchable| (|Integer|)) |has| |#1| (|PatternMatchable| (|Integer|)))
+ ((|SetCategory|) OR (|has| |#1| (|PatternMatchable| (|Integer|)))
+  (|has| |#1| (|PatternMatchable| (|Float|))))
+ ((|Type|) . T))
+((|constructor|
+  (NIL
+   "A set \\spad{S} is PatternMatchable over \\spad{R} if \\spad{S} can lift the pattern-matching functions of \\spad{S} over the integers and float to itself (necessary for matching in towers).")))
+(("documentation" 0 2408) ("ancestors" 0 1878) ("parents" 0 1705)
+ ("abbreviation" 0 1697) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 513) ("modemaps" 0 NIL) ("sourceFile" 0 474)
+ ("constructorCategory" 0 145) ("constructorModemap" 0 59)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

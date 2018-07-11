@@ -1,0 +1,237 @@
+9989                (|PolynomialSolveByFormulas| UP F)
+|package|
+(((|PolynomialSolveByFormulas| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |solve| ((|List| |#2|) |#1|))
+   (SIGNATURE |particularSolution| (|#2| |#1|))
+   (SIGNATURE |mapSolve|
+    ((|Record| (|:| |solns| (|List| |#2|))
+               (|:| |maps|
+                    (|List| (|Record| (|:| |arg| |#2|) (|:| |res| |#2|)))))
+     |#1| (|Mapping| |#2| |#2|)))
+   (SIGNATURE |linear| ((|List| |#2|) |#1|))
+   (SIGNATURE |quadratic| ((|List| |#2|) |#1|))
+   (SIGNATURE |cubic| ((|List| |#2|) |#1|))
+   (SIGNATURE |quartic| ((|List| |#2|) |#1|))
+   (SIGNATURE |linear| ((|List| |#2|) |#2| |#2|))
+   (SIGNATURE |quadratic| ((|List| |#2|) |#2| |#2| |#2|))
+   (SIGNATURE |cubic| ((|List| |#2|) |#2| |#2| |#2| |#2|))
+   (SIGNATURE |quartic| ((|List| |#2|) |#2| |#2| |#2| |#2| |#2|))
+   (SIGNATURE |aLinear| (|#2| |#2| |#2|))
+   (SIGNATURE |aQuadratic| (|#2| |#2| |#2| |#2|))
+   (SIGNATURE |aCubic| (|#2| |#2| |#2| |#2| |#2|))
+   (SIGNATURE |aQuartic| (|#2| |#2| |#2| |#2| |#2| |#2|)))
+  (|UnivariatePolynomialCategory| |#2|)
+  (|Join| (|Field|)
+          (CATEGORY |domain| (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+ (T |PolynomialSolveByFormulas|))
+(CATEGORY |package| (SIGNATURE |solve| ((|List| |#2|) |#1|))
+ (SIGNATURE |particularSolution| (|#2| |#1|))
+ (SIGNATURE |mapSolve|
+  ((|Record| (|:| |solns| (|List| |#2|))
+             (|:| |maps|
+                  (|List| (|Record| (|:| |arg| |#2|) (|:| |res| |#2|)))))
+   |#1| (|Mapping| |#2| |#2|)))
+ (SIGNATURE |linear| ((|List| |#2|) |#1|))
+ (SIGNATURE |quadratic| ((|List| |#2|) |#1|))
+ (SIGNATURE |cubic| ((|List| |#2|) |#1|))
+ (SIGNATURE |quartic| ((|List| |#2|) |#1|))
+ (SIGNATURE |linear| ((|List| |#2|) |#2| |#2|))
+ (SIGNATURE |quadratic| ((|List| |#2|) |#2| |#2| |#2|))
+ (SIGNATURE |cubic| ((|List| |#2|) |#2| |#2| |#2| |#2|))
+ (SIGNATURE |quartic| ((|List| |#2|) |#2| |#2| |#2| |#2| |#2|))
+ (SIGNATURE |aLinear| (|#2| |#2| |#2|))
+ (SIGNATURE |aQuadratic| (|#2| |#2| |#2| |#2|))
+ (SIGNATURE |aCubic| (|#2| |#2| |#2| |#2| |#2|))
+ (SIGNATURE |aQuartic| (|#2| |#2| |#2| |#2| |#2| |#2|)))
+"/git/fricas/src/algebra/SOLVEFOR.spad"
+((|aQuartic| (*1 *2 *2 *2 *2 *2 *2)
+  (AND
+   (|ofCategory| *2
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *3 *2))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *2))))
+ (|aCubic| (*1 *2 *2 *2 *2 *2)
+  (AND
+   (|ofCategory| *2
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *3 *2))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *2))))
+ (|aQuadratic| (*1 *2 *2 *2 *2)
+  (AND
+   (|ofCategory| *2
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *3 *2))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *2))))
+ (|aLinear| (*1 *2 *2 *2)
+  (AND
+   (|ofCategory| *2
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *3 *2))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *2))))
+ (|quartic| (*1 *2 *3 *3 *3 *3 *3)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *2 (|List| *3))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *4 *3))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))))
+ (|cubic| (*1 *2 *3 *3 *3 *3)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *2 (|List| *3))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *4 *3))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))))
+ (|quadratic| (*1 *2 *3 *3 *3)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *2 (|List| *3))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *4 *3))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))))
+ (|linear| (*1 *2 *3 *3)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *2 (|List| *3))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *4 *3))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))))
+ (|quartic| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *2 (|List| *4))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *3 *4))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|cubic| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *2 (|List| *4))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *3 *4))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|quadratic| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *2 (|List| *4))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *3 *4))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|linear| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *2 (|List| *4))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *3 *4))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|mapSolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Mapping| *5 *5))
+       (|ofCategory| *5
+                     (|Join| (|Field|)
+                             (CATEGORY |domain|
+                              (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+       (|isDomain| *2
+                   (|Record| (|:| |solns| (|List| *5))
+                             (|:| |maps|
+                                  (|List|
+                                   (|Record| (|:| |arg| *5) (|:| |res| *5))))))
+       (|isDomain| *1 (|PolynomialSolveByFormulas| *3 *5))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *5))))
+ (|particularSolution| (*1 *2 *3)
+  (AND
+   (|ofCategory| *2
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *3 *2))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *2))))
+ (|solve| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|Field|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Fraction| (|Integer|)))))))
+   (|isDomain| *2 (|List| *4))
+   (|isDomain| *1 (|PolynomialSolveByFormulas| *3 *4))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *4)))))
+((|solve| (((|List| |#2|) |#1|) 12))
+ (|quartic| (((|List| |#2|) |#2| |#2| |#2| |#2| |#2|) 38)
+  (((|List| |#2|) |#1|) 50))
+ (|quadratic| (((|List| |#2|) |#2| |#2| |#2|) 36) (((|List| |#2|) |#1|) 48))
+ (|particularSolution| ((|#2| |#1|) 44))
+ (|mapSolve|
+  (((|Record| (|:| |solns| (|List| |#2|))
+              (|:| |maps|
+                   (|List| (|Record| (|:| |arg| |#2|) (|:| |res| |#2|)))))
+    |#1| (|Mapping| |#2| |#2|))
+   16))
+ (|linear| (((|List| |#2|) |#2| |#2|) 35) (((|List| |#2|) |#1|) 47))
+ (|cubic| (((|List| |#2|) |#2| |#2| |#2| |#2|) 37) (((|List| |#2|) |#1|) 49))
+ (|aQuartic| ((|#2| |#2| |#2| |#2| |#2| |#2|) 43))
+ (|aQuadratic| ((|#2| |#2| |#2| |#2|) 41)) (|aLinear| ((|#2| |#2| |#2|) 40))
+ (|aCubic| ((|#2| |#2| |#2| |#2| |#2|) 42)))
+SOLVEFOR
+((|constructor|
+  (NIL
+   "This package factors the formulas out of the general solve code,{} allowing their recursive use over different domains. Care is taken to introduce few radicals so that radical extension domains can more easily simplify the results."))
+ (|aQuartic|
+  ((|#2| |#2| |#2| |#2| |#2| |#2|)
+   "\\spad{aQuartic(f,{} g,{} h,{} i,{} k)} \\undocumented"))
+ (|aCubic|
+  ((|#2| |#2| |#2| |#2| |#2|)
+   "\\spad{aCubic(f,{} g,{} h,{} j)} \\undocumented"))
+ (|aQuadratic|
+  ((|#2| |#2| |#2| |#2|) "\\spad{aQuadratic(f,{} g,{} h)} \\undocumented"))
+ (|aLinear| ((|#2| |#2| |#2|) "\\spad{aLinear(f,{} g)} \\undocumented"))
+ (|quartic|
+  (((|List| |#2|) |#2| |#2| |#2| |#2| |#2|)
+   "\\spad{quartic(f,{} g,{} h,{} i,{} j)} \\undocumented")
+  (((|List| |#2|) |#1|) "\\spad{quartic(u)} \\undocumented"))
+ (|cubic|
+  (((|List| |#2|) |#2| |#2| |#2| |#2|)
+   "\\spad{cubic(f,{} g,{} h,{} i)} \\undocumented")
+  (((|List| |#2|) |#1|) "\\spad{cubic(u)} \\undocumented"))
+ (|quadratic|
+  (((|List| |#2|) |#2| |#2| |#2|)
+   "\\spad{quadratic(f,{} g,{} h)} \\undocumented")
+  (((|List| |#2|) |#1|) "\\spad{quadratic(u)} \\undocumented"))
+ (|linear| (((|List| |#2|) |#2| |#2|) "\\spad{linear(f,{} g)} \\undocumented")
+  (((|List| |#2|) |#1|) "\\spad{linear(u)} \\undocumented"))
+ (|mapSolve|
+  (((|Record| (|:| |solns| (|List| |#2|))
+              (|:| |maps|
+                   (|List| (|Record| (|:| |arg| |#2|) (|:| |res| |#2|)))))
+    |#1| (|Mapping| |#2| |#2|))
+   "\\spad{mapSolve(u,{} f)} \\undocumented"))
+ (|particularSolution|
+  ((|#2| |#1|) "\\spad{particularSolution(u)} \\undocumented"))
+ (|solve| (((|List| |#2|) |#1|) "\\spad{solve(u)} \\undocumented")))
+(("documentation" 0 8322) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 8313) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 7555) ("modemaps" 0 2148) ("sourceFile" 0 2108)
+ ("constructorCategory" 0 1212) ("constructorModemap" 0 65)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

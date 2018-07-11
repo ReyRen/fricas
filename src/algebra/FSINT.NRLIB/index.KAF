@@ -1,0 +1,41 @@
+1795                (|FunctionSpaceIntegration| R F)
+|package|
+(((|FunctionSpaceIntegration| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |integrate| ((|Union| |#2| (|List| |#2|)) |#2| (|Symbol|))))
+  (|Join| (|GcdDomain|) (|Comparable|) (|CharacteristicZero|)
+          (|PolynomialFactorizationExplicit|) (|RetractableTo| (|Integer|))
+          (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|TranscendentalFunctionCategory|) (|PrimitiveFunctionCategory|)
+          (|AlgebraicallyClosedFunctionSpace| |#1|)))
+ (T |FunctionSpaceIntegration|))
+(CATEGORY |package|
+ (SIGNATURE |integrate| ((|Union| |#2| (|List| |#2|)) |#2| (|Symbol|))))
+"/git/fricas/src/algebra/FSINT.spad"
+((|integrate| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *5
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2 (|Union| *3 (|List| *3)))
+       (|isDomain| *1 (|FunctionSpaceIntegration| *5 *3))
+       (|ofCategory| *3
+                     (|Join| (|TranscendentalFunctionCategory|)
+                             (|PrimitiveFunctionCategory|)
+                             (|AlgebraicallyClosedFunctionSpace| *5))))))
+((|integrate| (((|Union| |#2| (|List| |#2|)) |#2| (|Symbol|)) 155)))
+FSINT
+((|constructor|
+  (NIL
+   "\\spadtype{FunctionSpaceIntegration} provides functions for the indefinite integration of real-valued functions."))
+ (|integrate|
+  (((|Union| |#2| (|List| |#2|)) |#2| (|Symbol|))
+   "\\spad{integrate(f,{} x)} returns the integral of \\spad{f(x)dx} where \\spad{x} is viewed as a real variable.")))
+(("documentation" 0 1469) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1463) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1394) ("modemaps" 0 679) ("sourceFile" 0 642)
+ ("constructorCategory" 0 549) ("constructorModemap" 0 63)
+ ("constructorKind" 0 53) ("constructorForm" 0 20))

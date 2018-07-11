@@ -1,0 +1,141 @@
+7485                (|FloatingComplexPackage| |Par|)
+|package|
+(((|FloatingComplexPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |complexSolve|
+    ((|List| (|List| (|Equation| (|Polynomial| (|Complex| |#1|)))))
+     (|List| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))) |#1|))
+   (SIGNATURE |complexSolve|
+    ((|List| (|List| (|Equation| (|Polynomial| (|Complex| |#1|)))))
+     (|List| (|Equation| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))))
+     |#1|))
+   (SIGNATURE |complexSolve|
+    ((|List| (|Equation| (|Polynomial| (|Complex| |#1|))))
+     (|Fraction| (|Polynomial| (|Complex| (|Integer|)))) |#1|))
+   (SIGNATURE |complexSolve|
+    ((|List| (|Equation| (|Polynomial| (|Complex| |#1|))))
+     (|Equation| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))) |#1|))
+   (SIGNATURE |complexRoots|
+    ((|List| (|Complex| |#1|))
+     (|Fraction| (|Polynomial| (|Complex| (|Integer|)))) |#1|))
+   (SIGNATURE |complexRoots|
+    ((|List| (|List| (|Complex| |#1|)))
+     (|List| (|Fraction| (|Polynomial| (|Complex| (|Integer|)))))
+     (|List| (|Symbol|)) |#1|)))
+  (|Join| (|Field|) (|OrderedRing|)))
+ (T |FloatingComplexPackage|))
+(CATEGORY |package|
+ (SIGNATURE |complexSolve|
+  ((|List| (|List| (|Equation| (|Polynomial| (|Complex| |#1|)))))
+   (|List| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))) |#1|))
+ (SIGNATURE |complexSolve|
+  ((|List| (|List| (|Equation| (|Polynomial| (|Complex| |#1|)))))
+   (|List| (|Equation| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))))
+   |#1|))
+ (SIGNATURE |complexSolve|
+  ((|List| (|Equation| (|Polynomial| (|Complex| |#1|))))
+   (|Fraction| (|Polynomial| (|Complex| (|Integer|)))) |#1|))
+ (SIGNATURE |complexSolve|
+  ((|List| (|Equation| (|Polynomial| (|Complex| |#1|))))
+   (|Equation| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))) |#1|))
+ (SIGNATURE |complexRoots|
+  ((|List| (|Complex| |#1|))
+   (|Fraction| (|Polynomial| (|Complex| (|Integer|)))) |#1|))
+ (SIGNATURE |complexRoots|
+  ((|List| (|List| (|Complex| |#1|)))
+   (|List| (|Fraction| (|Polynomial| (|Complex| (|Integer|)))))
+   (|List| (|Symbol|)) |#1|)))
+"/git/fricas/src/algebra/FLOATCP.spad"
+((|complexRoots| (*1 *2 *3 *4 *5)
+  (AND
+   (|isDomain| *3 (|List| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))))
+   (|isDomain| *4 (|List| (|Symbol|)))
+   (|isDomain| *2 (|List| (|List| (|Complex| *5))))
+   (|isDomain| *1 (|FloatingComplexPackage| *5))
+   (|ofCategory| *5 (|Join| (|Field|) (|OrderedRing|)))))
+ (|complexRoots| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| (|Complex| (|Integer|)))))
+       (|isDomain| *2 (|List| (|Complex| *4)))
+       (|isDomain| *1 (|FloatingComplexPackage| *4))
+       (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|)))))
+ (|complexSolve| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|Equation|
+                (|Fraction| (|Polynomial| (|Complex| (|Integer|))))))
+   (|isDomain| *2 (|List| (|Equation| (|Polynomial| (|Complex| *4)))))
+   (|isDomain| *1 (|FloatingComplexPackage| *4))
+   (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|)))))
+ (|complexSolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| (|Complex| (|Integer|)))))
+       (|isDomain| *2 (|List| (|Equation| (|Polynomial| (|Complex| *4)))))
+       (|isDomain| *1 (|FloatingComplexPackage| *4))
+       (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|)))))
+ (|complexSolve| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Equation|
+                 (|Fraction| (|Polynomial| (|Complex| (|Integer|)))))))
+   (|isDomain| *2 (|List| (|List| (|Equation| (|Polynomial| (|Complex| *4))))))
+   (|isDomain| *1 (|FloatingComplexPackage| *4))
+   (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|)))))
+ (|complexSolve| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3 (|List| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))))
+   (|isDomain| *2 (|List| (|List| (|Equation| (|Polynomial| (|Complex| *4))))))
+   (|isDomain| *1 (|FloatingComplexPackage| *4))
+   (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|))))))
+((|complexSolve|
+  (((|List| (|Equation| (|Polynomial| (|Complex| |#1|))))
+    (|Equation| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))) |#1|)
+   49)
+  (((|List| (|Equation| (|Polynomial| (|Complex| |#1|))))
+    (|Fraction| (|Polynomial| (|Complex| (|Integer|)))) |#1|)
+   48)
+  (((|List| (|List| (|Equation| (|Polynomial| (|Complex| |#1|)))))
+    (|List| (|Equation| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))))
+    |#1|)
+   44)
+  (((|List| (|List| (|Equation| (|Polynomial| (|Complex| |#1|)))))
+    (|List| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))) |#1|)
+   38))
+ (|complexRoots|
+  (((|List| (|List| (|Complex| |#1|)))
+    (|List| (|Fraction| (|Polynomial| (|Complex| (|Integer|)))))
+    (|List| (|Symbol|)) |#1|)
+   26)
+  (((|List| (|Complex| |#1|))
+    (|Fraction| (|Polynomial| (|Complex| (|Integer|)))) |#1|)
+   15)))
+FLOATCP
+((|constructor|
+  (NIL
+   "\\indented{3}{This is a package for the approximation of complex solutions for} systems of equations of rational functions with complex rational coefficients. The results are expressed as either complex rational numbers or complex floats depending on the type of the precision parameter which can be either a rational number or a floating point number."))
+ (|complexRoots|
+  (((|List| (|List| (|Complex| |#1|)))
+    (|List| (|Fraction| (|Polynomial| (|Complex| (|Integer|)))))
+    (|List| (|Symbol|)) |#1|)
+   "\\spad{complexRoots(lrf,{} lv,{} eps)} finds all the complex solutions of a list of rational functions with rational number coefficients with respect the the variables appearing in \\spad{lv}. Each solution is computed to precision eps and returned as list corresponding to the order of variables in \\spad{lv}.")
+  (((|List| (|Complex| |#1|))
+    (|Fraction| (|Polynomial| (|Complex| (|Integer|)))) |#1|)
+   "\\spad{complexRoots(rf,{} eps)} finds all the complex solutions of a univariate rational function with rational number coefficients. The solutions are computed to precision eps."))
+ (|complexSolve|
+  (((|List| (|Equation| (|Polynomial| (|Complex| |#1|))))
+    (|Equation| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))) |#1|)
+   "\\spad{complexSolve(eq,{} eps)} finds all the complex solutions of the equation \\spad{eq} of rational functions with rational rational coefficients with respect to all the variables appearing in \\spad{eq},{} with precision eps.")
+  (((|List| (|Equation| (|Polynomial| (|Complex| |#1|))))
+    (|Fraction| (|Polynomial| (|Complex| (|Integer|)))) |#1|)
+   "\\spad{complexSolve(p,{} eps)} find all the complex solutions of the rational function \\spad{p} with complex rational coefficients with respect to all the variables appearing in \\spad{p},{} with precision eps.")
+  (((|List| (|List| (|Equation| (|Polynomial| (|Complex| |#1|)))))
+    (|List| (|Equation| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))))
+    |#1|)
+   "\\spad{complexSolve(leq,{} eps)} finds all the complex solutions to precision eps of the system \\spad{leq} of equations of rational functions over complex rationals with respect to all the variables appearing in \\spad{lp}.")
+  (((|List| (|List| (|Equation| (|Polynomial| (|Complex| |#1|)))))
+    (|List| (|Fraction| (|Polynomial| (|Complex| (|Integer|))))) |#1|)
+   "\\spad{complexSolve(lp,{} eps)} finds all the complex solutions to precision eps of the system \\spad{lp} of rational functions over the complex rationals with respect to all the variables appearing in \\spad{lp}.")))
+(("documentation" 0 4886) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4878) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4027) ("modemaps" 0 2141) ("sourceFile" 0 2102)
+ ("constructorCategory" 0 1155) ("constructorModemap" 0 63)
+ ("constructorKind" 0 53) ("constructorForm" 0 20))

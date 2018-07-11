@@ -1,0 +1,49 @@
+2017                (|RationalIntegration| F UP)
+|package|
+(((|RationalIntegration| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |integrate|
+    ((|IntegrationResult| (|Fraction| |#2|)) (|Fraction| |#2|)))
+   (SIGNATURE |infieldint|
+    ((|Union| (|Fraction| |#2|) "failed") (|Fraction| |#2|))))
+  (|Join| (|Field|) (|CharacteristicZero|) (|RetractableTo| (|Integer|)))
+  (|UnivariatePolynomialCategory| |#1|))
+ (T |RationalIntegration|))
+(CATEGORY |package|
+ (SIGNATURE |integrate|
+  ((|IntegrationResult| (|Fraction| |#2|)) (|Fraction| |#2|)))
+ (SIGNATURE |infieldint|
+  ((|Union| (|Fraction| |#2|) "failed") (|Fraction| |#2|))))
+"/git/fricas/src/algebra/INTRAT.spad"
+((|infieldint| (*1 *2 *2)
+  (|partial| AND (|isDomain| *2 (|Fraction| *4))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+   (|ofCategory| *3
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))))
+   (|isDomain| *1 (|RationalIntegration| *3 *4))))
+ (|integrate| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Fraction| *5))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+       (|ofCategory| *4
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))))
+       (|isDomain| *2 (|IntegrationResult| (|Fraction| *5)))
+       (|isDomain| *1 (|RationalIntegration| *4 *5)))))
+((|integrate| (((|IntegrationResult| (|Fraction| |#2|)) (|Fraction| |#2|)) 43))
+ (|infieldint| (((|Union| (|Fraction| |#2|) "failed") (|Fraction| |#2|)) 35)))
+INTRAT
+((|constructor|
+  (NIL
+   "This package provides functions for the base case of the Risch algorithm."))
+ (|infieldint|
+  (((|Union| (|Fraction| |#2|) "failed") (|Fraction| |#2|))
+   "\\spad{infieldint(f)} returns \\spad{g} such that \\spad{g' = f} or \"failed\" if the integral of \\spad{f} is not a rational function."))
+ (|integrate|
+  (((|IntegrationResult| (|Fraction| |#2|)) (|Fraction| |#2|))
+   "\\spad{integrate(f)} returns \\spad{g} such that \\spad{g' = f}.")))
+(("documentation" 0 1545) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1538) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1379) ("modemaps" 0 672) ("sourceFile" 0 634)
+ ("constructorCategory" 0 441) ("constructorModemap" 0 59)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

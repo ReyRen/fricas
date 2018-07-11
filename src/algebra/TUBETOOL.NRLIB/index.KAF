@@ -1,0 +1,152 @@
+7710                (MAKEPROP '|TubePlotTools| 'NILADIC T)
+(|TubePlotTools|)
+|package|
+(((|TubePlotTools|)
+  (CATEGORY |package|
+   (SIGNATURE |point|
+    ((|Point| (|DoubleFloat|)) (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)
+     (|DoubleFloat|)))
+   (SIGNATURE *
+    ((|Point| (|DoubleFloat|)) (|DoubleFloat|) (|Point| (|DoubleFloat|))))
+   (SIGNATURE +
+    ((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))
+     (|Point| (|DoubleFloat|))))
+   (SIGNATURE -
+    ((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))
+     (|Point| (|DoubleFloat|))))
+   (SIGNATURE |dot|
+    ((|DoubleFloat|) (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))))
+   (SIGNATURE |cross|
+    ((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))
+     (|Point| (|DoubleFloat|))))
+   (SIGNATURE |unitVector|
+    ((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))))
+   (SIGNATURE |cosSinInfo| ((|List| (|List| (|DoubleFloat|))) (|Integer|)))
+   (SIGNATURE |loopPoints|
+    ((|List| (|Point| (|DoubleFloat|))) (|Point| (|DoubleFloat|))
+     (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)) (|DoubleFloat|)
+     (|List| (|List| (|DoubleFloat|)))))))
+ (T |TubePlotTools|))
+(CATEGORY |package|
+ (SIGNATURE |point|
+  ((|Point| (|DoubleFloat|)) (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)
+   (|DoubleFloat|)))
+ (SIGNATURE *
+  ((|Point| (|DoubleFloat|)) (|DoubleFloat|) (|Point| (|DoubleFloat|))))
+ (SIGNATURE +
+  ((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))
+   (|Point| (|DoubleFloat|))))
+ (SIGNATURE -
+  ((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))
+   (|Point| (|DoubleFloat|))))
+ (SIGNATURE |dot|
+  ((|DoubleFloat|) (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))))
+ (SIGNATURE |cross|
+  ((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))
+   (|Point| (|DoubleFloat|))))
+ (SIGNATURE |unitVector| ((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))))
+ (SIGNATURE |cosSinInfo| ((|List| (|List| (|DoubleFloat|))) (|Integer|)))
+ (SIGNATURE |loopPoints|
+  ((|List| (|Point| (|DoubleFloat|))) (|Point| (|DoubleFloat|))
+   (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)) (|DoubleFloat|)
+   (|List| (|List| (|DoubleFloat|))))))
+"/git/fricas/src/algebra/TUBETOOL.spad"
+((|loopPoints| (*1 *2 *3 *3 *3 *4 *5)
+  (AND (|isDomain| *3 (|Point| (|DoubleFloat|)))
+       (|isDomain| *5 (|List| (|List| (|DoubleFloat|))))
+       (|isDomain| *4 (|DoubleFloat|))
+       (|isDomain| *2 (|List| (|Point| (|DoubleFloat|))))
+       (|isDomain| *1 (|TubePlotTools|))))
+ (|cosSinInfo| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|List| (|List| (|DoubleFloat|))))
+       (|isDomain| *1 (|TubePlotTools|))))
+ (|unitVector| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Point| (|DoubleFloat|)))
+       (|isDomain| *1 (|TubePlotTools|))))
+ (|cross| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|Point| (|DoubleFloat|)))
+       (|isDomain| *1 (|TubePlotTools|))))
+ (|dot| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|Point| (|DoubleFloat|)))
+       (|isDomain| *2 (|DoubleFloat|)) (|isDomain| *1 (|TubePlotTools|))))
+ (- (*1 *2 *2 *2)
+    (AND (|isDomain| *2 (|Point| (|DoubleFloat|)))
+         (|isDomain| *1 (|TubePlotTools|))))
+ (+ (*1 *2 *2 *2)
+    (AND (|isDomain| *2 (|Point| (|DoubleFloat|)))
+         (|isDomain| *1 (|TubePlotTools|))))
+ (* (*1 *2 *3 *2)
+    (AND (|isDomain| *2 (|Point| (|DoubleFloat|)))
+         (|isDomain| *3 (|DoubleFloat|)) (|isDomain| *1 (|TubePlotTools|))))
+ (|point| (*1 *2 *3 *3 *3 *3)
+  (AND (|isDomain| *3 (|DoubleFloat|))
+       (|isDomain| *2 (|Point| (|DoubleFloat|)))
+       (|isDomain| *1 (|TubePlotTools|)))))
+((|unitVector| (((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))) 27))
+ (|point|
+  (((|Point| (|DoubleFloat|)) (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)
+    (|DoubleFloat|))
+   10))
+ (|loopPoints|
+  (((|List| (|Point| (|DoubleFloat|))) (|Point| (|DoubleFloat|))
+    (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)) (|DoubleFloat|)
+    (|List| (|List| (|DoubleFloat|))))
+   37))
+ (|dot|
+  (((|DoubleFloat|) (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))) 23))
+ (|cross|
+  (((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))
+    (|Point| (|DoubleFloat|)))
+   24))
+ (|cosSinInfo| (((|List| (|List| (|DoubleFloat|))) (|Integer|)) 33))
+ (-
+  (((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))
+    (|Point| (|DoubleFloat|)))
+   22))
+ (+
+  (((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))
+    (|Point| (|DoubleFloat|)))
+   21))
+ (* (((|Point| (|DoubleFloat|)) (|DoubleFloat|) (|Point| (|DoubleFloat|))) 20)))
+TUBETOOL
+((|constructor|
+  (NIL "Tools for constructing tubes around 3-dimensional parametric curves."))
+ (|loopPoints|
+  (((|List| (|Point| (|DoubleFloat|))) (|Point| (|DoubleFloat|))
+    (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)) (|DoubleFloat|)
+    (|List| (|List| (|DoubleFloat|))))
+   "\\spad{loopPoints(p,{} n,{} b,{} r,{} lls)} creates and returns a list of points which form the loop with radius \\spad{r},{} around the center point indicated by the point \\spad{p},{} with the principal normal vector of the space curve at point \\spad{p} given by the point(vector) \\spad{n},{} and the binormal vector given by the point(vector) \\spad{b},{} and a list of lists,{} \\spad{lls},{} which is the \\spadfun{cosSinInfo} of the number of points defining the loop."))
+ (|cosSinInfo|
+  (((|List| (|List| (|DoubleFloat|))) (|Integer|))
+   "\\spad{cosSinInfo(n)} returns the list of lists of values for \\spad{n},{} in the form: \\spad{[[cos(n - 1) a,{} sin(n - 1) a],{} ...,{} [cos 2 a,{} sin 2 a],{} [cos a,{} sin a]]} where \\spad{a = 2 pi/n}. Note: \\spad{n} should be greater than 2."))
+ (|unitVector|
+  (((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))
+   "\\spad{unitVector(p)} creates the unit vector of the point \\spad{p} and returns the result as a point. Note: \\spad{unitVector(p) = p/|p|}."))
+ (|cross|
+  (((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))
+    (|Point| (|DoubleFloat|)))
+   "\\spad{cross(p,{} q)} computes the cross product of the two points \\spad{p} and \\spad{q} using only the first three coordinates,{} and keeping the color of the first point \\spad{p}. The result is returned as a point."))
+ (|dot|
+  (((|DoubleFloat|) (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))
+   "\\spad{dot(p,{} q)} computes the dot product of the two points \\spad{p} and \\spad{q} using only the first three coordinates,{} and returns the resulting \\spadtype{DoubleFloat}."))
+ (-
+  (((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))
+    (|Point| (|DoubleFloat|)))
+   "\\spad{p - q} computes and returns a point whose coordinates are the differences of the coordinates of two points \\spad{p} and \\spad{q},{} using the color,{} or fourth coordinate,{} of the first point \\spad{p} as the color also of the point \\spad{q}."))
+ (+
+  (((|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))
+    (|Point| (|DoubleFloat|)))
+   "\\spad{p + q} computes and returns a point whose coordinates are the sums of the coordinates of the two points \\spad{p} and \\spad{q},{} using the color,{} or fourth coordinate,{} of the first point \\spad{p} as the color also of the point \\spad{q}."))
+ (*
+  (((|Point| (|DoubleFloat|)) (|DoubleFloat|) (|Point| (|DoubleFloat|)))
+   "\\spad{s * p} returns a point whose coordinates are the scalar multiple of the point \\spad{p} by the scalar \\spad{s},{} preserving the color,{} or fourth coordinate,{} of \\spad{p}."))
+ (|point|
+  (((|Point| (|DoubleFloat|)) (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)
+    (|DoubleFloat|))
+   "\\spad{point(x1,{} x2,{} x3,{} c)} creates and returns a point from the three specified coordinates \\spad{x1},{} \\spad{x2},{} \\spad{x3},{} and also a fourth coordinate,{} \\spad{c},{} which is generally used to specify the color of the point.")))
+(("documentation" 0 4472) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4463) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3533) ("modemaps" 0 2172) ("sourceFile" 0 2132)
+ ("constructorCategory" 0 1156) ("constructorModemap" 0 87)
+ ("constructorKind" 0 77) ("constructorForm" 0 59) ("NILADIC" 0 20))

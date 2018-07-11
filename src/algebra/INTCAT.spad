@@ -1,0 +1,41 @@
+)abbrev category INTCAT IntervalCategory
++++ Author: Mike Dewar
++++ Date Created: November 1996
++++ Basic Functions:
++++ Related Constructors:
++++ Also See:
++++ AMS Classifications:
++++ Keywords:
++++ References:
++++ Description:
++++ This category implements of interval arithmetic and transcendental
++++ functions over intervals.
+IntervalCategory(R : Join(FloatingPointSystem, TranscendentalFunctionCategory)):
+ Category == Join(GcdDomain, OrderedSet, TranscendentalFunctionCategory,
+                  RadicalCategory, RetractableTo(Integer), Approximate) with
+  interval : (R, R) -> %
+    ++ interval(inf, sup) creates a new interval, either \spad{[inf, sup]} if
+    ++ \spad{inf <= sup} or \spad{[sup, inf]} otherwise.
+  qinterval : (R, R) -> %
+    ++ qinterval(inf, sup) creates a new interval \spad{[inf, sup]}, without
+    ++ checking the ordering on the elements.
+  interval : R -> %
+    ++ interval(f) creates a new interval around f.
+  interval : Fraction Integer -> %
+    ++ interval(f) creates a new interval around f.
+  inf : % -> R
+    ++ inf(u) returns the infinum of \spad{u}.
+  sup : % -> R
+    ++ sup(u) returns the supremum of \spad{u}.
+  width : % -> R
+    ++ width(u) returns \spad{sup(u) - inf(u)}.
+  positive? : % -> Boolean
+    ++ positive?(u) returns \spad{true} if every element of u is positive,
+    ++ \spad{false} otherwise.
+  negative? : % -> Boolean
+    ++ negative?(u) returns \spad{true} if every element of u is negative,
+    ++ \spad{false} otherwise.
+  contains? : (%, R) -> Boolean
+    ++ contains?(i, f) returns true if \spad{f} is contained within the interval
+    ++ \spad{i}, false otherwise.
+

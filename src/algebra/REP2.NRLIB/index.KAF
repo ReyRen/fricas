@@ -1,0 +1,289 @@
+21412               (|RepresentationPackage2| R)
+|package|
+(((|RepresentationPackage2| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |completeEchelonBasis|
+    ((|Matrix| |#1|) (|Vector| (|Vector| |#1|))))
+   (SIGNATURE |createRandomElement|
+    ((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|Matrix| |#1|)))
+   (IF (|has| |#1| (|EuclideanDomain|))
+       (PROGN
+        (SIGNATURE |cyclicSubmodule|
+         ((|Vector| (|Vector| |#1|)) (|List| (|Matrix| |#1|)) (|Vector| |#1|)))
+        (SIGNATURE |standardBasisOfCyclicSubmodule|
+         ((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|Vector| |#1|))))
+       |noBranch|)
+   (IF (|has| |#1| (|Field|))
+       (PROGN
+        (SIGNATURE |areEquivalent?|
+         ((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))
+          (|Boolean|) (|Integer|)))
+        (SIGNATURE |areEquivalent?|
+         ((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))))
+        (SIGNATURE |areEquivalent?|
+         ((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))
+          (|Integer|)))
+        (SIGNATURE |isAbsolutelyIrreducible?|
+         ((|Boolean|) (|List| (|Matrix| |#1|)) (|Integer|)))
+        (SIGNATURE |isAbsolutelyIrreducible?|
+         ((|Boolean|) (|List| (|Matrix| |#1|))))
+        (SIGNATURE |split|
+         ((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+          (|Vector| |#1|)))
+        (SIGNATURE |split|
+         ((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+          (|Vector| (|Vector| |#1|)))))
+       |noBranch|)
+   (IF (|has| |#1| (|Finite|))
+       (IF (|has| |#1| (|Field|))
+           (PROGN
+            (SIGNATURE |meatAxe|
+             ((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+              (|Boolean|) (|Integer|) (|Integer|)))
+            (SIGNATURE |meatAxe|
+             ((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))))
+            (SIGNATURE |meatAxe|
+             ((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+              (|Boolean|)))
+            (SIGNATURE |meatAxe|
+             ((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+              (|PositiveInteger|)))
+            (SIGNATURE |scanOneDimSubspaces|
+             ((|Vector| |#1|) (|List| (|Vector| |#1|)) (|Integer|))))
+           |noBranch|)
+       |noBranch|))
+  (|Ring|))
+ (T |RepresentationPackage2|))
+(CATEGORY |package|
+ (SIGNATURE |completeEchelonBasis|
+  ((|Matrix| |#1|) (|Vector| (|Vector| |#1|))))
+ (SIGNATURE |createRandomElement|
+  ((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|Matrix| |#1|)))
+ (IF (|has| |#1| (|EuclideanDomain|))
+     (PROGN
+      (SIGNATURE |cyclicSubmodule|
+       ((|Vector| (|Vector| |#1|)) (|List| (|Matrix| |#1|)) (|Vector| |#1|)))
+      (SIGNATURE |standardBasisOfCyclicSubmodule|
+       ((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|Vector| |#1|))))
+     |noBranch|)
+ (IF (|has| |#1| (|Field|))
+     (PROGN
+      (SIGNATURE |areEquivalent?|
+       ((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))
+        (|Boolean|) (|Integer|)))
+      (SIGNATURE |areEquivalent?|
+       ((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))))
+      (SIGNATURE |areEquivalent?|
+       ((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))
+        (|Integer|)))
+      (SIGNATURE |isAbsolutelyIrreducible?|
+       ((|Boolean|) (|List| (|Matrix| |#1|)) (|Integer|)))
+      (SIGNATURE |isAbsolutelyIrreducible?|
+       ((|Boolean|) (|List| (|Matrix| |#1|))))
+      (SIGNATURE |split|
+       ((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+        (|Vector| |#1|)))
+      (SIGNATURE |split|
+       ((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+        (|Vector| (|Vector| |#1|)))))
+     |noBranch|)
+ (IF (|has| |#1| (|Finite|))
+     (IF (|has| |#1| (|Field|))
+         (PROGN
+          (SIGNATURE |meatAxe|
+           ((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+            (|Boolean|) (|Integer|) (|Integer|)))
+          (SIGNATURE |meatAxe|
+           ((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))))
+          (SIGNATURE |meatAxe|
+           ((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+            (|Boolean|)))
+          (SIGNATURE |meatAxe|
+           ((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+            (|PositiveInteger|)))
+          (SIGNATURE |scanOneDimSubspaces|
+           ((|Vector| |#1|) (|List| (|Vector| |#1|)) (|Integer|))))
+         |noBranch|)
+     |noBranch|))
+"/git/fricas/src/algebra/REP2.spad"
+((|scanOneDimSubspaces| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Vector| *5))) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Vector| *5))
+       (|isDomain| *1 (|RepresentationPackage2| *5))
+       (|ofCategory| *5 (|Field|)) (|ofCategory| *5 (|Finite|))
+       (|ofCategory| *5 (|Ring|))))
+ (|meatAxe| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Matrix| *5)))
+       (|isDomain| *4 (|PositiveInteger|)) (|ofCategory| *5 (|Field|))
+       (|ofCategory| *5 (|Finite|)) (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|List| (|List| (|Matrix| *5))))
+       (|isDomain| *1 (|RepresentationPackage2| *5))))
+ (|meatAxe| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Matrix| *5))) (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5 (|Field|)) (|ofCategory| *5 (|Finite|))
+       (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|List| (|List| (|Matrix| *5))))
+       (|isDomain| *1 (|RepresentationPackage2| *5))))
+ (|meatAxe| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Matrix| *4))) (|ofCategory| *4 (|Field|))
+       (|ofCategory| *4 (|Finite|)) (|ofCategory| *4 (|Ring|))
+       (|isDomain| *2 (|List| (|List| (|Matrix| *4))))
+       (|isDomain| *1 (|RepresentationPackage2| *4))))
+ (|meatAxe| (*1 *2 *3 *4 *5 *5)
+  (AND (|isDomain| *3 (|List| (|Matrix| *6))) (|isDomain| *4 (|Boolean|))
+       (|isDomain| *5 (|Integer|)) (|ofCategory| *6 (|Field|))
+       (|ofCategory| *6 (|Finite|)) (|ofCategory| *6 (|Ring|))
+       (|isDomain| *2 (|List| (|List| (|Matrix| *6))))
+       (|isDomain| *1 (|RepresentationPackage2| *6))))
+ (|split| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Matrix| *5)))
+       (|isDomain| *4 (|Vector| (|Vector| *5))) (|ofCategory| *5 (|Field|))
+       (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|List| (|List| (|Matrix| *5))))
+       (|isDomain| *1 (|RepresentationPackage2| *5))))
+ (|split| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Matrix| *5))) (|isDomain| *4 (|Vector| *5))
+       (|ofCategory| *5 (|Field|)) (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|List| (|List| (|Matrix| *5))))
+       (|isDomain| *1 (|RepresentationPackage2| *5))))
+ (|isAbsolutelyIrreducible?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Matrix| *4))) (|ofCategory| *4 (|Field|))
+       (|ofCategory| *4 (|Ring|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|RepresentationPackage2| *4))))
+ (|isAbsolutelyIrreducible?| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Matrix| *5))) (|isDomain| *4 (|Integer|))
+       (|ofCategory| *5 (|Field|)) (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|RepresentationPackage2| *5))))
+ (|areEquivalent?| (*1 *2 *3 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Matrix| *5))) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Matrix| *5))
+       (|isDomain| *1 (|RepresentationPackage2| *5))
+       (|ofCategory| *5 (|Field|)) (|ofCategory| *5 (|Ring|))))
+ (|areEquivalent?| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|List| (|Matrix| *4))) (|isDomain| *2 (|Matrix| *4))
+       (|isDomain| *1 (|RepresentationPackage2| *4))
+       (|ofCategory| *4 (|Field|)) (|ofCategory| *4 (|Ring|))))
+ (|areEquivalent?| (*1 *2 *3 *3 *4 *5)
+  (AND (|isDomain| *3 (|List| (|Matrix| *6))) (|isDomain| *4 (|Boolean|))
+       (|isDomain| *5 (|Integer|)) (|isDomain| *2 (|Matrix| *6))
+       (|isDomain| *1 (|RepresentationPackage2| *6))
+       (|ofCategory| *6 (|Field|)) (|ofCategory| *6 (|Ring|))))
+ (|standardBasisOfCyclicSubmodule| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Matrix| *5))) (|isDomain| *4 (|Vector| *5))
+       (|ofCategory| *5 (|EuclideanDomain|)) (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|Matrix| *5))
+       (|isDomain| *1 (|RepresentationPackage2| *5))))
+ (|cyclicSubmodule| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Matrix| *5))) (|isDomain| *4 (|Vector| *5))
+       (|ofCategory| *5 (|EuclideanDomain|)) (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|Vector| (|Vector| *5)))
+       (|isDomain| *1 (|RepresentationPackage2| *5))))
+ (|createRandomElement| (*1 *2 *3 *2)
+  (AND (|isDomain| *3 (|List| (|Matrix| *4))) (|isDomain| *2 (|Matrix| *4))
+       (|ofCategory| *4 (|Ring|))
+       (|isDomain| *1 (|RepresentationPackage2| *4))))
+ (|completeEchelonBasis| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Vector| (|Vector| *4))) (|ofCategory| *4 (|Ring|))
+       (|isDomain| *2 (|Matrix| *4))
+       (|isDomain| *1 (|RepresentationPackage2| *4)))))
+((|standardBasisOfCyclicSubmodule|
+  (((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|Vector| |#1|)) 50
+   (|has| |#1| (|EuclideanDomain|))))
+ (|split|
+  (((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+    (|Vector| (|Vector| |#1|)))
+   72 (|has| |#1| (|Field|)))
+  (((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|)) (|Vector| |#1|))
+   70 (|has| |#1| (|Field|))))
+ (|scanOneDimSubspaces|
+  (((|Vector| |#1|) (|List| (|Vector| |#1|)) (|Integer|)) 107
+   (AND (|has| |#1| (|Field|)) (|has| |#1| (|Finite|)))))
+ (|meatAxe|
+  (((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+    (|PositiveInteger|))
+   111 (AND (|has| |#1| (|Field|)) (|has| |#1| (|Finite|))))
+  (((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|)) (|Boolean|)) 110
+   (AND (|has| |#1| (|Field|)) (|has| |#1| (|Finite|))))
+  (((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))) 109
+   (AND (|has| |#1| (|Field|)) (|has| |#1| (|Finite|))))
+  (((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|)) (|Boolean|)
+    (|Integer|) (|Integer|))
+   108 (AND (|has| |#1| (|Field|)) (|has| |#1| (|Finite|)))))
+ (|isAbsolutelyIrreducible?|
+  (((|Boolean|) (|List| (|Matrix| |#1|))) 69 (|has| |#1| (|Field|)))
+  (((|Boolean|) (|List| (|Matrix| |#1|)) (|Integer|)) 68
+   (|has| |#1| (|Field|))))
+ (|cyclicSubmodule|
+  (((|Vector| (|Vector| |#1|)) (|List| (|Matrix| |#1|)) (|Vector| |#1|)) 48
+   (|has| |#1| (|EuclideanDomain|))))
+ (|createRandomElement|
+  (((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|Matrix| |#1|)) 33))
+ (|completeEchelonBasis| (((|Matrix| |#1|) (|Vector| (|Vector| |#1|))) 30))
+ (|areEquivalent?|
+  (((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))
+    (|Integer|))
+   65 (|has| |#1| (|Field|)))
+  (((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))) 64
+   (|has| |#1| (|Field|)))
+  (((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))
+    (|Boolean|) (|Integer|))
+   63 (|has| |#1| (|Field|)))))
+((|HasCategory| |#1| '(|Field|))
+ (AND (|HasCategory| |#1| '(|Field|)) (|HasCategory| |#1| '(|Finite|)))
+ (|HasCategory| |#1| '(|EuclideanDomain|)))
+REP2
+((|constructor|
+  (NIL
+   "\\spad{RepresentationPackage2} provides functions for working with modular representations of finite groups and algebra. The routines in this package are created,{} using ideas of \\spad{R}. Parker,{} (the meat-Axe) to get smaller representations from bigger ones,{} \\spadignore{i.e.} finding sub- and factormodules,{} or to show,{} that such the representations are irreducible. Note: most functions are randomized functions of Las Vegas type \\spadignore{i.e.} every answer is correct,{} but with small probability the algorithm fails to get an answer."))
+ (|scanOneDimSubspaces|
+  (((|Vector| |#1|) (|List| (|Vector| |#1|)) (|Integer|))
+   "\\spad{scanOneDimSubspaces(basis,{} n)} gives a canonical representative of the {\\em n}\\spad{-}th one-dimensional subspace of the vector space generated by the elements of {\\em basis},{} all from {\\em R^n}. The coefficients of the representative are of shape {\\em (0,{} ...,{} 0,{} 1,{} *,{} ...,{} *)},{} {\\em *} in \\spad{R}. If the size of \\spad{R} is \\spad{q},{} then there are {\\em (q^n-1)/(q-1)} of them. We first reduce \\spad{n} modulo this number,{} then find the largest \\spad{i} such that {\\em +/[q^i for i in 0..i-1] <= n}. Subtracting this sum of powers from \\spad{n} results in an \\spad{i}-digit number to \\spad{basis} \\spad{q}. This fills the positions of the stars."))
+ (|meatAxe|
+  (((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+    (|PositiveInteger|))
+   "\\spad{meatAxe(aG,{} numberOfTries)} calls {\\em meatAxe(aG,{} true,{} numberOfTries,{} 7)}. Notes: 7 covers the case of three-dimensional kernels over the field with 2 elements.")
+  (((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|)) (|Boolean|))
+   "\\spad{meatAxe(aG,{} randomElements)} calls {\\em meatAxe(aG,{} false,{} 6,{} 7)},{} only using Parker\\spad{'s} fingerprints,{} if {\\em randomElemnts} is \\spad{false}. If it is \\spad{true},{} it calls {\\em meatAxe(aG,{} true,{} 25,{} 7)},{} only using random elements. Note: the choice of 25 was rather arbitrary. Also,{} 7 covers the case of three-dimensional kernels over the field with 2 elements.")
+  (((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|)))
+   "\\spad{meatAxe(aG)} calls {\\em meatAxe(aG,{} false,{} 25,{} 7)} returns a 2-list of representations as follows. All matrices of argument \\spad{aG} are assumed to be square and of equal size. Then \\spad{aG} generates a subalgebra,{} say \\spad{A},{} of the algebra of all square matrices of dimension \\spad{n}. {\\em V R} is an A-module in the usual way. meatAxe(\\spad{aG}) creates at most 25 random elements of the algebra,{} tests them for singularity. If singular,{} it tries at most 7 elements of its kernel to generate a proper submodule. If successful a list which contains first the list of the representations of the submodule,{} then a list of the representations of the factor module is returned. Otherwise,{} if we know that all the kernel is already scanned,{} Norton\\spad{'s} irreducibility test can be used either to prove irreducibility or to find the splitting. Notes: the first 6 tries use Parker\\spad{'s} fingerprints. Also,{} 7 covers the case of three-dimensional kernels over the field with 2 elements.")
+  (((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|)) (|Boolean|)
+    (|Integer|) (|Integer|))
+   "\\spad{meatAxe(aG,{} randomElements,{} numberOfTries,{} maxTests)} returns a 2-list of representations as follows. All matrices of argument \\spad{aG} are assumed to be square and of equal size. Then \\spad{aG} generates a subalgebra,{} say \\spad{A},{} of the algebra of all square matrices of dimension \\spad{n}. {\\em V R} is an A-module in the usual way. meatAxe(\\spad{aG},{} \\spad{numberOfTries},{} maxTests) creates at most {\\em numberOfTries} random elements of the algebra,{} tests them for singularity. If singular,{} it tries at most {\\em maxTests} elements of its kernel to generate a proper submodule. If successful,{} a 2-list is returned: first,{} a list containing first the list of the representations of the submodule,{} then a list of the representations of the factor module. Otherwise,{} if we know that all the kernel is already scanned,{} Norton\\spad{'s} irreducibility test can be used either to prove irreducibility or to find the splitting. If {\\em randomElements} is {\\em false},{} the first 6 tries use Parker\\spad{'s} fingerprints."))
+ (|split|
+  (((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|))
+    (|Vector| (|Vector| |#1|)))
+   "\\spad{split(aG,{} submodule)} uses a proper submodule of {\\em R^n} to create the representations of the submodule and of the factor module.")
+  (((|List| (|List| (|Matrix| |#1|))) (|List| (|Matrix| |#1|)) (|Vector| |#1|))
+   "\\spad{split(aG,{} vector)} returns a subalgebra \\spad{A} of all square matrix of dimension \\spad{n} as a list of list of matrices,{} generated by the list of matrices \\spad{aG},{} where \\spad{n} denotes both the size of vector as well as the dimension of each of the square matrices. {\\em V R} is an A-module in the natural way. split(\\spad{aG},{} vector) then checks whether the cyclic submodule generated by {\\em vector} is a proper submodule of {\\em V R}. If successful,{} it returns a two-element list,{} which contains first the list of the representations of the submodule,{} then the list of the representations of the factor module. If the vector generates the whole module,{} a one-element list of the old representation is given. Note: a later version this should call the other split."))
+ (|isAbsolutelyIrreducible?|
+  (((|Boolean|) (|List| (|Matrix| |#1|)))
+   "\\spad{isAbsolutelyIrreducible?(aG)} calls {\\em isAbsolutelyIrreducible?(aG,{} 25)}. Note: the choice of 25 was rather arbitrary.")
+  (((|Boolean|) (|List| (|Matrix| |#1|)) (|Integer|))
+   "\\spad{isAbsolutelyIrreducible?(aG,{} numberOfTries)} uses Norton\\spad{'s} irreducibility test to check for absolute irreduciblity,{} assuming if a one-dimensional kernel is found. As no field extension changes create \"new\" elements in a one-dimensional space,{} the criterium stays \\spad{true} for every extension. The method looks for one-dimensionals only by creating random elements (no fingerprints) since a run of {\\em meatAxe} would have proved absolute irreducibility anyway."))
+ (|areEquivalent?|
+  (((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))
+    (|Integer|))
+   "\\spad{areEquivalent?(aG0,{} aG1,{} numberOfTries)} calls {\\em areEquivalent?(aG0,{} aG1,{} true,{} 25)}. Note: the choice of 25 was rather arbitrary.")
+  (((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|List| (|Matrix| |#1|)))
+   "\\spad{areEquivalent?(aG0,{} aG1)} calls {\\em areEquivalent?(aG0,{} aG1,{} true,{} 25)}. Note: the choice of 25 was rather arbitrary.")
+  (((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|List| (|Matrix| |#1|))
+    (|Boolean|) (|Integer|))
+   "\\spad{areEquivalent?(aG0,{} aG1,{} randomelements,{} numberOfTries)} tests whether the two lists of matrices,{} all assumed of same square shape,{} can be simultaneously conjugated by a non-singular matrix. If these matrices represent the same group generators,{} the representations are equivalent. The algorithm tries {\\em numberOfTries} times to create elements in the generated algebras in the same fashion. If their ranks differ,{} they are not equivalent. If an isomorphism is assumed,{} then the kernel of an element of the first algebra is mapped to the kernel of the corresponding element in the second algebra. Now consider the one-dimensional ones. If they generate the whole space (\\spadignore{e.g.} irreducibility !) we use {\\em standardBasisOfCyclicSubmodule} to create the only possible transition matrix. The method checks whether the matrix conjugates all corresponding matrices from {\\em aGi}. The way to choose the singular matrices is as in {\\em meatAxe}. If the two representations are equivalent,{} this routine returns the transformation matrix {\\em TM} with {\\em aG0.i * TM = TM * aG1.i} for all \\spad{i}. If the representations are not equivalent,{} a small 0-matrix is returned. Note: the case with different sets of group generators cannot be handled."))
+ (|standardBasisOfCyclicSubmodule|
+  (((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|Vector| |#1|))
+   "\\spad{standardBasisOfCyclicSubmodule(lm,{} v)} returns a matrix as follows. It is assumed that the size \\spad{n} of the vector equals the number of rows and columns of the matrices. Then the matrices generate a subalgebra,{} say \\spad{A},{} of the algebra of all square matrices of dimension \\spad{n}. {\\em V R} is an \\spad{A}-module in the natural way. standardBasisOfCyclicSubmodule(\\spad{lm},{} \\spad{v}) calculates a matrix whose non-zero column vectors are the \\spad{R}-Basis of {\\em Av} achieved in the way as described in section 6 of \\spad{R}. A. Parker\\spad{'s} \"The Meat-Axe\". Note: in contrast to {\\em cyclicSubmodule},{} the result is not in echelon form."))
+ (|cyclicSubmodule|
+  (((|Vector| (|Vector| |#1|)) (|List| (|Matrix| |#1|)) (|Vector| |#1|))
+   "\\spad{cyclicSubmodule(lm,{} v)} generates a basis as follows. It is assumed that the size \\spad{n} of the vector equals the number of rows and columns of the matrices. Then the matrices generate a subalgebra,{} say \\spad{A},{} of the algebra of all square matrices of dimension \\spad{n}. {\\em V R} is an \\spad{A}-module in the natural way. cyclicSubmodule(\\spad{lm},{} \\spad{v}) generates the \\spad{R}-Basis of {\\em Av} as described in section 6 of \\spad{R}. A. Parker\\spad{'s} \"The Meat-Axe\". Note: in contrast to the description in \"The Meat-Axe\" and to {\\em standardBasisOfCyclicSubmodule} the result is in echelon form."))
+ (|createRandomElement|
+  (((|Matrix| |#1|) (|List| (|Matrix| |#1|)) (|Matrix| |#1|))
+   "\\spad{createRandomElement(aG,{} x)} creates a random element of the group algebra generated by {\\em aG}."))
+ (|completeEchelonBasis|
+  (((|Matrix| |#1|) (|Vector| (|Vector| |#1|)))
+   "\\spad{completeEchelonBasis(lv)} completes the basis {\\em lv} assumed to be in echelon form of a subspace of {\\em R^n} (\\spad{n} the length of all the vectors in {\\em lv}) with unit vectors to a basis of {\\em R^n}. It is assumed that the argument is not an empty vector and that it is not the basis of the 0-subspace. Note: the rows of the result correspond to the vectors of the basis.")))
+(("documentation" 0 11013) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 11008) ("predicates" 0 10859) ("superDomain" 0 NIL)
+ ("operationAlist" 0 8890) ("modemaps" 0 4524) ("sourceFile" 0 4488)
+ ("constructorCategory" 0 2363) ("constructorModemap" 0 59)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

@@ -1,0 +1,47 @@
+2077                (|ExpressionSolve| R F UTSF UTSSMPF)
+|package|
+(((|ExpressionSolve| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |seriesSolve|
+    (|#3| |#2| (|BasicOperator|) (|Symbol|) (|List| |#2|)))
+   (SIGNATURE |replaceDiffs| (|#2| |#2| (|BasicOperator|) (|Symbol|))))
+  (|Join| (|Comparable|) (|IntegralDomain|) (|ConvertibleTo| (|InputForm|)))
+  (|FunctionSpace| |#1|) (|UnivariateTaylorSeriesCategory| |#2|)
+  (|UnivariateTaylorSeriesCategory|
+   (|SparseMultivariatePolynomialExpressions| |#2|)))
+ (T |ExpressionSolve|))
+(CATEGORY |package|
+ (SIGNATURE |seriesSolve|
+  (|#3| |#2| (|BasicOperator|) (|Symbol|) (|List| |#2|)))
+ (SIGNATURE |replaceDiffs| (|#2| |#2| (|BasicOperator|) (|Symbol|))))
+"/git/fricas/src/algebra/EXPRSOL.spad"
+((|replaceDiffs| (*1 *2 *2 *3 *4)
+  (AND (|isDomain| *3 (|BasicOperator|)) (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *5
+                     (|Join| (|Comparable|) (|IntegralDomain|)
+                             (|ConvertibleTo| (|InputForm|))))
+       (|ofCategory| *2 (|FunctionSpace| *5))
+       (|isDomain| *1 (|ExpressionSolve| *5 *2 *6 *7))
+       (|ofCategory| *6 (|UnivariateTaylorSeriesCategory| *2))
+       (|ofCategory| *7
+                     (|UnivariateTaylorSeriesCategory|
+                      (|SparseMultivariatePolynomialExpressions| *2)))))
+ (|seriesSolve| (*1 *2 *3 *4 *5 *6)
+  (AND (|isDomain| *4 (|BasicOperator|)) (|isDomain| *5 (|Symbol|))
+       (|isDomain| *6 (|List| *3)) (|ofCategory| *3 (|FunctionSpace| *7))
+       (|ofCategory| *7
+                     (|Join| (|Comparable|) (|IntegralDomain|)
+                             (|ConvertibleTo| (|InputForm|))))
+       (|ofCategory| *2 (|UnivariateTaylorSeriesCategory| *3))
+       (|isDomain| *1 (|ExpressionSolve| *7 *3 *2 *8))
+       (|ofCategory| *8
+                     (|UnivariateTaylorSeriesCategory|
+                      (|SparseMultivariatePolynomialExpressions| *3))))))
+((|seriesSolve| ((|#3| |#2| (|BasicOperator|) (|Symbol|) (|List| |#2|)) 51))
+ (|replaceDiffs| ((|#2| |#2| (|BasicOperator|) (|Symbol|)) 28)))
+EXPRSOL
+(("documentation" 0 NIL) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2069) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1927) ("modemaps" 0 760) ("sourceFile" 0 721)
+ ("constructorCategory" 0 547) ("constructorModemap" 0 67)
+ ("constructorKind" 0 57) ("constructorForm" 0 20))

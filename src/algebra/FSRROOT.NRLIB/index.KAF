@@ -1,0 +1,34 @@
+1389                (|FunctionSpaceRationalRoots| R F)
+|package|
+(((|FunctionSpaceRationalRoots| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |get_rational_roots|
+    ((|List| (|Fraction| (|Integer|))) |#2| (|Kernel| |#2|))))
+  (|Join| (|IntegralDomain|) (|Comparable|) (|CharacteristicZero|)
+          (|RetractableTo| (|Integer|)) (|LinearlyExplicitOver| (|Integer|)))
+  (|FunctionSpace| |#1|))
+ (T |FunctionSpaceRationalRoots|))
+(CATEGORY |package|
+ (SIGNATURE |get_rational_roots|
+  ((|List| (|Fraction| (|Integer|))) |#2| (|Kernel| |#2|))))
+"/git/fricas/src/algebra/FSRROOT.spad"
+((|get_rational_roots| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Kernel| *3)) (|ofCategory| *3 (|FunctionSpace| *5))
+       (|ofCategory| *5
+                     (|Join| (|IntegralDomain|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2 (|List| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|FunctionSpaceRationalRoots| *5 *3)))))
+((|get_rational_roots|
+  (((|List| (|Fraction| (|Integer|))) |#2| (|Kernel| |#2|)) 18)))
+FSRROOT
+((|get_rational_roots|
+  (((|List| (|Fraction| (|Integer|))) |#2| (|Kernel| |#2|))
+   "\\spad{get_rational_roots(f,{} k)} finds rational root of \\spad{f} treated as univariate polynomial in \\spad{k}.")))
+(("documentation" 0 1183) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1175) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1086) ("modemaps" 0 587) ("sourceFile" 0 548)
+ ("constructorCategory" 0 434) ("constructorModemap" 0 65)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

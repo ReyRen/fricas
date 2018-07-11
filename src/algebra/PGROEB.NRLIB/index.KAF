@@ -1,0 +1,53 @@
+2696                (|PolyGroebner| F)
+|package|
+(((|PolyGroebner| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |lexGroebner|
+    ((|List| (|Polynomial| |#1|)) (|List| (|Polynomial| |#1|))
+     (|List| (|Symbol|))))
+   (SIGNATURE |totalGroebner|
+    ((|List| (|Polynomial| |#1|)) (|List| (|Polynomial| |#1|))
+     (|List| (|Symbol|)))))
+  (|GcdDomain|))
+ (T |PolyGroebner|))
+(CATEGORY |package|
+ (SIGNATURE |lexGroebner|
+  ((|List| (|Polynomial| |#1|)) (|List| (|Polynomial| |#1|))
+   (|List| (|Symbol|))))
+ (SIGNATURE |totalGroebner|
+  ((|List| (|Polynomial| |#1|)) (|List| (|Polynomial| |#1|))
+   (|List| (|Symbol|)))))
+"/git/fricas/src/algebra/PGROEB.spad"
+((|totalGroebner| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|List| (|Polynomial| *4)))
+       (|isDomain| *3 (|List| (|Symbol|))) (|ofCategory| *4 (|GcdDomain|))
+       (|isDomain| *1 (|PolyGroebner| *4))))
+ (|lexGroebner| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|List| (|Polynomial| *4)))
+       (|isDomain| *3 (|List| (|Symbol|))) (|ofCategory| *4 (|GcdDomain|))
+       (|isDomain| *1 (|PolyGroebner| *4)))))
+((|totalGroebner|
+  (((|List| (|Polynomial| |#1|)) (|List| (|Polynomial| |#1|))
+    (|List| (|Symbol|)))
+   10))
+ (|lexGroebner|
+  (((|List| (|Polynomial| |#1|)) (|List| (|Polynomial| |#1|))
+    (|List| (|Symbol|)))
+   9)))
+PGROEB
+((|constructor|
+  (NIL
+   "Groebner functions for \\spad{P} \\spad{F} \\indented{2}{This package is an interface package to the groebner basis} package which allows you to compute groebner bases for polynomials in either lexicographic ordering or total degree ordering refined by reverse lex. The input is the ordinary polynomial type which is internally converted to a type with the required ordering. The resulting grobner basis is converted back to ordinary polynomials. The ordering among the variables is controlled by an explicit list of variables which is passed as a second argument. The coefficient domain is allowed to be any \\spad{gcd} domain,{} but the groebner basis is computed as if the polynomials were over a field."))
+ (|totalGroebner|
+  (((|List| (|Polynomial| |#1|)) (|List| (|Polynomial| |#1|))
+    (|List| (|Symbol|)))
+   "\\spad{totalGroebner(lp,{} lv)} computes Groebner basis for the list of polynomials \\spad{lp} with the terms ordered first by total degree and then refined by reverse lexicographic ordering. The variables are ordered by their position in the list \\spad{lv}."))
+ (|lexGroebner|
+  (((|List| (|Polynomial| |#1|)) (|List| (|Polynomial| |#1|))
+    (|List| (|Symbol|)))
+   "\\spad{lexGroebner(lp,{} lv)} computes Groebner basis for the list of polynomials \\spad{lp} in lexicographic order. The variables are ordered by their position in the list \\spad{lv}.")))
+(("documentation" 0 1291) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1284) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1060) ("modemaps" 0 657) ("sourceFile" 0 619)
+ ("constructorCategory" 0 372) ("constructorModemap" 0 49)
+ ("constructorKind" 0 39) ("constructorForm" 0 20))

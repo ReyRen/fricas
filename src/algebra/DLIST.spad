@@ -1,0 +1,27 @@
+)abbrev domain DLIST DataList
+++ This domain provides some nice functions on lists
+DataList(S : OrderedSet) : Exports == Implementation where
+  Exports == ListAggregate(S) with
+    coerce : List S -> %
+      ++ coerce(l) creates a datalist from l
+    coerce : % -> List S
+      ++ coerce(x) returns the list of elements in x
+    datalist : List S -> %
+      ++ datalist(l) creates a datalist from l
+    elt : (%,"unique") -> %
+      ++ \spad{l.unique} returns \spad{l} with duplicates removed.
+      ++ Note: \spad{l.unique = removeDuplicates(l)}.
+    elt : (%,"sort") -> %
+      ++ \spad{l.sort} returns \spad{l} with elements sorted.
+      ++ Note: \spad{l.sort = sort(l)}
+    elt : (%,"count") -> NonNegativeInteger
+      ++ \spad{l."count"} returns the number of elements in \spad{l}.
+  Implementation == List(S) add
+    elt(x,"unique") == removeDuplicates(x)
+    elt(x,"sort") == sort(x)
+    elt(x,"count") == #x
+    coerce(x : List S) == x pretend %
+    coerce(x : %) : List S == x pretend (List S)
+    coerce(x : %) : OutputForm == (x :: List S) :: OutputForm
+    datalist(x : List S) == x::%
+

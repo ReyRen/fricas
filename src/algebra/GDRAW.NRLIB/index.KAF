@@ -1,0 +1,108 @@
+5060                (MAKEPROP '|GnuDraw| 'NILADIC T)
+(|GnuDraw|)
+|package|
+(((|GnuDraw|)
+  (CATEGORY |package|
+   (SIGNATURE |gnuDraw|
+    ((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|)) (|String|)
+     (|List| (|DrawOption|))))
+   (SIGNATURE |gnuDraw|
+    ((|Void|) (|List| (|DoubleFloat|)) (|List| (|DoubleFloat|)) (|String|)
+     (|List| (|DrawOption|))))
+   (SIGNATURE |gnuDraw|
+    ((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|))
+     (|String|)))
+   (SIGNATURE |gnuDraw|
+    ((|Void|) (|List| (|DoubleFloat|)) (|List| (|DoubleFloat|)) (|String|)))
+   (SIGNATURE |gnuDraw|
+    ((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|))
+     (|SegmentBinding| (|Float|)) (|String|) (|List| (|DrawOption|))))
+   (SIGNATURE |gnuDraw|
+    ((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|))
+     (|SegmentBinding| (|Float|)) (|String|)))))
+ (T |GnuDraw|))
+(CATEGORY |package|
+ (SIGNATURE |gnuDraw|
+  ((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|)) (|String|)
+   (|List| (|DrawOption|))))
+ (SIGNATURE |gnuDraw|
+  ((|Void|) (|List| (|DoubleFloat|)) (|List| (|DoubleFloat|)) (|String|)
+   (|List| (|DrawOption|))))
+ (SIGNATURE |gnuDraw|
+  ((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|)) (|String|)))
+ (SIGNATURE |gnuDraw|
+  ((|Void|) (|List| (|DoubleFloat|)) (|List| (|DoubleFloat|)) (|String|)))
+ (SIGNATURE |gnuDraw|
+  ((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|))
+   (|SegmentBinding| (|Float|)) (|String|) (|List| (|DrawOption|))))
+ (SIGNATURE |gnuDraw|
+  ((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|))
+   (|SegmentBinding| (|Float|)) (|String|))))
+"/git/fricas/src/algebra/GDRAW.spad"
+((|gnuDraw| (*1 *2 *3 *4 *4 *5)
+  (AND (|isDomain| *3 (|Expression| (|Float|)))
+       (|isDomain| *4 (|SegmentBinding| (|Float|))) (|isDomain| *5 (|String|))
+       (|isDomain| *2 (|Void|)) (|isDomain| *1 (|GnuDraw|))))
+ (|gnuDraw| (*1 *2 *3 *4 *4 *5 *6)
+  (AND (|isDomain| *3 (|Expression| (|Float|)))
+       (|isDomain| *4 (|SegmentBinding| (|Float|))) (|isDomain| *5 (|String|))
+       (|isDomain| *6 (|List| (|DrawOption|))) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|GnuDraw|))))
+ (|gnuDraw| (*1 *2 *3 *3 *4)
+  (AND (|isDomain| *3 (|List| (|DoubleFloat|))) (|isDomain| *4 (|String|))
+       (|isDomain| *2 (|Void|)) (|isDomain| *1 (|GnuDraw|))))
+ (|gnuDraw| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Expression| (|Float|)))
+       (|isDomain| *4 (|SegmentBinding| (|Float|))) (|isDomain| *5 (|String|))
+       (|isDomain| *2 (|Void|)) (|isDomain| *1 (|GnuDraw|))))
+ (|gnuDraw| (*1 *2 *3 *3 *4 *5)
+  (AND (|isDomain| *3 (|List| (|DoubleFloat|))) (|isDomain| *4 (|String|))
+       (|isDomain| *5 (|List| (|DrawOption|))) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|GnuDraw|))))
+ (|gnuDraw| (*1 *2 *3 *4 *5 *6)
+  (AND (|isDomain| *3 (|Expression| (|Float|)))
+       (|isDomain| *4 (|SegmentBinding| (|Float|))) (|isDomain| *5 (|String|))
+       (|isDomain| *6 (|List| (|DrawOption|))) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|GnuDraw|)))))
+((|gnuDraw|
+  (((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|))
+    (|SegmentBinding| (|Float|)) (|String|))
+   50)
+  (((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|))
+    (|SegmentBinding| (|Float|)) (|String|) (|List| (|DrawOption|)))
+   49)
+  (((|Void|) (|List| (|DoubleFloat|)) (|List| (|DoubleFloat|)) (|String|)) 45)
+  (((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|)) (|String|))
+   44)
+  (((|Void|) (|List| (|DoubleFloat|)) (|List| (|DoubleFloat|)) (|String|)
+    (|List| (|DrawOption|)))
+   41)
+  (((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|)) (|String|)
+    (|List| (|DrawOption|)))
+   36)))
+GDRAW
+((|constructor|
+  (NIL
+   "This package provides support for gnuplot. These routines generate output files contain gnuplot scripts that may be processed directly by gnuplot. This is especially convenient in the axiom-wiki environment where gnuplot is called from LaTeX via gnuplottex."))
+ (|gnuDraw|
+  (((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|))
+    (|SegmentBinding| (|Float|)) (|String|))
+   "\\spad{gnuDraw} provides 3d surface plotting,{} default options")
+  (((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|))
+    (|SegmentBinding| (|Float|)) (|String|) (|List| (|DrawOption|)))
+   "\\spad{gnuDraw} provides 3d surface plotting with options")
+  (((|Void|) (|List| (|DoubleFloat|)) (|List| (|DoubleFloat|)) (|String|))
+   "\\spad{gnuDraw} provides 2d plotting from list of values,{} default options")
+  (((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|)) (|String|))
+   "\\spad{gnuDraw} provides 2d plotting,{} default options")
+  (((|Void|) (|List| (|DoubleFloat|)) (|List| (|DoubleFloat|)) (|String|)
+    (|List| (|DrawOption|)))
+   "\\spad{gnuDraw} provides 2d plotting from list of values with options")
+  (((|Void|) (|Expression| (|Float|)) (|SegmentBinding| (|Float|)) (|String|)
+    (|List| (|DrawOption|)))
+   "\\spad{gnuDraw} provides 2d plotting with options")))
+(("documentation" 0 3736) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3730) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3065) ("modemaps" 0 1704) ("sourceFile" 0 1667)
+ ("constructorCategory" 0 906) ("constructorModemap" 0 75)
+ ("constructorKind" 0 65) ("constructorForm" 0 53) ("NILADIC" 0 20))

@@ -1,0 +1,29 @@
+1504                (|UnivariatePolynomialCategoryFunctions2| R PR S PS)
+|package|
+(((|UnivariatePolynomialCategoryFunctions2| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |map| (|#4| (|Mapping| |#3| |#1|) |#2|)))
+  (|Join| (|SemiRng|) (|AbelianMonoid|)) (|UnivariatePolynomialCategory| |#1|)
+  (|Join| (|SemiRng|) (|AbelianMonoid|)) (|UnivariatePolynomialCategory| |#3|))
+ (T |UnivariatePolynomialCategoryFunctions2|))
+(CATEGORY |package| (SIGNATURE |map| (|#4| (|Mapping| |#3| |#1|) |#2|)))
+"/git/fricas/src/algebra/UPOLYC2.spad"
+((|map| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *6 *5))
+       (|ofCategory| *5 (|Join| (|SemiRng|) (|AbelianMonoid|)))
+       (|ofCategory| *6 (|Join| (|SemiRng|) (|AbelianMonoid|)))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *6))
+       (|isDomain| *1 (|UnivariatePolynomialCategoryFunctions2| *5 *4 *6 *2))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *5)))))
+((|map| ((|#4| (|Mapping| |#3| |#1|) |#2|) 24)))
+UPOLYC2
+((|constructor|
+  (NIL
+   "Mapping from polynomials over \\spad{R} to polynomials over \\spad{S} given a map from \\spad{R} to \\spad{S} assumed to send zero to zero."))
+ (|map|
+  ((|#4| (|Mapping| |#3| |#1|) |#2|)
+   "\\spad{map(f,{} p)} takes a function \\spad{f} from \\spad{R} to \\spad{S},{} and applies it to each (non-zero) coefficient of a polynomial \\spad{p} over \\spad{R},{} getting a new polynomial over \\spad{S}. Note: since the map is not applied to zero elements,{} it may map zero to zero.")))
+(("documentation" 0 992) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 984) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 935) ("modemaps" 0 541) ("sourceFile" 0 502)
+ ("constructorCategory" 0 429) ("constructorModemap" 0 83)
+ ("constructorKind" 0 73) ("constructorForm" 0 20))

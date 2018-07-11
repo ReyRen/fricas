@@ -1,0 +1,343 @@
+17402               (|RationalRicDE| F UP)
+|package|
+(((|RationalRicDE| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |ricDsolve|
+    ((|List| (|Fraction| |#2|))
+     (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+     (|Mapping| (|List| |#1|) |#2|)))
+   (SIGNATURE |ricDsolve|
+    ((|List| (|Fraction| |#2|))
+     (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+     (|Mapping| (|List| |#1|) |#2|) (|Mapping| (|Factored| |#2|) |#2|)))
+   (SIGNATURE |ricDsolve|
+    ((|List| (|Fraction| |#2|))
+     (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+     (|Mapping| (|List| |#1|) |#2|)))
+   (SIGNATURE |ricDsolve|
+    ((|List| (|Fraction| |#2|))
+     (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+     (|Mapping| (|List| |#1|) |#2|) (|Mapping| (|Factored| |#2|) |#2|)))
+   (SIGNATURE |singRicDE|
+    ((|List|
+      (|Record| (|:| |frac| (|Fraction| |#2|))
+                (|:| |eq|
+                     (|LinearOrdinaryDifferentialOperator2| |#2|
+                                                            (|Fraction|
+                                                             |#2|)))))
+     (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+     (|Mapping| (|Factored| |#2|) |#2|)))
+   (SIGNATURE |polyRicDE|
+    ((|List|
+      (|Record| (|:| |poly| |#2|)
+                (|:| |eq|
+                     (|LinearOrdinaryDifferentialOperator2| |#2|
+                                                            (|Fraction|
+                                                             |#2|)))))
+     (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+     (|Mapping| (|List| |#1|) |#2|)))
+   (IF (|has| |#1| (|AlgebraicallyClosedField|))
+       (PROGN
+        (SIGNATURE |ricDsolve|
+         ((|List| (|Fraction| |#2|))
+          (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))))
+        (SIGNATURE |ricDsolve|
+         ((|List| (|Fraction| |#2|))
+          (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+          (|Mapping| (|Factored| |#2|) |#2|)))
+        (SIGNATURE |ricDsolve|
+         ((|List| (|Fraction| |#2|))
+          (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))))
+        (SIGNATURE |ricDsolve|
+         ((|List| (|Fraction| |#2|))
+          (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+          (|Mapping| (|Factored| |#2|) |#2|))))
+       |noBranch|))
+  (|Join| (|Field|) (|CharacteristicZero|) (|RetractableTo| (|Integer|))
+          (|RetractableTo| (|Fraction| (|Integer|))))
+  (|UnivariatePolynomialCategory| |#1|))
+ (T |RationalRicDE|))
+(CATEGORY |package|
+ (SIGNATURE |ricDsolve|
+  ((|List| (|Fraction| |#2|))
+   (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+   (|Mapping| (|List| |#1|) |#2|)))
+ (SIGNATURE |ricDsolve|
+  ((|List| (|Fraction| |#2|))
+   (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+   (|Mapping| (|List| |#1|) |#2|) (|Mapping| (|Factored| |#2|) |#2|)))
+ (SIGNATURE |ricDsolve|
+  ((|List| (|Fraction| |#2|))
+   (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+   (|Mapping| (|List| |#1|) |#2|)))
+ (SIGNATURE |ricDsolve|
+  ((|List| (|Fraction| |#2|))
+   (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+   (|Mapping| (|List| |#1|) |#2|) (|Mapping| (|Factored| |#2|) |#2|)))
+ (SIGNATURE |singRicDE|
+  ((|List|
+    (|Record| (|:| |frac| (|Fraction| |#2|))
+              (|:| |eq|
+                   (|LinearOrdinaryDifferentialOperator2| |#2|
+                                                          (|Fraction| |#2|)))))
+   (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+   (|Mapping| (|Factored| |#2|) |#2|)))
+ (SIGNATURE |polyRicDE|
+  ((|List|
+    (|Record| (|:| |poly| |#2|)
+              (|:| |eq|
+                   (|LinearOrdinaryDifferentialOperator2| |#2|
+                                                          (|Fraction| |#2|)))))
+   (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+   (|Mapping| (|List| |#1|) |#2|)))
+ (IF (|has| |#1| (|AlgebraicallyClosedField|))
+     (PROGN
+      (SIGNATURE |ricDsolve|
+       ((|List| (|Fraction| |#2|))
+        (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))))
+      (SIGNATURE |ricDsolve|
+       ((|List| (|Fraction| |#2|))
+        (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+        (|Mapping| (|Factored| |#2|) |#2|)))
+      (SIGNATURE |ricDsolve|
+       ((|List| (|Fraction| |#2|))
+        (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))))
+      (SIGNATURE |ricDsolve|
+       ((|List| (|Fraction| |#2|))
+        (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+        (|Mapping| (|Factored| |#2|) |#2|))))
+     |noBranch|))
+"/git/fricas/src/algebra/ODERTRIC.spad"
+((|ricDsolve| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3 (|LinearOrdinaryDifferentialOperator2| *6 (|Fraction| *6)))
+   (|isDomain| *4 (|Mapping| (|Factored| *6) *6))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+   (|ofCategory| *5 (|AlgebraicallyClosedField|))
+   (|ofCategory| *5
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|isDomain| *2 (|List| (|Fraction| *6)))
+   (|isDomain| *1 (|RationalRicDE| *5 *6))))
+ (|ricDsolve| (*1 *2 *3)
+  (AND
+   (|isDomain| *3 (|LinearOrdinaryDifferentialOperator2| *5 (|Fraction| *5)))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+   (|ofCategory| *4 (|AlgebraicallyClosedField|))
+   (|ofCategory| *4
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|isDomain| *2 (|List| (|Fraction| *5)))
+   (|isDomain| *1 (|RationalRicDE| *4 *5))))
+ (|ricDsolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| (|Fraction| *6)))
+       (|isDomain| *4 (|Mapping| (|Factored| *6) *6))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5 (|AlgebraicallyClosedField|))
+       (|ofCategory| *5
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|isDomain| *2 (|List| (|Fraction| *6)))
+       (|isDomain| *1 (|RationalRicDE| *5 *6))))
+ (|ricDsolve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| (|Fraction| *5)))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+       (|ofCategory| *4 (|AlgebraicallyClosedField|))
+       (|ofCategory| *4
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|isDomain| *2 (|List| (|Fraction| *5)))
+       (|isDomain| *1 (|RationalRicDE| *4 *5))))
+ (|polyRicDE| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3 (|LinearOrdinaryDifferentialOperator2| *6 (|Fraction| *6)))
+   (|isDomain| *4 (|Mapping| (|List| *5) *6))
+   (|ofCategory| *5
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |poly| *6)
+                          (|:| |eq|
+                               (|LinearOrdinaryDifferentialOperator2| *6
+                                                                      (|Fraction|
+                                                                       *6))))))
+   (|isDomain| *1 (|RationalRicDE| *5 *6))))
+ (|singRicDE| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3 (|LinearOrdinaryDifferentialOperator2| *6 (|Fraction| *6)))
+   (|isDomain| *4 (|Mapping| (|Factored| *6) *6))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+   (|ofCategory| *5
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |frac| (|Fraction| *6))
+                          (|:| |eq|
+                               (|LinearOrdinaryDifferentialOperator2| *6
+                                                                      (|Fraction|
+                                                                       *6))))))
+   (|isDomain| *1 (|RationalRicDE| *5 *6))))
+ (|ricDsolve| (*1 *2 *3 *4 *5)
+  (AND
+   (|isDomain| *3 (|LinearOrdinaryDifferentialOperator2| *7 (|Fraction| *7)))
+   (|isDomain| *4 (|Mapping| (|List| *6) *7))
+   (|isDomain| *5 (|Mapping| (|Factored| *7) *7))
+   (|ofCategory| *6
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|ofCategory| *7 (|UnivariatePolynomialCategory| *6))
+   (|isDomain| *2 (|List| (|Fraction| *7)))
+   (|isDomain| *1 (|RationalRicDE| *6 *7))))
+ (|ricDsolve| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3 (|LinearOrdinaryDifferentialOperator2| *6 (|Fraction| *6)))
+   (|isDomain| *4 (|Mapping| (|List| *5) *6))
+   (|ofCategory| *5
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+   (|isDomain| *2 (|List| (|Fraction| *6)))
+   (|isDomain| *1 (|RationalRicDE| *5 *6))))
+ (|ricDsolve| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| (|Fraction| *7)))
+       (|isDomain| *4 (|Mapping| (|List| *6) *7))
+       (|isDomain| *5 (|Mapping| (|Factored| *7) *7))
+       (|ofCategory| *6
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| *6))
+       (|isDomain| *2 (|List| (|Fraction| *7)))
+       (|isDomain| *1 (|RationalRicDE| *6 *7))))
+ (|ricDsolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| (|Fraction| *6)))
+       (|isDomain| *4 (|Mapping| (|List| *5) *6))
+       (|ofCategory| *5
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|isDomain| *2 (|List| (|Fraction| *6)))
+       (|isDomain| *1 (|RationalRicDE| *5 *6)))))
+((|singRicDE|
+  (((|List|
+     (|Record| (|:| |frac| (|Fraction| |#2|))
+               (|:| |eq|
+                    (|LinearOrdinaryDifferentialOperator2| |#2|
+                                                           (|Fraction|
+                                                            |#2|)))))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|Mapping| (|Factored| |#2|) |#2|))
+   43))
+ (|ricDsolve|
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|Mapping| (|Factored| |#2|) |#2|))
+   135 (|has| |#1| (|AlgebraicallyClosedField|)))
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|)))
+   136 (|has| |#1| (|AlgebraicallyClosedField|)))
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+    (|Mapping| (|Factored| |#2|) |#2|))
+   137 (|has| |#1| (|AlgebraicallyClosedField|)))
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+   138 (|has| |#1| (|AlgebraicallyClosedField|)))
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|Mapping| (|List| |#1|) |#2|) (|Mapping| (|Factored| |#2|) |#2|))
+   36)
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|Mapping| (|List| |#1|) |#2|))
+   37)
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+    (|Mapping| (|List| |#1|) |#2|) (|Mapping| (|Factored| |#2|) |#2|))
+   34)
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+    (|Mapping| (|List| |#1|) |#2|))
+   35))
+ (|polyRicDE|
+  (((|List|
+     (|Record| (|:| |poly| |#2|)
+               (|:| |eq|
+                    (|LinearOrdinaryDifferentialOperator2| |#2|
+                                                           (|Fraction|
+                                                            |#2|)))))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|Mapping| (|List| |#1|) |#2|))
+   80)))
+((|HasCategory| |#1| '(|AlgebraicallyClosedField|)))
+ODERTRIC
+((|constructor|
+  (NIL "In-field solution of Riccati equations,{} rational case."))
+ (|polyRicDE|
+  (((|List|
+     (|Record| (|:| |poly| |#2|)
+               (|:| |eq|
+                    (|LinearOrdinaryDifferentialOperator2| |#2|
+                                                           (|Fraction|
+                                                            |#2|)))))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|Mapping| (|List| |#1|) |#2|))
+   "\\spad{polyRicDE(op,{} zeros)} returns \\spad{[[p1,{} L1],{} [p2,{} L2],{} ... ,{} [pk,{} Lk]]} such that the polynomial part of any rational solution of the associated Riccati equation of \\spad{op y = 0} must be one of the \\spad{pi}\\spad{'s} (up to the constant coefficient),{} in which case the equation for \\spad{z = y e^{-int p}} is \\spad{\\spad{Li} z = 0}. \\spad{zeros} is a zero finder in \\spad{UP}."))
+ (|singRicDE|
+  (((|List|
+     (|Record| (|:| |frac| (|Fraction| |#2|))
+               (|:| |eq|
+                    (|LinearOrdinaryDifferentialOperator2| |#2|
+                                                           (|Fraction|
+                                                            |#2|)))))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|Mapping| (|Factored| |#2|) |#2|))
+   "\\spad{singRicDE(op,{} ezfactor)} returns \\spad{[[f1,{} L1],{} [f2,{} L2],{} ...,{} [fk,{} Lk]]} such that the singular \\spad{++} part of any rational solution of the associated Riccati equation of \\spad{op y = 0} must be one of the \\spad{fi}\\spad{'s} (up to the constant coefficient),{} in which case the equation for \\spad{z = y e^{-int \\spad{ai}}} is \\spad{\\spad{Li} z = 0}. Argument \\spad{ezfactor} is a factorisation in \\spad{UP},{} not necessarily into irreducibles."))
+ (|ricDsolve|
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|Mapping| (|Factored| |#2|) |#2|))
+   "\\spad{ricDsolve(op,{} ezfactor)} returns the rational solutions of the associated Riccati equation of \\spad{op y = 0}. Argument \\spad{ezfactor} is a factorisation in \\spad{UP},{} not necessarily into irreducibles.")
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|)))
+   "\\spad{ricDsolve(op)} returns the rational solutions of the associated Riccati equation of \\spad{op y = 0}.")
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+    (|Mapping| (|Factored| |#2|) |#2|))
+   "\\spad{ricDsolve(op,{} ezfactor)} returns the rational solutions of the associated Riccati equation of \\spad{op y = 0}. Argument \\spad{ezfactor} is a factorisation in \\spad{UP},{} not necessarily into irreducibles.")
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|)))
+   "\\spad{ricDsolve(op)} returns the rational solutions of the associated Riccati equation of \\spad{op y = 0}.")
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|Mapping| (|List| |#1|) |#2|) (|Mapping| (|Factored| |#2|) |#2|))
+   "\\spad{ricDsolve(op,{} zeros,{} ezfactor)} returns the rational solutions of the associated Riccati equation of \\spad{op y = 0}. \\spad{zeros} is a zero finder in \\spad{UP}. Argument \\spad{ezfactor} is a factorisation in \\spad{UP},{} not necessarily into irreducibles.")
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator2| |#2| (|Fraction| |#2|))
+    (|Mapping| (|List| |#1|) |#2|))
+   "\\spad{ricDsolve(op,{} zeros)} returns the rational solutions of the associated Riccati equation of \\spad{op y = 0}. \\spad{zeros} is a zero finder in \\spad{UP}.")
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+    (|Mapping| (|List| |#1|) |#2|) (|Mapping| (|Factored| |#2|) |#2|))
+   "\\spad{ricDsolve(op,{} zeros,{} ezfactor)} returns the rational solutions of the associated Riccati equation of \\spad{op y = 0}. \\spad{zeros} is a zero finder in \\spad{UP}. Argument \\spad{ezfactor} is a factorisation in \\spad{UP},{} not necessarily into irreducibles.")
+  (((|List| (|Fraction| |#2|))
+    (|LinearOrdinaryDifferentialOperator1| (|Fraction| |#2|))
+    (|Mapping| (|List| |#1|) |#2|))
+   "\\spad{ricDsolve(op,{} zeros)} returns the rational solutions of the associated Riccati equation of \\spad{op y = 0}. \\spad{zeros} is a zero finder in \\spad{UP}.")))
+(("documentation" 0 12954) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 12945) ("predicates" 0 12892) ("superDomain" 0 NIL)
+ ("operationAlist" 0 10771) ("modemaps" 0 4725) ("sourceFile" 0 4685)
+ ("constructorCategory" 0 2590) ("constructorModemap" 0 53)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

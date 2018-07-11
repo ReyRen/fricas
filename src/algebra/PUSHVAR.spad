@@ -1,0 +1,93 @@
+)abbrev package PUSHVAR PushVariables
+++ This package \undocumented{}
+PushVariables(R, E, OV, PPR) : C == T where
+   E : OrderedAbelianMonoidSup
+   OV : OrderedSet with
+        convert : % -> Symbol
+          ++ convert(x) converts x to a symbol
+        variable : Symbol -> Union(%, "failed")
+          ++ variable(s) makes an element from symbol s or fails
+   R  : Ring
+   PR ==> Polynomial R
+   PPR : PolynomialCategory(PR, E, OV)
+   SUP ==> SparseUnivariatePolynomial
+   C == with
+     pushdown : (PPR, OV) -> PPR
+        ++ pushdown(p, v) \undocumented{}
+     pushdown : (PPR, List OV) -> PPR
+        ++ pushdown(p, lv) \undocumented{}
+     pushup   : (PPR, OV) -> PPR
+        ++ pushup(p, v) \undocumented{}
+     pushup   : (PPR, List OV) -> PPR
+        ++ pushup(p, lv) \undocumented{}
+     map      : ((PR -> PPR), PPR) -> PPR
+        ++ map(f, p) \undocumented{}
+
+   T == add
+     pushdown(g : PPR, x : OV) : PPR ==
+       eval(g, x, monomial(1, convert x, 1)$PR)
+
+     pushdown(g : PPR, lv : List OV) : PPR ==
+       vals := [monomial(1, convert x, 1)$PR for x in lv]
+       eval(g, lv, vals)
+
+     map(f : (PR -> PPR), p : PPR) : PPR ==
+       ground? p => f(retract p)
+       v := mainVariable(p)::OV
+       multivariate(map((x : PPR) : PPR +-> map(f, x), univariate(p, v)), v)
+
+               ----  push back the variable  ----
+     pushupCoef(c : PR, lv : List OV) : PPR ==
+       ground? c => c::PPR
+       v := mainVariable(c)::Symbol
+       v2 := variable(v)$OV
+       uc := univariate(c, v)
+       ppr : PPR := 0
+       v2 case OV =>
+          while not zero? uc repeat
+             ppr := ppr + monomial(1, v2, degree(uc))$PPR *
+                            pushupCoef(leadingCoefficient uc, lv)
+             uc := reductum uc
+          ppr
+       while not zero? uc repeat
+          ppr := ppr + monomial(1, v, degree(uc))$PR *
+                            pushupCoef(leadingCoefficient uc, lv)
+          uc := reductum uc
+       ppr
+
+     pushup(f : PPR, x : OV) : PPR ==
+       map(y +-> pushupCoef(y, [x]), f)
+
+     pushup(g : PPR, lv : List OV) : PPR ==
+       map(y +-> pushupCoef(y, lv), g)
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

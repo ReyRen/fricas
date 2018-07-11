@@ -1,0 +1,356 @@
+)abbrev domain LATMOFJ LatticeMeetOfJoins
+++ Author: Martin Baker
+++ Date Created: Sept 2015
+++ Basic Operations:
+++ Related Constructors: LatticeJoinOfMeets is complementry domain
+++ Keywords: Logic Lattice Meet Join
+++ Description: Infinite Lattice which is distributive.
+++   Representation held as meet of joins.
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+
+LatticeMeetOfJoins() : Exports == Implementation where
+
+ NNI ==> NonNegativeInteger
+ PR ==> Record(rft : %, pout : NNI)
+   ++ parse result includes term returned and new index
+ ELEMENT ==> Union(_
+               const : Record(val : Symbol), _
+               var : Record(str : String) _
+               )
+
+ Exports == BoundedDistributiveLattice with
+   logicT : () -> %
+     ++ construct true: a logical constant.
+   logicF : () -> %
+     ++ construct false (contradiction): a logical constant.
+   variable : (v : String) -> %
+     ++ construct a variable
+   latticeMeetOfJoins : (e : ELEMENT) -> %
+     ++ construct a lattice with one element
+   emptyLattice : () -> %
+     ++ construct an empty lattice
+   empty? : (n : %) -> Boolean
+     ++ true if empty
+   meet : (ln : List %) -> %
+     ++ meet of set of elements
+   join : (ln : List %) -> %
+     ++ join of set of elements
+   redux : (n : %) -> %
+     ++ attempt to simplify terms
+   factor : (n : %) -> List %
+     ++ splits n into a list of factors which must be true for the
+     ++ whole to be true.
+     ++ This assumes that the top level is already a set of factors
+     ++ separated by /\ otherwise the result will just be a list with
+     ++ one entry: 'n'.
+     ++ This is used when converting ILogic to types by using the
+     ++ Curry-Howard isomorphism.
+   deductions : (ln : List %) -> List %
+     ++ assumes ln contains a list of factors which must be true for
+     ++ the whole to be true (such as the list produced by factor).
+     ++ From this deductions attempts to produce a list of other
+     ++ proposition that must also be true by using modus ponens.
+     ++ This is used to determine the returned type when converting
+     ++ ILogic to types by using the Curry-Howard isomorphism.
+   "=" : (a : %, b : %) -> Boolean
+     ++ returns true (boolean true) if intuitionisticLogic values
+     ++ are the same.
+     ++ Translates from Intuitionistic Logic to Boolean Logic
+   opType : (n : %) -> Symbol
+     ++ if this is a compound op then opType returns the type of
+     ++ that op:
+     ++ "IMPLY"::Symbol =implies
+     ++ "AND"::Symbol=/\
+     ++ "OR"::Symbol=\/
+     ++ "NOT"::Symbol=~
+     ++ "OTHER"::Symbol=not compound op
+   getChildren : (n : %) -> List %
+     ++ returns child nodes if this is a compound term
+     ++ otherwise returns []
+   atom? : (n : %) -> Boolean
+     ++ returns true if this is an atom, that is a leaf node
+     ++ otherwise return false if this is a compound term
+   value : (n : %) -> Symbol
+     ++ returns:
+     ++   "T"::Symbol = T
+     ++   "F"::Symbol = _|_
+     ++   "E"::Symbol = error
+     ++   "P"::Symbol = proposition
+     ++   "C"::Symbol = compound
+     ++ Constructs lambda term and bind any variables with the name provided
+   toString : (n : %) -> String
+     ++ creates a string representation of this term and its sub-terms
+   toStringUnwrapped : (n : %) -> String
+     ++ similar to 'toString' but does not put outer compound terms
+     ++ in brackets
+
+ Implementation == add
+
+   Rep := List(List(ELEMENT))
+      ++ This domain is a distributive lattice, this allows us to
+      ++ represent the lattice as a meet of joins.
+      ++ So the inner list is a list of elements which are joined,
+      ++ the outer list represents a meet of these joins.
+      ++ The elements of this structure are constants or variables:
+      ++ 1) const: Record(val: Symbol)
+      ++   holds the true and false values:
+      ++   "T"::Symbol = T
+      ++   "F"::Symbol = _|_
+      ++
+      ++ 2) var: Record(str: String)
+      ++   holds a proposition name
+
+   -- Constructs a proposition
+   proposition(s : String) : % == [[[[s]]]]
+
+   -- literal constructors
+   logicT() == [[[["T"::Symbol]]]]
+   logicF() == [[[["F"::Symbol]]]]
+
+   -- construct a variable
+   variable(v : String) : % == [[[[v]]]]
+
+   -- construct a lattice with one element
+   latticeMeetOfJoins(e : ELEMENT) : % ==
+       [[e]]
+
+   emptyLattice() == []$List(List(ELEMENT))
+
+   -- true if empty
+   empty?(n : %) : Boolean ==
+       empty?(n)$Rep
+
+   -- /\ returns the logical 'meet', e.g. 'and'.
+   --
+   -- simplification rules:
+   -- idempotenceMeet for all x: x /\ x -> x ()
+   -- idempotenceJoin for all x: x \/ x -> x
+   -- absorptionMeetOverJoin for all(x, y): x/\(x\/y)=x
+   -- absorptionJoinOverMeet for all(x, y): x\/(x/\y)=x
+   --
+   _/_\(a : %, b : %) ==
+       if empty?(a) then return b
+       if empty?(b) then return a
+       redux(concat(a pretend Rep, b pretend Rep)$List(List(ELEMENT)))
+
+   -- \/ returns the logical 'join', e.g. 'or'.
+   --
+   -- simplification rules:
+   -- idempotenceMeet for all x: x /\ x -> x ()
+   -- idempotenceJoin for all x: x \/ x -> x
+   -- absorptionMeetOverJoin for all(x, y): x/\(x\/y)=x
+   -- absorptionJoinOverMeet for all(x, y): x\/(x/\y)=x
+   --
+   _\_/(a : %, b : %) ==
+       if empty?(a) then return b
+       if empty?(b) then return a
+       r : List(List(ELEMENT)) := []
+       for innera in a repeat
+           for innerb in b repeat
+               termLeft : List(ELEMENT) := innera
+               termRight : List(ELEMENT) := innerb
+               term := concat(termLeft, termRight)$List(ELEMENT)
+               r := concat(r, term)$List(List(ELEMENT))
+       redux(r)
+
+   meet(ln : List %) : % ==
+       r : % := emptyLattice()
+       for ele in ln repeat
+           r := _/_\(r, ele)
+       r
+
+   join(ln : List %) : % ==
+      r : % := emptyLattice()
+      for ele in ln repeat
+          r := _\_/(r, ele)
+      r
+
+   -- local function used by removeDuplicatesInTerm which is used by
+   -- redux to remove duplicates.
+   -- Returns true if elements are equal.
+   equalElements(a : ELEMENT, b : ELEMENT) : Boolean ==
+       if (a case var) and (a case var) then
+           return (a.var.str) = (b.var.str)
+       if (a case const)  and (b case const) then
+           return (a.const.val) = (b.const.val)
+       false
+
+   -- local function used by redux to remove duplicates, that is
+   -- apply idempotence. We cannot use the removeDuplicates in List
+   -- because ELEMENT does not have ATFINAG or BASTYPE.
+   removeDuplicatesInTerm(n : List(ELEMENT)) : List(ELEMENT) ==
+       r : List(ELEMENT) := []$List(ELEMENT)
+       for e1 in n for ne1 in 1..#n repeat
+           match : Boolean := false
+           for e2 in n for ne2 in 1..#n repeat
+               if e1 = e2 and ne1 < ne2 then match := true
+           if not match then r := concat(r, e1)
+       r
+
+   -- local function used by redux to remove duplicate lists.
+   -- Returns true if lists are equal, that is contain the same elements
+   -- (independant of order).
+   equalTerms(a : List(ELEMENT), b : List(ELEMENT)) : Boolean ==
+       if #a ~= #b then return false
+       for a1 in a repeat
+           found : Boolean := false
+           for b1 in b repeat
+               if equalElements(a1, b1) then found := true
+           if not found then return false
+       true
+
+   -- local function used by redux to apply absorption.
+   -- Returns true if a is a sub-term of b.
+   subTerm(a : List(ELEMENT), b : List(ELEMENT)) : Boolean ==
+       if #a >= #b then return false
+       for a1 in a repeat
+           found : Boolean := false
+           for b1 in b repeat
+               if equalElements(a1, b1) then found := true
+           if not found then return false
+       true
+
+   -- Attempt to simplify terms
+   --
+   -- simplification rules:
+   -- idempotenceMeet for all x: x /\ x -> x ()
+   -- idempotenceJoin for all x: x \/ x -> x
+   -- absorptionMeetOverJoin for all(x, y): x/\(x\/y)=x
+   -- absorptionJoinOverMeet for all(x, y): x\/(x/\y)=x
+   --
+   -- TODO add rules for top and bottom
+   --
+   redux(n : %) : % ==
+       r : List(List(ELEMENT)) := []$List(List(ELEMENT))
+       -- 'modified' set to true if this call of redux has made a reduction
+       modified : Boolean := false
+       for outer in n for outern in 1..#n repeat
+           -- check for idempotence
+           newinnerList : List(ELEMENT) := removeDuplicatesInTerm(outer)
+           if not equalTerms(newinnerList, outer) then modified := true
+           match : Boolean := false
+           for inner in n for innern in 1..#n repeat
+               if equalTerms(inner, outer) and innern < outern then
+                   match := true
+           -- check for absorption
+           isSubTerm : Boolean := false
+           for inner in n repeat
+               if subTerm(inner, outer) then isSubTerm := true
+           if (not match) and (not isSubTerm)
+               then r := concat(r, newinnerList)$List(List(ELEMENT))
+               else modified := true
+       -- print("LatticeMeetOfJoins.redux"::Symbol << n << _
+       --       ", "::Symbol << (r pretend %) << " mod="::Symbol << modified)
+       -- apply until no more changes
+       if modified then redux(r) else r
+
+   -- splits n into a list of factors which must be true for the
+   -- whole to be true.
+   -- This assumes that the top level is already a set of factors
+   -- separated by /\ otherwise the result will just be a list with
+   -- one entry: 'n'.
+   -- This is used when converting ILogic to types by using the
+   -- Curry-Howard isomorphism.
+   factor(n : %) : List % ==
+       [n]
+
+   -- remove duplicates. Return elements of 'b' except those that are
+   -- in 'a'
+   -- I would use duplicate removal built into List but that only
+   -- works when the list is defined over SETCAT
+   removeDup(a : List %, b : List %) : List % ==
+       a
+
+   -- assumes ln contains a list of factors which must be true for
+   -- the whole to be true (such as the list produced by factor).
+   -- From this deductions attempts to produce a list of other
+   -- proposition that must also be true by using modus ponens.
+   -- This is used to determine the returned type when converting
+   -- ILogic to types by using the Curry-Howard isomorphism.
+   deductions(ln : List %) : List % ==
+       ln
+
+   -- if this is a compound op then opType returns the type of that op:
+   -- "IMPLY"::Symbol =implies
+   -- "AND"::Symbol=/\
+   -- "OR"::Symbol=\/
+   -- "NOT"::Symbol=~
+   -- "OTHER"::Symbol=not compound op
+   opType(n : %) : Symbol ==
+       "OTHER"::Symbol
+
+   -- returns true if this is an atom, that is a leaf node
+   -- otherwise return false if this is a compound term
+   atom?(n : %) : Boolean == false
+
+   -- returns:
+   --   "F"::Symbol = _|_
+   --   "T"::Symbol = T
+   --   "E"::Symbol = error
+   --   "P"::Symbol = proposition
+   --   "C"::Symbol = compound
+   value(n : %) : Symbol ==
+       "C"::Symbol
+
+   -- returns child nodes if this is a compound term
+   -- otherwise returns []
+   getChildren(n : %) : List % ==
+       [n]
+
+   -- returns true (boolean true) if values
+   -- are the same. The terms must match exactly not just be
+   -- equivalent, that is x /\ 1 is not equal to x
+   -- Translates from Intuitionistic Logic to Boolean Logic
+   a = b ==
+       false
+
+   -- return string representation
+   toString(n : %) : String ==
+       concat ["(", toStringUnwrapped(n), ")"]
+
+   -- local function used by coerce to String
+   -- convert variable or literal to String
+   stringVarOrLit(a : Union(const : Record(val : Symbol),
+                  var : Record(str : String))) : String ==
+        if (a case var) then return (a.var.str)::String
+        if (a case const) then
+            if (a.const.val) = "T"::Symbol then return "T"
+            return "F"
+        "error"
+
+   -- similar to 'toString' but does not put outer compound terms
+   -- in brackets
+   toStringUnwrapped(n : %) : String ==
+       outerList : List String := []
+       r : String := ""
+       for outer in n for outern in 1..#n repeat
+           innerList : List String := []
+           for inner in outer for innern in (1..#outer) repeat
+               r := concat(r::String, stringVarOrLit(inner))
+               if innern ~= #outer then r := concat(r::String, "_\_/"::String)
+           if outern ~= #n then r := concat(r::String, ")_/_\("::String)
+       r
+
+   -- local function used by coerce to OutputForm
+   -- convert variable or literal to OutputForm
+   outputVarOrLit(a : Union(const : Record(val : Symbol),
+                  var : Record(str : String))) : OutputForm ==
+        if (a case var) then return (a.var.str)::OutputForm
+        if (a case const) then return (a.const.val)::OutputForm
+        error "outputVarOrLit"
+
+   -- output
+   coerce(n : %) : OutputForm ==
+       outerList : List OutputForm := []
+       r : OutputForm := message("(")
+       for outer in n for outern in 1..#n repeat
+           innerList : List OutputForm := []
+           for inner in outer for innern in (1..#outer) repeat
+               r := hconcat(r::OutputForm, outputVarOrLit(inner))
+               if innern ~= #outer then
+                   r := hconcat(r::OutputForm, message("_\_/"))
+           if outern ~= #n then
+               r := hconcat(r::OutputForm, message(")_/_\("))
+       hconcat(r, message(")"))::OutputForm
+

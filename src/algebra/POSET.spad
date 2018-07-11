@@ -1,0 +1,842 @@
+)abbrev category POSET Poset
+++ Author: Martin Baker
+++ Description: holds a complete set together with a structure to codify
+++   the partial order.
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+++ Date Created: Aug 2015
+++ Basic Operations:
+++ Related packages: UserDefinedPartialOrdering in setorder.spad
+++ Related categories: PartialOrder in catdef.spad
+++ Related Domains: DirectedGraph in graph.spad
+++ Also See:
+++ AMS Classifications:
+++ Keywords: poset partial order
+++ Examples: power set structure
+++ References:
+++ Axiom: reflexivity forall(x): x<=x
+++ Axiom: antisymmetry forall(x, y): x<=y and y<=x iff x=y
+++ Axiom: transitivity forall(x, y, z): x<=y and y<=z implies x<=z
+Poset(S) : Category == Definition where
+ S : SetCategory
+ PI ==> PositiveInteger
+ NNI ==> NonNegativeInteger
+ SINT ==> SingleInteger
+ OBJT ==> Record(value : S, posX : NNI, posY : NNI)
+ ARROW ==> Record(name : String, arrType : NNI, fromOb : NNI,
+           toOb : NNI, xOffset : Integer, yOffset : Integer, map : List NNI)
+ x<<y ==> hconcat(x::OutputForm, y::OutputForm)
+
+ Definition ==> Preorder(S) with
+
+     finitePoset : (carrier : List S, struct1 : List List Boolean) -> %
+       ++ constructor where the set and structure is supplied.
+
+     finitePoset : (carrier : List S, pred : ((S, S) -> Boolean)) -> %
+       ++ constructor where the set and structure is supplied.
+       ++ The structure is supplied as a predicate function.
+
+     getVert : (s : %) -> List S
+       ++ getVert(s) returns a list of all the vertices (or objects)
+       ++ of the graph s.
+       ++ Note: different from getVertices(s) which is inherited
+       ++ from FiniteGraph(S)
+     getArr : (s : %) -> List List Boolean
+       ++ getArr(s) returns a list of all the arrows (or edges)
+       ++ Note: different from getArrows(s) which is inherited from
+       ++ FiniteGraph(S)
+
+     setVert : (s : %, v : List S) -> Void
+       ++ sets the list of all vertices (or objects)
+
+     setArr : (s : %, v : List List Boolean) -> Void
+       ++ sets the list of all arrows (or edges)
+
+     addObject! : (s : %, n : S) -> %
+       ++ addObject!(s, n) adds object with coordinates n to the
+       ++ graph s.
+       ++ This is done in a non-mutable way, that is, the original
+       ++ poset is not changed instead a new one is constructed.
+     addArrow! : (s : %, n1 : NNI, n2 : NNI) -> %
+       ++ addArrow!(s, nm, n1, n2) adds an arrow to the graph s, where:
+       ++ n1 is the index of the start object
+       ++ n2 is the index of the end object
+       ++ This is done in a non-mutable way, that is, the original
+       ++ poset is not changed instead a new one is constructed.
+
+     opposite : (s : %) -> %
+       ++ constructs the opposite in the category theory sense of reversing
+       ++ all the arrows
+
+     powerSetStructure : (objs : S) -> %
+       ++ powerSetStructure(set) is a constructor for a Poset
+       ++ where each element is a set (implemented as a list)
+       ++ and with a subset structure.
+       ++ requires S to be a list.
+
+     implies : (s : %, NNI, NNI) -> Boolean
+
+     meetIfCan : (s : %, a : NNI, b : NNI) -> Union(NNI, "failed")
+       ++ returns the meet of 'a' and 'b'
+       ++ In this version of meet nodes are represented as index values.
+       ++ In the general case, not every poset will have a meet in which case
+       ++ "failed" will be returned as an error indication.
+
+     joinIfCan : (s : %, a : NNI, b : NNI) -> Union(NNI, "failed")
+       ++ returns the join of 'a' and 'b'
+       ++ In this version of join nodes are represented as index values.
+       ++ In the general case, not every poset will have a join in which case
+       ++ "failed" will be returned as an error indication.
+
+     meetIfCan : (s : %, elements : List(NNI)) -> Union(NNI, "failed")
+       ++ returns the meet of a subset of lattice given by list of elements
+
+     joinIfCan : (s : %, elements : List(NNI)) -> Union(NNI, "failed")
+       ++ returns the join of a subset of lattice given by list of elements
+
+     glb : (s : %, a : List NNI) -> Union(NNI, "failed")
+       ++ 'greatest lower bound' or 'infimum'
+       ++ In this version of glb nodes are represented as index values.
+       ++ Not every subset of a poset will have a glb in which case
+       ++ "failed" will be returned as an error indication.
+
+     lub : (s : %, a : List NNI) -> Union(NNI, "failed")
+       ++ 'least upper bound' or 'supremum'
+       ++ In this version of lub nodes are represented as index values.
+       ++ Not every subset of a poset will have a lub in which case
+       ++ "failed" will be returned as an error indication.
+
+     upperSet : (s : %) -> %
+       ++ a subset U with the property that, if x is in U and x <= y,
+       ++ then y is in U
+
+     lowerSet : (s : %) -> %
+       ++ a subset U with the property that, if x is in U and x >= y,
+       ++ then y is in U
+
+     indexToObject : (s : %, index : NNI) -> S
+       ++ returns the object at a given index
+
+     objectToIndex : (s : %, obj : S) -> NNI
+       ++ returns the index of a given object
+
+     completeReflexivity : (s : %) -> %
+       ++ Reflexivity requires forall(x): x<=x
+       ++ This function enforces this by making sure that every element has
+       ++ arrow to itself. That is, the leading diagonal is true.
+
+     completeTransitivity : (s : %) -> %
+       ++ Transitivity requires forall(x, y, z): x<=y and y<=z implies x<=z
+       ++ This function enforces this by making sure that the composition
+       ++ of any two arrows is also an arrow.
+
+     isAntisymmetric? : (s : %) -> Boolean
+       ++ Antisymmetric requires forall(x, y): x<=y and y<=x iff x=y
+       ++ Returns true if this is the case for every element.
+
+     isChain? : (s : %) -> Boolean
+       ++ is a subset of a partially ordered set such that any two elements
+       ++ in the subset are comparable
+
+     isAntiChain? : (s : %) -> Boolean
+       ++ is a subset of a partially ordered set such that any two elements
+       ++ in the subset are incomparable
+
+     moebius : (s : %) -> IncidenceAlgebra(Integer, S)
+       ++ moebius incidence matrix for this poset
+       ++ This function is based on code by Franz Lehner.
+       ++ Notes by Martin Baker on the webpage here:
+       ++ \url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/moebius/}
+
+     zetaMatrix : (s : %) -> IncidenceAlgebra(Integer, S)
+       ++ \spad{zetaMatrix(P)} returns the matrix of the zeta function
+       ++ This function is based on code by Franz Lehner.
+       ++ Notes by Martin Baker on the webpage here:
+       ++ \url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/moebius/}
+
+     coverMatrix : (s : %) -> IncidenceAlgebra(Integer, S)
+       ++ the covering matrix of a list of elements from a comparison function
+       ++ the list is assumed to be topologically sorted, i.e., w.r. to
+       ++ a linear extension of the comparison function f
+       ++ This function is based on code by Franz Lehner.
+       ++ Notes by Martin Baker on the webpage here:
+       ++ \url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/moebius/}
+
+  add
+
+      -- adds an object to this poset
+      addObject!(s : %, n : S) : % ==
+          dim : NNI := #(getVert(s)) + 1
+          obs : List S := concat(getVert(s), n)
+          arrows := []$List(List(Boolean))
+          for a in getArr(s) repeat
+              width : NNI := #a
+              padding : Union(NNI, "failed") := subtractIfCan(dim, width)
+              if padding ~= "failed" then
+                  diff : NNI := padding::NNI
+                  --print(("addObject diff=", string(diff))$String)])
+                  for x in 1..diff repeat
+                      a := concat(a, false)
+              if empty?(arrows)
+                  then arrows := [a]
+                  else arrows := concat(arrows, a)
+          emptyRow : List Boolean := [false for x in 1..dim]
+          arrows := concat(arrows, emptyRow)
+          finitePoset(obs, arrows)
+
+      -- TODO - make this non-mutable
+      -- adds an arrow to this graph, where:
+      -- s is the graph where the arrow is to be added
+      -- n1 is the index of the start object
+      -- n2 is the index of the end object
+      addArrow!(s : %, n1 : NNI, n2 : NNI) : % ==
+          a : List Boolean := qelt(getArr(s), n1)
+          setelt!(a, n2, true)
+          setelt!(getArr(s), n1, a)
+          finitePoset(getVert(s), getArr(s))
+
+      -- local function to test a single value in the arrow matrix
+      isArrow?(arr : List(List(Boolean)), a : NNI, b : NNI) : Boolean ==
+          row : NNI := 1
+          for x in arr repeat
+              if row = a then
+                  val : Boolean := qelt(x, b)
+                  return val
+              row = row + 1
+          false
+
+      le(s : %, a : NNI, b : NNI) : Boolean == isArrow?(getArr(s), a, b)
+
+      -- local function to set a single value in the arrow matrix
+      setArrow!(arr : List(List(Boolean)), a : NNI, b : NNI, c : Boolean
+               ) : Void ==
+          row : NNI := 1
+          for x in arr repeat
+              if row = a then
+                  setelt!(x, b, c)
+                  return void
+              row = row + 1
+          void
+
+      -- start of FiniteGraph implementation
+
+      -- addObject!(s, n) adds object n to the graph s.
+      -- mutable version of addObject.
+      addObject!(s : %, n : S) : % ==
+          dim : NNI := #(getVert(s)) + 1
+          obs : List S := concat(getVert(s), n)
+          arrows := []$List(List(Boolean))
+          for a in getArr(s) repeat
+              width : NNI := #a
+              padding : Union(NNI, "failed") := subtractIfCan(dim, width)
+              if padding ~= "failed" then
+                  diff : NNI := padding::NNI
+                  --print("addObject! diff="::Symbol << string(diff))
+                  for x in 1..diff repeat
+                      a := concat(a, false)
+              if empty?(arrows)
+                  then arrows := [a]
+                  else arrows := concat(arrows, a)
+          emptyRow : List Boolean := [false for x in 1..dim]
+          arrows := concat(arrows, emptyRow)
+          setVert(s, obs)
+          setArr(s, arrows)
+          s
+
+      -- addObject!(s, n) adds object with coordinates n to the
+      -- graph s.
+      addObject!(s : %, n : OBJT) : % ==
+          ob : S := n.value
+          addObject!(s, ob)
+
+      -- addArrow!(s, nm, n1, n2) adds an arrow to the graph s, where:
+      -- nm is the name of the arrow
+      -- n1 is the index of the start object
+      -- n2 is the index of the end object
+      addArrow!(s : %, name : String, n1 : NNI, n2 : NNI) : % ==
+          a : List Boolean := qelt(getArr(s), n1)
+          setelt!(a, n2, true)
+          setelt!(getArr(s), n1, a)
+          finitePoset(getVert(s), getArr(s))
+
+      -- addArrow!(s, nm, n1, n2, mp) adds an arrow to the graph s, where:
+      -- nm is the name of the arrow
+      -- n1 is the index of the start object
+      -- n2 is the index of the end object
+      -- mp is a map represented by this arrow
+      addArrow!(s : %, name : String, n1 : NNI, n2 : NNI, mp : List NNI) : % ==
+          addArrow!(s, name, n1, n2)
+
+      -- getVertices(s) returns a list of all the vertices (or objects)
+      -- of the graph s.
+      getVertices(s : %) : List(OBJT) ==
+          [[x, 0::NNI, 0::NNI] for x in getVert(s)]
+
+      -- getArrows(s) returns a list of all the arrows (or edges)
+      getArrows(s : %) : List(ARROW) ==
+          res : List(ARROW) := []
+          dim : NNI := #getArr(s)
+          for x in 1..dim for row in getArr(s) repeat
+              for y in 1..dim for val in row repeat
+                  if val then
+                      arr : ARROW := ["x", 0::NNI, x pretend NNI,
+                                       y pretend NNI, 0::Integer, 0::Integer,
+                                         []$List(NNI)]
+                      res := concat(res, arr)
+          res
+
+      -- flatten(n) takes a second order graph, we don't really need
+      -- this here so return an empty poset.
+      flatten(n : DirectedGraph(%)) : % ==
+          finitePoset([], [[]$List(Boolean)])
+
+      -- initial constructs a graph without vertices or edges
+      initial() : % ==
+          finitePoset([], []$List(List(Boolean)))
+
+      -- terminal(a) constructs a graph over a with a single vertex
+      -- and a single loop
+      terminal(a : S) : % ==
+          finitePoset([a], [[true]])
+
+      -- cycleOpen(objs, arrowName) constructs a graph with vertices
+      -- (from objs) connected in a cycle but with one gap. The last
+      -- vertex in the sequence loops back to itself so all vertices
+      -- have one outgoing arrow.
+      -- arrowName is a prefix for all arrow names, this will be
+      -- followed by a number starting at 1 and incremented for each
+      -- arrow
+      cycleOpen(objs : List S, arrowName : String) : % ==
+          finitePoset([], [[]$List(Boolean)])
+
+      -- cycleClosed : (objs : List S, arrowName : String) constructs a graph
+      -- with vertices (from objs) connected in a cycle.
+      -- arrowName is a prefix for all arrow names, this will be
+      -- followed by a number starting at 1 and incremented for each
+      -- arrow
+      cycleClosed(objs : List S, arrowName : String) : % ==
+          finitePoset([], [[]$List(Boolean)])
+
+      -- unit(objs, arrowName) constructs a graph with vertices
+      -- (from objs) and arrows from each object to itself.
+      -- arrowName is a prefix for all arrow names, this will be
+      -- followed by a number starting at 1 and incremented for each
+      -- arrow
+      unit(objs : List(S), arrowName : String) : % ==
+          dim : NNI := #objs
+          arrs : List(List(Boolean)) := [[]$List(Boolean)]
+          for x in 1..dim repeat
+              row : List Boolean := []
+              for y in 1..dim repeat
+                  val : Boolean := (x = y)
+                  row := concat(row, val)
+              arrs := concat(arrs, row)
+          finitePoset(objs, arrs)
+
+      -- kgraph(objs, arrowName)
+      -- constructs a graph with vertices (from objs) and fully
+      -- connected arrows, that is, each object has an arrow to
+      -- every other object except itself.
+      -- arrowName is a prefix for all arrow names, this will be
+      -- followed by a number starting at 1 and incremented for each
+      -- arrow
+      kgraph(objs : List S, arrowName : String) : % ==
+          finitePoset([], [[false]])
+
+      -- isDirectSuccessor?(s, a, b) is
+      -- true if 'b' is a direct successor of 'a'
+      -- that is, if there is a direct arrow from 'a' to 'b'
+      isDirectSuccessor?(s : %, a : NNI, b : NNI) : Boolean ==
+          row : List Boolean := qelt(getArr(s), a)
+          qelt(row, b)
+
+      -- isGreaterThan?((s, a, b) is
+      -- true if we can get from vertex 'a' to 'b' through a
+      -- sequence of arrows but we can't go in the opposite
+      -- direction from 'b' to 'a'
+      isGreaterThan?(s : %, a : NNI, b : NNI) : Boolean ==
+          row : List Boolean := qelt(getArr(s), a)
+          qelt(row, b)
+
+      -- max(s) returns index of the vertex which can be reached
+      -- from all other vertices. Gives 0 if no such node exists
+      -- or if it is not unique, if there is a loop for instance.
+      max(s : %) : NNI ==
+          arr : List(NNI) := []
+          index : NNI := 1::NNI
+          for x in getArr(s) repeat
+              arr := concat(arr, index)
+              index := index + 1
+          res : Union(NNI, "failed") := meetIfCan(s, arr)
+          if res = "failed" then return 0::NNI
+          res::NNI
+
+      -- max(s, sub) returns index of the vertex which
+      -- can be reached from a given subset of the vertices. Gives
+      -- 0 if no such node exists or if it is not unique, if there
+      -- is a loop for instance.
+      max(s : %, sub : List NNI) : NNI ==
+          res : Union(NNI, "failed") := meetIfCan(s, sub)
+          if res = "failed" then return 0::NNI
+          res::NNI
+
+      -- min(s) returns index of the vertex which can reach to all
+      -- other vertices. Gives 0 if no such node exists or if it is
+      -- not unique, if there is a loop for instance.
+      min(s : %) : NNI ==
+          arr : List(NNI) := []
+          index : NNI := 1::NNI
+          for x in getArr(s) repeat
+              arr := concat(arr, index)
+              index := index + 1
+          res : Union(NNI, "failed") := joinIfCan(s, arr)
+          if res = "failed" then return 0::NNI
+          res::NNI
+
+      -- min(s, sub) returns index of the vertex which can reach
+      -- to a given subset of the vertices. Gives 0 if no such node
+      -- exists or if it is not unique, if there is a loop for instance.
+      min(s : %, sub : List NNI) : NNI ==
+          res : Union(NNI, "failed") := joinIfCan(s, sub)
+          if res = "failed" then return 0::NNI
+          res::NNI
+
+      -- isFixPoint?(s, a) is
+      -- true if 'a' has an arrow to itself
+      -- should always be true due to reflexivity law
+      isFixPoint?(s : %, a : NNI) : Boolean ==
+          true
+
+      -- arrowName(s, a, b) retrieves
+      -- the name of arrow a->b
+      -- if it does not exist then return "?"
+      arrowName(s : %, a : NNI, b : NNI) : String ==
+          "?"
+
+      -- getArrowIndex(s, a, b) retrieves
+      -- arrow index of the arrow form a to b
+      getArrowIndex(s : %, a : NNI, b : NNI) : NNI ==
+          0::NNI
+
+      -- inDegree(s, a) gives the number of arrows leading in to node
+      -- 'a' in graph 's'
+      inDegree(s : %, a : NNI) : NNI ==
+          0::NNI
+
+      -- outDegree(s, a) gives
+      -- the number of arrows leading out of node 'a' in graph 's'
+      outDegree(s : %, a : NNI) : NNI ==
+          0::NNI
+
+      -- nodeFromNode(s, a) gives list
+      -- of all nodes with a direct arrow leading
+      -- in to node 'a' in graph 's'
+      nodeFromNode(s : %, a : NNI) : List NNI ==
+          [0::NNI]
+
+      -- nodeToNode(s, a) gives list of all nodes with a direct arrow leading
+      -- out of node 'a' in graph 's'
+      nodeToNode(s : %, a : NNI) : List NNI ==
+          [0::NNI]
+
+      -- arrowsFromNode(s, a) gives list of all arrows leading to a given node
+      arrowsFromNode(s : %, a : NNI) : List NNI ==
+          [0::NNI]
+
+      -- arrowsToNode(s, a) gives list of all arrows leading from a given node
+      arrowsToNode(s : %, a : NNI) : List NNI ==
+          [0::NNI]
+
+      -- nodeFromArrow(s, a) returns index of all nodes with a direct
+      -- arrow leading in to arrow 'a' in graph 's'
+      nodeFromArrow(s : %, a : NNI) : List NNI ==
+          [0::NNI]
+
+      -- nodeToArrow(s, a) returns index of all nodes with a direct
+      -- arrow leading out of arrow 'a' in graph 's'
+      nodeToArrow(s : %, a : NNI) : List NNI ==
+          [0::NNI]
+
+      -- index of all arrows leading to a given arrow
+      arrowsFromArrow(s : %, a : NNI) : List NNI ==
+          [0::NNI]
+
+      -- arrowsToArrow : (s : %, a : NNI) returns index of all arrows
+      -- leading from a given arrow
+      arrowsToArrow(s : %, a : NNI) : List NNI ==
+          [0::NNI]
+
+      -- routeNodes(s, a, b) gives the shortest route between
+      -- nodes 'a' and 'b' as a sequence of node indexes.
+      -- [a] if  'a' = 'b'
+      -- [] if it is not possible to go from 'a' to 'b'
+      routeNodes(s : %, a : NNI, b : NNI) : List NNI ==
+          [0::NNI]
+
+      -- routeArrows(s, a, b) gives
+      -- the shortest route between nodes 'a' and 'b' as a
+      -- sequence of arrow indexes.
+      -- [] if  'a' = 'b'
+      -- [0] if it is not possible to go from 'a' to 'b'
+      routeArrows(s : %, a : NNI, b : NNI) : List NNI ==
+          [0::NNI]
+
+      -- distance(s, a, b) gives the shortest distance between
+      -- nodes 'a' and 'b' as a
+      -- number of hops.
+      -- 0 if  'a' = 'b',
+      -- -1 if it is not possible to go from 'a' to 'b'
+      distance(s : %, a : NNI, b : NNI) : Integer ==
+          0::Integer
+
+      -- sum : disjoint union of nodes with arrows from appropriate
+      -- input
+      "+"(a : %, b : %) : % ==
+          a
+
+      -- merge(a, b) returns sum : union (not necessarily disjoint) of
+      -- nodes with arrows merged in from appropriate input, if arrow
+      -- exists from both inputs then it will be duplicated.
+      merge(a : %, b : %) : % ==
+          a
+
+      -- isDirected? is true iff % is domain consisting of directed
+      -- graphs, false for undirected graphs.
+      isDirected?() : Boolean ==
+          true
+
+      -- createWidth(x) can be used by domains which extend graph
+      -- to help in creating coordinates for objects in a graph
+      createWidth(x : NNI) : NNI ==
+          0::NNI
+
+      -- createX(x, n) can be used by domains which extend graph to
+      -- help in creating the x coordinate for objects in a graph
+      createX(x : NNI, n : NNI) : NNI ==
+          0::NNI
+
+      -- createY(x, n) can be used by domains which extend graph to
+      -- help in creating the y coordinate for objects in a graph
+      createY(x : NNI, n : NNI) : NNI ==
+          0::NNI
+
+      -- looseEquals(x, y) is true if x 'equals' y
+      -- this is a looser version of equality test but is not as
+      -- general as isomorphism.
+      -- it only requires the same number of vertices but does not
+      -- require the objects themselves being equal.
+      -- the arrows must be the same, that is it may return false
+      -- if the order of vertices is changed so this is not
+      -- isomorphism test.
+      -- I would like to enhance this code into a true isomorphism test
+      looseEquals(x : %, y : %) : Boolean ==
+          false
+
+      -- map(s, m, newOb, offsetX, offsetY) creates a new graph by
+      -- mapping from this one
+      -- newOb should contain the new list of vertices.
+      -- m should contain a NNI value for each vertex, this is the
+      -- new index into newOb. It is allowed that newOb may contain
+      -- less objects than s (for surjective mapping) or
+      -- more objects than s (for injective mapping)
+      map(s : %, m : List NNI, newOb : List S, offsetX : Integer,
+            offsetY : Integer) : % ==
+          s
+
+      -- mapContra(s, m, newOb, offsetX, offsetY) is similar to map
+      -- function but reverses the directions of the arrows
+      mapContra(s : %, m : List NNI, newOb : List S, offsetX : Integer,
+                offsetY : Integer) : % ==
+          s
+
+      -- end of FiniteGraph implementation
+
+      -- constucts the opposite in the category theory sense of reversing
+      -- all the arrows
+      opposite(s : %) : % ==
+          arr2 : List List Boolean := [[]]
+          for x in getArr(s) repeat
+              row : List Boolean := []
+              for y in x repeat
+                  row := concat(row, false)
+              arr2 := concat(arr2, row)
+          for a in 1..#(getArr(s)) repeat
+              for b in 1..#(getArr(s)) repeat
+                  if isArrow?(getArr(s), a, b) then setArrow!(arr2, b, a, true)
+          finitePoset(getVert(s), arr2)
+
+      implies(s : %, left : NNI, right : NNI) : Boolean ==
+          a : List Boolean := qelt(getArr(s), left)
+          b : Boolean := qelt(a, right)
+          b
+
+      -- returns the join of 'a' and 'b'
+      -- In this version of join nodes are represented as index values.
+      -- In the general case, not every poset will have a join in which case
+      -- 0 will be returned as an error indication.
+      joinIfCan(s : %, a : NNI, b : NNI) : Union(NNI, "failed") ==
+          res : List NNI := []
+          -- flag for each element is true if >= from 'a'
+          flaga : List Boolean := qelt(getArr(s), a)
+          -- list of all element indexes which are >= from 'a'
+          candidatesa : List NNI := []
+          index : NNI := 1
+          for x in flaga repeat
+              if x then candidatesa := concat(candidatesa, index)
+              index := index + 1
+          -- flag for each element is true if >= from 'b'
+          flagb : List Boolean := qelt(getArr(s), b)
+          -- list of all element indexes which are >= from 'a'
+          candidatesb : List NNI := []
+          index := 1
+          for x in flagb repeat
+              if x then candidatesb := concat(candidatesb, index)
+              index := index + 1
+          res := setIntersection(candidatesa, candidatesb)
+          glb(s, res)
+
+      -- returns the meet of 'a' and 'b'
+      -- In this version of meet nodes are represented as index values.
+      -- In the general case, not every poset will have a meet in which case
+      -- 0 will be returned as an error indication.
+      meetIfCan(s : %, a : NNI, b : NNI) : Union(NNI, "failed") ==
+          res : List NNI := []
+          -- flag for each element is true if >= to 'a'
+          flaga : List Boolean := []
+          -- flag for each element is true if >= to 'b'
+          flagb : List Boolean := []
+          for x in getArr(s) repeat
+              flaga := concat(flaga, qelt(x, a)$List(Boolean))$List(Boolean)
+          -- list of all element indexes which are >= than 'a'
+          candidatesa : List NNI := []
+          index : NNI := 1
+          for x in flaga repeat
+              if x then candidatesa := concat(candidatesa, index)
+              index := index + 1
+          for x in getArr(s) repeat
+              flagb := concat(flagb, qelt(x, b)$List(Boolean))$List(Boolean)
+          -- list of all element indexes which are >= than 'b'
+          candidatesb : List NNI := []
+          index := 1
+          for x in flagb repeat
+              if x then candidatesb := concat(candidatesb, index)
+              index := index + 1
+          res := setIntersection(candidatesa, candidatesb)
+          --print("join candidatesa="::Symbol <<
+          --      listToString(candidatesa)$String <<_
+          --"join candidatesb="::Symbol << listToString(candidatesb)$String <<_
+          --"join res="::Symbol << listToString(res)$String))
+          lub(s, res)
+
+      -- returns the meet of a subset of lattice given by list of elements
+      meetIfCan(s : %, elements : List(NNI)) : Union(NNI, "failed") ==
+          res : List NNI := []
+          for e in elements repeat
+              -- flag for each element is true if >= to 'e'
+              flage : List Boolean := []
+              for x in getArr(s) repeat
+                  flage := concat(flage, qelt(x, e)$List(Boolean))$List(Boolean)
+              -- list of all element indexes which are >= than 'e'
+              candidates : List NNI := []
+              index : NNI := 1
+              for x in flage repeat
+                  if x then candidates := concat(candidates, index)
+                  index := index + 1
+          res := setIntersection(res, candidates)
+          --print("join candidates="::Symbol <<
+          --      listToString(candidates)$String <<
+          --"join res="::Symbol <<listToString(res)$String))
+          lub(s, res)
+
+      -- returns the join of a subset of lattice given by list of elements
+      joinIfCan(s : %, elements : List(NNI)) : Union(NNI, "failed") ==
+          res : List NNI := []
+          for e in elements repeat
+              -- flag for each element is true if >= from 'e'
+              flage : List Boolean := qelt(getArr(s), e)
+              -- list of all element indexes which are >= from 'e'
+              candidates : List NNI := []
+              index : NNI := 1
+              for x in flage repeat
+                  if x then candidates := concat(candidates, index)
+                  index := index + 1
+              res := setIntersection(res, candidates)
+          glb(s, res)
+
+      -- 'greatest lower bound' or 'infimum'
+      -- In this version of glb nodes are represented as index values.
+      -- Not every subset of a poset will have a glb in which case
+      -- "failed" will be returned as an error indication.
+      glb(s : %, a : List NNI) : Union(NNI, "failed") ==
+          if empty?(a) then return 0::NNI
+          if #a = 1 then return first(a)
+          resultList : List(NNI) := copy(a)
+          --print("lub res="::Symbol << listToString(resultList)$String)
+          for x in a repeat
+              --print("glb x="::Symbol << string(x)$String)
+              for y in a repeat
+                  --print("glb y="::Symbol << string(y)$String)
+                  if implies(s, x, y) then
+                      if x ~= y then
+                          if entry?(x, resultList) then
+                              --print("glb removing:"::Symbol <<
+                              --      string(y)$String)
+                              resultList := remove(y, resultList)
+                              --print("glb res=::Symbol <<
+                              --      listToString(resultList)$String)
+          if #resultList ~= 1 then return 0::NNI
+          first(resultList)
+
+      -- 'least upper bound' or 'supremum'
+      -- In this version of lub nodes are represented as index values.
+      -- Not every subset of a poset will have a lub in which case
+      -- "failed" will be returned as an error indication.
+      lub(s : %, a : List NNI) : Union(NNI, "failed") ==
+          if empty?(a) then return 0::NNI
+          if #a = 1 then return first(a)
+          resultList : List(NNI) := copy(a)
+          for x in a repeat
+              --print("lub x="::Symbol << string(x))
+              for y in a repeat
+                  --print("lub y="::Symbol << string(y))
+                  if implies(s, x, y) then
+                      if x ~= y then
+                          if entry?(y, resultList) then
+                              --print("lub removing:"::Symbol << string(x))
+                              resultList := remove(x, resultList)
+                              --print("lub res="::Symbol <<
+                              --      listToString(resultList))
+          if #resultList ~= 1 then return 0::NNI
+          first(resultList)
+
+      -- returns the object at a given index
+      indexToObject(s : %, index : NNI) : S ==
+          --print("indexToObject"::Symbol << string(index))
+          qelt(getVert(s), index)
+
+      -- returns the index of a given object
+      objectToIndex(s : %, obj : S) : NNI ==
+          position(obj, getVert(s))$List(S) pretend NNI
+
+      -- Reflexivity requires forall(x): x<=x
+      -- This function enforces this by making sure that every element has
+      -- arrow to itself. That is, the leading diagonal is true.
+      completeReflexivity(s : %) : % ==
+          set2 : List S := getVert(s)
+          struct2 : List(List(Boolean)) := copy(getArr(s))
+          for a in 1..(#set2) repeat
+              setArrow!(struct2, a, a, true)
+          finitePoset(set2, struct2)
+
+      -- Transitivity requires forall(x, y, z): x<=y and y<=z implies x<=z
+      -- This function enforces this by making sure that the composition
+      -- of any two arrows is also an arrow.
+      completeTransitivity(s : %) : % ==
+          set2 : List S := getVert(s)
+          dim : NNI := #set2
+          struct2 : List(List(Boolean)) := copy(getArr(s))
+          for a in 1..dim repeat
+              for b in 1..dim repeat
+                  for c in 1..dim repeat
+                      if isArrow?(struct2, a, b) and isArrow?(struct2, b, c)
+                           and not(isArrow?(struct2, a, c)) then
+                          setArrow!(struct2, a, c, true)
+          finitePoset(set2, struct2)
+
+      -- Antisymmetric requires forall(x, y): x<=y and y<=x iff x=y
+      -- Returns true if this is the case for every element.
+      isAntisymmetric?(s : %) : Boolean ==
+          dim : NNI := #(getVert(s))
+          struct2 : List(List(Boolean)) := copy(getArr(s))
+          for a in 1..dim repeat
+              for b in 1..dim repeat
+                  if isArrow?(struct2, a, b) and isArrow?(struct2, b, a) then
+                      if a ~= b then return false
+          true
+
+      -- \spad{zetaMatrix(P)} returns the matrix of the zeta function
+      -- This function is based on code by Franz Lehner.
+      zetaMatrix(s : %) : IncidenceAlgebra(Integer, S) ==
+          xx : List(S) := getVert(s)
+          arr : List(List(Boolean)) := getArr(s)
+          xxo : List(S) := removeDuplicates topologicalSort(arr, xx
+                                                           )$(ListPackage S)
+          -- convert xxo to indexes
+          xxi : List(NNI) :=
+               [(position(xxoi, xx)$List(S))::NNI for xxoi in xxo]
+          zf : Matrix Integer :=
+              matrix [[(if qelt(qelt(arr, x)$List(List(Boolean)), y
+                               )$List(Boolean) then 1 else 0)
+                         for y in xxi] for x in xxi]
+          incidenceAlgebra(zf, xxo)
+
+      -- moebius incidence matrix for this poset
+      -- This function is based on code by Franz Lehner.
+      -- Notes by Martin Baker on the webpage here:
+      -- \url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/moebius/}
+      moebius(s : %) : IncidenceAlgebra(Integer, S) ==
+          TRIMATI ==> TriangularMatrixOperations(Integer, Vector Integer,
+                                           Vector Integer, Matrix Integer)
+          z : IncidenceAlgebra(Integer, S) := zetaMatrix(s)
+          mf : Matrix(Integer) := UpTriBddDenomInv(matrix(z), 1)$TRIMATI
+          incidenceAlgebra(mf, indices(z))
+
+      -- the covering matrix of a list of elements from a comparison function
+      -- the list is assumed to be topologically sorted (i.e., w.r. to
+      -- a linear extension of the comparison function f
+      -- This function is based on code by Franz Lehner.
+      -- Notes by Martin Baker on the webpage here:
+      -- \url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/moebius/}
+      coverMatrix(s : %) : IncidenceAlgebra(Integer, S) ==
+          z := zetaMatrix(s)
+          zf : Matrix(Integer) := matrix(z)
+          n := nrows zf
+          res : Matrix Integer := zero(n, n)
+          -- we assume that the matrix is upper triangular
+          ni : Integer  := n::Integer
+          for i in 1..ni-1 repeat
+              -- list of elements larger than x_i found so far
+              tabx : List Integer := empty()
+              for j in i+1..ni repeat
+                  if one? zf(i, j) and not(
+                    any?((u : Integer) : Boolean +-> one? zf(u, j), tabx)) then
+                      tabx := cons(j, tabx)
+                      res(i, j) := 1
+          incidenceAlgebra(res, indices(z))
+
+      -- start of SetCategory definitions --
+
+      hash(s : %) : SingleInteger == 0$SingleInteger
+
+      -- returns true if x equals y
+      -- this is equality and not isomorphism
+      -- that is it returns true only if exact index values and names are used
+      -- in addition to the structure(arrows) being the same.
+      _=(x : %, y : %) : Boolean ==
+          if getVert(x) ~= getVert(y) then return false
+          if getArr(x) ~= getArr(y) then return false
+          true
+
+      -- returns true if x is not equal to y
+      _~_=(x : %, y : %) : Boolean == not(x = y)
+
+      -- output
+      coerce(s : %) : OutputForm ==
+          dim : NNI := #(getVert(s))
+          if empty?(getArr(s)) then return bracket(empty()$OutputForm)
+          mat : List List OutputForm := empty()$List(List(OutputForm))
+          for a in getArr(s) repeat
+              row : List OutputForm := empty()$List(OutputForm)
+              if empty?(a)$List(Boolean) then
+                  row := concat(row, bracket(empty()$OutputForm)
+                               )$List(OutputForm)
+              else
+                  for b in a repeat
+                      c : Symbol := if b then 'true else 'false
+                      row := concat(row, outputForm(c)$OutputForm
+                                   )$List(OutputForm)
+              if #row ~= dim then return outputForm("wrong number of cols")
+              mat := concat(mat, row)
+          if #mat ~= dim then return outputForm("wrong number of rows")
+          matrix(mat)
+

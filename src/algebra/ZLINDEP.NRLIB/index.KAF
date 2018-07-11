@@ -1,0 +1,139 @@
+6874                (|IntegerLinearDependence| R)
+|package|
+(((|IntegerLinearDependence| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |linearlyDependentOverZ?| ((|Boolean|) (|Vector| |#1|)))
+   (SIGNATURE |linearDependenceOverZ|
+    ((|Union| (|Vector| (|Integer|)) "failed") (|Vector| |#1|)))
+   (SIGNATURE |particularSolutionOverQ|
+    ((|Union| (|Vector| (|Fraction| (|Integer|))) #1="failed") (|Vector| |#1|)
+     |#1|))
+   (SIGNATURE |particularSolutionOverQ|
+    ((|Union| (|Vector| (|Fraction| (|Integer|))) #1#) (|Matrix| |#1|)
+     (|Vector| |#1|)))
+   (SIGNATURE |solveLinearlyOverQ|
+    ((|Record|
+      (|:| |particular| (|Union| (|Vector| (|Fraction| (|Integer|))) #1#))
+      (|:| |basis| (|List| (|Vector| (|Fraction| (|Integer|))))))
+     (|Vector| |#1|) |#1|))
+   (SIGNATURE |solveLinearlyOverQ|
+    ((|Record|
+      (|:| |particular| (|Union| (|Vector| (|Fraction| (|Integer|))) #1#))
+      (|:| |basis| (|List| (|Vector| (|Fraction| (|Integer|))))))
+     (|Matrix| |#1|) (|Vector| |#1|))))
+  (|LinearlyExplicitOver| (|Integer|)))
+ (T |IntegerLinearDependence|))
+(CATEGORY |package|
+ (SIGNATURE |linearlyDependentOverZ?| ((|Boolean|) (|Vector| |#1|)))
+ (SIGNATURE |linearDependenceOverZ|
+  ((|Union| (|Vector| (|Integer|)) "failed") (|Vector| |#1|)))
+ (SIGNATURE |particularSolutionOverQ|
+  ((|Union| (|Vector| (|Fraction| (|Integer|))) #1="failed") (|Vector| |#1|)
+   |#1|))
+ (SIGNATURE |particularSolutionOverQ|
+  ((|Union| (|Vector| (|Fraction| (|Integer|))) #1#) (|Matrix| |#1|)
+   (|Vector| |#1|)))
+ (SIGNATURE |solveLinearlyOverQ|
+  ((|Record|
+    (|:| |particular| (|Union| (|Vector| (|Fraction| (|Integer|))) #1#))
+    (|:| |basis| (|List| (|Vector| (|Fraction| (|Integer|))))))
+   (|Vector| |#1|) |#1|))
+ (SIGNATURE |solveLinearlyOverQ|
+  ((|Record|
+    (|:| |particular| (|Union| (|Vector| (|Fraction| (|Integer|))) #1#))
+    (|:| |basis| (|List| (|Vector| (|Fraction| (|Integer|))))))
+   (|Matrix| |#1|) (|Vector| |#1|))))
+"/git/fricas/src/algebra/ZLINDEP.spad"
+((|solveLinearlyOverQ| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *5)) (|isDomain| *4 (|Vector| *5))
+       (|ofCategory| *5 (|LinearlyExplicitOver| (|Integer|)))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular|
+                         (|Union| (|Vector| (|Fraction| (|Integer|)))
+                                  #1="failed"))
+                    (|:| |basis|
+                         (|List| (|Vector| (|Fraction| (|Integer|)))))))
+       (|isDomain| *1 (|IntegerLinearDependence| *5))))
+ (|solveLinearlyOverQ| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Vector| *4))
+       (|ofCategory| *4 (|LinearlyExplicitOver| (|Integer|)))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular|
+                         (|Union| (|Vector| (|Fraction| (|Integer|))) #1#))
+                    (|:| |basis|
+                         (|List| (|Vector| (|Fraction| (|Integer|)))))))
+       (|isDomain| *1 (|IntegerLinearDependence| *4))))
+ (|particularSolutionOverQ| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Matrix| *5)) (|isDomain| *4 (|Vector| *5))
+   (|ofCategory| *5 (|LinearlyExplicitOver| (|Integer|)))
+   (|isDomain| *2 (|Vector| (|Fraction| (|Integer|))))
+   (|isDomain| *1 (|IntegerLinearDependence| *5))))
+ (|particularSolutionOverQ| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Vector| *4))
+   (|ofCategory| *4 (|LinearlyExplicitOver| (|Integer|)))
+   (|isDomain| *2 (|Vector| (|Fraction| (|Integer|))))
+   (|isDomain| *1 (|IntegerLinearDependence| *4))))
+ (|linearDependenceOverZ| (*1 *2 *3)
+  (|partial| AND (|isDomain| *3 (|Vector| *4))
+   (|ofCategory| *4 (|LinearlyExplicitOver| (|Integer|)))
+   (|isDomain| *2 (|Vector| (|Integer|)))
+   (|isDomain| *1 (|IntegerLinearDependence| *4))))
+ (|linearlyDependentOverZ?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Vector| *4))
+       (|ofCategory| *4 (|LinearlyExplicitOver| (|Integer|)))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|IntegerLinearDependence| *4)))))
+((|solveLinearlyOverQ|
+  (((|Record|
+     (|:| |particular|
+          (|Union| (|Vector| (|Fraction| (|Integer|))) #1="failed"))
+     (|:| |basis| (|List| (|Vector| (|Fraction| (|Integer|))))))
+    (|Matrix| |#1|) (|Vector| |#1|))
+   25)
+  (((|Record|
+     (|:| |particular| (|Union| (|Vector| (|Fraction| (|Integer|))) #1#))
+     (|:| |basis| (|List| (|Vector| (|Fraction| (|Integer|))))))
+    (|Vector| |#1|) |#1|)
+   23))
+ (|particularSolutionOverQ|
+  (((|Union| (|Vector| (|Fraction| (|Integer|))) #1#) (|Matrix| |#1|)
+    (|Vector| |#1|))
+   20)
+  (((|Union| (|Vector| (|Fraction| (|Integer|))) #1#) (|Vector| |#1|) |#1|)
+   17))
+ (|linearlyDependentOverZ?| (((|Boolean|) (|Vector| |#1|)) 11))
+ (|linearDependenceOverZ|
+  (((|Union| (|Vector| (|Integer|)) "failed") (|Vector| |#1|)) 14)))
+ZLINDEP
+((|constructor| (NIL "Test for linear dependence over the integers."))
+ (|solveLinearlyOverQ|
+  (((|Record|
+     (|:| |particular|
+          (|Union| (|Vector| (|Fraction| (|Integer|))) #1="failed"))
+     (|:| |basis| (|List| (|Vector| (|Fraction| (|Integer|))))))
+    (|Matrix| |#1|) (|Vector| |#1|))
+   "\\spad{solveLinearlyOverQ([v1,{} ...,{} vn],{} u)} returns solution of the system \\spad{c1*v1 + ... + cn*vn = u} and and a basis of the associated homogeneous system \\spad{c1*v1 + ... + cn*vn = 0}")
+  (((|Record|
+     (|:| |particular| (|Union| (|Vector| (|Fraction| (|Integer|))) #1#))
+     (|:| |basis| (|List| (|Vector| (|Fraction| (|Integer|))))))
+    (|Vector| |#1|) |#1|)
+   "\\spad{solveLinearlyOverQ([v1,{} ...,{} vn],{} u)} returns solution of the system \\spad{c1*v1 + ... + cn*vn = u} and and a basis of the associated homogeneous system \\spad{c1*v1 + ... + cn*vn = 0}"))
+ (|particularSolutionOverQ|
+  (((|Union| (|Vector| (|Fraction| (|Integer|))) #1#) (|Matrix| |#1|)
+    (|Vector| |#1|))
+   "\\spad{solveLinearlyOverQ([v1,{} ...,{} vn],{} u)} returns \\spad{[c1,{} ...,{} cn]} such that \\spad{c1*v1 + ... + cn*vn = u},{} \"failed\" if no such rational numbers \\spad{ci}\\spad{'s} exist.")
+  (((|Union| (|Vector| (|Fraction| (|Integer|))) #1#) (|Vector| |#1|) |#1|)
+   "\\spad{particularSolutionOverQ([v1,{} ...,{} vn],{} u)} returns \\spad{[c1,{} ...,{} cn]} such that \\spad{c1*v1 + ... + cn*vn = u},{} \"failed\" if no such rational numbers \\spad{ci}\\spad{'s} exist."))
+ (|linearDependenceOverZ|
+  (((|Union| (|Vector| (|Integer|)) "failed") (|Vector| |#1|))
+   "\\spad{linearlyDependenceOverZ([v1,{} ...,{} vn])} returns \\spad{[c1,{} ...,{} cn]} if \\spad{c1*v1 + ... + cn*vn = 0} and not all the \\spad{ci}\\spad{'s} are 0,{} \"failed\" if the \\spad{vi}\\spad{'s} are linearly independent over the integers."))
+ (|linearlyDependentOverZ?|
+  (((|Boolean|) (|Vector| |#1|))
+   "\\spad{linearlyDependentOverZ?([v1,{} ...,{} vn])} returns \\spad{true} if the \\spad{vi}\\spad{'s} are linearly dependent over the integers,{} \\spad{false} otherwise.")))
+(("documentation" 0 4792) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4784) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3990) ("modemaps" 0 1988) ("sourceFile" 0 1949)
+ ("constructorCategory" 0 1078) ("constructorModemap" 0 60)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

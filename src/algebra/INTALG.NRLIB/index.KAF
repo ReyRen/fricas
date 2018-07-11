@@ -1,0 +1,64 @@
+2853                (|AlgebraicIntegrate| R0 F UP UPUP R)
+|package|
+(((|AlgebraicIntegrate| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package|
+   (SIGNATURE |algintegrate|
+    ((|IntegrationResult| |#5|) |#5| (|Mapping| |#3| |#3|)))
+   (SIGNATURE |palgintegrate|
+    ((|IntegrationResult| |#5|) |#5| (|Mapping| |#3| |#3|))))
+  (|Join| (|GcdDomain|) (|Comparable|) (|RetractableTo| (|Integer|)))
+  (|Join| (|AlgebraicallyClosedField|) (|FunctionSpace| |#1|))
+  (|UnivariatePolynomialCategory| |#2|)
+  (|UnivariatePolynomialCategory| (|Fraction| |#3|))
+  (|FunctionFieldCategory| |#2| |#3| |#4|))
+ (T |AlgebraicIntegrate|))
+(CATEGORY |package|
+ (SIGNATURE |algintegrate|
+  ((|IntegrationResult| |#5|) |#5| (|Mapping| |#3| |#3|)))
+ (SIGNATURE |palgintegrate|
+  ((|IntegrationResult| |#5|) |#5| (|Mapping| |#3| |#3|))))
+"/git/fricas/src/algebra/INTALG.spad"
+((|palgintegrate| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Mapping| *7 *7))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| *6))
+       (|ofCategory| *6
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|FunctionSpace| *5)))
+       (|ofCategory| *5
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|RetractableTo| (|Integer|))))
+       (|ofCategory| *8 (|UnivariatePolynomialCategory| (|Fraction| *7)))
+       (|isDomain| *2 (|IntegrationResult| *3))
+       (|isDomain| *1 (|AlgebraicIntegrate| *5 *6 *7 *8 *3))
+       (|ofCategory| *3 (|FunctionFieldCategory| *6 *7 *8))))
+ (|algintegrate| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Mapping| *7 *7))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| *6))
+       (|ofCategory| *6
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|FunctionSpace| *5)))
+       (|ofCategory| *5
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|RetractableTo| (|Integer|))))
+       (|ofCategory| *8 (|UnivariatePolynomialCategory| (|Fraction| *7)))
+       (|isDomain| *2 (|IntegrationResult| *3))
+       (|isDomain| *1 (|AlgebraicIntegrate| *5 *6 *7 *8 *3))
+       (|ofCategory| *3 (|FunctionFieldCategory| *6 *7 *8)))))
+((|palgintegrate|
+  (((|IntegrationResult| |#5|) |#5| (|Mapping| |#3| |#3|)) 223))
+ (|algintegrate| (((|IntegrationResult| |#5|) |#5| (|Mapping| |#3| |#3|)) 228)))
+INTALG
+((|constructor|
+  (NIL
+   "This package provides functions for integrating a function on an algebraic curve."))
+ (|palgintegrate|
+  (((|IntegrationResult| |#5|) |#5| (|Mapping| |#3| |#3|))
+   "\\spad{palgintegrate(f,{} d)} integrates \\spad{f} with respect to the derivation \\spad{d}. Argument \\spad{f} must be a pure algebraic function."))
+ (|algintegrate|
+  (((|IntegrationResult| |#5|) |#5| (|Mapping| |#3| |#3|))
+   "\\spad{algintegrate(f,{} d)} integrates \\spad{f} with respect to the derivation \\spad{d}.")))
+(("documentation" 0 2334) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2327) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2163) ("modemaps" 0 851) ("sourceFile" 0 813)
+ ("constructorCategory" 0 619) ("constructorModemap" 0 68)
+ ("constructorKind" 0 58) ("constructorForm" 0 20))

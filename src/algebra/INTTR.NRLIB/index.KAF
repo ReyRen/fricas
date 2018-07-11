@@ -1,0 +1,256 @@
+11804               (|TranscendentalIntegration| F UP)
+|package|
+(((|TranscendentalIntegration| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |primintegrate|
+    ((|Record| (|:| |answer| (|IntegrationResult| (|Fraction| |#2|)))
+               (|:| |a0| |#1|))
+     (|Fraction| |#2|) (|Mapping| |#2| |#2|)
+     (|Mapping|
+      (|Record| (|:| |answer| (|Fraction| |#2|))
+                (|:| |logpart| (|Fraction| |#2|))
+                (|:| |ir| (|IntegrationResult| (|Fraction| |#2|))))
+      (|Fraction| |#2|))
+     (|Mapping|
+      (|Union| (|Record| (|:| |ratpart| |#1|) (|:| |coeff| |#1|)) #1="failed")
+      |#1|)))
+   (SIGNATURE |expintegrate|
+    ((|Record| (|:| |answer| (|IntegrationResult| (|Fraction| |#2|)))
+               (|:| |a0| |#1|))
+     (|Fraction| |#2|) (|Mapping| |#2| |#2|)
+     (|Mapping|
+      (|Record| (|:| |answer| (|Fraction| |#2|))
+                (|:| |logpart| (|Fraction| |#2|))
+                (|:| |ir| (|IntegrationResult| (|Fraction| |#2|))))
+      (|Fraction| |#2|))
+     (|Mapping|
+      (|Record| (|:| |ans| |#1|) (|:| |right| |#1|) (|:| |primpart| |#1|)
+                (|:| |sol?| (|Boolean|)))
+      (|Integer|) |#1|)))
+   (SIGNATURE |lambintegrate|
+    ((|Record| (|:| |answer| (|IntegrationResult| (|Fraction| |#2|)))
+               (|:| |a0| (|IntegrationResult| |#1|)))
+     (|Fraction| |#2|) |#1| (|Mapping| |#1| |#1|) (|Mapping| |#2| |#2|)
+     (|Mapping|
+      (|Union| (|Record| (|:| |ratpart| |#1|) (|:| |coeff| |#1|)) #1#) |#1|)
+     (|Mapping| (|IntegrationResult| |#1|) |#1|)))
+   (SIGNATURE |monomialIntegrate|
+    ((|Record| (|:| |ir| (|IntegrationResult| (|Fraction| |#2|)))
+               (|:| |specpart| (|Fraction| |#2|)) (|:| |polypart| |#2|))
+     (|Fraction| |#2|) (|Mapping| |#2| |#2|)))
+   (SIGNATURE |monomialIntPoly|
+    ((|Record| (|:| |answer| |#2|) (|:| |polypart| |#2|)) |#2|
+     (|Mapping| |#2| |#2|))))
+  (|Field|) (|UnivariatePolynomialCategory| |#1|))
+ (T |TranscendentalIntegration|))
+(CATEGORY |package|
+ (SIGNATURE |primintegrate|
+  ((|Record| (|:| |answer| (|IntegrationResult| (|Fraction| |#2|)))
+             (|:| |a0| |#1|))
+   (|Fraction| |#2|) (|Mapping| |#2| |#2|)
+   (|Mapping|
+    (|Record| (|:| |answer| (|Fraction| |#2|))
+              (|:| |logpart| (|Fraction| |#2|))
+              (|:| |ir| (|IntegrationResult| (|Fraction| |#2|))))
+    (|Fraction| |#2|))
+   (|Mapping|
+    (|Union| (|Record| (|:| |ratpart| |#1|) (|:| |coeff| |#1|)) #1="failed")
+    |#1|)))
+ (SIGNATURE |expintegrate|
+  ((|Record| (|:| |answer| (|IntegrationResult| (|Fraction| |#2|)))
+             (|:| |a0| |#1|))
+   (|Fraction| |#2|) (|Mapping| |#2| |#2|)
+   (|Mapping|
+    (|Record| (|:| |answer| (|Fraction| |#2|))
+              (|:| |logpart| (|Fraction| |#2|))
+              (|:| |ir| (|IntegrationResult| (|Fraction| |#2|))))
+    (|Fraction| |#2|))
+   (|Mapping|
+    (|Record| (|:| |ans| |#1|) (|:| |right| |#1|) (|:| |primpart| |#1|)
+              (|:| |sol?| (|Boolean|)))
+    (|Integer|) |#1|)))
+ (SIGNATURE |lambintegrate|
+  ((|Record| (|:| |answer| (|IntegrationResult| (|Fraction| |#2|)))
+             (|:| |a0| (|IntegrationResult| |#1|)))
+   (|Fraction| |#2|) |#1| (|Mapping| |#1| |#1|) (|Mapping| |#2| |#2|)
+   (|Mapping| (|Union| (|Record| (|:| |ratpart| |#1|) (|:| |coeff| |#1|)) #1#)
+              |#1|)
+   (|Mapping| (|IntegrationResult| |#1|) |#1|)))
+ (SIGNATURE |monomialIntegrate|
+  ((|Record| (|:| |ir| (|IntegrationResult| (|Fraction| |#2|)))
+             (|:| |specpart| (|Fraction| |#2|)) (|:| |polypart| |#2|))
+   (|Fraction| |#2|) (|Mapping| |#2| |#2|)))
+ (SIGNATURE |monomialIntPoly|
+  ((|Record| (|:| |answer| |#2|) (|:| |polypart| |#2|)) |#2|
+   (|Mapping| |#2| |#2|))))
+"/git/fricas/src/algebra/INTTR.spad"
+((|monomialIntPoly| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Mapping| *3 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2 (|Record| (|:| |answer| *3) (|:| |polypart| *3)))
+       (|isDomain| *1 (|TranscendentalIntegration| *5 *3))))
+ (|monomialIntegrate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| *6)) (|isDomain| *4 (|Mapping| *6 *6))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2
+                   (|Record| (|:| |ir| (|IntegrationResult| (|Fraction| *6)))
+                             (|:| |specpart| (|Fraction| *6))
+                             (|:| |polypart| *6)))
+       (|isDomain| *1 (|TranscendentalIntegration| *5 *6))))
+ (|lambintegrate| (*1 *2 *3 *4 *5 *6 *7 *8)
+  (AND (|isDomain| *3 (|Fraction| *9)) (|isDomain| *5 (|Mapping| *4 *4))
+       (|isDomain| *6 (|Mapping| *9 *9))
+       (|isDomain| *7
+                   (|Mapping|
+                    (|Union| (|Record| (|:| |ratpart| *4) (|:| |coeff| *4))
+                             #1="failed")
+                    *4))
+       (|isDomain| *8 (|Mapping| (|IntegrationResult| *4) *4))
+       (|ofCategory| *4 (|Field|))
+       (|ofCategory| *9 (|UnivariatePolynomialCategory| *4))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |answer| (|IntegrationResult| (|Fraction| *9)))
+                    (|:| |a0| (|IntegrationResult| *4))))
+       (|isDomain| *1 (|TranscendentalIntegration| *4 *9))))
+ (|expintegrate| (*1 *2 *3 *4 *5 *6)
+  (AND (|isDomain| *4 (|Mapping| *8 *8))
+       (|isDomain| *5
+                   (|Mapping|
+                    (|Record| (|:| |answer| (|Fraction| *8))
+                              (|:| |logpart| (|Fraction| *8))
+                              (|:| |ir| (|IntegrationResult| (|Fraction| *8))))
+                    (|Fraction| *8)))
+       (|isDomain| *6
+                   (|Mapping|
+                    (|Record| (|:| |ans| *7) (|:| |right| *7)
+                              (|:| |primpart| *7) (|:| |sol?| (|Boolean|)))
+                    (|Integer|) *7))
+       (|ofCategory| *7 (|Field|))
+       (|ofCategory| *8 (|UnivariatePolynomialCategory| *7))
+       (|isDomain| *3 (|Fraction| *8))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |answer| (|IntegrationResult| (|Fraction| *8)))
+                    (|:| |a0| *7)))
+       (|isDomain| *1 (|TranscendentalIntegration| *7 *8))))
+ (|primintegrate| (*1 *2 *3 *4 *5 *6)
+  (AND (|isDomain| *4 (|Mapping| *8 *8))
+       (|isDomain| *5
+                   (|Mapping|
+                    (|Record| (|:| |answer| (|Fraction| *8))
+                              (|:| |logpart| (|Fraction| *8))
+                              (|:| |ir| (|IntegrationResult| (|Fraction| *8))))
+                    (|Fraction| *8)))
+       (|isDomain| *6
+                   (|Mapping|
+                    (|Union| (|Record| (|:| |ratpart| *7) (|:| |coeff| *7))
+                             #1#)
+                    *7))
+       (|ofCategory| *7 (|Field|))
+       (|ofCategory| *8 (|UnivariatePolynomialCategory| *7))
+       (|isDomain| *3 (|Fraction| *8))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |answer| (|IntegrationResult| (|Fraction| *8)))
+                    (|:| |a0| *7)))
+       (|isDomain| *1 (|TranscendentalIntegration| *7 *8)))))
+((|primintegrate|
+  (((|Record| (|:| |answer| (|IntegrationResult| (|Fraction| |#2|)))
+              (|:| |a0| |#1|))
+    (|Fraction| |#2|) (|Mapping| |#2| |#2|)
+    (|Mapping|
+     (|Record| (|:| |answer| (|Fraction| |#2|))
+               (|:| |logpart| (|Fraction| |#2|))
+               (|:| |ir| (|IntegrationResult| (|Fraction| |#2|))))
+     (|Fraction| |#2|))
+    (|Mapping|
+     (|Union| (|Record| (|:| |ratpart| |#1|) (|:| |coeff| |#1|)) #1="failed")
+     |#1|))
+   113))
+ (|monomialIntegrate|
+  (((|Record| (|:| |ir| (|IntegrationResult| (|Fraction| |#2|)))
+              (|:| |specpart| (|Fraction| |#2|)) (|:| |polypart| |#2|))
+    (|Fraction| |#2|) (|Mapping| |#2| |#2|))
+   85))
+ (|monomialIntPoly|
+  (((|Record| (|:| |answer| |#2|) (|:| |polypart| |#2|)) |#2|
+    (|Mapping| |#2| |#2|))
+   93))
+ (|lambintegrate|
+  (((|Record| (|:| |answer| (|IntegrationResult| (|Fraction| |#2|)))
+              (|:| |a0| (|IntegrationResult| |#1|)))
+    (|Fraction| |#2|) |#1| (|Mapping| |#1| |#1|) (|Mapping| |#2| |#2|)
+    (|Mapping| (|Union| (|Record| (|:| |ratpart| |#1|) (|:| |coeff| |#1|)) #1#)
+               |#1|)
+    (|Mapping| (|IntegrationResult| |#1|) |#1|))
+   132))
+ (|expintegrate|
+  (((|Record| (|:| |answer| (|IntegrationResult| (|Fraction| |#2|)))
+              (|:| |a0| |#1|))
+    (|Fraction| |#2|) (|Mapping| |#2| |#2|)
+    (|Mapping|
+     (|Record| (|:| |answer| (|Fraction| |#2|))
+               (|:| |logpart| (|Fraction| |#2|))
+               (|:| |ir| (|IntegrationResult| (|Fraction| |#2|))))
+     (|Fraction| |#2|))
+    (|Mapping|
+     (|Record| (|:| |ans| |#1|) (|:| |right| |#1|) (|:| |primpart| |#1|)
+               (|:| |sol?| (|Boolean|)))
+     (|Integer|) |#1|))
+   120)))
+INTTR
+((|constructor|
+  (NIL
+   "This package provides functions for the transcendental case of the Risch algorithm."))
+ (|monomialIntPoly|
+  (((|Record| (|:| |answer| |#2|) (|:| |polypart| |#2|)) |#2|
+    (|Mapping| |#2| |#2|))
+   "\\spad{monomialIntPoly(p,{} ')} returns [\\spad{q},{} \\spad{r}] such that \\spad{p = q' + r} and \\spad{degree(r) < degree(t')}. Error if \\spad{degree(t') < 2}."))
+ (|monomialIntegrate|
+  (((|Record| (|:| |ir| (|IntegrationResult| (|Fraction| |#2|)))
+              (|:| |specpart| (|Fraction| |#2|)) (|:| |polypart| |#2|))
+    (|Fraction| |#2|) (|Mapping| |#2| |#2|))
+   "\\spad{monomialIntegrate(f,{} ')} returns \\spad{[ir,{} s,{} p]} such that \\spad{f = ir' + s + p} and all the squarefree factors of the denominator of \\spad{s} are special \\spad{w}.\\spad{r}.\\spad{t} the derivation '."))
+ (|lambintegrate|
+  (((|Record| (|:| |answer| (|IntegrationResult| (|Fraction| |#2|)))
+              (|:| |a0| (|IntegrationResult| |#1|)))
+    (|Fraction| |#2|) |#1| (|Mapping| |#1| |#1|) (|Mapping| |#2| |#2|)
+    (|Mapping|
+     (|Union| (|Record| (|:| |ratpart| |#1|) (|:| |coeff| |#1|)) #1="failed")
+     |#1|)
+    (|Mapping| (|IntegrationResult| |#1|) |#1|))
+   "\\spad{lambintegrate(f,{} dx,{} D1,{} D2,{} extint,{} int)} integrates \\spad{f} in extension by LambertW function. \\spad{dx} is derivative of the argument of LambertW,{} \\spad{D1} is dervative on \\spad{F},{} \\spad{D2} is derivative on UP,{} \\spad{extint} is extended integration function on \\spad{F},{} int is integration function on \\spad{F}."))
+ (|expintegrate|
+  (((|Record| (|:| |answer| (|IntegrationResult| (|Fraction| |#2|)))
+              (|:| |a0| |#1|))
+    (|Fraction| |#2|) (|Mapping| |#2| |#2|)
+    (|Mapping|
+     (|Record| (|:| |answer| (|Fraction| |#2|))
+               (|:| |logpart| (|Fraction| |#2|))
+               (|:| |ir| (|IntegrationResult| (|Fraction| |#2|))))
+     (|Fraction| |#2|))
+    (|Mapping|
+     (|Record| (|:| |ans| |#1|) (|:| |right| |#1|) (|:| |primpart| |#1|)
+               (|:| |sol?| (|Boolean|)))
+     (|Integer|) |#1|))
+   "\\spad{expintegrate(f,{} ',{} foo)} returns \\spad{[g,{} a]} such that \\spad{f = g' + a},{} and \\spad{a = 0} or \\spad{a} has no integral in \\spad{F}; Argument foo is a Risch differential equation solver on \\spad{F}."))
+ (|primintegrate|
+  (((|Record| (|:| |answer| (|IntegrationResult| (|Fraction| |#2|)))
+              (|:| |a0| |#1|))
+    (|Fraction| |#2|) (|Mapping| |#2| |#2|)
+    (|Mapping|
+     (|Record| (|:| |answer| (|Fraction| |#2|))
+               (|:| |logpart| (|Fraction| |#2|))
+               (|:| |ir| (|IntegrationResult| (|Fraction| |#2|))))
+     (|Fraction| |#2|))
+    (|Mapping| (|Union| (|Record| (|:| |ratpart| |#1|) (|:| |coeff| |#1|)) #1#)
+               |#1|))
+   "\\spad{primintegrate(f,{} ',{} foo)} returns \\spad{[g,{} a]} such that \\spad{f = g' + a},{} and \\spad{a = 0} or \\spad{a} has no integral in UP. Argument foo is an extended integration function on \\spad{F}.")))
+(("documentation" 0 8824) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 8818) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 7113) ("modemaps" 0 3705) ("sourceFile" 0 3668)
+ ("constructorCategory" 0 1965) ("constructorModemap" 0 65)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

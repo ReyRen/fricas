@@ -1,0 +1,126 @@
+6208                (|RealClosedField&| S)
+|domain|
+(((|RealClosedField&| |#1|)
+  (CATEGORY |domain| (SIGNATURE |sqrt| (|#1| (|Integer|)))
+   (SIGNATURE |sqrt| (|#1| (|Fraction| (|Integer|))))
+   (SIGNATURE |sqrt| (|#1| |#1| (|PositiveInteger|)))
+   (SIGNATURE |allRootsOf| ((|List| |#1|) (|Polynomial| (|Integer|))))
+   (SIGNATURE |allRootsOf|
+    ((|List| |#1|) (|Polynomial| (|Fraction| (|Integer|)))))
+   (SIGNATURE |allRootsOf| ((|List| |#1|) (|Polynomial| |#1|)))
+   (SIGNATURE |allRootsOf|
+    ((|List| |#1|) (|SparseUnivariatePolynomial| (|Integer|))))
+   (SIGNATURE |allRootsOf|
+    ((|List| |#1|) (|SparseUnivariatePolynomial| (|Fraction| (|Integer|)))))
+   (SIGNATURE |allRootsOf| ((|List| |#1|) (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |rootOf|
+    ((|Union| |#1| "failed") (|SparseUnivariatePolynomial| |#1|)
+     (|PositiveInteger|)))
+   (SIGNATURE |rootOf|
+    ((|Union| |#1| "failed") (|SparseUnivariatePolynomial| |#1|)
+     (|PositiveInteger|) (|OutputForm|)))
+   (SIGNATURE ^ (|#1| |#1| (|Fraction| (|Integer|))))
+   (SIGNATURE |nthRoot| (|#1| |#1| (|Integer|))) (SIGNATURE |sqrt| (|#1| |#1|))
+   (SIGNATURE ^ (|#1| |#1| (|Integer|)))
+   (SIGNATURE |characteristic| ((|NonNegativeInteger|)))
+   (SIGNATURE ^ (|#1| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE ^ (|#1| |#1| (|PositiveInteger|))))
+  (|RealClosedField|))
+ (T |RealClosedField&|))
+(CATEGORY |domain| (SIGNATURE |sqrt| (|#1| (|Integer|)))
+ (SIGNATURE |sqrt| (|#1| (|Fraction| (|Integer|))))
+ (SIGNATURE |sqrt| (|#1| |#1| (|PositiveInteger|)))
+ (SIGNATURE |allRootsOf| ((|List| |#1|) (|Polynomial| (|Integer|))))
+ (SIGNATURE |allRootsOf|
+  ((|List| |#1|) (|Polynomial| (|Fraction| (|Integer|)))))
+ (SIGNATURE |allRootsOf| ((|List| |#1|) (|Polynomial| |#1|)))
+ (SIGNATURE |allRootsOf|
+  ((|List| |#1|) (|SparseUnivariatePolynomial| (|Integer|))))
+ (SIGNATURE |allRootsOf|
+  ((|List| |#1|) (|SparseUnivariatePolynomial| (|Fraction| (|Integer|)))))
+ (SIGNATURE |allRootsOf| ((|List| |#1|) (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |rootOf|
+  ((|Union| |#1| "failed") (|SparseUnivariatePolynomial| |#1|)
+   (|PositiveInteger|)))
+ (SIGNATURE |rootOf|
+  ((|Union| |#1| "failed") (|SparseUnivariatePolynomial| |#1|)
+   (|PositiveInteger|) (|OutputForm|)))
+ (SIGNATURE ^ (|#1| |#1| (|Fraction| (|Integer|))))
+ (SIGNATURE |nthRoot| (|#1| |#1| (|Integer|))) (SIGNATURE |sqrt| (|#1| |#1|))
+ (SIGNATURE ^ (|#1| |#1| (|Integer|)))
+ (SIGNATURE |characteristic| ((|NonNegativeInteger|)))
+ (SIGNATURE ^ (|#1| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE ^ (|#1| |#1| (|PositiveInteger|))))
+"/git/fricas/src/algebra/RCFIELD.spad"
+((|characteristic| (*1 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|RealClosedField&| *3))
+       (|ofCategory| *3 (|RealClosedField|)))))
+((|sqrt| (($ $) 9) (($ $ (|PositiveInteger|)) 44)
+  (($ (|Fraction| (|Integer|))) 12) (($ (|Integer|)) 15))
+ (|rootOf|
+  (((|Union| $ "failed") (|SparseUnivariatePolynomial| $) (|PositiveInteger|)
+    (|OutputForm|))
+   23)
+  (((|Union| $ "failed") (|SparseUnivariatePolynomial| $) (|PositiveInteger|))
+   30))
+ (|nthRoot| (($ $ (|Integer|)) 50))
+ (|characteristic| (((|NonNegativeInteger|)) 17))
+ (|allRootsOf| (((|List| $) (|SparseUnivariatePolynomial| $)) NIL)
+  (((|List| $) (|SparseUnivariatePolynomial| (|Fraction| (|Integer|)))) 55)
+  (((|List| $) (|SparseUnivariatePolynomial| (|Integer|))) 60)
+  (((|List| $) (|Polynomial| $)) 64)
+  (((|List| $) (|Polynomial| (|Fraction| (|Integer|)))) 68)
+  (((|List| $) (|Polynomial| (|Integer|))) 72))
+ (^ (($ $ (|PositiveInteger|)) NIL) (($ $ (|NonNegativeInteger|)) NIL)
+  (($ $ (|Integer|)) NIL) (($ $ (|Fraction| (|Integer|))) 48)))
+RCFIELD-
+((|constructor|
+  (NIL
+   "\\spadtype{RealClosedField} provides common access functions for all real closed fields."))
+ (|approximate|
+  (((|Fraction| (|Integer|)) $ $)
+   "\\spad{approximate(n,{} p)} gives an approximation of \\spad{n} that has precision \\spad{p}"))
+ (|rename|
+  (($ $ (|OutputForm|))
+   "\\spad{rename(x,{} name)} gives a new number that prints as name"))
+ (|rename!|
+  (($ $ (|OutputForm|))
+   "\\spad{rename!(x,{} name)} changes the way \\spad{x} is printed"))
+ (|sqrt| (($ (|Integer|)) "\\spad{sqrt(x)} is \\spad{x ^ (1/2)}")
+  (($ (|Fraction| (|Integer|))) "\\spad{sqrt(x)} is \\spad{x ^ (1/2)}")
+  (($ $) "\\spad{sqrt(x)} is \\spad{x ^ (1/2)}")
+  (($ $ (|PositiveInteger|)) "\\spad{sqrt(x,{} n)} is \\spad{x ^ (1/n)}"))
+ (|allRootsOf|
+  (((|List| $) (|Polynomial| (|Integer|)))
+   "\\spad{allRootsOf(pol)} creates all the roots of \\spad{pol} naming each uniquely")
+  (((|List| $) (|Polynomial| (|Fraction| (|Integer|))))
+   "\\spad{allRootsOf(pol)} creates all the roots of \\spad{pol} naming each uniquely")
+  (((|List| $) (|Polynomial| $))
+   "\\spad{allRootsOf(pol)} creates all the roots of \\spad{pol} naming each uniquely")
+  (((|List| $) (|SparseUnivariatePolynomial| (|Integer|)))
+   "\\spad{allRootsOf(pol)} creates all the roots of \\spad{pol} naming each uniquely")
+  (((|List| $) (|SparseUnivariatePolynomial| (|Fraction| (|Integer|))))
+   "\\spad{allRootsOf(pol)} creates all the roots of \\spad{pol} naming each uniquely")
+  (((|List| $) (|SparseUnivariatePolynomial| $))
+   "\\spad{allRootsOf(pol)} creates all the roots of \\spad{pol} naming each uniquely"))
+ (|rootOf|
+  (((|Union| $ "failed") (|SparseUnivariatePolynomial| $) (|PositiveInteger|))
+   "\\spad{rootOf(pol,{} n)} creates the \\spad{n}th root for the order of \\spad{pol} and gives it unique name")
+  (((|Union| $ "failed") (|SparseUnivariatePolynomial| $) (|PositiveInteger|)
+    (|OutputForm|))
+   "\\spad{rootOf(pol,{} n,{} name)} creates the \\spad{n}th root for the order of \\spad{pol} and names it \\spad{name}"))
+ (|mainValue|
+  (((|Union| (|SparseUnivariatePolynomial| $) "failed") $)
+   "\\spad{mainValue(x)} is the expression of \\spad{x} in terms of \\spad{SparseUnivariatePolynomial(\\%)}"))
+ (|mainDefiningPolynomial|
+  (((|Union| (|SparseUnivariatePolynomial| $) "failed") $)
+   "\\spad{mainDefiningPolynomial(x)} is the defining polynomial for the main algebraic quantity of \\spad{x}"))
+ (|mainForm|
+  (((|Union| (|OutputForm|) "failed") $)
+   "\\spad{mainForm(x)} is the main algebraic quantity name of \\spad{x}")))
+(("documentation" 0 3667) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3658) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2775) ("modemaps" 0 2607) ("sourceFile" 0 2568)
+ ("constructorCategory" 0 1372) ("constructorModemap" 0 52)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

@@ -1,0 +1,98 @@
+4755                (|NumericRealEigenPackage| |Par|)
+|package|
+(((|NumericRealEigenPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |characteristicPolynomial|
+    ((|Polynomial| (|Fraction| (|Integer|)))
+     (|Matrix| (|Fraction| (|Integer|)))))
+   (SIGNATURE |characteristicPolynomial|
+    ((|Polynomial| (|Fraction| (|Integer|)))
+     (|Matrix| (|Fraction| (|Integer|))) (|Symbol|)))
+   (SIGNATURE |realEigenvalues|
+    ((|List| |#1|) (|Matrix| (|Fraction| (|Integer|))) |#1|))
+   (SIGNATURE |realEigenvectors|
+    ((|List|
+      (|Record| (|:| |outval| |#1|) (|:| |outmult| (|Integer|))
+                (|:| |outvect| (|List| (|Matrix| |#1|)))))
+     (|Matrix| (|Fraction| (|Integer|))) |#1|)))
+  (|Join| (|Field|) (|OrderedRing|)))
+ (T |NumericRealEigenPackage|))
+(CATEGORY |package|
+ (SIGNATURE |characteristicPolynomial|
+  ((|Polynomial| (|Fraction| (|Integer|)))
+   (|Matrix| (|Fraction| (|Integer|)))))
+ (SIGNATURE |characteristicPolynomial|
+  ((|Polynomial| (|Fraction| (|Integer|))) (|Matrix| (|Fraction| (|Integer|)))
+   (|Symbol|)))
+ (SIGNATURE |realEigenvalues|
+  ((|List| |#1|) (|Matrix| (|Fraction| (|Integer|))) |#1|))
+ (SIGNATURE |realEigenvectors|
+  ((|List|
+    (|Record| (|:| |outval| |#1|) (|:| |outmult| (|Integer|))
+              (|:| |outvect| (|List| (|Matrix| |#1|)))))
+   (|Matrix| (|Fraction| (|Integer|))) |#1|)))
+"/git/fricas/src/algebra/NREP.spad"
+((|realEigenvectors| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| (|Integer|))))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |outval| *4) (|:| |outmult| (|Integer|))
+                              (|:| |outvect| (|List| (|Matrix| *4))))))
+       (|isDomain| *1 (|NumericRealEigenPackage| *4))
+       (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|)))))
+ (|realEigenvalues| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| (|Integer|))))
+       (|isDomain| *2 (|List| *4))
+       (|isDomain| *1 (|NumericRealEigenPackage| *4))
+       (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|)))))
+ (|characteristicPolynomial| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| (|Integer|))))
+       (|isDomain| *4 (|Symbol|))
+       (|isDomain| *2 (|Polynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|NumericRealEigenPackage| *5))
+       (|ofCategory| *5 (|Join| (|Field|) (|OrderedRing|)))))
+ (|characteristicPolynomial| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| (|Integer|))))
+       (|isDomain| *2 (|Polynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|NumericRealEigenPackage| *4))
+       (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|))))))
+((|realEigenvectors|
+  (((|List|
+     (|Record| (|:| |outval| |#1|) (|:| |outmult| (|Integer|))
+               (|:| |outvect| (|List| (|Matrix| |#1|)))))
+    (|Matrix| (|Fraction| (|Integer|))) |#1|)
+   28))
+ (|realEigenvalues|
+  (((|List| |#1|) (|Matrix| (|Fraction| (|Integer|))) |#1|) 19))
+ (|characteristicPolynomial|
+  (((|Polynomial| (|Fraction| (|Integer|))) (|Matrix| (|Fraction| (|Integer|)))
+    (|Symbol|))
+   16)
+  (((|Polynomial| (|Fraction| (|Integer|)))
+    (|Matrix| (|Fraction| (|Integer|))))
+   15)))
+NREP
+((|constructor|
+  (NIL
+   "This package computes explicitly eigenvalues and eigenvectors of matrices with entries over the Rational Numbers. The results are expressed as floating numbers or as rational numbers depending on the type of the parameter Par."))
+ (|realEigenvectors|
+  (((|List|
+     (|Record| (|:| |outval| |#1|) (|:| |outmult| (|Integer|))
+               (|:| |outvect| (|List| (|Matrix| |#1|)))))
+    (|Matrix| (|Fraction| (|Integer|))) |#1|)
+   "\\spad{realEigenvectors(m,{} eps)} returns a list of records each one containing a real eigenvalue,{} its algebraic multiplicity,{} and a list of associated eigenvectors. All these results are computed to precision eps as floats or rational numbers depending on the type of eps ."))
+ (|realEigenvalues|
+  (((|List| |#1|) (|Matrix| (|Fraction| (|Integer|))) |#1|)
+   "\\spad{realEigenvalues(m,{} eps)} computes the eigenvalues of the matrix \\spad{m} to precision eps. The eigenvalues are expressed as floats or rational numbers depending on the type of eps (float or rational)."))
+ (|characteristicPolynomial|
+  (((|Polynomial| (|Fraction| (|Integer|))) (|Matrix| (|Fraction| (|Integer|)))
+    (|Symbol|))
+   "\\spad{characteristicPolynomial(m,{} x)} returns the characteristic polynomial of the matrix \\spad{m} expressed as polynomial over \\spad{RN} with variable \\spad{x}.")
+  (((|Polynomial| (|Fraction| (|Integer|)))
+    (|Matrix| (|Fraction| (|Integer|))))
+   "\\spad{characteristicPolynomial(m)} returns the characteristic polynomial of the matrix \\spad{m} expressed as polynomial over \\spad{RN} with a new symbol as variable.")))
+(("documentation" 0 3152) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3147) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2628) ("modemaps" 0 1383) ("sourceFile" 0 1347)
+ ("constructorCategory" 0 772) ("constructorModemap" 0 64)
+ ("constructorKind" 0 54) ("constructorForm" 0 20))

@@ -1,0 +1,149 @@
+6934                (|FullPartialFractionExpansion| F UP)
+|domain|
+(((|FullPartialFractionExpansion| |#1| |#2|)
+  (|Join| (|SetCategory|) (|ConvertibleTo| (|Fraction| |#2|))
+          (CATEGORY |domain| (SIGNATURE + ($ |#2| $))
+           (SIGNATURE |fullPartialFraction| ($ (|Fraction| |#2|)))
+           (SIGNATURE |polyPart| (|#2| $))
+           (SIGNATURE |fracPart|
+            ((|List|
+              (|Record| (|:| |exponent| (|NonNegativeInteger|))
+                        (|:| |center| |#2|) (|:| |num| |#2|)))
+             $))
+           (SIGNATURE |construct|
+            ($
+             (|List|
+              (|Record| (|:| |exponent| (|NonNegativeInteger|))
+                        (|:| |center| |#2|) (|:| |num| |#2|)))))
+           (SIGNATURE |differentiate| ($ $)) (SIGNATURE D ($ $))
+           (SIGNATURE |differentiate| ($ $ (|NonNegativeInteger|)))
+           (SIGNATURE D ($ $ (|NonNegativeInteger|)))))
+  (|Join| (|Field|) (|CharacteristicZero|))
+  (|UnivariatePolynomialCategory| |#1|))
+ (T |FullPartialFractionExpansion|))
+(|Join| (|SetCategory|) (|ConvertibleTo| (|Fraction| |#2|))
+        (CATEGORY |domain| (SIGNATURE + ($ |#2| $))
+         (SIGNATURE |fullPartialFraction| ($ (|Fraction| |#2|)))
+         (SIGNATURE |polyPart| (|#2| $))
+         (SIGNATURE |fracPart|
+          ((|List|
+            (|Record| (|:| |exponent| (|NonNegativeInteger|))
+                      (|:| |center| |#2|) (|:| |num| |#2|)))
+           $))
+         (SIGNATURE |construct|
+          ($
+           (|List|
+            (|Record| (|:| |exponent| (|NonNegativeInteger|))
+                      (|:| |center| |#2|) (|:| |num| |#2|)))))
+         (SIGNATURE |differentiate| ($ $)) (SIGNATURE D ($ $))
+         (SIGNATURE |differentiate| ($ $ (|NonNegativeInteger|)))
+         (SIGNATURE D ($ $ (|NonNegativeInteger|)))))
+"/git/fricas/src/algebra/FPARFRAC.spad"
+((+ (*1 *1 *2 *1)
+    (AND (|ofCategory| *3 (|Join| (|Field|) (|CharacteristicZero|)))
+         (|isDomain| *1 (|FullPartialFractionExpansion| *3 *2))
+         (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|fullPartialFraction| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Fraction| *4))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+       (|ofCategory| *3 (|Join| (|Field|) (|CharacteristicZero|)))
+       (|isDomain| *1 (|FullPartialFractionExpansion| *3 *4))))
+ (|polyPart| (*1 *2 *1)
+  (AND (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))
+       (|isDomain| *1 (|FullPartialFractionExpansion| *3 *2))
+       (|ofCategory| *3 (|Join| (|Field|) (|CharacteristicZero|)))))
+ (|fracPart| (*1 *2 *1)
+  (AND (|ofCategory| *3 (|Join| (|Field|) (|CharacteristicZero|)))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |exponent| (|NonNegativeInteger|))
+                              (|:| |center| *4) (|:| |num| *4))))
+       (|isDomain| *1 (|FullPartialFractionExpansion| *3 *4))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))))
+ (|construct| (*1 *1 *2)
+              (AND
+               (|isDomain| *2
+                           (|List|
+                            (|Record| (|:| |exponent| (|NonNegativeInteger|))
+                                      (|:| |center| *4) (|:| |num| *4))))
+               (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+               (|ofCategory| *3 (|Join| (|Field|) (|CharacteristicZero|)))
+               (|isDomain| *1 (|FullPartialFractionExpansion| *3 *4))))
+ (|differentiate| (*1 *1 *1)
+  (AND (|ofCategory| *2 (|Join| (|Field|) (|CharacteristicZero|)))
+       (|isDomain| *1 (|FullPartialFractionExpansion| *2 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *2))))
+ (D (*1 *1 *1)
+  (AND (|ofCategory| *2 (|Join| (|Field|) (|CharacteristicZero|)))
+       (|isDomain| *1 (|FullPartialFractionExpansion| *2 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *2))))
+ (|differentiate| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|ofCategory| *3 (|Join| (|Field|) (|CharacteristicZero|)))
+       (|isDomain| *1 (|FullPartialFractionExpansion| *3 *4))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))))
+ (D (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|ofCategory| *3 (|Join| (|Field|) (|CharacteristicZero|)))
+       (|isDomain| *1 (|FullPartialFractionExpansion| *3 *4))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *3)))))
+((~= (((|Boolean|) $ $) NIL)) (|polyPart| ((|#2| $) 36))
+ (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|fullPartialFraction| (($ (|Fraction| |#2|)) 85))
+ (|fracPart|
+  (((|List|
+     (|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |center| |#2|)
+               (|:| |num| |#2|)))
+    $)
+   37))
+ (|differentiate| (($ $) 32) (($ $ (|NonNegativeInteger|)) 34))
+ (|convert| (((|Fraction| |#2|) $) 46))
+ (|construct|
+  (($
+    (|List|
+     (|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |center| |#2|)
+               (|:| |num| |#2|))))
+   31))
+ (|coerce| (((|OutputForm|) $) 119))
+ (D (($ $) 33) (($ $ (|NonNegativeInteger|)) 35)) (= (((|Boolean|) $ $) NIL))
+ (+ (($ |#2| $) 39)))
+FPARFRAC
+(((|SetCategory|) . T) ((|ConvertibleTo| (|Fraction| |#2|)) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|ConvertibleTo| (|Fraction| |#2|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "\\indented{1}{Full partial fraction expansion of rational functions} Author: Manuel Bronstein Date Created: 9 December 1992 References: \\spad{M}.Bronstein & \\spad{B}.Salvy,{} \\indented{12}{Full Partial Fraction Decomposition of Rational Functions,{}} \\indented{12}{in Proceedings of \\spad{ISSAC'93},{} Kiev,{} ACM Press.}"))
+ (D
+  (($ $ (|NonNegativeInteger|))
+   "\\spad{D(f,{} n)} returns the \\spad{n}-th derivative of \\spad{f}.")
+  (($ $) "\\spad{D(f)} returns the derivative of \\spad{f}."))
+ (|differentiate|
+  (($ $ (|NonNegativeInteger|))
+   "\\spad{differentiate(f,{} n)} returns the \\spad{n}-th derivative of \\spad{f}.")
+  (($ $) "\\spad{differentiate(f)} returns the derivative of \\spad{f}."))
+ (|construct|
+  (($
+    (|List|
+     (|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |center| |#2|)
+               (|:| |num| |#2|))))
+   "\\spad{construct(l)} is the inverse of fracPart."))
+ (|fracPart|
+  (((|List|
+     (|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |center| |#2|)
+               (|:| |num| |#2|)))
+    $)
+   "\\spad{fracPart(f)} returns the list of summands of the fractional part of \\spad{f}."))
+ (|polyPart|
+  ((|#2| $) "\\spad{polyPart(f)} returns the polynomial part of \\spad{f}."))
+ (|fullPartialFraction|
+  (($ (|Fraction| |#2|))
+   "\\spad{fullPartialFraction(f)} returns \\spad{[p,{} [[j,{} Dj,{} Hj]...]]} such that \\spad{f = p(x) + \\sum_{[j,{} Dj,{} Hj] in l} \\sum_{Dj(a)=0} Hj(a)/(x - a)\\^j}."))
+ (+ (($ |#2| $) "\\spad{p + x} returns the sum of \\spad{p} and \\spad{x}")))
+(("documentation" 0 5368) ("ancestors" 0 5244) ("parents" 0 5178)
+ ("abbreviation" 0 5169) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4395) ("modemaps" 0 1864) ("sourceFile" 0 1824)
+ ("constructorCategory" 0 1046) ("constructorModemap" 0 67)
+ ("constructorKind" 0 58) ("constructorForm" 0 20))

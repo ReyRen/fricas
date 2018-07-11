@@ -1,0 +1,542 @@
+)abbrev domain OFACET OrientedFacet
+++ Author: Martin Baker
+++ Description:
+++   A single vertex, edge, triangle...
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/topology/simplex/
+++ Date Created: March 2016
+++ Basic Operations:
+++ Related packages:
+++ Related categories: FacetCategory
+++ Related Domains:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+
+OrientedFacet() : Exports == Impl where
+  NNI==> NonNegativeInteger
+  x<<y ==> hconcat(x::OutputForm, y::OutputForm)
+
+  Exports ==> FacetCategory with
+    orientedFacet : (mul : Integer, fac : List(NNI)) -> %
+      ++ Constructor for oriented facet
+      ++ oriented facet is always stored in vertex order
+      ++ orientation is calculated by the number of edges that have
+      ++ to be flipped to put it in order.
+    orientedFacetUnsigned : (fac : List(Integer)) -> %
+      ++ Constructor for oriented face which removes duplicates
+      ++ and ignores orientation
+    orientedFacetSigned : (fac : List(Integer)) -> %
+      ++ Constructor for oriented face which removes duplicates
+      ++ If the face is positive then we expect the sequence to
+      ++ be: + - + - ...
+    orientedFacet : (mul : Integer, fac : OrientedFacet) -> %
+      ++ Copy constructor which can change mul
+    orientedFacetIfCan : (boundary : List(%)) -> Union(%, "failed")
+      ++ Constructor for oriented face from its boundary.
+      ++ This is like filling-in the boundary, in that sense it
+      ++ is the inverse of 'boundary'.
+      ++ May fail, for instance in 'implied' loops, where both ends
+      ++ of an edge are the same point. Also similar cases for higher
+      ++ order facets.
+    getIndexes : (orf : %) -> List(NNI)
+      ++ returns indexes in face
+    minIndex : (orf : %) -> NNI
+      ++ returns minimum index
+    maxIndex : (orf : %) -> NNI
+      ++ returns maximum index
+    getIndexesSigned : (orf : %) -> List(Integer)
+      ++ returns indexes in face with sign to give orientation
+    setMult! : (orf : %, m : Integer) -> %
+      ++ sets multiplier of face
+    boundary : (orf : %) -> List(%)
+      ++ construct the boundary. This is like hollowing out
+      ++ the facet.
+    allSubsets : (orf : %, minDim : NNI) -> List(%)
+      ++ allSubsets of a given facet
+      ++ returned in reverse order
+      ++ subsets returned are not oriented
+    allSubsets : (orf : %, minDim : NNI, maxDim : NNI) -> List(%)
+      ++ allSubsets of a given length
+      ++ returned in reverse order
+      ++ subsets returned are not oriented
+    isSubsetOf? : (sa : %, sb : %) -> Boolean
+      ++ returns true if face 'a' is contained in face 'b'.
+      ++ true subset only : returns false if a=b
+    position : (e : %, lst : List(%)) -> Integer
+      ++ return index of e in lst. Index will be negative if e has
+      ++ negative multiplier.
+    sameFace? : (a : %, b : %) -> Boolean
+      ++ true if this is the same face although the orientation
+      ++ may be different
+    join : (sa : %, sb : %) -> %
+      ++ used by simplicalJoin. Returns join (union) of 'a' and 'b'.
+      ++ That is: returns a facet containing indexes in both 'a' and 'b'.
+    subtract : (sa : %, sb : %) -> %
+      ++ used by link. Returns face 'a' minus the vertices in face 'b'.
+    reindex : (sa : %) -> %
+      ++ re-index so that indexes start at 1 and are then consecutive.
+    boolWordPermute : (numZeros : NNI, numOnes : NNI)->List(List(Boolean))
+      ++ boolean word permutation
+      ++ find all permutations of numZeros and numOnes
+      ++ used by product to calculate all paths through lattice
+    boolWordPermute : (wordIn : List(List(Boolean)), numZeros : NNI,
+                       numOnes : NNI)->List(List(Boolean))
+      ++ recursive part of boolWordPermute
+    product : (a : %, b : %) -> List(ProductFacet)
+      ++ This function returns the product of two facets.
+      ++ For more detailed explanation of simplex product code see:
+      ++ \url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/simplex/product/}
+      ++ Also see Hatcher [9].
+      ++ page 277 - The simplical cross product.
+      ++ page 278 - The cohomology cross product.
+      ++ Returns list, each entry is a 'lattice path' from (0, 0) to (x, y)
+      ++ where x is number of entries in sa and y is number of entries in sb.
+      -- Calculation of 'lattice paths' is a combinatorics problem so
+      -- perhaps it should really be done by combinatorics code?
+    addVertex : (sa : %, v : NNI) -> %
+      ++ used by cone. Adds a vertex to face.
+    refactorIndexes : (a : %, n : NNI) -> %
+      ++ adds 'n' to each index. Used to refactor simplexes so that
+      ++ they don't overlap.
+
+  Impl ==> add
+
+   -- A facet is a list of indexes (ordered)
+   -- 'mul' encodes the orientation. When we are interpreting this
+   -- as a geometric object it is usually 1 or -1 (to reverse direction).
+   -- When we are interpreting this as a linear algebra object then
+   -- we treat it as an integer.
+   Rep := Record(mul : Integer, fac : List(NNI))
+
+   -- Constructor for oriented facet
+   -- oriented facet is always stored in vertex order
+   -- orientation is calculated by the number of edges that have to be
+   -- flipped to put it in order.
+   orientedFacet(mul1 : Integer, fac1 : List(NNI)) : % ==
+       --print("orientedFacet(" << mul1 << ", " << fac1)
+       mul2 : Integer := mul1
+       fac2 : List(NNI) := sort(fac1)
+       -- diff = number of differences between sorted and unsorted
+       diff : NNI := 0
+       for x in fac1 for y in fac2 repeat
+           if x ~= y then diff := diff + 1
+       -- swapping vertexes cannot change only 1
+       if diff = 1 then error "cant construct orientedFacet"
+       if even?(diff) and diff > 1 then mul2 := -mul2
+       --print("orientedFacet(" << mul1 << ", " << fac1 << _
+       --  ") mul2=" << mul2 << " fac2=" << _
+       --  fac2 << " diff=" << diff)
+       [mul2, fac2]
+
+   -- constructor for oriented face which removes duplicates
+   -- and ignores orientation
+   orientedFacetUnsigned(fac1 : List(Integer)) : % ==
+       lst : List(NNI) := [abs(x)::NNI for x in fac1]
+       lst := removeDuplicates(lst)
+       [1, sort(lst)]
+
+   -- Constructor for oriented face which removes duplicates.
+   -- If the face is positive then we expect the sequence to
+   -- be: + - + - ...
+   orientedFacetSigned(fac1 : List(Integer)) : % ==
+       lst : List(NNI) := [abs(x)::NNI for x in fac1]
+       lst := removeDuplicates(lst)
+       sig : Integer := 1
+       if #fac1 < 1 then error "attempt to construct empty facet"
+       if first(fac1) < 0 then sig := -1
+       [sig, sort(lst)]
+
+   -- Copy constructor which can change mul
+   orientedFacet(mul : Integer, fac1 : OrientedFacet) : % ==
+       [mul, getIndexes(fac1)]
+
+   -- Constructor for oriented face from its boundary.
+   -- This is like filling-in the boundary, in that sense it
+   -- is the inverse of 'boundary'.
+   orientedFacetIfCan(boundary : List(%)) : Union(%, "failed") ==
+       -- print("orientedFacet:" << boundary)
+       indexLst := []$List(List(NNI))
+       multLst := []$List(Integer)
+       if #boundary < 1 then return "failed"
+       b : List(%) := sort(boundary)
+       --print("orientedFacet b=" << b << " boundary="
+       --       << boundary)
+       for subFacet in b repeat
+           indexLst := concat(indexLst, getIndexes(subFacet))
+       --print("orientedFacet indexLst=" << indexLst <<_
+       --      " multLst=" << multLst)
+       indexes := []$List(NNI)
+       for i in indexLst repeat
+           indexes := concat(indexes, i)
+       indexes := removeDuplicates(indexes)
+       indexes := sort(indexes)
+       res := orientedFacet(1, indexes)
+       expected : List(%) := boundary(res)
+       mm := position(first(boundary), expected)
+       if mm < 0 then
+           res := orientedFacet(-1, indexes)
+           expected := boundary(res)
+       -- the remainder of this is to validate that boundary supplied really
+       -- is a boundary for the facet that has been generated
+       for e in expected repeat
+           if (mm := position(e, boundary)) <= 0 then
+               --print(message("orientedFacet:") << e <<
+               --      message(mm = 0 => "not in provided boundary";
+               --       "has opposite orientation"))
+               return "failed"
+       for e in boundary repeat
+           if (mm := position(e, expected)) <= 0 then
+               --print(message("orientedFacet:") << e <<
+               --      message(mm = 0 => "not in constructed boundary";
+               --       "has opposite orientation"))
+               return "failed"
+       res
+
+   -- number of vertices
+   order(f : %) : NNI ==
+       facet : List(NNI) := getIndexes(f)
+       #facet
+
+   -- returns indexes in face
+   getIndexes(orf : %) : List(NNI) ==
+       orf.fac
+
+   -- returns minimum index
+   minIndex(orf : %) : NNI ==
+       m : NNI := 0
+       inds : List(NNI) := getIndexes(orf)
+       for i in inds repeat
+           if m = 0 or i < m then m := i
+       m
+
+   -- returns maximum index
+   maxIndex(orf : %) : NNI ==
+       m : NNI := 0
+       inds : List(NNI) := getIndexes(orf)
+       for i in inds repeat
+           if i > m then m := i
+       m
+
+   -- returns indexes in face with sign to give orientation
+   getIndexesSigned(orf : %) : List(Integer) ==
+       res := []$List(Integer)
+       neg : Boolean := (sign(orf.mul) = -1)
+       for i in orf.fac repeat
+           i2 : Integer := if neg then (-i)::Integer else i::Integer
+           res := concat(res, i2)
+           neg := not neg
+       res
+
+   -- returns multiplier of face
+   getMult(orf : %) : Integer ==
+       orf.mul
+
+   -- sets multiplier of face
+   setMult!(orf : %, m : Integer) : % ==
+       orf.mul := m
+       orf
+
+   -- construct the boundary. This is like hollowing out the facet.
+   boundary(orf : %) : List(%) ==
+       facet : List(NNI) := orf.fac
+       -- reverse outer list to get in numeric order
+       revFacet : List(NNI) := reverse(facet)
+       mult : Integer := orf.mul
+       res := []$List(%)
+       even : Boolean := false
+       for x in revFacet repeat
+           r : List(NNI) := remove(x, facet)
+           m : Integer := if even then -mult else mult
+           even := not even
+           r1 : % := orientedFacet(m, r)
+           res := concat(res, r1)$List(%)
+       res
+
+   -- local function to add if new
+   addIfNew(lst : List(%), orf : %) : List(%) ==
+       -- print("addIfNew(" << lst << ", " << orf <<
+       --       ")")
+       if not empty?(orf) and member?(orf, lst)$List(%) then return lst
+       concat(lst, orf)
+
+   -- local function to add list if new
+   addIfNew2(lst : List(%), orfs : List(%)) : List(%) ==
+       -- print("addIfNew2(" << lst << ", " << orfs <<
+       --       ")")
+       if empty?(orfs) then return lst
+       res : List(%) := copy(lst)
+       for orf in orfs repeat
+           if not empty?(orf) and not member?(orf, res)$List(%) then
+               res := concat(res, orf)
+       --print("addIfNew2(" << lst << ", " << orfs << _
+       --    ") res=" << res)
+       res
+
+   -- allSubsets of given facet
+   -- returned in reverse order
+   -- subsets returned are not oriented
+   allSubsets(orf : %, minDim : NNI) : List(%) ==
+       -- print("allSubsets in (" << orf << ", " <<
+       --       minDim << ")")
+       facet : List(NNI) := orf.fac
+       mult : Integer := orf.mul
+       res := []$List(%)
+       if order(orf) <= minDim then
+           -- print("allSubsets out 1 orf" << orf <<
+           --       " order(orf)=" << order(orf) <<
+           --         " result=" << res)
+           return res
+       for x in facet repeat
+           -- print("allSubsets 2 x=" << x << " in facet="
+           --       << facet)
+           r : List(NNI) := remove(x, facet)
+           r1 : % := orientedFacet(1, r)
+           res := addIfNew(res, r1)
+           -- print("allSubsets 3 order(r1)=" << order(r1) <<
+           --       " minDim=" << minDim)
+           if order(r1) > minDim then
+               sub : List(%) := allSubsets(r1, minDim)
+               if not empty?(sub) then res := addIfNew2(res, sub)
+       -- print("allSubsets out orf=" << orf << " result="
+       --       << res)
+       res
+
+   -- allSubsets of a given length
+   -- returned in reverse order
+   -- subsets returned are not oriented
+   allSubsets(orf : %, minDim : NNI, maxDim : NNI) : List(%) ==
+       --print("allSubsets(" << orf << ", " << _
+       --       minDim << ", " << maxDim << ")")
+       res : List(%) := allSubsets(orf, minDim)
+       --print("allSubsets res=" << res)
+       res2 := []$List(%)
+       for y in res repeat
+           if order(y) <= maxDim then
+               res2 := concat(res2, y)$List(%)
+       --print("allSubsets result=" << res2)
+       res2
+
+   -- local function, used by link, which returns true if face 'a' is
+   -- contained in face 'b'.
+   -- true subset only : returns false if a=b
+   isSubsetOf?(sa : %, sb : %) : Boolean ==
+       all : List(%) := allSubsets(sb, 1)
+       for vertex in all repeat
+           if vertex=sa then return true
+       -- print("isSubsetOf?(" << sa << ", " << sb <<
+       --       ")=true")
+       false
+
+   -- used by simplicalJoin. Returns join (union) of 'a' and 'b'.
+   -- That is: returns a facet containing indexes in both 'a' and 'b'.
+   join(sa : %, sb : %) : % ==
+       lst : List(NNI) := concat(sa.fac, sb.fac)$List(NNI)
+       lst2 := sort(removeDuplicates(lst))
+       mult : Integer := sa.mul * sb.mul
+       [mult, lst2]
+
+   -- used by link. Returns face 'a' minus the vertices in face 'b'.
+   subtract(sa : %, sb : %) : % ==
+       --print("subtract(" << sa << ", " << _
+       --       sb << ")=" << setDifference(sb, sa)$SIMPLEX)
+       lst : List(NNI) := setDifference(sb.fac, sa.fac)$List(NNI)
+       [1, lst]
+
+   -- re-index so that indexes start at 1 and are then consecutive.
+   reindex(sa : %) : % ==
+       facet : List(NNI) := sa.fac
+       -- first calculate the mapping
+       oldval : List(NNI) := []
+       newval : List(NNI) := []
+       i : NNI := 1
+       for v in facet repeat
+           oldval := concat(oldval, v)
+           newval := concat(newval, i)
+           i := i + 1
+       -- now apply the mapping
+       res : List(NNI) := []
+       for v in facet repeat
+           ptr : Integer := position(v, oldval)
+           if ptr < 1 then error "error in reindex"
+           --print("reindex old val=" << qelt(oldval, ptr) <<_
+           --        " new val=" << qelt(newval, ptr))
+           res := concat(res, qelt(newval, ptr))
+       [1, res]
+
+   -- boolean word permutation
+   -- find all permutations of numZeros and numOnes
+   -- used by product to calculate all paths through lattice
+   boolWordPermute(numZeros : NNI, numOnes : NNI) : List(List(Boolean)) ==
+       boolWordPermute([]$List(List(Boolean)), numZeros, numOnes)
+
+   -- recursive part of boolWordPermute
+   boolWordPermute(wordIn : List(List(Boolean)), numZeros : NNI,
+                   numOnes : NNI) : List(List(Boolean)) ==
+       -- print("boolWordPermute(" << numZeros << ", "
+       --        << numOnes << ")")
+       if numZeros<1 and numOnes<1 then
+           --print("boolWordPermute wordIn=" << wordIn)
+           return wordIn
+       res := []$List(List(Boolean))
+       if numZeros > 0 then
+           z : NNI := subtractIfCan(numZeros, 1)::NNI
+           word0 := []$List(List(Boolean))
+           if empty?(wordIn) then word0 := [[false]]
+           for x in wordIn repeat
+               subWord : List(Boolean) := concat(x, false)
+               word0 := concat(word0, subWord)
+           res := concat(res, boolWordPermute(word0, z, numOnes))
+       if numOnes > 0 then
+           z : NNI := subtractIfCan(numOnes, 1)::NNI
+           word1 := []$List(List(Boolean))
+           if empty?(wordIn) then word1 := [[true]]
+           for x in wordIn repeat
+               subWord : List(Boolean) := concat(x, true)
+               word1 := concat(word1, subWord)
+           res := concat(res, boolWordPermute(word1, numZeros, z))
+       --print("boolWordPermute res=" << res)
+       res
+
+   -- this function returns the product of two facets.
+   -- For more detailed explanation of simplex product code see:
+   -- \url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/simplex/product/}
+   -- Also see Hatcher [9].
+   -- page 277 - The simplical cross product.
+   -- page 278 - The cohomology cross product.
+   -- Returns list, each entry is a 'lattice path' from (0, 0) to (x, y)
+   -- where x is number of entries in sa and y is number of entries in sb.
+   -- Calculation of 'lattice paths' is a combinatorics problem so perhaps
+   -- it should really be done by combinatorics code?
+   product(a : %, b : %) : List(ProductFacet) ==
+       res := []$List(ProductFacet)
+       indA : List(NNI) := getIndexes(a)
+       indB : List(NNI) := getIndexes(b)
+       lenA : NNI := subtractIfCan(#indA, 1)::NNI
+       lenB : NNI := subtractIfCan(#indB, 1)::NNI
+       perms : List(List(Boolean)) := reverse(boolWordPermute(lenA, lenB))
+       --print("product perms=" << perms)
+       for perm in perms repeat
+           leftIndex : NNI := 1
+           rightIndex : NNI := 1
+           i : Record(left : NNI, right : NNI) :=
+                                 [indA.leftIndex, indB.rightIndex]
+           i2 : List(Record(left : NNI, right : NNI)) := [i]
+           for b in perm repeat
+               if b then
+                   rightIndex := rightIndex + 1
+               else
+                   leftIndex := leftIndex + 1
+               if leftIndex > #indA then error "leftIndex too high in product"
+               if rightIndex > #indB then
+                   error "rightIndex too high in product"
+               i := [indA.leftIndex, indB.rightIndex]
+               i2 := concat(i2, i)
+           pf := productFacet(1, i2)
+           res := concat(res, pf)
+       res
+
+   -- return index of e in lst. Index will be negative if e has
+   -- negative multiplier.
+   position(e : %, lst : List(%)) : Integer ==
+       res : Integer := 1
+       for x in lst repeat
+           if e.fac = x.fac then
+               if e.mul=x.mul then return res
+               return -res
+           res := res + 1
+       return 0
+
+   -- used by cone. Adds a vertex to face.
+   addVertex(sa : %, v : NNI) : % ==
+       f : List(NNI) := sa.fac
+       f := concat(f, v)
+       orientedFacet(1, f)
+
+   -- adds 'n' to each index. Used to refactor simplexes so that
+   -- they don't overlap.
+   refactorIndexes(a : %, n : NNI) : % ==
+       facet : List(NNI) := a.fac
+       newval : List(NNI) := []
+       for v in facet repeat
+           newval := concat(newval,v+n)
+       [a.mul, newval]
+
+   -- true if this is the same face although the orientation
+   -- may be different
+   sameFace?(a : %, b : %) : Boolean ==
+       vertsa : List(NNI) := a.fac
+       vertsb : List(NNI) := b.fac
+       not(vertsa ~= vertsb)
+
+   -- less than Local
+   -- calls itself recursively
+   ltLocal(a : List(NNI), b : List(NNI)) : Boolean ==
+       if a = b then return false
+       -- if lists are different lengths then shortest first
+       if ((#a) < 1) then return true
+       if ((#b) < 1) then return false
+       a1 : NNI := a.first
+       b1 : NNI := b.first
+       if a1 < b1 then return true
+       if a1 > b1 then return false
+       -- if lists are different lengths then shortest first
+       if ((#a) < 2) then return true
+       if ((#b) < 2) then return false
+       ltLocal(a.rest, b.rest)
+
+   -- less than
+   -- define an order (OrderedSet category) so we can sort lists.
+   ((ain : %) < (bin : %)) : Boolean ==
+       --print("<(" << ain << ", " << bin << ")")
+       a : List(NNI) := ain.fac
+       b : List(NNI) := bin.fac
+       ltLocal(a, b)
+
+   -- less than or equal
+   -- define an order so we can sort lists
+   ((ain : %) <= (bin : %)) : Boolean ==
+       --print("<=(" << ain << ", " << bin << ")")
+       a : List(NNI) := ain.fac
+       b : List(NNI) := bin.fac
+       if a = b then return true
+       ltLocal(a, b)
+
+   -- Returns true if x equals y.
+   -- Assumes indexes are in order as this is forced by constructor.
+   _=(a : %, b : %) : Boolean ==
+       if a.mul ~= b.mul then return false
+       a.fac = b.fac
+
+   -- output
+   coerce(s : %) : OutputForm ==
+       prefix := message("")
+       m : Integer := s.mul
+       if abs(m) ~= 1 then
+           prefix := hconcat(m::OutputForm, message("*"))
+       if m = -1 then prefix := message("-")
+       elements : List(OutputForm) := [x::OutputForm for x in s.fac]
+       --print("orientedFacet coerce elements=" << _
+       --   elements << " m=" << m)
+       body : OutputForm := paren(elements)
+       hconcat(prefix, body)
+
+)if false
+\section{Product Facet}
+This is intended to hold the product of two facets.
+
+For more information see:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/cubical/}
+
+The product has two indexes to represent each vertex, that is
+the Cartesian product of the vertices of the operands. Usually
+this double vertex will be normalised back to a single set of indexes
+but this can only be done after the whole simplicial complex has been
+multiplied so the corresponding facets can be matched up and sorted.
+So the representation is:
+Rep := Record(mul : Integer, left : List(NNI), right : List(NNI))
+
+)endif
+

@@ -1,0 +1,36 @@
+1488                (|PolynomialToUnivariatePolynomial| |x| R)
+|package|
+(((|PolynomialToUnivariatePolynomial| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |univariate|
+    ((|UnivariatePolynomial| |#1| (|Polynomial| |#2|)) (|Polynomial| |#2|)
+     (|Variable| |#1|))))
+  (|Symbol|) (|Ring|))
+ (T |PolynomialToUnivariatePolynomial|))
+(CATEGORY |package|
+ (SIGNATURE |univariate|
+  ((|UnivariatePolynomial| |#1| (|Polynomial| |#2|)) (|Polynomial| |#2|)
+   (|Variable| |#1|))))
+"/git/fricas/src/algebra/POLY2UP.spad"
+((|univariate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Polynomial| *6)) (|isDomain| *4 (|Variable| *5))
+       (|ofType| *5 (|Symbol|)) (|ofCategory| *6 (|Ring|))
+       (|isDomain| *2 (|UnivariatePolynomial| *5 (|Polynomial| *6)))
+       (|isDomain| *1 (|PolynomialToUnivariatePolynomial| *5 *6)))))
+((|univariate|
+  (((|UnivariatePolynomial| |#1| (|Polynomial| |#2|)) (|Polynomial| |#2|)
+    (|Variable| |#1|))
+   18)))
+POLY2UP
+((|constructor|
+  (NIL
+   "This package is primarily to help the interpreter do coercions. It allows you to view a polynomial as a univariate polynomial in one of its variables with coefficients which are again a polynomial in all the other variables."))
+ (|univariate|
+  (((|UnivariatePolynomial| |#1| (|Polynomial| |#2|)) (|Polynomial| |#2|)
+    (|Variable| |#1|))
+   "\\spad{univariate(p,{} x)} converts the polynomial \\spad{p} to a one of type \\spad{UnivariatePolynomial(x,{} Polynomial(R))},{} ie. as a member of \\spad{R[...][x]}.")))
+(("documentation" 0 945) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 937) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 816) ("modemaps" 0 517) ("sourceFile" 0 478)
+ ("constructorCategory" 0 336) ("constructorModemap" 0 73)
+ ("constructorKind" 0 63) ("constructorForm" 0 20))

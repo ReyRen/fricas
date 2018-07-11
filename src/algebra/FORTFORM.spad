@@ -1,0 +1,24 @@
+)abbrev domain FORTFORM FortranFormat
+FortranFormat : OutputFormatterCategory == add
+    Rep := OutputForm
+
+    import OutputFormTools
+
+    assignable_form?(o : OutputForm) : Boolean ==
+        atom?(o) => true
+        op : OutputForm := operator(o)
+        symbol?(op) =>
+            sop := symbol(op)
+            sop = "="::Symbol or sop = 'MATRIX or sop = 'construct => false
+            true
+        true
+
+    convert(o : OutputForm, i : Integer) : % ==
+        not(assignable_form?(o)) => o
+        var := concat("R", convert(i)@String)::Symbol::OutputForm
+        elt(outputForm("="::Symbol), [var, o])
+
+    import FortranCodeTools
+
+    display(x : %) : Void ==
+        displayLines(fort_clean_lines(expression2Fortran(x::Rep)))

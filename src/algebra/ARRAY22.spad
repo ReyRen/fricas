@@ -1,0 +1,31 @@
+)abbrev package ARRAY22 TwoDimensionalArrayFunctions
+TwoDimensionalArrayFunctions(A, RA, CA, MA, B, RB, CB, MB
+                            ) : Exports == Implementation where
+  A : Type
+  RA : FiniteLinearAggregate A
+  CA : FiniteLinearAggregate A
+  MA : TwoDimensionalArrayCategory(A, RA, CA)
+  B : Type
+  RB : FiniteLinearAggregate B
+  CB : FiniteLinearAggregate B
+  MB : TwoDimensionalArrayCategory(B, RB, CB)
+
+  Exports ==> with
+
+    map : (A -> B, MA) -> MB
+      ++ map(f, m) applies the function f to every element of the array m
+      ++ producing a new array containing the values.
+
+  Implementation ==> add
+
+    map(f, m) ==
+        nr := nrows(m)
+        nc := ncols(m)
+        res := qnew(nr, nc)$MB
+        for i in minRowIndex(m)..maxRowIndex(m) repeat
+            for k in minColIndex(m)..maxColIndex(m) repeat
+                qsetelt!(res, i, k, f(qelt(m, i, k)))
+        res
+
+
+

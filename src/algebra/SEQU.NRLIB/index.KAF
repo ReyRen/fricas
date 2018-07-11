@@ -1,0 +1,270 @@
+12515               (|Sequence| R)
+|domain|
+(((|Sequence| |#1|) (|SequenceCategory| |#1|) (|CommutativeRing|))
+ (T |Sequence|))
+(|SequenceCategory| |#1|)
+"/git/fricas/src/algebra/SEQU.spad"
+((~= (((|Boolean|) $ $) NIL))
+ (|zero?| (((|Boolean|) $) NIL (|has| |#1| (|AbelianMonoid|))))
+ (|value| ((|#1| $) NIL))
+ (|trim|
+  (($ $ |#1|) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|third| ((|#1| $) NIL)) (|tail| (($ $) NIL))
+ (|swap!|
+  (((|Void|) $ (|Integer|) (|Integer|)) NIL (|has| $ (|shallowlyMutable|))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) NIL (|has| |#1| (|AbelianGroup|))))
+ (|stream| (((|Stream| |#1|) $) 37))
+ (|split!| (($ $ (|NonNegativeInteger|)) NIL (|has| $ (|shallowlyMutable|))))
+ (|sorted?|
+  (((|Boolean|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|))))
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1| |#1|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|sort!|
+  (($ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| $ (|shallowlyMutable|))
+        (|has| |#1| (|OrderedSet|))))
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| $ (|shallowlyMutable|)))))
+ (|sort|
+  (($ $) NIL (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|))))
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $) NIL (|has| $ (|finiteAggregate|))))
+ (|smaller?|
+  (((|Boolean|) $ $) NIL
+   (OR (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|Comparable|)))
+       (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|))))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|setvalue!| ((|#1| $ |#1|) NIL (|has| $ (|shallowlyMutable|))))
+ (|setrest!| (($ $ $) NIL (|has| $ (|shallowlyMutable|))))
+ (|setlast!| ((|#1| $ |#1|) NIL (|has| $ (|shallowlyMutable|))))
+ (|setfirst!| ((|#1| $ |#1|) NIL (|has| $ (|shallowlyMutable|))))
+ (|setelt!| ((|#1| $ #1="value" |#1|) NIL (|has| $ (|shallowlyMutable|)))
+  ((|#1| $ #2="first" |#1|) NIL (|has| $ (|shallowlyMutable|)))
+  (($ $ #3="rest" $) NIL (|has| $ (|shallowlyMutable|)))
+  ((|#1| $ #4="last" |#1|) NIL (|has| $ (|shallowlyMutable|)))
+  ((|#1| $ (|UniversalSegment| (|Integer|)) |#1|) NIL
+   (|has| $ (|shallowlyMutable|)))
+  ((|#1| $ (|Integer|) |#1|) NIL (|has| $ (|shallowlyMutable|))))
+ (|setchildren!| (($ $ (|List| $)) NIL (|has| $ (|shallowlyMutable|))))
+ (|sequence| (($ (|Stream| |#1|)) 36) (($ (|Mapping| |#1| |#1|) |#1|) 45))
+ (|select| (($ (|Mapping| (|Boolean|) |#1|) $) NIL)) (|second| ((|#1| $) NIL))
+ (|sample| (($) NIL T CONST)) (|rst| (($ $) NIL))
+ (|rightTrim|
+  (($ $ |#1|) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|reverse!|
+  (($ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| $ (|shallowlyMutable|)))))
+ (|reverse| (($ $) NIL (|has| $ (|finiteAggregate|))))
+ (|rest| (($ $) NIL) (($ $ (|NonNegativeInteger|)) NIL))
+ (|removeDuplicates|
+  (($ $) NIL (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|remove|
+  (($ |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|))))
+  (($ (|Mapping| (|Boolean|) |#1|) $) NIL))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) NIL (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) NIL (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|qsetrest!| (($ $ $) NIL (|has| $ (|shallowlyMutable|))))
+ (|qsetfirst!| ((|#1| $ |#1|) NIL (|has| $ (|shallowlyMutable|))))
+ (|qsetelt!| ((|#1| $ (|Integer|) |#1|) NIL (|has| $ (|shallowlyMutable|))))
+ (|qelt| ((|#1| $ (|Integer|)) NIL))
+ (|possiblyInfinite?| (((|Boolean|) $) NIL))
+ (|position|
+  (((|Integer|) |#1| $ (|Integer|)) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|))))
+  (((|Integer|) |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|))))
+  (((|Integer|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|parts| (((|List| |#1|) $) NIL (|has| $ (|finiteAggregate|))))
+ (|opposite?| (((|Boolean|) $ $) NIL (|has| |#1| (|AbelianMonoid|))))
+ (|numberOfComputedEntries| (((|NonNegativeInteger|) $) NIL))
+ (|nodes| (((|List| $) $) NIL))
+ (|node?| (((|Boolean|) $ $) NIL (|has| |#1| (|BasicType|))))
+ (|new| (($ (|NonNegativeInteger|) |#1|) NIL))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|minIndex| (((|Integer|) $) NIL (|has| (|Integer|) (|OrderedSet|))))
+ (|min|
+  ((|#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|))))
+  (($ $ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (|merge|
+  (($ $ $) NIL (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|))))
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $ $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|members| (((|List| |#1|) $) NIL (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|maxIndex| (((|Integer|) $) NIL (|has| (|Integer|) (|OrderedSet|))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  ((|#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|))))
+  (($ $ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) NIL (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 30)
+  (($ (|Mapping| |#1| |#1| |#1|) $ $) 26))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|leftTrim|
+  (($ $ |#1|) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|leaves| (((|List| |#1|) $) NIL)) (|leaf?| (((|Boolean|) $) NIL))
+ (|lazyEvaluate| (($ $) NIL)) (|lazy?| (((|Boolean|) $) NIL))
+ (|latex| (((|String|) $) NIL))
+ (|last| ((|#1| $) NIL) (($ $ (|NonNegativeInteger|)) NIL))
+ (|insert| (($ $ $ (|Integer|)) NIL) (($ |#1| $ (|Integer|)) NIL))
+ (|indices| (((|List| (|Integer|)) $) NIL))
+ (|index?| (((|Boolean|) (|Integer|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|frst| ((|#1| $) NIL))
+ (|firstn| (((|List| |#1|) $ (|NonNegativeInteger|)) 43))
+ (|first| ((|#1| $) NIL) (($ $ (|NonNegativeInteger|)) 40))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) NIL))
+ (|fill!| (($ $ |#1|) NIL (|has| $ (|shallowlyMutable|))))
+ (|extend| (($ $ (|Integer|)) NIL)) (|explicitlyFinite?| (((|Boolean|) $) NIL))
+ (|explicitlyEmpty?| (((|Boolean|) $) NIL))
+ (|explicitEntries?| (((|Boolean|) $) NIL))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) NIL))
+ (|entry?|
+  (((|Boolean|) |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|entries| (((|List| |#1|) $) 42)) (|empty?| (((|Boolean|) $) NIL))
+ (|empty| (($) NIL))
+ (|elt| ((|#1| $ #1#) NIL) ((|#1| $ #2#) NIL) (($ $ #3#) NIL)
+  ((|#1| $ #4#) NIL) (($ $ (|UniversalSegment| (|Integer|))) NIL)
+  ((|#1| $ (|Integer|)) 15) ((|#1| $ (|Integer|) |#1|) NIL))
+ (|distance| (((|Integer|) $ $) NIL)) (|dilate| (($ |#1| $) 49))
+ (|delete| (($ $ (|UniversalSegment| (|Integer|))) NIL)
+           (($ $ (|Integer|)) NIL))
+ (|cyclic?| (((|Boolean|) $) NIL)) (|cycleTail| (($ $) NIL))
+ (|cycleSplit!| (($ $) NIL (|has| $ (|shallowlyMutable|))))
+ (|cycleLength| (((|NonNegativeInteger|) $) NIL)) (|cycleEntry| (($ $) NIL))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|copyInto!|
+  (($ $ $ (|Integer|)) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| $ (|shallowlyMutable|)))))
+ (|copy| (($ $) NIL))
+ (|convert|
+  (((|InputForm|) $) NIL (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) NIL)) (|cons| (($ |#1| $) 24))
+ (|concat!| (($ $ $) NIL (|has| $ (|shallowlyMutable|)))
+  (($ $ |#1|) NIL (|has| $ (|shallowlyMutable|))))
+ (|concat| (($ $ $) NIL) (($ |#1| $) NIL) (($ (|List| $)) NIL)
+           (($ $ |#1|) NIL))
+ (|complete| (($ $) 41))
+ (|coerce| (((|OutputForm|) $) 48) (($ (|Stream| |#1|)) 35))
+ (|children| (((|List| $) $) NIL))
+ (|child?| (((|Boolean|) $ $) NIL (|has| |#1| (|BasicType|))))
+ (|apply| ((|#1| $ (|Partition|)) 22))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|Zero| (($) 11 (|has| |#1| (|AbelianMonoid|)) CONST))
+ (>=
+  (((|Boolean|) $ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (>
+  (((|Boolean|) $ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (= (((|Boolean|) $ $) 34))
+ (<=
+  (((|Boolean|) $ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (<
+  (((|Boolean|) $ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (- (($ $ $) NIL (|has| |#1| (|AbelianGroup|)))
+    (($ $) 31 (|has| |#1| (|AbelianGroup|))))
+ (+ (($ $ $) 27))
+ (* (($ $ |#1|) NIL) (($ (|Integer|) $) NIL (|has| |#1| (|AbelianGroup|)))
+    (($ (|NonNegativeInteger|) $) NIL (|has| |#1| (|AbelianMonoid|)))
+    (($ |#1| $) 32) (($ (|PositiveInteger|) $) NIL))
+ (|#| (((|NonNegativeInteger|) $) NIL (|has| $ (|finiteAggregate|)))))
+((AND (|HasCategory| |#1| (LIST '|Evalable| (|devaluate| |#1|)))
+      (|HasCategory| |#1| '(|SetCategory|)))
+ (|HasCategory| |#1| (LIST '|ConvertibleTo| '(|InputForm|)))
+ (|HasCategory| |#1| '(|AbelianGroup|)) (|HasCategory| |#1| '(|BasicType|))
+ (|HasCategory| |#1| '(|Comparable|)) (|HasCategory| |#1| '(|OrderedSet|))
+ (|HasCategory| (|Integer|) '(|OrderedSet|))
+ (|HasCategory| |#1| '(|AbelianMonoid|))
+ (OR (|HasCategory| |#1| '(|AbelianGroup|))
+     (|HasCategory| |#1| '(|AbelianMonoid|)))
+ (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| |#1| '(|OrderedSet|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (OR
+  (AND (|HasCategory| |#1| '(|Comparable|))
+       (|HasCategory| $ '(|finiteAggregate|)))
+  (AND (|HasCategory| |#1| '(|OrderedSet|))
+       (|HasCategory| $ '(|finiteAggregate|))))
+ (AND (|HasCategory| |#1| '(|BasicType|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (|HasCategory| $ '(|shallowlyMutable|))
+ (AND (|HasCategory| |#1| '(|OrderedSet|))
+      (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| $ '(|shallowlyMutable|)))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| $ '(|shallowlyMutable|))))
+SEQU
+(((|SequenceCategory| |#1|) . T))
+(((|AbelianGroup|) |has| |t#1| (|AbelianGroup|))
+ ((|AbelianMonoid|) |has| |t#1| (|AbelianMonoid|)) ((|AbelianSemiGroup|) . T)
+ ((|Aggregate|) . T) ((|BasicType|) . T) ((|BiModule| |t#1| |t#1|) . T)
+ ((|CancellationAbelianMonoid|) |has| |t#1| (|AbelianGroup|))
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|Collection| |t#1|) . T)
+ ((|Comparable|) OR
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|))))
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Eltable| (|UniversalSegment| (|Integer|)) $) . T)
+ ((|Eltable| |t#1| |t#2|) . T) ((|EltableAggregate| |t#1| |t#2|) . T)
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#2|) . T) ((|HomogeneousAggregate| |t#1|) . T)
+ ((|IndexedAggregate| (|Integer|) |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|LazyStreamAggregate| |t#1|) . T) ((|LeftModule| |t#1|) . T)
+ ((|LinearAggregate| |t#1|) . T) ((|Module| |t#1|) . T)
+ ((|OrderedSet|) AND (|has| $ (|finiteAggregate|))
+  (|has| |t#1| (|OrderedSet|)))
+ ((|PartialOrder|) AND (|has| $ (|finiteAggregate|))
+  (|has| |t#1| (|OrderedSet|)))
+ ((|RecursiveAggregate| |t#1|) . T) ((|RightModule| |t#2|) . T)
+ ((|SequenceCategory| |#1|) . T) ((|SetCategory|) . T)
+ ((|StreamAggregate| |t#1|) . T) ((|Type|) . T)
+ ((|UnaryRecursiveAggregate| |t#1|) . T))
+((|constructor|
+  (NIL
+   "A domain for infinite sequences over a commutative ring. It is implemented as stream with arithmetics.")))
+(("documentation" 0 12381) ("ancestors" 0 10886) ("parents" 0 10852)
+ ("abbreviation" 0 10847) ("predicates" 0 9675) ("superDomain" 0 NIL)
+ ("operationAlist" 0 190) ("modemaps" 0 NIL) ("sourceFile" 0 154)
+ ("constructorCategory" 0 128) ("constructorModemap" 0 44)
+ ("constructorKind" 0 35) ("constructorForm" 0 20))

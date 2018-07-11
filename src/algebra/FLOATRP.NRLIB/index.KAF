@@ -1,0 +1,118 @@
+6360                (|FloatingRealPackage| |Par|)
+|package|
+(((|FloatingRealPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |solve|
+    ((|List| (|List| (|Equation| (|Polynomial| |#1|))))
+     (|List| (|Fraction| (|Polynomial| (|Integer|)))) |#1|))
+   (SIGNATURE |solve|
+    ((|List| (|List| (|Equation| (|Polynomial| |#1|))))
+     (|List| (|Equation| (|Fraction| (|Polynomial| (|Integer|))))) |#1|))
+   (SIGNATURE |solve|
+    ((|List| (|Equation| (|Polynomial| |#1|)))
+     (|Fraction| (|Polynomial| (|Integer|))) |#1|))
+   (SIGNATURE |solve|
+    ((|List| (|Equation| (|Polynomial| |#1|)))
+     (|Equation| (|Fraction| (|Polynomial| (|Integer|)))) |#1|))
+   (SIGNATURE |realRoots|
+    ((|List| (|List| |#1|)) (|List| (|Fraction| (|Polynomial| (|Integer|))))
+     (|List| (|Symbol|)) |#1|))
+   (SIGNATURE |realRoots|
+    ((|List| |#1|) (|Fraction| (|Polynomial| (|Integer|))) |#1|)))
+  (|Join| (|OrderedRing|) (|Field|)))
+ (T |FloatingRealPackage|))
+(CATEGORY |package|
+ (SIGNATURE |solve|
+  ((|List| (|List| (|Equation| (|Polynomial| |#1|))))
+   (|List| (|Fraction| (|Polynomial| (|Integer|)))) |#1|))
+ (SIGNATURE |solve|
+  ((|List| (|List| (|Equation| (|Polynomial| |#1|))))
+   (|List| (|Equation| (|Fraction| (|Polynomial| (|Integer|))))) |#1|))
+ (SIGNATURE |solve|
+  ((|List| (|Equation| (|Polynomial| |#1|)))
+   (|Fraction| (|Polynomial| (|Integer|))) |#1|))
+ (SIGNATURE |solve|
+  ((|List| (|Equation| (|Polynomial| |#1|)))
+   (|Equation| (|Fraction| (|Polynomial| (|Integer|)))) |#1|))
+ (SIGNATURE |realRoots|
+  ((|List| (|List| |#1|)) (|List| (|Fraction| (|Polynomial| (|Integer|))))
+   (|List| (|Symbol|)) |#1|))
+ (SIGNATURE |realRoots|
+  ((|List| |#1|) (|Fraction| (|Polynomial| (|Integer|))) |#1|)))
+"/git/fricas/src/algebra/FLOATRP.spad"
+((|realRoots| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| (|Integer|))))
+       (|isDomain| *2 (|List| *4)) (|isDomain| *1 (|FloatingRealPackage| *4))
+       (|ofCategory| *4 (|Join| (|OrderedRing|) (|Field|)))))
+ (|realRoots| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|List| (|Fraction| (|Polynomial| (|Integer|)))))
+       (|isDomain| *4 (|List| (|Symbol|))) (|isDomain| *2 (|List| (|List| *5)))
+       (|isDomain| *1 (|FloatingRealPackage| *5))
+       (|ofCategory| *5 (|Join| (|OrderedRing|) (|Field|)))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Equation| (|Fraction| (|Polynomial| (|Integer|)))))
+       (|isDomain| *2 (|List| (|Equation| (|Polynomial| *4))))
+       (|isDomain| *1 (|FloatingRealPackage| *4))
+       (|ofCategory| *4 (|Join| (|OrderedRing|) (|Field|)))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| (|Integer|))))
+       (|isDomain| *2 (|List| (|Equation| (|Polynomial| *4))))
+       (|isDomain| *1 (|FloatingRealPackage| *4))
+       (|ofCategory| *4 (|Join| (|OrderedRing|) (|Field|)))))
+ (|solve| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|List| (|Equation| (|Fraction| (|Polynomial| (|Integer|))))))
+   (|isDomain| *2 (|List| (|List| (|Equation| (|Polynomial| *4)))))
+   (|isDomain| *1 (|FloatingRealPackage| *4))
+   (|ofCategory| *4 (|Join| (|OrderedRing|) (|Field|)))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Fraction| (|Polynomial| (|Integer|)))))
+       (|isDomain| *2 (|List| (|List| (|Equation| (|Polynomial| *4)))))
+       (|isDomain| *1 (|FloatingRealPackage| *4))
+       (|ofCategory| *4 (|Join| (|OrderedRing|) (|Field|))))))
+((|solve|
+  (((|List| (|Equation| (|Polynomial| |#1|)))
+    (|Equation| (|Fraction| (|Polynomial| (|Integer|)))) |#1|)
+   45)
+  (((|List| (|Equation| (|Polynomial| |#1|)))
+    (|Fraction| (|Polynomial| (|Integer|))) |#1|)
+   44)
+  (((|List| (|List| (|Equation| (|Polynomial| |#1|))))
+    (|List| (|Equation| (|Fraction| (|Polynomial| (|Integer|))))) |#1|)
+   40)
+  (((|List| (|List| (|Equation| (|Polynomial| |#1|))))
+    (|List| (|Fraction| (|Polynomial| (|Integer|)))) |#1|)
+   34))
+ (|realRoots| (((|List| |#1|) (|Fraction| (|Polynomial| (|Integer|))) |#1|) 19)
+  (((|List| (|List| |#1|)) (|List| (|Fraction| (|Polynomial| (|Integer|))))
+    (|List| (|Symbol|)) |#1|)
+   29)))
+FLOATRP
+((|constructor|
+  (NIL
+   "\\indented{3}{This is a package for the approximation of real solutions for} systems of polynomial equations over the rational numbers. The results are expressed as either rational numbers or floats depending on the type of the precision parameter which can be either a rational number or a floating point number."))
+ (|realRoots|
+  (((|List| |#1|) (|Fraction| (|Polynomial| (|Integer|))) |#1|)
+   "\\spad{realRoots(rf,{} eps)} finds the real zeros of a univariate rational function with precision given by eps.")
+  (((|List| (|List| |#1|)) (|List| (|Fraction| (|Polynomial| (|Integer|))))
+    (|List| (|Symbol|)) |#1|)
+   "\\spad{realRoots(lp,{} lv,{} eps)} computes the list of the real solutions of the list \\spad{lp} of rational functions with rational coefficients with respect to the variables in \\spad{lv},{} with precision eps. Each solution is expressed as a list of numbers in order corresponding to the variables in \\spad{lv}."))
+ (|solve|
+  (((|List| (|Equation| (|Polynomial| |#1|)))
+    (|Equation| (|Fraction| (|Polynomial| (|Integer|)))) |#1|)
+   "\\spad{solve(eq,{} eps)} finds all of the real solutions of the univariate equation \\spad{eq} of rational functions with respect to the unique variables appearing in \\spad{eq},{} with precision eps.")
+  (((|List| (|Equation| (|Polynomial| |#1|)))
+    (|Fraction| (|Polynomial| (|Integer|))) |#1|)
+   "\\spad{solve(p,{} eps)} finds all of the real solutions of the univariate rational function \\spad{p} with rational coefficients with respect to the unique variable appearing in \\spad{p},{} with precision eps.")
+  (((|List| (|List| (|Equation| (|Polynomial| |#1|))))
+    (|List| (|Equation| (|Fraction| (|Polynomial| (|Integer|))))) |#1|)
+   "\\spad{solve(leq,{} eps)} finds all of the real solutions of the system \\spad{leq} of equationas of rational functions with respect to all the variables appearing in \\spad{lp},{} with precision eps.")
+  (((|List| (|List| (|Equation| (|Polynomial| |#1|))))
+    (|List| (|Fraction| (|Polynomial| (|Integer|)))) |#1|)
+   "\\spad{solve(lp,{} eps)} finds all of the real solutions of the system \\spad{lp} of rational functions over the rational numbers with respect to all the variables appearing in \\spad{lp},{} with precision eps.")))
+(("documentation" 0 4083) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4075) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3395) ("modemaps" 0 1752) ("sourceFile" 0 1713)
+ ("constructorCategory" 0 953) ("constructorModemap" 0 60)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

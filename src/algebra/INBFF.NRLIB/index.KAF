@@ -1,0 +1,252 @@
+13362               (|InnerNormalBasisFieldFunctions| GF)
+|package|
+(((|InnerNormalBasisFieldFunctions| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |setFieldInfo|
+    ((|Void|)
+     (|Vector|
+      (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))
+     |#1|))
+   (SIGNATURE |random| ((|Vector| |#1|) (|PositiveInteger|)))
+   (SIGNATURE |index|
+    ((|Vector| |#1|) (|PositiveInteger|) (|PositiveInteger|)))
+   (SIGNATURE |pol| ((|SparseUnivariatePolynomial| |#1|) (|Vector| |#1|)))
+   (SIGNATURE |xn|
+    ((|SparseUnivariatePolynomial| |#1|) (|NonNegativeInteger|)))
+   (SIGNATURE |dAndcExp|
+    ((|Vector| |#1|) (|Vector| |#1|) (|NonNegativeInteger|) (|SingleInteger|)))
+   (SIGNATURE |repSq| ((|Vector| |#1|) (|Vector| |#1|) (|NonNegativeInteger|)))
+   (SIGNATURE |expPot|
+    ((|Vector| |#1|) (|Vector| |#1|) (|SingleInteger|) (|SingleInteger|)))
+   (SIGNATURE |qPot| ((|Vector| |#1|) (|Vector| |#1|) (|Integer|)))
+   (SIGNATURE ^ ((|Vector| |#1|) (|Vector| |#1|) (|Integer|)))
+   (SIGNATURE * ((|Vector| |#1|) (|Vector| |#1|) (|Vector| |#1|)))
+   (SIGNATURE / ((|Vector| |#1|) (|Vector| |#1|) (|Vector| |#1|)))
+   (SIGNATURE |norm| ((|Vector| |#1|) (|Vector| |#1|) (|PositiveInteger|)))
+   (SIGNATURE |trace| ((|Vector| |#1|) (|Vector| |#1|) (|PositiveInteger|)))
+   (SIGNATURE |inv| ((|Vector| |#1|) (|Vector| |#1|)))
+   (SIGNATURE |lookup| ((|PositiveInteger|) (|Vector| |#1|)))
+   (SIGNATURE |normal?| ((|Boolean|) (|Vector| |#1|)))
+   (SIGNATURE |basis| ((|Vector| (|Vector| |#1|)) (|PositiveInteger|)))
+   (SIGNATURE |normalElement| ((|Vector| |#1|) (|PositiveInteger|)))
+   (SIGNATURE |minimalPolynomial|
+    ((|SparseUnivariatePolynomial| |#1|) (|Vector| |#1|))))
+  (|FiniteFieldCategory|))
+ (T |InnerNormalBasisFieldFunctions|))
+(CATEGORY |package|
+ (SIGNATURE |setFieldInfo|
+  ((|Void|)
+   (|Vector|
+    (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))
+   |#1|))
+ (SIGNATURE |random| ((|Vector| |#1|) (|PositiveInteger|)))
+ (SIGNATURE |index| ((|Vector| |#1|) (|PositiveInteger|) (|PositiveInteger|)))
+ (SIGNATURE |pol| ((|SparseUnivariatePolynomial| |#1|) (|Vector| |#1|)))
+ (SIGNATURE |xn| ((|SparseUnivariatePolynomial| |#1|) (|NonNegativeInteger|)))
+ (SIGNATURE |dAndcExp|
+  ((|Vector| |#1|) (|Vector| |#1|) (|NonNegativeInteger|) (|SingleInteger|)))
+ (SIGNATURE |repSq| ((|Vector| |#1|) (|Vector| |#1|) (|NonNegativeInteger|)))
+ (SIGNATURE |expPot|
+  ((|Vector| |#1|) (|Vector| |#1|) (|SingleInteger|) (|SingleInteger|)))
+ (SIGNATURE |qPot| ((|Vector| |#1|) (|Vector| |#1|) (|Integer|)))
+ (SIGNATURE ^ ((|Vector| |#1|) (|Vector| |#1|) (|Integer|)))
+ (SIGNATURE * ((|Vector| |#1|) (|Vector| |#1|) (|Vector| |#1|)))
+ (SIGNATURE / ((|Vector| |#1|) (|Vector| |#1|) (|Vector| |#1|)))
+ (SIGNATURE |norm| ((|Vector| |#1|) (|Vector| |#1|) (|PositiveInteger|)))
+ (SIGNATURE |trace| ((|Vector| |#1|) (|Vector| |#1|) (|PositiveInteger|)))
+ (SIGNATURE |inv| ((|Vector| |#1|) (|Vector| |#1|)))
+ (SIGNATURE |lookup| ((|PositiveInteger|) (|Vector| |#1|)))
+ (SIGNATURE |normal?| ((|Boolean|) (|Vector| |#1|)))
+ (SIGNATURE |basis| ((|Vector| (|Vector| |#1|)) (|PositiveInteger|)))
+ (SIGNATURE |normalElement| ((|Vector| |#1|) (|PositiveInteger|)))
+ (SIGNATURE |minimalPolynomial|
+  ((|SparseUnivariatePolynomial| |#1|) (|Vector| |#1|))))
+"/git/fricas/src/algebra/INBFF.spad"
+((|minimalPolynomial| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Vector| *4)) (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))))
+ (|normalElement| (*1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|)) (|isDomain| *2 (|Vector| *4))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|basis| (*1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *2 (|Vector| (|Vector| *4)))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|normal?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Vector| *4)) (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))))
+ (|lookup| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Vector| *4)) (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))))
+ (|inv| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Vector| *3)) (|ofCategory| *3 (|FiniteFieldCategory|))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *3))))
+ (|trace| (*1 *2 *2 *3)
+          (AND (|isDomain| *2 (|Vector| *4))
+               (|isDomain| *3 (|PositiveInteger|))
+               (|ofCategory| *4 (|FiniteFieldCategory|))
+               (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))))
+ (|norm| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Vector| *4)) (|isDomain| *3 (|PositiveInteger|))
+       (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))))
+ (/ (*1 *2 *2 *2)
+    (AND (|isDomain| *2 (|Vector| *3))
+         (|ofCategory| *3 (|FiniteFieldCategory|))
+         (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *3))))
+ (* (*1 *2 *2 *2)
+    (AND (|isDomain| *2 (|Vector| *3))
+         (|ofCategory| *3 (|FiniteFieldCategory|))
+         (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *3))))
+ (^ (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Vector| *4)) (|isDomain| *3 (|Integer|))
+       (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))))
+ (|qPot| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Vector| *4)) (|isDomain| *3 (|Integer|))
+       (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))))
+ (|expPot| (*1 *2 *2 *3 *3)
+  (AND (|isDomain| *2 (|Vector| *4)) (|isDomain| *3 (|SingleInteger|))
+       (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))))
+ (|repSq| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Vector| *4)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))))
+ (|dAndcExp| (*1 *2 *2 *3 *4)
+  (AND (|isDomain| *2 (|Vector| *5)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *4 (|SingleInteger|))
+       (|ofCategory| *5 (|FiniteFieldCategory|))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *5))))
+ (|xn| (*1 *2 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|pol| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Vector| *4)) (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))))
+ (|index| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|)) (|isDomain| *2 (|Vector| *4))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|random| (*1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|)) (|isDomain| *2 (|Vector| *4))
+       (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|setFieldInfo| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|Vector|
+                (|List|
+                 (|Record| (|:| |value| *4) (|:| |index| (|SingleInteger|))))))
+   (|ofCategory| *4 (|FiniteFieldCategory|)) (|isDomain| *2 (|Void|))
+   (|isDomain| *1 (|InnerNormalBasisFieldFunctions| *4)))))
+((|xn| (((|SparseUnivariatePolynomial| |#1|) (|NonNegativeInteger|)) 75))
+ (|trace| (((|Vector| |#1|) (|Vector| |#1|) (|PositiveInteger|)) 68))
+ (|setFieldInfo|
+  (((|Void|)
+    (|Vector|
+     (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))
+    |#1|)
+   83))
+ (|repSq| (((|Vector| |#1|) (|Vector| |#1|) (|NonNegativeInteger|)) 33))
+ (|random| (((|Vector| |#1|) (|PositiveInteger|)) 70))
+ (|qPot| (((|Vector| |#1|) (|Vector| |#1|) (|Integer|)) 20))
+ (|pol| (((|SparseUnivariatePolynomial| |#1|) (|Vector| |#1|)) 76))
+ (|normalElement| (((|Vector| |#1|) (|PositiveInteger|)) 90))
+ (|normal?| (((|Boolean|) (|Vector| |#1|)) 79))
+ (|norm| (((|Vector| |#1|) (|Vector| |#1|) (|PositiveInteger|)) 61))
+ (|minimalPolynomial|
+  (((|SparseUnivariatePolynomial| |#1|) (|Vector| |#1|)) 87))
+ (|lookup| (((|PositiveInteger|) (|Vector| |#1|)) 58))
+ (|inv| (((|Vector| |#1|) (|Vector| |#1|)) 26))
+ (|index| (((|Vector| |#1|) (|PositiveInteger|) (|PositiveInteger|)) 92))
+ (|expPot|
+  (((|Vector| |#1|) (|Vector| |#1|) (|SingleInteger|) (|SingleInteger|)) 19))
+ (|dAndcExp|
+  (((|Vector| |#1|) (|Vector| |#1|) (|NonNegativeInteger|) (|SingleInteger|))
+   34))
+ (|basis| (((|Vector| (|Vector| |#1|)) (|PositiveInteger|)) 89))
+ (^ (((|Vector| |#1|) (|Vector| |#1|) (|Integer|)) 41))
+ (/ (((|Vector| |#1|) (|Vector| |#1|) (|Vector| |#1|)) 80))
+ (* (((|Vector| |#1|) (|Vector| |#1|) (|Vector| |#1|)) 21)))
+INBFF
+((|constructor|
+  (NIL
+   "InnerNormalBasisFieldFunctions(\\spad{GF}) (unexposed): This package has functions used by every normal basis finite field extension domain."))
+ (|minimalPolynomial|
+  (((|SparseUnivariatePolynomial| |#1|) (|Vector| |#1|))
+   "\\spad{minimalPolynomial(x)} \\undocumented{} See \\spadfunFrom{minimalPolynomial}{FiniteAlgebraicExtensionField}"))
+ (|normalElement|
+  (((|Vector| |#1|) (|PositiveInteger|))
+   "\\spad{normalElement(n)} \\undocumented{} See \\spadfunFrom{normalElement}{FiniteAlgebraicExtensionField}"))
+ (|basis|
+  (((|Vector| (|Vector| |#1|)) (|PositiveInteger|))
+   "\\spad{basis(n)} \\undocumented{} See \\spadfunFrom{basis}{FiniteAlgebraicExtensionField}"))
+ (|normal?|
+  (((|Boolean|) (|Vector| |#1|))
+   "\\spad{normal?(x)} \\undocumented{} See \\spadfunFrom{normal?}{FiniteAlgebraicExtensionField}"))
+ (|lookup|
+  (((|PositiveInteger|) (|Vector| |#1|))
+   "\\spad{lookup(x)} \\undocumented{} See \\spadfunFrom{lookup}{Finite}"))
+ (|inv|
+  (((|Vector| |#1|) (|Vector| |#1|))
+   "\\spad{inv x} \\undocumented{} See \\spadfunFrom{inv}{DivisionRing}"))
+ (|trace|
+  (((|Vector| |#1|) (|Vector| |#1|) (|PositiveInteger|))
+   "\\spad{trace(x,{} n)} \\undocumented{} See \\spadfunFrom{trace}{FiniteAlgebraicExtensionField}"))
+ (|norm|
+  (((|Vector| |#1|) (|Vector| |#1|) (|PositiveInteger|))
+   "\\spad{norm(x,{} n)} \\undocumented{} See \\spadfunFrom{norm}{FiniteAlgebraicExtensionField}"))
+ (/
+  (((|Vector| |#1|) (|Vector| |#1|) (|Vector| |#1|))
+   "\\spad{x/y} \\undocumented{} See \\spadfunFrom{/}{Field}"))
+ (*
+  (((|Vector| |#1|) (|Vector| |#1|) (|Vector| |#1|))
+   "\\spad{x*y} \\undocumented{} See \\spadfunFrom{*}{SemiGroup}"))
+ (^
+  (((|Vector| |#1|) (|Vector| |#1|) (|Integer|))
+   "\\spad{x^n} \\undocumented{} See \\spadfunFrom{^}{DivisionRing}"))
+ (|qPot|
+  (((|Vector| |#1|) (|Vector| |#1|) (|Integer|))
+   "\\spad{qPot(v,{} e)} computes \\spad{v^(q^e)},{} interpreting \\spad{v} as an element of normal basis field,{} \\spad{q} the size of the ground field. This is done by a cyclic \\spad{e}-shift of the vector \\spad{v}."))
+ (|expPot|
+  (((|Vector| |#1|) (|Vector| |#1|) (|SingleInteger|) (|SingleInteger|))
+   "\\spad{expPot(v,{} e,{} d)} returns the sum from \\spad{i = 0} to \\spad{e - 1} of \\spad{v^(q^i*d)},{} interpreting \\spad{v} as an element of a normal basis field and where \\spad{q} is the size of the ground field. Note: for a description of the algorithm,{} see \\spad{T}.Itoh and \\spad{S}.Tsujii,{} \"A fast algorithm for computing multiplicative inverses in \\spad{GF}(2^m) using normal bases\",{} Information and Computation 78,{} \\spad{pp}.171-177,{} 1988."))
+ (|repSq|
+  (((|Vector| |#1|) (|Vector| |#1|) (|NonNegativeInteger|))
+   "\\spad{repSq(v,{} e)} computes \\spad{v^e} by repeated squaring,{} interpreting \\spad{v} as an element of a normal basis field."))
+ (|dAndcExp|
+  (((|Vector| |#1|) (|Vector| |#1|) (|NonNegativeInteger|) (|SingleInteger|))
+   "\\spad{dAndcExp(v,{} n,{} k)} computes \\spad{v^e} interpreting \\spad{v} as an element of normal basis field. A divide and conquer algorithm similar to the one from \\spad{D}.\\spad{R}.Stinson,{} \"Some observations on parallel Algorithms for fast exponentiation in \\spad{GF}(2^n)\",{} Siam \\spad{J}. Computation,{} Vol.19,{} No.4,{} \\spad{pp}.711-717,{} August 1990 is used. Argument \\spad{k} is a parameter of this algorithm."))
+ (|xn|
+  (((|SparseUnivariatePolynomial| |#1|) (|NonNegativeInteger|))
+   "\\spad{xn(n)} returns the polynomial \\spad{x^n-1}."))
+ (|pol|
+  (((|SparseUnivariatePolynomial| |#1|) (|Vector| |#1|))
+   "\\spad{pol(v)} turns the vector \\spad{[v0,{} ...,{} vn]} into the polynomial \\spad{v0+v1*x+ ... + vn*x^n}."))
+ (|index|
+  (((|Vector| |#1|) (|PositiveInteger|) (|PositiveInteger|))
+   "\\spad{index(n,{} m)} is a index function for vectors of length \\spad{n} over the ground field."))
+ (|random|
+  (((|Vector| |#1|) (|PositiveInteger|))
+   "\\spad{random(n)} creates a vector over the ground field with random entries."))
+ (|setFieldInfo|
+  (((|Void|)
+    (|Vector|
+     (|List| (|Record| (|:| |value| |#1|) (|:| |index| (|SingleInteger|)))))
+    |#1|)
+   "\\spad{setFieldInfo(m,{} p)} initializes the field arithmetic,{} where \\spad{m} is the multiplication table and \\spad{p} is the respective normal element of the ground field \\spad{GF}.")))
+(("documentation" 0 9034) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 9028) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 7618) ("modemaps" 0 3319) ("sourceFile" 0 3282)
+ ("constructorCategory" 0 1761) ("constructorModemap" 0 68)
+ ("constructorKind" 0 58) ("constructorForm" 0 20))

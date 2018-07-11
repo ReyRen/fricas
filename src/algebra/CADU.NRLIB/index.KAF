@@ -1,0 +1,35 @@
+1430                (|CylindricalAlgebraicDecompositionUtilities| R P)
+|package|
+(((|CylindricalAlgebraicDecompositionUtilities| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |squareFreeBasis| ((|List| |#2|) (|List| |#2|)))
+   (SIGNATURE |gcdBasis| ((|List| |#2|) (|List| |#2|))))
+  (|GcdDomain|) (|UnivariatePolynomialCategory| |#1|))
+ (T |CylindricalAlgebraicDecompositionUtilities|))
+(CATEGORY |package| (SIGNATURE |squareFreeBasis| ((|List| |#2|) (|List| |#2|)))
+ (SIGNATURE |gcdBasis| ((|List| |#2|) (|List| |#2|))))
+"/git/fricas/src/algebra/CADU.spad"
+((|gcdBasis| (*1 *2 *2)
+  (AND (|isDomain| *2 (|List| *4))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+       (|ofCategory| *3 (|GcdDomain|))
+       (|isDomain| *1 (|CylindricalAlgebraicDecompositionUtilities| *3 *4))))
+ (|squareFreeBasis| (*1 *2 *2)
+  (AND (|isDomain| *2 (|List| *4))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+       (|ofCategory| *3 (|GcdDomain|))
+       (|isDomain| *1 (|CylindricalAlgebraicDecompositionUtilities| *3 *4)))))
+((|squareFreeBasis| (((|List| |#2|) (|List| |#2|)) 13))
+ (|gcdBasis| (((|List| |#2|) (|List| |#2|)) 14)))
+CADU
+((|gcdBasis|
+  (((|List| |#2|) (|List| |#2|))
+   "\\spad{gcdBasis(lp)} computes \\spad{gcd} basis of \\spad{lp}"))
+ (|squareFreeBasis|
+  (((|List| |#2|) (|List| |#2|))
+   "\\spad{squareFreeBasis(lp)} computes \\spad{gcd} basis of square-free parts of elements of \\spad{lp}")))
+(("documentation" 0 1152) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1147) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1041) ("modemaps" 0 559) ("sourceFile" 0 523)
+ ("constructorCategory" 0 388) ("constructorModemap" 0 81)
+ ("constructorKind" 0 71) ("constructorForm" 0 20))

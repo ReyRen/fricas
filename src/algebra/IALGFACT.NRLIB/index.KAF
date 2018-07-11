@@ -1,0 +1,37 @@
+1485                (|InnerAlgFactor| F UP |AlExt| |AlPol|)
+|package|
+(((|InnerAlgFactor| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |factor|
+    ((|Factored| |#4|) |#4| (|Mapping| (|Factored| |#2|) |#2|))))
+  (|Field|) (|UnivariatePolynomialCategory| |#1|)
+  (|Join| (|Field|) (|CharacteristicZero|) (|MonogenicAlgebra| |#1| |#2|))
+  (|UnivariatePolynomialCategory| |#3|))
+ (T |InnerAlgFactor|))
+(CATEGORY |package|
+ (SIGNATURE |factor|
+  ((|Factored| |#4|) |#4| (|Mapping| (|Factored| |#2|) |#2|))))
+"/git/fricas/src/algebra/IALGFACT.spad"
+((|factor| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Mapping| (|Factored| *6) *6))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5 (|Field|))
+       (|ofCategory| *7
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|MonogenicAlgebra| *5 *6)))
+       (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|InnerAlgFactor| *5 *6 *7 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *7)))))
+((|factor| (((|Factored| |#4|) |#4| (|Mapping| (|Factored| |#2|) |#2|)) 45)))
+IALGFACT
+((|constructor|
+  (NIL
+   "Factorization of univariate polynomials with coefficients in an algebraic extension of a field over which we can factor UP\\spad{'s}."))
+ (|factor|
+  (((|Factored| |#4|) |#4| (|Mapping| (|Factored| |#2|) |#2|))
+   "\\spad{factor(p,{} f)} returns a prime factorisation of \\spad{p}; \\spad{f} is a factorisation map for elements of UP.")))
+(("documentation" 0 1119) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1110) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1032) ("modemaps" 0 556) ("sourceFile" 0 516)
+ ("constructorCategory" 0 411) ("constructorModemap" 0 70)
+ ("constructorKind" 0 60) ("constructorForm" 0 20))

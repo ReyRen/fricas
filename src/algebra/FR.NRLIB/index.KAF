@@ -1,0 +1,449 @@
+23726               (|Factored| R)
+|domain|
+(((|Factored| |#1|)
+  (|Join| (|IntegralDomain|) (|DifferentialExtension| |#1|) (|Algebra| |#1|)
+          (|FullyEvalableOver| |#1|) (|FullyRetractableTo| |#1|)
+          (CATEGORY |domain| (SIGNATURE |expand| (|#1| $))
+           (SIGNATURE |makeFR|
+            ($ |#1|
+             (|List|
+              (|Record|
+               (|:| |flag| (|Union| #1="nil" #2="sqfr" #3="irred" #4="prime"))
+               (|:| |factor| |#1|) (|:| |exponent| (|NonNegativeInteger|))))))
+           (SIGNATURE |factorList|
+            ((|List|
+              (|Record| (|:| |flag| (|Union| #1# #2# #3# #4#))
+                        (|:| |factor| |#1|)
+                        (|:| |exponent| (|NonNegativeInteger|))))
+             $))
+           (SIGNATURE |nilFactor| ($ |#1| (|NonNegativeInteger|)))
+           (SIGNATURE |factors|
+            ((|List|
+              (|Record| (|:| |factor| |#1|)
+                        (|:| |exponent| (|NonNegativeInteger|))))
+             $))
+           (SIGNATURE |irreducibleFactor| ($ |#1| (|NonNegativeInteger|)))
+           (SIGNATURE |numberOfFactors| ((|NonNegativeInteger|) $))
+           (SIGNATURE |primeFactor| ($ |#1| (|NonNegativeInteger|)))
+           (SIGNATURE |sqfrFactor| ($ |#1| (|NonNegativeInteger|)))
+           (SIGNATURE |flagFactor|
+            ($ |#1| (|NonNegativeInteger|) (|Union| #1# #2# #3# #4#)))
+           (SIGNATURE |unit| (|#1| $)) (SIGNATURE |unitNormalize| ($ $))
+           (SIGNATURE |map| ($ (|Mapping| |#1| |#1|) $))
+           (SIGNATURE |mergeFactors| ($ $ $))
+           (IF (|has| |#1| (|GcdDomain|))
+               (ATTRIBUTE (|GcdDomain|))
+               |noBranch|)
+           (IF (|has| |#1| (|RealConstant|))
+               (ATTRIBUTE (|RealConstant|))
+               |noBranch|)
+           (IF (|has| |#1| (|UniqueFactorizationDomain|))
+               (ATTRIBUTE (|UniqueFactorizationDomain|))
+               |noBranch|)
+           (IF (|has| |#1| (|ConvertibleTo| (|InputForm|)))
+               (ATTRIBUTE (|ConvertibleTo| (|InputForm|)))
+               |noBranch|)
+           (IF (|has| |#1| (|IntegerNumberSystem|))
+               (PROGN
+                (SIGNATURE |rational?| ((|Boolean|) $))
+                (SIGNATURE |rational| ((|Fraction| (|Integer|)) $))
+                (SIGNATURE |rationalIfCan|
+                 ((|Union| (|Fraction| (|Integer|)) "failed") $)))
+               |noBranch|)
+           (IF (|has| |#1| (|Eltable| $ $))
+               (ATTRIBUTE (|Eltable| $ $))
+               |noBranch|)
+           (IF (|has| |#1| (|Evalable| $))
+               (ATTRIBUTE (|Evalable| $))
+               |noBranch|)
+           (IF (|has| |#1| (|InnerEvalable| (|Symbol|) $))
+               (ATTRIBUTE (|InnerEvalable| (|Symbol|) $))
+               |noBranch|)))
+  (|IntegralDomain|))
+ (T |Factored|))
+(|Join| (|IntegralDomain|) (|DifferentialExtension| |#1|) (|Algebra| |#1|)
+        (|FullyEvalableOver| |#1|) (|FullyRetractableTo| |#1|)
+        (CATEGORY |domain| (SIGNATURE |expand| (|#1| $))
+         (SIGNATURE |makeFR|
+          ($ |#1|
+           (|List|
+            (|Record|
+             (|:| |flag| (|Union| #1="nil" #2="sqfr" #3="irred" #4="prime"))
+             (|:| |factor| |#1|) (|:| |exponent| (|NonNegativeInteger|))))))
+         (SIGNATURE |factorList|
+          ((|List|
+            (|Record| (|:| |flag| (|Union| #1# #2# #3# #4#))
+                      (|:| |factor| |#1|)
+                      (|:| |exponent| (|NonNegativeInteger|))))
+           $))
+         (SIGNATURE |nilFactor| ($ |#1| (|NonNegativeInteger|)))
+         (SIGNATURE |factors|
+          ((|List|
+            (|Record| (|:| |factor| |#1|)
+                      (|:| |exponent| (|NonNegativeInteger|))))
+           $))
+         (SIGNATURE |irreducibleFactor| ($ |#1| (|NonNegativeInteger|)))
+         (SIGNATURE |numberOfFactors| ((|NonNegativeInteger|) $))
+         (SIGNATURE |primeFactor| ($ |#1| (|NonNegativeInteger|)))
+         (SIGNATURE |sqfrFactor| ($ |#1| (|NonNegativeInteger|)))
+         (SIGNATURE |flagFactor|
+          ($ |#1| (|NonNegativeInteger|) (|Union| #1# #2# #3# #4#)))
+         (SIGNATURE |unit| (|#1| $)) (SIGNATURE |unitNormalize| ($ $))
+         (SIGNATURE |map| ($ (|Mapping| |#1| |#1|) $))
+         (SIGNATURE |mergeFactors| ($ $ $))
+         (IF (|has| |#1| (|GcdDomain|))
+             (ATTRIBUTE (|GcdDomain|))
+             |noBranch|)
+         (IF (|has| |#1| (|RealConstant|))
+             (ATTRIBUTE (|RealConstant|))
+             |noBranch|)
+         (IF (|has| |#1| (|UniqueFactorizationDomain|))
+             (ATTRIBUTE (|UniqueFactorizationDomain|))
+             |noBranch|)
+         (IF (|has| |#1| (|ConvertibleTo| (|InputForm|)))
+             (ATTRIBUTE (|ConvertibleTo| (|InputForm|)))
+             |noBranch|)
+         (IF (|has| |#1| (|IntegerNumberSystem|))
+             (PROGN
+              (SIGNATURE |rational?| ((|Boolean|) $))
+              (SIGNATURE |rational| ((|Fraction| (|Integer|)) $))
+              (SIGNATURE |rationalIfCan|
+               ((|Union| (|Fraction| (|Integer|)) "failed") $)))
+             |noBranch|)
+         (IF (|has| |#1| (|Eltable| $ $))
+             (ATTRIBUTE (|Eltable| $ $))
+             |noBranch|)
+         (IF (|has| |#1| (|Evalable| $))
+             (ATTRIBUTE (|Evalable| $))
+             |noBranch|)
+         (IF (|has| |#1| (|InnerEvalable| (|Symbol|) $))
+             (ATTRIBUTE (|InnerEvalable| (|Symbol|) $))
+             |noBranch|)))
+"/git/fricas/src/algebra/FR.spad"
+((|map| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|Mapping| *3 *3)) (|ofCategory| *3 (|IntegralDomain|))
+       (|isDomain| *1 (|Factored| *3))))
+ (|expand| (*1 *2 *1)
+  (AND (|isDomain| *1 (|Factored| *2)) (|ofCategory| *2 (|IntegralDomain|))))
+ (|makeFR| (*1 *1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record|
+                 (|:| |flag|
+                      (|Union| #1="nil" #2="sqfr" #3="irred" #4="prime"))
+                 (|:| |factor| *2) (|:| |exponent| (|NonNegativeInteger|)))))
+   (|ofCategory| *2 (|IntegralDomain|)) (|isDomain| *1 (|Factored| *2))))
+ (|factorList| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |flag| (|Union| #1# #2# #3# #4#))
+                          (|:| |factor| *3)
+                          (|:| |exponent| (|NonNegativeInteger|)))))
+   (|isDomain| *1 (|Factored| *3)) (|ofCategory| *3 (|IntegralDomain|))))
+ (|nilFactor| (*1 *1 *2 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|)) (|isDomain| *1 (|Factored| *2))
+       (|ofCategory| *2 (|IntegralDomain|))))
+ (|factors| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |factor| *3)
+                          (|:| |exponent| (|NonNegativeInteger|)))))
+   (|isDomain| *1 (|Factored| *3)) (|ofCategory| *3 (|IntegralDomain|))))
+ (|irreducibleFactor| (*1 *1 *2 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|)) (|isDomain| *1 (|Factored| *2))
+       (|ofCategory| *2 (|IntegralDomain|))))
+ (|numberOfFactors| (*1 *2 *1)
+  (AND (|isDomain| *2 (|NonNegativeInteger|)) (|isDomain| *1 (|Factored| *3))
+       (|ofCategory| *3 (|IntegralDomain|))))
+ (|primeFactor| (*1 *1 *2 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|)) (|isDomain| *1 (|Factored| *2))
+       (|ofCategory| *2 (|IntegralDomain|))))
+ (|sqfrFactor| (*1 *1 *2 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|)) (|isDomain| *1 (|Factored| *2))
+       (|ofCategory| *2 (|IntegralDomain|))))
+ (|flagFactor| (*1 *1 *2 *3 *4)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *4 (|Union| #1# #2# #3# #4#))
+       (|isDomain| *1 (|Factored| *2)) (|ofCategory| *2 (|IntegralDomain|))))
+ (|unit| (*1 *2 *1)
+  (AND (|isDomain| *1 (|Factored| *2)) (|ofCategory| *2 (|IntegralDomain|))))
+ (|unitNormalize| (*1 *1 *1)
+  (AND (|isDomain| *1 (|Factored| *2)) (|ofCategory| *2 (|IntegralDomain|))))
+ (|mergeFactors| (*1 *1 *1 *1)
+  (AND (|isDomain| *1 (|Factored| *2)) (|ofCategory| *2 (|IntegralDomain|))))
+ (|rational?| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|Factored| *3))
+       (|ofCategory| *3 (|IntegerNumberSystem|))
+       (|ofCategory| *3 (|IntegralDomain|))))
+ (|rational| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Fraction| (|Integer|))) (|isDomain| *1 (|Factored| *3))
+       (|ofCategory| *3 (|IntegerNumberSystem|))
+       (|ofCategory| *3 (|IntegralDomain|))))
+ (|rationalIfCan| (*1 *2 *1)
+  (|partial| AND (|isDomain| *2 (|Fraction| (|Integer|)))
+   (|isDomain| *1 (|Factored| *3)) (|ofCategory| *3 (|IntegerNumberSystem|))
+   (|ofCategory| *3 (|IntegralDomain|)))))
+((~= (((|Boolean|) $ $) NIL)) (|zero?| (((|Boolean|) $) 47))
+ (|unitNormalize| (($ $) 67))
+ (|unitNormal|
+  (((|Record| (|:| |unit| $) (|:| |canonical| $) (|:| |associate| $)) $) 144))
+ (|unitCanonical| (($ $) NIL)) (|unit?| (((|Boolean|) $) 41))
+ (|unit| ((|#1| $) 12)) (|subtractIfCan| (((|Union| $ "failed") $ $) NIL))
+ (|squareFreePart| (($ $) NIL (|has| |#1| (|UniqueFactorizationDomain|))))
+ (|squareFree|
+  (((|Factored| $) $) NIL (|has| |#1| (|UniqueFactorizationDomain|))))
+ (|sqfrFactor| (($ |#1| (|NonNegativeInteger|)) 37))
+ (|sample| (($) NIL T CONST)) (|rightRecip| (((|Union| $ #1="failed") $) NIL))
+ (|rightPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL))
+ (|retractIfCan|
+  (((|Union| (|Integer|) #2="failed") $) NIL
+   (|has| |#1| (|RetractableTo| (|Integer|))))
+  (((|Union| (|Fraction| (|Integer|)) #2#) $) NIL
+   (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|)))))
+  (((|Union| |#1| #2#) $) 116))
+ (|retract| (((|Integer|) $) NIL (|has| |#1| (|RetractableTo| (|Integer|))))
+            (((|Fraction| (|Integer|)) $) NIL
+             (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|)))))
+            ((|#1| $) 114))
+ (|recip| (((|Union| $ #1#) $) 131))
+ (|rationalIfCan|
+  (((|Union| (|Fraction| (|Integer|)) "failed") $) 73
+   (|has| |#1| (|IntegerNumberSystem|))))
+ (|rational?| (((|Boolean|) $) 69 (|has| |#1| (|IntegerNumberSystem|))))
+ (|rational|
+  (((|Fraction| (|Integer|)) $) 71 (|has| |#1| (|IntegerNumberSystem|))))
+ (|primeFactor| (($ |#1| (|NonNegativeInteger|)) 39))
+ (|prime?| (((|Boolean|) $) 147 (|has| |#1| (|UniqueFactorizationDomain|))))
+ (|opposite?| (((|Boolean|) $ $) NIL)) (|one?| (((|Boolean|) $) 48))
+ (|numberOfFactors| (((|NonNegativeInteger|) $) 42))
+ (|nilFactor| (($ |#1| (|NonNegativeInteger|)) 36))
+ (|mergeFactors| (($ $ $) 139)) (|map| (($ (|Mapping| |#1| |#1|) $) 137))
+ (|makeFR|
+  (($ |#1|
+    (|List|
+     (|Record| (|:| |flag| (|Union| #3="nil" #4="sqfr" #5="irred" #6="prime"))
+               (|:| |factor| |#1|) (|:| |exponent| (|NonNegativeInteger|)))))
+   68))
+ (|leftRecip| (((|Union| $ #1#) $) NIL))
+ (|leftPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL))
+ (|lcmCoef|
+  (((|Record| (|:| |llcm_res| $) (|:| |coeff1| $) (|:| |coeff2| $)) $ $) NIL
+   (|has| |#1| (|GcdDomain|))))
+ (|lcm| (($ $ $) NIL (|has| |#1| (|GcdDomain|)))
+  (($ (|List| $)) NIL (|has| |#1| (|GcdDomain|))))
+ (|latex| (((|String|) $) NIL))
+ (|irreducibleFactor| (($ |#1| (|NonNegativeInteger|)) 38))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|gcdPolynomial|
+  (((|SparseUnivariatePolynomial| $) (|SparseUnivariatePolynomial| $)
+    (|SparseUnivariatePolynomial| $))
+   NIL (|has| |#1| (|GcdDomain|))))
+ (|gcd| (($ $ $) 145 (|has| |#1| (|GcdDomain|)))
+  (($ (|List| $)) NIL (|has| |#1| (|GcdDomain|))))
+ (|flagFactor| (($ |#1| (|NonNegativeInteger|) (|Union| #3# #4# #5# #6#)) 35))
+ (|factors|
+  (((|List|
+     (|Record| (|:| |factor| |#1|) (|:| |exponent| (|NonNegativeInteger|))))
+    $)
+   59))
+ (|factorList|
+  (((|List|
+     (|Record| (|:| |flag| (|Union| #3# #4# #5# #6#)) (|:| |factor| |#1|)
+               (|:| |exponent| (|NonNegativeInteger|))))
+    $)
+   11))
+ (|factor| (((|Factored| $) $) NIL (|has| |#1| (|UniqueFactorizationDomain|))))
+ (|exquo| (((|Union| $ "failed") $ $) 133)) (|expand| ((|#1| $) 62))
+ (|eval| (($ $ (|List| |#1|) (|List| |#1|)) NIL (|has| |#1| (|Evalable| |#1|)))
+         (($ $ |#1| |#1|) NIL (|has| |#1| (|Evalable| |#1|)))
+         (($ $ (|Equation| |#1|)) NIL (|has| |#1| (|Evalable| |#1|)))
+         (($ $ (|List| (|Equation| |#1|))) 88 (|has| |#1| (|Evalable| |#1|)))
+         (($ $ (|List| (|Symbol|)) (|List| |#1|)) 93
+          (|has| |#1| (|InnerEvalable| (|Symbol|) |#1|)))
+         (($ $ (|Symbol|) |#1|) NIL
+          (|has| |#1| (|InnerEvalable| (|Symbol|) |#1|)))
+         (($ $ (|List| $) (|List| $)) NIL (|has| |#1| (|Evalable| $)))
+         (($ $ $ $) NIL (|has| |#1| (|Evalable| $)))
+         (($ $ (|Equation| $)) NIL (|has| |#1| (|Evalable| $)))
+         (($ $ (|List| (|Equation| $))) 90 (|has| |#1| (|Evalable| $)))
+         (($ $ (|List| (|Symbol|)) (|List| $)) 94
+          (|has| |#1| (|InnerEvalable| (|Symbol|) $)))
+         (($ $ (|Symbol|) $) NIL (|has| |#1| (|InnerEvalable| (|Symbol|) $))))
+ (|elt| (($ $ |#1|) 80 (|has| |#1| (|Eltable| |#1| |#1|)))
+  (($ $ $) 81 (|has| |#1| (|Eltable| $ $))))
+ (|differentiate| (($ $) NIL (|has| |#1| (|DifferentialRing|)))
+  (($ $ (|NonNegativeInteger|)) NIL (|has| |#1| (|DifferentialRing|)))
+  (($ $ (|Symbol|)) NIL (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|List| (|Symbol|))) NIL
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|Symbol|) (|NonNegativeInteger|)) NIL
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|List| (|Symbol|)) (|List| (|NonNegativeInteger|))) NIL
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|Mapping| |#1| |#1|) (|NonNegativeInteger|)) NIL)
+  (($ $ (|Mapping| |#1| |#1|)) 136))
+ (|convert| (((|DoubleFloat|) $) 103 (|has| |#1| (|RealConstant|)))
+            (((|Float|) $) 100 (|has| |#1| (|RealConstant|)))
+            (((|InputForm|) $) 31
+             (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|commutator| (($ $ $) NIL))
+ (|coerce| (((|OutputForm|) $) 113) (($ (|Integer|)) 51) (($ $) NIL)
+           (($ |#1|) 50)
+           (($ (|Fraction| (|Integer|))) NIL
+            (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|))))))
+ (|characteristic| (((|NonNegativeInteger|)) 53))
+ (|associator| (($ $ $ $) NIL)) (|associates?| (((|Boolean|) $ $) NIL))
+ (|antiCommutator| (($ $ $) NIL)) (|annihilate?| (((|Boolean|) $ $) NIL))
+ (^ (($ $ (|PositiveInteger|)) NIL) (($ $ (|NonNegativeInteger|)) 105))
+ (|Zero| (($) 44 T CONST)) (|One| (($) 43 T CONST))
+ (D (($ $) NIL (|has| |#1| (|DifferentialRing|)))
+  (($ $ (|NonNegativeInteger|)) NIL (|has| |#1| (|DifferentialRing|)))
+  (($ $ (|Symbol|)) NIL (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|List| (|Symbol|))) NIL
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|Symbol|) (|NonNegativeInteger|)) NIL
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|List| (|Symbol|)) (|List| (|NonNegativeInteger|))) NIL
+   (|has| |#1| (|PartialDifferentialRing| (|Symbol|))))
+  (($ $ (|Mapping| |#1| |#1|) (|NonNegativeInteger|)) NIL)
+  (($ $ (|Mapping| |#1| |#1|)) NIL))
+ (= (((|Boolean|) $ $) 126)) (- (($ $ $) NIL) (($ $) 128)) (+ (($ $ $) 134))
+ (* (($ (|PositiveInteger|) $) NIL) (($ $ $) 54) (($ (|Integer|) $) 55)
+    (($ (|NonNegativeInteger|) $) NIL) (($ |#1| $) 56) (($ $ |#1|) NIL)))
+((|HasCategory| |#1| (LIST '|PartialDifferentialRing| '(|Symbol|)))
+ (|HasCategory| |#1| '(|DifferentialRing|))
+ (|HasCategory| |#1| (LIST '|InnerEvalable| '(|Symbol|) (|devaluate| |#1|)))
+ (|HasCategory| |#1| (LIST '|Evalable| (|devaluate| |#1|)))
+ (|HasCategory| |#1| (LIST '|Eltable| (|devaluate| |#1|) (|devaluate| |#1|)))
+ (|HasCategory| |#1| (LIST '|RetractableTo| (LIST '|Fraction| '(|Integer|))))
+ (|HasCategory| |#1| (LIST '|RetractableTo| '(|Integer|)))
+ (|HasCategory| |#1| (LIST '|InnerEvalable| '(|Symbol|) '$))
+ (|HasCategory| |#1| (LIST '|Evalable| '$))
+ (|HasCategory| |#1| (LIST '|Eltable| '$ '$))
+ (|HasCategory| |#1| (LIST '|ConvertibleTo| '(|InputForm|)))
+ (|HasCategory| |#1| '(|UniqueFactorizationDomain|))
+ (|HasCategory| |#1| '(|GcdDomain|))
+ (OR (|HasCategory| |#1| '(|GcdDomain|))
+     (|HasCategory| |#1| '(|UniqueFactorizationDomain|)))
+ (|HasCategory| |#1| '(|RealConstant|))
+ (|HasCategory| |#1| '(|IntegerNumberSystem|)))
+FR
+(((|IntegralDomain|) . T) ((|DifferentialExtension| |#1|) . T)
+ ((|Algebra| |#1|) . T) ((|FullyEvalableOver| |#1|) . T)
+ ((|FullyRetractableTo| |#1|) . T) ((|GcdDomain|) |has| |#1| (|GcdDomain|))
+ ((|RealConstant|) |has| |#1| (|RealConstant|))
+ ((|UniqueFactorizationDomain|) |has| |#1| (|UniqueFactorizationDomain|))
+ ((|ConvertibleTo| (|InputForm|)) |has| |#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Eltable| $ $) |has| |#1| (|Eltable| $ $))
+ ((|Evalable| $) |has| |#1| (|Evalable| $))
+ ((|InnerEvalable| (|Symbol|) $) |has| |#1| (|InnerEvalable| (|Symbol|) $)))
+(((|AbelianGroup|) . T) ((|AbelianMonoid|) . T) ((|AbelianSemiGroup|) . T)
+ ((|Algebra| |#1|) . T) ((|Algebra| $) . T) ((|BasicType|) . T)
+ ((|BiModule| |t#1| |t#1|) . T) ((|BiModule| $ $) . T)
+ ((|CancellationAbelianMonoid|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|CommutativeRing|) . T) ((|CommutativeStar|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |#1| (|ConvertibleTo| (|InputForm|)))
+ ((|ConvertibleTo| (|Float|)) |has| |#1| (|RealConstant|))
+ ((|ConvertibleTo| (|DoubleFloat|)) |has| |#1| (|RealConstant|))
+ ((|DifferentialExtension| |#1|) . T)
+ ((|DifferentialRing|) |has| |t#1| (|DifferentialRing|))
+ ((|Eltable| $ $) |has| |#1| (|Eltable| $ $))
+ ((|Eltable| |t#1| $) |has| |t#1| (|Eltable| |t#1| |t#1|)) ((|EntireRing|) . T)
+ ((|Evalable| $) |has| |#1| (|Evalable| $))
+ ((|Evalable| |t#1|) |has| |t#1| (|Evalable| |t#1|))
+ ((|FullyEvalableOver| |#1|) . T) ((|FullyRetractableTo| |#1|) . T)
+ ((|GcdDomain|) |has| |#1| (|GcdDomain|))
+ ((|InnerEvalable| (|Symbol|) $) |has| |#1| (|InnerEvalable| (|Symbol|) $))
+ ((|InnerEvalable| (|Symbol|) |t#1|) |has| |t#1|
+  (|InnerEvalable| (|Symbol|) |t#1|))
+ ((|InnerEvalable| |t#1| |t#1|) OR (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |#1| (|Evalable| $)))
+ ((|IntegralDomain|) . T) ((|LeftModule| |t#1|) . T)
+ ((|LeftOreRing|) |has| |#1| (|GcdDomain|)) ((|Magma|) . T)
+ ((|MagmaWithUnit|) . T) ((|Module| |t#1|) . T) ((|Monoid|) . T)
+ ((|NonAssociativeRing|) . T) ((|NonAssociativeRng|) . T)
+ ((|NonAssociativeSemiRing|) . T) ((|NonAssociativeSemiRng|) . T)
+ ((|PartialDifferentialRing| (|Symbol|)) |has| |t#1|
+  (|PartialDifferentialRing| (|Symbol|)))
+ ((|RealConstant|) |has| |#1| (|RealConstant|))
+ ((|RetractableTo| (|Fraction| (|Integer|))) |has| |t#1|
+  (|RetractableTo| (|Fraction| (|Integer|))))
+ ((|RetractableTo| (|Integer|)) |has| |t#1| (|RetractableTo| (|Integer|)))
+ ((|RetractableTo| |t#1|) . T) ((|RightModule| |t#2|) . T) ((|Ring|) . T)
+ ((|Rng|) . T) ((|SemiGroup|) . T) ((|SemiRing|) . T) ((|SemiRng|) . T)
+ ((|SetCategory|) . T) ((|TwoSidedRecip|) . T)
+ ((|UniqueFactorizationDomain|) |has| |#1| (|UniqueFactorizationDomain|))
+ ((|noZeroDivisors|) . T) ((|unitsKnown|) . T))
+((|constructor|
+  (NIL
+   "\\spadtype{Factored} creates a domain whose objects are kept in factored form as long as possible. Thus certain operations like multiplication and \\spad{gcd} are relatively easy to do. Others,{} like addition require somewhat more work,{} and unless the argument domain provides a factor function,{} the result may not be completely factored. Each object consists of a unit and a list of factors,{} where a factor has a member of \\spad{R} (the \"base\"),{} and exponent and a flag indicating what is known about the base. A flag may be one of \"nil\",{} \"sqfr\",{} \"irred\" or \"prime\",{} which respectively mean that nothing is known about the base,{} it is square-free,{} it is irreducible,{} or it is prime. The current restriction to integral domains allows simplification to be performed without worrying about multiplication order."))
+ (|rationalIfCan|
+  (((|Union| (|Fraction| (|Integer|)) "failed") $)
+   "\\spad{rationalIfCan(u)} returns a rational number if \\spad{u} really is one,{} and \"failed\" otherwise."))
+ (|rational|
+  (((|Fraction| (|Integer|)) $)
+   "\\spad{rational(u)} assumes spadvar{\\spad{u}} is actually a rational number and does the conversion to rational number (see \\spadtype{Fraction Integer})."))
+ (|rational?|
+  (((|Boolean|) $)
+   "\\spad{rational?(u)} tests if \\spadvar{\\spad{u}} is actually a rational number (see \\spadtype{Fraction Integer})."))
+ (|mergeFactors|
+  (($ $ $)
+   "\\spad{mergeFactors(u,{} v)} is used when the factorizations of \\spadvar{\\spad{u}} and \\spadvar{\\spad{v}} are known to be disjoint,{} \\spadignore{e.g.} resulting from a content/primitive part split. Essentially,{} it creates a new factored object by multiplying the units together and appending the lists of factors."))
+ (|map|
+  (($ (|Mapping| |#1| |#1|) $)
+   "\\spad{map(fn,{} u)} maps the function \\userfun{\\spad{fn}} across the factors of \\spadvar{\\spad{u}} and creates a new factored object. Note: this clears the information flags (sets them to \"nil\") because the effect of \\userfun{\\spad{fn}} is clearly not known in general."))
+ (|unitNormalize|
+  (($ $)
+   "\\spad{unitNormalize(u)} normalizes the unit part of the factorization. For example,{} when working with factored integers,{} this operation will ensure that the bases are all positive integers."))
+ (|unit|
+  ((|#1| $) "\\spad{unit(u)} extracts the unit part of the factorization."))
+ (|flagFactor|
+  (($ |#1| (|NonNegativeInteger|)
+    (|Union| #1="nil" #2="sqfr" #3="irred" #4="prime"))
+   "\\spad{flagFactor(base,{} exponent,{} flag)} creates a factored object with a single factor whose \\spad{base} is asserted to be properly described by the information flag."))
+ (|sqfrFactor|
+  (($ |#1| (|NonNegativeInteger|))
+   "\\spad{sqfrFactor(base,{} exponent)} creates a factored object with a single factor whose \\spad{base} is asserted to be square-free (flag = \"sqfr\")."))
+ (|primeFactor|
+  (($ |#1| (|NonNegativeInteger|))
+   "\\spad{primeFactor(base,{} exponent)} creates a factored object with a single factor whose \\spad{base} is asserted to be prime (flag = \"prime\")."))
+ (|numberOfFactors|
+  (((|NonNegativeInteger|) $)
+   "\\spad{numberOfFactors(u)} returns the number of factors in \\spadvar{\\spad{u}}."))
+ (|irreducibleFactor|
+  (($ |#1| (|NonNegativeInteger|))
+   "\\spad{irreducibleFactor(base,{} exponent)} creates a factored object with a single factor whose \\spad{base} is asserted to be irreducible (flag = \"irred\")."))
+ (|factors|
+  (((|List|
+     (|Record| (|:| |factor| |#1|) (|:| |exponent| (|NonNegativeInteger|))))
+    $)
+   "\\spad{factors(u)} returns a list of the factors in a form suitable for iteration. That is,{} it returns a list where each element is a record containing a base and exponent. The original object is the product of all the factors and the unit (which can be extracted by \\spad{unit(u)})."))
+ (|nilFactor|
+  (($ |#1| (|NonNegativeInteger|))
+   "\\spad{nilFactor(base,{} exponent)} creates a factored object with a single factor with no information about the kind of \\spad{base} (flag = \"nil\")."))
+ (|factorList|
+  (((|List|
+     (|Record| (|:| |flag| (|Union| #1# #2# #3# #4#)) (|:| |factor| |#1|)
+               (|:| |exponent| (|NonNegativeInteger|))))
+    $)
+   "\\spad{factorList(u)} returns the list of factors with flags (for use by factoring code)."))
+ (|makeFR|
+  (($ |#1|
+    (|List|
+     (|Record| (|:| |flag| (|Union| #1# #2# #3# #4#)) (|:| |factor| |#1|)
+               (|:| |exponent| (|NonNegativeInteger|)))))
+   "\\spad{makeFR(unit,{} listOfFactors)} creates a factored object (for use by factoring code)."))
+ (|expand|
+  ((|#1| $)
+   "\\spad{expand(f)} multiplies the unit and factors together,{} yielding an \"unfactored\" object. Note: this is purposely not called \\spadfun{coerce} which would cause the interpreter to do this automatically.")))
+(("documentation" 0 18866) ("ancestors" 0 16715) ("parents" 0 16152)
+ ("abbreviation" 0 16149) ("predicates" 0 15196) ("superDomain" 0 NIL)
+ ("operationAlist" 0 8548) ("modemaps" 0 5483) ("sourceFile" 0 5449)
+ ("constructorCategory" 0 2834) ("constructorModemap" 0 44)
+ ("constructorKind" 0 35) ("constructorForm" 0 20))

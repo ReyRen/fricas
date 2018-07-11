@@ -1,0 +1,53 @@
+2552                (|CRApackage| R)
+|package|
+(((|CRApackage| |#1|)
+  (CATEGORY |package| (SIGNATURE |modTree| ((|List| |#1|) |#1| (|List| |#1|)))
+   (SIGNATURE |chineseRemainder| (|#1| (|List| |#1|) (|List| |#1|)))
+   (SIGNATURE |chineseRemainder|
+    ((|List| |#1|) (|List| (|List| |#1|)) (|List| |#1|)))
+   (SIGNATURE |multiEuclideanTree| ((|List| |#1|) (|List| |#1|) |#1|)))
+  (|EuclideanDomain|))
+ (T |CRApackage|))
+(CATEGORY |package| (SIGNATURE |modTree| ((|List| |#1|) |#1| (|List| |#1|)))
+ (SIGNATURE |chineseRemainder| (|#1| (|List| |#1|) (|List| |#1|)))
+ (SIGNATURE |chineseRemainder|
+  ((|List| |#1|) (|List| (|List| |#1|)) (|List| |#1|)))
+ (SIGNATURE |multiEuclideanTree| ((|List| |#1|) (|List| |#1|) |#1|)))
+"/git/fricas/src/algebra/CRAPACK.spad"
+((|multiEuclideanTree| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|EuclideanDomain|))
+       (|isDomain| *1 (|CRApackage| *3))))
+ (|chineseRemainder| (*1 *2 *3 *2)
+  (AND (|isDomain| *3 (|List| (|List| *4))) (|isDomain| *2 (|List| *4))
+       (|ofCategory| *4 (|EuclideanDomain|))
+       (|isDomain| *1 (|CRApackage| *4))))
+ (|chineseRemainder| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|List| *2)) (|isDomain| *1 (|CRApackage| *2))
+       (|ofCategory| *2 (|EuclideanDomain|))))
+ (|modTree| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|EuclideanDomain|))
+       (|isDomain| *1 (|CRApackage| *3)))))
+((|multiEuclideanTree| (((|List| |#1|) (|List| |#1|) |#1|) 40))
+ (|modTree| (((|List| |#1|) |#1| (|List| |#1|)) 19))
+ (|chineseRemainder| (((|List| |#1|) (|List| (|List| |#1|)) (|List| |#1|)) 33)
+  ((|#1| (|List| |#1|) (|List| |#1|)) 31)))
+CRAPACK
+((|constructor|
+  (NIL
+   "This package implements asymptotically efficient Chinese reconstruction"))
+ (|multiEuclideanTree|
+  (((|List| |#1|) (|List| |#1|) |#1|)
+   "\\spad{multiEuclideanTree(l,{} r)} \\undocumented{}"))
+ (|chineseRemainder|
+  (((|List| |#1|) (|List| (|List| |#1|)) (|List| |#1|))
+   "\\spad{chineseRemainder(llv,{} lm)} returns a list of values,{} each of which corresponds to the Chinese remainder of the associated element of \\spad{llv} and \\spad{lm}. This is more efficient than applying chineseRemainder several times.")
+  ((|#1| (|List| |#1|) (|List| |#1|))
+   "\\spad{chineseRemainder(lv,{} lm)} returns a value \\spad{v} such that,{} if \\spad{x} is \\spad{lv.i} modulo \\spad{lm.i} for all \\spad{i},{} then \\spad{x} is \\spad{v} modulo \\spad{lm(1)*lm(2)*...*lm(n)}."))
+ (|modTree|
+  (((|List| |#1|) |#1| (|List| |#1|))
+   "\\spad{modTree(r,{} l)} \\undocumented{}")))
+(("documentation" 0 1652) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1644) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1404) ("modemaps" 0 762) ("sourceFile" 0 723)
+ ("constructorCategory" 0 422) ("constructorModemap" 0 47)
+ ("constructorKind" 0 37) ("constructorForm" 0 20))

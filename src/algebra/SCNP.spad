@@ -1,0 +1,737 @@
+)abbrev domain SCNP SceneNamedPoints
+++ Author: Martin Baker
+++ Date Created: July 2011
+++ Basic Operations:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description: Associates points or nodes in Scene structure with names
+++ (or a hierarchy of names).
+++ The aim is, where a point or node is used in several different
+++ constructions, it only needs to be specified once.
+SceneNamedPoints(PT) : Exports == Implementation where
+ PT : SPointCategory
+
+ NNI==> NonNegativeInteger
+
+ Exports== SetCategory with
+  namedPoints : (ptin : List PT, nmin : List String) -> %
+    ++ namedPoints(ptin, nmin) constructs a list of named points.
+  namedPoints : (scin : List Scene(PT), nmin : List String) -> %
+    ++ namedPoints(scin, nmin) constructs a list of named nodes.
+  namedBranch : (chin : List %, nmin : List String) -> %
+    ++ namedBranch(chin, nmin) constructs a branch in the tree structure
+  isPointLeaf? : (n : %) -> Boolean
+    ++ isPointLeaf?(n) returns true if this is a pt node, that is,
+    ++ if this node contains points
+  isNodeLeaf? : (n : %) -> Boolean
+    ++ isNodeLeaf?(n) returns true if this is a leaf which holds
+    ++ Scene nodes.
+  isNodeBranch? : (n : %) -> Boolean
+    ++ isNodeBranch?(n) returns true if this is a branch.
+  getNames : (n : %) -> List String
+    ++ getNames(n) returns a list of names for this node
+  findPoint : (n : %, ptName : String) -> PT
+    ++ findPoint(n, ptName) find the point associated with a given
+    ++ string.
+  addPoints! : (n : %, ptName : String, pts : %) -> %
+    ++ addPoints!(n, ptName, pts) adds a points node.
+  addNode! : (n : %, ptName : String, sc : Scene(PT)) -> %
+    ++ addNode!(n, ptName, sc) adds a scene node.
+  findNode : (n : %, ptName : String) -> Scene(PT)
+    ++ findNode(n, ptName) finds a scene node
+  toString : (n : %) -> String
+    ++ toString(n) returns string representation for debug purposes.
+
+ Implementation == add
+
+  math_to_string ==> mathObject2String$Lisp
+
+  Rep := Union(_
+         pt : Record(listPT : List PT, listNM : List String), _
+         nd : Record(listND : List Scene(PT), listNM : List String), _
+         br : Record(ch : List %, listHNM : List String)_
+         )
+    ++ this is a tree structure where the leaves are either:
+    ++ * lists of named points.
+    ++ * lists of named nodes in Scene structure.
+    ++ The branches are also named so a point or node can be
+    ++ determined from a hierarchy of names.
+
+  import from Record(ch : List %, listHNM : List String)
+  import from Record(listND : List Scene(PT), listNM : List String)
+
+  -- construct a list of named points
+  namedPoints(ptin : List PT, nmin : List String) : % ==
+   [[ptin, nmin]]
+
+  -- construct a list of named nodes
+  namedPoints(scin : List Scene(PT), nmin : List String) : % ==
+   [[scin, nmin]]
+
+  -- construct a branch in the tree structure
+  namedBranch(chin : List %, nmin : List String) : % ==
+   [[chin, nmin]]
+
+  -- return true if this is a pt node, that is,
+  -- if this node contains points
+  isPointLeaf?(n : %) : Boolean ==
+    if n case pt then return true()
+    false()
+
+  -- return true if this is a leaf which holds Scene nodes.
+  isNodeLeaf?(n : %) : Boolean ==
+    if n case nd then return true()
+    false()
+
+  -- return true if this is a leaf which holds Scene nodes.
+  isNodeBranch?(n : %) : Boolean ==
+    if n case br then return true()
+    false()
+
+  -- return list of names for this node
+  getNames(n : %) : List String ==
+    if n case pt then return n.pt.listNM
+    n.br.listHNM
+
+  -- find the point associated with a given string
+  findPoint(n : %, ptName : String) : PT ==
+    if isNodeBranch?(n) then
+      c : List(%) := n.br.ch
+      if c = [] then -- this is an empty branch node
+        return sipnt(0, 0)
+      -- if we get here then this is a non-empty branch node
+      fst : % := first(c)
+      if isNodeLeaf?(fst) then return sipnt(0, 0)
+      -- this is point node
+      return findPoint(fst, ptName)
+    for sNum in 1..#(n.pt.listNM) repeat
+      s : String := n.pt.listNM.sNum
+      if s = ptName then return n.pt.listPT.sNum
+    sipnt(0, 0)
+
+  -- adds a points node
+  addPoints!(n : %, ptName : String, pts : %) : % ==
+    if not isNodeBranch?(n) then
+      error "can only add points to branch"
+    n.br.ch := concat(n.br.ch, pts)
+    n.br.listHNM := concat(n.br.listHNM, ptName)
+    pts
+
+  -- adds a scene node
+  addNode!(n : %, ptName : String, sc : Scene(PT)) : % ==
+    if not isNodeLeaf?(n) then
+      if isPointLeaf?(n) then error "cannot mix def and named points"
+      -- if we get here then this is a branch node
+      scnd : % := namedPoints([sc], [ptName])
+      c : List(%) := n.br.ch
+      if c = [] then -- this is an empty branch node
+        n.br.ch := [scnd]
+        n.br.listHNM := ["useNames"]
+        return scnd
+      -- if we get here then this is a non-empty branch node
+      fst : % := first(c)
+      if isNodeLeaf?(fst) then return addNode!(fst, ptName, sc)
+      -- this branch node does not have node leaf so add one
+      n.br.ch := concat(c, scnd)
+      n.br.listHNM := concat(n.br.listHNM,"useNames")
+      return scnd
+    -- if we get here then this is a node leaf node
+    n.nd.listND := concat(n.nd.listND, sc)
+    n.nd.listNM := concat(n.nd.listNM, ptName)
+    n
+
+  -- finds a scene node with a given name
+  findNode(n : %, ptName : String) : Scene(PT) ==
+    if not isNodeLeaf?(n) then
+      if isPointLeaf?(n) then error "cannot mix def and named points"
+      -- if we get here then this is a branch node
+      c : List(%) := n.br.ch
+      if c = [] then -- this is an empty branch node
+        error "findNode - cant find"
+      fst : % := first(c)
+      if isNodeLeaf?(fst) then return findNode(fst, ptName)
+    -- if we get here then this is a node leaf node
+    for name in n.nd.listNM for namei in 1..#(n.nd.listNM) repeat
+      if name = ptName then return (n.nd.listND).namei
+    error "findNode - cant find"
+
+  -- return string representation for debug purposes.
+  toString(n : %) : String ==
+    s:String := ""
+    if n case pt then
+      s := "pt:"
+      lenNM : NNI := #(n.pt.listNM)
+      lenPT : NNI := #(n.pt.listPT)
+      if lenNM ~= lenPT then
+        return concat(["string number:",string(lenNM),_
+                       " ~= point number:",string(lenPT)])$String
+      for lst in n.pt.listNM for ptr in 1..#(n.pt.listNM) repeat
+        s := if ptr = 1
+          then concat([s,lst,":",_
+                 math_to_string n.pt.listPT.ptr])
+          else concat([s,",",lst,":",_
+                 math_to_string n.pt.listPT.ptr])
+    if n case nd then
+      s := "nd:"
+      lenNM : NNI := #(n.nd.listNM)
+      lenPT : NNI := #(n.nd.listND)
+      if lenNM ~= lenPT then
+        return concat(["string number:",string(lenNM),_
+                       " ~= point number:",string(lenPT)])$String
+      for lst in n.nd.listNM for ptr in 1..#(n.nd.listNM) repeat
+        s := if ptr = 1
+          then concat([s, lst])
+          else concat([s,",",lst])
+    if n case br then
+      s := "br:"
+      for l1 in n.br.listHNM for ptr in 1..#(n.br.listHNM) repeat
+        s := if ptr = 1
+          then concat([s,l1,"(",toString(n.br.ch.ptr),")"])
+          else concat([s,",",l1,"(",toString(n.br.ch.ptr),")"])
+    s
+
+  -- start of SetCategory definitions --
+
+  hash(s : %) : SingleInteger == 0$SingleInteger
+
+  -- returns true if x equals y
+  _=(x : %, y : %) : Boolean ==
+    if x case pt and y case pt then
+      if (x.pt.listPT = y.pt.listPT) and_
+         (x.pt.listNM = y.pt.listNM) then return true
+    if x case nd and y case nd then
+      --if (x.nd.listND = y.nd.listND) and
+      -- above line does not work because Scene does not have
+      -- SetCategory and we can't use '=' but its good enough
+      -- that the names below are the same
+      if (x.nd.listNM = y.nd.listNM) then return true
+    if x case br and y case br then
+      if (x.br.ch = y.br.ch) and_
+         (x.br.listHNM = y.br.listHNM) then return true
+    false
+
+  -- returns true if x is not equal to y
+  _~_=(x : %, y : %) : Boolean == not(x = y)
+
+  -- output (duplicate of toString but to OutputForm instead of String)
+  coerce(n : %) : OutputForm ==
+    s : OutputForm := message("")
+    if n case pt then
+      s := message("pt:")
+      lenNM : NNI := #(n.pt.listNM)
+      lenPT : NNI := #(n.pt.listPT)
+      if lenNM ~= lenPT then
+        return hconcat([message("string number:"), lenNM::OutputForm,_
+                       message(" ~= point number:"), lenPT::OutputForm])
+      for lst in n.pt.listNM for ptr in 1..#(n.pt.listNM) repeat
+        s := if ptr = 1
+          then hconcat([s,lst::OutputForm, message(":"), _
+                 (n.pt.listPT.ptr)::OutputForm])
+          else hconcat([s, message(","), lst::OutputForm, message(":"), _
+                 (n.pt.listPT.ptr)::OutputForm])
+    if n case nd then
+      s := message("nd:")
+      lenNM : NNI := #(n.nd.listNM)
+      lenPT : NNI := #(n.nd.listND)
+      if lenNM ~= lenPT then
+        return hconcat([message("string number:"), lenNM::OutputForm,_
+                        message(" ~= point number:"), lenPT::OutputForm])
+      for lst in n.nd.listNM for ptr in 1..#(n.nd.listNM) repeat
+        s := if ptr = 1
+          then hconcat([s, lst::OutputForm])
+          else hconcat([s, message(","), lst::OutputForm])
+    if n case br then
+      s := message("br:")
+      for l1 in n.br.listHNM for ptr in 1..#(n.br.listHNM) repeat
+        s := if ptr = 1
+          then hconcat([s, l1::OutputForm, message("("),
+                        (n.br.ch.ptr)::OutputForm, message(")")])
+          else hconcat([s, message(","), l1::OutputForm, message("("),
+                       (n.br.ch.ptr)::OutputForm, message(")")])
+    s
+
+)if false
+
+\section{domain STransform}
+Existing transforms in Axiom (such as dhmatrix.spad and
+moebius.spad) are stand alone chunks of algebra which don't
+interwork with each other and it would be a lot of work to incorporate them
+into other code especially graphics and geometry.
+
+The aim of STransform is to make a completely general template for
+transforms so that specific transforms like a Moebius transform could
+be implemented so that the slot directly into the geometry/graphics
+framework.
+
+We have not achieved that aim yet. STransform does work with the various
+implementations of the SPointCategory such as SCartesian(2), SCartesian(3),
+SArgand and SConformal. What I would like to do is to have
+a transform category which could be implemented by domains like
+dhmatrix.spad and moebius.spad, then they could be
+used in the geometry/graphics framework anywhere transforms are appropriate.
+
+The most general form of transform would be represented by PT->PT where
+PT is any implementation of SPointCategory. So ideally all transforms
+should be defined in this way. The usual way to transform a vector is to
+use a matrix like this:
+transform(in : Vector, def : Matrix) : Vector
+So what I need is a way to curry it into something like this:
+transform(def : Matrix) : (Vector->Vector)
+I don't know how to this? that is, how do I create an anonymous function
+where a variable (in this case def : Matrix) is a constant in the function?
+
+A scenegraph can be defined over various types of point and vectors:
+\begin{itemize}
+\item Cartesian Coordinates in 'n' dimensions.
+\item Complex Coordinates (Argand Plane).
+\item Conformal Coordinates in 'n' dimensions.
+\end{itemize}
+Each of these can be used with transforms, defined in various ways.
+Here we will look at each type of space and see how it can be
+transformed.
+There tends to be a natural matching between the coordinate type and
+the transform type as follows:
+\begin{tabular}{ l c r }
+  Coordinates & transform type & alternative & other options \\
+  SCartesian(n) - Cartesian & matrix with (n+1)x(n+1) elements
+  & function : Point->Point &  \\
+  SArgand - Complex & Complex DF -> Complex
+  & function : Point->Point &  matrix \\
+  SConformal(n) - Conformal & multivector with 2^(n+2) elements
+  & function : Point->Point &  matrix \\
+\end{tabular}
+However there are alternatives and we can often use different types
+and they will be converted by the code.
+
+Here we will look at each type of space in turn as show how to apply
+transforms in that space which you can link to here:
+\begin{itemize}
+\item Transforms Using Cartesian Coordinates.
+\item Transforms in a Complex Plane.
+\item Transforms Using Conformal Coordinates.
+\end{itemize}
+\subsection{Transforms Using Cartesian Coordinates.}
+The simplest way to transform Cartesian coordinates is to multiply
+by a matrix. So here we will use a transform node and set it with
+various matrix values. In this case we will work in 2 dimensions
+(in a plane) so we can define our scene over SCartesian(2).
+The dimension of the matrix should be one grater than this so
+we use a 3x3 matrix. The reason for this extra dimension is to
+use a projective space system which means we can translate in
+addition to rotating and scaling and so on.
+
+First we create a simple shape as follows. In line (5) we include
+the transform node and set it to 'identity' to mean that, at this
+stage, it has no effect but we can change it later.
+\begin{verbatim}
+(1) -> DF ==> DoubleFloat
+                                                             Type : Void
+
+(2) -> PT ==> SCartesian(2)
+                                                             Type : Void
+
+(3) -> view := boxBoundary(sipnt(500, 500)$PT,
+                                   sipnt(1200, 1200)$PT)$SBoundary(PT)
+   (3)  bound box : pt(500.0, 500.0)->pt(1200.0, 1200.0)
+                                         Type : SBoundary(SCartesian(2))
+
+(4) -> sc := createSceneRoot(view)$Scene(PT)
+   (4)  scene root bound box : pt(500.0, 500.0)->pt(1200.0, 1200.0) #ch = 0
+                                             Type : Scene(SCartesian(2))
+
+(5) -> tr := addSceneTransform(sc, identity()$STransform(PT))$Scene(PT)
+   (5)  scene transform tr = iden #ch = 0
+                                             Type : Scene(SCartesian(2))
+
+(6) -> gd := addScenePattern(tr,"HOUSE"::Symbol,4,view)$Scene(PT)
+   (6)
+   scene line
+     [[pt(500.0, 500.0), pt(500.0, 535.0), ....],
+      [pt(605.0, 500.0), pt(640.0, 500.0), ....], ....]
+      #ch = 0
+                                             Type : Scene(SCartesian(2))
+
+(7) -> writeSvg(sc,"testGraph/example06a1.svg")
+                                                             Type : Void
+\end{verbatim}
+We can then modify the the image by changing the transform in the
+existing transform node.
+First we can try a simple translation. We will translate the
+'house' right by 200 units and up by 200 units, so the put these
+values in the right hand column of the matrix. Apart from the
+translation, we don't want to change the shape in any other way,
+so the remainder of the matrix is an identity matrix. Note : the
+bottom right element of the matrix is set to 1, this is nearly
+always the case, if we were to set it to 0 then it would covert
+points to vectors which would not behave as expected of points
+in any subsequent transformations.
+\begin{verbatim}
+(8) -> offsetx := 200::DF
+   (8)  200.0
+                                                      Type : DoubleFloat
+
+(9) -> offsety := 200::DF
+   (9)  200.0
+                                                      Type : DoubleFloat
+
+(10) -> trb := stransform([[1::DF, 0::DF, offsetx], _
+                [0::DF, 1::DF, offsety], _
+                [0::DF, 0::DF, 1::DF]])$STransform(PT)
+
+            +1.0  0.0  200.0+
+   (10)  mtx|0.0  1.0  200.0|
+            +0.0  0.0   1.0 +
+                                        Type : STransform(SCartesian(2))
+
+(11) -> setTransform!(tr, trb)$Scene(PT)
+                                                             Type : Void
+
+(12) -> writeSvg(sc,"testGraph/example06b1.svg")
+                                                             Type : Void
+\end{verbatim}
+Then we can apply a rotation, to rotate by the angle theta, about the
+origin, we use the following matrix:
+\begin{tabular}{ l c r }
+  cos(theta) & sin(theta) \\
+  -sin(theta) & cos(theta) \\
+\end{tabular}
+To make this into a 3x3 matrix we add a row below it consisting
+of zeroes and a column on the right containing the translation
+(in this case zero). Again the bottom right element of the matrix
+is set to 1, unless we want to convert the points to vectors, in
+which case we would set to zero.
+\begin{verbatim}
+(13) -> theta : DF := (45::DF) * %pi /(180::DF)
+   (13)  0.7853981633974483
+                                                      Type : DoubleFloat
+
+(14) -> trc := stransform([[cos(theta), sin(theta), 0::DF], _
+                [-sin(theta), cos(theta), 0::DF], _
+                [0::DF, 0::DF, 1::DF]])$STransform(PT)
+
+            +0.7071067811865476  0.7071067811865475  0.0+
+   (14)  mtx|-0.7071067811865475 0.7071067811865476  0.0|
+            +       0.0                 0.0          1.0+
+                                        Type : STransform(SCartesian(2))
+
+(15) -> setTransform!(tr, trc)$Scene(PT)
+                                                             Type : Void
+
+(16) -> writeSvg(sc,"testGraph/example06c1.svg")
+
+                                                             Type : Void
+\end{verbatim}
+Another type of transform is scaling. to do this we put the scale
+factor along the leading diagonal. Again the bottom right element
+is 1.
+\begin{verbatim}
+(17) -> scale : DF := 0.25::DF
+   (17)  0.25
+                                                      Type : DoubleFloat
+
+(18) -> trd := stransform([[scale, 0::DF, 0::DF], _
+                [0::DF, scale, 0::DF], _
+                [0::DF, 0::DF, 1::DF]])$STransform(PT)
+
+            +0.25  0.0   0.0+
+   (18)  mtx|0.0   0.25  0.0|
+            +0.0   0.0   1.0+
+                                        Type : STransform(SCartesian(2))
+
+(19) -> setTransform!(tr, trd)$Scene(PT)
+                                                             Type : Void
+
+(20) -> writeSvg(sc,"testGraph/example06d1.svg")
+                                                             Type : Void
+\end{verbatim}
+There are many other types of transforms that we could apply, such as, reflection in a plane.
+We can also combine transforms, such as those above, by either of the following which are equivalent to each other :
+\begin{itemize}
+\item Multiplying the matrices together.
+\item Nesting the transforms.
+\end{itemize}
+In both cases order is significant.
+\subsection{Transforms in a Complex Plane.}
+Transforms in a Complex Plane are done slightly differently than the
+above examples. In this case we need to supply the transform node
+with an appropriate function of the type:
+\begin{verbatim}
+  Complex DF -> Complex DF.
+\end{verbatim}
+This function implements typical transforms by a combination
+of the following:
+\begin{tabular}{ l c r }
+   & function \\
+  translate & add complex number \\
+  rotate & multiply unit complex number \\
+  scale & multiply real \\
+\end{tabular}
+First we create a simple shape as follows:
+\begin{verbatim}
+(1) -> DF ==> DoubleFloat
+                                                             Type : Void
+
+(2) -> C ==> Complex DF
+                                                             Type : Void
+
+(3) -> AR ==> SArgand
+                                                             Type : Void
+
+(4) -> view := boxBoundary(sipnt(500, 500)$AR, sipnt(1200, 1200)$AR)$SBoundary(AR)
+   (4)  bound box : 500.0 + %i500.0->1200.0 + %i1200.0
+                                               Type : SBoundary(SArgand)
+
+(5) -> sc := createSceneRoot(view)$Scene(AR)
+   (5)  scene root bound box : 500.0 + %i500.0->1200.0 + %i1200.0 #ch = 0
+                                                   Type : Scene(SArgand)
+
+(6) -> tr := addSceneTransform(sc, identity()$STransform(AR))$Scene(AR)
+   (6)  scene transform tr = iden #ch = 0
+                                                   Type : Scene(SArgand)
+
+(7) -> gd := addScenePattern(tr,"HOUSE"::Symbol,4,view)$Scene(AR)
+   (7)
+   scene line
+     [ [500.0 + %i500.0, 500.0 + %i535.0, ....],
+      [605.0 + %i500.0, 640.0 + %i500.0, ....], ....]
+       #ch = 0
+                                                   Type : Scene(SArgand)
+
+(8) -> writeSvg(sc,"testGraph/example06a2.svg")
+                                                             Type : Void
+\end{verbatim}
+We can then modify the the image by changing the transform in the
+existing transform node.
+
+First we can try a simple translation, this is done by creating a
+function which adds a constant complex number to its input.
+\begin{verbatim}
+(9) -> translateComplex(x : C) : C == x + complex(200::DF, 200::DF)
+   Function declaration translateComplex : Complex(DoubleFloat) ->
+      Complex(DoubleFloat) has been added to workspace.
+                                                             Type : Void
+
+(10) -> trb := stransform(translateComplex)$STransform(AR)
+   Compiling function translateComplex with type Complex(DoubleFloat)
+       -> Complex(DoubleFloat)
+   (10)  function as transform
+                                              Type : STransform(SArgand)
+
+(11) -> setTransform!(tr, trb)$Scene(AR)
+                                                             Type : Void
+
+(12) -> writeSvg(sc,"testGraph/example06b2.svg")
+                                                             Type : Void
+\end{verbatim}
+Then we can apply a rotation, this is done by creating a function which
+multiplies its input by a given complex number.
+\begin{verbatim}
+(13) -> theta : DF := (45::DF) * %pi /(180::DF)
+   (13)  0.7853981633974483
+                                                      Type : DoubleFloat
+
+(14) -> rotateComplex(x : C) : C == x * complex(cos(theta), sin(theta))
+   Function declaration rotateComplex : Complex(DoubleFloat) -> Complex
+      (DoubleFloat) has been added to workspace.
+                                                             Type : Void
+
+(15) -> trc := stransform(rotateComplex)$STransform(AR)
+   Compiling function rotateComplex with type Complex(DoubleFloat) ->
+      Complex(DoubleFloat)
+   (15)  function as transform
+                                              Type : STransform(SArgand)
+
+(16) -> setTransform!(tr, trc)$Scene(AR)
+                                                             Type : Void
+
+(17) -> writeSvg(sc,"testGraph/example06c2.svg")
+                                                             Type : Void
+\end{verbatim}
+Scaling, this is done by creating a function which scales its input
+by a DF value.
+\begin{verbatim}
+(18) -> scale : DF := 0.25::DF
+   (18)  0.25
+                                                      Type : DoubleFloat
+
+(19) -> scaleComplex(x : C) : C == x * scale
+   Function declaration scaleComplex : Complex(DoubleFloat) -> Complex(
+      DoubleFloat) has been added to workspace.
+                                                             Type : Void
+
+(20) -> trd := stransform(scaleComplex)$STransform(AR)
+   Compiling function scaleComplex with type Complex(DoubleFloat) ->
+      Complex(DoubleFloat)
+   (20)  function as transform
+                                              Type : STransform(SArgand)
+
+(21) -> setTransform!(tr, trd)$Scene(AR)
+                                                             Type : Void
+
+(22) -> writeSvg(sc,"testGraph/example06d2.svg")
+                                                             Type : Void
+\end{verbatim}
+\subsection{Transforms Using Conformal Coordinates.}
+First we create a simple shape as follows:
+\begin{verbatim}
+(1) -> DF ==> DoubleFloat
+                                                             Type : Void
+
+(2) -> CS ==> SConformal(2)
+                                                             Type : Void
+
+(3) -> view := boxBoundary(sipnt(500, 500)$CS,
+                                sipnt(1200, 1200)$CS)$SBoundary(CS)
+   (3)
+   bound box:
+     (0.0, - 1.0, 250000.0, 0.0, 500.0, 0.0, 0.0, 0.0,
+      500.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+     ->
+     (0.0, - 1.0, 1440000.0, 0.0, 1200.0, 0.0, 0.0, 0.0,
+      1200.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+                                         Type : SBoundary(SConformal(2))
+
+(4) -> sc := createSceneRoot(view)$Scene(CS)
+   (4)
+   scene root
+     bound box:
+       (0.0, - 1.0, 250000.0, 0.0, 500.0, 0.0, 0.0, 0.0,
+        500.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+       ->
+       (0.0, - 1.0, 1440000.0, 0.0, 1200.0, 0.0, 0.0, 0.0,
+        1200.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+      #ch = 0
+                                             Type : Scene(SConformal(2))
+
+(5) -> tr := addSceneTransform(sc, identity()$STransform(CS))$Scene(CS)
+   (5)  scene transform tr = iden #ch = 0
+                                             Type : Scene(SConformal(2))
+
+(6) -> gd := addScenePattern(tr, "HOUSE"::Symbol, 4, view)$Scene(CS)
+   (6)
+   scene line
+     [
+       [
+         (0.0, - 1.0, 250000.0, 0.0, 500.0, 0.0, 0.0, 0.0,
+          500.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+         ,
+
+         (0.0, - 1.0, 268112.5, 0.0, 500.0, 0.0, 0.0, 0.0,
+           535.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+         ,
+        ....]
+       ,
+
+       [
+         (0.0, - 1.0, 308012.5, 0.0, 605.0, 0.0, 0.0, 0.0,
+           500.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+         ,
+
+         (0.0, - 1.0, 329800.0, 0.0, 640.0, 0.0, 0.0, 0.0,
+           500.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+         ,
+        ....]
+       ,
+      ....]
+      #ch = 0
+                                             Type : Scene(SConformal(2))
+
+(7) -> writeSvg(sc, "testGraph/example06a2.svg")
+                                                             Type : Void
+\end{verbatim}
+We can then modify the the image by changing the transform in the
+existing transform node.
+
+First we can try a simple translation:
+\begin{verbatim}
+(8) -> offsetx := 200::DF
+   (8)  200.0
+                                                      Type : DoubleFloat
+
+(9) -> offsety := 200::DF
+   (9)  200.0
+                                                      Type : DoubleFloat
+
+(10) -> trb := stransform([1::DF, 0::DF, 0::DF, 0::DF, _
+                0::DF, 0::DF, offsetx*(0.5::DF), 0::DF, _
+                0::DF, 0::DF, offsety*(0.5::DF), 0::DF, _
+                0::DF, 0::DF, 0::DF, 0::DF])$STransform(CS)
+   (10)
+   multiv[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 100.0, 0.0,
+                  0.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+                                        Type : STransform(SConformal(2))
+
+(11) -> setTransform!(tr, trb)$Scene(CS)
+                                                             Type : Void
+
+(12) -> writeSvg(sc, "testGraph/example06b3.svg")
+                                                             Type : Void
+\end{verbatim}
+Then we can apply a rotation:
+\begin{verbatim}
+(13) -> theta : DF := (45::DF) * %pi /(180::DF)
+   (13)  0.7853981633974483
+                                                      Type : DoubleFloat
+
+(14) -> trc := stransform([cos(theta/2), 0::DF, 0::DF, 0::DF, _
+                0::DF, 0::DF, 0::DF, 0::DF, _
+                0::DF, 0::DF, 0::DF, 0::DF, _
+                -sin(theta/2), 0::DF, 0::DF, 0::DF])$STransform(CS)
+   (14)
+   multiv
+     [0.9238795325112867, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+       0.0, 0.0, 0.0, 0.0, - 0.3826834323650898, 0.0, 0.0, 0.0]
+                                        Type : STransform(SConformal(2))
+
+(15) -> setTransform!(tr, trc)$Scene(CS)
+                                                             Type : Void
+
+(16) -> writeSvg(sc, "testGraph/example06c3.svg")
+                                                             Type : Void
+\end{verbatim}
+Scaling:
+\begin{verbatim}
+(17) -> scale : DF := 0.25::DF
+   (17)  0.25
+                                                      Type : DoubleFloat
+
+(18) -> trd := stransform(
+               [cosh(scale*0.5::DF), 0::DF, 0::DF, sinh(scale*0.5::DF), _
+                0::DF, 0::DF, 0::DF, 0::DF, _
+                0::DF, 0::DF, 0::DF, 0::DF, _
+                0::DF, 0::DF, 0::DF, 0::DF])$STransform(CS)
+   (18)
+   multiv
+     [1.0078226778257109, 0.0, 0.0, 0.12532577524111546, 0.0,
+      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+                                        Type : STransform(SConformal(2))
+
+(19) -> setTransform!(tr, trd)$Scene(CS)
+                                                             Type : Void
+
+(20) -> writeSvg(sc, "testGraph/example06d3.svg")
+                                                             Type : Void
+\end{verbatim}
+We can also do transform types that are not easy to do in other spaces
+such as reflection in unit circle:
+\begin{verbatim}
+(21) -> tre := stransform([0::DF, 1::DF, -1000::DF, 0::DF, _
+                0::DF, 0::DF, 0::DF, 0::DF, _
+                0::DF, 0::DF, 0::DF, 0::DF, _
+                0::DF, 0::DF, 0::DF, 0::DF])$STransform(CS)
+   (21)
+   multiv[0.0, 1.0, - 1000.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+                                        Type : STransform(SConformal(2))
+
+(22) -> setTransform!(tr, tre)$Scene(CS)
+                                                             Type : Void
+
+(23) -> writeSvg(sc, "testGraph/example06e3.svg")
+                                                             Type : Void
+\end{verbatim}
+)endif
+

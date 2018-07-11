@@ -1,0 +1,92 @@
+5038                (|FloatingPointSystem&| S)
+|domain|
+(((|FloatingPointSystem&| |#1|)
+  (CATEGORY |domain|
+   (SIGNATURE |digits| ((|PositiveInteger|) (|PositiveInteger|)))
+   (SIGNATURE |digits| ((|PositiveInteger|)))
+   (SIGNATURE |toString| ((|String|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |toString| ((|String|) |#1|))
+   (SIGNATURE |float| (|#1| (|Integer|) (|Integer|) (|PositiveInteger|)))
+   (SIGNATURE |float| (|#1| (|Integer|) (|Integer|))))
+  (|FloatingPointSystem|))
+ (T |FloatingPointSystem&|))
+(CATEGORY |domain|
+ (SIGNATURE |digits| ((|PositiveInteger|) (|PositiveInteger|)))
+ (SIGNATURE |digits| ((|PositiveInteger|)))
+ (SIGNATURE |toString| ((|String|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |toString| ((|String|) |#1|))
+ (SIGNATURE |float| (|#1| (|Integer|) (|Integer|) (|PositiveInteger|)))
+ (SIGNATURE |float| (|#1| (|Integer|) (|Integer|))))
+"/git/fricas/src/algebra/FPS.spad"
+((|digits| (*1 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|FloatingPointSystem&| *3))
+       (|ofCategory| *3 (|FloatingPointSystem|))))
+ (|digits| (*1 *2 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|FloatingPointSystem&| *3))
+       (|ofCategory| *3 (|FloatingPointSystem|)))))
+((|toString| (((|String|) $) 19) (((|String|) $ (|NonNegativeInteger|)) 28))
+ (|float| (($ (|Integer|) (|Integer|)) 11)
+          (($ (|Integer|) (|Integer|) (|PositiveInteger|)) NIL))
+ (|digits| (((|PositiveInteger|)) 16)
+  (((|PositiveInteger|) (|PositiveInteger|)) NIL)))
+((|HasCategory| |#1| '(|arbitraryExponent|))
+ (|HasCategory| |#1| '(|arbitraryPrecision|)))
+FPS-
+((|constructor|
+  (NIL
+   "This category is intended as a model for floating point systems. A floating point system is a model for the real numbers. In fact,{} it is an approximation in the sense that not all real numbers are exactly representable by floating point numbers. A floating point system is characterized by the following: \\blankline \\indented{2}{1: \\spadfunFrom{base}{FloatingPointSystem} of the \\spadfunFrom{exponent}{FloatingPointSystem}.} \\indented{9}{(actual implemenations are usually binary or decimal)} \\indented{2}{2: \\spadfunFrom{precision}{FloatingPointSystem} of the \\spadfunFrom{mantissa}{FloatingPointSystem} (arbitrary or fixed)} \\indented{2}{3: rounding error for operations} \\blankline Because a Float is an approximation to the real numbers,{} even though it is defined to be a join of a Field and OrderedRing,{} some of the attributes do not hold. In particular associative(\\spad{\"+\"}) does not hold. Algorithms defined over a field need special considerations when the field is a floating point system."))
+ (|max| (($) "\\spad{max()} returns the maximum floating point number."))
+ (|min| (($) "\\spad{min()} returns the minimum floating point number."))
+ (|decreasePrecision|
+  (((|PositiveInteger|) (|Integer|))
+   "\\spad{decreasePrecision(n)} decreases the current \\spadfunFrom{precision}{FloatingPointSystem} precision by \\spad{n} decimal digits."))
+ (|increasePrecision|
+  (((|PositiveInteger|) (|Integer|))
+   "\\spad{increasePrecision(n)} increases the current \\spadfunFrom{precision}{FloatingPointSystem} by \\spad{n} decimal digits."))
+ (|precision|
+  (((|PositiveInteger|) (|PositiveInteger|))
+   "\\spad{precision(n)} set the precision in the base to \\spad{n} decimal digits.")
+  (((|PositiveInteger|))
+   "\\spad{precision()} returns the precision in digits base."))
+ (|digits|
+  (((|PositiveInteger|) (|PositiveInteger|))
+   "\\spad{digits(d)} set the \\spadfunFrom{precision}{FloatingPointSystem} to \\spad{d} digits.")
+  (((|PositiveInteger|))
+   "\\spad{digits()} returns ceiling\\spad{'s} precision in decimal digits."))
+ (|bits|
+  (((|PositiveInteger|) (|PositiveInteger|))
+   "\\spad{bits(n)} set the \\spadfunFrom{precision}{FloatingPointSystem} to \\spad{n} bits.")
+  (((|PositiveInteger|))
+   "\\spad{bits()} returns ceiling\\spad{'s} precision in bits."))
+ (|toString|
+  (((|String|) $ (|NonNegativeInteger|))
+   "\\spad{toString(x,{} n)} returns a string representation of \\spad{x} truncated to \\spad{n} decimal digits.")
+  (((|String|) $)
+   "\\spad{toString(x)} returns the string representation of \\spad{x}."))
+ (|mantissa|
+  (((|Integer|) $)
+   "\\spad{mantissa(x)} returns the mantissa part of \\spad{x}."))
+ (|exponent|
+  (((|Integer|) $)
+   "\\spad{exponent(x)} returns the \\spadfunFrom{exponent}{FloatingPointSystem} part of \\spad{x}."))
+ (|base|
+  (((|PositiveInteger|))
+   "\\spad{base()} returns the base of the \\spadfunFrom{exponent}{FloatingPointSystem}."))
+ (|order|
+  (((|Integer|) $)
+   "\\spad{order x} is the order of magnitude of \\spad{x}. Note: \\spad{base ^ order x <= |x| < base ^ (1 + order x)}."))
+ (|float|
+  (($ (|Integer|) (|Integer|) (|PositiveInteger|))
+   "\\spad{float(a,{} e,{} b)} returns \\spad{a * b ^ e}.")
+  (($ (|Integer|) (|Integer|))
+   "\\spad{float(a,{} e)} returns \\spad{a * base() ^ e}."))
+ (/
+  (($ $ (|Integer|))
+   "\\spad{x / i} computes the division from \\spad{x} by an integer \\spad{i}.")))
+(("documentation" 0 1615) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1610) ("predicates" 0 1518) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1243) ("modemaps" 0 911) ("sourceFile" 0 876)
+ ("constructorCategory" 0 517) ("constructorModemap" 0 56)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

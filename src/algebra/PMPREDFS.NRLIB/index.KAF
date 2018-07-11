@@ -1,0 +1,38 @@
+1736                (|FunctionSpaceAttachPredicates| R F D)
+|package|
+(((|FunctionSpaceAttachPredicates| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |suchThat| (|#2| |#2| (|Mapping| (|Boolean|) |#3|)))
+   (SIGNATURE |suchThat| (|#2| |#2| (|List| (|Mapping| (|Boolean|) |#3|)))))
+  (|Comparable|) (|FunctionSpace| |#1|) (|Type|))
+ (T |FunctionSpaceAttachPredicates|))
+(CATEGORY |package|
+ (SIGNATURE |suchThat| (|#2| |#2| (|Mapping| (|Boolean|) |#3|)))
+ (SIGNATURE |suchThat| (|#2| |#2| (|List| (|Mapping| (|Boolean|) |#3|)))))
+"/git/fricas/src/algebra/PMPREDFS.spad"
+((|suchThat| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Mapping| (|Boolean|) *5)))
+       (|ofCategory| *5 (|Type|)) (|ofCategory| *4 (|Comparable|))
+       (|isDomain| *1 (|FunctionSpaceAttachPredicates| *4 *2 *5))
+       (|ofCategory| *2 (|FunctionSpace| *4))))
+ (|suchThat| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Mapping| (|Boolean|) *5)) (|ofCategory| *5 (|Type|))
+       (|ofCategory| *4 (|Comparable|))
+       (|isDomain| *1 (|FunctionSpaceAttachPredicates| *4 *2 *5))
+       (|ofCategory| *2 (|FunctionSpace| *4)))))
+((|suchThat| ((|#2| |#2| (|List| (|Mapping| (|Boolean|) |#3|))) 12)
+  ((|#2| |#2| (|Mapping| (|Boolean|) |#3|)) 13)))
+PMPREDFS
+((|constructor|
+  (NIL
+   "Attaching predicates to symbols for pattern matching. Date Created: 21 Mar 1989"))
+ (|suchThat|
+  ((|#2| |#2| (|List| (|Mapping| (|Boolean|) |#3|)))
+   "\\spad{suchThat(x,{} [f1,{} f2,{} ...,{} fn])} attaches the predicate \\spad{f1} and \\spad{f2} and ... and \\spad{fn} to \\spad{x}. Error: if \\spad{x} is not a symbol.")
+  ((|#2| |#2| (|Mapping| (|Boolean|) |#3|))
+   "\\spad{suchThat(x,{} foo)} attaches the predicate foo to \\spad{x}; error if \\spad{x} is not a symbol.")))
+(("documentation" 0 1228) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1219) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1101) ("modemaps" 0 575) ("sourceFile" 0 535)
+ ("constructorCategory" 0 375) ("constructorModemap" 0 70)
+ ("constructorKind" 0 60) ("constructorForm" 0 20))

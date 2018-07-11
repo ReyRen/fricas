@@ -1,0 +1,20 @@
+)abbrev domain INTABL InnerTable
+++ Author: Barry Trager
+++ Date Created: 1992
+++ Basic Operations:
+++ Related Domains: HashTable, AssociationList, Table
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+++ Description:
+++   This domain is used to provide a conditional "add" domain
+++   for the implementation of \spadtype{Table}.
+
+InnerTable(Key : SetCategory, Entry : Type, addDom) : Exports ==
+       Implementation where
+    addDom : Join(TableAggregate(Key, Entry), finiteAggregate)
+    Exports ==> Join(TableAggregate(Key, Entry), finiteAggregate)
+    Implementation ==> addDom
+

@@ -1,0 +1,34 @@
+1196                (MAKEPROP '|RadicalCategory| 'NILADIC T)
+(|RadicalCategory|)
+|category|
+(((|RadicalCategory|) (|Category|)) (T |RadicalCategory|))
+(|Join|
+ (CATEGORY |domain| (SIGNATURE |sqrt| ($ $))
+  (SIGNATURE |nthRoot| ($ $ (|Integer|)))
+  (SIGNATURE ^ ($ $ (|Fraction| (|Integer|))))))
+"/git/fricas/src/algebra/RADCAT.spad"
+((^ (*1 *1 *1 *2)
+  (AND (|ofCategory| *1 (|RadicalCategory|))
+       (|isDomain| *2 (|Fraction| (|Integer|)))))
+ (|nthRoot| (*1 *1 *1 *2)
+  (AND (|ofCategory| *1 (|RadicalCategory|)) (|isDomain| *2 (|Integer|))))
+ (|sqrt| (*1 *1 *1) (|ofCategory| *1 (|RadicalCategory|))))
+((|sqrt| (($ $) 6)) (|nthRoot| (($ $ (|Integer|)) 6))
+ (^ (($ $ (|Fraction| (|Integer|))) 6)))
+RADCAT
+((|constructor|
+  (NIL "The \\spad{RadicalCategory} is a model for the rational numbers."))
+ (^
+  (($ $ (|Fraction| (|Integer|)))
+   "\\spad{x ^ y} is the rational exponentiation of \\spad{x} by the power \\spad{y}."))
+ (|nthRoot|
+  (($ $ (|Integer|))
+   "\\spad{nthRoot(x,{} n)} returns the \\spad{n}th root of \\spad{x}."))
+ (|sqrt|
+  (($ $)
+   "\\spad{sqrt(x)} returns the square root of \\spad{x}. The branch cut lies along the negative real axis,{} continuous with quadrant II.")))
+(("documentation" 0 709) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 702) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 607) ("modemaps" 0 333) ("sourceFile" 0 295)
+ ("constructorCategory" 0 151) ("constructorModemap" 0 92)
+ ("constructorKind" 0 81) ("constructorForm" 0 61) ("NILADIC" 0 20))

@@ -1,0 +1,44 @@
+2162                (|JetCoordinateTransformation| JB1 JB2 Y W)
+|package|
+(((|JetCoordinateTransformation| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |transform| ((|JetBundleExpression| |#2|) |#1|))
+   (SIGNATURE |transform|
+    ((|JetBundleExpression| |#2|) (|JetBundleExpression| |#1|))))
+  (|JetBundleCategory|) (|JetBundleCategory|)
+  (|Vector| (|JetBundleExpression| |#2|))
+  (|Vector| (|JetBundleExpression| |#2|)))
+ (T |JetCoordinateTransformation|))
+(CATEGORY |package| (SIGNATURE |transform| ((|JetBundleExpression| |#2|) |#1|))
+ (SIGNATURE |transform|
+  ((|JetBundleExpression| |#2|) (|JetBundleExpression| |#1|))))
+"/git/fricas/src/algebra/JCT.spad"
+((|transform| (*1 *2 *3)
+  (AND (|isDomain| *3 (|JetBundleExpression| *4))
+       (|ofCategory| *4 (|JetBundleCategory|))
+       (|isDomain| *2 (|JetBundleExpression| *5))
+       (|isDomain| *1 (|JetCoordinateTransformation| *4 *5 *6 *7))
+       (|ofCategory| *5 (|JetBundleCategory|)) (|ofType| *6 (|Vector| *2))
+       (|ofType| *7 (|Vector| *2))))
+ (|transform| (*1 *2 *3)
+  (AND (|isDomain| *2 (|JetBundleExpression| *4))
+       (|isDomain| *1 (|JetCoordinateTransformation| *3 *4 *5 *6))
+       (|ofCategory| *3 (|JetBundleCategory|))
+       (|ofCategory| *4 (|JetBundleCategory|)) (|ofType| *5 (|Vector| *2))
+       (|ofType| *6 (|Vector| *2)))))
+((|transform| (((|JetBundleExpression| |#2|) (|JetBundleExpression| |#1|)) 69)
+  (((|JetBundleExpression| |#2|) |#1|) 53)))
+JCT
+((|constructor|
+  (NIL
+   "\\spadtype{JetCoordinateTransformation} implements changes of local coordinates. Given are the changes of the coordinates of the base space,{} \\spadignore{i.e.} the independent and dependent variables. The transformations of the derivatives are computed via the chain rule. \\spad{Y} (\\spad{W}) contains expressions for the old variables in terms of the new ones."))
+ (|transform|
+  (((|JetBundleExpression| |#2|) (|JetBundleExpression| |#1|))
+   "\\spad{transform(f)} rewrites a function of the old coordinates in the new ones.")
+  (((|JetBundleExpression| |#2|) |#1|)
+   "\\spad{transform(jv)} transforms a jet variable \\spad{jv} into a function of the new coordinates.")))
+(("documentation" 0 1456) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1452) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1328) ("modemaps" 0 675) ("sourceFile" 0 640)
+ ("constructorCategory" 0 472) ("constructorModemap" 0 74)
+ ("constructorKind" 0 64) ("constructorForm" 0 20))

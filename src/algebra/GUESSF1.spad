@@ -1,0 +1,20 @@
+)abbrev package GUESSF1 GuessFiniteFunctions
+++ Description:
+++ This package exports coercion and retraction from EXPR INT to
+++ finite fields
+GuessFiniteFunctions(F : Join(FiniteFieldCategory, ConvertibleTo Integer)):
+  Exports == Implementation where
+
+    EXPRR ==> Expression Integer
+
+    Exports == with
+
+      F2EXPRR : F -> EXPRR
+      EXPRR2F : EXPRR -> F
+
+    Implementation == add
+
+      F2EXPRR(p : F) : EXPRR == convert(p)@Integer::EXPRR
+      EXPRR2F(p : EXPRR) : F == retract(p)@Fraction(Integer)::F
+
+

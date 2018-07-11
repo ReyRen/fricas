@@ -1,0 +1,61 @@
+2491                (|RationalFunctionIntegration| F)
+|package|
+(((|RationalFunctionIntegration| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |internalIntegrate|
+    ((|IntegrationResult| (|Fraction| (|Polynomial| |#1|)))
+     (|Fraction| (|Polynomial| |#1|)) (|Symbol|)))
+   (SIGNATURE |infieldIntegrate|
+    ((|Union| (|Fraction| (|Polynomial| |#1|)) "failed")
+     (|Fraction| (|Polynomial| |#1|)) (|Symbol|))))
+  (|Join| (|IntegralDomain|) (|RetractableTo| (|Integer|))
+          (|CharacteristicZero|)))
+ (T |RationalFunctionIntegration|))
+(CATEGORY |package|
+ (SIGNATURE |internalIntegrate|
+  ((|IntegrationResult| (|Fraction| (|Polynomial| |#1|)))
+   (|Fraction| (|Polynomial| |#1|)) (|Symbol|)))
+ (SIGNATURE |infieldIntegrate|
+  ((|Union| (|Fraction| (|Polynomial| |#1|)) "failed")
+   (|Fraction| (|Polynomial| |#1|)) (|Symbol|))))
+"/git/fricas/src/algebra/INTRF.spad"
+((|infieldIntegrate| (*1 *2 *2 *3)
+  (|partial| AND (|isDomain| *2 (|Fraction| (|Polynomial| *4)))
+   (|isDomain| *3 (|Symbol|))
+   (|ofCategory| *4
+                 (|Join| (|IntegralDomain|) (|RetractableTo| (|Integer|))
+                         (|CharacteristicZero|)))
+   (|isDomain| *1 (|RationalFunctionIntegration| *4))))
+ (|internalIntegrate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+       (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *5
+                     (|Join| (|IntegralDomain|) (|RetractableTo| (|Integer|))
+                             (|CharacteristicZero|)))
+       (|isDomain| *2 (|IntegrationResult| (|Fraction| (|Polynomial| *5))))
+       (|isDomain| *1 (|RationalFunctionIntegration| *5)))))
+((|internalIntegrate|
+  (((|IntegrationResult| (|Fraction| (|Polynomial| |#1|)))
+    (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   25))
+ (|infieldIntegrate|
+  (((|Union| (|Fraction| (|Polynomial| |#1|)) "failed")
+    (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   20)))
+INTRF
+((|constructor|
+  (NIL
+   "This package provides functions for the integration of rational functions."))
+ (|infieldIntegrate|
+  (((|Union| (|Fraction| (|Polynomial| |#1|)) "failed")
+    (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   "\\spad{infieldIntegrate(f,{} x)} returns a fraction \\spad{g} such that \\spad{dg/dx = f} if \\spad{g} exists,{} \"failed\" otherwise."))
+ (|internalIntegrate|
+  (((|IntegrationResult| (|Fraction| (|Polynomial| |#1|)))
+    (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   "\\spad{internalIntegrate(f,{} x)} returns \\spad{g} such that \\spad{dg/dx = f}.")))
+(("documentation" 0 1899) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1893) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1620) ("modemaps" 0 874) ("sourceFile" 0 837)
+ ("constructorCategory" 0 542) ("constructorModemap" 0 64)
+ ("constructorKind" 0 54) ("constructorForm" 0 20))

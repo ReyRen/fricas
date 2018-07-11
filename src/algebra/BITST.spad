@@ -1,0 +1,128 @@
+)abbrev domain BITST BitStreamFrame
+++ Author: Martin Baker
+++ Description: An example of a frame taken from Vickers section 3.7
+++ Date Created: Aug 2015
+BitStreamFrame() : Exports == Impl where
+    NNI ==> NonNegativeInteger
+    Exports ==> Lattice with
+      starts : (index : List(Boolean)) -> %
+        ++ construct bit stream
+      starts : (str : String) -> %
+        ++ construct bit stream by parsing string containing 0, 1 and *
+
+    Impl == add
+
+     -- A single bitstream is coded as 'List Boolean', this is the
+     -- bit sequence starting from the first bit.
+     -- This representation holds all allowable bitstreams
+     -- or'd together as a list of bitstreams.
+     Rep := List(List(Boolean))
+
+     -- construct bit stream
+     starts(index : List(Boolean)) : % ==
+         [index]
+
+     -- construct bit stream by parsing string containing 0, 1 and *
+     starts(str : String) : % ==
+         res : List(Boolean) := []
+         cs : List Character := entries(str)
+         for c in cs repeat
+             if c = char("0") then res := concat(res, false)
+             if c = char("1") then res := concat(res, true)
+         [res]
+
+     -- returns the logical 'meet', e.g. 'and'.
+     _/_\(a : %, b : %) : % ==
+         res : List(List(Boolean)) := concat(a pretend List(List(Boolean)),
+                    b pretend List(List(Boolean)))$List(List(Boolean))
+         res
+
+     -- returns the logical 'join', e.g. 'or'.
+     _\_/(a : %, b : %) : % ==
+         res : List(List(Boolean)) := concat(a pretend List(List(Boolean)),
+                    b pretend List(List(Boolean)))$List(List(Boolean))
+         res
+
+     -- start of SetCategory definitions --
+
+     hash(s : %) : SingleInteger == 0$SingleInteger
+
+     -- returns true if x equals y
+     -- this is equality and not isomorphism
+     -- that is it returns true only if exact index values and names are used
+     -- in addition to the structure(arrows) being the same.
+     _=(x : %, y : %) : Boolean ==
+         if #x ~= #y then return false
+         len : NNI := #x
+         for i in 1..len repeat
+             if x.i ~= y.i then return false
+         true
+
+     -- returns true if x is not equal to y
+     _~_=(x : %, y : %) : Boolean == not(x = y)
+
+     -- output
+     coerce(s : %) : OutputForm ==
+         cs : List OutputForm := []
+         for row in s repeat
+             r : List OutputForm := [message("starts:")]
+             for x in row repeat
+                 ro : OutputForm := message("0")
+                 if x then ro := message("1")
+                 r := concat(r, ro)
+                 --r := concat(r, " "::OutputForm)
+             c : OutputForm := hconcat(r)
+             cs := concat(cs, c)
+         vconcat(cs)
+
+--Copyright (c) 2016, Martin J Baker.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of Martin J Baker. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+)if false
+\eject
+\begin{thebibliography}{99}
+For more details see:
+[1] Topology Via Logic - Steven Vickers ISBN 0 521 57651 2
+[2] J. Lambek, P. J. Scott 1988
+     Introduction to Higher-Order Categorical Logic ISBN : 0521356539
+     This book shows the relationship between mathematical logic and category
+     theory. Although this is not used in the current code, it suggests
+     a promising generalisation.
+[3] I have put a fuller explanation of this code here:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm}
+[4] Waldeks initial comments
+https://groups.google.com/forum/?hl=en#!topic/fricas-devel/Cy-RHn_g6RY
+[5] Blog about semi-decidable logic
+\url{http://xorshammer.com/2011/07/09/a-logical-interpretation-of-some-bits-of-topology/}
+\end{thebibliography}
+\end{document}
+)endif
+

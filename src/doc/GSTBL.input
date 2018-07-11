@@ -1,0 +1,11 @@
+
+-- Input for page GeneralSparseTableXmpPage
+)clear all
+
+patrons: GeneralSparseTable(String, Integer, KeyedAccessFile(Integer), 0) := table() ;
+patrons."Smith" := 10500
+patrons."Jones" := 22000
+patrons."Jones"
+patrons."Stingy"
+reduce(+, entries patrons)
+)system rm -r kaf*.sdata

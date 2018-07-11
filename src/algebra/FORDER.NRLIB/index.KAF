@@ -1,0 +1,35 @@
+1322                (|FindOrderFinite| F UP UPUP R)
+|package|
+(((|FindOrderFinite| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |order|
+    ((|NonNegativeInteger|) (|FiniteDivisor| |#1| |#2| |#3| |#4|))))
+  (|Join| (|Finite|) (|Field|)) (|UnivariatePolynomialCategory| |#1|)
+  (|UnivariatePolynomialCategory| (|Fraction| |#2|))
+  (|FunctionFieldCategory| |#1| |#2| |#3|))
+ (T |FindOrderFinite|))
+(CATEGORY |package|
+ (SIGNATURE |order|
+  ((|NonNegativeInteger|) (|FiniteDivisor| |#1| |#2| |#3| |#4|))))
+"/git/fricas/src/algebra/FORDER.spad"
+((|order| (*1 *2 *3)
+  (AND (|isDomain| *3 (|FiniteDivisor| *4 *5 *6 *7))
+       (|ofCategory| *4 (|Join| (|Finite|) (|Field|)))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| (|Fraction| *5)))
+       (|ofCategory| *7 (|FunctionFieldCategory| *4 *5 *6))
+       (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|FindOrderFinite| *4 *5 *6 *7)))))
+((|order| (((|NonNegativeInteger|) (|FiniteDivisor| |#1| |#2| |#3| |#4|)) 16)))
+FORDER
+((|constructor|
+  (NIL
+   "\\indented{1}{Finds the order of a divisor over a finite field} Author: Manuel Bronstein Date Created: 1988"))
+ (|order|
+  (((|NonNegativeInteger|) (|FiniteDivisor| |#1| |#2| |#3| |#4|))
+   "\\spad{order(x)} \\undocumented")))
+(("documentation" 0 1068) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1061) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 981) ("modemaps" 0 553) ("sourceFile" 0 515)
+ ("constructorCategory" 0 408) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

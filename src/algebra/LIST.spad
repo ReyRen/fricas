@@ -1,0 +1,110 @@
+)abbrev domain LIST List
+++ Author: Michael Monagan
+++ Date Created: Sep 1987
+++ Basic Operations:
+++   \#, append, concat, concat!, cons, construct, copy, elt, elt,
+++   empty, empty?, eq?, first, member?, merge!, mergeSort, minIndex,
+++   parts, removeDuplicates!, rest, rest, reverse,
+++   reverse!, setDifference, setIntersection, setUnion, setelt,
+++   setfirst!, setrest!, sort!, split!
+++ Related Constructors: ListFunctions2, ListFunctions3, ListToMap
+++ Also See: IndexList, ListAggregate
+++ AMS Classification:
+++ Keywords: list, index, aggregate, lisp
+++ Description:
+++   \spadtype{List} implements singly-linked lists that are
+++   addressable by indices; the index of the first element
+++   is 1. In addition to the operations provided by
+++   \spadtype{IndexedList}, this constructor provides some
+++   LISP-like functions such as \spadfun{cons} and \spadfun{append}.
+List(S : Type) : Exports == Implementation where
+ LISTMININDEX ==> 1       -- this is the minimum list index
+
+ Exports ==> ListAggregate S with
+  cons            : (S, %) -> %
+    ++ cons(element, u) appends \spad{element} onto the front
+    ++ of list \spad{u} and returns the new list. This new list
+    ++ and the old one will share some structure.
+  append          : (%, %) -> %
+    ++ append(u1, u2) appends the elements of list \spad{u1}
+    ++ onto the front of list \spad{u2}. This new list
+    ++ and \spad{u2} will share some structure.
+  tails : % -> List(%)
+    ++ tails(l) returns list [rest(x, 0), rest(x, 1), ..., rest(x, #x - 1)]
+  if S has BasicType then
+    setUnion        : (%, %) -> %
+      ++ setUnion(u1, u2) appends the two lists u1 and u2, then
+      ++ removes all duplicates. The order of elements in the
+      ++ resulting list is unspecified.
+    setIntersection : (%, %) -> %
+      ++ setIntersection(u1, u2) returns a list of the elements
+      ++ that lists \spad{u1} and \spad{u2} have in common.
+      ++ The order of elements in the resulting list is unspecified.
+    setDifference   : (%, %) -> %
+      ++ setDifference(u1, u2) returns a list of the elements
+      ++ of \spad{u1} that are not also in \spad{u2}.
+      ++ The order of elements in the resulting list is unspecified.
+  if S has OpenMath then OpenMath
+
+ Implementation ==>
+   IndexedList(S, LISTMININDEX) add
+      cons(s, l)               == concat(s, l)
+      append(l : %, t : %)         == concat(l, t)
+      tails(x : %) : List(%) ==
+          [rest(x, i) for i in 0..(#x - 1)]
+
+      if S has OpenMath then
+        writeOMList(dev : OpenMathDevice, x : %) : Void ==
+          OMputApp(dev)
+          OMputSymbol(dev, "list1", "list")
+          -- The following didn't compile because the compiler isn't
+          -- convinced that `xval' is a S.  Duhhh! MCD.
+          --for xval in x repeat
+          --  OMwrite(dev, xval, false)
+          while not empty?(x) repeat
+            OMwrite(dev, first x, false)
+            x := rest x
+          OMputEndApp(dev)
+
+        OMwrite(dev : OpenMathDevice, x : %, wholeObj : Boolean) : Void ==
+          if wholeObj then
+            OMputObject(dev)
+          writeOMList(dev, x)
+          if wholeObj then
+            OMputEndObject(dev)
+
+      if S has BasicType then
+        setUnion(l1 : %, l2 : %)      == removeDuplicates concat(l1, l2)
+
+        setIntersection(l1 : %, l2 : %) ==
+          u : % := empty()
+          l1 := removeDuplicates l1
+          while not empty? l1 repeat
+            if member?(first l1, l2) then u := cons(first l1, u)
+            l1 := rest l1
+          u
+
+        setDifference(l1 : %, l2 : %) ==
+          l1 := removeDuplicates l1
+          empty? l2 => l1
+          lu : % := empty()
+          while not empty? l1 repeat
+            l11 := l1.1
+            if not member?(l11, l2) then lu := concat(l11, lu)
+            l1 := rest l1
+          lu
+
+      -- we repeat definition from category to allow optimization
+      map!(f, l) ==
+          y := l
+          while not empty? l repeat
+              setfirst!(l, f first l)
+              l := rest l
+          y
+
+      if S has ConvertibleTo InputForm then
+        convert(x : %) : InputForm ==
+          convert concat(convert('construct)@InputForm,
+                [convert a for a in (x pretend List S)]$List(InputForm))
+
+

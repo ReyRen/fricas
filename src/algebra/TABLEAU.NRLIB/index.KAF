@@ -1,0 +1,38 @@
+1402                (|Tableau| S)
+|domain|
+(((|Tableau| |#1|)
+  (|Join| (|CoercibleTo| (|OutputForm|))
+          (CATEGORY |domain| (SIGNATURE |tableau| ($ (|List| (|List| |#1|))))
+           (SIGNATURE |listOfLists| ((|List| (|List| |#1|)) $))))
+  (|SetCategory|))
+ (T |Tableau|))
+(|Join| (|CoercibleTo| (|OutputForm|))
+        (CATEGORY |domain| (SIGNATURE |tableau| ($ (|List| (|List| |#1|))))
+         (SIGNATURE |listOfLists| ((|List| (|List| |#1|)) $))))
+"/git/fricas/src/algebra/TABLEAU.spad"
+((|tableau| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|List| *3))) (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *1 (|Tableau| *3))))
+ (|listOfLists| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|List| *3))) (|isDomain| *1 (|Tableau| *3))
+       (|ofCategory| *3 (|SetCategory|)))))
+((|tableau| (($ (|List| (|List| |#1|))) 9))
+ (|listOfLists| (((|List| (|List| |#1|)) $) 10))
+ (|coerce| (((|OutputForm|) $) 25)))
+TABLEAU
+(((|CoercibleTo| (|OutputForm|)) . T))
+(((|CoercibleTo| (|OutputForm|)) . T))
+((|constructor|
+  (NIL
+   "The tableau domain is for printing Young tableaux,{} and coercions to and from List List \\spad{S} where \\spad{S} is a set."))
+ (|listOfLists|
+  (((|List| (|List| |#1|)) $)
+   "\\spad{listOfLists t} converts a tableau \\spad{t} to a list of lists."))
+ (|tableau|
+  (($ (|List| (|List| |#1|)))
+   "\\spad{tableau(ll)} converts a list of lists \\spad{ll} to a tableau.")))
+(("documentation" 0 1003) ("ancestors" 0 964) ("parents" 0 925)
+ ("abbreviation" 0 917) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 787) ("modemaps" 0 500) ("sourceFile" 0 461)
+ ("constructorCategory" 0 282) ("constructorModemap" 0 43)
+ ("constructorKind" 0 34) ("constructorForm" 0 20))

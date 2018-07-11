@@ -1,0 +1,66 @@
+2736                (|LieAlgebra| R)
+|category|
+(((|LieAlgebra| |#1|) (|Category|) (|CommutativeRing|)) (T |LieAlgebra|))
+(|Join| (|Module| |t#1|)
+        (CATEGORY |domain| (SIGNATURE |construct| ($ $ $))
+         (IF (|has| |t#1| (|Field|))
+             (SIGNATURE / ($ $ |t#1|))
+             |noBranch|)))
+"/git/fricas/src/algebra/LIECAT.spad"
+((|construct| (*1 *1 *1 *1)
+              (AND (|ofCategory| *1 (|LieAlgebra| *2))
+                   (|ofCategory| *2 (|CommutativeRing|))))
+ (/ (*1 *1 *1 *2)
+    (AND (|ofCategory| *1 (|LieAlgebra| *2))
+         (|ofCategory| *2 (|CommutativeRing|)) (|ofCategory| *2 (|Field|)))))
+((~= (((|Boolean|) $ $) 6))
+ (|zero?|
+  (((|Boolean|) $) 6
+   (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) 6
+   (OR (|has| |#1| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|)))))
+ (|sample|
+  (($) 6 (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))
+   CONST))
+ (|opposite?|
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))))
+ (|latex| (((|String|) $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|construct| (($ $ $) 6))
+ (|coerce| (((|OutputForm|) $) 6))
+ (|Zero|
+  (($) 6 (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))
+   CONST))
+ (= (((|Boolean|) $ $) 6)) (/ (($ $ |#1|) 6 (|has| |#1| (|Field|))))
+ (- (($ $) 6 (OR (|has| |#1| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|))))
+    (($ $ $) 6
+     (OR (|has| |#1| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|)))))
+ (+ (($ $ $) 6))
+ (* (($ (|PositiveInteger|) $) 6) (($ |#1| $) 6)
+    (($ (|NonNegativeInteger|) $) 6
+     (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|))))
+    (($ (|Integer|) $) 6
+     (OR (|has| |#1| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|))))
+    (($ $ |#1|) 6)))
+LIECAT
+(((|Module| |#1|) . T))
+(((|AbelianGroup|) |has| |t#1| (|AbelianGroup|))
+ ((|AbelianMonoid|) |has| |t#1| (|AbelianMonoid|)) ((|AbelianSemiGroup|) . T)
+ ((|BasicType|) . T) ((|BiModule| |t#1| |t#1|) . T)
+ ((|CancellationAbelianMonoid|) |has| |t#1| (|AbelianGroup|))
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|LeftModule| |t#1|) . T)
+ ((|Module| |#1|) . T) ((|RightModule| |t#2|) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "The category of Lie Algebras. It is used by the following domains of non-commutative algebra: \\spadtype{LiePolynomial} and \\spadtype{XPBWPolynomial}. \\newline Author : Michel Petitot (petitot@lifl.\\spad{fr})."))
+ (/ (($ $ |#1|) "\\spad{x/r} returns the division of \\spad{x} by \\spad{r}."))
+ (|construct|
+  (($ $ $)
+   "\\spad{construct(x,{} y)} returns the Lie bracket of \\spad{x} and \\spad{y}.")))
+(("documentation" 0 2302) ("ancestors" 0 1922) ("parents" 0 1898)
+ ("abbreviation" 0 1891) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 630) ("modemaps" 0 347) ("sourceFile" 0 309)
+ ("constructorCategory" 0 122) ("constructorModemap" 0 48)
+ ("constructorKind" 0 37) ("constructorForm" 0 20))

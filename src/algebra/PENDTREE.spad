@@ -1,0 +1,64 @@
+)abbrev domain PENDTREE PendantTree
+++ A PendantTree(S) is either a leaf? and is an S or has
+++ a left and a right are both PendantTree(S).
+PendantTree(S : SetCategory) : T == C where
+ T == BinaryRecursiveAggregate(S) with
+     ptree : S->%
+       ++ ptree(s) is a leaf? pendant tree
+     ptree : (%, %)->%
+        ++ ptree(x, y) \undocumented
+     coerce : %->Tree S
+        ++ coerce(x) \undocumented
+
+
+ C == add
+     Rep := Tree S
+     import from Tree S
+     coerce (t : %) : Tree S == t pretend Tree S
+     ptree(n) == tree(n, [])$Rep pretend %
+     ptree(l, r) == tree(value(r::Rep)$Rep, cons(l, children(r::Rep)$Rep))::%
+     leaf? t == empty?(children(t)$Rep)
+     t1 = t2 == (t1::Rep) = (t2::Rep)
+     left b ==
+       leaf? b => error "ptree:no left"
+       first(children(b)$Rep)
+     right b ==
+       leaf? b => error "ptree:no right"
+       tree(value(b)$Rep, rest (children(b)$Rep))
+     value b ==
+       leaf? b => value(b)$Rep
+       error "the pendant tree has no value"
+     coerce(b : %) : OutputForm ==
+       leaf? b => value(b)$Rep :: OutputForm
+       paren blankSeparate [left b::OutputForm, right b ::OutputForm]
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

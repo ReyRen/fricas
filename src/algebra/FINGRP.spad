@@ -1,0 +1,23 @@
+)abbrev category FINGRP FiniteGroup
+++ Author: Franz Lehner
+++ Date Created: 30.04.2008
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ The category of finite groups.
+FiniteGroup : Category == Join(Group, Finite) with
+    order : % -> Integer
+    ++ \spad{order(x)} computes the order of the element $x$.
+  add -- default
+    order x ==
+        k:Integer := 1
+        y:% := x
+        while not one? y repeat
+            k := k+1
+            y := y*x
+        k
+

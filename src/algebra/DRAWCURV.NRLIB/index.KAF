@@ -1,0 +1,64 @@
+2770                (|TopLevelDrawFunctionsForAlgebraicCurves| R |Ex|)
+|package|
+(((|TopLevelDrawFunctionsForAlgebraicCurves| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |draw|
+    ((|TwoDimensionalViewport|) (|Equation| |#2|) (|Symbol|) (|Symbol|)
+     (|List| (|DrawOption|))))
+   (SIGNATURE |makeObject|
+    ((|GraphImage|) (|Equation| |#2|) (|Symbol|) (|Symbol|)
+     (|List| (|DrawOption|)))))
+  (|Join| (|IntegralDomain|) (|Comparable|) (|RetractableTo| (|Integer|)))
+  (|FunctionSpace| |#1|))
+ (T |TopLevelDrawFunctionsForAlgebraicCurves|))
+(CATEGORY |package|
+ (SIGNATURE |draw|
+  ((|TwoDimensionalViewport|) (|Equation| |#2|) (|Symbol|) (|Symbol|)
+   (|List| (|DrawOption|))))
+ (SIGNATURE |makeObject|
+  ((|GraphImage|) (|Equation| |#2|) (|Symbol|) (|Symbol|)
+   (|List| (|DrawOption|)))))
+"/git/fricas/src/algebra/DRAWCURV.spad"
+((|makeObject| (*1 *2 *3 *4 *4 *5)
+  (AND (|isDomain| *3 (|Equation| *7)) (|isDomain| *4 (|Symbol|))
+       (|isDomain| *5 (|List| (|DrawOption|)))
+       (|ofCategory| *7 (|FunctionSpace| *6))
+       (|ofCategory| *6
+                     (|Join| (|IntegralDomain|) (|Comparable|)
+                             (|RetractableTo| (|Integer|))))
+       (|isDomain| *2 (|GraphImage|))
+       (|isDomain| *1 (|TopLevelDrawFunctionsForAlgebraicCurves| *6 *7))))
+ (|draw| (*1 *2 *3 *4 *4 *5)
+  (AND (|isDomain| *3 (|Equation| *7)) (|isDomain| *4 (|Symbol|))
+       (|isDomain| *5 (|List| (|DrawOption|)))
+       (|ofCategory| *7 (|FunctionSpace| *6))
+       (|ofCategory| *6
+                     (|Join| (|IntegralDomain|) (|Comparable|)
+                             (|RetractableTo| (|Integer|))))
+       (|isDomain| *2 (|TwoDimensionalViewport|))
+       (|isDomain| *1 (|TopLevelDrawFunctionsForAlgebraicCurves| *6 *7)))))
+((|makeObject|
+  (((|GraphImage|) (|Equation| |#2|) (|Symbol|) (|Symbol|)
+    (|List| (|DrawOption|)))
+   91))
+ (|draw|
+  (((|TwoDimensionalViewport|) (|Equation| |#2|) (|Symbol|) (|Symbol|)
+    (|List| (|DrawOption|)))
+   94)))
+DRAWCURV
+((|constructor|
+  (NIL
+   "TopLevelDrawFunctionsForAlgebraicCurves provides top level functions for drawing non-singular algebraic curves."))
+ (|makeObject|
+  (((|GraphImage|) (|Equation| |#2|) (|Symbol|) (|Symbol|)
+    (|List| (|DrawOption|)))
+   "\\spad{makeObject(f(x,{} y) = g(x,{} y),{} x,{} y,{} l)} creates the graph of a polynomial equation. The list \\spad{l} of draw options must specify a region in the plane in which the curve is to sketched."))
+ (|draw|
+  (((|TwoDimensionalViewport|) (|Equation| |#2|) (|Symbol|) (|Symbol|)
+    (|List| (|DrawOption|)))
+   "\\spad{draw(f(x,{} y) = g(x,{} y),{} x,{} y,{} l)} draws the graph of a polynomial equation. The list \\spad{l} of draw options must specify a region in the plane in which the curve is to sketched.")))
+(("documentation" 0 1997) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1988) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1759) ("modemaps" 0 842) ("sourceFile" 0 802)
+ ("constructorCategory" 0 551) ("constructorModemap" 0 81)
+ ("constructorKind" 0 71) ("constructorForm" 0 20))

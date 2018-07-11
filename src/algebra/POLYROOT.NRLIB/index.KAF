@@ -1,0 +1,157 @@
+6991                (|PolynomialRoots| E V R P F)
+|package|
+(((|PolynomialRoots| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package|
+   (SIGNATURE |rroot|
+    ((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#5|)
+               (|:| |radicand| |#5|))
+     |#3| (|NonNegativeInteger|)))
+   (SIGNATURE |qroot|
+    ((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#5|)
+               (|:| |radicand| |#5|))
+     (|Fraction| (|Integer|)) (|NonNegativeInteger|)))
+   (IF (|has| |#3| (|GcdDomain|))
+       (SIGNATURE |froot|
+        ((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#5|)
+                   (|:| |radicand| |#5|))
+         |#5| (|NonNegativeInteger|)))
+       |noBranch|)
+   (SIGNATURE |nthr|
+    ((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#4|)
+               (|:| |radicand| (|List| |#4|)))
+     |#4| (|NonNegativeInteger|))))
+  (|OrderedAbelianMonoidSup|) (|OrderedSet|) (|IntegralDomain|)
+  (|PolynomialCategory| |#3| |#1| |#2|)
+  (|Join| (|Field|)
+          (CATEGORY |domain| (SIGNATURE |numer| (|#4| $))
+           (SIGNATURE |denom| (|#4| $)) (SIGNATURE |coerce| ($ |#4|)))))
+ (T |PolynomialRoots|))
+(CATEGORY |package|
+ (SIGNATURE |rroot|
+  ((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#5|)
+             (|:| |radicand| |#5|))
+   |#3| (|NonNegativeInteger|)))
+ (SIGNATURE |qroot|
+  ((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#5|)
+             (|:| |radicand| |#5|))
+   (|Fraction| (|Integer|)) (|NonNegativeInteger|)))
+ (IF (|has| |#3| (|GcdDomain|))
+     (SIGNATURE |froot|
+      ((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#5|)
+                 (|:| |radicand| |#5|))
+       |#5| (|NonNegativeInteger|)))
+     |noBranch|)
+ (SIGNATURE |nthr|
+  ((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#4|)
+             (|:| |radicand| (|List| |#4|)))
+   |#4| (|NonNegativeInteger|))))
+"/git/fricas/src/algebra/POLYROOT.spad"
+((|nthr| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|)) (|ofCategory| *7 (|IntegralDomain|))
+       (|ofCategory| *3 (|PolynomialCategory| *7 *5 *6))
+       (|isDomain| *2
+                   (|Record| (|:| |exponent| (|NonNegativeInteger|))
+                             (|:| |coef| *3) (|:| |radicand| (|List| *3))))
+       (|isDomain| *1 (|PolynomialRoots| *5 *6 *7 *3 *8))
+       (|ofCategory| *8
+                     (|Join| (|Field|)
+                             (CATEGORY |domain| (SIGNATURE |numer| (*3 $))
+                              (SIGNATURE |denom| (*3 $))
+                              (SIGNATURE |coerce| ($ *3)))))))
+ (|froot| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|)) (|ofCategory| *7 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|)) (|ofCategory| *7 (|IntegralDomain|))
+       (|ofCategory| *8 (|PolynomialCategory| *7 *5 *6))
+       (|isDomain| *2
+                   (|Record| (|:| |exponent| (|NonNegativeInteger|))
+                             (|:| |coef| *3) (|:| |radicand| *3)))
+       (|isDomain| *1 (|PolynomialRoots| *5 *6 *7 *8 *3))
+       (|ofCategory| *3
+                     (|Join| (|Field|)
+                             (CATEGORY |domain| (SIGNATURE |numer| (*8 $))
+                              (SIGNATURE |denom| (*8 $))
+                              (SIGNATURE |coerce| ($ *8)))))))
+ (|qroot| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Integer|)))
+       (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|)) (|ofCategory| *7 (|IntegralDomain|))
+       (|ofCategory| *8 (|PolynomialCategory| *7 *5 *6))
+       (|isDomain| *2
+                   (|Record| (|:| |exponent| (|NonNegativeInteger|))
+                             (|:| |coef| *9) (|:| |radicand| *9)))
+       (|isDomain| *1 (|PolynomialRoots| *5 *6 *7 *8 *9))
+       (|ofCategory| *9
+                     (|Join| (|Field|)
+                             (CATEGORY |domain| (SIGNATURE |numer| (*8 $))
+                              (SIGNATURE |denom| (*8 $))
+                              (SIGNATURE |coerce| ($ *8)))))))
+ (|rroot| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|)) (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *7 (|PolynomialCategory| *3 *5 *6))
+       (|isDomain| *2
+                   (|Record| (|:| |exponent| (|NonNegativeInteger|))
+                             (|:| |coef| *8) (|:| |radicand| *8)))
+       (|isDomain| *1 (|PolynomialRoots| *5 *6 *3 *7 *8))
+       (|ofCategory| *8
+                     (|Join| (|Field|)
+                             (CATEGORY |domain| (SIGNATURE |numer| (*7 $))
+                              (SIGNATURE |denom| (*7 $))
+                              (SIGNATURE |coerce| ($ *7))))))))
+((|rroot|
+  (((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#5|)
+              (|:| |radicand| |#5|))
+    |#3| (|NonNegativeInteger|))
+   37))
+ (|qroot|
+  (((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#5|)
+              (|:| |radicand| |#5|))
+    (|Fraction| (|Integer|)) (|NonNegativeInteger|))
+   33))
+ (|nthr|
+  (((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#4|)
+              (|:| |radicand| (|List| |#4|)))
+    |#4| (|NonNegativeInteger|))
+   52))
+ (|froot|
+  (((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#5|)
+              (|:| |radicand| |#5|))
+    |#5| (|NonNegativeInteger|))
+   62 (|has| |#3| (|GcdDomain|)))))
+((|HasCategory| |#3| '(|GcdDomain|)))
+POLYROOT
+((|constructor|
+  (NIL "computes \\spad{n}-th roots of quotients of multivariate polynomials"))
+ (|nthr|
+  (((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#4|)
+              (|:| |radicand| (|List| |#4|)))
+    |#4| (|NonNegativeInteger|))
+   "\\spad{nthr(p,{} n)} should be local but conditional"))
+ (|froot|
+  (((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#5|)
+              (|:| |radicand| |#5|))
+    |#5| (|NonNegativeInteger|))
+   "\\spad{froot(f,{} n)} returns \\spad{[m,{} c,{} r]} such that \\spad{f^(1/n) = c * r^(1/m)}."))
+ (|qroot|
+  (((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#5|)
+              (|:| |radicand| |#5|))
+    (|Fraction| (|Integer|)) (|NonNegativeInteger|))
+   "\\spad{qroot(f,{} n)} returns \\spad{[m,{} c,{} r]} such that \\spad{f^(1/n) = c * r^(1/m)}."))
+ (|rroot|
+  (((|Record| (|:| |exponent| (|NonNegativeInteger|)) (|:| |coef| |#5|)
+              (|:| |radicand| |#5|))
+    |#3| (|NonNegativeInteger|))
+   "\\spad{rroot(f,{} n)} returns \\spad{[m,{} c,{} r]} such that \\spad{f^(1/n) = c * r^(1/m)}."))
+ (|coerce| (($ |#4|) "\\spad{coerce(p)} \\undocumented"))
+ (|denom| ((|#4| $) "\\spad{denom(x)} \\undocumented"))
+ (|numer| ((|#4| $) "\\spad{numer(x)} \\undocumented")))
+(("documentation" 0 5728) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 5719) ("predicates" 0 5681) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4985) ("modemaps" 0 1972) ("sourceFile" 0 1932)
+ ("constructorCategory" 0 1178) ("constructorModemap" 0 60)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

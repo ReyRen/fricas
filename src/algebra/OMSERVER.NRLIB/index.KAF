@@ -1,0 +1,42 @@
+2240                (MAKEPROP '|OpenMathServerPackage| 'NILADIC T)
+(|OpenMathServerPackage|)
+|package|
+(((|OpenMathServerPackage|)
+  (CATEGORY |package| (SIGNATURE |OMreceive| ((|Any|) (|OpenMathConnection|)))
+   (SIGNATURE |OMsend| ((|Void|) (|OpenMathConnection|) (|Any|)))
+   (SIGNATURE |OMserve| ((|Void|) (|SingleInteger|) (|SingleInteger|)))))
+ (T |OpenMathServerPackage|))
+(CATEGORY |package| (SIGNATURE |OMreceive| ((|Any|) (|OpenMathConnection|)))
+ (SIGNATURE |OMsend| ((|Void|) (|OpenMathConnection|) (|Any|)))
+ (SIGNATURE |OMserve| ((|Void|) (|SingleInteger|) (|SingleInteger|))))
+"/git/fricas/src/algebra/OMSERVER.spad"
+((|OMserve| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|SingleInteger|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|OpenMathServerPackage|))))
+ (|OMsend| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|OpenMathConnection|)) (|isDomain| *4 (|Any|))
+       (|isDomain| *2 (|Void|)) (|isDomain| *1 (|OpenMathServerPackage|))))
+ (|OMreceive| (*1 *2 *3)
+  (AND (|isDomain| *3 (|OpenMathConnection|)) (|isDomain| *2 (|Any|))
+       (|isDomain| *1 (|OpenMathServerPackage|)))))
+((|OMserve| (((|Void|) (|SingleInteger|) (|SingleInteger|)) 47))
+ (|OMsend| (((|Void|) (|OpenMathConnection|) (|Any|)) 44))
+ (|OMreceive| (((|Any|) (|OpenMathConnection|)) 16)))
+OMSERVER
+((|constructor|
+  (NIL
+   "\\spadtype{OpenMathServerPackage} provides the necessary operations to run AXIOM as an OpenMath server,{} reading/writing objects to/from a port. Please note the facilities available here are very basic. The idea is that a user calls \\spadignore{e.g.} \\spad{Omserve(4000,{} 60)} and then another process sends OpenMath objects to port 4000 and reads the result."))
+ (|OMserve|
+  (((|Void|) (|SingleInteger|) (|SingleInteger|))
+   "\\spad{OMserve(portnum,{} timeout)} puts AXIOM into server mode on port number \\spad{portnum}. The parameter \\spad{timeout} specifies the timeout period for the connection."))
+ (|OMsend|
+  (((|Void|) (|OpenMathConnection|) (|Any|))
+   "\\spad{OMsend(c,{} u)} attempts to output \\spad{u} on \\aciom{\\spad{c}} in OpenMath."))
+ (|OMreceive|
+  (((|Any|) (|OpenMathConnection|))
+   "\\spad{OMreceive(c)} reads an OpenMath object from connection \\spad{c} and returns the appropriate AXIOM object.")))
+(("documentation" 0 1280) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1271) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1093) ("modemaps" 0 632) ("sourceFile" 0 592)
+ ("constructorCategory" 0 380) ("constructorModemap" 0 103)
+ ("constructorKind" 0 93) ("constructorForm" 0 67) ("NILADIC" 0 20))

@@ -1,0 +1,84 @@
+4536                (|InnerNumericFloatSolvePackage| K F |Par|)
+|package|
+(((|InnerNumericFloatSolvePackage| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |innerSolve1|
+    ((|List| |#2|) (|SparseUnivariatePolynomial| |#1|) |#3|))
+   (SIGNATURE |innerSolve1| ((|List| |#2|) (|Polynomial| |#1|) |#3|))
+   (SIGNATURE |innerSolve|
+    ((|List| (|List| |#2|)) (|List| (|Polynomial| |#1|))
+     (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)) |#3|))
+   (SIGNATURE |makeEq|
+    ((|List| (|Equation| (|Polynomial| |#2|))) (|List| |#2|)
+     (|List| (|Symbol|)))))
+  (|GcdDomain|) (|Field|) (|Join| (|Field|) (|OrderedRing|)))
+ (T |InnerNumericFloatSolvePackage|))
+(CATEGORY |package|
+ (SIGNATURE |innerSolve1|
+  ((|List| |#2|) (|SparseUnivariatePolynomial| |#1|) |#3|))
+ (SIGNATURE |innerSolve1| ((|List| |#2|) (|Polynomial| |#1|) |#3|))
+ (SIGNATURE |innerSolve|
+  ((|List| (|List| |#2|)) (|List| (|Polynomial| |#1|))
+   (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)) |#3|))
+ (SIGNATURE |makeEq|
+  ((|List| (|Equation| (|Polynomial| |#2|))) (|List| |#2|)
+   (|List| (|Symbol|)))))
+"/git/fricas/src/algebra/INFSP.spad"
+((|makeEq| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *6)) (|isDomain| *4 (|List| (|Symbol|)))
+       (|ofCategory| *6 (|Field|))
+       (|isDomain| *2 (|List| (|Equation| (|Polynomial| *6))))
+       (|isDomain| *1 (|InnerNumericFloatSolvePackage| *5 *6 *7))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *7 (|Join| (|Field|) (|OrderedRing|)))))
+ (|innerSolve| (*1 *2 *3 *3 *4 *5)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *6)))
+       (|isDomain| *4 (|List| (|Symbol|))) (|ofCategory| *6 (|GcdDomain|))
+       (|isDomain| *2 (|List| (|List| *7)))
+       (|isDomain| *1 (|InnerNumericFloatSolvePackage| *6 *7 *5))
+       (|ofCategory| *7 (|Field|))
+       (|ofCategory| *5 (|Join| (|Field|) (|OrderedRing|)))))
+ (|innerSolve1| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Polynomial| *5)) (|ofCategory| *5 (|GcdDomain|))
+       (|isDomain| *2 (|List| *6))
+       (|isDomain| *1 (|InnerNumericFloatSolvePackage| *5 *6 *4))
+       (|ofCategory| *6 (|Field|))
+       (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|)))))
+ (|innerSolve1| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *5))
+       (|ofCategory| *5 (|GcdDomain|)) (|isDomain| *2 (|List| *6))
+       (|isDomain| *1 (|InnerNumericFloatSolvePackage| *5 *6 *4))
+       (|ofCategory| *6 (|Field|))
+       (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|))))))
+((|makeEq|
+  (((|List| (|Equation| (|Polynomial| |#2|))) (|List| |#2|)
+    (|List| (|Symbol|)))
+   32))
+ (|innerSolve1| (((|List| |#2|) (|Polynomial| |#1|) |#3|) 53)
+  (((|List| |#2|) (|SparseUnivariatePolynomial| |#1|) |#3|) 52))
+ (|innerSolve|
+  (((|List| (|List| |#2|)) (|List| (|Polynomial| |#1|))
+    (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)) |#3|)
+   136)))
+INFSP
+((|constructor|
+  (NIL
+   "This is an internal package for computing approximate solutions to systems of polynomial equations. The parameter \\spad{K} specifies the coefficient field of the input polynomials and must be either \\spad{Fraction(Integer)} or \\spad{Complex(Fraction Integer)}. The parameter \\spad{F} specifies where the solutions must lie and can be one of the following: \\spad{Float},{} \\spad{Fraction(Integer)},{} \\spad{Complex(Float)},{} \\spad{Complex(Fraction Integer)}. The last parameter specifies the type of the precision operand and must be either \\spad{Fraction(Integer)} or \\spad{Float}."))
+ (|makeEq|
+  (((|List| (|Equation| (|Polynomial| |#2|))) (|List| |#2|)
+    (|List| (|Symbol|)))
+   "\\spad{makeEq(lsol,{} lvar)} returns a list of equations formed by corresponding members of lvar and \\spad{lsol}."))
+ (|innerSolve|
+  (((|List| (|List| |#2|)) (|List| (|Polynomial| |#1|))
+    (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)) |#3|)
+   "\\spad{innerSolve(lnum,{} lden,{} lvar,{} eps)} returns a list of solutions of the system of polynomials \\spad{lnum},{} with the side condition that none of the members of \\spad{lden} vanish identically on any solution. Each solution is expressed as a list corresponding to the list of variables in \\spad{lvar} and with precision specified by eps."))
+ (|innerSolve1|
+  (((|List| |#2|) (|Polynomial| |#1|) |#3|)
+   "\\spad{innerSolve1(p,{} eps)} returns the list of the zeros of the polynomial \\spad{p} with precision eps.")
+  (((|List| |#2|) (|SparseUnivariatePolynomial| |#1|) |#3|)
+   "\\spad{innerSolve1(up,{} eps)} returns the list of the zeros of the univariate polynomial \\spad{up} with precision eps.")))
+(("documentation" 0 2844) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2838) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2467) ("modemaps" 0 1120) ("sourceFile" 0 1083)
+ ("constructorCategory" 0 664) ("constructorModemap" 0 74)
+ ("constructorKind" 0 64) ("constructorForm" 0 20))

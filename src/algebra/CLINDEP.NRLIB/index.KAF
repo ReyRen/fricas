@@ -1,0 +1,220 @@
+12780               (|ConstantLinearDependence| R F)
+|package|
+(((|ConstantLinearDependence| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |linearlyDependentOverConstants?|
+    ((|Boolean|) (|Vector| |#2|) (|List| (|Mapping| |#2| |#2|))))
+   (SIGNATURE |linearDependenceOverConstants|
+    ((|Union| (|Vector| |#2|) "failed") (|Vector| |#2|)
+     (|List| (|Mapping| |#2| |#2|))))
+   (SIGNATURE |particularSolutionOverConstants|
+    ((|Union| (|Vector| |#2|) #1="failed") (|Vector| |#2|) |#2|
+     (|List| (|Mapping| |#2| |#2|))))
+   (SIGNATURE |particularSolutionOverConstants|
+    ((|Union| (|Vector| |#2|) #1#) (|Matrix| |#2|) (|Vector| |#2|)
+     (|List| (|Mapping| |#2| |#2|))))
+   (SIGNATURE |solveLinearOverConstants|
+    ((|Record| (|:| |particular| (|Union| (|Vector| |#2|) #1#))
+               (|:| |basis| (|List| (|Vector| |#2|))))
+     (|Vector| |#2|) |#2| (|List| (|Mapping| |#2| |#2|))))
+   (SIGNATURE |solveLinearOverConstants|
+    ((|Record| (|:| |particular| (|Union| (|Vector| |#2|) #1#))
+               (|:| |basis| (|List| (|Vector| |#2|))))
+     (|Matrix| |#2|) (|Vector| |#2|) (|List| (|Mapping| |#2| |#2|))))
+   (SIGNATURE |reducedSystem|
+    ((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#2|)))
+     (|Matrix| |#2|) (|Vector| |#2|) (|List| (|Mapping| |#2| |#2|))))
+   (SIGNATURE |reducedSystem|
+    ((|Matrix| |#2|) (|Matrix| |#2|) (|List| (|Mapping| |#2| |#2|))))
+   (SIGNATURE |nullSpaceOverConstants|
+    ((|List| (|Vector| |#2|)) (|Matrix| |#2|) (|List| (|Mapping| |#2| |#2|))))
+   (SIGNATURE |constant_subspace|
+    ((|Record| (|:| |transform| (|Matrix| |#2|))
+               (|:| |basis| (|List| (|Vector| |#2|))))
+     (|List| (|Vector| |#2|)) (|List| (|Mapping| |#2| |#2|)))))
+  (|Join| (|IntegralDomain|) (|Comparable|)) (|FunctionSpace| |#1|))
+ (T |ConstantLinearDependence|))
+(CATEGORY |package|
+ (SIGNATURE |linearlyDependentOverConstants?|
+  ((|Boolean|) (|Vector| |#2|) (|List| (|Mapping| |#2| |#2|))))
+ (SIGNATURE |linearDependenceOverConstants|
+  ((|Union| (|Vector| |#2|) "failed") (|Vector| |#2|)
+   (|List| (|Mapping| |#2| |#2|))))
+ (SIGNATURE |particularSolutionOverConstants|
+  ((|Union| (|Vector| |#2|) #1="failed") (|Vector| |#2|) |#2|
+   (|List| (|Mapping| |#2| |#2|))))
+ (SIGNATURE |particularSolutionOverConstants|
+  ((|Union| (|Vector| |#2|) #1#) (|Matrix| |#2|) (|Vector| |#2|)
+   (|List| (|Mapping| |#2| |#2|))))
+ (SIGNATURE |solveLinearOverConstants|
+  ((|Record| (|:| |particular| (|Union| (|Vector| |#2|) #1#))
+             (|:| |basis| (|List| (|Vector| |#2|))))
+   (|Vector| |#2|) |#2| (|List| (|Mapping| |#2| |#2|))))
+ (SIGNATURE |solveLinearOverConstants|
+  ((|Record| (|:| |particular| (|Union| (|Vector| |#2|) #1#))
+             (|:| |basis| (|List| (|Vector| |#2|))))
+   (|Matrix| |#2|) (|Vector| |#2|) (|List| (|Mapping| |#2| |#2|))))
+ (SIGNATURE |reducedSystem|
+  ((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#2|)))
+   (|Matrix| |#2|) (|Vector| |#2|) (|List| (|Mapping| |#2| |#2|))))
+ (SIGNATURE |reducedSystem|
+  ((|Matrix| |#2|) (|Matrix| |#2|) (|List| (|Mapping| |#2| |#2|))))
+ (SIGNATURE |nullSpaceOverConstants|
+  ((|List| (|Vector| |#2|)) (|Matrix| |#2|) (|List| (|Mapping| |#2| |#2|))))
+ (SIGNATURE |constant_subspace|
+  ((|Record| (|:| |transform| (|Matrix| |#2|))
+             (|:| |basis| (|List| (|Vector| |#2|))))
+   (|List| (|Vector| |#2|)) (|List| (|Mapping| |#2| |#2|)))))
+"/git/fricas/src/algebra/CLINDEP.spad"
+((|constant_subspace| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Vector| *6)))
+       (|isDomain| *4 (|List| (|Mapping| *6 *6)))
+       (|ofCategory| *6 (|FunctionSpace| *5))
+       (|ofCategory| *5 (|Join| (|IntegralDomain|) (|Comparable|)))
+       (|isDomain| *2
+                   (|Record| (|:| |transform| (|Matrix| *6))
+                             (|:| |basis| (|List| (|Vector| *6)))))
+       (|isDomain| *1 (|ConstantLinearDependence| *5 *6))))
+ (|nullSpaceOverConstants| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *6)) (|isDomain| *4 (|List| (|Mapping| *6 *6)))
+       (|ofCategory| *6 (|FunctionSpace| *5))
+       (|ofCategory| *5 (|Join| (|IntegralDomain|) (|Comparable|)))
+       (|isDomain| *2 (|List| (|Vector| *6)))
+       (|isDomain| *1 (|ConstantLinearDependence| *5 *6))))
+ (|reducedSystem| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Matrix| *5)) (|isDomain| *3 (|List| (|Mapping| *5 *5)))
+       (|ofCategory| *5 (|FunctionSpace| *4))
+       (|ofCategory| *4 (|Join| (|IntegralDomain|) (|Comparable|)))
+       (|isDomain| *1 (|ConstantLinearDependence| *4 *5))))
+ (|reducedSystem| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Matrix| *7)) (|isDomain| *4 (|Vector| *7))
+       (|isDomain| *5 (|List| (|Mapping| *7 *7)))
+       (|ofCategory| *7 (|FunctionSpace| *6))
+       (|ofCategory| *6 (|Join| (|IntegralDomain|) (|Comparable|)))
+       (|isDomain| *2
+                   (|Record| (|:| |mat| (|Matrix| *7))
+                             (|:| |vec| (|Vector| *7))))
+       (|isDomain| *1 (|ConstantLinearDependence| *6 *7))))
+ (|solveLinearOverConstants| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Matrix| *7)) (|isDomain| *4 (|Vector| *7))
+       (|isDomain| *5 (|List| (|Mapping| *7 *7)))
+       (|ofCategory| *7 (|FunctionSpace| *6))
+       (|ofCategory| *6 (|Join| (|IntegralDomain|) (|Comparable|)))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular| (|Union| (|Vector| *7) #1="failed"))
+                    (|:| |basis| (|List| (|Vector| *7)))))
+       (|isDomain| *1 (|ConstantLinearDependence| *6 *7))))
+ (|solveLinearOverConstants| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Vector| *4)) (|isDomain| *5 (|List| (|Mapping| *4 *4)))
+       (|ofCategory| *4 (|FunctionSpace| *6))
+       (|ofCategory| *6 (|Join| (|IntegralDomain|) (|Comparable|)))
+       (|isDomain| *2
+                   (|Record| (|:| |particular| (|Union| (|Vector| *4) #1#))
+                             (|:| |basis| (|List| (|Vector| *4)))))
+       (|isDomain| *1 (|ConstantLinearDependence| *6 *4))))
+ (|particularSolutionOverConstants| (*1 *2 *3 *2 *4)
+  (|partial| AND (|isDomain| *2 (|Vector| *6)) (|isDomain| *3 (|Matrix| *6))
+   (|isDomain| *4 (|List| (|Mapping| *6 *6)))
+   (|ofCategory| *6 (|FunctionSpace| *5))
+   (|ofCategory| *5 (|Join| (|IntegralDomain|) (|Comparable|)))
+   (|isDomain| *1 (|ConstantLinearDependence| *5 *6))))
+ (|particularSolutionOverConstants| (*1 *2 *2 *3 *4)
+  (|partial| AND (|isDomain| *2 (|Vector| *3))
+   (|isDomain| *4 (|List| (|Mapping| *3 *3)))
+   (|ofCategory| *3 (|FunctionSpace| *5))
+   (|ofCategory| *5 (|Join| (|IntegralDomain|) (|Comparable|)))
+   (|isDomain| *1 (|ConstantLinearDependence| *5 *3))))
+ (|linearDependenceOverConstants| (*1 *2 *2 *3)
+  (|partial| AND (|isDomain| *2 (|Vector| *5))
+   (|isDomain| *3 (|List| (|Mapping| *5 *5)))
+   (|ofCategory| *5 (|FunctionSpace| *4))
+   (|ofCategory| *4 (|Join| (|IntegralDomain|) (|Comparable|)))
+   (|isDomain| *1 (|ConstantLinearDependence| *4 *5))))
+ (|linearlyDependentOverConstants?| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Vector| *6)) (|isDomain| *4 (|List| (|Mapping| *6 *6)))
+       (|ofCategory| *6 (|FunctionSpace| *5))
+       (|ofCategory| *5 (|Join| (|IntegralDomain|) (|Comparable|)))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|ConstantLinearDependence| *5 *6)))))
+((|solveLinearOverConstants|
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#2|) #1="failed"))
+              (|:| |basis| (|List| (|Vector| |#2|))))
+    (|Matrix| |#2|) (|Vector| |#2|) (|List| (|Mapping| |#2| |#2|)))
+   73)
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#2|) #1#))
+              (|:| |basis| (|List| (|Vector| |#2|))))
+    (|Vector| |#2|) |#2| (|List| (|Mapping| |#2| |#2|)))
+   71))
+ (|reducedSystem|
+  (((|Matrix| |#2|) (|Matrix| |#2|) (|List| (|Mapping| |#2| |#2|))) 76)
+  (((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#2|)))
+    (|Matrix| |#2|) (|Vector| |#2|) (|List| (|Mapping| |#2| |#2|)))
+   80))
+ (|particularSolutionOverConstants|
+  (((|Union| (|Vector| |#2|) #1#) (|Matrix| |#2|) (|Vector| |#2|)
+    (|List| (|Mapping| |#2| |#2|)))
+   68)
+  (((|Union| (|Vector| |#2|) #1#) (|Vector| |#2|) |#2|
+    (|List| (|Mapping| |#2| |#2|)))
+   66))
+ (|nullSpaceOverConstants|
+  (((|List| (|Vector| |#2|)) (|Matrix| |#2|) (|List| (|Mapping| |#2| |#2|)))
+   82))
+ (|linearlyDependentOverConstants?|
+  (((|Boolean|) (|Vector| |#2|) (|List| (|Mapping| |#2| |#2|))) 61))
+ (|linearDependenceOverConstants|
+  (((|Union| (|Vector| |#2|) "failed") (|Vector| |#2|)
+    (|List| (|Mapping| |#2| |#2|)))
+   64))
+ (|constant_subspace|
+  (((|Record| (|:| |transform| (|Matrix| |#2|))
+              (|:| |basis| (|List| (|Vector| |#2|))))
+    (|List| (|Vector| |#2|)) (|List| (|Mapping| |#2| |#2|)))
+   105)))
+CLINDEP
+((|constructor|
+  (NIL
+   "\\spad{ConstantLinearDependence(R,{} F)} supports solving linear systems with coefficients in \\spad{Expression(R)} over constants. The parameter \\spad{ld} to each function is a list of derivations to use. By definition element \\spad{f} from \\spad{Expression(R)} is a constant if for each \\spad{d} in \\spad{ld} we have \\spad{d(f) = 0}. We assume that inputs are normalized in such a way that field of constants is generated by constant kernels."))
+ (|constant_subspace|
+  (((|Record| (|:| |transform| (|Matrix| |#2|))
+              (|:| |basis| (|List| (|Vector| |#2|))))
+    (|List| (|Vector| |#2|)) (|List| (|Mapping| |#2| |#2|)))
+   "\\spad{constant_subspace(b,{} ld)} returns [\\spad{M},{} \\spad{nb}] such that \\spad{nb} is basis of subspace spanned by \\spad{b} over \\spad{F} consistng of vectors with constant coordinates. \\spad{M} is the transformation matrix,{} \\spadignore{i.e.} \\spad{mnb} = \\spad{M} \\spad{mb} where \\spad{mb} (\\spad{mnb} respectively) is matrix having \\spad{b} (\\spad{nb} respectively) as rows."))
+ (|nullSpaceOverConstants|
+  (((|List| (|Vector| |#2|)) (|Matrix| |#2|) (|List| (|Mapping| |#2| |#2|)))
+   "\\spad{nullSpaceOverConstants(A,{} ld)} returns basis of the homogeneous system \\spad{A*vc = 0} where \\spad{vc} is a vector of constants."))
+ (|reducedSystem|
+  (((|Matrix| |#2|) (|Matrix| |#2|) (|List| (|Mapping| |#2| |#2|)))
+   "\\spad{reducedSystem(A,{} ld)} returns a matrix of constants \\spad{B} such that \\spad{A x = 0} and \\spad{B x = 0} have the same solutions over constants.")
+  (((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#2|)))
+    (|Matrix| |#2|) (|Vector| |#2|) (|List| (|Mapping| |#2| |#2|)))
+   "\\spad{reducedSystem(A,{} v,{} ld)} returns matrix of constants \\spad{B} and vector of constants \\spad{w} such that \\spad{A x = v} and \\spad{B x = w} have the same solutions over constants."))
+ (|solveLinearOverConstants|
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#2|) #1="failed"))
+              (|:| |basis| (|List| (|Vector| |#2|))))
+    (|Matrix| |#2|) (|Vector| |#2|) (|List| (|Mapping| |#2| |#2|)))
+   "\\spad{solveLinearOverConstants([v1,{} ...,{} vn],{} u,{} ld)} returns solution of the system \\spad{c1*v1 + ... + cn*vn = u} and and a basis of the associated homogeneous system \\spad{c1*v1 + ... + cn*vn = 0}")
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#2|) #1#))
+              (|:| |basis| (|List| (|Vector| |#2|))))
+    (|Vector| |#2|) |#2| (|List| (|Mapping| |#2| |#2|)))
+   "\\spad{solveLinearOverConstants([v1,{} ...,{} vn],{} u,{} ld)} returns solution of the system \\spad{c1*v1 + ... + cn*vn = u} and and a basis of the associated homogeneous system \\spad{c1*v1 + ... + cn*vn = 0}"))
+ (|particularSolutionOverConstants|
+  (((|Union| (|Vector| |#2|) #1#) (|Matrix| |#2|) (|Vector| |#2|)
+    (|List| (|Mapping| |#2| |#2|)))
+   "\\spad{solveLinearlyOverConstants([v1,{} ...,{} vn],{} u,{} ld)} returns \\spad{[c1,{} ...,{} cn]} such that \\spad{c1*v1 + ... + cn*vn = u},{} \"failed\" if no such rational numbers \\spad{ci}\\spad{'s} exist.")
+  (((|Union| (|Vector| |#2|) #1#) (|Vector| |#2|) |#2|
+    (|List| (|Mapping| |#2| |#2|)))
+   "\\spad{particularSolutionOverConstants([v1,{} ...,{} vn],{} u,{} ld)} returns \\spad{[c1,{} ...,{} cn]} such that \\spad{c1*v1 + ... + cn*vn = u},{} \"failed\" if no such constants numbers \\spad{ci}\\spad{'s} exist."))
+ (|linearDependenceOverConstants|
+  (((|Union| (|Vector| |#2|) "failed") (|Vector| |#2|)
+    (|List| (|Mapping| |#2| |#2|)))
+   "\\spad{linearlyDependenceOverConstants([v1,{} ...,{} vn],{} ld)} returns \\spad{[c1,{} ...,{} cn]} if \\spad{c1*v1 + ... + cn*vn = 0} and not all the \\spad{ci}\\spad{'s} are 0,{} \"failed\" if the \\spad{vi}\\spad{'s} are linearly independent over constants."))
+ (|linearlyDependentOverConstants?|
+  (((|Boolean|) (|Vector| |#2|) (|List| (|Mapping| |#2| |#2|)))
+   "\\spad{linearlyDependentOverConstants?([v1,{} ...,{} vn],{} ld)} returns \\spad{true} if the \\spad{vi}\\spad{'s} are linearly dependent over constants,{} \\spad{false} otherwise.")))
+(("documentation" 0 8689) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 8681) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 7244) ("modemaps" 0 3423) ("sourceFile" 0 3384)
+ ("constructorCategory" 0 1826) ("constructorModemap" 0 63)
+ ("constructorKind" 0 53) ("constructorForm" 0 20))

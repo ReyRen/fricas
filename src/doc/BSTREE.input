@@ -1,0 +1,19 @@
+
+-- Input for page BinarySearchTreeXmpPage
+)clear all
+
+lv := [8,3,5,4,6,2,1,5,7]
+t := binarySearchTree lv
+emptybst := empty()$BSTREE(INT)
+t1 := insert!(8,emptybst)
+insert!(3,t1)
+leaves t
+split(3,t)
+insertRoot: (INT,BSTREE INT) -> BSTREE INT
+insertRoot(x, t) ==
+    a := split(x, t)
+    node(a.less, x, a.greater)
+
+buildFromRoot ls == reduce(insertRoot,ls,emptybst)
+rt := buildFromRoot reverse lv
+(t = rt)@Boolean

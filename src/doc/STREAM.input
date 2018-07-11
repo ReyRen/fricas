@@ -1,0 +1,16 @@
+
+-- Input for page StreamXmpPage
+)clear all
+
+ints := [i for i in 0..]
+f : List INT -> List INT
+f x == [x.1 + x.2, x.1]
+fibs := [i.2 for i in [stream(f, [1, 1])]]
+[i for i in ints | odd? i]
+odds := [2*i+1 for i in ints]
+scan(0,+,odds)
+[i*j for i in ints for j in odds]
+map(*,ints,odds)
+first ints
+rest ints
+fibs 20

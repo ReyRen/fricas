@@ -1,0 +1,35 @@
+1433                (|RetractableTo| S)
+|category|
+(((|RetractableTo| |#1|) (|Category|) (|Type|)) (T |RetractableTo|))
+(|Join|
+ (CATEGORY |domain| (SIGNATURE |coerce| ($ |t#1|))
+  (SIGNATURE |retractIfCan| ((|Union| |t#1| "failed") $))
+  (SIGNATURE |retract| (|t#1| $))))
+"/git/fricas/src/algebra/RETRACT.spad"
+((|retract| (*1 *2 *1)
+            (AND (|ofCategory| *1 (|RetractableTo| *2))
+                 (|ofCategory| *2 (|Type|))))
+ (|retractIfCan| (*1 *2 *1)
+  (|partial| AND (|ofCategory| *1 (|RetractableTo| *2))
+   (|ofCategory| *2 (|Type|))))
+ (|coerce| (*1 *1 *2)
+           (AND (|ofCategory| *1 (|RetractableTo| *2))
+                (|ofCategory| *2 (|Type|)))))
+((|retractIfCan| (((|Union| |#1| "failed") $) 6)) (|retract| ((|#1| $) 6))
+ (|coerce| (($ |#1|) 6)))
+RETRACT
+((|constructor|
+  (NIL
+   "A is retractable to \\spad{B} means that some elements of A can be converted into elements of \\spad{B} and any element of \\spad{B} can be converted into an element of A."))
+ (|retract|
+  ((|#1| $)
+   "\\spad{retract(a)} transforms a into an element of \\spad{S} if possible. Error: if a cannot be made into an element of \\spad{S}."))
+ (|retractIfCan|
+  (((|Union| |#1| "failed") $)
+   "\\spad{retractIfCan(a)} transforms a into an element of \\spad{S} if possible. Returns \"failed\" if a cannot be made into an element of \\spad{S}."))
+ (|coerce| (($ |#1|) "\\spad{coerce(a)} transforms a into an element of \\%.")))
+(("documentation" 0 785) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 777) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 676) ("modemaps" 0 312) ("sourceFile" 0 273)
+ ("constructorCategory" 0 120) ("constructorModemap" 0 51)
+ ("constructorKind" 0 40) ("constructorForm" 0 20))

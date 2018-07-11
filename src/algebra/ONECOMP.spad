@@ -1,0 +1,52 @@
+)abbrev domain ONECOMP OnePointCompletion
+++ Completion with infinity
+++ Author: Manuel Bronstein
+++ Description: Adjunction of a complex infinity to a set.
+++ Date Created: 4 Oct 1989
+OnePointCompletion(R : SetCategory) : Exports == Implementation where
+  B ==> Boolean
+
+  Exports ==> Join(SetCategory, FullyRetractableTo R) with
+    infinity : () -> %
+      ++  infinity() returns infinity.
+    finite?  : %  -> B
+      ++ finite?(x) tests if x is finite.
+    infinite? : %  -> B
+      ++ infinite?(x) tests if x is infinite.
+    if R has IntegerNumberSystem then
+      rational? : % -> Boolean
+        ++ rational?(x) tests if x is a finite rational number.
+      rational : % -> Fraction Integer
+        ++ rational(x) returns x as a finite rational number.
+        ++ Error: if x is not a rational number.
+      rationalIfCan : % -> Union(Fraction Integer, "failed")
+        ++ rationalIfCan(x) returns x as a finite rational number if
+        ++ it is one, "failed" otherwise.
+
+  Implementation ==> add
+    Rep := Union(R, "infinity")
+
+    coerce(r : R) : %          == r
+    retract(x:%):R         == (x case R => x::R; error "Not finite")
+    finite? x              == x case R
+    infinite? x            == x case "infinity"
+    infinity()             == "infinity"
+    retractIfCan(x:%):Union(R, "failed") == (x case R => x::R; "failed")
+
+    coerce(x : %) : OutputForm ==
+      x case "infinity" => 'infinity::OutputForm
+      x::R::OutputForm
+
+    x = y ==
+      x case "infinity" => y case "infinity"
+      y case "infinity" => false
+      x::R = y::R
+
+    if R has IntegerNumberSystem then
+      rational? x == finite? x
+      rational  x == rational(retract(x)@R)
+
+      rationalIfCan x ==
+        (r:= retractIfCan(x)@Union(R,"failed")) case "failed" =>"failed"
+        rational(r::R)
+

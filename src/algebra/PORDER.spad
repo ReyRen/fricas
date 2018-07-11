@@ -1,0 +1,25 @@
+)abbrev category PORDER PartialOrder
+++ Author: Waldek Hebisch
+++ Description:
+++ The class of partially ordered sets, that is sets equipped with
+++ transitive and reflexive relation \spad{<=}.
+
+PartialOrder() : Category == with
+    "<": (%,%) -> Boolean
+      ++ x < y is a less than test.
+    ">":         (%, %) -> Boolean
+      ++ x > y is a greater than test.
+    ">=":        (%, %) -> Boolean
+      ++ x >= y is a greater than or equal test.
+    "<=":        (%, %) -> Boolean
+      ++ x <= y is a less than or equal test.
+
+  add
+
+     x >= y == y <= x
+
+     x > y == y < x
+
+     x < y == x <= y and not(y <= x)
+
+

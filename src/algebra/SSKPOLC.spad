@@ -1,0 +1,30 @@
+)abbrev category SSKPOLC SolvableSkewPolynomialCategory
+++ Description:
+++   This is the category of polynomials in noncommutative
+++   variables over noncommutative rings.  We do not
+++   assume that variables and elements of the base
+++   ring commute.  We assume that the polynomial ring
+++   is of solvable type, so noncommutative version
+++   of Buchberger algorithm works.
+
+SolvableSkewPolynomialCategory(R : Ring,
+  Expon : OrderedAbelianMonoidSup) : Category == Join(Ring, LeftModule(R)) with
+    leadingCoefficient : % -> R
+      ++ leadingCoefficient(p) returns the coefficient of the highest
+      ++ degree term of p.
+
+    leadingMonomial : % -> %
+      ++ leadingMonomial(p) returns the monomial of p with the highest degree.
+
+    degree : % -> Expon
+      ++ degree(p) returns the maximum of the exponents of the terms of p.
+
+    reductum : % -> %
+      ++ reductum(u) returns u minus its leading monomial
+      ++ returns zero if handed the zero element.
+
+    monomial : (R, Expon) -> %
+      ++ monomial(r, e) makes a term from a coefficient r and an exponent e.
+
+
+

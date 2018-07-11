@@ -1,0 +1,108 @@
+4648                (|SmithNormalForm| R |Row| |Col| M)
+|package|
+(((|SmithNormalForm| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |hermite| (|#4| |#4|))
+   (SIGNATURE |completeHermite|
+    ((|Record| (|:| |Hermite| |#4|) (|:| |eqMat| |#4|)) |#4|))
+   (SIGNATURE |smith| (|#4| |#4|))
+   (SIGNATURE |completeSmith|
+    ((|Record| (|:| |Smith| |#4|) (|:| |leftEqMat| |#4|)
+               (|:| |rightEqMat| |#4|))
+     |#4|))
+   (SIGNATURE |diophantineSystem|
+    ((|Record| (|:| |particular| (|Union| |#3| "failed"))
+               (|:| |basis| (|List| |#3|)))
+     |#4| |#3|)))
+  (|EuclideanDomain|) (|FiniteLinearAggregate| |#1|)
+  (|FiniteLinearAggregate| |#1|) (|MatrixCategory| |#1| |#2| |#3|))
+ (T |SmithNormalForm|))
+(CATEGORY |package| (SIGNATURE |hermite| (|#4| |#4|))
+ (SIGNATURE |completeHermite|
+  ((|Record| (|:| |Hermite| |#4|) (|:| |eqMat| |#4|)) |#4|))
+ (SIGNATURE |smith| (|#4| |#4|))
+ (SIGNATURE |completeSmith|
+  ((|Record| (|:| |Smith| |#4|) (|:| |leftEqMat| |#4|) (|:| |rightEqMat| |#4|))
+   |#4|))
+ (SIGNATURE |diophantineSystem|
+  ((|Record| (|:| |particular| (|Union| |#3| "failed"))
+             (|:| |basis| (|List| |#3|)))
+   |#4| |#3|)))
+"/git/fricas/src/algebra/SMITH.spad"
+((|diophantineSystem| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|EuclideanDomain|))
+       (|ofCategory| *6 (|FiniteLinearAggregate| *5))
+       (|ofCategory| *4 (|FiniteLinearAggregate| *5))
+       (|isDomain| *2
+                   (|Record| (|:| |particular| (|Union| *4 "failed"))
+                             (|:| |basis| (|List| *4))))
+       (|isDomain| *1 (|SmithNormalForm| *5 *6 *4 *3))
+       (|ofCategory| *3 (|MatrixCategory| *5 *6 *4))))
+ (|completeSmith| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|EuclideanDomain|))
+       (|ofCategory| *5 (|FiniteLinearAggregate| *4))
+       (|ofCategory| *6 (|FiniteLinearAggregate| *4))
+       (|isDomain| *2
+                   (|Record| (|:| |Smith| *3) (|:| |leftEqMat| *3)
+                             (|:| |rightEqMat| *3)))
+       (|isDomain| *1 (|SmithNormalForm| *4 *5 *6 *3))
+       (|ofCategory| *3 (|MatrixCategory| *4 *5 *6))))
+ (|smith| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|EuclideanDomain|))
+       (|ofCategory| *4 (|FiniteLinearAggregate| *3))
+       (|ofCategory| *5 (|FiniteLinearAggregate| *3))
+       (|isDomain| *1 (|SmithNormalForm| *3 *4 *5 *2))
+       (|ofCategory| *2 (|MatrixCategory| *3 *4 *5))))
+ (|completeHermite| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|EuclideanDomain|))
+       (|ofCategory| *5 (|FiniteLinearAggregate| *4))
+       (|ofCategory| *6 (|FiniteLinearAggregate| *4))
+       (|isDomain| *2 (|Record| (|:| |Hermite| *3) (|:| |eqMat| *3)))
+       (|isDomain| *1 (|SmithNormalForm| *4 *5 *6 *3))
+       (|ofCategory| *3 (|MatrixCategory| *4 *5 *6))))
+ (|hermite| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|EuclideanDomain|))
+       (|ofCategory| *4 (|FiniteLinearAggregate| *3))
+       (|ofCategory| *5 (|FiniteLinearAggregate| *3))
+       (|isDomain| *1 (|SmithNormalForm| *3 *4 *5 *2))
+       (|ofCategory| *2 (|MatrixCategory| *3 *4 *5)))))
+((|smith| ((|#4| |#4|) 73)) (|hermite| ((|#4| |#4|) 66))
+ (|diophantineSystem|
+  (((|Record| (|:| |particular| (|Union| |#3| "failed"))
+              (|:| |basis| (|List| |#3|)))
+    |#4| |#3|)
+   84))
+ (|completeSmith|
+  (((|Record| (|:| |Smith| |#4|) (|:| |leftEqMat| |#4|)
+              (|:| |rightEqMat| |#4|))
+    |#4|)
+   78))
+ (|completeHermite|
+  (((|Record| (|:| |Hermite| |#4|) (|:| |eqMat| |#4|)) |#4|) 68)))
+SMITH
+((|constructor|
+  (NIL
+   "\\spadtype{SmithNormalForm} is a package which provides some standard canonical forms for matrices."))
+ (|diophantineSystem|
+  (((|Record| (|:| |particular| (|Union| |#3| "failed"))
+              (|:| |basis| (|List| |#3|)))
+    |#4| |#3|)
+   "\\spad{diophantineSystem(A,{} B)} returns a particular integer solution and an integer basis of the equation \\spad{A X = B}."))
+ (|completeSmith|
+  (((|Record| (|:| |Smith| |#4|) (|:| |leftEqMat| |#4|)
+              (|:| |rightEqMat| |#4|))
+    |#4|)
+   "\\spad{completeSmith} returns a record that contains the Smith normal form \\spad{H} of the matrix and the left and right equivalence matrices \\spad{U} and \\spad{V} such that U*m*v = \\spad{H}"))
+ (|smith|
+  ((|#4| |#4|)
+   "\\spad{smith(m)} returns the Smith Normal form of the matrix \\spad{m}."))
+ (|completeHermite|
+  (((|Record| (|:| |Hermite| |#4|) (|:| |eqMat| |#4|)) |#4|)
+   "\\spad{completeHermite} returns a record that contains the Hermite normal form \\spad{H} of the matrix and the equivalence matrix \\spad{U} such that U*m = \\spad{H}"))
+ (|hermite|
+  ((|#4| |#4|)
+   "\\spad{hermite(m)} returns the Hermite normal form of the matrix \\spad{m}.")))
+(("documentation" 0 3454) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3448) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3028) ("modemaps" 0 1211) ("sourceFile" 0 1174)
+ ("constructorCategory" 0 732) ("constructorModemap" 0 66)
+ ("constructorKind" 0 56) ("constructorForm" 0 20))

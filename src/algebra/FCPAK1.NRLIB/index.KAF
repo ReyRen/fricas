@@ -1,0 +1,90 @@
+4363                (MAKEPROP '|FortranCodePackage1| 'NILADIC T)
+(|FortranCodePackage1|)
+|package|
+(((|FortranCodePackage1|)
+  (CATEGORY |package|
+   (SIGNATURE |zeroVector|
+    ((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|))))
+   (SIGNATURE |zeroMatrix|
+    ((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|))
+     (|Polynomial| (|Integer|))))
+   (SIGNATURE |zeroMatrix|
+    ((|FortranCode|) (|Symbol|) (|SegmentBinding| (|Polynomial| (|Integer|)))
+     (|SegmentBinding| (|Polynomial| (|Integer|)))))
+   (SIGNATURE |zeroSquareMatrix|
+    ((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|))))
+   (SIGNATURE |identitySquareMatrix|
+    ((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|))))))
+ (T |FortranCodePackage1|))
+(CATEGORY |package|
+ (SIGNATURE |zeroVector|
+  ((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|))))
+ (SIGNATURE |zeroMatrix|
+  ((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|))
+   (|Polynomial| (|Integer|))))
+ (SIGNATURE |zeroMatrix|
+  ((|FortranCode|) (|Symbol|) (|SegmentBinding| (|Polynomial| (|Integer|)))
+   (|SegmentBinding| (|Polynomial| (|Integer|)))))
+ (SIGNATURE |zeroSquareMatrix|
+  ((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|))))
+ (SIGNATURE |identitySquareMatrix|
+  ((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|)))))
+"/git/fricas/src/algebra/FCPAK1.spad"
+((|identitySquareMatrix| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *4 (|Polynomial| (|Integer|)))
+       (|isDomain| *2 (|FortranCode|))
+       (|isDomain| *1 (|FortranCodePackage1|))))
+ (|zeroSquareMatrix| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *4 (|Polynomial| (|Integer|)))
+       (|isDomain| *2 (|FortranCode|))
+       (|isDomain| *1 (|FortranCodePackage1|))))
+ (|zeroMatrix| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|isDomain| *4 (|SegmentBinding| (|Polynomial| (|Integer|))))
+       (|isDomain| *2 (|FortranCode|))
+       (|isDomain| *1 (|FortranCodePackage1|))))
+ (|zeroMatrix| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *4 (|Polynomial| (|Integer|)))
+       (|isDomain| *2 (|FortranCode|))
+       (|isDomain| *1 (|FortranCodePackage1|))))
+ (|zeroVector| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *4 (|Polynomial| (|Integer|)))
+       (|isDomain| *2 (|FortranCode|))
+       (|isDomain| *1 (|FortranCodePackage1|)))))
+((|zeroVector| (((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|))) 20))
+ (|zeroSquareMatrix|
+  (((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|))) 24))
+ (|zeroMatrix|
+  (((|FortranCode|) (|Symbol|) (|SegmentBinding| (|Polynomial| (|Integer|)))
+    (|SegmentBinding| (|Polynomial| (|Integer|))))
+   23)
+  (((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|))
+    (|Polynomial| (|Integer|)))
+   21))
+ (|identitySquareMatrix|
+  (((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|))) 28)))
+FCPAK1
+((|constructor|
+  (NIL
+   "\\spadtype{FortranCodePackage1} provides some utilities for producing useful objects in FortranCode domain. The Package may be used with the FortranCode domain and its \\spad{printCode} or possibly via an outputAsFortran. (The package provides items of use in connection with ASPs in the AXIOM-NAG link and,{} where appropriate,{} naming accords with that in IRENA.) The easy-to-use functions use Fortran loop variables \\spad{I1},{} \\spad{I2},{} and it is users' responsibility to check that this is sensible. The advanced functions use SegmentBinding to allow users control over Fortran loop variable names."))
+ (|identitySquareMatrix|
+  (((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|)))
+   "\\spad{identitySquareMatrix(s,{} p)} \\undocumented{}"))
+ (|zeroSquareMatrix|
+  (((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|)))
+   "\\spad{zeroSquareMatrix(s,{} p)} \\undocumented{}"))
+ (|zeroMatrix|
+  (((|FortranCode|) (|Symbol|) (|SegmentBinding| (|Polynomial| (|Integer|)))
+    (|SegmentBinding| (|Polynomial| (|Integer|))))
+   "\\spad{zeroMatrix(s,{} b,{} d)} in this version gives the user control over names of Fortran variables used in loops.")
+  (((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|))
+    (|Polynomial| (|Integer|)))
+   "\\spad{zeroMatrix(s,{} p,{} q)} uses loop variables in the Fortran,{} \\spad{I1} and \\spad{I2}"))
+ (|zeroVector|
+  (((|FortranCode|) (|Symbol|) (|Polynomial| (|Integer|)))
+   "\\spad{zeroVector(s,{} p)} \\undocumented{}")))
+(("documentation" 0 2854) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2847) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2347) ("modemaps" 0 1328) ("sourceFile" 0 1290)
+ ("constructorCategory" 0 735) ("constructorModemap" 0 99)
+ ("constructorKind" 0 89) ("constructorForm" 0 65) ("NILADIC" 0 20))

@@ -1,0 +1,208 @@
+)abbrev domain COCHNC CoChainComplex
+++ Author: Martin Baker
+++ Description:
+++   Delta Complexes are defined by a sequence of 'face maps', These can
+++   be represented by a list of matrices.
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/topology/chain/cochain/
+++ Date Created: Jan 2016
+++ Basic Operations:
+++ Related packages:
+++ Related categories:
+++ Related Domains: ChainComplex
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+
+CoChainComplex(VS : AbelianGroup) : Exports == Impl where
+  NNI==> NonNegativeInteger
+  x<<y ==> hconcat(x::OutputForm, y::OutputForm)
+
+  Exports ==> SetCategory() with
+    coChainComplex : (v : List(Matrix(Integer))) -> %
+      ++ constructor
+    coChainComplex : (s : ChainComplex) -> %
+      ++ constructor from \spad{ChainComplex}
+    validate : (a : %) -> Boolean
+      ++ true if this is a valid chain complex, that is:
+      ++ 1. maps compose
+      ++ 2. product of adjacent coboundary maps is zero
+    coboundary : (a : %,n : NNI,inp : List(VS)) -> List(VS)
+      ++ calculate coboundary at dimention n for a given input
+    coHomology : (a : %) -> List(Homology)
+      ++ calculate homology using SmithNormalForm
+
+  Impl ==> add
+
+   -- Representation contains sequence of face maps in matrix
+   -- form
+   Rep := List(Matrix(Integer))
+
+   -- constructor
+   coChainComplex(v : List(Matrix(Integer))) : % ==
+       v
+
+   coChainComplex(s : ChainComplex) : % ==
+       tm := transition_matrices(s)
+       tm := reverse!(tm)
+       map(transpose, tm)
+
+   -- true if this is a valid cochain complex, that is:
+   -- 1) maps compose
+   -- 2) product of adjacent maps is zero
+   validate(a : %) : Boolean ==
+       len : NNI := #a
+       if len < 2 then return true
+       last : Matrix(Integer) := a.1
+       for x in 2..len repeat
+           m : Matrix(Integer) := a.x
+           if maxRowIndex(m) ~= maxColIndex(last) then
+               print(message("validate failed nRows=") << maxRowIndex(m) <<
+                   message(" not equal to nCols ") << maxColIndex(last))
+               return false
+           prod : Matrix(Integer) := last*m
+           if not zero?(prod) then
+               print(message(
+                  "validate failed: product of adjacent maps should be zero")
+                   << last << message(" * ") << m << message(" = ") << prod)
+               return false
+           last := m
+       true
+
+   -- calculate coboundary at dimension n for a given input
+   coboundary(a : %,n : NNI,inp : List(VS)) : List(VS) ==
+       --print(message "coboundary(" << a << message ", " << n << _
+       --message ", " << inp << message ")")
+       maps : List(Matrix(Integer)) := _
+              reverse(a pretend List(Matrix(Integer)))
+       res : List(VS) := []
+       inpn : NNI := #inp
+       for p in 1..inpn repeat
+           base : List(Integer) := [(if x=p then 1 else 0) for x in 1..inpn]
+           b : Vector(Integer) := vector(base)
+           m : Matrix(Integer) := transpose(maps.n)
+           vs : Vector(Integer) := b*m
+           --print(message "b=" << b << message " m=" << m << _
+           --message " vs=" << vs)
+           fst: Boolean := true
+           res1 : List(VS) := []
+           for v in entries(vs) repeat
+               val : VS := inp.p
+               --if even?(p) then val := -val
+               if v=0 then res1 := concat(res1,0)
+               if v>0 then res1 := concat(res1,-val)
+               if v<0 then res1 := concat(res1,val)
+               --print(message "v=" << v << message " val=" << val << _
+               --      message " res1=" << res1 << message " res=" << res)
+           if empty?(res)
+               then res := res1
+               else res := [(res.i + res1.i) for i in 1..(#res1)]
+       res
+
+   -- calculate homology using SmithNormalForm
+   coHomology(a : %) : List(Homology) ==
+       --print("CoChainComplex homology("  << a << ")")
+       res := []$List(Homology)
+       prev := empty()$Matrix(Integer)
+       notFirst : Boolean := false
+       for m1 in a repeat
+           if notFirst then
+               --print("coChainComplex: " << nrows(m1) << "*" << ncols(m1) <<_
+               --  " " << nrows(prev) << "*" << ncols(prev))
+               m2 : Homology := homologyGroup(m1, prev)
+               res := concat(res, m2)
+           notFirst := true
+           prev := m1
+       res
+
+   -- output
+   coerce(s : %) : OutputForm ==
+       lst : List(OutputForm) := [x::OutputForm for x in s]
+       commaSeparate(lst)
+
+)if false
+
+\section{FiniteSimplicialComplex}
+\subsection{Creating Simplicial Complexes}
+
+Here are 3 ways to construct a simplicial complex:
+\begin{itemize}
+\item Using SimplicialComplexFactory - This allows common complexes to
+be easily created.
+\item Using functions like product, star, link and join to construct
+complexes from simpler cases.
+\item Build from lists of indexes.
+\end{itemize}
+Here is an example of building from factory:
+
+\begin{verbatim}
+FACTORY:=SimplicialComplexFactory(Integer)
+
+   (1)  SimplicialComplexFactory(Integer)
+                           Type: Type
+
+(2) -> band()$FACTORY
+
+   (2)  points 1..6
+          (1,2,3)
+          (1,2,6)
+          (1,5,6)
+          (2,3,4)
+          (3,4,5)
+          (4,5,6)
+          Type: FiniteSimplicialComplex(Integer)
+\end{verbatim}
+We can join two complexes like this:
+\begin{verbatim}
+(1) -> line := line()$SimplicialComplexFactory(Integer)
+
+   (1)  points 1..2
+           (1,2)
+                   Type: FiniteSimplicialComplex(Integer)
+(2) -> simplicialJoin(line,line,true)
+
+   (2)  points 1..4
+         (1,2,3,4)
+                   Type: FiniteSimplicialComplex(Integer)
+\end{verbatim}
+Here is an example of building from lists of indexes.
+\begin{verbatim}
+(3) -> v1:List(List(NNI)) := [[1::NNI,2::NNI],[4::NNI]]
+
+   (3)  [[1,2],[4]]
+                     Type: List(List(NonNegativeInteger))
+(4) -> sc1 := simplicialComplex([],4,v1)$ASIMP
+
+   (4)  points 1..4
+           (1,2)
+            (4)
+                   Type: FiniteSimplicialComplex(Integer)
+\end{verbatim}
+This example has 4 points:
+\begin{itemize}
+\item point 1 and 2 are endpoins of a line.
+\item point 3 does not exist but we want to reserve the index.
+\item point 4 exist but is not connected to anything.
+\end{itemize}
+
+\subsection{Representation of Simplicial Complexes}
+
+The FiniteSimplicialComplex representation holds whole Simplicial
+Complex. This consists of:
+\begin{itemize}
+\item A vertex set, which can be a list of points, or a list of any
+AbelianGroup defined by the type parameter. This allows us to
+define a 'geometric simplicial complex' or alternatively to hold
+information used for cochain.
+\item A NNI holding the total number of points. This allows us to
+reserve unused points.
+\item A list (representing set - no duplication, order unimportant) of
+OrientedFacet. Each OrientedFacet defined in terms of points.
+\end{itemize}
+
+There is an alternative to FiniteSimplicialComplex which is
+DeltaComplex and is discussed later.
+)endif
+

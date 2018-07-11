@@ -1,0 +1,77 @@
+)abbrev package FSAGG2 FiniteSetAggregateFunctions2
+++ Author: Robert S. Sutor
+++ Date Created: 15 May 1990
+++ Description:
+++ FiniteSetAggregateFunctions2 provides functions involving two
+++ finite set aggregates where the underlying domains might be
+++ different. An example of this is to create a set of rational
+++ numbers by mapping a function across a set of integers, where the
+++ function divides each integer by 1000.
+
+FiniteSetAggregateFunctions2(S, A, R, B) : Exports == Implementation where
+   S, R : SetCategory
+   A   : FiniteSetAggregate S
+   B   : FiniteSetAggregate R
+
+   Exports ==> with
+     map : (S -> R, A) -> B
+         ++ map(f, a) applies function f to each member of
+         ++ aggregate \spad{a}, creating a new aggregate with
+         ++ a possibly different underlying domain.
+
+     reduce : ((S, R) -> R, A, R) -> R
+         ++ reduce(f, a, r) applies function f to each
+         ++ successive element of the aggregate \spad{a} and an
+         ++ accumulant initialised to r.
+         ++ For example,
+         ++ \spad{reduce(_+$Integer, [1, 2, 3], 0)}
+         ++ does a \spad{3+(2+(1+0))}.
+         ++ Note: third argument r may be regarded
+         ++ as an identity element for the function.
+
+     scan : ((S, R) -> R, A, R) -> B
+         ++ scan(f, a, r) successively applies \spad{reduce(f, x, r)}
+         ++ to more and more leading sub-aggregates x of
+         ++ aggregate \spad{a}.
+         ++ More precisely, if \spad{a} is \spad{[a1, a2, ...]}, then
+         ++ \spad{scan(f, a, r)} returns
+         ++ \spad {[reduce(f, [a1], r), reduce(f, [a1, a2], r), ...]}.
+
+   Implementation ==> add
+     map(fn, a) ==
+       set(map(fn, parts a)$ListFunctions2(S, R))$B
+     reduce(fn, a, ident) ==
+       reduce(fn, parts a, ident)$ListFunctions2(S, R)
+     scan(fn, a, ident) ==
+       set(scan(fn, parts a, ident)$ListFunctions2(S, R))$B
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

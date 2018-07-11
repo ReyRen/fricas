@@ -1,0 +1,33 @@
+1559                (MAKEPROP '|OrderedSet| 'NILADIC T)
+(|OrderedSet|)
+|category|
+(((|OrderedSet|) (|Category|)) (T |OrderedSet|))
+(|Join| (|Comparable|) (|PartialOrder|)
+        (CATEGORY |domain| (SIGNATURE |max| ($ $ $)) (SIGNATURE |min| ($ $ $))))
+"/git/fricas/src/algebra/ORDSET.spad"
+((|max| (*1 *1 *1 *1) (|ofCategory| *1 (|OrderedSet|)))
+ (|min| (*1 *1 *1 *1) (|ofCategory| *1 (|OrderedSet|))))
+((~= (((|Boolean|) $ $) 6)) (|smaller?| (((|Boolean|) $ $) 6))
+ (|min| (($ $ $) 6)) (|max| (($ $ $) 6)) (|latex| (((|String|) $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (>= (((|Boolean|) $ $) 6)) (> (((|Boolean|) $ $) 6)) (= (((|Boolean|) $ $) 6))
+ (<= (((|Boolean|) $ $) 6)) (< (((|Boolean|) $ $) 6)))
+ORDSET
+(((|Comparable|) . T) ((|PartialOrder|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|Comparable|) . T)
+ ((|PartialOrder|) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "The class of totally ordered sets,{} that is,{} sets such that for each pair of elements \\spad{(a,{} b)} exactly one of the following relations holds \\spad{a<b or a=b or b<a} and the relation is transitive,{} \\spadignore{i.e.} \\spad{a<b and b<c => a<c}. This order should be the natural order on given structure."))
+ (|min|
+  (($ $ $)
+   "\\spad{min(x,{}y)} returns the minimum of \\spad{x} and \\spad{y} relative to \\spad{\"<\"}."))
+ (|max|
+  (($ $ $)
+   "\\spad{max(x,{}y)} returns the maximum of \\spad{x} and \\spad{y} relative to \\spad{\"<\"}.")))
+(("documentation" 0 973) ("ancestors" 0 847) ("parents" 0 801)
+ ("abbreviation" 0 794) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 403) ("modemaps" 0 290) ("sourceFile" 0 252)
+ ("constructorCategory" 0 131) ("constructorModemap" 0 82)
+ ("constructorKind" 0 71) ("constructorForm" 0 56) ("NILADIC" 0 20))

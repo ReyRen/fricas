@@ -1,0 +1,11 @@
+)abbrev category NASRNG NonAssociativeSemiRng
+++ Author: Waldek Hebisch
+++ Description:
+++  The category of semirings, not necessarily associative,
+++  not necessarily commutative, and not necessarily with a 1.
+NonAssociativeSemiRng() : Category == Join(AbelianSemiGroup, Magma) with
+    antiCommutator : (%, %) -> %
+      ++ antiCommutator(a, b) returns \spad{a*b+b*a}.
+  add
+    antiCommutator(x, y) == x*y + y*x
+

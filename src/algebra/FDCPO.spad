@@ -1,0 +1,45 @@
+)abbrev domain FDCPO FiniteDcpo
+++ Author: Martin Baker
+++ Description: holds a complete set together with a structure to codify
+++   the partial order.
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+++ Date Created: Aug 2015
+++ Basic Operations:
+++ Related packages: UserDefinedPartialOrdering in setorder.spad
+++ Related categories: PartialOrder in catdef.spad
+++ Related Domains: DirectedGraph in graph.spad
+++ Also See:
+++ AMS Classifications:
+++ Keywords: poset partial order
+++ Examples: power set structure
+++ References:
+++ Axiom: reflexivity forall(x): x<=x
+++ Axiom: antisymmetry forall(x, y): x<=y and y<=x iff x=y
+++ Axiom: transitivity forall(x, y, z): x<=y and y<=z implies x<=z
+
+FiniteDcpo(S) : Exports == Impl where
+    S : SetCategory
+    PI ==> PositiveInteger
+    NNI ==> NonNegativeInteger
+    SINT ==> SingleInteger
+    OBJT ==> Record(value : S, posX : NNI, posY : NNI)
+    ARROW ==> Record(name : String, arrType : NNI, fromOb : NNI, toOb : NNI,
+                     xOffset : Integer, yOffset : Integer, map : List NNI)
+
+    Exports ==> Dcpo(S)
+
+    Impl ==> FinitePoset(S) add
+
+      -- returns the join of 'a' and 'b'
+      -- In this version of join nodes are represented as index values.
+      join(s : %, a : NNI, b : NNI) : NNI ==
+          res : Union(NNI, "failed") := joinIfCan(s, a, b)
+          if res = "failed" then error "This POSET does not have join"
+          res::NNI
+
+)if false
+Here we will call the dual notion of a directed complete poset a Co-DCPO
+alternatively it is sometimes called a filtered complete partial order.
+)endif
+

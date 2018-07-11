@@ -1,0 +1,71 @@
+3381                (SETQ |$CategoryFrame|
+                            (|put| #1='|PositiveInteger| '|SuperDomain|
+                                   #2='(|NonNegativeInteger|)
+                                   (|put| #2# #3='|SubDomain|
+                                          (CONS
+                                           '(|PositiveInteger| SPADCALL |#1| 0
+                                                               (QREFELT $ 7))
+                                           (DELASC #1#
+                                                   (|get| #2# #3#
+                                                          |$CategoryFrame|)))
+                                          |$CategoryFrame|)))
+(MAKEPROP '|PositiveInteger| 'NILADIC T)
+(|PositiveInteger|)
+|domain|
+(((|PositiveInteger|)
+  (|Join| (|OrderedAbelianSemiGroup|) (|Monoid|) (|CommutativeStar|)
+          (|ConvertibleTo| (|InputForm|))
+          (CATEGORY |domain| (SIGNATURE |gcd| ($ $ $))
+           (SIGNATURE |qcoerce| ($ (|Integer|))))))
+ (T |PositiveInteger|))
+(|Join| (|OrderedAbelianSemiGroup|) (|Monoid|) (|CommutativeStar|)
+        (|ConvertibleTo| (|InputForm|))
+        (CATEGORY |domain| (SIGNATURE |gcd| ($ $ $))
+         (SIGNATURE |qcoerce| ($ (|Integer|)))))
+"/git/fricas/src/algebra/PI.spad"
+((|gcd| (*1 *1 *1 *1) (|isDomain| *1 (|PositiveInteger|)))
+ (|qcoerce| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|PositiveInteger|)))))
+((~= (((|Boolean|) $ $) NIL)) (|smaller?| (((|Boolean|) $ $) NIL))
+ (|sample| (($) NIL T CONST)) (|rightRecip| (((|Union| $ #1="failed") $) NIL))
+ (|rightPower| (($ $ (|NonNegativeInteger|)) NIL)
+  (($ $ (|PositiveInteger|)) NIL))
+ (|recip| (((|Union| $ #1#) $) NIL)) (|qcoerce| (($ (|Integer|)) 9))
+ (|one?| (((|Boolean|) $) NIL)) (|min| (($ $ $) NIL)) (|max| (($ $ $) NIL))
+ (|leftRecip| (((|Union| $ #1#) $) NIL))
+ (|leftPower| (($ $ (|NonNegativeInteger|)) NIL)
+  (($ $ (|PositiveInteger|)) NIL))
+ (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|gcd| (($ $ $) NIL))
+ (|convert| (((|InputForm|) $) NIL)) (|coerce| (((|OutputForm|) $) NIL))
+ (^ (($ $ (|NonNegativeInteger|)) NIL) (($ $ (|PositiveInteger|)) NIL))
+ (|One| (($) NIL T CONST)) (>= (((|Boolean|) $ $) NIL))
+ (> (((|Boolean|) $ $) NIL)) (= (((|Boolean|) $ $) NIL))
+ (<= (((|Boolean|) $ $) NIL)) (< (((|Boolean|) $ $) NIL)) (+ (($ $ $) NIL))
+ (* (($ (|PositiveInteger|) $) NIL) (($ $ $) NIL)))
+((|NonNegativeInteger|) (> |#1| 0))
+PI
+(((|OrderedAbelianSemiGroup|) . T) ((|Monoid|) . T) ((|CommutativeStar|) . T)
+ ((|ConvertibleTo| (|InputForm|)) . T))
+(((|AbelianSemiGroup|) . T) ((|BasicType|) . T)
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|CommutativeStar|) . T)
+ ((|Comparable|) . T) ((|ConvertibleTo| (|InputForm|)) . T) ((|Magma|) . T)
+ ((|MagmaWithUnit|) . T) ((|Monoid|) . T) ((|OrderedAbelianSemiGroup|) . T)
+ ((|OrderedSet|) . T) ((|PartialOrder|) . T) ((|SemiGroup|) . T)
+ ((|SetCategory|) . T) ((|TwoSidedRecip|) . T))
+((|constructor|
+  (NIL
+   "\\spadtype{PositiveInteger} provides functions for \\indented{2}{positive integers.}"))
+ (|qcoerce|
+  (($ (|Integer|))
+   "\\spad{qcoerce(n)} coerces \\spad{n} to \\spad{\\%} trusting that \\spad{n} is positive"))
+ (|gcd|
+  (($ $ $)
+   "\\spad{gcd(a,{} b)} computes the greatest common divisor of two positive integers \\spad{a} and \\spad{b}.")))
+(("documentation" 0 3006) ("ancestors" 0 2629) ("parents" 0 2511)
+ ("abbreviation" 0 2508) ("predicates" 0 NIL) ("superDomain" 0 2472)
+ ("operationAlist" 0 1438) ("modemaps" 0 1282) ("sourceFile" 0 1248)
+ ("constructorCategory" 0 1039) ("constructorModemap" 0 775)
+ ("constructorKind" 0 766) ("constructorForm" 0 746) ("NILADIC" 0 705)
+ ("evalOnLoad2" 0 20))

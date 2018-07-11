@@ -1,0 +1,90 @@
+4558                (|GaloisGroupPolynomialUtilities| R UP)
+|package|
+(((|GaloisGroupPolynomialUtilities| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |monic?| ((|Boolean|) |#2|))
+   (SIGNATURE |reverse| (|#2| |#2|)) (SIGNATURE |scaleRoots| (|#2| |#2| |#1|))
+   (SIGNATURE |shiftRoots| (|#2| |#2| |#1|))
+   (SIGNATURE |degreePartition|
+    ((|Multiset| (|NonNegativeInteger|)) (|Factored| |#2|)))
+   (SIGNATURE |factorOfDegree| (|#2| (|PositiveInteger|) (|Factored| |#2|)))
+   (SIGNATURE |factorsOfDegree|
+    ((|List| |#2|) (|PositiveInteger|) (|Factored| |#2|))))
+  (|Ring|) (|UnivariatePolynomialCategory| |#1|))
+ (T |GaloisGroupPolynomialUtilities|))
+(CATEGORY |package| (SIGNATURE |monic?| ((|Boolean|) |#2|))
+ (SIGNATURE |reverse| (|#2| |#2|)) (SIGNATURE |scaleRoots| (|#2| |#2| |#1|))
+ (SIGNATURE |shiftRoots| (|#2| |#2| |#1|))
+ (SIGNATURE |degreePartition|
+  ((|Multiset| (|NonNegativeInteger|)) (|Factored| |#2|)))
+ (SIGNATURE |factorOfDegree| (|#2| (|PositiveInteger|) (|Factored| |#2|)))
+ (SIGNATURE |factorsOfDegree|
+  ((|List| |#2|) (|PositiveInteger|) (|Factored| |#2|))))
+"/git/fricas/src/algebra/GALPOLYU.spad"
+((|factorsOfDegree| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|PositiveInteger|)) (|isDomain| *4 (|Factored| *6))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5 (|Ring|)) (|isDomain| *2 (|List| *6))
+       (|isDomain| *1 (|GaloisGroupPolynomialUtilities| *5 *6))))
+ (|factorOfDegree| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|PositiveInteger|)) (|isDomain| *4 (|Factored| *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *5))
+       (|isDomain| *1 (|GaloisGroupPolynomialUtilities| *5 *2))
+       (|ofCategory| *5 (|Ring|))))
+ (|degreePartition| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Factored| *5))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+       (|ofCategory| *4 (|Ring|))
+       (|isDomain| *2 (|Multiset| (|NonNegativeInteger|)))
+       (|isDomain| *1 (|GaloisGroupPolynomialUtilities| *4 *5))))
+ (|shiftRoots| (*1 *2 *2 *3)
+  (AND (|ofCategory| *3 (|Ring|))
+       (|isDomain| *1 (|GaloisGroupPolynomialUtilities| *3 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|scaleRoots| (*1 *2 *2 *3)
+  (AND (|ofCategory| *3 (|Ring|))
+       (|isDomain| *1 (|GaloisGroupPolynomialUtilities| *3 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|reverse| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|Ring|))
+       (|isDomain| *1 (|GaloisGroupPolynomialUtilities| *3 *2))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *3))))
+ (|monic?| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|Ring|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|GaloisGroupPolynomialUtilities| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4)))))
+((|shiftRoots| ((|#2| |#2| |#1|) 44)) (|scaleRoots| ((|#2| |#2| |#1|) 36))
+ (|reverse| ((|#2| |#2|) 32)) (|monic?| (((|Boolean|) |#2|) 28))
+ (|factorsOfDegree| (((|List| |#2|) (|PositiveInteger|) (|Factored| |#2|)) 17))
+ (|factorOfDegree| ((|#2| (|PositiveInteger|) (|Factored| |#2|)) 19))
+ (|degreePartition|
+  (((|Multiset| (|NonNegativeInteger|)) (|Factored| |#2|)) 23)))
+GALPOLYU
+((|constructor|
+  (NIL
+   "\\spadtype{GaloisGroupPolynomialUtilities} provides useful functions for univariate polynomials which should be added to \\spadtype{UnivariatePolynomialCategory} or to \\spadtype{Factored} (July 1994)."))
+ (|factorsOfDegree|
+  (((|List| |#2|) (|PositiveInteger|) (|Factored| |#2|))
+   "\\spad{factorsOfDegree(d,{} f)} returns the factors of degree \\spad{d} of the factored polynomial \\spad{f}."))
+ (|factorOfDegree|
+  ((|#2| (|PositiveInteger|) (|Factored| |#2|))
+   "\\spad{factorOfDegree(d,{} f)} returns a factor of degree \\spad{d} of the factored polynomial \\spad{f}. Such a factor shall exist."))
+ (|degreePartition|
+  (((|Multiset| (|NonNegativeInteger|)) (|Factored| |#2|))
+   "\\spad{degreePartition(f)} returns the degree partition (\\spadignore{i.e.} the multiset of the degrees of the irreducible factors) of the polynomial \\spad{f}."))
+ (|shiftRoots|
+  ((|#2| |#2| |#1|)
+   "\\spad{shiftRoots(p,{} c)} returns the polynomial which has for roots \\spad{c} added to the roots of \\spad{p}."))
+ (|scaleRoots|
+  ((|#2| |#2| |#1|)
+   "\\spad{scaleRoots(p,{} c)} returns the polynomial which has \\spad{c} times the roots of \\spad{p}."))
+ (|reverse|
+  ((|#2| |#2|)
+   "\\spad{reverse(p)} returns the reverse polynomial of \\spad{p}."))
+ (|monic?|
+  (((|Boolean|) |#2|)
+   "\\spad{monic?(p)} tests if \\spad{p} is monic (\\spadignore{i.e.} leading coefficient equal to 1).")))
+(("documentation" 0 3143) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3134) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2759) ("modemaps" 0 1126) ("sourceFile" 0 1086)
+ ("constructorCategory" 0 654) ("constructorModemap" 0 70)
+ ("constructorKind" 0 60) ("constructorForm" 0 20))

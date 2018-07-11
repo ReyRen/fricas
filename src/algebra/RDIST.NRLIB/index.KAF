@@ -1,0 +1,56 @@
+2138                (|RandomDistributions| S)
+|package|
+(((|RandomDistributions| |#1|)
+  (CATEGORY |package| (SIGNATURE |uniform| ((|Mapping| |#1|) (|Set| |#1|)))
+   (SIGNATURE |weighted|
+    ((|Mapping| |#1|)
+     (|List| (|Record| (|:| |value| |#1|) (|:| |weight| (|Integer|))))))
+   (SIGNATURE |rdHack1|
+    ((|Mapping| |#1|) (|Vector| |#1|) (|Vector| (|Integer|)) (|Integer|))))
+  (|SetCategory|))
+ (T |RandomDistributions|))
+(CATEGORY |package| (SIGNATURE |uniform| ((|Mapping| |#1|) (|Set| |#1|)))
+ (SIGNATURE |weighted|
+  ((|Mapping| |#1|)
+   (|List| (|Record| (|:| |value| |#1|) (|:| |weight| (|Integer|))))))
+ (SIGNATURE |rdHack1|
+  ((|Mapping| |#1|) (|Vector| |#1|) (|Vector| (|Integer|)) (|Integer|))))
+"/git/fricas/src/algebra/RDIST.spad"
+((|rdHack1| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Vector| *6)) (|isDomain| *4 (|Vector| (|Integer|)))
+       (|isDomain| *5 (|Integer|)) (|ofCategory| *6 (|SetCategory|))
+       (|isDomain| *2 (|Mapping| *6))
+       (|isDomain| *1 (|RandomDistributions| *6))))
+ (|weighted| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|List| (|Record| (|:| |value| *4) (|:| |weight| (|Integer|)))))
+   (|ofCategory| *4 (|SetCategory|)) (|isDomain| *2 (|Mapping| *4))
+   (|isDomain| *1 (|RandomDistributions| *4))))
+ (|uniform| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Set| *4)) (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *2 (|Mapping| *4))
+       (|isDomain| *1 (|RandomDistributions| *4)))))
+((|weighted|
+  (((|Mapping| |#1|)
+    (|List| (|Record| (|:| |value| |#1|) (|:| |weight| (|Integer|)))))
+   37))
+ (|uniform| (((|Mapping| |#1|) (|Set| |#1|)) 45))
+ (|rdHack1|
+  (((|Mapping| |#1|) (|Vector| |#1|) (|Vector| (|Integer|)) (|Integer|)) 34)))
+RDIST
+((|constructor| (NIL "This package exports random distributions"))
+ (|rdHack1|
+  (((|Mapping| |#1|) (|Vector| |#1|) (|Vector| (|Integer|)) (|Integer|))
+   "\\spad{rdHack1(v,{} u,{} n)} \\undocumented"))
+ (|weighted|
+  (((|Mapping| |#1|)
+    (|List| (|Record| (|:| |value| |#1|) (|:| |weight| (|Integer|)))))
+   "\\spad{weighted(l)} \\undocumented"))
+ (|uniform|
+  (((|Mapping| |#1|) (|Set| |#1|)) "\\spad{uniform(s)} \\undocumented")))
+(("documentation" 0 1702) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1696) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1442) ("modemaps" 0 751) ("sourceFile" 0 714)
+ ("constructorCategory" 0 430) ("constructorModemap" 0 56)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))

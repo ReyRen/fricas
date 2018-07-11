@@ -1,0 +1,35 @@
+1575                (|Finite&| S)
+|domain|
+(((|Finite&| |#1|)
+  (CATEGORY |domain| (SIGNATURE |enumerate| ((|List| |#1|)))
+   (SIGNATURE |random| (|#1|)) (SIGNATURE |smaller?| ((|Boolean|) |#1| |#1|))
+   (SIGNATURE |convert| ((|InputForm|) |#1|)))
+  (|Finite|))
+ (T |Finite&|))
+(CATEGORY |domain| (SIGNATURE |enumerate| ((|List| |#1|)))
+ (SIGNATURE |random| (|#1|)) (SIGNATURE |smaller?| ((|Boolean|) |#1| |#1|))
+ (SIGNATURE |convert| ((|InputForm|) |#1|)))
+"/git/fricas/src/algebra/FINITE.spad"
+((|smaller?| (((|Boolean|) $ $) 25)) (|random| (($) 12))
+ (|enumerate| (((|List| $)) 14)) (|convert| (((|InputForm|) $) 23)))
+FINITE-
+((|constructor|
+  (NIL
+   "The category of domains composed of a finite set of elements. We include the functions \\spadfun{lookup} and \\spadfun{index} to give a bijection between the finite set and an initial segment of positive integers. \\blankline"))
+ (|enumerate|
+  (((|List| $)) "\\spad{enumerate()} returns list of elements of the set."))
+ (|random| (($) "\\spad{random()} returns a random element from the set."))
+ (|lookup|
+  (((|PositiveInteger|) $)
+   "\\spad{lookup(x)} returns a positive integer such that \\spad{x = index lookup x}."))
+ (|index|
+  (($ (|PositiveInteger|))
+   "\\spad{index(i)} takes a positive integer \\spad{i} less than or equal to \\spad{size()} and returns the \\spad{i}\\spad{-}th element of the set. This operation establishes a bijection between the elements of the finite set and \\spad{1..size()}."))
+ (|size|
+  (((|NonNegativeInteger|))
+   "\\spad{size()} returns the number of elements in the set.")))
+(("documentation" 0 630) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 622) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 496) ("modemaps" 0 NIL) ("sourceFile" 0 458)
+ ("constructorCategory" 0 278) ("constructorModemap" 0 43)
+ ("constructorKind" 0 34) ("constructorForm" 0 20))

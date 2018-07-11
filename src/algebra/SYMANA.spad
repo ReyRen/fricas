@@ -1,0 +1,295 @@
+)abbrev package SYMANA SymmetryAnalysis
+++ Description:
+++ \spad{SymmetryAnalysis(JB, xi, eta)} provides procedures for the symmetry
+++ analysis of differential equations over a given jet bundle. Currently there
+++ exist only some procedures to set up the determining system for the symmetry
+++ generators of Lie point symmetries.
+
+SymmetryAnalysis(JB1 : JBC, xi : US, eta : US) : Cat == Def where
+
+  Sy   ==> Symbol
+  L    ==> List
+  US   ==> Union(Sy, L Sy)
+  I    ==> Integer
+  PI   ==> PositiveInteger
+  NNI  ==> NonNegativeInteger
+  EQ   ==> Equation
+  EI   ==> Expression Integer
+  K    ==> Kernel EI
+  BOP  ==> BasicOperator
+  OUT  ==> OutputForm
+  JBC  ==> JetBundleCategory
+  JBE1 ==> JetBundleExpression JB1
+  JB2  ==> JetBundleSymAna(JB1, xi, eta)
+  JBX2 ==> JetBundleXExpression JB2
+  JBE2 ==> JetBundleExpression JB2
+  JBL2 ==> JetBundleLinearFunction(JB2, JBX2)
+  JP1  ==> SparseMultivariatePolynomial(EI, JB1)
+  VF1  ==> JetVectorField(JB1, JBE1)
+
+  Indep ==> "Indep"::Sy
+  Dep   ==> "Dep"::Sy
+
+
+  Cat ==> with
+
+    ansatz : () -> VF1
+      ++ \spad{ansatz()} returns a general ansatz for a symmetry generator.
+
+    transform : JBE1 -> JBE2
+      ++ \spad{transform(f)} transforms expressions between the different
+      ++ function types involved.
+
+    linearize : L JBE2 -> L JBL2
+      ++ \spad{linearize(sys)} tries to retract all equations in \spad{sys}
+      ++ to a linear one. If that is not possible, an error occurs.
+
+    detSys : L JBE1 -> L JBE2
+      ++ \spad{detSys(sys)} computes the determining system for symmetry
+      ++ generators of the system \spad{sys}. It is assumed that each
+      ++ equation can be solved for its leading derivative.
+
+    detSys : (L JBE1, VF1) -> L JBE1
+      ++ \spad{detSys(sys, vf)} computes the determining system for symmetry
+      ++ generators of the system \spad{sys} with a given ansatz for the
+      ++ generators. It is assumed that each equation can be solved for its
+      ++ leading derivative.
+
+    detSys : (L JBE1, L JB1, VF1) -> L JBE1
+      ++ \spad{detSys(sys, sjb, vf)} computes the determining system for symmetry
+      ++ generators of the system \spad{sys} with a given ansatz for the
+      ++ generators. \spad{sjb} contains jet variables for which the individual
+      ++ equations can be solved.
+
+    ncDetSys : L JBE1 -> L JBE2
+      ++ \spad{ncDetSys(sys)} computes the determining system for generators of
+      ++ conditional symmetries of \spad{sys}. It makes the same assumptions as
+      ++ \spad{detSys}.
+
+    ncDetSys : (L JBE1, VF1) -> L JBE1
+      ++ \spad{ncDetSys(sys, vf)} computes the determining system for generators
+      ++ of conditional symmetries of \spad{sys} with a given ansatz for the
+      ++ vector fields.
+
+    ncDetSys : (L JBE1, L JB1, VF1) -> L JBE1
+      ++ \spad{ncDetSys(sys, sjb, vf)} computes the determining system for
+      ++ generators of conditional symmetries of \spad{sys}. The meaning of the
+      ++ further arguments is the same as in \spad{detSys}.
+
+    detSysNS : L JBE1 -> L JBE2
+      ++ \spad{detSysNS(sys, vf)} computes the determining system for symmetry
+      ++ generators without assuming solvability of the equations for some
+      ++ derivatives.
+
+    detSysNS : (L JBE1, VF1) -> L JBE1
+      ++ \spad{detSysNS(sys, vf)} computes the determining system for symmetry
+      ++ generators without assuming solvability of the equations for some
+      ++ derivatives.
+
+
+  Def ==> add
+
+    import from VF1
+
+    nn : PI := numIndVar()$JB1
+    mm : PI := numDepVar()$JB1
+    -- global variables for the number of variables
+
+    vars : L JB1 := concat!([X(i::PI)$JB1  for i in 1..nn], _
+                            [U(i::PI)$JB1  for i in 1..mm])
+    indVars : L Sy := [name(jv)  for jv in vars]
+    depVars : L Sy := empty
+    if xi case Sy then
+        if nn > 1 then
+            depVars : L Sy := [superscript(xi::Sy, [i::OUT])  for i in 1..nn]
+        else
+            depVars : L Sy := [xi::Sy]
+    else
+        depVars : L Sy := xi::L Sy
+    if eta case Sy then
+        if mm > 1 then
+            depVars := append(depVars, _
+                          [superscript(eta::Sy, [i::OUT])  for i in 1..mm])
+        else
+            depVars := append(depVars, [eta::Sy])
+    else
+        depVars : L Sy := append(depVars, eta::L Sy)
+    JVars : L JBE1 := [jv::JBE1  for jv in vars]
+
+
+    -- --------- --
+    -- Utilities --
+    -- --------- --
+
+    ansatz() : VF1 ==
+        -- returns most general ansatz for a vector field
+        -- on the base bundle.
+        res : VF1 := 0
+        for i in 1..nn repeat
+            s := qelt(depVars, i)
+            f : JBE1 := function(s, JVars, 0)
+            res := res + f*diffX(i::PI)
+
+        for i in 1..mm repeat
+            s := qelt(depVars, nn + i)
+            f : JBE1 := function(s, JVars, 0)
+            res := res + f*diffU(i::PI)
+
+        res
+
+
+    transform(f : JBE1) : JBE2 ==
+        JV : L EI := empty
+        SubL : L K := empty
+        LKernels := tower f
+        LOps := [operator Ke  for Ke in LKernels]
+        for Ke in LKernels  for Op in LOps repeat
+            has?(Op, "%jet"::Sy)$BOP =>
+                typ := property(Op, "%jet"::Sy)::None pretend Sy
+                typ = 'Deriv =>
+                    error "function contains illegal jet variables in transform"
+                ind : I := retract second argument Ke
+                JV := cons(X(ind::PI)$JB2::EI, JV)
+                if ind > nn then
+                    SubL := cons(first kernels(U((ind - nn)::PI)$JB1::EI), SubL)
+                else
+                    SubL := cons(first kernels(X(ind::PI)$JB1::EI), SubL)
+            fname := name Op
+            pos := position(fname, depVars)
+            if pos >= minIndex(depVars) then
+                arg := argument Ke
+                if #arg > 3 then
+                    arg := rest arg
+                    num : I := retract first arg
+                    arg := rest rest arg
+                    rarg : L JBE1 := empty
+                    for i in 1..num repeat
+                        rarg := cons(first arg, rarg)
+                        arg := rest arg
+                    rarg := reverse! rarg
+                    diff : L JBE1 := arg
+                    if empty? diff then
+                        JV := cons(U(pos::PI)$JB2::EI, JV)
+                        SubL := cons(first kernels(Ke::JBE1::EI), SubL)
+                    else
+                        up := pos::PI
+                        lower : L PI := empty
+                        for d in diff repeat
+                            id : I := retract d
+                            --a := qelt(rarg, id)
+                            lower := cons(id::PI, lower)
+                        lower := reverse! lower
+                        JV := cons(Pr(up, lower)$JB2::EI, JV)
+                        SubL := cons(first kernels(Ke::JBE1::EI), SubL)
+
+        g : EI := eval(f::EI, SubL, JV)
+        g::JBE2
+
+
+    --linearize(sys : L JBE2) : L JBL2 ==
+    --  res : L JBL2 := empty
+    --  for eq in sys repeat
+    --    tmp : Union(JBL2, "failed") := retractIfCan(eq)$JBL2
+    --    tmp case "failed" => error "non-linear equation in linearize"
+    --    res := cons(tmp::JBL2, res)
+    --  reverse! res
+
+
+    -- ------------------ --
+    -- Determining System --
+    -- ------------------ --
+
+    detSys(sys : L JBE1) : L JBE2 ==
+        ds := detSys(sys, [leadingDer eq  for eq in sys], ansatz())
+        [transform eq  for eq in ds]
+
+
+    detSys(sys : L JBE1, vf : VF1) : L JBE1 ==
+        detSys(sys, [leadingDer eq  for eq in sys], vf)
+
+
+    detSys(sys : L JBE1, sjb : L JB1, vf : VF1) : L JBE1 ==
+        -- solving equations for given jet variable
+        solEq : L EQ JBE1 := empty
+        for eq in sys   for jv in sjb repeat
+            tmp := solveFor(eq, jv)
+            tmp case "failed" => error "cannot solve in detsys"
+            solEq := cons(jv::JBE1 = tmp::JBE1, solEq)
+        solEq := reverse! solEq
+
+        -- determining conditions
+        ol : L NNI := [order eq  for eq in sys]
+        o := reduce(max, ol, 0)
+        -- o := reduce(max, [order(eq)$JBE1  for eq in sys], 0)
+        pvf := prolong(vf, o)
+        crit : L JBE1 := [eval(pvf, eq)  for eq in sys]
+        pcrit : L JP1 := [numerJP eval(eq, solEq)  for eq in crit]
+        coL := [coefficients jp  for jp in pcrit]
+        conds := reduce(append, coL, empty)
+        -- conds := reduce(append, [coefficients jp  for jp in pcrit], empty)
+        [co::JBE1  for co in conds]
+
+
+    -- ---------------------- --
+    -- Conditional Symmetries --
+    -- ---------------------- --
+
+    ncDetSys(sys : L JBE1) : L JBE2 ==
+        ds := ncDetSys(sys, [leadingDer eq  for eq in sys], ansatz())
+        [transform eq  for eq in ds]
+
+
+    ncDetSys(sys : L JBE1, vf : VF1) : L JBE1 ==
+        ncDetSys(sys, [leadingDer eq  for eq in sys], vf)
+
+
+    ncDetSys(sys : L JBE1, sjb : L JB1, vf : VF1) : L JBE1 ==
+        dirs := directions vf
+        coeffs := coefficients vf
+        Xi : L JBE1 := empty
+        tmp : L JBE1 := empty
+        ind1 : L PI := empty
+        ind2 : L PI := empty
+
+        -- separating independent and dependent variables
+        for jv in dirs  for co in coeffs repeat
+            jt := type jv
+            if jt = Indep then
+                Xi := cons(co, Xi)
+                ind1 := cons(index(jv), ind1)
+            else if jt = Dep then
+                tmp := cons(co, tmp)
+                ind2 := cons(index(jv), ind2)
+            else
+                error "Only independent and dependent variables allowed"
+
+        -- closing gaps in eta
+        j : I := mm
+        Eta : L JBE1 := empty
+        for co in tmp  for i in ind2 repeat
+            while j > i repeat
+                Eta := cons(0, Eta)
+                j := j-1
+            Eta := cons(co, Eta)
+            j := j-1
+        if not zero? j then
+            for i in 1..j repeat
+                Eta := cons(0, Eta)
+
+        -- invariant surface conditions
+        isc : L JBE1 := empty
+        ijb : L JB1 := empty
+        for e in Eta  for j in 1..mm repeat
+            cond : JBE1 := -e
+            jv : JB1 := 1
+            for x in Xi  for i in ind1 repeat
+                if not zero? x then
+                    jv := Pr(j::PI, [i::PI])$JB1
+                    cond := cond + x*(jv::JBE1)
+            one? jv => error "cannot solve invariant surface condition"
+            ijb := cons(jv, ijb)
+            isc := cons(cond, isc)
+
+        detSys(append(isc, sys), append(ijb, sjb), vf)
+
+

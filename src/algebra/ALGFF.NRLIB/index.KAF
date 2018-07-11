@@ -1,0 +1,407 @@
+20111               (|AlgebraicFunctionField| F UP UPUP |modulus|)
+|domain|
+(((|AlgebraicFunctionField| |#1| |#2| |#3| |#4|)
+  (|Join| (|FunctionFieldCategory| |#1| |#2| |#3|)
+          (CATEGORY |package|
+           (SIGNATURE |knownInfBasis| ((|Void|) (|NonNegativeInteger|)))))
+  (|Field|) (|UnivariatePolynomialCategory| |#1|)
+  (|UnivariatePolynomialCategory| (|Fraction| |#2|)) |#3|)
+ (T |AlgebraicFunctionField|))
+(|Join| (|FunctionFieldCategory| |#1| |#2| |#3|)
+        (CATEGORY |package|
+         (SIGNATURE |knownInfBasis| ((|Void|) (|NonNegativeInteger|)))))
+"/git/fricas/src/algebra/ALGFF.spad"
+((|knownInfBasis| (*1 *2 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|)) (|ofCategory| *4 (|Field|))
+       (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|AlgebraicFunctionField| *4 *5 *6 *7))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| (|Fraction| *5)))
+       (|ofType| *7 *6))))
+((~= (((|Boolean|) $ $) NIL)) (|zero?| (((|Boolean|) $) NIL))
+ (|yCoordinates|
+  (((|Record| (|:| |num| (|Vector| |#2|)) (|:| |den| |#2|)) $) NIL))
+ (|unitNormal|
+  (((|Record| (|:| |unit| $) (|:| |canonical| $) (|:| |associate| $)) $) NIL
+   (|has| (|Fraction| |#2|) (|Field|))))
+ (|unitCanonical| (($ $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|unit?| (((|Boolean|) $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|traceMatrix| (((|Matrix| (|Fraction| |#2|)) (|Vector| $)) NIL)
+  (((|Matrix| (|Fraction| |#2|))) NIL))
+ (|trace| (((|Fraction| |#2|) $) NIL))
+ (|tableForDiscreteLogarithm|
+  (((|Table| (|PositiveInteger|) (|NonNegativeInteger|)) (|Integer|)) NIL
+   (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|subtractIfCan| (((|Union| $ "failed") $ $) NIL))
+ (|squareFreePolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   NIL (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|squareFreePart| (($ $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|squareFree| (((|Factored| $) $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|solveLinearPolynomialEquation|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| $)) #1="failed")
+    (|List| (|SparseUnivariatePolynomial| $)) (|SparseUnivariatePolynomial| $))
+   NIL (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|smaller?| (((|Boolean|) $ $) NIL (|has| (|Fraction| |#2|) (|Finite|))))
+ (|sizeLess?| (((|Boolean|) $ $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|size| (((|NonNegativeInteger|)) NIL (|has| (|Fraction| |#2|) (|Finite|))))
+ (|singularAtInfinity?| (((|Boolean|)) NIL))
+ (|singular?| (((|Boolean|) |#1|) NIL) (((|Boolean|) |#2|) NIL))
+ (|sample| (($) NIL T CONST)) (|rightRecip| (((|Union| $ #2="failed") $) NIL))
+ (|rightPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL))
+ (|retractIfCan|
+  (((|Union| (|Integer|) #3="failed") $) NIL
+   (|has| (|Fraction| |#2|) (|RetractableTo| (|Integer|))))
+  (((|Union| (|Fraction| (|Integer|)) #3#) $) NIL
+   (|has| (|Fraction| |#2|) (|RetractableTo| (|Fraction| (|Integer|)))))
+  (((|Union| (|Fraction| |#2|) #3#) $) NIL))
+ (|retract|
+  (((|Integer|) $) NIL (|has| (|Fraction| |#2|) (|RetractableTo| (|Integer|))))
+  (((|Fraction| (|Integer|)) $) NIL
+   (|has| (|Fraction| |#2|) (|RetractableTo| (|Fraction| (|Integer|)))))
+  (((|Fraction| |#2|) $) NIL))
+ (|represents| (($ (|Vector| (|Fraction| |#2|)) (|Vector| $)) NIL)
+  (($ (|Vector| (|Fraction| |#2|))) 56) (($ (|Vector| |#2|) |#2|) 121))
+ (|representationType|
+  (((|Union| "prime" "polynomial" "normal" "cyclic")) NIL
+   (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|rem| (($ $ $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|regularRepresentation| (((|Matrix| (|Fraction| |#2|)) $ (|Vector| $)) NIL)
+  (((|Matrix| (|Fraction| |#2|)) $) NIL))
+ (|reducedSystem|
+  (((|Matrix| (|Integer|)) (|Matrix| $)) NIL
+   (|has| (|Fraction| |#2|) (|LinearlyExplicitOver| (|Integer|))))
+  (((|Record| (|:| |mat| (|Matrix| (|Integer|)))
+              (|:| |vec| (|Vector| (|Integer|))))
+    (|Matrix| $) (|Vector| $))
+   NIL (|has| (|Fraction| |#2|) (|LinearlyExplicitOver| (|Integer|))))
+  (((|Record| (|:| |mat| (|Matrix| (|Fraction| |#2|)))
+              (|:| |vec| (|Vector| (|Fraction| |#2|))))
+    (|Matrix| $) (|Vector| $))
+   NIL)
+  (((|Matrix| (|Fraction| |#2|)) (|Matrix| $)) NIL))
+ (|reduceBasisAtInfinity| (((|Vector| $) (|Vector| $)) NIL))
+ (|reduce| (($ |#3|) NIL)
+  (((|Union| $ "failed") (|Fraction| |#3|)) NIL
+   (|has| (|Fraction| |#2|) (|Field|))))
+ (|recip| (((|Union| $ #2#) $) NIL))
+ (|rationalPoints| (((|List| (|List| |#1|))) NIL (|has| |#1| (|Finite|))))
+ (|rationalPoint?| (((|Boolean|) |#1| |#1|) NIL))
+ (|rank| (((|PositiveInteger|)) NIL))
+ (|random| (($) NIL (|has| (|Fraction| |#2|) (|Finite|))))
+ (|ramifiedAtInfinity?| (((|Boolean|)) NIL))
+ (|ramified?| (((|Boolean|) |#1|) NIL) (((|Boolean|) |#2|) NIL))
+ (|quo| (($ $ $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|principalIdeal|
+  (((|Record| (|:| |coef| (|List| $)) (|:| |generator| $)) (|List| $)) NIL
+   (|has| (|Fraction| |#2|) (|Field|))))
+ (|primitivePart| (($ $) NIL))
+ (|primitiveElement|
+  (($) NIL (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|primitive?|
+  (((|Boolean|) $) NIL (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|primeFrobenius|
+  (($ $ (|NonNegativeInteger|)) NIL
+   (|has| (|Fraction| |#2|) (|FiniteFieldCategory|)))
+  (($ $) NIL (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|prime?| (((|Boolean|) $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|order|
+  (((|PositiveInteger|) $) NIL
+   (|has| (|Fraction| |#2|) (|FiniteFieldCategory|)))
+  (((|OnePointCompletion| (|PositiveInteger|)) $) NIL
+   (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|opposite?| (((|Boolean|) $ $) NIL)) (|one?| (((|Boolean|) $) NIL))
+ (|numberOfComponents| (((|NonNegativeInteger|)) NIL))
+ (|normalizeAtInfinity| (((|Vector| $) (|Vector| $)) 96))
+ (|norm| (((|Fraction| |#2|) $) NIL))
+ (|nonSingularModel|
+  (((|List| (|Polynomial| |#1|)) (|Symbol|)) NIL (|has| |#1| (|Field|))))
+ (|nextItem|
+  (((|Union| $ "failed") $) NIL
+   (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|multiEuclidean|
+  (((|Union| (|List| $) #4="failed") (|List| $) $) NIL
+   (|has| (|Fraction| |#2|) (|Field|))))
+ (|minimalPolynomial| ((|#3| $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|lookup| (((|PositiveInteger|) $) NIL (|has| (|Fraction| |#2|) (|Finite|))))
+ (|lift| ((|#3| $) NIL)) (|leftRecip| (((|Union| $ #2#) $) NIL))
+ (|leftPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL))
+ (|lcmCoef|
+  (((|Record| (|:| |llcm_res| $) (|:| |coeff1| $) (|:| |coeff2| $)) $ $) NIL
+   (|has| (|Fraction| |#2|) (|Field|))))
+ (|lcm| (($ (|List| $)) NIL (|has| (|Fraction| |#2|) (|Field|)))
+  (($ $ $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|latex| (((|String|) $) NIL))
+ (|knownInfBasis| (((|Void|) (|NonNegativeInteger|)) 74))
+ (|inverseIntegralMatrixAtInfinity| (((|Matrix| (|Fraction| |#2|))) 51))
+ (|inverseIntegralMatrix| (((|Matrix| (|Fraction| |#2|))) 44))
+ (|inv| (($ $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|integralRepresents| (($ (|Vector| |#2|) |#2|) 122))
+ (|integralMatrixAtInfinity| (((|Matrix| (|Fraction| |#2|))) 45))
+ (|integralMatrix| (((|Matrix| (|Fraction| |#2|))) 43))
+ (|integralDerivationMatrix|
+  (((|Record| (|:| |num| (|Matrix| |#2|)) (|:| |den| |#2|))
+    (|Mapping| |#2| |#2|))
+   119))
+ (|integralCoordinates|
+  (((|Record| (|:| |num| (|Vector| |#2|)) (|:| |den| |#2|)) $) 62))
+ (|integralBasisAtInfinity| (((|Vector| $)) 42))
+ (|integralBasis| (((|Vector| $)) 41))
+ (|integralAtInfinity?| (((|Boolean|) $) NIL))
+ (|integral?| (((|Boolean|) $) NIL) (((|Boolean|) $ |#1|) NIL)
+  (((|Boolean|) $ |#2|) NIL))
+ (|init| (($) NIL (|has| (|Fraction| |#2|) (|FiniteFieldCategory|)) CONST))
+ (|index| (($ (|PositiveInteger|)) NIL (|has| (|Fraction| |#2|) (|Finite|))))
+ (|hyperelliptic| (((|Union| |#2| #5="failed")) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|genus| (((|NonNegativeInteger|)) NIL))
+ (|generator| (($) NIL))
+ (|gcdPolynomial|
+  (((|SparseUnivariatePolynomial| $) (|SparseUnivariatePolynomial| $)
+    (|SparseUnivariatePolynomial| $))
+   NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|gcd| (($ (|List| $)) NIL (|has| (|Fraction| |#2|) (|Field|)))
+  (($ $ $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|factorsOfCyclicGroupSize|
+  (((|List|
+     (|Record| (|:| |factor| (|Integer|))
+               (|:| |exponent| (|NonNegativeInteger|)))))
+   NIL (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|factorSquareFreePolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   NIL (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|factorPolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   NIL (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|factor| (((|Factored| $) $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|extendedEuclidean|
+  (((|Union| (|Record| (|:| |coef1| $) (|:| |coef2| $)) #4#) $ $ $) NIL
+   (|has| (|Fraction| |#2|) (|Field|)))
+  (((|Record| (|:| |coef1| $) (|:| |coef2| $) (|:| |generator| $)) $ $) NIL
+   (|has| (|Fraction| |#2|) (|Field|))))
+ (|exquo| (((|Union| $ "failed") $ $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|expressIdealMember|
+  (((|Union| (|List| $) "failed") (|List| $) $) NIL
+   (|has| (|Fraction| |#2|) (|Field|))))
+ (|euclideanSize|
+  (((|NonNegativeInteger|) $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|enumerate| (((|List| $)) NIL (|has| (|Fraction| |#2|) (|Finite|))))
+ (|elt| ((|#1| $ |#1| |#1|) NIL)) (|elliptic| (((|Union| |#2| #5#)) NIL))
+ (|divide|
+  (((|Record| (|:| |quotient| $) (|:| |remainder| $)) $ $) NIL
+   (|has| (|Fraction| |#2|) (|Field|))))
+ (|discriminant| (((|Fraction| |#2|) (|Vector| $)) NIL)
+  (((|Fraction| |#2|)) 39))
+ (|discreteLog|
+  (((|NonNegativeInteger|) $) NIL
+   (|has| (|Fraction| |#2|) (|FiniteFieldCategory|)))
+  (((|Union| (|NonNegativeInteger|) "failed") $ $) NIL
+   (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|differentiate|
+  (($ $) NIL
+   (OR
+    (AND (|has| (|Fraction| |#2|) (|DifferentialRing|))
+         (|has| (|Fraction| |#2|) (|Field|)))
+    (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+  (($ $ (|NonNegativeInteger|)) NIL
+   (OR
+    (AND (|has| (|Fraction| |#2|) (|DifferentialRing|))
+         (|has| (|Fraction| |#2|) (|Field|)))
+    (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+  (($ $ (|Symbol|)) NIL
+   (AND (|has| (|Fraction| |#2|) (|Field|))
+        (|has| (|Fraction| |#2|) (|PartialDifferentialRing| (|Symbol|)))))
+  (($ $ (|List| (|Symbol|))) NIL
+   (AND (|has| (|Fraction| |#2|) (|Field|))
+        (|has| (|Fraction| |#2|) (|PartialDifferentialRing| (|Symbol|)))))
+  (($ $ (|Symbol|) (|NonNegativeInteger|)) NIL
+   (AND (|has| (|Fraction| |#2|) (|Field|))
+        (|has| (|Fraction| |#2|) (|PartialDifferentialRing| (|Symbol|)))))
+  (($ $ (|List| (|Symbol|)) (|List| (|NonNegativeInteger|))) NIL
+   (AND (|has| (|Fraction| |#2|) (|Field|))
+        (|has| (|Fraction| |#2|) (|PartialDifferentialRing| (|Symbol|)))))
+  (($ $ (|Mapping| (|Fraction| |#2|) (|Fraction| |#2|)) (|NonNegativeInteger|))
+   NIL (|has| (|Fraction| |#2|) (|Field|)))
+  (($ $ (|Mapping| (|Fraction| |#2|) (|Fraction| |#2|))) NIL
+   (|has| (|Fraction| |#2|) (|Field|)))
+  (($ $ (|Mapping| |#2| |#2|)) 115))
+ (|derivationCoordinates|
+  (((|Matrix| (|Fraction| |#2|)) (|Vector| $)
+    (|Mapping| (|Fraction| |#2|) (|Fraction| |#2|)))
+   NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|definingPolynomial| ((|#3|) 50))
+ (|createPrimitiveElement|
+  (($) NIL (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+ (|coordinates| (((|Vector| (|Fraction| |#2|)) $ (|Vector| $)) NIL)
+  (((|Matrix| (|Fraction| |#2|)) (|Vector| $) (|Vector| $)) NIL)
+  (((|Matrix| (|Fraction| |#2|)) (|Vector| $)) 97)
+  (((|Vector| (|Fraction| |#2|)) $) 57))
+ (|convert| (($ (|Vector| (|Fraction| |#2|))) NIL)
+            (((|Vector| (|Fraction| |#2|)) $) NIL) ((|#3| $) NIL)
+            (($ |#3|) NIL)
+            (((|InputForm|) $) NIL (|has| (|Fraction| |#2|) (|Finite|))))
+ (|conditionP|
+  (((|Union| (|Vector| $) #1#) (|Matrix| $)) NIL
+   (AND (|has| $ (|CharacteristicNonZero|))
+        (|has| (|Fraction| |#2|) (|FiniteFieldCategory|)))))
+ (|complementaryBasis| (((|Vector| $) (|Vector| $)) NIL))
+ (|commutator| (($ $ $) NIL))
+ (|coerce| (((|OutputForm|) $) NIL) (($ (|Integer|)) NIL)
+           (($ (|Fraction| |#2|)) NIL) (($ $) NIL)
+           (($ (|Fraction| (|Integer|))) NIL
+            (OR (|has| (|Fraction| |#2|) (|Field|))
+                (|has| (|Fraction| |#2|)
+                       (|RetractableTo| (|Fraction| (|Integer|)))))))
+ (|charthRoot| (($ $) NIL (|has| (|Fraction| |#2|) (|FiniteFieldCategory|)))
+  (((|Union| $ "failed") $) NIL
+   (|has| (|Fraction| |#2|) (|CharacteristicNonZero|))))
+ (|characteristicPolynomial| ((|#3| $) NIL))
+ (|characteristic| (((|NonNegativeInteger|)) NIL))
+ (|branchPointAtInfinity?| (((|Boolean|)) 37))
+ (|branchPoint?| (((|Boolean|) |#1|) 49) (((|Boolean|) |#2|) 127))
+ (|basis| (((|Vector| $)) 88)) (|associator| (($ $ $ $) NIL))
+ (|associates?| (((|Boolean|) $ $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|antiCommutator| (($ $ $) NIL)) (|annihilate?| (((|Boolean|) $ $) NIL))
+ (|algSplitSimple|
+  (((|Record| (|:| |num| $) (|:| |den| |#2|) (|:| |derivden| |#2|)
+              (|:| |gd| |#2|))
+    $ (|Mapping| |#2| |#2|))
+   NIL))
+ (|absolutelyIrreducible?| (((|Boolean|)) NIL))
+ (^ (($ $ (|PositiveInteger|)) NIL) (($ $ (|NonNegativeInteger|)) NIL)
+  (($ $ (|Integer|)) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (|Zero| (($) 16 T CONST)) (|One| (($) 26 T CONST))
+ (D
+  (($ $) NIL
+   (OR
+    (AND (|has| (|Fraction| |#2|) (|DifferentialRing|))
+         (|has| (|Fraction| |#2|) (|Field|)))
+    (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+  (($ $ (|NonNegativeInteger|)) NIL
+   (OR
+    (AND (|has| (|Fraction| |#2|) (|DifferentialRing|))
+         (|has| (|Fraction| |#2|) (|Field|)))
+    (|has| (|Fraction| |#2|) (|FiniteFieldCategory|))))
+  (($ $ (|Symbol|)) NIL
+   (AND (|has| (|Fraction| |#2|) (|Field|))
+        (|has| (|Fraction| |#2|) (|PartialDifferentialRing| (|Symbol|)))))
+  (($ $ (|List| (|Symbol|))) NIL
+   (AND (|has| (|Fraction| |#2|) (|Field|))
+        (|has| (|Fraction| |#2|) (|PartialDifferentialRing| (|Symbol|)))))
+  (($ $ (|Symbol|) (|NonNegativeInteger|)) NIL
+   (AND (|has| (|Fraction| |#2|) (|Field|))
+        (|has| (|Fraction| |#2|) (|PartialDifferentialRing| (|Symbol|)))))
+  (($ $ (|List| (|Symbol|)) (|List| (|NonNegativeInteger|))) NIL
+   (AND (|has| (|Fraction| |#2|) (|Field|))
+        (|has| (|Fraction| |#2|) (|PartialDifferentialRing| (|Symbol|)))))
+  (($ $ (|Mapping| (|Fraction| |#2|) (|Fraction| |#2|)) (|NonNegativeInteger|))
+   NIL (|has| (|Fraction| |#2|) (|Field|)))
+  (($ $ (|Mapping| (|Fraction| |#2|) (|Fraction| |#2|))) NIL
+   (|has| (|Fraction| |#2|) (|Field|))))
+ (= (((|Boolean|) $ $) NIL))
+ (/ (($ $ $) NIL (|has| (|Fraction| |#2|) (|Field|))))
+ (- (($ $ $) NIL) (($ $) NIL)) (+ (($ $ $) NIL))
+ (* (($ (|PositiveInteger|) $) NIL) (($ $ $) NIL) (($ (|Integer|) $) NIL)
+    (($ (|NonNegativeInteger|) $) NIL) (($ $ (|Fraction| |#2|)) NIL)
+    (($ (|Fraction| |#2|) $) NIL)
+    (($ (|Fraction| (|Integer|)) $) NIL (|has| (|Fraction| |#2|) (|Field|)))
+    (($ $ (|Fraction| (|Integer|))) NIL (|has| (|Fraction| |#2|) (|Field|)))))
+((|HasCategory| (|Fraction| |#2|) '(|CharacteristicZero|))
+ (|HasCategory| (|Fraction| |#2|) '(|FiniteFieldCategory|))
+ (|HasCategory| (|Fraction| |#2|) '(|Field|))
+ (OR (|HasCategory| (|Fraction| |#2|) '(|Field|))
+     (|HasCategory| (|Fraction| |#2|) '(|FiniteFieldCategory|)))
+ (|HasCategory| (|Fraction| |#2|) '(|CharacteristicNonZero|))
+ (|HasCategory| (|Fraction| |#2|) '(|Finite|))
+ (OR
+  (AND (|HasCategory| (|Fraction| |#2|) '(|DifferentialRing|))
+       (|HasCategory| (|Fraction| |#2|) '(|Field|)))
+  (|HasCategory| (|Fraction| |#2|) '(|FiniteFieldCategory|)))
+ (|HasCategory| (|Fraction| |#2|)
+                (LIST '|RetractableTo| (LIST '|Fraction| '(|Integer|))))
+ (|HasCategory| (|Fraction| |#2|) (LIST '|RetractableTo| '(|Integer|)))
+ (|HasCategory| (|Fraction| |#2|) (LIST '|LinearlyExplicitOver| '(|Integer|)))
+ (AND
+  (|HasCategory| (|Fraction| |#2|)
+                 (LIST '|PartialDifferentialRing| '(|Symbol|)))
+  (|HasCategory| (|Fraction| |#2|) '(|Field|)))
+ (OR
+  (AND
+   (|HasCategory| (|Fraction| |#2|)
+                  (LIST '|PartialDifferentialRing| '(|Symbol|)))
+   (|HasCategory| (|Fraction| |#2|) '(|Field|)))
+  (AND
+   (|HasCategory| (|Fraction| |#2|)
+                  (LIST '|PartialDifferentialRing| '(|Symbol|)))
+   (|HasCategory| (|Fraction| |#2|) '(|FiniteFieldCategory|))))
+ (OR
+  (|HasCategory| (|Fraction| |#2|)
+                 (LIST '|RetractableTo| (LIST '|Fraction| '(|Integer|))))
+  (|HasCategory| (|Fraction| |#2|) '(|Field|)))
+ (|HasCategory| |#1| '(|Field|)) (|HasCategory| |#1| '(|Finite|))
+ (AND (|HasCategory| $ '(|CharacteristicNonZero|))
+      (|HasCategory| (|Fraction| |#2|) '(|FiniteFieldCategory|))))
+ALGFF
+(((|FunctionFieldCategory| |#1| |#2| |#3|) . T))
+(((|AbelianGroup|) . T) ((|AbelianMonoid|) . T) ((|AbelianSemiGroup|) . T)
+ ((|Algebra| (|Fraction| (|Integer|))) |has| |t#1| (|Field|))
+ ((|Algebra| $) . T) ((|Algebra| |t#1|) . T) ((|BasicType|) . T)
+ ((|BiModule| |t#1| |t#1|) . T) ((|BiModule| $ $) . T)
+ ((|CancellationAbelianMonoid|) . T)
+ ((|CharacteristicNonZero|) |has| |t#1| (|CharacteristicNonZero|))
+ ((|CharacteristicZero|) |has| |t#1| (|CharacteristicZero|))
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|CommutativeRing|) . T)
+ ((|CommutativeStar|) . T) ((|Comparable|) |has| |t#1| (|Finite|))
+ ((|ConvertibleTo| |t#2|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|Finite|))
+ ((|DifferentialExtension| |t#1|) |has| |t#1| (|Field|))
+ ((|DifferentialRing|) OR (|has| |t#1| (|FiniteFieldCategory|))
+  (AND (|has| |t#1| (|DifferentialRing|)) (|has| |t#1| (|Field|))))
+ ((|DivisionRing|) |has| |t#1| (|Field|))
+ ((|EntireRing|) |has| |t#1| (|Field|))
+ ((|EuclideanDomain|) |has| |t#1| (|Field|)) ((|Field|) |has| |t#1| (|Field|))
+ ((|FieldOfPrimeCharacteristic|) |has| |t#1| (|FiniteFieldCategory|))
+ ((|Finite|) |has| |t#1| (|Finite|))
+ ((|FiniteFieldCategory|) |has| |t#1| (|FiniteFieldCategory|))
+ ((|FiniteRankAlgebra| |t#1| |t#2|) . T) ((|FramedAlgebra| |t#1| |t#2|) . T)
+ ((|FramedModule| |t#1|) . T) ((|FullyLinearlyExplicitOver| |t#1|) . T)
+ ((|FullyRetractableTo| |t#1|) . T)
+ ((|FunctionFieldCategory| |#1| |#2| |#3|) . T)
+ ((|GcdDomain|) |has| |t#1| (|Field|))
+ ((|IntegralDomain|) |has| |t#1| (|Field|)) ((|LeftModule| |t#1|) . T)
+ ((|LeftOreRing|) |has| |t#1| (|Field|))
+ ((|LinearlyExplicitOver| (|Integer|)) |has| |t#1|
+  (|LinearlyExplicitOver| (|Integer|)))
+ ((|LinearlyExplicitOver| |t#1|) . T) ((|Magma|) . T) ((|MagmaWithUnit|) . T)
+ ((|Module| |t#1|) . T) ((|MonogenicAlgebra| (|Fraction| |t#2|) |t#3|) . T)
+ ((|Monoid|) . T) ((|NonAssociativeRing|) . T) ((|NonAssociativeRng|) . T)
+ ((|NonAssociativeSemiRing|) . T) ((|NonAssociativeSemiRng|) . T)
+ ((|PartialDifferentialRing| (|Symbol|)) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|PartialDifferentialRing| (|Symbol|))))
+ ((|PolynomialFactorizationExplicit|) |has| |t#1| (|FiniteFieldCategory|))
+ ((|PrincipalIdealDomain|) |has| |t#1| (|Field|))
+ ((|RetractableTo| (|Fraction| (|Integer|))) |has| |t#1|
+  (|RetractableTo| (|Fraction| (|Integer|))))
+ ((|RetractableTo| (|Integer|)) |has| |t#1| (|RetractableTo| (|Integer|)))
+ ((|RetractableTo| |t#1|) . T) ((|RightModule| |t#2|) . T) ((|Ring|) . T)
+ ((|Rng|) . T) ((|SemiGroup|) . T) ((|SemiRing|) . T) ((|SemiRng|) . T)
+ ((|SetCategory|) . T) ((|StepThrough|) |has| |t#1| (|FiniteFieldCategory|))
+ ((|TwoSidedRecip|) . T) ((|UniqueFactorizationDomain|) |has| |t#1| (|Field|))
+ ((|canonicalUnitNormal|) |has| |t#1| (|Field|))
+ ((|canonicalsClosed|) |has| |t#1| (|Field|))
+ ((|noZeroDivisors|) |has| |t#1| (|Field|)) ((|unitsKnown|) . T))
+((|constructor|
+  (NIL "Function field defined by \\spad{f}(\\spad{x},{} \\spad{y}) = 0."))
+ (|knownInfBasis|
+  (((|Void|) (|NonNegativeInteger|))
+   "\\spad{knownInfBasis(n)} \\undocumented{}")))
+(("documentation" 0 19914) ("ancestors" 0 17091) ("parents" 0 17042)
+ ("abbreviation" 0 17036) ("predicates" 0 15373) ("superDomain" 0 NIL)
+ ("operationAlist" 0 967) ("modemaps" 0 608) ("sourceFile" 0 571)
+ ("constructorCategory" 0 421) ("constructorModemap" 0 76)
+ ("constructorKind" 0 67) ("constructorForm" 0 20))

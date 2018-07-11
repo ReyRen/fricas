@@ -1,0 +1,41 @@
+1610                (|PolynomialRationalRoots| F UP)
+|package|
+(((|PolynomialRationalRoots| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |get_rational_roots| ((|List| (|Fraction| (|Integer|))) |#2|))
+   (SIGNATURE |integerBound| ((|Integer|) |#2|)))
+  (|Join| (|IntegralDomain|) (|LinearlyExplicitOver| (|Integer|)))
+  (|UnivariatePolynomialCategory| |#1|))
+ (T |PolynomialRationalRoots|))
+(CATEGORY |package|
+ (SIGNATURE |get_rational_roots| ((|List| (|Fraction| (|Integer|))) |#2|))
+ (SIGNATURE |integerBound| ((|Integer|) |#2|)))
+"/git/fricas/src/algebra/PRROOT.spad"
+((|integerBound| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4 (|Join| (|IntegralDomain|) (|LinearlyExplicitOver| *2)))
+   (|isDomain| *2 (|Integer|))
+   (|isDomain| *1 (|PolynomialRationalRoots| *4 *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|get_rational_roots| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|IntegralDomain|)
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *2 (|List| (|Fraction| (|Integer|))))
+   (|isDomain| *1 (|PolynomialRationalRoots| *4 *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *4)))))
+((|integerBound| (((|Integer|) |#2|) 49))
+ (|get_rational_roots| (((|List| (|Fraction| (|Integer|))) |#2|) 46)))
+PRROOT
+((|integerBound|
+  (((|Integer|) |#2|)
+   "\\spad{integerBound(p)} returns a lower bound on the negative integer roots of \\spad{p},{} and 0 if \\spad{p} has no negative integer roots."))
+ (|get_rational_roots|
+  (((|List| (|Fraction| (|Integer|))) |#2|)
+   "\\spad{get_rational_roots(p)} finds rational root of \\spad{p}.")))
+(("documentation" 0 1283) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1276) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1163) ("modemaps" 0 573) ("sourceFile" 0 535)
+ ("constructorCategory" 0 392) ("constructorModemap" 0 63)
+ ("constructorKind" 0 53) ("constructorForm" 0 20))

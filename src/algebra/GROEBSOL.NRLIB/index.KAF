@@ -1,0 +1,113 @@
+5284                (|GroebnerSolve| |lv| F R)
+|package|
+(((|GroebnerSolve| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |groebSolve|
+    ((|List| (|List| (|DistributedMultivariatePolynomial| |#1| |#2|)))
+     (|List| (|DistributedMultivariatePolynomial| |#1| |#2|))
+     (|List| (|OrderedVariableList| |#1|))))
+   (SIGNATURE |testDim|
+    ((|Union|
+      (|List| (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|))
+      "failed")
+     (|List| (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|))
+     (|List| (|OrderedVariableList| |#1|))))
+   (SIGNATURE |genericPosition|
+    ((|Record|
+      (|:| |dpolys| (|List| (|DistributedMultivariatePolynomial| |#1| |#2|)))
+      (|:| |coords| (|List| (|Integer|))))
+     (|List| (|DistributedMultivariatePolynomial| |#1| |#2|))
+     (|List| (|OrderedVariableList| |#1|)))))
+  (|List| (|Symbol|)) (|GcdDomain|) (|GcdDomain|))
+ (T |GroebnerSolve|))
+(CATEGORY |package|
+ (SIGNATURE |groebSolve|
+  ((|List| (|List| (|DistributedMultivariatePolynomial| |#1| |#2|)))
+   (|List| (|DistributedMultivariatePolynomial| |#1| |#2|))
+   (|List| (|OrderedVariableList| |#1|))))
+ (SIGNATURE |testDim|
+  ((|Union| (|List| (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|))
+            "failed")
+   (|List| (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|))
+   (|List| (|OrderedVariableList| |#1|))))
+ (SIGNATURE |genericPosition|
+  ((|Record|
+    (|:| |dpolys| (|List| (|DistributedMultivariatePolynomial| |#1| |#2|)))
+    (|:| |coords| (|List| (|Integer|))))
+   (|List| (|DistributedMultivariatePolynomial| |#1| |#2|))
+   (|List| (|OrderedVariableList| |#1|)))))
+"/git/fricas/src/algebra/GROEBSOL.spad"
+((|genericPosition| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|DistributedMultivariatePolynomial| *5 *6)))
+       (|isDomain| *4 (|List| (|OrderedVariableList| *5)))
+       (|ofType| *5 (|List| (|Symbol|))) (|ofCategory| *6 (|GcdDomain|))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |dpolys|
+                         (|List| (|DistributedMultivariatePolynomial| *5 *6)))
+                    (|:| |coords| (|List| (|Integer|)))))
+       (|isDomain| *1 (|GroebnerSolve| *5 *6 *7))
+       (|ofCategory| *7 (|GcdDomain|))))
+ (|testDim| (*1 *2 *2 *3)
+  (|partial| AND
+   (|isDomain| *2
+               (|List| (|HomogeneousDistributedMultivariatePolynomial| *4 *5)))
+   (|isDomain| *3 (|List| (|OrderedVariableList| *4)))
+   (|ofType| *4 (|List| (|Symbol|))) (|ofCategory| *5 (|GcdDomain|))
+   (|isDomain| *1 (|GroebnerSolve| *4 *5 *6)) (|ofCategory| *6 (|GcdDomain|))))
+ (|groebSolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|DistributedMultivariatePolynomial| *5 *6)))
+       (|isDomain| *4 (|List| (|OrderedVariableList| *5)))
+       (|ofType| *5 (|List| (|Symbol|))) (|ofCategory| *6 (|GcdDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|List| (|DistributedMultivariatePolynomial| *5 *6))))
+       (|isDomain| *1 (|GroebnerSolve| *5 *6 *7))
+       (|ofCategory| *7 (|GcdDomain|)))))
+((|testDim|
+  (((|Union|
+     (|List| (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|))
+     "failed")
+    (|List| (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|))
+    (|List| (|OrderedVariableList| |#1|)))
+   90))
+ (|groebSolve|
+  (((|List| (|List| (|DistributedMultivariatePolynomial| |#1| |#2|)))
+    (|List| (|DistributedMultivariatePolynomial| |#1| |#2|))
+    (|List| (|OrderedVariableList| |#1|)))
+   88))
+ (|genericPosition|
+  (((|Record|
+     (|:| |dpolys| (|List| (|DistributedMultivariatePolynomial| |#1| |#2|)))
+     (|:| |coords| (|List| (|Integer|))))
+    (|List| (|DistributedMultivariatePolynomial| |#1| |#2|))
+    (|List| (|OrderedVariableList| |#1|)))
+   58)))
+GROEBSOL
+((|constructor|
+  (NIL
+   "\\indented{1}{Author : \\spad{P}.Gianni,{} Summer \\spad{'88},{} revised November \\spad{'89}} Solve systems of polynomial equations using Groebner bases Total order Groebner bases are computed and then converted to lex ones This package is mostly intended for internal use."))
+ (|genericPosition|
+  (((|Record|
+     (|:| |dpolys| (|List| (|DistributedMultivariatePolynomial| |#1| |#2|)))
+     (|:| |coords| (|List| (|Integer|))))
+    (|List| (|DistributedMultivariatePolynomial| |#1| |#2|))
+    (|List| (|OrderedVariableList| |#1|)))
+   "\\spad{genericPosition(lp,{} lv)} puts a radical zero dimensional ideal in general position,{} for system \\spad{lp} in variables \\spad{lv}."))
+ (|testDim|
+  (((|Union|
+     (|List| (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|))
+     "failed")
+    (|List| (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|))
+    (|List| (|OrderedVariableList| |#1|)))
+   "\\spad{testDim(lp,{} lv)} tests if the polynomial system \\spad{lp} in variables \\spad{lv} is zero dimensional."))
+ (|groebSolve|
+  (((|List| (|List| (|DistributedMultivariatePolynomial| |#1| |#2|)))
+    (|List| (|DistributedMultivariatePolynomial| |#1| |#2|))
+    (|List| (|OrderedVariableList| |#1|)))
+   "\\spad{groebSolve(lp,{} lv)} reduces the polynomial system \\spad{lp} in variables \\spad{lv} to triangular form. Algorithm based on groebner bases algorithm with linear algebra for change of ordering. Preprocessing for the general solver. The polynomials in input are of type \\spadtype{DMP}.")))
+(("documentation" 0 3734) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3725) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3026) ("modemaps" 0 1673) ("sourceFile" 0 1633)
+ ("constructorCategory" 0 914) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

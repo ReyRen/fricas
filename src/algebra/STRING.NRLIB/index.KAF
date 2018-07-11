@@ -1,0 +1,274 @@
+12483               (MAKEPROP '|String| 'NILADIC T)
+(|String|)
+|domain|
+(((|String|)
+  (|Join| (|StringCategory|)
+          (CATEGORY |domain| (SIGNATURE |ucodeToString| ($ (|Integer|)))
+           (SIGNATURE |uentries| ((|List| (|SingleInteger|)) $)))))
+ (T |String|))
+(|Join| (|StringCategory|)
+        (CATEGORY |domain| (SIGNATURE |ucodeToString| ($ (|Integer|)))
+         (SIGNATURE |uentries| ((|List| (|SingleInteger|)) $))))
+"/git/fricas/src/algebra/STRING.spad"
+((|ucodeToString| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|String|))))
+ (|uentries| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|SingleInteger|))) (|isDomain| *1 (|String|)))))
+((~= (((|Boolean|) $ $) NIL)) (|upperCase!| (($ $) NIL))
+ (|upperCase| (($ $) NIL)) (|uentries| (((|List| (|SingleInteger|)) $) 9))
+ (|ucodeToString| (($ (|Integer|)) 7))
+ (|trim|
+  (($ $ (|Character|)) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|BasicType|))))
+  (($ $ (|CharacterClass|)) NIL))
+ (|swap!|
+  (((|Void|) $ (|Integer|) (|Integer|)) NIL (|has| $ (|shallowlyMutable|))))
+ (|suffix?| (((|Boolean|) $ $) NIL))
+ (|substring?| (((|Boolean|) $ $ (|Integer|)) NIL))
+ (|string| (($ (|Integer|)) 10))
+ (|split| (((|List| $) $ (|Character|)) NIL)
+  (((|List| $) $ (|CharacterClass|)) NIL))
+ (|sorted?|
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Character|) (|Character|)) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (((|Boolean|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|OrderedSet|)))))
+ (|sort!|
+  (($ (|Mapping| (|Boolean|) (|Character|) (|Character|)) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| $ (|shallowlyMutable|))))
+  (($ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| $ (|shallowlyMutable|))
+        (|has| (|Character|) (|OrderedSet|)))))
+ (|sort|
+  (($ (|Mapping| (|Boolean|) (|Character|) (|Character|)) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (($ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|OrderedSet|)))))
+ (|smaller?|
+  (((|Boolean|) $ $) NIL
+   (OR (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|Comparable|)))
+       (AND (|has| $ (|finiteAggregate|))
+            (|has| (|Character|) (|OrderedSet|))))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|setelt!|
+  (((|Character|) $ (|Integer|) (|Character|)) NIL
+   (|has| $ (|shallowlyMutable|)))
+  (((|Character|) $ (|UniversalSegment| (|Integer|)) (|Character|)) NIL
+   (|has| $ (|shallowlyMutable|))))
+ (|select|
+  (($ (|Mapping| (|Boolean|) (|Character|)) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|sample| (($) NIL T CONST))
+ (|rightTrim|
+  (($ $ (|Character|)) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|BasicType|))))
+  (($ $ (|CharacterClass|)) NIL))
+ (|reverse!|
+  (($ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| $ (|shallowlyMutable|)))))
+ (|reverse| (($ $) NIL (|has| $ (|finiteAggregate|))))
+ (|replace| (($ $ (|UniversalSegment| (|Integer|)) $) NIL))
+ (|removeDuplicates|
+  (($ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|BasicType|)))))
+ (|remove|
+  (($ (|Character|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|BasicType|))))
+  (($ (|Mapping| (|Boolean|) (|Character|)) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|reduce|
+  (((|Character|) (|Mapping| (|Character|) (|Character|) (|Character|)) $
+    (|Character|) (|Character|))
+   NIL (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|BasicType|))))
+  (((|Character|) (|Mapping| (|Character|) (|Character|) (|Character|)) $
+    (|Character|))
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|Character|) (|Mapping| (|Character|) (|Character|) (|Character|)) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|qsetelt!|
+  (((|Character|) $ (|Integer|) (|Character|)) 23
+   (|has| $ (|shallowlyMutable|))))
+ (|qelt| (((|Character|) $ (|Integer|)) 22))
+ (|prefix?| (((|Boolean|) $ $) NIL))
+ (|position|
+  (((|Integer|) (|Mapping| (|Boolean|) (|Character|)) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (((|Integer|) (|Character|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|BasicType|))))
+  (((|Integer|) (|Character|) $ (|Integer|)) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|BasicType|))))
+  (((|Integer|) $ $ (|Integer|)) NIL)
+  (((|Integer|) (|CharacterClass|) $ (|Integer|)) NIL))
+ (|parts| (((|List| (|Character|)) $) NIL (|has| $ (|finiteAggregate|))))
+ (|new| (($ (|NonNegativeInteger|) (|Character|)) NIL))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|minIndex| (((|Integer|) $) NIL (|has| (|Integer|) (|OrderedSet|))))
+ (|min|
+  (((|Character|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|OrderedSet|))))
+  (($ $ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|OrderedSet|)))))
+ (|merge|
+  (($ (|Mapping| (|Boolean|) (|Character|) (|Character|)) $ $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (($ $ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|OrderedSet|)))))
+ (|members| (((|List| (|Character|)) $) NIL (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) (|Character|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|BasicType|)))))
+ (|maxIndex| (((|Integer|) $) NIL (|has| (|Integer|) (|OrderedSet|))))
+ (|max|
+  (((|Character|) (|Mapping| (|Boolean|) (|Character|) (|Character|)) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (((|Character|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|OrderedSet|))))
+  (($ $ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|OrderedSet|)))))
+ (|match?| (((|Boolean|) $ $ (|Character|)) NIL))
+ (|map!|
+  (($ (|Mapping| (|Character|) (|Character|)) $) NIL
+   (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| (|Character|) (|Character|)) $) NIL)
+  (($ (|Mapping| (|Character|) (|Character|) (|Character|)) $ $) NIL))
+ (|lowerCase!| (($ $) NIL)) (|lowerCase| (($ $) NIL))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|leftTrim|
+  (($ $ (|Character|)) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|BasicType|))))
+  (($ $ (|CharacterClass|)) NIL))
+ (|latex| (((|String|) $) NIL))
+ (|insert| (($ (|Character|) $ (|Integer|)) NIL) (($ $ $ (|Integer|)) NIL))
+ (|indices| (((|List| (|Integer|)) $) NIL))
+ (|index?| (((|Boolean|) (|Integer|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|first| (((|Character|) $) NIL (|has| (|Integer|) (|OrderedSet|)))
+  (($ $ (|NonNegativeInteger|)) NIL))
+ (|find|
+  (((|Union| (|Character|) "failed") (|Mapping| (|Boolean|) (|Character|)) $)
+   NIL))
+ (|fill!| (($ $ (|Character|)) NIL (|has| $ (|shallowlyMutable|))))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Character|)) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| (|Character|)))) NIL
+   (AND (|has| (|Character|) (|Evalable| (|Character|)))
+        (|has| (|Character|) (|SetCategory|))))
+  (($ $ (|Equation| (|Character|))) NIL
+   (AND (|has| (|Character|) (|Evalable| (|Character|)))
+        (|has| (|Character|) (|SetCategory|))))
+  (($ $ (|Character|) (|Character|)) NIL
+   (AND (|has| (|Character|) (|Evalable| (|Character|)))
+        (|has| (|Character|) (|SetCategory|))))
+  (($ $ (|List| (|Character|)) (|List| (|Character|))) NIL
+   (AND (|has| (|Character|) (|Evalable| (|Character|)))
+        (|has| (|Character|) (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) NIL))
+ (|entry?|
+  (((|Boolean|) (|Character|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|BasicType|)))))
+ (|entries| (((|List| (|Character|)) $) NIL)) (|empty?| (((|Boolean|) $) NIL))
+ (|empty| (($) NIL))
+ (|elt| (((|Character|) $ (|Integer|) (|Character|)) NIL)
+  (((|Character|) $ (|Integer|)) NIL)
+  (($ $ (|UniversalSegment| (|Integer|))) NIL) (($ $ $) NIL))
+ (|delete| (($ $ (|Integer|)) NIL)
+           (($ $ (|UniversalSegment| (|Integer|))) NIL))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) (|Character|)) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) (|Character|) $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|BasicType|)))))
+ (|copyInto!|
+  (($ $ $ (|Integer|)) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| $ (|shallowlyMutable|)))))
+ (|copy| (($ $) NIL))
+ (|convert|
+  (((|InputForm|) $) 20 (|has| (|Character|) (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| (|Character|))) NIL))
+ (|concat| (($ $ (|Character|)) NIL) (($ (|Character|) $) NIL) (($ $ $) NIL)
+           (($ (|List| $)) NIL))
+ (|coerce| (($ (|Character|)) NIL) (((|OutputForm|) $) NIL))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Character|)) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|OMwrite| (((|String|) $) NIL) (((|String|) $ (|Boolean|)) NIL)
+  (((|Void|) (|OpenMathDevice|) $) NIL)
+  (((|Void|) (|OpenMathDevice|) $ (|Boolean|)) 18))
+ (>=
+  (((|Boolean|) $ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|OrderedSet|)))))
+ (>
+  (((|Boolean|) $ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|OrderedSet|)))))
+ (= (((|Boolean|) $ $) NIL))
+ (<=
+  (((|Boolean|) $ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|OrderedSet|)))))
+ (<
+  (((|Boolean|) $ $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| (|Character|) (|OrderedSet|)))))
+ (|#| (((|NonNegativeInteger|) $) NIL (|has| $ (|finiteAggregate|)))))
+((AND (|HasCategory| (|Character|) (LIST '|Evalable| '(|Character|)))
+      (|HasCategory| (|Character|) '(|SetCategory|)))
+ (|HasCategory| (|Character|) '(|OrderedSet|))
+ (|HasCategory| (|Character|) (LIST '|ConvertibleTo| '(|InputForm|)))
+ (|HasCategory| (|Integer|) '(|OrderedSet|))
+ (|HasCategory| (|Character|) '(|BasicType|))
+ (|HasCategory| (|Character|) '(|Comparable|))
+ (OR (|HasCategory| (|Character|) '(|Comparable|))
+     (|HasCategory| (|Character|) '(|OrderedSet|)))
+ (|HasCategory| $ '(|shallowlyMutable|)) (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| (|Character|) '(|BasicType|)))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| $ '(|shallowlyMutable|)))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| $ '(|shallowlyMutable|))
+      (|HasCategory| (|Character|) '(|OrderedSet|)))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| (|Character|) '(|OrderedSet|)))
+ (OR
+  (AND (|HasCategory| $ '(|finiteAggregate|))
+       (|HasCategory| (|Character|) '(|Comparable|)))
+  (AND (|HasCategory| $ '(|finiteAggregate|))
+       (|HasCategory| (|Character|) '(|OrderedSet|)))))
+STRING
+(((|StringCategory|) . T))
+(((|Aggregate|) . T) ((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|Collection| |t#1|) . T)
+ ((|Comparable|) OR
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|))))
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Eltable| (|UniversalSegment| (|Integer|)) $) . T)
+ ((|Eltable| |t#1| |t#2|) . T) ((|EltableAggregate| |t#1| |t#2|) . T)
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|FiniteLinearAggregate| |t#1|) . T) ((|HomogeneousAggregate| |t#1|) . T)
+ ((|HomogeneousAggregate| |t#2|) . T)
+ ((|IndexedAggregate| (|Integer|) |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|LinearAggregate| |t#1|) . T)
+ ((|OneDimensionalArrayAggregate| (|Character|)) . T) ((|OpenMath|) . T)
+ ((|OrderedSet|) AND (|has| $ (|finiteAggregate|))
+  (|has| |t#1| (|OrderedSet|)))
+ ((|PartialOrder|) AND (|has| $ (|finiteAggregate|))
+  (|has| |t#1| (|OrderedSet|)))
+ ((|SetCategory|) . T) ((|StringAggregate|) . T) ((|StringCategory|) . T)
+ ((|Type|) . T) ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor| (NIL "This is the domain of character strings."))
+ (|uentries|
+  (((|List| (|SingleInteger|)) $)
+   "\\spad{uentries(s)} converts \\spad{s} to a list of Unicode code points encoding characters in \\spad{s}. It work even if lower layer does not support Unicode,{} in such case string is treated as sequence of octets using UTF-8 encoding. Consegently length of returened list may be smaller than length of the string in octets."))
+ (|ucodeToString|
+  (($ (|Integer|))
+   "\\spad{ucodeToString(n)} converts Unicode code point to one-character string. If UTF-8 is in use the string may contain multiple octets.")))
+(("documentation" 0 11855) ("ancestors" 0 10620) ("parents" 0 10593)
+ ("abbreviation" 0 10586) ("predicates" 0 9386) ("superDomain" 0 NIL)
+ ("operationAlist" 0 668) ("modemaps" 0 471) ("sourceFile" 0 433)
+ ("constructorCategory" 0 270) ("constructorModemap" 0 72)
+ ("constructorKind" 0 63) ("constructorForm" 0 52) ("NILADIC" 0 20))

@@ -1,0 +1,294 @@
+)abbrev category URAGG UnaryRecursiveAggregate
+++ Author: Michael Monagan; revised by Manuel Bronstein and Richard Jenks
+++ Date Created: August 87 through August 88
+++ Basic Operations:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ A unary-recursive aggregate is an aggregate where nodes may have either
+++ 0 or 1 children.
+++ This aggregate models, though not precisely, a linked
+++ list possibly with a single cycle.
+++ A node with one children models a non-empty list, with the
+++ \spadfun{value} of the list designating the head, or \spadfun{first}, of the
+++ list, and the child designating the tail, or \spadfun{rest}, of the list.
+++ A node with no child then designates the empty list.
+++ Since these aggregates are recursive aggregates, they may be cyclic.
+UnaryRecursiveAggregate(S : Type) : Category == RecursiveAggregate S with
+   concat : (%, %) -> %
+      ++ concat(u, v) returns an aggregate w consisting of the elements of u
+      ++ followed by the elements of v.
+      ++ Note: \spad{v = rest(w, #u)}.
+   concat : (S, %) -> %
+      ++ concat(x, u) returns aggregate consisting of x followed by
+      ++ the elements of u.
+      ++ Note: if \spad{v = concat(x, u)} then \spad{x = first v}
+      ++ and \spad{u = rest v}.
+   first : % -> S
+      ++ first(u) returns the first element of u
+      ++ (equivalently, the value at the current node).
+   elt : (%, "first") -> S
+      ++ elt(u, "first") (also written: \spad{u.first}) is
+      ++ equivalent to first(u).
+   first : (%, NonNegativeInteger) -> %
+      ++ first(u, n) returns a copy of the first n elements of u.
+   rest : % -> %
+      ++ rest(u) returns an aggregate consisting of all but the first
+      ++ element of u (equivalently, the next node of u).
+   elt : (%, "rest") -> %
+      ++ elt(%, "rest") (also written: \spad{u.rest}) is
+      ++ equivalent to \spad{rest u}.
+   rest : (%, NonNegativeInteger) -> %
+      ++ rest(u, n) returns the \spad{n}th node of u.
+      ++ Note: \spad{rest(u, 0) = u}.
+   last : % -> S
+      ++ last(u) returns the last element of u.
+      ++ Note: for lists, \spad{last(u) = u.(maxIndex u)}.
+   elt : (%, "last") -> S
+      ++ elt(u, "last") (also written: \spad{u.last}) is equivalent to last(u).
+   last : (%, NonNegativeInteger) -> %
+      ++ last(u, n) returns a copy of the last n nodes of u.
+      ++ Note: \spad{last(u, n)} is a list of n elements.
+   tail : % -> %
+      ++ tail(u) returns the last node of u.
+      ++ Error if u is empty.
+   second : % -> S
+      ++ second(u) returns the second element of u.
+      ++ Note: \spad{second(u) = first(rest(u))}.
+   third : % -> S
+      ++ third(u) returns the third element of u.
+      ++ Note: \spad{third(u) = first(rest(rest(u)))}.
+   cycleEntry : % -> %
+      ++ cycleEntry(u) returns the head of a top-level cycle contained in
+      ++ aggregate u, or \spad{empty()} if none exists.
+   cycleLength : % -> NonNegativeInteger
+      ++ cycleLength(u) returns the length of a top-level cycle
+      ++ contained in aggregate u, or 0 if u has no such cycle.
+   cycleTail : % -> %
+      ++ cycleTail(u) returns the last node in the cycle, or
+      ++ empty() if none exists.
+   if % has shallowlyMutable then
+      concat! : (%, %) -> %
+        ++ concat!(u, v) destructively concatenates v to the end of u.
+      concat! : (%, S) -> %
+        ++ concat!(u, x) destructively adds element x to the end of u.
+        ++ Note: \spad{concat!(a, x) = concat!(a, [x])}.
+      cycleSplit! : % -> %
+        ++ cycleSplit!(u) splits the aggregate by dropping off the cycle.
+        ++ The value returned is the cycle entry, or empty() if none exists.
+        ++ For example, if \spad{w = concat(u, v)} is the cyclic list where v is
+        ++ the head of the cycle, \spad{cycleSplit!(w)} will drop v off w thus
+        ++ destructively changing w to u, and returning v.
+      setfirst! : (%, S) -> S
+        ++ setfirst!(u, x) destructively changes the first element of u to x.
+        ++ Error if u is empty.
+      qsetfirst! : (%, S) -> S
+        ++ qsetfirst!(u, x) destructively changes the first element of u to x
+        ++ without checking for errors.
+      setelt! : (%, "first", S) -> S
+        ++ setelt!(u, "first", x) (also written: \spad{u.first := x}) is
+        ++ equivalent to \spad{setfirst!(u, x)}.
+      setrest! : (%, %) -> %
+        ++ setrest!(u, v) destructively changes the rest of u to v.
+        ++ Error if u is empty.
+      qsetrest! : (%, %) -> %
+        ++ qsetrest!(u, v) destructively changes the rest of u to v
+        ++ without checking for errors.
+      setelt! : (%, "rest", %) -> %
+        ++ setelt!(u, "rest", v) (also written: \spad{u.rest := v})
+        ++ is equivalent to \spad{setrest!(u, v)}.
+      setlast! : (%, S) -> S
+        ++ setlast!(u, x) destructively changes the last element of u to x.
+        ++ Error if u is empty.
+      setelt! : (%, "last", S) -> S
+        ++ setelt!(u, "last", x) (also written: \spad{u.last := x})
+        ++ is equivalent to \spad{setlast!(u, x)}.
+      split! : (%, NonNegativeInteger) -> %
+         ++ split!(u, n) splits u into two aggregates: \spad{v = rest(u, n)}
+         ++ and \spad{w = first(u, n)}, returning \spad{v} and
+         ++ setting \spad{u} to \spad{w}.
+         ++ If n is 0, split! currently only works for Stream and
+         ++ gives error for List.
+         ++ Note: afterwards \spad{rest(u, n)} returns \spad{empty()}.
+ add
+
+  import from Integer
+
+  cycleMax ==> 1000
+
+  findCycle : % -> %
+
+  elt(x, "first") == first x
+  elt(x,  "last") == last x
+  elt(x,  "rest") == rest x
+  second x        == first rest x
+  third x         == first rest rest x
+  cyclic? x       == not empty? x and not empty? findCycle x
+  last x          == first tail x
+
+  nodes x ==
+      l := empty()$List(%)
+      while not empty? x repeat
+          l := concat(x, l)
+          x := rest x
+      reverse! l
+
+  children x ==
+      empty? x => empty()
+      [rest x]
+
+  leaf? x ==
+      empty? x => false
+      empty? rest x
+
+  value x ==
+      empty? x => error "value of empty object"
+      first x
+
+  less?(l, n) ==
+      i := n::Integer
+      while i > 0 and not empty? l repeat (l := rest l; i := i - 1)
+      i > 0
+
+  more?(l, n) ==
+      i := n::Integer
+      while i > 0 and not empty? l repeat (l := rest l; i := i - 1)
+      zero?(i) and not empty? l
+
+  size?(l, n) ==
+      i := n::Integer
+      while not empty? l and i > 0 repeat (l := rest l; i := i - 1)
+      empty? l and zero? i
+
+  #x ==
+      for k in 0.. while not empty? x repeat
+          k = cycleMax and cyclic? x => error "cyclic list"
+          x := rest x
+      k
+
+  tail x ==
+      empty? x => error "empty list"
+      y := rest x
+      for k in 0.. while not empty? y repeat
+          k = cycleMax and cyclic? x => error "cyclic list"
+          y := rest(x := y)
+      x
+
+  findCycle x ==
+      y := rest x
+      while not empty? y repeat
+          if eq?(x, y) then return x
+          x := rest x
+          y := rest y
+          if empty? y then return y
+          if eq?(x, y) then return y
+          y := rest y
+      y
+
+  cycleTail x ==
+      empty?(y := x := cycleEntry x) => x
+      z := rest x
+      while not eq?(x, z) repeat (y := z; z := rest z)
+      y
+
+  cycleEntry x ==
+      empty? x => x
+      empty?(y := findCycle x) => y
+      z := rest y
+      for l in 1.. while not eq?(y, z) repeat z := rest z
+      y := x
+      for k in 1..l repeat y := rest y
+      while not eq?(x, y) repeat (x := rest x; y := rest y)
+      x
+
+  cycleLength x ==
+      empty? x => 0
+      empty?(x := findCycle x) => 0
+      y := rest x
+      for k in 1.. while not eq?(x, y) repeat y := rest y
+      k
+
+  rest(x, n) ==
+      for i in 1..n repeat
+          empty? x => error "Index out of range"
+          x := rest x
+      x
+
+  if % has finiteAggregate then
+      last(x, n) ==
+          xn := x
+          for i in 1..n repeat
+              empty? xn => error "index out of range"
+              xn := rest xn
+          -- xn is n nodes ahead of x
+          while not empty? xn repeat
+              xn := rest xn
+              x := rest x
+          copy x
+
+  if % has finiteAggregate and S has BasicType then
+      x = y ==
+          eq?(x, y) => true
+          for k in 0.. while not empty? x and not empty? y repeat
+              k = cycleMax and cyclic? x => error "cyclic list"
+              first x ~= first y => return false
+              x := rest x
+              y := rest y
+          empty? x and empty? y
+
+      node?(u, v) ==
+          empty? v => false
+          for k in 0.. while not empty? v repeat
+              u = v => return true
+              k = cycleMax and cyclic? v => error "cyclic list"
+              v := rest v
+          u = v
+
+  if % has shallowlyMutable then
+      setelt!(x, "first", a) == setfirst!(x, a)
+      setelt!(x,  "last", a) == setlast!(x, a)
+      setelt!(x,  "rest", a) == setrest!(x, a)
+      concat(x : %, y : %)      == concat!(copy x, y)
+
+      -- The qxxx variants are for speed.  If we do not care about
+      -- speed the regular ones will do.
+
+      qsetfirst!(x, a) == setfirst!(x, a)
+      qsetrest!(x, a) == setrest!(x, a)
+
+      setlast!(x, s) ==
+          empty? x => error "setlast: empty list"
+          setfirst!(tail x, s)
+          s
+
+      setchildren!(u, lv) ==
+          #lv = 1 => setrest!(u, first lv)
+          error "wrong number of children specified"
+
+      setvalue!(u, s) == setfirst!(u, s)
+
+      split!(p, n) ==
+          n < 1 => error "index out of range"
+          p := rest(p, (n - 1)::NonNegativeInteger)
+          q := rest p
+          setrest!(p, empty())
+          q
+
+      cycleSplit! x ==
+          empty?(y := cycleEntry x) or eq?(x, y) => y
+          z := rest x
+          while not eq?(z, y) repeat (x := z; z := rest z)
+          setrest!(x, empty())
+          y
+
+      map!(f, l) ==
+          y := l
+          while not empty? l repeat
+              setfirst!(l, f first l)
+              l := rest l
+          y
+
+

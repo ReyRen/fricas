@@ -1,0 +1,26 @@
+958                 (|RepeatedDoubling| S)
+|package|
+(((|RepeatedDoubling| |#1|)
+  (CATEGORY |package| (SIGNATURE |double| (|#1| (|PositiveInteger|) |#1|)))
+  (|Join| (|SetCategory|) (CATEGORY |domain| (SIGNATURE + ($ $ $)))))
+ (T |RepeatedDoubling|))
+(CATEGORY |package| (SIGNATURE |double| (|#1| (|PositiveInteger|) |#1|)))
+"/git/fricas/src/algebra/REPDB.spad"
+((|double| (*1 *2 *3 *2)
+  (AND (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *1 (|RepeatedDoubling| *2))
+       (|ofCategory| *2
+                     (|Join| (|SetCategory|)
+                             (CATEGORY |domain| (SIGNATURE + ($ $ $))))))))
+((|double| ((|#1| (|PositiveInteger|) |#1|) 9)))
+REPDB
+((|constructor| (NIL "Implements multiplication by repeated addition"))
+ (|double|
+  ((|#1| (|PositiveInteger|) |#1|)
+   "\\spad{double(i,{} r)} multiplies \\spad{r} by \\spad{i} using repeated doubling."))
+ (+ (($ $ $) "\\spad{x+y} returns the sum of \\spad{x} and \\spad{y}")))
+(("documentation" 0 678) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 672) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 623) ("modemaps" 0 363) ("sourceFile" 0 326)
+ ("constructorCategory" 0 252) ("constructorModemap" 0 53)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

@@ -1,0 +1,171 @@
+7360                (|TwoFactorize| F)
+|package|
+(((|TwoFactorize| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |generalTwoFactor|
+    ((|Factored|
+      (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))))
+   (SIGNATURE |tryTwoFactor|
+    ((|Factored|
+      (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))))
+   (SIGNATURE |generalSqFr|
+    ((|Factored|
+      (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))))
+   (SIGNATURE |twoFactor|
+    ((|Factored|
+      (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))
+     (|Integer|)))
+   (SIGNATURE |doFactor|
+    ((|Factored|
+      (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))
+     (|Integer|) (|Boolean|))))
+  (|FiniteFieldCategory|))
+ (T |TwoFactorize|))
+(CATEGORY |package|
+ (SIGNATURE |generalTwoFactor|
+  ((|Factored|
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+   (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))))
+ (SIGNATURE |tryTwoFactor|
+  ((|Factored|
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+   (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))))
+ (SIGNATURE |generalSqFr|
+  ((|Factored|
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+   (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))))
+ (SIGNATURE |twoFactor|
+  ((|Factored|
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+   (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))
+   (|Integer|)))
+ (SIGNATURE |doFactor|
+  ((|Factored|
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+   (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))
+   (|Integer|) (|Boolean|))))
+"/git/fricas/src/algebra/TWOFACT.spad"
+((|doFactor| (*1 *2 *3 *4 *5)
+  (AND
+   (|isDomain| *3
+               (|SparseUnivariatePolynomial|
+                (|SparseUnivariatePolynomial| *6)))
+   (|isDomain| *4 (|Integer|)) (|isDomain| *5 (|Boolean|))
+   (|ofCategory| *6 (|FiniteFieldCategory|))
+   (|isDomain| *2
+               (|Factored|
+                (|SparseUnivariatePolynomial|
+                 (|SparseUnivariatePolynomial| *6))))
+   (|isDomain| *1 (|TwoFactorize| *6))))
+ (|twoFactor| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|SparseUnivariatePolynomial|
+                (|SparseUnivariatePolynomial| *5)))
+   (|isDomain| *4 (|Integer|)) (|ofCategory| *5 (|FiniteFieldCategory|))
+   (|isDomain| *2
+               (|Factored|
+                (|SparseUnivariatePolynomial|
+                 (|SparseUnivariatePolynomial| *5))))
+   (|isDomain| *1 (|TwoFactorize| *5))))
+ (|generalSqFr| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|SparseUnivariatePolynomial|
+                (|SparseUnivariatePolynomial| *4)))
+   (|ofCategory| *4 (|FiniteFieldCategory|))
+   (|isDomain| *2
+               (|Factored|
+                (|SparseUnivariatePolynomial|
+                 (|SparseUnivariatePolynomial| *4))))
+   (|isDomain| *1 (|TwoFactorize| *4))))
+ (|tryTwoFactor| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|SparseUnivariatePolynomial|
+                (|SparseUnivariatePolynomial| *4)))
+   (|ofCategory| *4 (|FiniteFieldCategory|))
+   (|isDomain| *2
+               (|Factored|
+                (|SparseUnivariatePolynomial|
+                 (|SparseUnivariatePolynomial| *4))))
+   (|isDomain| *1 (|TwoFactorize| *4))))
+ (|generalTwoFactor| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|SparseUnivariatePolynomial|
+                (|SparseUnivariatePolynomial| *4)))
+   (|ofCategory| *4 (|FiniteFieldCategory|))
+   (|isDomain| *2
+               (|Factored|
+                (|SparseUnivariatePolynomial|
+                 (|SparseUnivariatePolynomial| *4))))
+   (|isDomain| *1 (|TwoFactorize| *4)))))
+((|twoFactor|
+  (((|Factored|
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))
+    (|Integer|))
+   79))
+ (|tryTwoFactor|
+  (((|Factored|
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+   59))
+ (|generalTwoFactor|
+  (((|Factored|
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+   60))
+ (|generalSqFr|
+  (((|Factored|
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+   58))
+ (|doFactor|
+  (((|Factored|
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))
+    (|Integer|) (|Boolean|))
+   77)))
+TWOFACT
+((|constructor|
+  (NIL
+   "A basic package for the factorization of bivariate polynomials over a finite field. The functions here represent the base step for the multivariate factorizer."))
+ (|doFactor|
+  (((|Factored|
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))
+    (|Integer|) (|Boolean|))
+   "\\spad{doFactor(p,{} n,{} ext?)} returns the factorisation of polynomial \\spad{p},{} \\spad{p} is assumed to be primitive and squarefree,{} \\spad{n} is degree in auxilary variable,{} ext? if \\spad{false} inhibits use of extension field."))
+ (|twoFactor|
+  (((|Factored|
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|))
+    (|Integer|))
+   "\\spad{twoFactor(p,{} n)} returns the factorisation of polynomial \\spad{p},{} a sparse univariate polynomial (sup) over a sup over \\spad{F}. Also,{} \\spad{p} is assumed primitive and square-free and \\spad{n} is the degree of the inner variable of \\spad{p} (maximum of the degrees of the coefficients of \\spad{p})."))
+ (|generalSqFr|
+  (((|Factored|
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+   "\\spad{generalSqFr(p)} returns the square-free factorisation of polynomial \\spad{p},{} a sparse univariate polynomial (sup) over a sup over \\spad{F}."))
+ (|tryTwoFactor|
+  (((|Factored|
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+   "\\spad{tryTwoFactor(p)} returns the factorisation of polynomial \\spad{p},{} if it does not require using field extensions,{} otherwise returns \\spad{p} unfactored (nil factorization)."))
+ (|generalTwoFactor|
+  (((|Factored|
+     (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+    (|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#1|)))
+   "\\spad{generalTwoFactor(p)} returns the factorisation of polynomial \\spad{p},{} a sparse univariate polynomial (sup) over a sup over \\spad{F}.")))
+(("documentation" 0 5161) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 5153) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4182) ("modemaps" 0 2184) ("sourceFile" 0 2145)
+ ("constructorCategory" 0 1156) ("constructorModemap" 0 49)
+ ("constructorKind" 0 39) ("constructorForm" 0 20))

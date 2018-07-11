@@ -1,0 +1,42 @@
+1821                (|TangentExpansions| R)
+|package|
+(((|TangentExpansions| |#1|)
+  (CATEGORY |package| (SIGNATURE |tanSum| (|#1| (|List| |#1|)))
+   (SIGNATURE |tanAn|
+    ((|SparseUnivariatePolynomial| |#1|) |#1| (|PositiveInteger|)))
+   (SIGNATURE |tanNa| (|#1| |#1| (|Integer|))))
+  (|Field|))
+ (T |TangentExpansions|))
+(CATEGORY |package| (SIGNATURE |tanSum| (|#1| (|List| |#1|)))
+ (SIGNATURE |tanAn|
+  ((|SparseUnivariatePolynomial| |#1|) |#1| (|PositiveInteger|)))
+ (SIGNATURE |tanNa| (|#1| |#1| (|Integer|))))
+"/git/fricas/src/algebra/TANEXP.spad"
+((|tanNa| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Integer|)) (|isDomain| *1 (|TangentExpansions| *2))
+       (|ofCategory| *2 (|Field|))))
+ (|tanAn| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|PositiveInteger|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *3))
+       (|isDomain| *1 (|TangentExpansions| *3)) (|ofCategory| *3 (|Field|))))
+ (|tanSum| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *2)) (|isDomain| *1 (|TangentExpansions| *2))
+       (|ofCategory| *2 (|Field|)))))
+((|tanSum| ((|#1| (|List| |#1|)) 32)) (|tanNa| ((|#1| |#1| (|Integer|)) 18))
+ (|tanAn| (((|SparseUnivariatePolynomial| |#1|) |#1| (|PositiveInteger|)) 15)))
+TANEXP
+((|constructor| (NIL "Expands tangents of sums and scalar products."))
+ (|tanNa|
+  ((|#1| |#1| (|Integer|))
+   "\\spad{tanNa(a,{} n)} returns \\spad{f(a)} such that if \\spad{a = tan(u)} then \\spad{f(a) = tan(n * u)}."))
+ (|tanAn|
+  (((|SparseUnivariatePolynomial| |#1|) |#1| (|PositiveInteger|))
+   "\\spad{tanAn(a,{} n)} returns \\spad{P(x)} such that if \\spad{a = tan(u)} then \\spad{P(tan(u/n)) = 0}."))
+ (|tanSum|
+  ((|#1| (|List| |#1|))
+   "\\spad{tanSum([a1,{} ...,{} an])} returns \\spad{f(a1,{} ...,{} an)} such that if \\spad{\\spad{ai} = tan(\\spad{ui})} then \\spad{f(a1,{} ...,{} an) = tan(u1 + ... + un)}.")))
+(("documentation" 0 1195) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1188) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1031) ("modemaps" 0 556) ("sourceFile" 0 518)
+ ("constructorCategory" 0 324) ("constructorModemap" 0 54)
+ ("constructorKind" 0 44) ("constructorForm" 0 20))

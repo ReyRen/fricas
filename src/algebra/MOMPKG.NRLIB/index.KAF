@@ -1,0 +1,259 @@
+13133               (|MomentPackage| R)
+|package|
+(((|MomentPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |cumulant2moment| ((|Sequence| |#1|) (|Sequence| |#1|)))
+   (SIGNATURE |moment2cumulant| ((|Sequence| |#1|) (|Sequence| |#1|)))
+   (IF (|has| |#1| (|Field|))
+       (PROGN
+        (SIGNATURE |moment2nthJacobi|
+         ((|Record| (|:| |an| (|List| |#1|)) (|:| |bn| (|List| |#1|)))
+          (|List| |#1|)))
+        (SIGNATURE |moment2jacobi|
+         ((|Record| (|:| |an| (|Stream| |#1|)) (|:| |bn| (|Stream| |#1|)))
+          (|Sequence| |#1|)))
+        (SIGNATURE |moment2jacobi2|
+         ((|Stream| (|Record| (|:| |an| |#1|) (|:| |bn| |#1|)))
+          (|Sequence| |#1|))))
+       |noBranch|)
+   (SIGNATURE |freeCumulant2moment| ((|Sequence| |#1|) (|Sequence| |#1|)))
+   (SIGNATURE |moment2freeCumulant| ((|Sequence| |#1|) (|Sequence| |#1|)))
+   (SIGNATURE |booleanCumulant2moment| ((|Sequence| |#1|) (|Sequence| |#1|)))
+   (SIGNATURE |moment2booleanCumulant| ((|Sequence| |#1|) (|Sequence| |#1|)))
+   (SIGNATURE |monotoneCumulant2moment| ((|Sequence| |#1|) (|Sequence| |#1|)))
+   (SIGNATURE |monotoneCumulant2momentPoly|
+    ((|Sequence| (|SparseUnivariatePolynomial| |#1|)) (|Sequence| |#1|)))
+   (SIGNATURE |moment2monotoneCumulant| ((|Sequence| |#1|) (|Sequence| |#1|)))
+   (SIGNATURE |qcumulant2nthmoment|
+    (|#1| |#1| (|Sequence| |#1|) (|NonNegativeInteger|)))
+   (SIGNATURE |hankelDeterminant|
+    (|#1| (|Sequence| |#1|) (|NonNegativeInteger|)))
+   (SIGNATURE |jacobi2poly|
+    ((|Stream| (|SparseUnivariatePolynomial| |#1|)) (|Stream| |#1|)
+     (|Stream| |#1|)))
+   (IF (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))
+       (PROGN
+        (SIGNATURE |moment2Stransform|
+         ((|Record| (|:| |puiseux| (|Fraction| (|Integer|)))
+                    (|:| |laurent| (|Fraction| (|Integer|)))
+                    (|:| |coef| (|Sequence| |#1|)))
+          (|Sequence| |#1|)))
+        (SIGNATURE |moment2monotoneCumulant|
+         ((|Sequence| |#1|) (|Sequence| |#1|))))
+       |noBranch|))
+  (|CommutativeRing|))
+ (T |MomentPackage|))
+(CATEGORY |package|
+ (SIGNATURE |cumulant2moment| ((|Sequence| |#1|) (|Sequence| |#1|)))
+ (SIGNATURE |moment2cumulant| ((|Sequence| |#1|) (|Sequence| |#1|)))
+ (IF (|has| |#1| (|Field|))
+     (PROGN
+      (SIGNATURE |moment2nthJacobi|
+       ((|Record| (|:| |an| (|List| |#1|)) (|:| |bn| (|List| |#1|)))
+        (|List| |#1|)))
+      (SIGNATURE |moment2jacobi|
+       ((|Record| (|:| |an| (|Stream| |#1|)) (|:| |bn| (|Stream| |#1|)))
+        (|Sequence| |#1|)))
+      (SIGNATURE |moment2jacobi2|
+       ((|Stream| (|Record| (|:| |an| |#1|) (|:| |bn| |#1|)))
+        (|Sequence| |#1|))))
+     |noBranch|)
+ (SIGNATURE |freeCumulant2moment| ((|Sequence| |#1|) (|Sequence| |#1|)))
+ (SIGNATURE |moment2freeCumulant| ((|Sequence| |#1|) (|Sequence| |#1|)))
+ (SIGNATURE |booleanCumulant2moment| ((|Sequence| |#1|) (|Sequence| |#1|)))
+ (SIGNATURE |moment2booleanCumulant| ((|Sequence| |#1|) (|Sequence| |#1|)))
+ (SIGNATURE |monotoneCumulant2moment| ((|Sequence| |#1|) (|Sequence| |#1|)))
+ (SIGNATURE |monotoneCumulant2momentPoly|
+  ((|Sequence| (|SparseUnivariatePolynomial| |#1|)) (|Sequence| |#1|)))
+ (SIGNATURE |moment2monotoneCumulant| ((|Sequence| |#1|) (|Sequence| |#1|)))
+ (SIGNATURE |qcumulant2nthmoment|
+  (|#1| |#1| (|Sequence| |#1|) (|NonNegativeInteger|)))
+ (SIGNATURE |hankelDeterminant|
+  (|#1| (|Sequence| |#1|) (|NonNegativeInteger|)))
+ (SIGNATURE |jacobi2poly|
+  ((|Stream| (|SparseUnivariatePolynomial| |#1|)) (|Stream| |#1|)
+   (|Stream| |#1|)))
+ (IF (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))
+     (PROGN
+      (SIGNATURE |moment2Stransform|
+       ((|Record| (|:| |puiseux| (|Fraction| (|Integer|)))
+                  (|:| |laurent| (|Fraction| (|Integer|)))
+                  (|:| |coef| (|Sequence| |#1|)))
+        (|Sequence| |#1|)))
+      (SIGNATURE |moment2monotoneCumulant|
+       ((|Sequence| |#1|) (|Sequence| |#1|))))
+     |noBranch|))
+"/git/fricas/src/algebra/MOMPKG.spad"
+((|moment2monotoneCumulant| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Sequence| *3))
+       (|ofCategory| *3 (|Algebra| (|Fraction| (|Integer|))))
+       (|ofCategory| *3 (|CommutativeRing|))
+       (|isDomain| *1 (|MomentPackage| *3))))
+ (|moment2Stransform| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Sequence| *4))
+       (|ofCategory| *4 (|Algebra| (|Fraction| (|Integer|))))
+       (|ofCategory| *4 (|CommutativeRing|))
+       (|isDomain| *2
+                   (|Record| (|:| |puiseux| (|Fraction| (|Integer|)))
+                             (|:| |laurent| (|Fraction| (|Integer|)))
+                             (|:| |coef| (|Sequence| *4))))
+       (|isDomain| *1 (|MomentPackage| *4))))
+ (|jacobi2poly| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|Stream| *4)) (|ofCategory| *4 (|CommutativeRing|))
+       (|isDomain| *2 (|Stream| (|SparseUnivariatePolynomial| *4)))
+       (|isDomain| *1 (|MomentPackage| *4))))
+ (|hankelDeterminant| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Sequence| *2)) (|isDomain| *4 (|NonNegativeInteger|))
+       (|isDomain| *1 (|MomentPackage| *2))
+       (|ofCategory| *2 (|CommutativeRing|))))
+ (|qcumulant2nthmoment| (*1 *2 *2 *3 *4)
+  (AND (|isDomain| *3 (|Sequence| *2)) (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *2 (|CommutativeRing|))
+       (|isDomain| *1 (|MomentPackage| *2))))
+ (|moment2monotoneCumulant| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Sequence| *3)) (|ofCategory| *3 (|CommutativeRing|))
+       (|isDomain| *1 (|MomentPackage| *3))))
+ (|monotoneCumulant2momentPoly| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Sequence| *4)) (|ofCategory| *4 (|CommutativeRing|))
+       (|isDomain| *2 (|Sequence| (|SparseUnivariatePolynomial| *4)))
+       (|isDomain| *1 (|MomentPackage| *4))))
+ (|monotoneCumulant2moment| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Sequence| *3)) (|ofCategory| *3 (|CommutativeRing|))
+       (|isDomain| *1 (|MomentPackage| *3))))
+ (|moment2booleanCumulant| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Sequence| *3)) (|ofCategory| *3 (|CommutativeRing|))
+       (|isDomain| *1 (|MomentPackage| *3))))
+ (|booleanCumulant2moment| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Sequence| *3)) (|ofCategory| *3 (|CommutativeRing|))
+       (|isDomain| *1 (|MomentPackage| *3))))
+ (|moment2freeCumulant| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Sequence| *3)) (|ofCategory| *3 (|CommutativeRing|))
+       (|isDomain| *1 (|MomentPackage| *3))))
+ (|freeCumulant2moment| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Sequence| *3)) (|ofCategory| *3 (|CommutativeRing|))
+       (|isDomain| *1 (|MomentPackage| *3))))
+ (|moment2jacobi2| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Sequence| *4)) (|ofCategory| *4 (|Field|))
+       (|ofCategory| *4 (|CommutativeRing|))
+       (|isDomain| *2 (|Stream| (|Record| (|:| |an| *4) (|:| |bn| *4))))
+       (|isDomain| *1 (|MomentPackage| *4))))
+ (|moment2jacobi| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Sequence| *4)) (|ofCategory| *4 (|Field|))
+       (|ofCategory| *4 (|CommutativeRing|))
+       (|isDomain| *2
+                   (|Record| (|:| |an| (|Stream| *4))
+                             (|:| |bn| (|Stream| *4))))
+       (|isDomain| *1 (|MomentPackage| *4))))
+ (|moment2nthJacobi| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4)) (|ofCategory| *4 (|Field|))
+       (|ofCategory| *4 (|CommutativeRing|))
+       (|isDomain| *2 (|Record| (|:| |an| (|List| *4)) (|:| |bn| (|List| *4))))
+       (|isDomain| *1 (|MomentPackage| *4))))
+ (|moment2cumulant| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Sequence| *3)) (|ofCategory| *3 (|CommutativeRing|))
+       (|isDomain| *1 (|MomentPackage| *3))))
+ (|cumulant2moment| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Sequence| *3)) (|ofCategory| *3 (|CommutativeRing|))
+       (|isDomain| *1 (|MomentPackage| *3)))))
+((|qcumulant2nthmoment|
+  ((|#1| |#1| (|Sequence| |#1|) (|NonNegativeInteger|)) NIL))
+ (|monotoneCumulant2momentPoly|
+  (((|Sequence| (|SparseUnivariatePolynomial| |#1|)) (|Sequence| |#1|)) 131))
+ (|monotoneCumulant2moment| (((|Sequence| |#1|) (|Sequence| |#1|)) 125))
+ (|moment2nthJacobi|
+  (((|Record| (|:| |an| (|List| |#1|)) (|:| |bn| (|List| |#1|))) (|List| |#1|))
+   52 (|has| |#1| (|Field|))))
+ (|moment2monotoneCumulant|
+  (((|Sequence| |#1|) (|Sequence| |#1|)) 114
+   (|has| |#1| (|Algebra| (|Fraction| (|Integer|)))))
+  (((|Sequence| |#1|) (|Sequence| |#1|)) 114))
+ (|moment2jacobi2|
+  (((|Stream| (|Record| (|:| |an| |#1|) (|:| |bn| |#1|))) (|Sequence| |#1|)) 59
+   (|has| |#1| (|Field|))))
+ (|moment2jacobi|
+  (((|Record| (|:| |an| (|Stream| |#1|)) (|:| |bn| (|Stream| |#1|)))
+    (|Sequence| |#1|))
+   68 (|has| |#1| (|Field|))))
+ (|moment2freeCumulant| (((|Sequence| |#1|) (|Sequence| |#1|)) 26))
+ (|moment2cumulant| (((|Sequence| |#1|) (|Sequence| |#1|)) 16))
+ (|moment2booleanCumulant| (((|Sequence| |#1|) (|Sequence| |#1|)) 30))
+ (|moment2Stransform|
+  (((|Record| (|:| |puiseux| (|Fraction| (|Integer|)))
+              (|:| |laurent| (|Fraction| (|Integer|)))
+              (|:| |coef| (|Sequence| |#1|)))
+    (|Sequence| |#1|))
+   98 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|jacobi2poly|
+  (((|Stream| (|SparseUnivariatePolynomial| |#1|)) (|Stream| |#1|)
+    (|Stream| |#1|))
+   84))
+ (|hankelDeterminant| ((|#1| (|Sequence| |#1|) (|NonNegativeInteger|)) 40))
+ (|freeCumulant2moment| (((|Sequence| |#1|) (|Sequence| |#1|)) 22))
+ (|cumulant2moment| (((|Sequence| |#1|) (|Sequence| |#1|)) 14))
+ (|booleanCumulant2moment| (((|Sequence| |#1|) (|Sequence| |#1|)) 29)))
+((|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+ (|HasCategory| |#1| '(|Field|)))
+MOMPKG
+((|constructor|
+  (NIL
+   "An auxiliary package for various moment and cumulant transformations used in \\spad{Distribution}."))
+ (|moment2Stransform|
+  (((|Record| (|:| |puiseux| (|Fraction| (|Integer|)))
+              (|:| |laurent| (|Fraction| (|Integer|)))
+              (|:| |coef| (|Sequence| |#1|)))
+    (|Sequence| |#1|))
+   "\\spad{moment2Stransform(x)} returns the Puiseux and Laurent order and coefficients of the \\spad{S} transform of \\spad{x}"))
+ (|jacobi2poly|
+  (((|Stream| (|SparseUnivariatePolynomial| |#1|)) (|Stream| |#1|)
+    (|Stream| |#1|))
+   "\\spad{jacobi2poly(aa,{} bb)} returns the stream of orthogonal polynomials corresponding to the Jacobi parameters \\spad{a_n} and \\spad{b_n}."))
+ (|hankelDeterminant|
+  ((|#1| (|Sequence| |#1|) (|NonNegativeInteger|))
+   "\\spad{hankelDeterminant(x,{} n)} returns the \\spad{n}th Hankel determinant of the sequence \\spad{x}."))
+ (|qcumulant2nthmoment|
+  ((|#1| |#1| (|Sequence| |#1|) (|NonNegativeInteger|))
+   "\\spad{qcumulant2nthmoment(q,{} cc,{} n)} computes the \\spad{n}th moment from the sequence of reduced \\spad{q}-cumulants \\spad{cc}"))
+ (|moment2monotoneCumulant|
+  (((|Sequence| |#1|) (|Sequence| |#1|))
+   "\\spad{moment2monotoneCumulant(x)} returns the sequence of monotone cumulants of the moment sequence \\spad{x}")
+  (((|Sequence| |#1|) (|Sequence| |#1|))
+   "\\spad{moment2monotoneCumulant(mm)} computes the sequence of monotone cumulants from the sequence of moments \\spad{mm}"))
+ (|monotoneCumulant2momentPoly|
+  (((|Sequence| (|SparseUnivariatePolynomial| |#1|)) (|Sequence| |#1|))
+   "\\spad{monotoneCumulant2momentPoly(hh)} computes the sequence of moment polynomials \\$\\spad{m_n}(\\spad{t})\\$ from the sequence of monotone cumulants \\spad{hh}"))
+ (|monotoneCumulant2moment|
+  (((|Sequence| |#1|) (|Sequence| |#1|))
+   "\\spad{monotoneCumulant2moment(hh)} computes the sequence of moments from the sequence of monotone cumulants \\spad{hh}"))
+ (|moment2booleanCumulant|
+  (((|Sequence| |#1|) (|Sequence| |#1|))
+   "\\spad{moment2booleanCumulant(mm)} computes the sequence of boolean cumulants from the sequence of moments \\spad{mm}"))
+ (|booleanCumulant2moment|
+  (((|Sequence| |#1|) (|Sequence| |#1|))
+   "\\spad{booleanCumulant2moment(cc)} computes the sequence of moments from the sequence of boolean cumulants \\spad{cc}"))
+ (|moment2freeCumulant|
+  (((|Sequence| |#1|) (|Sequence| |#1|))
+   "\\spad{moment2freeCumulant(mm)} computes the sequence of free cumulants from the sequence of moments \\spad{mm}"))
+ (|freeCumulant2moment|
+  (((|Sequence| |#1|) (|Sequence| |#1|))
+   "\\spad{freeCumulant2moment(cc)} computes the sequence of moments from the sequence of free cumulants \\spad{cc}"))
+ (|moment2jacobi2|
+  (((|Stream| (|Record| (|:| |an| |#1|) (|:| |bn| |#1|))) (|Sequence| |#1|))
+   "\\spad{moment2jacobi2(mm)} computes the Jacobi parameters as stream of pairs \\$(an,{} \\spad{bn})\\$."))
+ (|moment2jacobi|
+  (((|Record| (|:| |an| (|Stream| |#1|)) (|:| |bn| (|Stream| |#1|)))
+    (|Sequence| |#1|))
+   "\\spad{moment2jacobi(mm)} computes the Jacobi parameters as pair of streams."))
+ (|moment2nthJacobi|
+  (((|Record| (|:| |an| (|List| |#1|)) (|:| |bn| (|List| |#1|))) (|List| |#1|))
+   "\\spad{moment2nthJacobi(mm)} computes the list of Jacobi parameters from the list of moments \\spad{mm} as far as possible."))
+ (|moment2cumulant|
+  (((|Sequence| |#1|) (|Sequence| |#1|))
+   "\\spad{moment2cumulant(mm)} computes the sequence of classical cumulants from the sequence of moments \\spad{mm}"))
+ (|cumulant2moment|
+  (((|Sequence| |#1|) (|Sequence| |#1|))
+   "\\spad{cumulant2moment(cc)} computes the sequence of moments from the sequence of classical cumulants \\spad{cc}")))
+(("documentation" 0 9439) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 9432) ("predicates" 0 9326) ("superDomain" 0 NIL)
+ ("operationAlist" 0 7629) ("modemaps" 0 3964) ("sourceFile" 0 3926)
+ ("constructorCategory" 0 2063) ("constructorModemap" 0 50)
+ ("constructorKind" 0 40) ("constructorForm" 0 20))

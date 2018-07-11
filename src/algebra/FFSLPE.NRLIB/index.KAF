@@ -1,0 +1,33 @@
+1510                (|FiniteFieldSolveLinearPolynomialEquation| F FP FPP)
+|package|
+(((|FiniteFieldSolveLinearPolynomialEquation| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |solveLinearPolynomialEquation|
+    ((|Union| (|List| |#3|) "failed") (|List| |#3|) |#3|)))
+  (|FiniteFieldCategory|) (|UnivariatePolynomialCategory| |#1|)
+  (|UnivariatePolynomialCategory| |#2|))
+ (T |FiniteFieldSolveLinearPolynomialEquation|))
+(CATEGORY |package|
+ (SIGNATURE |solveLinearPolynomialEquation|
+  ((|Union| (|List| |#3|) "failed") (|List| |#3|) |#3|)))
+"/git/fricas/src/algebra/FFSLPE.spad"
+((|solveLinearPolynomialEquation| (*1 *2 *2 *3)
+  (|partial| AND (|isDomain| *2 (|List| *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *5))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+   (|ofCategory| *4 (|FiniteFieldCategory|))
+   (|isDomain| *1 (|FiniteFieldSolveLinearPolynomialEquation| *4 *5 *3)))))
+((|solveLinearPolynomialEquation|
+  (((|Union| (|List| |#3|) "failed") (|List| |#3|) |#3|) 33)))
+FFSLPE
+((|constructor|
+  (NIL
+   "This package solves linear diophantine equations for Bivariate polynomials over finite fields"))
+ (|solveLinearPolynomialEquation|
+  (((|Union| (|List| |#3|) "failed") (|List| |#3|) |#3|)
+   "\\spad{solveLinearPolynomialEquation([f1,{} ...,{} fn],{} g)} (where the \\spad{fi} are relatively prime to each other) returns a list of \\spad{ai} such that \\spad{g/prod \\spad{fi} = sum ai/fi} or returns \"failed\" if no such list of \\spad{ai}\\spad{'s} exists.")))
+(("documentation" 0 1020) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1013) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 916) ("modemaps" 0 588) ("sourceFile" 0 550)
+ ("constructorCategory" 0 428) ("constructorModemap" 0 84)
+ ("constructorKind" 0 74) ("constructorForm" 0 20))

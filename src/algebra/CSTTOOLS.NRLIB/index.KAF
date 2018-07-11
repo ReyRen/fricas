@@ -1,0 +1,43 @@
+2038                (|CyclicStreamTools| S ST)
+|package|
+(((|CyclicStreamTools| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |cycleElt| ((|Union| |#2| "failed") |#2|))
+   (SIGNATURE |computeCycleLength| ((|NonNegativeInteger|) |#2|))
+   (SIGNATURE |computeCycleEntry| (|#2| |#2| |#2|)))
+  (|Type|) (|LazyStreamAggregate| |#1|))
+ (T |CyclicStreamTools|))
+(CATEGORY |package| (SIGNATURE |cycleElt| ((|Union| |#2| "failed") |#2|))
+ (SIGNATURE |computeCycleLength| ((|NonNegativeInteger|) |#2|))
+ (SIGNATURE |computeCycleEntry| (|#2| |#2| |#2|)))
+"/git/fricas/src/algebra/CSTTOOLS.spad"
+((|computeCycleEntry| (*1 *2 *2 *2)
+  (AND (|ofCategory| *3 (|Type|)) (|isDomain| *1 (|CyclicStreamTools| *3 *2))
+       (|ofCategory| *2 (|LazyStreamAggregate| *3))))
+ (|computeCycleLength| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|Type|)) (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|CyclicStreamTools| *4 *3))
+       (|ofCategory| *3 (|LazyStreamAggregate| *4))))
+ (|cycleElt| (*1 *2 *2)
+  (|partial| AND (|ofCategory| *3 (|Type|))
+   (|isDomain| *1 (|CyclicStreamTools| *3 *2))
+   (|ofCategory| *2 (|LazyStreamAggregate| *3)))))
+((|cycleElt| (((|Union| |#2| "failed") |#2|) 14))
+ (|computeCycleLength| (((|NonNegativeInteger|) |#2|) 16))
+ (|computeCycleEntry| ((|#2| |#2| |#2|) 18)))
+CSTTOOLS
+((|constructor|
+  (NIL "This package provides tools for working with cyclic streams."))
+ (|computeCycleEntry|
+  ((|#2| |#2| |#2|)
+   "\\spad{computeCycleEntry(x,{} cycElt)},{} where cycElt is a pointer to a node in the cyclic part of the cyclic stream \\spad{x},{} returns a pointer to the first node in the cycle"))
+ (|computeCycleLength|
+  (((|NonNegativeInteger|) |#2|)
+   "\\spad{computeCycleLength(s)} returns the length of the cycle of a cyclic stream \\spad{t},{} where \\spad{s} is a pointer to a node in the cyclic part of \\spad{t}."))
+ (|cycleElt|
+  (((|Union| |#2| "failed") |#2|)
+   "\\spad{cycleElt(s)} returns a pointer to a node in the cycle if the stream \\spad{s} is cyclic and returns \"failed\" if \\spad{s} is not cyclic")))
+(("documentation" 0 1292) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1283) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1128) ("modemaps" 0 582) ("sourceFile" 0 542)
+ ("constructorCategory" 0 353) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

@@ -1,0 +1,80 @@
+)abbrev package ELINSOL ExpressionLinearSolve
+++ Author: Waldek Hebisch
+++ Description: Solver for linear systems represented as list
+++  of expressions.  More efficient than using solve because
+++  it does not check that system really is linear.
+ExpressionLinearSolve(R : Join(IntegralDomain, Comparable),
+                      F : FunctionSpace(R)) : Exports == Implementation
+  where
+    K ==> Kernel(F)
+    MP ==> SparseMultivariatePolynomial(R, K)
+    Exports ==> with
+        lin_sol : (List(F), List Symbol) -> Union(List(F), "failed")
+          ++ lin_sol(eql, vl) solves system of equations eql for
+          ++ variables in vl.  Equations must be linear in variables
+          ++ from vl.
+    Implementation ==> add
+
+        lin_coeff(x : MP, v : K) : F ==
+            ux := univariate(x, v)
+            d := degree(ux)
+            d < 1 => 0
+            d > 1 => error "lin_coeff: x is nonlinear"
+            leadingCoefficient(ux)::F
+
+        -- works only if numer(x) is linear in v from vl
+        F_to_LF(x : F, vl : List(K)) : List(F) ==
+            nx := numer(x)
+            res0 := [lin_coeff(nx, v) for v in vl]
+            ml := [numer(c)*monomial(1, v, 1)$MP for v in vl for c in res0]
+            nx1 := reduce(_+, ml, 0)
+            nx0 := nx - nx1
+            reduce(max, [degree(nx0, v) for v in vl]@List(Integer)) > 0 =>
+                error "x is nonlinear in vl"
+            cons(nx0::F, res0)
+
+        lin_sol(eql : List(F), vl : List Symbol) : Union(List(F), "failed") ==
+            coefk := [retract(c::F)@K for c in vl]
+            eqll := [F_to_LF(p, coefk) for p in eql]
+            rh : Vector(F) := -vector([first(ll) for ll in eqll])$Vector(F)
+            eqm := matrix([rest(ll) for ll in eqll])$Matrix(F)
+            ss := solve(eqm, rh)$LinearSystemMatrixPackage1(F)
+            ss.particular case "failed" => "failed"
+            parts((ss.particular)::Vector(F))
+
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-- SPAD files for the functional world should be compiled in the
+-- following order:
+--
+--   op  kl  fspace  algfunc elemntry combfunc EXPR

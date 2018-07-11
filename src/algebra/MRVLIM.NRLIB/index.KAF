@@ -1,0 +1,600 @@
+27779               (MAKEPROP '|MrvLimitPackage| 'NILADIC T)
+(|MrvLimitPackage|)
+|package|
+(((|MrvLimitPackage|)
+  (CATEGORY |package|
+   (SIGNATURE |mrv_limit|
+    ((|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+              (|Record|
+               (|:| |leftHandLimit|
+                    (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                             #1="failed"))
+               (|:| |rightHandLimit|
+                    (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                             #1#)))
+              #2="failed")
+     (|Expression| (|Integer|))
+     (|Equation| (|OrderedCompletion| (|Expression| (|Integer|))))))
+   (SIGNATURE |mrv_limit|
+    ((|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+              (|Record|
+               (|:| |leftHandLimit|
+                    (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                             #1#))
+               (|:| |rightHandLimit|
+                    (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                             #1#)))
+              #2#)
+     (|Expression| (|Integer|)) (|Symbol|)
+     (|OrderedCompletion| (|Expression| (|Integer|)))))
+   (SIGNATURE |mrv_limit|
+    ((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #1#)
+     (|Expression| (|Integer|)) (|Equation| (|Expression| (|Integer|)))
+     (|String|)))
+   (SIGNATURE |mrv_limit|
+    ((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #1#)
+     (|Expression| (|Integer|)) (|Symbol|) (|Expression| (|Integer|))
+     (|String|)))
+   (SIGNATURE |mrv_normalize|
+    ((|Expression| (|Integer|)) (|Expression| (|Integer|)) (|Symbol|)
+     (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+               (|:| |atan_syms| (|List| (|Symbol|)))
+               (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+               (|:| |atan_kers|
+                    (|List| (|Kernel| (|Expression| (|Integer|))))))))
+   (SIGNATURE |mrv_limit|
+    ((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #1#)
+     (|Expression| (|Integer|)) (|Symbol|)
+     (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+               (|:| |atan_syms| (|List| (|Symbol|)))
+               (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+               (|:| |atan_kers|
+                    (|List| (|Kernel| (|Expression| (|Integer|))))))))
+   (SIGNATURE |mrv_limit1|
+    ((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #1#)
+     (|Expression| (|Integer|)) (|Symbol|)))
+   (SIGNATURE |mrv_sign|
+    ((|Union| (|Integer|) "failed") (|Expression| (|Integer|)) (|Symbol|)
+     (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+               (|:| |atan_syms| (|List| (|Symbol|)))
+               (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+               (|:| |atan_kers|
+                    (|List| (|Kernel| (|Expression| (|Integer|))))))))
+   (SIGNATURE |mrv_cmp|
+    ((|Union|
+      (|Record| (|:| |sign| (|Integer|))
+                (|:| |coeff| (|Expression| (|Integer|))))
+      "failed")
+     (|Kernel| (|Expression| (|Integer|)))
+     (|Kernel| (|Expression| (|Integer|))) (|Symbol|)
+     (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+               (|:| |atan_syms| (|List| (|Symbol|)))
+               (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+               (|:| |atan_kers|
+                    (|List| (|Kernel| (|Expression| (|Integer|))))))))
+   (SIGNATURE |mrv_set|
+    ((|Union|
+      (|Record| (|:| |lk| (|List| (|Kernel| (|Expression| (|Integer|)))))
+                (|:| |lc| (|List| (|Expression| (|Integer|)))))
+      "failed")
+     (|Expression| (|Integer|)) (|Symbol|)
+     (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+               (|:| |atan_syms| (|List| (|Symbol|)))
+               (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+               (|:| |atan_kers|
+                    (|List| (|Kernel| (|Expression| (|Integer|))))))))
+   (SIGNATURE |expr_to_series|
+    ((|Union|
+      (|Record| (|:| |degree| (|OrderedExpression|))
+                (|:| |coeff| (|Expression| (|Integer|))))
+      #3="failed")
+     (|Expression| (|Integer|)) (|Kernel| (|Expression| (|Integer|)))
+     (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+               (|:| |atan_syms| (|List| (|Symbol|)))
+               (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+               (|:| |atan_kers|
+                    (|List| (|Kernel| (|Expression| (|Integer|))))))))
+   (SIGNATURE |mrv_rewrite|
+    ((|Union|
+      (|Record| (|:| |degree| (|OrderedExpression|))
+                (|:| |coeff| (|Expression| (|Integer|))))
+      #3#)
+     (|Expression| (|Integer|)) (|List| (|Kernel| (|Expression| (|Integer|))))
+     (|List| (|Expression| (|Integer|))) (|Symbol|)
+     (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+               (|:| |atan_syms| (|List| (|Symbol|)))
+               (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+               (|:| |atan_kers|
+                    (|List| (|Kernel| (|Expression| (|Integer|))))))))
+   (SIGNATURE |mrv_rewrite0|
+    ((|Expression| (|Integer|)) (|Expression| (|Integer|))
+     (|List| (|Kernel| (|Expression| (|Integer|))))
+     (|List| (|Expression| (|Integer|))) (|Expression| (|Integer|))))))
+ (T |MrvLimitPackage|))
+(CATEGORY |package|
+ (SIGNATURE |mrv_limit|
+  ((|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+            (|Record|
+             (|:| |leftHandLimit|
+                  (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                           #1="failed"))
+             (|:| |rightHandLimit|
+                  (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                           #1#)))
+            #2="failed")
+   (|Expression| (|Integer|))
+   (|Equation| (|OrderedCompletion| (|Expression| (|Integer|))))))
+ (SIGNATURE |mrv_limit|
+  ((|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+            (|Record|
+             (|:| |leftHandLimit|
+                  (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                           #1#))
+             (|:| |rightHandLimit|
+                  (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                           #1#)))
+            #2#)
+   (|Expression| (|Integer|)) (|Symbol|)
+   (|OrderedCompletion| (|Expression| (|Integer|)))))
+ (SIGNATURE |mrv_limit|
+  ((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #1#)
+   (|Expression| (|Integer|)) (|Equation| (|Expression| (|Integer|)))
+   (|String|)))
+ (SIGNATURE |mrv_limit|
+  ((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #1#)
+   (|Expression| (|Integer|)) (|Symbol|) (|Expression| (|Integer|))
+   (|String|)))
+ (SIGNATURE |mrv_normalize|
+  ((|Expression| (|Integer|)) (|Expression| (|Integer|)) (|Symbol|)
+   (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+             (|:| |atan_syms| (|List| (|Symbol|)))
+             (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+             (|:| |atan_kers|
+                  (|List| (|Kernel| (|Expression| (|Integer|))))))))
+ (SIGNATURE |mrv_limit|
+  ((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #1#)
+   (|Expression| (|Integer|)) (|Symbol|)
+   (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+             (|:| |atan_syms| (|List| (|Symbol|)))
+             (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+             (|:| |atan_kers|
+                  (|List| (|Kernel| (|Expression| (|Integer|))))))))
+ (SIGNATURE |mrv_limit1|
+  ((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #1#)
+   (|Expression| (|Integer|)) (|Symbol|)))
+ (SIGNATURE |mrv_sign|
+  ((|Union| (|Integer|) "failed") (|Expression| (|Integer|)) (|Symbol|)
+   (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+             (|:| |atan_syms| (|List| (|Symbol|)))
+             (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+             (|:| |atan_kers|
+                  (|List| (|Kernel| (|Expression| (|Integer|))))))))
+ (SIGNATURE |mrv_cmp|
+  ((|Union|
+    (|Record| (|:| |sign| (|Integer|))
+              (|:| |coeff| (|Expression| (|Integer|))))
+    "failed")
+   (|Kernel| (|Expression| (|Integer|))) (|Kernel| (|Expression| (|Integer|)))
+   (|Symbol|)
+   (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+             (|:| |atan_syms| (|List| (|Symbol|)))
+             (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+             (|:| |atan_kers|
+                  (|List| (|Kernel| (|Expression| (|Integer|))))))))
+ (SIGNATURE |mrv_set|
+  ((|Union|
+    (|Record| (|:| |lk| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |lc| (|List| (|Expression| (|Integer|)))))
+    "failed")
+   (|Expression| (|Integer|)) (|Symbol|)
+   (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+             (|:| |atan_syms| (|List| (|Symbol|)))
+             (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+             (|:| |atan_kers|
+                  (|List| (|Kernel| (|Expression| (|Integer|))))))))
+ (SIGNATURE |expr_to_series|
+  ((|Union|
+    (|Record| (|:| |degree| (|OrderedExpression|))
+              (|:| |coeff| (|Expression| (|Integer|))))
+    #3="failed")
+   (|Expression| (|Integer|)) (|Kernel| (|Expression| (|Integer|)))
+   (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+             (|:| |atan_syms| (|List| (|Symbol|)))
+             (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+             (|:| |atan_kers|
+                  (|List| (|Kernel| (|Expression| (|Integer|))))))))
+ (SIGNATURE |mrv_rewrite|
+  ((|Union|
+    (|Record| (|:| |degree| (|OrderedExpression|))
+              (|:| |coeff| (|Expression| (|Integer|))))
+    #3#)
+   (|Expression| (|Integer|)) (|List| (|Kernel| (|Expression| (|Integer|))))
+   (|List| (|Expression| (|Integer|))) (|Symbol|)
+   (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+             (|:| |atan_syms| (|List| (|Symbol|)))
+             (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+             (|:| |atan_kers|
+                  (|List| (|Kernel| (|Expression| (|Integer|))))))))
+ (SIGNATURE |mrv_rewrite0|
+  ((|Expression| (|Integer|)) (|Expression| (|Integer|))
+   (|List| (|Kernel| (|Expression| (|Integer|))))
+   (|List| (|Expression| (|Integer|))) (|Expression| (|Integer|)))))
+"/git/fricas/src/algebra/MRVLIM.spad"
+((|mrv_rewrite0| (*1 *2 *2 *3 *4 *2)
+  (AND (|isDomain| *3 (|List| (|Kernel| (|Expression| (|Integer|)))))
+       (|isDomain| *4 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *2 (|Expression| (|Integer|)))
+       (|isDomain| *1 (|MrvLimitPackage|))))
+ (|mrv_rewrite| (*1 *2 *3 *4 *5 *6 *7)
+  (|partial| AND (|isDomain| *5 (|List| (|Expression| (|Integer|))))
+   (|isDomain| *7
+               (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+                         (|:| |atan_syms| (|List| (|Symbol|)))
+                         (|:| |tan_kers| (|List| (|Kernel| *3)))
+                         (|:| |atan_kers| (|List| (|Kernel| *3)))))
+   (|isDomain| *3 (|Expression| (|Integer|)))
+   (|isDomain| *4 (|List| (|Kernel| *3))) (|isDomain| *6 (|Symbol|))
+   (|isDomain| *2
+               (|Record| (|:| |degree| (|OrderedExpression|))
+                         (|:| |coeff| (|Expression| (|Integer|)))))
+   (|isDomain| *1 (|MrvLimitPackage|))))
+ (|expr_to_series| (*1 *2 *3 *4 *5)
+  (|partial| AND
+   (|isDomain| *5
+               (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+                         (|:| |atan_syms| (|List| (|Symbol|)))
+                         (|:| |tan_kers| (|List| (|Kernel| *3)))
+                         (|:| |atan_kers| (|List| (|Kernel| *3)))))
+   (|isDomain| *4 (|Kernel| (|Expression| (|Integer|))))
+   (|isDomain| *3 (|Expression| (|Integer|)))
+   (|isDomain| *2
+               (|Record| (|:| |degree| (|OrderedExpression|))
+                         (|:| |coeff| (|Expression| (|Integer|)))))
+   (|isDomain| *1 (|MrvLimitPackage|))))
+ (|mrv_set| (*1 *2 *3 *4 *5)
+  (|partial| AND
+   (|isDomain| *5
+               (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+                         (|:| |atan_syms| (|List| (|Symbol|)))
+                         (|:| |tan_kers|
+                              (|List| (|Kernel| (|Expression| (|Integer|)))))
+                         (|:| |atan_kers|
+                              (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   (|isDomain| *3 (|Expression| (|Integer|))) (|isDomain| *4 (|Symbol|))
+   (|isDomain| *2
+               (|Record|
+                (|:| |lk| (|List| (|Kernel| (|Expression| (|Integer|)))))
+                (|:| |lc| (|List| (|Expression| (|Integer|))))))
+   (|isDomain| *1 (|MrvLimitPackage|))))
+ (|mrv_cmp| (*1 *2 *3 *3 *4 *5)
+  (|partial| AND
+   (|isDomain| *5
+               (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+                         (|:| |atan_syms| (|List| (|Symbol|)))
+                         (|:| |tan_kers|
+                              (|List| (|Kernel| (|Expression| (|Integer|)))))
+                         (|:| |atan_kers|
+                              (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   (|isDomain| *3 (|Kernel| (|Expression| (|Integer|))))
+   (|isDomain| *4 (|Symbol|))
+   (|isDomain| *2
+               (|Record| (|:| |sign| (|Integer|))
+                         (|:| |coeff| (|Expression| (|Integer|)))))
+   (|isDomain| *1 (|MrvLimitPackage|))))
+ (|mrv_sign| (*1 *2 *3 *4 *5)
+  (|partial| AND
+   (|isDomain| *5
+               (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+                         (|:| |atan_syms| (|List| (|Symbol|)))
+                         (|:| |tan_kers| (|List| (|Kernel| (|Expression| *2))))
+                         (|:| |atan_kers|
+                              (|List| (|Kernel| (|Expression| *2))))))
+   (|isDomain| *3 (|Expression| (|Integer|))) (|isDomain| *4 (|Symbol|))
+   (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|MrvLimitPackage|))))
+ (|mrv_limit1| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Expression| (|Integer|)))
+   (|isDomain| *4 (|Symbol|))
+   (|isDomain| *2 (|OrderedCompletion| (|Expression| (|Integer|))))
+   (|isDomain| *1 (|MrvLimitPackage|))))
+ (|mrv_limit| (*1 *2 *3 *4 *5)
+  (|partial| AND
+   (|isDomain| *5
+               (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+                         (|:| |atan_syms| (|List| (|Symbol|)))
+                         (|:| |tan_kers|
+                              (|List| (|Kernel| (|Expression| (|Integer|)))))
+                         (|:| |atan_kers|
+                              (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   (|isDomain| *3 (|Expression| (|Integer|))) (|isDomain| *4 (|Symbol|))
+   (|isDomain| *2 (|OrderedCompletion| (|Expression| (|Integer|))))
+   (|isDomain| *1 (|MrvLimitPackage|))))
+ (|mrv_normalize| (*1 *2 *2 *3 *4)
+  (AND
+   (|isDomain| *4
+               (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+                         (|:| |atan_syms| (|List| (|Symbol|)))
+                         (|:| |tan_kers|
+                              (|List| (|Kernel| (|Expression| (|Integer|)))))
+                         (|:| |atan_kers|
+                              (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   (|isDomain| *2 (|Expression| (|Integer|))) (|isDomain| *3 (|Symbol|))
+   (|isDomain| *1 (|MrvLimitPackage|))))
+ (|mrv_limit| (*1 *2 *3 *4 *3 *5)
+  (|partial| AND (|isDomain| *3 (|Expression| (|Integer|)))
+   (|isDomain| *4 (|Symbol|)) (|isDomain| *5 (|String|))
+   (|isDomain| *2 (|OrderedCompletion| (|Expression| (|Integer|))))
+   (|isDomain| *1 (|MrvLimitPackage|))))
+ (|mrv_limit| (*1 *2 *3 *4 *5)
+  (|partial| AND (|isDomain| *4 (|Equation| (|Expression| (|Integer|))))
+   (|isDomain| *5 (|String|)) (|isDomain| *3 (|Expression| (|Integer|)))
+   (|isDomain| *2 (|OrderedCompletion| (|Expression| (|Integer|))))
+   (|isDomain| *1 (|MrvLimitPackage|))))
+ (|mrv_limit| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *4 (|Symbol|))
+       (|isDomain| *5 (|OrderedCompletion| (|Expression| (|Integer|))))
+       (|isDomain| *3 (|Expression| (|Integer|)))
+       (|isDomain| *2
+                   (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                            (|Record|
+                             (|:| |leftHandLimit|
+                                  (|Union|
+                                   (|OrderedCompletion|
+                                    (|Expression| (|Integer|)))
+                                   #1="failed"))
+                             (|:| |rightHandLimit|
+                                  (|Union|
+                                   (|OrderedCompletion|
+                                    (|Expression| (|Integer|)))
+                                   #1#)))
+                            #2="failed"))
+       (|isDomain| *1 (|MrvLimitPackage|))))
+ (|mrv_limit| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *4
+               (|Equation| (|OrderedCompletion| (|Expression| (|Integer|)))))
+   (|isDomain| *3 (|Expression| (|Integer|)))
+   (|isDomain| *2
+               (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                        (|Record|
+                         (|:| |leftHandLimit|
+                              (|Union|
+                               (|OrderedCompletion| (|Expression| (|Integer|)))
+                               #1#))
+                         (|:| |rightHandLimit|
+                              (|Union|
+                               (|OrderedCompletion| (|Expression| (|Integer|)))
+                               #1#)))
+                        #2#))
+   (|isDomain| *1 (|MrvLimitPackage|)))))
+((|mrv_sign|
+  (((|Union| (|Integer|) "failed") (|Expression| (|Integer|)) (|Symbol|)
+    (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+              (|:| |atan_syms| (|List| (|Symbol|)))
+              (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |atan_kers|
+                   (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   133))
+ (|mrv_set|
+  (((|Union|
+     (|Record| (|:| |lk| (|List| (|Kernel| (|Expression| (|Integer|)))))
+               (|:| |lc| (|List| (|Expression| (|Integer|)))))
+     "failed")
+    (|Expression| (|Integer|)) (|Symbol|)
+    (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+              (|:| |atan_syms| (|List| (|Symbol|)))
+              (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |atan_kers|
+                   (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   127))
+ (|mrv_rewrite0|
+  (((|Expression| (|Integer|)) (|Expression| (|Integer|))
+    (|List| (|Kernel| (|Expression| (|Integer|))))
+    (|List| (|Expression| (|Integer|))) (|Expression| (|Integer|)))
+   129))
+ (|mrv_rewrite|
+  (((|Union|
+     (|Record| (|:| |degree| (|OrderedExpression|))
+               (|:| |coeff| (|Expression| (|Integer|))))
+     #1="failed")
+    (|Expression| (|Integer|)) (|List| (|Kernel| (|Expression| (|Integer|))))
+    (|List| (|Expression| (|Integer|))) (|Symbol|)
+    (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+              (|:| |atan_syms| (|List| (|Symbol|)))
+              (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |atan_kers|
+                   (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   130))
+ (|mrv_normalize|
+  (((|Expression| (|Integer|)) (|Expression| (|Integer|)) (|Symbol|)
+    (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+              (|:| |atan_syms| (|List| (|Symbol|)))
+              (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |atan_kers|
+                   (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   65))
+ (|mrv_limit1|
+  (((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #2="failed")
+    (|Expression| (|Integer|)) (|Symbol|))
+   139))
+ (|mrv_limit|
+  (((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #2#)
+    (|Expression| (|Integer|)) (|Symbol|)
+    (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+              (|:| |atan_syms| (|List| (|Symbol|)))
+              (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |atan_kers|
+                   (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   44)
+  (((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #2#)
+    (|Expression| (|Integer|)) (|Symbol|) (|Expression| (|Integer|))
+    (|String|))
+   161)
+  (((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #2#)
+    (|Expression| (|Integer|)) (|Equation| (|Expression| (|Integer|)))
+    (|String|))
+   162)
+  (((|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+             (|Record|
+              (|:| |leftHandLimit|
+                   (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                            #2#))
+              (|:| |rightHandLimit|
+                   (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                            #2#)))
+             #3="failed")
+    (|Expression| (|Integer|)) (|Symbol|)
+    (|OrderedCompletion| (|Expression| (|Integer|))))
+   149)
+  (((|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+             (|Record|
+              (|:| |leftHandLimit|
+                   (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                            #2#))
+              (|:| |rightHandLimit|
+                   (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                            #2#)))
+             #3#)
+    (|Expression| (|Integer|))
+    (|Equation| (|OrderedCompletion| (|Expression| (|Integer|)))))
+   150))
+ (|mrv_cmp|
+  (((|Union|
+     (|Record| (|:| |sign| (|Integer|))
+               (|:| |coeff| (|Expression| (|Integer|))))
+     "failed")
+    (|Kernel| (|Expression| (|Integer|))) (|Kernel| (|Expression| (|Integer|)))
+    (|Symbol|)
+    (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+              (|:| |atan_syms| (|List| (|Symbol|)))
+              (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |atan_kers|
+                   (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   124))
+ (|expr_to_series|
+  (((|Union|
+     (|Record| (|:| |degree| (|OrderedExpression|))
+               (|:| |coeff| (|Expression| (|Integer|))))
+     #1#)
+    (|Expression| (|Integer|)) (|Kernel| (|Expression| (|Integer|)))
+    (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+              (|:| |atan_syms| (|List| (|Symbol|)))
+              (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |atan_kers|
+                   (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   117)))
+MRVLIM
+((|constructor|
+  (NIL "Compute limits using Gruntz-Gonnet \\spad{MRV} algorithm"))
+ (|mrv_rewrite0|
+  (((|Expression| (|Integer|)) (|Expression| (|Integer|))
+    (|List| (|Kernel| (|Expression| (|Integer|))))
+    (|List| (|Expression| (|Integer|))) (|Expression| (|Integer|)))
+   "\\spad{mrv_rewrite0}"))
+ (|mrv_rewrite|
+  (((|Union|
+     (|Record| (|:| |degree| (|OrderedExpression|))
+               (|:| |coeff| (|Expression| (|Integer|))))
+     #1="failed")
+    (|Expression| (|Integer|)) (|List| (|Kernel| (|Expression| (|Integer|))))
+    (|List| (|Expression| (|Integer|))) (|Symbol|)
+    (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+              (|:| |atan_syms| (|List| (|Symbol|)))
+              (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |atan_kers|
+                   (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   "rewrite"))
+ (|expr_to_series|
+  (((|Union|
+     (|Record| (|:| |degree| (|OrderedExpression|))
+               (|:| |coeff| (|Expression| (|Integer|))))
+     #1#)
+    (|Expression| (|Integer|)) (|Kernel| (|Expression| (|Integer|)))
+    (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+              (|:| |atan_syms| (|List| (|Symbol|)))
+              (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |atan_kers|
+                   (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   "Compute degree and leading coefficinet of series expansion"))
+ (|mrv_set|
+  (((|Union|
+     (|Record| (|:| |lk| (|List| (|Kernel| (|Expression| (|Integer|)))))
+               (|:| |lc| (|List| (|Expression| (|Integer|)))))
+     "failed")
+    (|Expression| (|Integer|)) (|Symbol|)
+    (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+              (|:| |atan_syms| (|List| (|Symbol|)))
+              (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |atan_kers|
+                   (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   "Compute \\spad{MRV} set"))
+ (|mrv_cmp|
+  (((|Union|
+     (|Record| (|:| |sign| (|Integer|))
+               (|:| |coeff| (|Expression| (|Integer|))))
+     "failed")
+    (|Kernel| (|Expression| (|Integer|))) (|Kernel| (|Expression| (|Integer|)))
+    (|Symbol|)
+    (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+              (|:| |atan_syms| (|List| (|Symbol|)))
+              (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |atan_kers|
+                   (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   "Compare kernels"))
+ (|mrv_limit1|
+  (((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #2="failed")
+    (|Expression| (|Integer|)) (|Symbol|))
+   "normalize and compute limit."))
+ (|mrv_normalize|
+  (((|Expression| (|Integer|)) (|Expression| (|Integer|)) (|Symbol|)
+    (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+              (|:| |atan_syms| (|List| (|Symbol|)))
+              (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |atan_kers|
+                   (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   "\\spad{mrv_normalize(f,{} x)} transform \\spad{f} to the form acceptable by core variant of mrv_limit."))
+ (|mrv_limit|
+  (((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #2#)
+    (|Expression| (|Integer|)) (|Symbol|)
+    (|Record| (|:| |tan_syms| (|List| (|Symbol|)))
+              (|:| |atan_syms| (|List| (|Symbol|)))
+              (|:| |tan_kers| (|List| (|Kernel| (|Expression| (|Integer|)))))
+              (|:| |atan_kers|
+                   (|List| (|Kernel| (|Expression| (|Integer|)))))))
+   "Compute limit.")
+  (((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #2#)
+    (|Expression| (|Integer|)) (|Symbol|) (|Expression| (|Integer|))
+    (|String|))
+   "\\spad{mrv_limit(f,{} x,{} a,{} str)} is like mrv_limit(\\spad{f},{} \\spad{x} = a,{} \\spad{str})")
+  (((|Union| (|OrderedCompletion| (|Expression| (|Integer|))) #2#)
+    (|Expression| (|Integer|)) (|Equation| (|Expression| (|Integer|)))
+    (|String|))
+   "Compute limit(\\spad{f}(\\spad{x}),{} x=a) for a strictly finite limit point a This function computes one-sided limits from the left or right")
+  (((|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+             (|Record|
+              (|:| |leftHandLimit|
+                   (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                            #2#))
+              (|:| |rightHandLimit|
+                   (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                            #2#)))
+             #3="failed")
+    (|Expression| (|Integer|)) (|Symbol|)
+    (|OrderedCompletion| (|Expression| (|Integer|))))
+   "\\spad{mrv_limit(f,{} x,{} a)} is like mrv_limit(\\spad{f},{} \\spad{x} = a)")
+  (((|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+             (|Record|
+              (|:| |leftHandLimit|
+                   (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                            #2#))
+              (|:| |rightHandLimit|
+                   (|Union| (|OrderedCompletion| (|Expression| (|Integer|)))
+                            #2#)))
+             #3#)
+    (|Expression| (|Integer|))
+    (|Equation| (|OrderedCompletion| (|Expression| (|Integer|)))))
+   "Compute limit(\\spad{f}(\\spad{x}),{} x=a) for a finite or infinite limit point a")))
+(("documentation" 0 22459) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 22452) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 17493) ("modemaps" 0 10338) ("sourceFile" 0 10300)
+ ("constructorCategory" 0 5327) ("constructorModemap" 0 91)
+ ("constructorKind" 0 81) ("constructorForm" 0 61) ("NILADIC" 0 20))

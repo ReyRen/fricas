@@ -1,0 +1,51 @@
+)abbrev package DSTCFPG DistributionContinuedFractionPackage
+++ Author: Franz Lehner lehner@math.tugraz.at, Waldek Hebisch
+++ Date Created: 2010
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   A package to compute Jacobi continued fractions of Cauchy transforms.
+DistributionContinuedFractionPackage(R : CommutativeRing,
+                                     z : Symbol
+                                    ) : Exports == Implementation   where
+  DR ==> Distribution R
+  UPz ==> UnivariatePolynomial(z, R)
+  FR==> Fraction R
+  UPFz ==> UnivariatePolynomial(z, FR)
+
+  Exports ==> with
+    if R has Field then
+        JContinuedFraction : (DR, UPz) -> ContinuedFraction UPz
+          ++ \spad{JContinuedFraction(d, z)} returns the Cauchy
+          ++ transform as a continued fraction at \spad{z}.
+      else if R has IntegralDomain then
+        JContinuedFraction : (DR, UPFz) -> ContinuedFraction UPFz
+          ++ \spad{JContinuedFraction(d, z)} returns the Cauchy
+          ++ transform as a continued fraction at \spad{z}.
+  Implementation ==> add
+    if R has Field then
+        JContinuedFraction(x : DR, zz : UPz) : ContinuedFraction UPz ==
+            jac : Record(an : Stream R, bn : Stream R) :=
+                jacobiParameters(x)$DR
+            import from StreamFunctions2(R, UPz)
+            an1 : Stream UPz :=
+                map((a : R) : UPz +-> zz-monomial(a, 0), jac an)
+            bn1 : Stream UPz := map((b : R) : UPz +-> monomial(-b, 0), jac bn)
+            continuedFraction(0, cons(1, bn1), cons(zz, an1))
+
+      else if R has IntegralDomain then
+        JContinuedFraction(x : DR, zz : UPFz) : ContinuedFraction UPFz ==
+            jac : Record(an : Stream FR, bn : Stream FR) :=
+                jacobiParameters(x)$DR
+            import from StreamFunctions2(FR, UPFz)
+            an1 : Stream UPFz :=
+                map((a : FR) : UPFz +-> zz-monomial(a, 0), jac an)
+            bn1 : Stream UPFz :=
+                map((b : FR) : UPFz +-> monomial(-b, 0), jac bn)
+            continuedFraction(0, cons(1, bn1), cons(zz, an1))
+
+

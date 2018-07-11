@@ -1,0 +1,34 @@
+1272                (|Patternable| R)
+|category|
+(((|Patternable| |#1|) (|Category|) (|Type|)) (T |Patternable|))
+(|Join|
+ (CATEGORY |package|
+  (IF (|has| |t#1| (|ConvertibleTo| (|Pattern| (|Integer|))))
+      (ATTRIBUTE (|ConvertibleTo| (|Pattern| (|Integer|))))
+      |noBranch|)
+  (IF (|has| |t#1| (|ConvertibleTo| (|Pattern| (|Float|))))
+      (ATTRIBUTE (|ConvertibleTo| (|Pattern| (|Float|))))
+      |noBranch|)))
+"/git/fricas/src/algebra/PATAB.spad"
+((|convert|
+  (((|Pattern| (|Float|)) $) 6
+   (|has| |#1| (|ConvertibleTo| (|Pattern| (|Float|)))))
+  (((|Pattern| (|Integer|)) $) 6
+   (|has| |#1| (|ConvertibleTo| (|Pattern| (|Integer|)))))))
+PATAB
+(((|ConvertibleTo| (|Pattern| (|Integer|))) |has| |#1|
+  (|ConvertibleTo| (|Pattern| (|Integer|))))
+ ((|ConvertibleTo| (|Pattern| (|Float|))) |has| |#1|
+  (|ConvertibleTo| (|Pattern| (|Float|)))))
+(((|ConvertibleTo| (|Pattern| (|Float|))) |has| |#1|
+  (|ConvertibleTo| (|Pattern| (|Float|))))
+ ((|ConvertibleTo| (|Pattern| (|Integer|))) |has| |#1|
+  (|ConvertibleTo| (|Pattern| (|Integer|)))))
+((|constructor|
+  (NIL
+   "An object \\spad{S} is Patternable over an object \\spad{R} if \\spad{S} can lift the conversions from \\spad{R} into \\spadtype{Pattern(Integer)} and \\spadtype{Pattern(Float)} to itself.")))
+(("documentation" 0 1052) ("ancestors" 0 855) ("parents" 0 658)
+ ("abbreviation" 0 652) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 458) ("modemaps" 0 NIL) ("sourceFile" 0 421)
+ ("constructorCategory" 0 114) ("constructorModemap" 0 49)
+ ("constructorKind" 0 38) ("constructorForm" 0 20))

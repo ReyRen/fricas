@@ -1,0 +1,30 @@
+1730                (|WeierstrassPreparation| R)
+|package|
+(((|WeierstrassPreparation| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |weierstrass|
+    ((|List| (|TaylorSeries| |#1|)) (|Symbol|) (|TaylorSeries| |#1|))))
+  (|Field|))
+ (T |WeierstrassPreparation|))
+(CATEGORY |package|
+ (SIGNATURE |weierstrass|
+  ((|List| (|TaylorSeries| |#1|)) (|Symbol|) (|TaylorSeries| |#1|))))
+"/git/fricas/src/algebra/WEIER.spad"
+((|weierstrass| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *4 (|TaylorSeries| *5))
+       (|ofCategory| *5 (|Field|)) (|isDomain| *2 (|List| (|TaylorSeries| *5)))
+       (|isDomain| *1 (|WeierstrassPreparation| *5)))))
+((|weierstrass|
+  (((|List| (|TaylorSeries| |#1|)) (|Symbol|) (|TaylorSeries| |#1|)) 78)))
+WEIER
+((|constructor|
+  (NIL
+   "This package implements the Weierstrass preparation theorem \\spad{f} for multivariate power series. weierstrass(\\spad{v},{} \\spad{p}) where \\spad{v} is a variable,{} and \\spad{p} is a TaylorSeries(\\spad{R}) in which there is term of form c*v^s where \\spad{c} is a constant. Let \\spad{s} be minimal as above. The result is a list of TaylorSeries coefficients A[\\spad{i}] of the equivalent polynomial A = A[0] + A[1]\\spad{*v} + A[2]\\spad{*v^2} + ... + A[\\spad{s}-1]\\spad{*v^}(\\spad{s}-1) + \\spad{v^s} such that p=A*B ,{} \\spad{B} being a TaylorSeries of minimum degree 0"))
+ (|weierstrass|
+  (((|List| (|TaylorSeries| |#1|)) (|Symbol|) (|TaylorSeries| |#1|))
+   "\\spad{weierstrass(v,{} ts)} where \\spad{v} is a variable and \\spad{ts} is \\indented{1}{a TaylorSeries,{} implements the Weierstrass Preparation} \\indented{1}{Theorem. The result is a list of TaylorSeries that} \\indented{1}{are the coefficients of the equivalent series.}")))
+(("documentation" 0 745) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 739) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 648) ("modemaps" 0 412) ("sourceFile" 0 375)
+ ("constructorCategory" 0 259) ("constructorModemap" 0 59)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

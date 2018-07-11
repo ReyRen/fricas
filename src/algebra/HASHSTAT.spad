@@ -1,0 +1,45 @@
+)abbrev domain HASHSTAT HashState
+++ Description: This domain supports incremental computation of hash
+++ values.
+HashState() : with
+    new : () -> %
+      ++ new() return a new HashState.
+    update! : (%, SingleInteger) -> %
+      ++ update!(hs, x) computes new values of HashState from hs
+      ++ and x and might destructively operate on its first argument.
+    value : % -> SingleInteger
+      ++ value(x) returns a SingleInteger value corresponding to x.
+  == add
+    -- These two macros are necessary to distinguish between Rep and \%.
+    rep x ==> (x@%) pretend Rep
+    per x ==> (x@Rep) pretend %
+
+    I ==> SingleInteger
+
+    Rep ==> Integer
+    new() : % == per HASHSTATEBASIS$Lisp
+    value(hs : %) : I == (HASHSTATEMAKEFIXNUM(hs)$Lisp) pretend I
+    update!(hs : %, i : I) : % == per HASHSTATEUPDATE(hs, i)$Lisp
+    modulo(hs : %, i : I) : I == (HASHSTATEMOD(hs, i)$Lisp) pretend I
+
+)if false
+
+\section{Usage}
+
+The general pattern to use HashState is given by the default implementation
+of the hash function in SetCategory, see \url{src/algebra/catdef.spad}.
+
+<<usage : SetCategory>>=
+hash(s : %) : SingleInteger ==
+    value(hashUpdate!(new()$HashState, s))$HashState
+@
+
+Instead of implementing
+\begin{verbatim}
+hash : % -> SingleInteger
+\end{verbatim}
+a domain should rather implement a function \texttt{hashUpdate!} by
+means of the \texttt{update!} function above.
+
+\end{document}
+)endif

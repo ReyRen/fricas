@@ -1,0 +1,43 @@
+1816                (|GeneralizedMultivariateFactorize| OV E S R P)
+|package|
+(((|GeneralizedMultivariateFactorize| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#5|) |#5|)))
+  (|Join| (|OrderedSet|)
+          (CATEGORY |domain| (SIGNATURE |convert| ((|Symbol|) $))
+           (SIGNATURE |variable| ((|Union| $ "failed") (|Symbol|)))))
+  (|OrderedAbelianMonoidSup|) (|IntegralDomain|) (|IntegralDomain|)
+  (|PolynomialCategory| |#4| |#2| |#1|))
+ (T |GeneralizedMultivariateFactorize|))
+(CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#5|) |#5|)))
+"/git/fricas/src/algebra/GENMFACT.spad"
+((|factor| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|OrderedSet|)
+                         (CATEGORY |domain|
+                          (SIGNATURE |convert| ((|Symbol|) $))
+                          (SIGNATURE |variable|
+                           ((|Union| $ "failed") (|Symbol|))))))
+   (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *7 (|IntegralDomain|)) (|isDomain| *2 (|Factored| *3))
+   (|isDomain| *1 (|GeneralizedMultivariateFactorize| *4 *5 *6 *7 *3))
+   (|ofCategory| *6 (|IntegralDomain|))
+   (|ofCategory| *3 (|PolynomialCategory| *7 *5 *4)))))
+((|factor| (((|Factored| |#5|) |#5|) 22)))
+GENMFACT
+((|constructor|
+  (NIL
+   "\\indented{2}{This is the top level package for doing multivariate factorization} over basic domains like \\spadtype{Integer} or \\spadtype{Fraction Integer}."))
+ (|factor|
+  (((|Factored| |#5|) |#5|)
+   "\\spad{factor(p)} factors the multivariate polynomial \\spad{p} over its coefficient domain"))
+ (|variable|
+  (((|Union| $ "failed") (|Symbol|))
+   "\\spad{variable(s)} makes an element from symbol \\spad{s} or fails."))
+ (|convert|
+  (((|Symbol|) $) "\\spad{convert(x)} converts \\spad{x} to a symbol")))
+(("documentation" 0 1278) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1269) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1226) ("modemaps" 0 629) ("sourceFile" 0 589)
+ ("constructorCategory" 0 522) ("constructorModemap" 0 78)
+ ("constructorKind" 0 68) ("constructorForm" 0 20))

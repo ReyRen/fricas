@@ -1,0 +1,69 @@
+3661                (|UnivariatePowerSeriesCategory&| S |Coef| |Expon|)
+|domain|
+(((|UnivariatePowerSeriesCategory&| |#1| |#2| |#3|)
+  (CATEGORY |domain| (SIGNATURE |reductum| (|#1| |#1|))
+   (SIGNATURE |degree| (|#3| |#1|)) (SIGNATURE |leadingMonomial| (|#1| |#1|))
+   (SIGNATURE |leadingCoefficient| (|#2| |#1|)))
+  (|UnivariatePowerSeriesCategory| |#2| |#3|) (|Ring|)
+  (|OrderedAbelianMonoid|))
+ (T |UnivariatePowerSeriesCategory&|))
+(CATEGORY |domain| (SIGNATURE |reductum| (|#1| |#1|))
+ (SIGNATURE |degree| (|#3| |#1|)) (SIGNATURE |leadingMonomial| (|#1| |#1|))
+ (SIGNATURE |leadingCoefficient| (|#2| |#1|)))
+"/git/fricas/src/algebra/UPSCAT.spad"
+((|reductum| (($ $) 17)) (|leadingMonomial| (($ $) 14))
+ (|leadingCoefficient| ((|#2| $) 12)) (|degree| ((|#3| $) 10)))
+((|HasCategory| |#2| (LIST '|PartialDifferentialRing| '(|Symbol|)))
+ (|HasSignature| |#2|
+                 (LIST '*
+                       (LIST (|devaluate| |#2|) (|devaluate| |#3|)
+                             (|devaluate| |#2|))))
+ (|HasCategory| |#3| '(|SemiGroup|))
+ (|HasSignature| |#2|
+                 (LIST '^
+                       (LIST (|devaluate| |#2|) (|devaluate| |#2|)
+                             (|devaluate| |#3|))))
+ (|HasSignature| |#2| (LIST '|coerce| (LIST (|devaluate| |#2|) '(|Symbol|)))))
+UPSCAT-
+((|constructor|
+  (NIL
+   "\\spadtype{UnivariatePowerSeriesCategory} is the most general univariate power series category with exponents in an ordered abelian monoid. Note: this category exports a substitution function if it is possible to multiply exponents. Note: this category exports a derivative operation if it is possible to multiply coefficients by exponents."))
+ (|eval|
+  (((|Stream| |#2|) $ |#2|)
+   "\\spad{eval(f,{} a)} evaluates a power series at a value in the ground ring by returning a stream of partial sums."))
+ (|extend|
+  (($ $ |#3|)
+   "\\spad{extend(f,{} n)} causes all terms of \\spad{f} of degree \\spad{<=} \\spad{n} to be computed."))
+ (|approximate|
+  ((|#2| $ |#3|)
+   "\\spad{approximate(f)} returns a truncated power series with the series variable viewed as an element of the coefficient domain."))
+ (|truncate|
+  (($ $ |#3| |#3|)
+   "\\spad{truncate(f,{} k1,{} k2)} returns a (finite) power series consisting of the sum of all terms of \\spad{f} of degree \\spad{d} with \\spad{k1 <= d <= k2}.")
+  (($ $ |#3|)
+   "\\spad{truncate(f,{} k)} returns a (finite) power series consisting of the sum of all terms of \\spad{f} of degree \\spad{<= k}."))
+ (|order|
+  ((|#3| $ |#3|)
+   "\\spad{order(f,{} n) = min(m,{} n)},{} where \\spad{m} is the degree of the lowest order non-zero term in \\spad{f}.")
+  ((|#3| $)
+   "\\spad{order(f)} is the degree of the lowest order non-zero term in \\spad{f}. This will result in an infinite loop if \\spad{f} has no non-zero terms."))
+ (|multiplyExponents|
+  (($ $ (|PositiveInteger|))
+   "\\spad{multiplyExponents(f,{} n)} multiplies all exponents of the power series \\spad{f} by the positive integer \\spad{n}."))
+ (|center|
+  ((|#2| $)
+   "\\spad{center(f)} returns the point about which the series \\spad{f} is expanded."))
+ (|variable|
+  (((|Symbol|) $)
+   "\\spad{variable(f)} returns the (unique) power series variable of the power series \\spad{f}."))
+ (|elt|
+  ((|#2| $ |#3|)
+   "\\spad{elt(f(x),{} r)} returns the coefficient of the term of degree \\spad{r} in \\spad{f(x)}. This is the same as the function \\spadfun{coefficient}."))
+ (|terms|
+  (((|Stream| (|Record| (|:| |k| |#3|) (|:| |c| |#2|))) $)
+   "\\spad{terms(f(x))} returns a stream of non-zero terms,{} where a a term is an exponent-coefficient pair. The terms in the stream are ordered by increasing order of exponents.")))
+(("documentation" 0 1297) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1289) ("predicates" 0 773) ("superDomain" 0 NIL)
+ ("operationAlist" 0 653) ("modemaps" 0 NIL) ("sourceFile" 0 615)
+ ("constructorCategory" 0 438) ("constructorModemap" 0 81)
+ ("constructorKind" 0 72) ("constructorForm" 0 20))

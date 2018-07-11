@@ -1,0 +1,39 @@
+1834                (|BalancedFactorisation| R UP)
+|package|
+(((|BalancedFactorisation| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |balancedFactorisation| ((|Factored| |#2|) |#2| |#2|))
+   (SIGNATURE |balancedFactorisation| ((|Factored| |#2|) |#2| (|List| |#2|))))
+  (|Join| (|GcdDomain|) (|CharacteristicZero|))
+  (|UnivariatePolynomialCategory| |#1|))
+ (T |BalancedFactorisation|))
+(CATEGORY |package|
+ (SIGNATURE |balancedFactorisation| ((|Factored| |#2|) |#2| |#2|))
+ (SIGNATURE |balancedFactorisation| ((|Factored| |#2|) |#2| (|List| |#2|))))
+"/git/fricas/src/algebra/BALFACT.spad"
+((|balancedFactorisation| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|List| *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5 (|Join| (|GcdDomain|) (|CharacteristicZero|)))
+       (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|BalancedFactorisation| *5 *3))))
+ (|balancedFactorisation| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|Join| (|GcdDomain|) (|CharacteristicZero|)))
+       (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|BalancedFactorisation| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4)))))
+((|balancedFactorisation| (((|Factored| |#2|) |#2| (|List| |#2|)) 10)
+  (((|Factored| |#2|) |#2| |#2|) 11)))
+BALFACT
+((|constructor|
+  (NIL "This package provides balanced factorisations of polynomials."))
+ (|balancedFactorisation|
+  (((|Factored| |#2|) |#2| (|List| |#2|))
+   "\\spad{balancedFactorisation(a,{} [b1,{} ...,{} bn])} returns a factorisation \\spad{a = p1^e1 ... pm^em} such that each \\spad{pi} is balanced with respect to \\spad{[b1,{} ...,{} bm]}.")
+  (((|Factored| |#2|) |#2| |#2|)
+   "\\spad{balancedFactorisation(a,{} b)} returns a factorisation \\spad{a = p1^e1 ... pm^em} such that each \\spad{\\spad{pi}} is balanced with respect to \\spad{b}.")))
+(("documentation" 0 1280) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1272) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1163) ("modemaps" 0 591) ("sourceFile" 0 552)
+ ("constructorCategory" 0 388) ("constructorModemap" 0 61)
+ ("constructorKind" 0 51) ("constructorForm" 0 20))

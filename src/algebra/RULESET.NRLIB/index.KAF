@@ -1,0 +1,77 @@
+3534                (|Ruleset| |Base| R F)
+|domain|
+(((|Ruleset| |#1| |#2| |#3|)
+  (|Join| (|SetCategory|) (|Eltable| |#3| |#3|)
+          (CATEGORY |domain|
+           (SIGNATURE |ruleset| ($ (|List| (|RewriteRule| |#1| |#2| |#3|))))
+           (SIGNATURE |rules| ((|List| (|RewriteRule| |#1| |#2| |#3|)) $))
+           (SIGNATURE |elt| (|#3| $ |#3| (|PositiveInteger|)))))
+  (|SetCategory|)
+  (|Join| (|Ring|) (|PatternMatchable| |#1|) (|Comparable|)
+          (|ConvertibleTo| (|Pattern| |#1|)))
+  (|Join| (|FunctionSpace| |#2|) (|PatternMatchable| |#1|)
+          (|ConvertibleTo| (|Pattern| |#1|))))
+ (T |Ruleset|))
+(|Join| (|SetCategory|) (|Eltable| |#3| |#3|)
+        (CATEGORY |domain|
+         (SIGNATURE |ruleset| ($ (|List| (|RewriteRule| |#1| |#2| |#3|))))
+         (SIGNATURE |rules| ((|List| (|RewriteRule| |#1| |#2| |#3|)) $))
+         (SIGNATURE |elt| (|#3| $ |#3| (|PositiveInteger|)))))
+"/git/fricas/src/algebra/RULESET.spad"
+((|ruleset| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|RewriteRule| *3 *4 *5)))
+       (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *4
+                     (|Join| (|Ring|) (|PatternMatchable| *3) (|Comparable|)
+                             (|ConvertibleTo| (|Pattern| *3))))
+       (|ofCategory| *5
+                     (|Join| (|FunctionSpace| *4) (|PatternMatchable| *3)
+                             (|ConvertibleTo| (|Pattern| *3))))
+       (|isDomain| *1 (|Ruleset| *3 *4 *5))))
+ (|rules| (*1 *2 *1)
+  (AND (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *4
+                     (|Join| (|Ring|) (|PatternMatchable| *3) (|Comparable|)
+                             (|ConvertibleTo| (|Pattern| *3))))
+       (|isDomain| *2 (|List| (|RewriteRule| *3 *4 *5)))
+       (|isDomain| *1 (|Ruleset| *3 *4 *5))
+       (|ofCategory| *5
+                     (|Join| (|FunctionSpace| *4) (|PatternMatchable| *3)
+                             (|ConvertibleTo| (|Pattern| *3))))))
+ (|elt| (*1 *2 *1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|)) (|ofCategory| *4 (|SetCategory|))
+       (|ofCategory| *5
+                     (|Join| (|Ring|) (|PatternMatchable| *4) (|Comparable|)
+                             (|ConvertibleTo| (|Pattern| *4))))
+       (|isDomain| *1 (|Ruleset| *4 *5 *2))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| *5) (|PatternMatchable| *4)
+                             (|ConvertibleTo| (|Pattern| *4)))))))
+((~= (((|Boolean|) $ $) NIL))
+ (|ruleset| (($ (|List| (|RewriteRule| |#1| |#2| |#3|))) 12))
+ (|rules| (((|List| (|RewriteRule| |#1| |#2| |#3|)) $) 19))
+ (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|elt| ((|#3| $ |#3|) 22) ((|#3| $ |#3| (|PositiveInteger|)) 25))
+ (|coerce| (((|OutputForm|) $) 15)) (= (((|Boolean|) $ $) 18)))
+RULESET
+(((|SetCategory|) . T) ((|Eltable| |#3| |#3|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|Eltable| |#3| |#3|) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL "A ruleset is a set of pattern matching rules grouped together."))
+ (|elt|
+  ((|#3| $ |#3| (|PositiveInteger|))
+   "\\spad{elt(r,{} f,{} n)} or \\spad{r}(\\spad{f},{} \\spad{n}) applies all the rules of \\spad{r} to \\spad{f} at most \\spad{n} times."))
+ (|rules|
+  (((|List| (|RewriteRule| |#1| |#2| |#3|)) $)
+   "\\spad{rules(r)} returns the rules contained in \\spad{r}."))
+ (|ruleset|
+  (($ (|List| (|RewriteRule| |#1| |#2| |#3|)))
+   "\\spad{ruleset([r1,{} ...,{} rn])} creates the rule set \\spad{{r1,{} ...,{} rn}}.")))
+(("documentation" 0 2984) ("ancestors" 0 2874) ("parents" 0 2822)
+ ("abbreviation" 0 2814) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2406) ("modemaps" 0 944) ("sourceFile" 0 905)
+ ("constructorCategory" 0 621) ("constructorModemap" 0 52)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

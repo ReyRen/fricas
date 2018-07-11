@@ -1,0 +1,33 @@
+1617                (|DrawNumericHack| R)
+|package|
+(((|DrawNumericHack| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |coerce|
+    ((|SegmentBinding| (|Float|)) (|SegmentBinding| (|Expression| |#1|)))))
+  (|Join| (|OrderedSet|) (|IntegralDomain|) (|ConvertibleTo| (|Float|))))
+ (T |DrawNumericHack|))
+(CATEGORY |package|
+ (SIGNATURE |coerce|
+  ((|SegmentBinding| (|Float|)) (|SegmentBinding| (|Expression| |#1|)))))
+"/git/fricas/src/algebra/DRAWHACK.spad"
+((|coerce| (*1 *2 *3)
+           (AND (|isDomain| *3 (|SegmentBinding| (|Expression| *4)))
+                (|ofCategory| *4
+                              (|Join| (|OrderedSet|) (|IntegralDomain|)
+                                      (|ConvertibleTo| (|Float|))))
+                (|isDomain| *2 (|SegmentBinding| (|Float|)))
+                (|isDomain| *1 (|DrawNumericHack| *4)))))
+((|coerce|
+  (((|SegmentBinding| (|Float|)) (|SegmentBinding| (|Expression| |#1|))) 16)))
+DRAWHACK
+((|constructor|
+  (NIL
+   "Hack for the draw interface. DrawNumericHack provides a \"coercion\" from something of the form \\spad{x = a..b} where \\spad{a} and \\spad{b} are formal expressions to a binding of the form \\spad{x = c..d} where \\spad{c} and \\spad{d} are the numerical values of \\spad{a} and \\spad{b}. This \"coercion\" fails if \\spad{a} and \\spad{b} contains symbolic variables,{} but is meant for expressions involving \\%\\spad{pi}."))
+ (|coerce|
+  (((|SegmentBinding| (|Float|)) (|SegmentBinding| (|Expression| |#1|)))
+   "\\spad{coerce(x = a..b)} returns \\spad{x = c..d} where \\spad{c} and \\spad{d} are the numerical values of \\spad{a} and \\spad{b}.")))
+(("documentation" 0 935) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 926) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 836) ("modemaps" 0 453) ("sourceFile" 0 413)
+ ("constructorCategory" 0 298) ("constructorModemap" 0 52)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

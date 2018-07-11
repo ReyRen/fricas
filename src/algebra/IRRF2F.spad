@@ -1,0 +1,92 @@
+)abbrev package IRRF2F IntegrationResultRFToFunction
+++ Conversion of integration results to top-level expressions
+++ Author: Manuel Bronstein
+++ Description:
+++   This package allows a sum of logs over the roots of a polynomial
+++   to be expressed as explicit logarithms and arc tangents, provided
+++   that the indexing polynomial can be factored into quadratics.
+++ Date Created: 21 August 1988
+IntegrationResultRFToFunction(R) : Exports == Implementation where
+  R : Join(GcdDomain, RetractableTo Integer, Comparable,
+           LinearlyExplicitOver Integer)
+
+  RF  ==> Fraction Polynomial R
+  F   ==> Expression R
+  IR  ==> IntegrationResult RF
+
+  Exports ==> with
+    split           : IR -> IR
+       ++ split(u(x) + sum_{P(a)=0} Q(a, x)) returns
+       ++ \spad{u(x) + sum_{P1(a)=0} Q(a, x) + ... + sum_{Pn(a)=0} Q(a, x)}
+       ++ where P1, ..., Pn are the factors of P.
+    expand          : (IR, Symbol) -> List F
+       ++ expand(i, x) returns the list of possible real functions
+       ++ of x corresponding to i.
+    complexExpand   : IR -> F
+       ++ complexExpand(i) returns the expanded complex function
+       ++ corresponding to i.
+    if R has CharacteristicZero then
+      integrate       : (RF, Symbol) -> Union(F, List F)
+        ++ integrate(f, x) returns the integral of \spad{f(x)dx}
+        ++ where x is viewed as a real variable.
+      complexIntegrate : (RF, Symbol) -> F
+        ++ complexIntegrate(f, x) returns the integral of \spad{f(x)dx}
+        ++ where x is viewed as a complex variable.
+
+  Implementation ==> add
+    import from IntegrationTools(R, F)
+    import from TrigonometricManipulations(R, F)
+    import from IntegrationResultToFunction(R, F)
+
+    toEF : IR -> IntegrationResult F
+
+    toEF i          == map(z1 +-> z1::F, i)$IntegrationResultFunctions2(RF, F)
+    expand(i, x)    == expand(toEF(i), x)
+    complexExpand i == complexExpand toEF i
+
+    split i ==
+      map(retract, split toEF i)$IntegrationResultFunctions2(F, RF)
+
+    if R has CharacteristicZero then
+      import from RationalFunctionIntegration(R)
+
+      complexIntegrate(f, x) == complexExpand internalIntegrate(f, x)
+
+-- do not use real integration if R is complex
+      if R has imaginary : () -> R then integrate(f, x) == complexIntegrate(f, x)
+      else
+        integrate(f, x) ==
+          l := [mkPrim(real g, x) for g in expand(internalIntegrate(f, x), x)]
+          empty? rest l => first l
+          l
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

@@ -1,0 +1,36 @@
+)abbrev package TEMUTL TemplateUtilities
+++ Author: Mike Dewar
+++ Date Created:  October 1992
+++ Basic Operations:
+++ Related Domains:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+++ Description: This package provides functions for template manipulation
+TemplateUtilities() : Exports == Implementation where
+
+  Exports == with
+    interpretString : String -> Any
+      ++ interpretString(s) treats a string as a piece of FriCAS input, by
+      ++ parsing and interpreting it.
+    stripCommentsAndBlanks : String -> String
+      ++ stripCommentsAndBlanks(s) treats s as a piece of FriCAS input, and
+      ++ removes comments, and leading and trailing blanks.
+
+  Implementation == add
+
+    import from InputForm
+
+    stripC(s : String, u : String) : String ==
+      i : Integer := position(u, s, 1)
+      i = 0 => s
+      delete(s, i..)
+
+    stripCommentsAndBlanks(s : String) : String ==
+      trim(stripC(stripC(s,"++"),"--"),char " ")
+
+    interpretString(s : String) : Any ==
+      interpret parse s
+

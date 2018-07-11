@@ -1,0 +1,105 @@
+5559                (|NumericComplexEigenPackage| |Par|)
+|package|
+(((|NumericComplexEigenPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |characteristicPolynomial|
+    ((|Polynomial| (|Complex| (|Fraction| (|Integer|))))
+     (|Matrix| (|Complex| (|Fraction| (|Integer|))))))
+   (SIGNATURE |characteristicPolynomial|
+    ((|Polynomial| (|Complex| (|Fraction| (|Integer|))))
+     (|Matrix| (|Complex| (|Fraction| (|Integer|)))) (|Symbol|)))
+   (SIGNATURE |complexEigenvalues|
+    ((|List| (|Complex| |#1|)) (|Matrix| (|Complex| (|Fraction| (|Integer|))))
+     |#1|))
+   (SIGNATURE |complexEigenvectors|
+    ((|List|
+      (|Record| (|:| |outval| (|Complex| |#1|)) (|:| |outmult| (|Integer|))
+                (|:| |outvect| (|List| (|Matrix| (|Complex| |#1|))))))
+     (|Matrix| (|Complex| (|Fraction| (|Integer|)))) |#1|)))
+  (|Join| (|Field|) (|OrderedRing|)))
+ (T |NumericComplexEigenPackage|))
+(CATEGORY |package|
+ (SIGNATURE |characteristicPolynomial|
+  ((|Polynomial| (|Complex| (|Fraction| (|Integer|))))
+   (|Matrix| (|Complex| (|Fraction| (|Integer|))))))
+ (SIGNATURE |characteristicPolynomial|
+  ((|Polynomial| (|Complex| (|Fraction| (|Integer|))))
+   (|Matrix| (|Complex| (|Fraction| (|Integer|)))) (|Symbol|)))
+ (SIGNATURE |complexEigenvalues|
+  ((|List| (|Complex| |#1|)) (|Matrix| (|Complex| (|Fraction| (|Integer|))))
+   |#1|))
+ (SIGNATURE |complexEigenvectors|
+  ((|List|
+    (|Record| (|:| |outval| (|Complex| |#1|)) (|:| |outmult| (|Integer|))
+              (|:| |outvect| (|List| (|Matrix| (|Complex| |#1|))))))
+   (|Matrix| (|Complex| (|Fraction| (|Integer|)))) |#1|)))
+"/git/fricas/src/algebra/NCEP.spad"
+((|complexEigenvectors| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| (|Complex| (|Fraction| (|Integer|)))))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |outval| (|Complex| *4))
+                              (|:| |outmult| (|Integer|))
+                              (|:| |outvect|
+                                   (|List| (|Matrix| (|Complex| *4)))))))
+       (|isDomain| *1 (|NumericComplexEigenPackage| *4))
+       (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|)))))
+ (|complexEigenvalues| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| (|Complex| (|Fraction| (|Integer|)))))
+       (|isDomain| *2 (|List| (|Complex| *4)))
+       (|isDomain| *1 (|NumericComplexEigenPackage| *4))
+       (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|)))))
+ (|characteristicPolynomial| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| (|Complex| (|Fraction| (|Integer|)))))
+       (|isDomain| *4 (|Symbol|))
+       (|isDomain| *2 (|Polynomial| (|Complex| (|Fraction| (|Integer|)))))
+       (|isDomain| *1 (|NumericComplexEigenPackage| *5))
+       (|ofCategory| *5 (|Join| (|Field|) (|OrderedRing|)))))
+ (|characteristicPolynomial| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| (|Complex| (|Fraction| (|Integer|)))))
+       (|isDomain| *2 (|Polynomial| (|Complex| (|Fraction| (|Integer|)))))
+       (|isDomain| *1 (|NumericComplexEigenPackage| *4))
+       (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|))))))
+((|complexEigenvectors|
+  (((|List|
+     (|Record| (|:| |outval| (|Complex| |#1|)) (|:| |outmult| (|Integer|))
+               (|:| |outvect| (|List| (|Matrix| (|Complex| |#1|))))))
+    (|Matrix| (|Complex| (|Fraction| (|Integer|)))) |#1|)
+   28))
+ (|complexEigenvalues|
+  (((|List| (|Complex| |#1|)) (|Matrix| (|Complex| (|Fraction| (|Integer|))))
+    |#1|)
+   19))
+ (|characteristicPolynomial|
+  (((|Polynomial| (|Complex| (|Fraction| (|Integer|))))
+    (|Matrix| (|Complex| (|Fraction| (|Integer|)))) (|Symbol|))
+   16)
+  (((|Polynomial| (|Complex| (|Fraction| (|Integer|))))
+    (|Matrix| (|Complex| (|Fraction| (|Integer|)))))
+   15)))
+NCEP
+((|constructor|
+  (NIL
+   "This package computes explicitly eigenvalues and eigenvectors of matrices with entries over the complex rational numbers. The results are expressed either as complex floating numbers or as complex rational numbers depending on the type of the precision parameter."))
+ (|complexEigenvectors|
+  (((|List|
+     (|Record| (|:| |outval| (|Complex| |#1|)) (|:| |outmult| (|Integer|))
+               (|:| |outvect| (|List| (|Matrix| (|Complex| |#1|))))))
+    (|Matrix| (|Complex| (|Fraction| (|Integer|)))) |#1|)
+   "\\spad{complexEigenvectors(m,{} eps)} returns a list of records each one containing a complex eigenvalue,{} its algebraic multiplicity,{} and a list of associated eigenvectors. All these results are computed to precision eps and are expressed as complex floats or complex rational numbers depending on the type of eps (float or rational)."))
+ (|complexEigenvalues|
+  (((|List| (|Complex| |#1|)) (|Matrix| (|Complex| (|Fraction| (|Integer|))))
+    |#1|)
+   "\\spad{complexEigenvalues(m,{} eps)} computes the eigenvalues of the matrix \\spad{m} to precision eps. The eigenvalues are expressed as complex floats or complex rational numbers depending on the type of eps (float or rational)."))
+ (|characteristicPolynomial|
+  (((|Polynomial| (|Complex| (|Fraction| (|Integer|))))
+    (|Matrix| (|Complex| (|Fraction| (|Integer|)))) (|Symbol|))
+   "\\spad{characteristicPolynomial(m,{} x)} returns the characteristic polynomial of the matrix \\spad{m} expressed as polynomial over Complex Rationals with variable \\spad{x}.")
+  (((|Polynomial| (|Complex| (|Fraction| (|Integer|))))
+    (|Matrix| (|Complex| (|Fraction| (|Integer|)))))
+   "\\spad{characteristicPolynomial(m)} returns the characteristic polynomial of the matrix \\spad{m} expressed as polynomial over complex rationals with a new symbol as variable.")))
+(("documentation" 0 3709) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3704) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3064) ("modemaps" 0 1628) ("sourceFile" 0 1592)
+ ("constructorCategory" 0 900) ("constructorModemap" 0 67)
+ ("constructorKind" 0 57) ("constructorForm" 0 20))

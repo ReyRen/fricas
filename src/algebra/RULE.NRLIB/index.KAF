@@ -1,0 +1,157 @@
+8027                (|RewriteRule| |Base| R F)
+|domain|
+(((|RewriteRule| |#1| |#2| |#3|)
+  (|Join| (|SetCategory|) (|Eltable| |#3| |#3|)
+          (|RetractableTo| (|Equation| |#3|))
+          (CATEGORY |domain| (SIGNATURE |rule| ($ |#3| |#3|))
+           (SIGNATURE |rule| ($ |#3| |#3| (|List| (|Symbol|))))
+           (SIGNATURE |suchThat|
+            ($ $ (|List| (|Symbol|)) (|Mapping| (|Boolean|) (|List| |#3|))))
+           (SIGNATURE |pattern| ((|Pattern| |#1|) $))
+           (SIGNATURE |lhs| (|#3| $)) (SIGNATURE |rhs| (|#3| $))
+           (SIGNATURE |elt| (|#3| $ |#3| (|PositiveInteger|)))
+           (SIGNATURE |quotedOperators| ((|List| (|Symbol|)) $))))
+  (|SetCategory|)
+  (|Join| (|Ring|) (|PatternMatchable| |#1|) (|Comparable|)
+          (|ConvertibleTo| (|Pattern| |#1|)))
+  (|Join| (|FunctionSpace| |#2|) (|PatternMatchable| |#1|)
+          (|ConvertibleTo| (|Pattern| |#1|))))
+ (T |RewriteRule|))
+(|Join| (|SetCategory|) (|Eltable| |#3| |#3|)
+        (|RetractableTo| (|Equation| |#3|))
+        (CATEGORY |domain| (SIGNATURE |rule| ($ |#3| |#3|))
+         (SIGNATURE |rule| ($ |#3| |#3| (|List| (|Symbol|))))
+         (SIGNATURE |suchThat|
+          ($ $ (|List| (|Symbol|)) (|Mapping| (|Boolean|) (|List| |#3|))))
+         (SIGNATURE |pattern| ((|Pattern| |#1|) $)) (SIGNATURE |lhs| (|#3| $))
+         (SIGNATURE |rhs| (|#3| $))
+         (SIGNATURE |elt| (|#3| $ |#3| (|PositiveInteger|)))
+         (SIGNATURE |quotedOperators| ((|List| (|Symbol|)) $))))
+"/git/fricas/src/algebra/RULE.spad"
+((|rule| (*1 *1 *2 *2)
+  (AND (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *4
+                     (|Join| (|Ring|) (|PatternMatchable| *3) (|Comparable|)
+                             (|ConvertibleTo| (|Pattern| *3))))
+       (|isDomain| *1 (|RewriteRule| *3 *4 *2))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| *4) (|PatternMatchable| *3)
+                             (|ConvertibleTo| (|Pattern| *3))))))
+ (|rule| (*1 *1 *2 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Symbol|))) (|ofCategory| *4 (|SetCategory|))
+       (|ofCategory| *5
+                     (|Join| (|Ring|) (|PatternMatchable| *4) (|Comparable|)
+                             (|ConvertibleTo| (|Pattern| *4))))
+       (|isDomain| *1 (|RewriteRule| *4 *5 *2))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| *5) (|PatternMatchable| *4)
+                             (|ConvertibleTo| (|Pattern| *4))))))
+ (|suchThat| (*1 *1 *1 *2 *3)
+  (AND (|isDomain| *2 (|List| (|Symbol|)))
+       (|isDomain| *3 (|Mapping| (|Boolean|) (|List| *6)))
+       (|ofCategory| *6
+                     (|Join| (|FunctionSpace| *5) (|PatternMatchable| *4)
+                             (|ConvertibleTo| (|Pattern| *4))))
+       (|ofCategory| *4 (|SetCategory|))
+       (|ofCategory| *5
+                     (|Join| (|Ring|) (|PatternMatchable| *4) (|Comparable|)
+                             (|ConvertibleTo| (|Pattern| *4))))
+       (|isDomain| *1 (|RewriteRule| *4 *5 *6))))
+ (|pattern| (*1 *2 *1)
+  (AND (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *4
+                     (|Join| (|Ring|) (|PatternMatchable| *3) (|Comparable|)
+                             (|ConvertibleTo| *2)))
+       (|isDomain| *2 (|Pattern| *3)) (|isDomain| *1 (|RewriteRule| *3 *4 *5))
+       (|ofCategory| *5
+                     (|Join| (|FunctionSpace| *4) (|PatternMatchable| *3)
+                             (|ConvertibleTo| *2)))))
+ (|lhs| (*1 *2 *1)
+  (AND (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| *4) (|PatternMatchable| *3)
+                             (|ConvertibleTo| (|Pattern| *3))))
+       (|isDomain| *1 (|RewriteRule| *3 *4 *2))
+       (|ofCategory| *4
+                     (|Join| (|Ring|) (|PatternMatchable| *3) (|Comparable|)
+                             (|ConvertibleTo| (|Pattern| *3))))))
+ (|rhs| (*1 *2 *1)
+  (AND (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| *4) (|PatternMatchable| *3)
+                             (|ConvertibleTo| (|Pattern| *3))))
+       (|isDomain| *1 (|RewriteRule| *3 *4 *2))
+       (|ofCategory| *4
+                     (|Join| (|Ring|) (|PatternMatchable| *3) (|Comparable|)
+                             (|ConvertibleTo| (|Pattern| *3))))))
+ (|elt| (*1 *2 *1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|)) (|ofCategory| *4 (|SetCategory|))
+       (|ofCategory| *5
+                     (|Join| (|Ring|) (|PatternMatchable| *4) (|Comparable|)
+                             (|ConvertibleTo| (|Pattern| *4))))
+       (|isDomain| *1 (|RewriteRule| *4 *5 *2))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| *5) (|PatternMatchable| *4)
+                             (|ConvertibleTo| (|Pattern| *4))))))
+ (|quotedOperators| (*1 *2 *1)
+  (AND (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *4
+                     (|Join| (|Ring|) (|PatternMatchable| *3) (|Comparable|)
+                             (|ConvertibleTo| (|Pattern| *3))))
+       (|isDomain| *2 (|List| (|Symbol|)))
+       (|isDomain| *1 (|RewriteRule| *3 *4 *5))
+       (|ofCategory| *5
+                     (|Join| (|FunctionSpace| *4) (|PatternMatchable| *3)
+                             (|ConvertibleTo| (|Pattern| *3)))))))
+((~= (((|Boolean|) $ $) NIL))
+ (|suchThat|
+  (($ $ (|List| (|Symbol|)) (|Mapping| (|Boolean|) (|List| |#3|))) 29))
+ (|rule| (($ |#3| |#3|) 21) (($ |#3| |#3| (|List| (|Symbol|))) 19))
+ (|rhs| ((|#3| $) 13))
+ (|retractIfCan| (((|Union| (|Equation| |#3|) "failed") $) 56))
+ (|retract| (((|Equation| |#3|) $) NIL))
+ (|quotedOperators| (((|List| (|Symbol|)) $) 15))
+ (|pattern| (((|Pattern| |#1|) $) 11)) (|lhs| ((|#3| $) 12))
+ (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|elt| ((|#3| $ |#3|) 25) ((|#3| $ |#3| (|PositiveInteger|)) 36))
+ (|coerce| (((|OutputForm|) $) 82) (($ (|Equation| |#3|)) 20))
+ (= (((|Boolean|) $ $) 33)))
+RULE
+(((|SetCategory|) . T) ((|Eltable| |#3| |#3|) . T)
+ ((|RetractableTo| (|Equation| |#3|)) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|Eltable| |#3| |#3|) . T) ((|RetractableTo| (|Equation| |#3|)) . T)
+ ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "\\indented{1}{Rules for the pattern matcher} Author: Manuel Bronstein Date Created: 24 Oct 1988 Keywords: pattern,{} matching,{} rule."))
+ (|quotedOperators|
+  (((|List| (|Symbol|)) $)
+   "\\spad{quotedOperators(r)} returns the list of operators on the right hand side of \\spad{r} that are considered quoted,{} that is they are not evaluated during any rewrite,{} but just applied formally to their arguments."))
+ (|elt|
+  ((|#3| $ |#3| (|PositiveInteger|))
+   "\\spad{elt(r,{} f,{} n)} or \\spad{r}(\\spad{f},{} \\spad{n}) applies the rule \\spad{r} to \\spad{f} at most \\spad{n} times."))
+ (|rhs|
+  ((|#3| $)
+   "\\spad{rhs(r)} returns the right hand side of the rule \\spad{r}."))
+ (|lhs|
+  ((|#3| $)
+   "\\spad{lhs(r)} returns the left hand side of the rule \\spad{r}."))
+ (|pattern|
+  (((|Pattern| |#1|) $)
+   "\\spad{pattern(r)} returns the pattern corresponding to the left hand side of the rule \\spad{r}."))
+ (|suchThat|
+  (($ $ (|List| (|Symbol|)) (|Mapping| (|Boolean|) (|List| |#3|)))
+   "\\spad{suchThat(r,{} [a1,{} ...,{} an],{} f)} returns the rewrite rule \\spad{r} with the predicate \\spad{f(a1,{} ...,{} an)} attached to it."))
+ (|rule|
+  (($ |#3| |#3| (|List| (|Symbol|)))
+   "\\spad{rule(f,{} g,{} [f1,{} ...,{} fn])} creates the rewrite rule \\spad{f == eval(eval(g,{} g is f),{} [f1,{} ...,{} fn])},{} that is a rule with left-hand side \\spad{f} and right-hand side \\spad{g}; The symbols \\spad{f1},{} ...,{} \\spad{fn} are the operators that are considered quoted,{} that is they are not evaluated during any rewrite,{} but just applied formally to their arguments.")
+  (($ |#3| |#3|)
+   "\\spad{rule(f,{} g)} creates the rewrite rule: \\spad{f == eval(g,{} g is f)},{} with left-hand side \\spad{f} and right-hand side \\spad{g}.")))
+(("documentation" 0 6237) ("ancestors" 0 6084) ("parents" 0 5989)
+ ("abbreviation" 0 5984) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5278) ("modemaps" 0 1513) ("sourceFile" 0 1477)
+ ("constructorCategory" 0 918) ("constructorModemap" 0 56)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

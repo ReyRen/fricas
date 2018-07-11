@@ -1,0 +1,11 @@
+)abbrev category BICPO BiCPO
+++ Author: Martin Baker
+++ Description:
+++ Complete partial Order, partial order that is guaranteed to have both
+++ a join and a meet of any two elements.  For more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+++ Axiom: reflexivity forall(x): x<=x
+++ Axiom: transitivity forall(x, y, z): x<=y and y<=z implies x<=z
+++ Date Created: Oct 2015
+BiCPO(S: SetCategory): Category == Join(Dcpo(S), CoDcpo(S))
+

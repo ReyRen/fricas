@@ -1,0 +1,32 @@
+1850                (|GradedModule&| S R E)
+|domain|
+(((|GradedModule&| |#1| |#2| |#3|)
+  (CATEGORY |domain| (SIGNATURE - (|#1| |#1| |#1|)) (SIGNATURE - (|#1| |#1|)))
+  (|GradedModule| |#2| |#3|) (|CommutativeRing|) (|AbelianMonoid|))
+ (T |GradedModule&|))
+(CATEGORY |domain| (SIGNATURE - (|#1| |#1| |#1|)) (SIGNATURE - (|#1| |#1|)))
+"/git/fricas/src/algebra/GRMOD.spad"
+((- (($ $) NIL) (($ $ $) 11)))
+GRMOD-
+((|constructor|
+  (NIL
+   "GradedModule(\\spad{R},{} \\spad{E}) denotes ``E-graded \\spad{R}-module\\spad{''},{} \\spadignore{i.e.} collection of \\spad{R}-modules indexed by an abelian monoid \\spad{E}. An element \\spad{g} of \\spad{G[s]} for some specific \\spad{s} in \\spad{E} is said to be an element of \\spad{G} with {\\em degree} \\spad{s}. Sums are defined in each module \\spad{G[s]} so two elements of \\spad{G} have a sum if they have the same degree. \\blankline Morphisms can be defined and composed by degree to give the mathematical category of graded modules."))
+ (+
+  (($ $ $)
+   "\\spad{g+h} is the sum of \\spad{g} and \\spad{h} in the module of elements of the same degree as \\spad{g} and \\spad{h}. Error: if \\spad{g} and \\spad{h} have different degrees."))
+ (-
+  (($ $ $)
+   "\\spad{g-h} is the difference of \\spad{g} and \\spad{h} in the module of elements of the same degree as \\spad{g} and \\spad{h}. Error: if \\spad{g} and \\spad{h} have different degrees.")
+  (($ $)
+   "\\spad{-g} is the additive inverse of \\spad{g} in the module of elements of the same grade as \\spad{g}."))
+ (* (($ $ |#2|) "\\spad{g*r} is right module multiplication.")
+    (($ |#2| $) "\\spad{r*g} is left module multiplication."))
+ ((|Zero|) (($) "0 denotes the zero of degree 0."))
+ (|degree|
+  ((|#3| $)
+   "\\spad{degree(g)} names the degree of \\spad{g}. The set of all elements of a given degree form an \\spad{R}-module.")))
+(("documentation" 0 409) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 402) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 371) ("modemaps" 0 NIL) ("sourceFile" 0 334)
+ ("constructorCategory" 0 257) ("constructorModemap" 0 53)
+ ("constructorKind" 0 44) ("constructorForm" 0 20))

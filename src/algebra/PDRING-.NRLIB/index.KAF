@@ -1,0 +1,57 @@
+3057                (|PartialDifferentialRing&| A S)
+|domain|
+(((|PartialDifferentialRing&| |#1| |#2|)
+  (CATEGORY |domain|
+   (SIGNATURE D (|#1| |#1| (|List| |#2|) (|List| (|NonNegativeInteger|))))
+   (SIGNATURE D (|#1| |#1| |#2| (|NonNegativeInteger|)))
+   (SIGNATURE D (|#1| |#1| (|List| |#2|))) (SIGNATURE D (|#1| |#1| |#2|))
+   (SIGNATURE |differentiate|
+    (|#1| |#1| (|List| |#2|) (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |differentiate| (|#1| |#1| |#2| (|NonNegativeInteger|)))
+   (SIGNATURE |differentiate| (|#1| |#1| (|List| |#2|)))
+   (SIGNATURE |differentiate| (|#1| |#1| |#2|)))
+  (|PartialDifferentialRing| |#2|) (|SetCategory|))
+ (T |PartialDifferentialRing&|))
+(CATEGORY |domain|
+ (SIGNATURE D (|#1| |#1| (|List| |#2|) (|List| (|NonNegativeInteger|))))
+ (SIGNATURE D (|#1| |#1| |#2| (|NonNegativeInteger|)))
+ (SIGNATURE D (|#1| |#1| (|List| |#2|))) (SIGNATURE D (|#1| |#1| |#2|))
+ (SIGNATURE |differentiate|
+  (|#1| |#1| (|List| |#2|) (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |differentiate| (|#1| |#1| |#2| (|NonNegativeInteger|)))
+ (SIGNATURE |differentiate| (|#1| |#1| (|List| |#2|)))
+ (SIGNATURE |differentiate| (|#1| |#1| |#2|)))
+"/git/fricas/src/algebra/PDRING.spad"
+((|differentiate| (($ $ |#2|) NIL) (($ $ (|List| |#2|)) 10)
+  (($ $ |#2| (|NonNegativeInteger|)) 12)
+  (($ $ (|List| |#2|) (|List| (|NonNegativeInteger|))) 15))
+ (D (($ $ |#2|) 16) (($ $ (|List| |#2|)) 18)
+  (($ $ |#2| (|NonNegativeInteger|)) 19)
+  (($ $ (|List| |#2|) (|List| (|NonNegativeInteger|))) 21)))
+PDRING-
+((|constructor|
+  (NIL
+   "A partial differential ring with differentiations indexed by a parameter type \\spad{S}. \\blankline"))
+ (D
+  (($ $ (|List| |#2|) (|List| (|NonNegativeInteger|)))
+   "\\spad{D(x,{} [s1,{} ...,{} sn],{} [n1,{} ...,{} nn])} computes multiple partial derivatives,{} \\spadignore{i.e.} \\spad{D(...D(x,{} s1,{} n1)...,{} sn,{} nn)}.")
+  (($ $ |#2| (|NonNegativeInteger|))
+   "\\spad{D(x,{} s,{} n)} computes multiple partial derivatives,{} \\spadignore{i.e.} \\spad{n}-th derivative of \\spad{x} with respect to \\spad{s}.")
+  (($ $ (|List| |#2|))
+   "\\spad{D(x,{} [s1,{} ...sn])} computes successive partial derivatives,{} \\spadignore{i.e.} \\spad{D(...D(x,{} s1)...,{} sn)}.")
+  (($ $ |#2|)
+   "\\spad{D(x,{} v)} computes the partial derivative of \\spad{x} with respect to \\spad{v}."))
+ (|differentiate|
+  (($ $ (|List| |#2|) (|List| (|NonNegativeInteger|)))
+   "\\spad{differentiate(x,{} [s1,{} ...,{} sn],{} [n1,{} ...,{} nn])} computes multiple partial derivatives,{} \\spadignore{i.e.}")
+  (($ $ |#2| (|NonNegativeInteger|))
+   "\\spad{differentiate(x,{} s,{} n)} computes multiple partial derivatives,{} \\spadignore{i.e.} \\spad{n}-th derivative of \\spad{x} with respect to \\spad{s}.")
+  (($ $ (|List| |#2|))
+   "\\spad{differentiate(x,{} [s1,{} ...sn])} computes successive partial derivatives,{} \\spadignore{i.e.} \\spad{differentiate(...differentiate(x,{} s1)...,{} sn)}.")
+  (($ $ |#2|)
+   "\\spad{differentiate(x,{} v)} computes the partial derivative of \\spad{x} with respect to \\spad{v}.")))
+(("documentation" 0 1518) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1510) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1202) ("modemaps" 0 NIL) ("sourceFile" 0 1164)
+ ("constructorCategory" 0 685) ("constructorModemap" 0 62)
+ ("constructorKind" 0 53) ("constructorForm" 0 20))

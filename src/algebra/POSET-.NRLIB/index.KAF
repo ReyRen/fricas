@@ -1,0 +1,499 @@
+24663               (|Poset&| A S)
+|domain|
+(((|Poset&| |#1| |#2|)
+  (CATEGORY |domain|
+   (SIGNATURE |coverMatrix| ((|IncidenceAlgebra| (|Integer|) |#2|) |#1|))
+   (SIGNATURE |zetaMatrix| ((|IncidenceAlgebra| (|Integer|) |#2|) |#1|))
+   (SIGNATURE |moebius| ((|IncidenceAlgebra| (|Integer|) |#2|) |#1|))
+   (SIGNATURE |isAntisymmetric?| ((|Boolean|) |#1|))
+   (SIGNATURE |completeTransitivity| (|#1| |#1|))
+   (SIGNATURE |completeReflexivity| (|#1| |#1|))
+   (SIGNATURE |objectToIndex| ((|NonNegativeInteger|) |#1| |#2|))
+   (SIGNATURE |indexToObject| (|#2| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |lub|
+    ((|Union| (|NonNegativeInteger|) "failed") |#1|
+     (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |glb|
+    ((|Union| (|NonNegativeInteger|) "failed") |#1|
+     (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |joinIfCan|
+    ((|Union| (|NonNegativeInteger|) "failed") |#1|
+     (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |meetIfCan|
+    ((|Union| (|NonNegativeInteger|) "failed") |#1|
+     (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |joinIfCan|
+    ((|Union| (|NonNegativeInteger|) "failed") |#1| (|NonNegativeInteger|)
+     (|NonNegativeInteger|)))
+   (SIGNATURE |meetIfCan|
+    ((|Union| (|NonNegativeInteger|) "failed") |#1| (|NonNegativeInteger|)
+     (|NonNegativeInteger|)))
+   (SIGNATURE |implies|
+    ((|Boolean|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |opposite| (|#1| |#1|))
+   (SIGNATURE |addArrow!|
+    (|#1| |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |le|
+    ((|Boolean|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |mapContra|
+    (|#1| |#1| (|List| (|NonNegativeInteger|)) (|List| |#2|) (|Integer|)
+     (|Integer|)))
+   (SIGNATURE |map|
+    (|#1| |#1| (|List| (|NonNegativeInteger|)) (|List| |#2|) (|Integer|)
+     (|Integer|)))
+   (SIGNATURE |looseEquals| ((|Boolean|) |#1| |#1|))
+   (SIGNATURE |createY|
+    ((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |createX|
+    ((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |createWidth| ((|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |isDirected?| ((|Boolean|))) (SIGNATURE |merge| (|#1| |#1| |#1|))
+   (SIGNATURE |distance|
+    ((|Integer|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |routeArrows|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)
+     (|NonNegativeInteger|)))
+   (SIGNATURE |routeNodes|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)
+     (|NonNegativeInteger|)))
+   (SIGNATURE |arrowsToArrow|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |arrowsFromArrow|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |nodeToArrow|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |nodeFromArrow|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |arrowsToNode|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |arrowsFromNode|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |nodeToNode|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |nodeFromNode|
+    ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |outDegree| ((|NonNegativeInteger|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |inDegree| ((|NonNegativeInteger|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |getArrowIndex|
+    ((|NonNegativeInteger|) |#1| (|NonNegativeInteger|)
+     (|NonNegativeInteger|)))
+   (SIGNATURE |arrowName|
+    ((|String|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |isFixPoint?| ((|Boolean|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |min|
+    ((|NonNegativeInteger|) |#1| (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |min| ((|NonNegativeInteger|) |#1|))
+   (SIGNATURE |max|
+    ((|NonNegativeInteger|) |#1| (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |max| ((|NonNegativeInteger|) |#1|))
+   (SIGNATURE |isGreaterThan?|
+    ((|Boolean|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |isDirectSuccessor?|
+    ((|Boolean|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |kgraph| (|#1| (|List| |#2|) (|String|)))
+   (SIGNATURE |unit| (|#1| (|List| |#2|) (|String|)))
+   (SIGNATURE |cycleClosed| (|#1| (|List| |#2|) (|String|)))
+   (SIGNATURE |cycleOpen| (|#1| (|List| |#2|) (|String|)))
+   (SIGNATURE |terminal| (|#1| |#2|)) (SIGNATURE |initial| (|#1|))
+   (SIGNATURE |flatten| (|#1| (|DirectedGraph| |#1|)))
+   (SIGNATURE |getArrows|
+    ((|List|
+      (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+                (|:| |fromOb| (|NonNegativeInteger|))
+                (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+                (|:| |yOffset| (|Integer|))
+                (|:| |map| (|List| (|NonNegativeInteger|)))))
+     |#1|))
+   (SIGNATURE |getVertices|
+    ((|List|
+      (|Record| (|:| |value| |#2|) (|:| |posX| (|NonNegativeInteger|))
+                (|:| |posY| (|NonNegativeInteger|))))
+     |#1|))
+   (SIGNATURE |addArrow!| (|#1| |#1| (|String|) |#2| |#2|))
+   (SIGNATURE |addArrow!|
+    (|#1| |#1| (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)
+     (|List| (|NonNegativeInteger|))))
+   (SIGNATURE |addArrow!|
+    (|#1| |#1| (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |addArrow!|
+    (|#1| |#1|
+     (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+               (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+               (|:| |yOffset| (|Integer|))
+               (|:| |map| (|List| (|NonNegativeInteger|))))))
+   (SIGNATURE |addObject!|
+    (|#1| |#1|
+     (|Record| (|:| |value| |#2|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|)))))
+   (SIGNATURE |addObject!| (|#1| |#1| |#2|))
+   (SIGNATURE |hash| ((|SingleInteger|) |#1|))
+   (SIGNATURE |coerce| ((|OutputForm|) |#1|))
+   (SIGNATURE = ((|Boolean|) |#1| |#1|))
+   (SIGNATURE ~= ((|Boolean|) |#1| |#1|)))
+  (|Poset| |#2|) (|SetCategory|))
+ (T |Poset&|))
+(CATEGORY |domain|
+ (SIGNATURE |coverMatrix| ((|IncidenceAlgebra| (|Integer|) |#2|) |#1|))
+ (SIGNATURE |zetaMatrix| ((|IncidenceAlgebra| (|Integer|) |#2|) |#1|))
+ (SIGNATURE |moebius| ((|IncidenceAlgebra| (|Integer|) |#2|) |#1|))
+ (SIGNATURE |isAntisymmetric?| ((|Boolean|) |#1|))
+ (SIGNATURE |completeTransitivity| (|#1| |#1|))
+ (SIGNATURE |completeReflexivity| (|#1| |#1|))
+ (SIGNATURE |objectToIndex| ((|NonNegativeInteger|) |#1| |#2|))
+ (SIGNATURE |indexToObject| (|#2| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |lub|
+  ((|Union| (|NonNegativeInteger|) "failed") |#1|
+   (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |glb|
+  ((|Union| (|NonNegativeInteger|) "failed") |#1|
+   (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |joinIfCan|
+  ((|Union| (|NonNegativeInteger|) "failed") |#1|
+   (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |meetIfCan|
+  ((|Union| (|NonNegativeInteger|) "failed") |#1|
+   (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |joinIfCan|
+  ((|Union| (|NonNegativeInteger|) "failed") |#1| (|NonNegativeInteger|)
+   (|NonNegativeInteger|)))
+ (SIGNATURE |meetIfCan|
+  ((|Union| (|NonNegativeInteger|) "failed") |#1| (|NonNegativeInteger|)
+   (|NonNegativeInteger|)))
+ (SIGNATURE |implies|
+  ((|Boolean|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |opposite| (|#1| |#1|))
+ (SIGNATURE |addArrow!|
+  (|#1| |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |le|
+  ((|Boolean|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |mapContra|
+  (|#1| |#1| (|List| (|NonNegativeInteger|)) (|List| |#2|) (|Integer|)
+   (|Integer|)))
+ (SIGNATURE |map|
+  (|#1| |#1| (|List| (|NonNegativeInteger|)) (|List| |#2|) (|Integer|)
+   (|Integer|)))
+ (SIGNATURE |looseEquals| ((|Boolean|) |#1| |#1|))
+ (SIGNATURE |createY|
+  ((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |createX|
+  ((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |createWidth| ((|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |isDirected?| ((|Boolean|))) (SIGNATURE |merge| (|#1| |#1| |#1|))
+ (SIGNATURE |distance|
+  ((|Integer|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |routeArrows|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)
+   (|NonNegativeInteger|)))
+ (SIGNATURE |routeNodes|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)
+   (|NonNegativeInteger|)))
+ (SIGNATURE |arrowsToArrow|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |arrowsFromArrow|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |nodeToArrow|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |nodeFromArrow|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |arrowsToNode|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |arrowsFromNode|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |nodeToNode|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |nodeFromNode|
+  ((|List| (|NonNegativeInteger|)) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |outDegree| ((|NonNegativeInteger|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |inDegree| ((|NonNegativeInteger|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |getArrowIndex|
+  ((|NonNegativeInteger|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |arrowName|
+  ((|String|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |isFixPoint?| ((|Boolean|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |min|
+  ((|NonNegativeInteger|) |#1| (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |min| ((|NonNegativeInteger|) |#1|))
+ (SIGNATURE |max|
+  ((|NonNegativeInteger|) |#1| (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |max| ((|NonNegativeInteger|) |#1|))
+ (SIGNATURE |isGreaterThan?|
+  ((|Boolean|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |isDirectSuccessor?|
+  ((|Boolean|) |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |kgraph| (|#1| (|List| |#2|) (|String|)))
+ (SIGNATURE |unit| (|#1| (|List| |#2|) (|String|)))
+ (SIGNATURE |cycleClosed| (|#1| (|List| |#2|) (|String|)))
+ (SIGNATURE |cycleOpen| (|#1| (|List| |#2|) (|String|)))
+ (SIGNATURE |terminal| (|#1| |#2|)) (SIGNATURE |initial| (|#1|))
+ (SIGNATURE |flatten| (|#1| (|DirectedGraph| |#1|)))
+ (SIGNATURE |getArrows|
+  ((|List|
+    (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+              (|:| |fromOb| (|NonNegativeInteger|))
+              (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+              (|:| |yOffset| (|Integer|))
+              (|:| |map| (|List| (|NonNegativeInteger|)))))
+   |#1|))
+ (SIGNATURE |getVertices|
+  ((|List|
+    (|Record| (|:| |value| |#2|) (|:| |posX| (|NonNegativeInteger|))
+              (|:| |posY| (|NonNegativeInteger|))))
+   |#1|))
+ (SIGNATURE |addArrow!| (|#1| |#1| (|String|) |#2| |#2|))
+ (SIGNATURE |addArrow!|
+  (|#1| |#1| (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)
+   (|List| (|NonNegativeInteger|))))
+ (SIGNATURE |addArrow!|
+  (|#1| |#1| (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |addArrow!|
+  (|#1| |#1|
+   (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+             (|:| |fromOb| (|NonNegativeInteger|))
+             (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+             (|:| |yOffset| (|Integer|))
+             (|:| |map| (|List| (|NonNegativeInteger|))))))
+ (SIGNATURE |addObject!|
+  (|#1| |#1|
+   (|Record| (|:| |value| |#2|) (|:| |posX| (|NonNegativeInteger|))
+             (|:| |posY| (|NonNegativeInteger|)))))
+ (SIGNATURE |addObject!| (|#1| |#1| |#2|))
+ (SIGNATURE |hash| ((|SingleInteger|) |#1|))
+ (SIGNATURE |coerce| ((|OutputForm|) |#1|))
+ (SIGNATURE = ((|Boolean|) |#1| |#1|)) (SIGNATURE ~= ((|Boolean|) |#1| |#1|)))
+"/git/fricas/src/algebra/POSET.spad"
+((|isDirected?| (*1 *2)
+  (AND (|ofCategory| *4 (|SetCategory|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|Poset&| *3 *4)) (|ofCategory| *3 (|Poset| *4))))
+ (|createWidth| (*1 *2 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|)) (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|Poset&| *3 *4)) (|ofCategory| *3 (|Poset| *4))))
+ (|createX| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|)) (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|Poset&| *3 *4)) (|ofCategory| *3 (|Poset| *4))))
+ (|createY| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|)) (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|Poset&| *3 *4)) (|ofCategory| *3 (|Poset| *4)))))
+((~= (((|Boolean|) $ $) 147))
+ (|zetaMatrix| (((|IncidenceAlgebra| (|Integer|) |#2|) $) 124))
+ (|unit| (($ (|List| |#2|) (|String|)) 55)) (|terminal| (($ |#2|) 52))
+ (|routeNodes|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   80))
+ (|routeArrows|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   81))
+ (|outDegree| (((|NonNegativeInteger|) $ (|NonNegativeInteger|)) 71))
+ (|opposite| (($ $) 91))
+ (|objectToIndex| (((|NonNegativeInteger|) $ |#2|) 111))
+ (|nodeToNode| (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 73))
+ (|nodeToArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 77))
+ (|nodeFromNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 72))
+ (|nodeFromArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 76))
+ (|moebius| (((|IncidenceAlgebra| (|Integer|) |#2|) $) 132))
+ (|min| (((|NonNegativeInteger|) $) 65)
+  (((|NonNegativeInteger|) $ (|List| (|NonNegativeInteger|))) 66))
+ (|merge| (($ $ $) 83))
+ (|meetIfCan|
+  (((|Union| (|NonNegativeInteger|) "failed") $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   97)
+  (((|Union| (|NonNegativeInteger|) "failed") $
+    (|List| (|NonNegativeInteger|)))
+   98))
+ (|max| (((|NonNegativeInteger|) $) 62)
+  (((|NonNegativeInteger|) $ (|List| (|NonNegativeInteger|))) 63))
+ (|mapContra|
+  (($ $ (|List| (|NonNegativeInteger|)) (|List| |#2|) (|Integer|) (|Integer|))
+   90))
+ (|map|
+  (($ $ (|List| (|NonNegativeInteger|)) (|List| |#2|) (|Integer|) (|Integer|))
+   89))
+ (|lub|
+  (((|Union| (|NonNegativeInteger|) "failed") $
+    (|List| (|NonNegativeInteger|)))
+   107))
+ (|looseEquals| (((|Boolean|) $ $) 88))
+ (|le| (((|Boolean|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 30))
+ (|kgraph| (($ (|List| |#2|) (|String|)) 56))
+ (|joinIfCan|
+  (((|Union| (|NonNegativeInteger|) "failed") $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   95)
+  (((|Union| (|NonNegativeInteger|) "failed") $
+    (|List| (|NonNegativeInteger|)))
+   99))
+ (|isGreaterThan?|
+  (((|Boolean|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 58))
+ (|isFixPoint?| (((|Boolean|) $ (|NonNegativeInteger|)) 67))
+ (|isDirected?| (((|Boolean|)) 84))
+ (|isDirectSuccessor?|
+  (((|Boolean|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 57))
+ (|isAntisymmetric?| (((|Boolean|) $) 115)) (|initial| (($) 51))
+ (|indexToObject| ((|#2| $ (|NonNegativeInteger|)) 109))
+ (|inDegree| (((|NonNegativeInteger|) $ (|NonNegativeInteger|)) 70))
+ (|implies| (((|Boolean|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 92))
+ (|hash| (((|SingleInteger|) $) 142))
+ (|glb|
+  (((|Union| (|NonNegativeInteger|) "failed") $
+    (|List| (|NonNegativeInteger|)))
+   106))
+ (|getVertices|
+  (((|List|
+     (|Record| (|:| |value| |#2|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|))))
+    $)
+   44))
+ (|getArrows|
+  (((|List|
+     (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+               (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+               (|:| |yOffset| (|Integer|))
+               (|:| |map| (|List| (|NonNegativeInteger|)))))
+    $)
+   48))
+ (|getArrowIndex|
+  (((|NonNegativeInteger|) $ (|NonNegativeInteger|) (|NonNegativeInteger|))
+   69))
+ (|flatten| (($ (|DirectedGraph| $)) 50))
+ (|distance|
+  (((|Integer|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 82))
+ (|cycleOpen| (($ (|List| |#2|) (|String|)) 53))
+ (|cycleClosed| (($ (|List| |#2|) (|String|)) 54))
+ (|createY|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)) 87))
+ (|createX|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)) 86))
+ (|createWidth| (((|NonNegativeInteger|) (|NonNegativeInteger|)) 85))
+ (|coverMatrix| (((|IncidenceAlgebra| (|Integer|) |#2|) $) 140))
+ (|completeTransitivity| (($ $) 114)) (|completeReflexivity| (($ $) 113))
+ (|coerce| (((|OutputForm|) $) 161))
+ (|arrowsToNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 75))
+ (|arrowsToArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 79))
+ (|arrowsFromNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 74))
+ (|arrowsFromArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 78))
+ (|arrowName|
+  (((|String|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 68))
+ (|addObject!| (($ $ |#2|) 23)
+  (($ $
+    (|Record| (|:| |value| |#2|) (|:| |posX| (|NonNegativeInteger|))
+              (|:| |posY| (|NonNegativeInteger|))))
+   37))
+ (|addArrow!|
+  (($ $
+    (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+              (|:| |fromOb| (|NonNegativeInteger|))
+              (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+              (|:| |yOffset| (|Integer|))
+              (|:| |map| (|List| (|NonNegativeInteger|)))))
+   NIL)
+  (($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)) 39)
+  (($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|List| (|NonNegativeInteger|)))
+   42)
+  (($ $ (|String|) |#2| |#2|) NIL)
+  (($ $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 28))
+ (= (((|Boolean|) $ $) 145)))
+POSET-
+((|constructor|
+  (NIL
+   "holds a complete set together with a structure to codify \\indented{2}{the partial order.} \\indented{2}{for more documentation see:} \\indented{2}{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.\\spad{htm}} Date Created: Aug 2015 Basic Operations: Related packages: UserDefinedPartialOrdering in setorder.spad Related categories: PartialOrder in catdef.spad Related Domains: DirectedGraph in graph.spad Also See: AMS Classifications:"))
+ (|coverMatrix|
+  (((|IncidenceAlgebra| (|Integer|) |#2|) $)
+   "the covering matrix of a list of elements from a comparison function the list is assumed to be topologically sorted,{} \\spadignore{i.e.} \\spad{w}.\\spad{r}. to a linear extension of the comparison function \\spad{f} This function is based on code by Franz Lehner. Notes by Martin Baker on the webpage here: \\url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/moebius/}"))
+ (|zetaMatrix|
+  (((|IncidenceAlgebra| (|Integer|) |#2|) $)
+   "\\spad{zetaMatrix(P)} returns the matrix of the zeta function This function is based on code by Franz Lehner. Notes by Martin Baker on the webpage here: \\url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/moebius/}"))
+ (|moebius|
+  (((|IncidenceAlgebra| (|Integer|) |#2|) $)
+   "\\spad{moebius incidence} matrix for this poset This function is based on code by Franz Lehner. Notes by Martin Baker on the webpage here: \\url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/moebius/}"))
+ (|isAntiChain?|
+  (((|Boolean|) $)
+   "is a subset of a partially ordered set such that any two elements in the subset are incomparable"))
+ (|isChain?|
+  (((|Boolean|) $)
+   "is a subset of a partially ordered set such that any two elements in the subset are comparable"))
+ (|isAntisymmetric?|
+  (((|Boolean|) $)
+   "Antisymmetric requires forall(\\spad{x},{} \\spad{y}): x<=y and y<=x iff x=y Returns \\spad{true} if this is the case for every element."))
+ (|completeTransitivity|
+  (($ $)
+   "Transitivity requires forall(\\spad{x},{} \\spad{y},{} \\spad{z}): x<=y and y<=z implies x<=z This function enforces this by making sure that the composition of any two arrows is also an arrow."))
+ (|completeReflexivity|
+  (($ $)
+   "Reflexivity requires forall(\\spad{x}): x<=x This function enforces this by making sure that every element has arrow to itself. That is,{} the leading diagonal is \\spad{true}."))
+ (|objectToIndex|
+  (((|NonNegativeInteger|) $ |#2|) "returns the index of a given object"))
+ (|indexToObject|
+  ((|#2| $ (|NonNegativeInteger|)) "returns the object at a given index"))
+ (|lowerSet|
+  (($ $)
+   "a subset \\spad{U} with the property that,{} if \\spad{x} is in \\spad{U} and \\spad{x} \\spad{>=} \\spad{y},{} then \\spad{y} is in \\spad{U}"))
+ (|upperSet|
+  (($ $)
+   "a subset \\spad{U} with the property that,{} if \\spad{x} is in \\spad{U} and \\spad{x} \\spad{<=} \\spad{y},{} then \\spad{y} is in \\spad{U}"))
+ (|lub|
+  (((|Union| (|NonNegativeInteger|) "failed") $
+    (|List| (|NonNegativeInteger|)))
+   "'least upper bound' or 'supremum' In this version of lub nodes are represented as index values. Not every subset of a poset will have a lub in which case \"failed\" will be returned as an error indication."))
+ (|glb|
+  (((|Union| (|NonNegativeInteger|) "failed") $
+    (|List| (|NonNegativeInteger|)))
+   "'greatest lower bound' or 'infimum' In this version of \\spad{glb} nodes are represented as index values. Not every subset of a poset will have a \\spad{glb} in which case \"failed\" will be returned as an error indication."))
+ (|joinIfCan|
+  (((|Union| (|NonNegativeInteger|) "failed") $
+    (|List| (|NonNegativeInteger|)))
+   "returns the join of a subset of lattice given by list of elements")
+  (((|Union| (|NonNegativeInteger|) "failed") $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   "returns the join of 'a' and \\spad{'b'} In this version of join nodes are represented as index values. In the general case,{} not every poset will have a join in which case \"failed\" will be returned as an error indication."))
+ (|meetIfCan|
+  (((|Union| (|NonNegativeInteger|) "failed") $
+    (|List| (|NonNegativeInteger|)))
+   "returns the meet of a subset of lattice given by list of elements")
+  (((|Union| (|NonNegativeInteger|) "failed") $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   "returns the meet of 'a' and \\spad{'b'} In this version of meet nodes are represented as index values. In the general case,{} not every poset will have a meet in which case \"failed\" will be returned as an error indication."))
+ (|powerSetStructure|
+  (($ |#2|)
+   "\\spad{powerSetStructure(set)} is a constructor for a Poset where each element is a \\spad{set} (implemented as a list) and with a subset structure. requires \\spad{S} to be a list."))
+ (|opposite|
+  (($ $)
+   "constructs the opposite in the category theory sense of reversing all the arrows"))
+ (|addArrow!|
+  (($ $ (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{addArrow!(s,{} nm,{} n1,{} n2)} adds an arrow to the graph \\spad{s},{} where: \\spad{n1} is the index of the start object \\spad{n2} is the index of the end object This is done in a non-mutable way,{} that is,{} the original poset is not changed instead a new one is constructed."))
+ (|addObject!|
+  (($ $ |#2|)
+   "\\spad{addObject!(s,{} n)} adds object with coordinates \\spad{n} to the graph \\spad{s}. This is done in a non-mutable way,{} that is,{} the original poset is not changed instead a new one is constructed."))
+ (|setArr|
+  (((|Void|) $ (|List| (|List| (|Boolean|))))
+   "sets the list of all arrows (or edges)"))
+ (|setVert|
+  (((|Void|) $ (|List| |#2|)) "sets the list of all vertices (or objects)"))
+ (|getArr|
+  (((|List| (|List| (|Boolean|))) $)
+   "\\spad{getArr(s)} returns a list of all the arrows (or edges) Note: different from getArrows(\\spad{s}) which is inherited from FiniteGraph(\\spad{S})"))
+ (|getVert|
+  (((|List| |#2|) $)
+   "\\spad{getVert(s)} returns a list of all the vertices (or objects) of the graph \\spad{s}. Note: different from getVertices(\\spad{s}) which is inherited from FiniteGraph(\\spad{S})"))
+ (|finitePoset|
+  (($ (|List| |#2|) (|Mapping| (|Boolean|) |#2| |#2|))
+   "constructor where the set and structure is supplied. The structure is supplied as a predicate function.")
+  (($ (|List| |#2|) (|List| (|List| (|Boolean|))))
+   "constructor where the set and structure is supplied.")))
+(("documentation" 0 18193) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 18186) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 12926) ("modemaps" 0 12221) ("sourceFile" 0 12184)
+ ("constructorCategory" 0 6282) ("constructorModemap" 0 44)
+ ("constructorKind" 0 35) ("constructorForm" 0 20))

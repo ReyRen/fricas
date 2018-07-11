@@ -1,0 +1,93 @@
+5555                (MAKEPROP '|DrawComplex| 'NILADIC T)
+(|DrawComplex|)
+|package|
+(((|DrawComplex|)
+  (CATEGORY |package|
+   (SIGNATURE |drawComplex|
+    ((|ThreeDimensionalViewport|)
+     (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|)))
+     (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|)) (|Boolean|)))
+   (SIGNATURE |drawComplexVectorField|
+    ((|ThreeDimensionalViewport|)
+     (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|)))
+     (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))))
+   (SIGNATURE |setRealSteps| ((|Integer|) (|Integer|)))
+   (SIGNATURE |setImagSteps| ((|Integer|) (|Integer|)))
+   (SIGNATURE |setClipValue| ((|DoubleFloat|) (|DoubleFloat|)))))
+ (T |DrawComplex|))
+(CATEGORY |package|
+ (SIGNATURE |drawComplex|
+  ((|ThreeDimensionalViewport|)
+   (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|)))
+   (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|)) (|Boolean|)))
+ (SIGNATURE |drawComplexVectorField|
+  ((|ThreeDimensionalViewport|)
+   (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|)))
+   (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|))))
+ (SIGNATURE |setRealSteps| ((|Integer|) (|Integer|)))
+ (SIGNATURE |setImagSteps| ((|Integer|) (|Integer|)))
+ (SIGNATURE |setClipValue| ((|DoubleFloat|) (|DoubleFloat|))))
+"/git/fricas/src/algebra/DRAWCX.spad"
+((|setClipValue| (*1 *2 *2)
+  (AND (|isDomain| *2 (|DoubleFloat|)) (|isDomain| *1 (|DrawComplex|))))
+ (|setImagSteps| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|DrawComplex|))))
+ (|setRealSteps| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|DrawComplex|))))
+ (|drawComplexVectorField| (*1 *2 *3 *4 *4)
+  (AND
+   (|isDomain| *3
+               (|Mapping| (|Complex| (|DoubleFloat|))
+                          (|Complex| (|DoubleFloat|))))
+   (|isDomain| *4 (|Segment| (|DoubleFloat|)))
+   (|isDomain| *2 (|ThreeDimensionalViewport|))
+   (|isDomain| *1 (|DrawComplex|))))
+ (|drawComplex| (*1 *2 *3 *4 *4 *5)
+  (AND
+   (|isDomain| *3
+               (|Mapping| (|Complex| (|DoubleFloat|))
+                          (|Complex| (|DoubleFloat|))))
+   (|isDomain| *4 (|Segment| (|DoubleFloat|))) (|isDomain| *5 (|Boolean|))
+   (|isDomain| *2 (|ThreeDimensionalViewport|))
+   (|isDomain| *1 (|DrawComplex|)))))
+((|setRealSteps| (((|Integer|) (|Integer|)) 48))
+ (|setImagSteps| (((|Integer|) (|Integer|)) 49))
+ (|setClipValue| (((|DoubleFloat|) (|DoubleFloat|)) 50))
+ (|drawComplexVectorField|
+  (((|ThreeDimensionalViewport|)
+    (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|)))
+   47))
+ (|drawComplex|
+  (((|ThreeDimensionalViewport|)
+    (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|)) (|Boolean|))
+   45)))
+DRAWCX
+((|constructor|
+  (NIL
+   "\\spadtype{DrawComplex} provides some facilities for drawing complex functions."))
+ (|setClipValue|
+  (((|DoubleFloat|) (|DoubleFloat|))
+   "\\spad{setClipValue(x)} sets to \\spad{x} the maximum value to plot when drawing complex functions. Returns \\spad{x}."))
+ (|setImagSteps|
+  (((|Integer|) (|Integer|))
+   "\\spad{setImagSteps(i)} sets to \\spad{i} the number of steps to use in the imaginary direction when drawing complex functions. Returns \\spad{i}."))
+ (|setRealSteps|
+  (((|Integer|) (|Integer|))
+   "\\spad{setRealSteps(i)} sets to \\spad{i} the number of steps to use in the real direction when drawing complex functions. Returns \\spad{i}."))
+ (|drawComplexVectorField|
+  (((|ThreeDimensionalViewport|)
+    (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|)))
+   "\\spad{drawComplexVectorField(f,{} rRange,{} iRange)} draws a complex vector field using arrows on the \\spad{x--y} plane. These vector fields should be viewed from the top by pressing the \"XY\" translate button on the 3-\\spad{d} viewport control panel.\\newline Sample call: \\indented{3}{\\spad{f z == sin z}} \\indented{3}{\\spad{drawComplexVectorField(f,{} -2..2,{} -2..2)}} Parameter descriptions: \\indented{2}{\\spad{f} : the function to draw} \\indented{2}{\\spad{rRange} : the range of the real values} \\indented{2}{iRange : the range of the imaginary values} Call the functions \\spadfunFrom{setRealSteps}{DrawComplex} and \\spadfunFrom{setImagSteps}{DrawComplex} to change the number of steps used in each direction."))
+ (|drawComplex|
+  (((|ThreeDimensionalViewport|)
+    (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|)))
+    (|Segment| (|DoubleFloat|)) (|Segment| (|DoubleFloat|)) (|Boolean|))
+   "\\spad{drawComplex(f,{} rRange,{} iRange,{} arrows?)} draws a complex function as a height field. It uses the complex norm as the height and the complex argument as the color. It will optionally draw arrows on the surface indicating the direction of the complex value.\\newline Sample call: \\indented{2}{\\spad{f z == exp(1/z)}} \\indented{2}{\\spad{drawComplex(f,{} 0.3..3,{} 0..2*\\%\\spad{pi},{} false)}} Parameter descriptions: \\indented{2}{\\spad{f:}\\space{2}the function to draw} \\indented{2}{\\spad{rRange} : the range of the real values} \\indented{2}{\\spad{iRange} : the range of imaginary values} \\indented{2}{arrows? : a flag indicating whether to draw the phase arrows for \\spad{f}} Call the functions \\spadfunFrom{setRealSteps}{DrawComplex} and \\spadfunFrom{setImagSteps}{DrawComplex} to change the number of steps used in each direction.")))
+(("documentation" 0 2876) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2869) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2310) ("modemaps" 0 1372) ("sourceFile" 0 1334)
+ ("constructorCategory" 0 740) ("constructorModemap" 0 83)
+ ("constructorKind" 0 73) ("constructorForm" 0 57) ("NILADIC" 0 20))

@@ -1,0 +1,64 @@
+3785                (|ODETools| F LODO)
+|package|
+(((|ODETools| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |wronskianMatrix| ((|Matrix| |#1|) (|List| |#1|)))
+   (SIGNATURE |wronskianMatrix|
+    ((|Matrix| |#1|) (|List| |#1|) (|NonNegativeInteger|)))
+   (SIGNATURE |variationOfParameters|
+    ((|Union| (|Vector| |#1|) "failed") |#2| |#1| (|List| |#1|)))
+   (SIGNATURE |particularSolution|
+    ((|Union| |#1| "failed") |#2| |#1| (|List| |#1|) (|Mapping| |#1| |#1|))))
+  (|Field|) (|LinearOrdinaryDifferentialOperatorCategory| |#1|))
+ (T |ODETools|))
+(CATEGORY |package|
+ (SIGNATURE |wronskianMatrix| ((|Matrix| |#1|) (|List| |#1|)))
+ (SIGNATURE |wronskianMatrix|
+  ((|Matrix| |#1|) (|List| |#1|) (|NonNegativeInteger|)))
+ (SIGNATURE |variationOfParameters|
+  ((|Union| (|Vector| |#1|) "failed") |#2| |#1| (|List| |#1|)))
+ (SIGNATURE |particularSolution|
+  ((|Union| |#1| "failed") |#2| |#1| (|List| |#1|) (|Mapping| |#1| |#1|))))
+"/git/fricas/src/algebra/ODETOOLS.spad"
+((|particularSolution| (*1 *2 *3 *2 *4 *5)
+  (|partial| AND (|isDomain| *4 (|List| *2)) (|isDomain| *5 (|Mapping| *2 *2))
+   (|ofCategory| *2 (|Field|)) (|isDomain| *1 (|ODETools| *2 *3))
+   (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *2))))
+ (|variationOfParameters| (*1 *2 *3 *4 *5)
+  (|partial| AND (|isDomain| *5 (|List| *4)) (|ofCategory| *4 (|Field|))
+   (|isDomain| *2 (|Vector| *4)) (|isDomain| *1 (|ODETools| *4 *3))
+   (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *4))))
+ (|wronskianMatrix| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|NonNegativeInteger|))
+       (|ofCategory| *5 (|Field|)) (|isDomain| *2 (|Matrix| *5))
+       (|isDomain| *1 (|ODETools| *5 *6))
+       (|ofCategory| *6 (|LinearOrdinaryDifferentialOperatorCategory| *5))))
+ (|wronskianMatrix| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4)) (|ofCategory| *4 (|Field|))
+       (|isDomain| *2 (|Matrix| *4)) (|isDomain| *1 (|ODETools| *4 *5))
+       (|ofCategory| *5 (|LinearOrdinaryDifferentialOperatorCategory| *4)))))
+((|wronskianMatrix| (((|Matrix| |#1|) (|List| |#1|) (|NonNegativeInteger|)) 13)
+  (((|Matrix| |#1|) (|List| |#1|)) 14))
+ (|variationOfParameters|
+  (((|Union| (|Vector| |#1|) "failed") |#2| |#1| (|List| |#1|)) 31))
+ (|particularSolution|
+  (((|Union| |#1| "failed") |#2| |#1| (|List| |#1|) (|Mapping| |#1| |#1|)) 38)))
+ODETOOLS
+((|constructor|
+  (NIL "\\spad{ODETools} provides tools for the linear ODE solver."))
+ (|particularSolution|
+  (((|Union| |#1| "failed") |#2| |#1| (|List| |#1|) (|Mapping| |#1| |#1|))
+   "\\spad{particularSolution(op,{} g,{} [f1,{} ...,{} fm],{} I)} returns a particular solution \\spad{h} of the equation \\spad{op y = g} where \\spad{[f1,{} ...,{} fm]} are linearly independent and \\spad{op(\\spad{fi})=0}. The value \"failed\" is returned if no particular solution is found. Note: the method of variations of parameters is used."))
+ (|variationOfParameters|
+  (((|Union| (|Vector| |#1|) "failed") |#2| |#1| (|List| |#1|))
+   "\\spad{variationOfParameters(op,{} g,{} [f1,{} ...,{} fm])} returns \\spad{[u1,{} ...,{} um]} such that a particular solution of the equation \\spad{op y = g} is \\spad{f1 int(u1) + ... + fm int(um)} where \\spad{[f1,{} ...,{} fm]} are linearly independent and \\spad{op(\\spad{fi})=0}. The value \"failed\" is returned if \\spad{m < n} and no particular solution is found."))
+ (|wronskianMatrix|
+  (((|Matrix| |#1|) (|List| |#1|) (|NonNegativeInteger|))
+   "\\spad{wronskianMatrix([f1,{} ...,{} fn],{} q,{} D)} returns the \\spad{q x n} matrix \\spad{m} whose i^th row is \\spad{[f1^(i-1),{} ...,{} fn^(i-1)]}.")
+  (((|Matrix| |#1|) (|List| |#1|))
+   "\\spad{wronskianMatrix([f1,{} ...,{} fn])} returns the \\spad{n x n} matrix \\spad{m} whose i^th row is \\spad{[f1^(i-1),{} ...,{} fn^(i-1)]}.")))
+(("documentation" 0 2355) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2346) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2027) ("modemaps" 0 973) ("sourceFile" 0 933)
+ ("constructorCategory" 0 553) ("constructorModemap" 0 50)
+ ("constructorKind" 0 40) ("constructorForm" 0 20))

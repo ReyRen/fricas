@@ -1,0 +1,229 @@
+10591               (|PointsOfFiniteOrder| R0 F UP UPUP R)
+|package|
+(((|PointsOfFiniteOrder| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package|
+   (SIGNATURE |order|
+    ((|Union| (|NonNegativeInteger|) "failed")
+     (|FiniteDivisor| |#2| |#3| |#4| |#5|)))
+   (SIGNATURE |torsion?| ((|Boolean|) (|FiniteDivisor| |#2| |#3| |#4| |#5|)))
+   (SIGNATURE |torsionIfCan|
+    ((|Union|
+      (|Record| (|:| |order| (|NonNegativeInteger|)) (|:| |function| |#5|))
+      "failed")
+     (|FiniteDivisor| |#2| |#3| |#4| |#5|)))
+   (SIGNATURE |cmult|
+    ((|SparseMultivariatePolynomial| |#1| (|Kernel| |#2|))
+     (|List| (|SparseMultivariatePolynomial| |#1| (|Kernel| |#2|)))))
+   (SIGNATURE |possibleOrder|
+    ((|NonNegativeInteger|) (|FiniteDivisor| |#2| |#3| |#4| |#5|)))
+   (SIGNATURE |handle_imaginary|
+    ((|Record| (|:| |ncurve| |#4|) (|:| |n_div_numer| (|Vector| |#4|))
+               (|:| |n_div_denom| |#4|) (|:| |need_change| (|Boolean|)))
+     (|FiniteDivisor| |#2| |#3| |#4| |#5|)))
+   (IF (|has| |#1| (|CharacteristicZero|))
+       (IF (|has| |#2| (|AlgebraicallyClosedField|))
+           (SIGNATURE |simplifyCoeffs|
+            ((|NonNegativeInteger|)
+             (|Record| (|:| |ncurve| |#4|) (|:| |n_div_numer| (|Vector| |#4|))
+                       (|:| |n_div_denom| |#4|)
+                       (|:| |need_change| (|Boolean|)))
+             (|List| (|Kernel| |#2|))))
+           |noBranch|)
+       |noBranch|))
+  (|Join| (|Comparable|) (|IntegralDomain|) (|RetractableTo| (|Integer|)))
+  (|FunctionSpace| |#1|) (|UnivariatePolynomialCategory| |#2|)
+  (|UnivariatePolynomialCategory| (|Fraction| |#3|))
+  (|FunctionFieldCategory| |#2| |#3| |#4|))
+ (T |PointsOfFiniteOrder|))
+(CATEGORY |package|
+ (SIGNATURE |order|
+  ((|Union| (|NonNegativeInteger|) "failed")
+   (|FiniteDivisor| |#2| |#3| |#4| |#5|)))
+ (SIGNATURE |torsion?| ((|Boolean|) (|FiniteDivisor| |#2| |#3| |#4| |#5|)))
+ (SIGNATURE |torsionIfCan|
+  ((|Union|
+    (|Record| (|:| |order| (|NonNegativeInteger|)) (|:| |function| |#5|))
+    "failed")
+   (|FiniteDivisor| |#2| |#3| |#4| |#5|)))
+ (SIGNATURE |cmult|
+  ((|SparseMultivariatePolynomial| |#1| (|Kernel| |#2|))
+   (|List| (|SparseMultivariatePolynomial| |#1| (|Kernel| |#2|)))))
+ (SIGNATURE |possibleOrder|
+  ((|NonNegativeInteger|) (|FiniteDivisor| |#2| |#3| |#4| |#5|)))
+ (SIGNATURE |handle_imaginary|
+  ((|Record| (|:| |ncurve| |#4|) (|:| |n_div_numer| (|Vector| |#4|))
+             (|:| |n_div_denom| |#4|) (|:| |need_change| (|Boolean|)))
+   (|FiniteDivisor| |#2| |#3| |#4| |#5|)))
+ (IF (|has| |#1| (|CharacteristicZero|))
+     (IF (|has| |#2| (|AlgebraicallyClosedField|))
+         (SIGNATURE |simplifyCoeffs|
+          ((|NonNegativeInteger|)
+           (|Record| (|:| |ncurve| |#4|) (|:| |n_div_numer| (|Vector| |#4|))
+                     (|:| |n_div_denom| |#4|) (|:| |need_change| (|Boolean|)))
+           (|List| (|Kernel| |#2|))))
+         |noBranch|)
+     |noBranch|))
+"/git/fricas/src/algebra/PFO.spad"
+((|simplifyCoeffs| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|Record| (|:| |ncurve| *8) (|:| |n_div_numer| (|Vector| *8))
+                         (|:| |n_div_denom| *8)
+                         (|:| |need_change| (|Boolean|))))
+   (|isDomain| *4 (|List| (|Kernel| *6)))
+   (|ofCategory| *6 (|AlgebraicallyClosedField|))
+   (|ofCategory| *6 (|FunctionSpace| *5))
+   (|ofCategory| *8 (|UnivariatePolynomialCategory| (|Fraction| *7)))
+   (|ofCategory| *5 (|CharacteristicZero|))
+   (|ofCategory| *5
+                 (|Join| (|Comparable|) (|IntegralDomain|)
+                         (|RetractableTo| (|Integer|))))
+   (|ofCategory| *7 (|UnivariatePolynomialCategory| *6))
+   (|isDomain| *2 (|NonNegativeInteger|))
+   (|isDomain| *1 (|PointsOfFiniteOrder| *5 *6 *7 *8 *9))
+   (|ofCategory| *9 (|FunctionFieldCategory| *6 *7 *8))))
+ (|handle_imaginary| (*1 *2 *3)
+  (AND (|isDomain| *3 (|FiniteDivisor| *5 *6 *7 *8))
+       (|ofCategory| *5 (|FunctionSpace| *4))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| (|Fraction| *6)))
+       (|ofCategory| *8 (|FunctionFieldCategory| *5 *6 *7))
+       (|ofCategory| *4
+                     (|Join| (|Comparable|) (|IntegralDomain|)
+                             (|RetractableTo| (|Integer|))))
+       (|isDomain| *2
+                   (|Record| (|:| |ncurve| *7)
+                             (|:| |n_div_numer| (|Vector| *7))
+                             (|:| |n_div_denom| *7)
+                             (|:| |need_change| (|Boolean|))))
+       (|isDomain| *1 (|PointsOfFiniteOrder| *4 *5 *6 *7 *8))))
+ (|possibleOrder| (*1 *2 *3)
+  (AND (|isDomain| *3 (|FiniteDivisor| *5 *6 *7 *8))
+       (|ofCategory| *5 (|FunctionSpace| *4))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| (|Fraction| *6)))
+       (|ofCategory| *8 (|FunctionFieldCategory| *5 *6 *7))
+       (|ofCategory| *4
+                     (|Join| (|Comparable|) (|IntegralDomain|)
+                             (|RetractableTo| (|Integer|))))
+       (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|PointsOfFiniteOrder| *4 *5 *6 *7 *8))))
+ (|cmult| (*1 *2 *3)
+  (AND
+   (|isDomain| *3 (|List| (|SparseMultivariatePolynomial| *4 (|Kernel| *5))))
+   (|ofCategory| *4
+                 (|Join| (|Comparable|) (|IntegralDomain|)
+                         (|RetractableTo| (|Integer|))))
+   (|ofCategory| *5 (|FunctionSpace| *4))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+   (|ofCategory| *7 (|UnivariatePolynomialCategory| (|Fraction| *6)))
+   (|isDomain| *2 (|SparseMultivariatePolynomial| *4 (|Kernel| *5)))
+   (|isDomain| *1 (|PointsOfFiniteOrder| *4 *5 *6 *7 *8))
+   (|ofCategory| *8 (|FunctionFieldCategory| *5 *6 *7))))
+ (|torsionIfCan| (*1 *2 *3)
+  (|partial| AND (|isDomain| *3 (|FiniteDivisor| *5 *6 *7 *8))
+   (|ofCategory| *5 (|FunctionSpace| *4))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+   (|ofCategory| *7 (|UnivariatePolynomialCategory| (|Fraction| *6)))
+   (|ofCategory| *8 (|FunctionFieldCategory| *5 *6 *7))
+   (|ofCategory| *4
+                 (|Join| (|Comparable|) (|IntegralDomain|)
+                         (|RetractableTo| (|Integer|))))
+   (|isDomain| *2
+               (|Record| (|:| |order| (|NonNegativeInteger|))
+                         (|:| |function| *8)))
+   (|isDomain| *1 (|PointsOfFiniteOrder| *4 *5 *6 *7 *8))))
+ (|torsion?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|FiniteDivisor| *5 *6 *7 *8))
+       (|ofCategory| *5 (|FunctionSpace| *4))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| (|Fraction| *6)))
+       (|ofCategory| *8 (|FunctionFieldCategory| *5 *6 *7))
+       (|ofCategory| *4
+                     (|Join| (|Comparable|) (|IntegralDomain|)
+                             (|RetractableTo| (|Integer|))))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|PointsOfFiniteOrder| *4 *5 *6 *7 *8))))
+ (|order| (*1 *2 *3)
+  (|partial| AND (|isDomain| *3 (|FiniteDivisor| *5 *6 *7 *8))
+   (|ofCategory| *5 (|FunctionSpace| *4))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+   (|ofCategory| *7 (|UnivariatePolynomialCategory| (|Fraction| *6)))
+   (|ofCategory| *8 (|FunctionFieldCategory| *5 *6 *7))
+   (|ofCategory| *4
+                 (|Join| (|Comparable|) (|IntegralDomain|)
+                         (|RetractableTo| (|Integer|))))
+   (|isDomain| *2 (|NonNegativeInteger|))
+   (|isDomain| *1 (|PointsOfFiniteOrder| *4 *5 *6 *7 *8)))))
+((|torsionIfCan|
+  (((|Union|
+     (|Record| (|:| |order| (|NonNegativeInteger|)) (|:| |function| |#5|))
+     "failed")
+    (|FiniteDivisor| |#2| |#3| |#4| |#5|))
+   91))
+ (|torsion?| (((|Boolean|) (|FiniteDivisor| |#2| |#3| |#4| |#5|)) 17))
+ (|simplifyCoeffs|
+  (((|NonNegativeInteger|)
+    (|Record| (|:| |ncurve| |#4|) (|:| |n_div_numer| (|Vector| |#4|))
+              (|:| |n_div_denom| |#4|) (|:| |need_change| (|Boolean|)))
+    (|List| (|Kernel| |#2|)))
+   204
+   (AND (|has| |#2| (|AlgebraicallyClosedField|))
+        (|has| |#1| (|CharacteristicZero|)))))
+ (|possibleOrder|
+  (((|NonNegativeInteger|) (|FiniteDivisor| |#2| |#3| |#4| |#5|)) 85))
+ (|order|
+  (((|Union| (|NonNegativeInteger|) "failed")
+    (|FiniteDivisor| |#2| |#3| |#4| |#5|))
+   15))
+ (|handle_imaginary|
+  (((|Record| (|:| |ncurve| |#4|) (|:| |n_div_numer| (|Vector| |#4|))
+              (|:| |n_div_denom| |#4|) (|:| |need_change| (|Boolean|)))
+    (|FiniteDivisor| |#2| |#3| |#4| |#5|))
+   173))
+ (|cmult|
+  (((|SparseMultivariatePolynomial| |#1| (|Kernel| |#2|))
+    (|List| (|SparseMultivariatePolynomial| |#1| (|Kernel| |#2|))))
+   102)))
+((AND (|HasCategory| |#1| '(|CharacteristicZero|))
+      (|HasCategory| |#2| '(|AlgebraicallyClosedField|))))
+PFO
+((|constructor|
+  (NIL
+   "This package provides function for testing whether a divisor on a curve is a torsion divisor."))
+ (|simplifyCoeffs|
+  (((|NonNegativeInteger|)
+    (|Record| (|:| |ncurve| |#4|) (|:| |n_div_numer| (|Vector| |#4|))
+              (|:| |n_div_denom| |#4|) (|:| |need_change| (|Boolean|)))
+    (|List| (|Kernel| |#2|)))
+   "\\spad{simplifyCoeffs(d,{} la)} should be local but conditional."))
+ (|handle_imaginary|
+  (((|Record| (|:| |ncurve| |#4|) (|:| |n_div_numer| (|Vector| |#4|))
+              (|:| |n_div_denom| |#4|) (|:| |need_change| (|Boolean|)))
+    (|FiniteDivisor| |#2| |#3| |#4| |#5|))
+   "\\spad{handle_imaginary(d)} should be local but conditional."))
+ (|possibleOrder|
+  (((|NonNegativeInteger|) (|FiniteDivisor| |#2| |#3| |#4| |#5|))
+   "\\spad{possibleOrder(d)} returns \\spad{n} such that \\spad{d} is of order \\spad{n},{} or of infinite order."))
+ (|cmult|
+  (((|SparseMultivariatePolynomial| |#1| (|Kernel| |#2|))
+    (|List| (|SparseMultivariatePolynomial| |#1| (|Kernel| |#2|))))
+   "\\spad{cmult(x)} should be local but conditional"))
+ (|torsionIfCan|
+  (((|Union|
+     (|Record| (|:| |order| (|NonNegativeInteger|)) (|:| |function| |#5|))
+     "failed")
+    (|FiniteDivisor| |#2| |#3| |#4| |#5|))
+   "\\spad{torsionIfCan(fd)} returns \\spad{[n,{} f]} such that \\spad{n*fd = div(f)} when \\spad{fd} is of finite order. torsionIfCan(\\spad{fd}) returns \\spad{\"failed\"} if \\spad{fd} is not of finite order."))
+ (|torsion?|
+  (((|Boolean|) (|FiniteDivisor| |#2| |#3| |#4| |#5|))
+   "\\spad{torsion?(fd)} returns \\spad{true} if \\spad{fd} is of finite order,{} \\spad{false} otherwise."))
+ (|order|
+  (((|Union| (|NonNegativeInteger|) "failed")
+    (|FiniteDivisor| |#2| |#3| |#4| |#5|))
+   "\\spad{order(fd)} returns order of divisor \\spad{fd} or \\spad{\"failed\"} if \\spad{fd} is not of finite order.")))
+(("documentation" 0 8733) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 8729) ("predicates" 0 8619) ("superDomain" 0 NIL)
+ ("operationAlist" 0 7498) ("modemaps" 0 2943) ("sourceFile" 0 2908)
+ ("constructorCategory" 0 1685) ("constructorModemap" 0 69)
+ ("constructorKind" 0 59) ("constructorForm" 0 20))

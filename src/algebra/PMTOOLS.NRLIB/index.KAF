@@ -1,0 +1,85 @@
+4612                (|PatternMatchTools| S R P)
+|package|
+(((|PatternMatchTools| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |patternMatch|
+    ((|PatternMatchResult| |#1| |#3|) (|List| |#3|) (|List| (|Pattern| |#1|))
+     (|Mapping| |#3| (|List| |#3|)) (|PatternMatchResult| |#1| |#3|)
+     (|Mapping| (|PatternMatchResult| |#1| |#3|) |#3| (|Pattern| |#1|)
+                (|PatternMatchResult| |#1| |#3|))))
+   (SIGNATURE |patternMatchTimes|
+    ((|PatternMatchResult| |#1| |#3|) (|List| |#3|) (|List| (|Pattern| |#1|))
+     (|PatternMatchResult| |#1| |#3|)
+     (|Mapping| (|PatternMatchResult| |#1| |#3|) |#3| (|Pattern| |#1|)
+                (|PatternMatchResult| |#1| |#3|)))))
+  (|SetCategory|) (|Join| (|Comparable|) (|Ring|))
+  (|Join| (|Ring|) (|ConvertibleTo| (|Pattern| |#1|)) (|RetractableTo| |#2|)))
+ (T |PatternMatchTools|))
+(CATEGORY |package|
+ (SIGNATURE |patternMatch|
+  ((|PatternMatchResult| |#1| |#3|) (|List| |#3|) (|List| (|Pattern| |#1|))
+   (|Mapping| |#3| (|List| |#3|)) (|PatternMatchResult| |#1| |#3|)
+   (|Mapping| (|PatternMatchResult| |#1| |#3|) |#3| (|Pattern| |#1|)
+              (|PatternMatchResult| |#1| |#3|))))
+ (SIGNATURE |patternMatchTimes|
+  ((|PatternMatchResult| |#1| |#3|) (|List| |#3|) (|List| (|Pattern| |#1|))
+   (|PatternMatchResult| |#1| |#3|)
+   (|Mapping| (|PatternMatchResult| |#1| |#3|) |#3| (|Pattern| |#1|)
+              (|PatternMatchResult| |#1| |#3|)))))
+"/git/fricas/src/algebra/PMTOOLS.spad"
+((|patternMatchTimes| (*1 *2 *3 *4 *2 *5)
+  (AND (|isDomain| *3 (|List| *8)) (|isDomain| *4 (|List| (|Pattern| *6)))
+       (|isDomain| *5
+                   (|Mapping| (|PatternMatchResult| *6 *8) *8 (|Pattern| *6)
+                              (|PatternMatchResult| *6 *8)))
+       (|ofCategory| *6 (|SetCategory|))
+       (|ofCategory| *8
+                     (|Join| (|Ring|) (|ConvertibleTo| (|Pattern| *6))
+                             (|RetractableTo| *7)))
+       (|isDomain| *2 (|PatternMatchResult| *6 *8))
+       (|ofCategory| *7 (|Join| (|Comparable|) (|Ring|)))
+       (|isDomain| *1 (|PatternMatchTools| *6 *7 *8))))
+ (|patternMatch| (*1 *2 *3 *4 *5 *2 *6)
+  (AND (|isDomain| *4 (|List| (|Pattern| *7)))
+       (|isDomain| *5 (|Mapping| *9 (|List| *9)))
+       (|isDomain| *6
+                   (|Mapping| (|PatternMatchResult| *7 *9) *9 (|Pattern| *7)
+                              (|PatternMatchResult| *7 *9)))
+       (|ofCategory| *7 (|SetCategory|))
+       (|ofCategory| *9
+                     (|Join| (|Ring|) (|ConvertibleTo| (|Pattern| *7))
+                             (|RetractableTo| *8)))
+       (|isDomain| *2 (|PatternMatchResult| *7 *9)) (|isDomain| *3 (|List| *9))
+       (|ofCategory| *8 (|Join| (|Comparable|) (|Ring|)))
+       (|isDomain| *1 (|PatternMatchTools| *7 *8 *9)))))
+((|patternMatchTimes|
+  (((|PatternMatchResult| |#1| |#3|) (|List| |#3|) (|List| (|Pattern| |#1|))
+    (|PatternMatchResult| |#1| |#3|)
+    (|Mapping| (|PatternMatchResult| |#1| |#3|) |#3| (|Pattern| |#1|)
+               (|PatternMatchResult| |#1| |#3|)))
+   33))
+ (|patternMatch|
+  (((|PatternMatchResult| |#1| |#3|) (|List| |#3|) (|List| (|Pattern| |#1|))
+    (|Mapping| |#3| (|List| |#3|)) (|PatternMatchResult| |#1| |#3|)
+    (|Mapping| (|PatternMatchResult| |#1| |#3|) |#3| (|Pattern| |#1|)
+               (|PatternMatchResult| |#1| |#3|)))
+   32)))
+PMTOOLS
+((|constructor| (NIL "This package provides tools for the pattern matcher."))
+ (|patternMatchTimes|
+  (((|PatternMatchResult| |#1| |#3|) (|List| |#3|) (|List| (|Pattern| |#1|))
+    (|PatternMatchResult| |#1| |#3|)
+    (|Mapping| (|PatternMatchResult| |#1| |#3|) |#3| (|Pattern| |#1|)
+               (|PatternMatchResult| |#1| |#3|)))
+   "\\spad{patternMatchTimes(lsubj,{} lpat,{} res,{} match)} matches the product of patterns \\spad{reduce(*,{} lpat)} to the product of subjects \\spad{reduce(*,{} lsubj)}; \\spad{r} contains the previous matches and match is a pattern-matching function on \\spad{P}."))
+ (|patternMatch|
+  (((|PatternMatchResult| |#1| |#3|) (|List| |#3|) (|List| (|Pattern| |#1|))
+    (|Mapping| |#3| (|List| |#3|)) (|PatternMatchResult| |#1| |#3|)
+    (|Mapping| (|PatternMatchResult| |#1| |#3|) |#3| (|Pattern| |#1|)
+               (|PatternMatchResult| |#1| |#3|)))
+   "\\spad{patternMatch(lsubj,{} lpat,{} op,{} res,{} match)} matches the list of patterns \\spad{lpat} to the list of subjects \\spad{lsubj},{} allowing for commutativity; \\spad{op} is the operator such that \\spad{op}(\\spad{lpat}) should match \\spad{op}(\\spad{lsubj}) at the end,{} \\spad{r} contains the previous matches,{} and match is a pattern-matching function on \\spad{P}.")))
+(("documentation" 0 3334) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3326) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2771) ("modemaps" 0 1460) ("sourceFile" 0 1421)
+ ("constructorCategory" 0 848) ("constructorModemap" 0 58)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

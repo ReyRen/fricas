@@ -1,0 +1,229 @@
+
+-- Input for page ugTypesPage
+)clear all
+
+
+-- Input for page ugTypesUnionsWSelPage
+)clear all
+
+u : Union(i : Integer, s : String)
+u := "good morning"
+u case i
+u case s
+u.s
+
+-- Input for page ugTypesWritingOnePage
+)clear all
+
+e : PrimeField(2 + 3)
+content(2)$Polynomial(Integer)
+content(2)$(Polynomial Complex Fraction Integer)
+(2/3)@Fraction(Polynomial(Integer))
+(2/3)@Fraction(Polynomial Integer)
+(d,f,g) : Complex Polynomial Integer
+
+-- Input for page ugTypesSubdomainsPage
+)clear all
+
+5
+0
+-5
+(-2) - (-3)
+0 :: Integer
+x : NonNegativeInteger := 5
+2 ^ 2
+2 ^ (-2)
+[10^i for i in 2..5]
+[10^(i-1) for i in 2..5]
+[10^((i-1) :: PI) for i in 2..5]
+[10^((i-1) pretend PI) for i in 2..5]
+(2/3) pretend Complex Integer
+
+-- Input for page ugTypesUnionsWOSelPage
+)clear all
+
+sayBranch(x : Union(Integer,String,Float)) : Void  ==
+  output
+    x case Integer => "Integer branch"
+    x case String  => "String branch"
+    "Float branch"
+
+sayBranch 1
+sayBranch "hello"
+sayBranch 2.718281828
+78 :: Union(Integer,String)
+s := "string" :: Union(Integer,String)
+typeOf s
+three := exquo(6,2)
+exquo(5,2)
+r: FRAC INT := 3
+retractIfCan(r)
+r := 3/2
+retractIfCan(r)
+
+-- Input for page ugTypesWritingAbbrPage
+)clear all
+
+)abb q Integer
+)abb q DMP
+)what packages ode
+
+-- Input for page ugTypesWritingMorePage
+)clear all
+
+
+-- Input for page ugTypesWritingZeroPage
+)clear all
+
+
+-- Input for page ugTypesWritingModesPage
+)clear all
+
+
+-- Input for page ugTypesBasicPage
+)clear all
+
+-3
+-3/1
+x + 3 - x
+factorial(%)
+3
+
+-- Input for page ugTypesBasicDomainConsPage
+)clear all
+
+factorial(7)
+Polynomial(Integer)
+List (List (Matrix (Polynomial (Complex (Fraction (Integer))))))
+Polynomial(String)
+Polynomial(Integer) has Ring
+List(Integer) has Ring
+Matrix(Integer) has Ring
+Polynomial(Matrix(Integer))
+Polynomial(SquareMatrix(7,Complex(Integer)))
+Complex(Integer) has Field
+Fraction(Complex(Integer)) has Field
+Complex(Fraction(Integer)) has Field
+
+-- Input for page ugAvailSnoopPage
+)clear all
+
+)what operation complex
+)what domain matrix
+)what package gauss
+)show Any
+)display operation complex
+)abbreviation query COMPCAT
+)abbreviation query COMRING
+
+-- Input for page ugTypesExposePage
+)clear all
+
+x + x
+)set expose add constructor OutputForm
+x + x
+)set expose drop constructor OutputForm
+
+-- Input for page ugTypesUnionsPage
+)clear all
+
+
+-- Input for page ugTypesPkgCallPage
+)clear all
+
+2/3
+(2/3)$Float
+(2/3)$Fraction(Complex Integer)
+(2/3)@Float
+(2 + 3)@String
+(2 + 3)$String
+((x + y * %i)^2)@(Complex Polynomial Integer)
+((x + y * %i)^2)@(Polynomial Complex Integer)
+(x + y * %i)^2
+% :: Complex ?
+h := matrix [[8,6],[-4,9]]
+map(inv$Fraction(Integer),h)
+map(inv$FRAC(INT),h)
+map(inv,h)
+
+-- Input for page ugTypesDeclarePage
+)clear all
+
+a : Integer
+(b,c) : Integer
+a := 45
+b := 4/5
+n : Complex ?
+(p,q,r) : Matrix Polynomial ?
+n := -36 + 9 * %i
+n := complex(4/(x + y),y/x)
+p := [[1,2],[3,4],[5,6]]
+q := [[x - 2/3]]
+r := [[1-%i*x,7*y+4*%i]]
+f : COMPLEX POLY ? := (x + y*%i)^2
+g : POLY COMPLEX ? := (x + y*%i)^2
+
+-- Input for page ugTypesAnyNonePage
+)clear all
+
+u: Any
+u := [1, 7.2, 3/2, x^2, "wally"]
+u.1
+u.3
+v : Matrix(Any)
+
+-- Input for page ugTypesRecordsPage
+)clear all
+
+u := divide(5,2)
+u.quotient
+u.remainder
+u.quotient := 8978
+u
+s := 'quotient
+divide(5,2).s
+bd : Record(name : String, birthdayMonth : Integer)
+bd := ["Judith", 3]
+bd.name := "Katie"
+r : Record(a : Record(b: Integer, c: Integer), b: Integer)
+r := [[1,2],3]
+r.a.b
+r.b
+r(a)
+r b
+r(b) := 10
+r
+
+-- Input for page ugTypesResolvePage
+)clear all
+
+x
+1
+x + 1
+["string",3.14159]
+"string" + 3.14159
+
+-- Input for page ugTypesConvertPage
+)clear all
+
+3
+3 :: Fraction Integer
+m : SquareMatrix(2,POLY COMPLEX FRAC INT)
+m := matrix [[x-3/4*%i,z*y^2+1/2],[3/7*%i*y^4 - x,12-%i*9/5]]
+m1 := m :: SquareMatrix(2,POLY FRAC COMPLEX INT)
+m2 := m1 :: SquareMatrix(2,FRAC POLY COMPLEX INT)
+m3 := m2 :: SquareMatrix(2,FRAC COMPLEX POLY INT)
+m :: SquareMatrix(2,FRAC COMPLEX POLY INT)
+m
+m :: POLY SquareMatrix(2,COMPLEX FRAC INT)
+m :: POLY ?
+m :: POLY SquareMatrix(2,FRAC ?)
+
+-- Input for page ugTypesWritingPage
+)clear all
+
+a : PositiveInteger
+f : Integer -> String
+factor(2 :: Complex(Integer))
+(2 = 3)$Integer
+(2 = 3)@Boolean

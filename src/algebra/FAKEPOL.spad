@@ -1,0 +1,111 @@
+)abbrev domain FAKEPOL FakePolynomial
+++ Description: FakePolynomial is a domain of univariate polynomials
+++  with coefficients being fractions of multivariate integer
+++  polynomials.  Coefficients are kept in unsimplified form.
+++  This domain exists to avoid cost of recursive GCD calls
+++  during polynomial evaluation.
+FakePolynomial : Exports == Implementation where
+  MP ==> Polynomial(Integer)
+  MPU ==> SparseUnivariatePolynomial(MP)
+  RF ==> Fraction(MP)
+  UP ==> SparseUnivariatePolynomial(RF)
+  PT ==> Record(var : Symbol, coef : UP)
+  FrP ==> Record(numer : MP, denom : MP)
+
+  Exports ==> with
+      degree : (%, Symbol) -> NonNegativeInteger
+      ground : % -> FrP
+      map : (MP -> MP, %) -> %
+      map : (MP -> MP, PT) -> %
+      map : (FrP -> Union(MP, "failed"), %) -> Union(MPU, "failed")
+      subst_var : (%, List(Symbol), List(Symbol)) -> %
+      to_UP : % -> UP
+
+  Implementation ==> add
+
+      Node ==> Record(deg : NonNegativeInteger, coef : FrP)
+      Rep := Record(var : Symbol, coef : List Node)
+
+      ground(p : %) : FrP ==
+          pr1 := p::Rep
+          pr := pr1.coef
+          empty?(pr) => [0, 1]
+          r1 := first(pr)
+          not(r1.deg = 0) => error "ground: not(r1.deg = 0)"
+          r1.coef
+
+      map(f : MP -> MP, p : %) : % ==
+          pr1 := p::Rep
+          pr := pr1.coef
+          res0 : List Node := [[0, [0, 0]]]
+          res1 := res0
+          repeat
+              empty?(pr) =>
+                  return [pr1.var, rest(res0)]
+              r1 := first(pr)
+              pr := rest(pr)
+              c1 := r1.coef
+              n1 := f(c1.numer)
+              n1 = 0 => "iterate"
+              res1 := qsetrest!(res1, [[r1.deg, [n1, f(c1.denom)]]])
+
+      map(f : MP -> MP, p : PT) : % ==
+          pr := p.coef
+          res0 : List Node := [[0, [0, 0]]]
+          res1 := res0
+          repeat
+              pr = 0 => return [p.var, rest(res0)]
+              d := degree(pr)
+              c1 := leadingCoefficient(pr)
+              pr := reductum(pr)
+              n1 := f(numer(c1))
+              n1 = 0 => "iterate"
+              res1 := qsetrest!(res1, [[d, [n1, f(denom(c1))]]])
+
+      map(f : FrP -> Union(MP, "failed"), p : %) : Union(MPU, "failed") ==
+          pr1 := p::Rep
+          pr := pr1.coef
+          res0 : MPU := 0
+          while not(empty?(pr)) repeat
+              r1 := first(pr)
+              pr := rest(pr)
+              c1u := f(r1.coef)
+              c1u case "failed" => "failed"
+              res0 := res0 + monomial(c1u::MP, r1.deg)$MPU
+          res0
+
+      degree(p, s) ==
+          pr1 := p::Rep
+          pr := pr1.coef
+          empty?(pr) => 0
+          pr1.var = s => first(pr).deg
+          res := 0
+          for r1 in pr repeat
+              c1 := r1.coef
+              degree(c1.denom, s) > 0 =>
+                  error "degree: not a polynomial in given variable"
+              res := max(res, degree(c1.numer, s))
+          res
+
+      to_UP(p) ==
+          pr1 := p::Rep
+          pr := pr1.coef
+          res0 : UP := 0
+          while not(empty?(pr)) repeat
+              r1 := first(pr)
+              pr := rest(pr)
+              c1 := r1.coef
+              n1 := c1.numer
+              n1 = 0 => "iterate"
+              cr : RF := n1/c1.denom
+              res0 := res0 + monomial(cr, r1.deg)$UP
+          res0
+
+      subst_var(p, ls1, ls2) ==
+          pr1 := p::Rep
+          v1 := pr1.var
+          for s1 in ls1 for s2 in ls2 repeat
+              if v1 = s1 then return [s2, pr1.coef]
+          p
+
+

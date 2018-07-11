@@ -1,0 +1,663 @@
+)abbrev package EFSTRUC ElementaryFunctionStructurePackage
+++ Risch structure theorem
+++ Author: Manuel Bronstein, Waldek Hebisch
+++ Date Created: 1987
+++ Description:
+++   ElementaryFunctionStructurePackage provides functions to test the
+++   algebraic independence of various elementary functions, using the
+++   Risch structure theorem (real and complex versions).
+++   It also provides transformations on elementary functions
+++   which are not considered simplifications.
+++ Keywords: elementary, function, structure.
+ElementaryFunctionStructurePackage(R, F) : Exports == Implementation where
+  R : Join(IntegralDomain, Comparable, RetractableTo Integer,
+           LinearlyExplicitOver Integer)
+  F : Join(AlgebraicallyClosedField, TranscendentalFunctionCategory,
+           FunctionSpace R)
+
+  B   ==> Boolean
+  N   ==> NonNegativeInteger
+  Z   ==> Integer
+  Q   ==> Fraction Z
+  SY  ==> Symbol
+  K   ==> Kernel F
+  UP  ==> SparseUnivariatePolynomial F
+  SMP ==> SparseMultivariatePolynomial(R, K)
+  REC ==> Record(func : F, kers : List K, vals : List F)
+  REC2 ==> Record(funcs : List F, kers : List K, vals : List F)
+  U   ==> Union(vec : Vector Q, func : F, fail : Boolean)
+  POWER ==> '%power
+  NTHR  ==> 'nthRoot
+
+  Exports ==> with
+    normalize : F -> F
+      ++ normalize(f) rewrites \spad{f} using the least possible number of
+      ++ real algebraically independent kernels.
+    normalize : List F -> List F
+      ++ normalize(lf) is normalize(lf, [])
+    normalize : (F, SY) -> F
+      ++ normalize(f, x) is normalize([f], [x])
+    normalize : (List F, List SY) -> List F
+      ++ normalize([f1, ..., fn], lx) rewrites \spad{f1, ..., fn} using the
+      ++ least possible number of real algebraically independent kernels.
+      ++ Additionally, it tries to ensure that any expression in
+      ++ resulting kernels which syntactically depends on a variable \spad{x}
+      ++ from \spad{lx} has nonzero derivative with respect to \spad{x}.
+    rischNormalize : (F, SY) -> REC
+      ++ rischNormalize(f, x) is rischNormalize([f], [x])
+      ++ rischNormalize(f, x) returns \spad{[g, [k1, ..., kn], [h1, ..., hn]]}
+      ++ such that \spad{g = normalize(f, x)} and each \spad{ki} was
+      ++ rewritten as \spad{hi} during the normalization.
+    rischNormalize : (F, List SY) -> REC
+      ++ rischNormalize(f, lx) is rischNormalize([f], lx)
+    rischNormalize : (List F, List SY) -> REC2
+      ++ rischNormalize(lf, lx) returns
+      ++ \spad{[lg, [k1, ..., kn], [h1, ..., hn]]} such that
+      ++ \spad{lg = normalize(lf, lx)} and each \spad{ki} was rewritten
+      ++ as \spad{hi} during the normalization.
+    realElementary : F -> F
+      ++ realElementary(f) rewrites \spad{f} in terms of the 4 fundamental real
+      ++ transcendental elementary functions: \spad{log, exp, tan, atan}.
+    realLiouvillian : F -> F
+      ++ realLiouvillian(f) rewrites \spad{f} elementary kernels of f in
+      ++ terms 4 fundamental real elementary functions: \spad{log, exp, tan,
+      ++ atan}.  Additionally, it rewrites Liouvillian functions as
+      ++ indefinite integrals to support better normalization.
+    realLiouvillian : (F, SY) -> F
+      ++ realLiouvillian(f, x) rewrites \spad{f} elementary kernels of f in
+      ++ terms 4 fundamental real elementary functions: \spad{log, exp, tan,
+      ++ atan}.  Additionally, it rewrites Liouvillian functions of x as
+      ++ indefinite integrals to support better normalization.
+    realElementary : (F, SY) -> F
+      ++ realElementary(f, x) rewrites the kernels of \spad{f} involving \spad{x}
+      ++ in terms of the 4 fundamental real
+      ++ transcendental elementary functions: \spad{log, exp, tan, atan}.
+    validExponential : (List K, F, SY) -> Union(F, "failed")
+      ++ validExponential([k1, ..., kn], f, x) returns \spad{g} if \spad{exp(f)=g}
+      ++ and \spad{g} involves only \spad{k1...kn}, and "failed" otherwise.
+    rootNormalize : (F, K) -> F
+      ++ rootNormalize(f, k) returns \spad{f} rewriting either \spad{k} which
+      ++ must be an nth-root in terms of radicals already in \spad{f}, or some
+      ++ radicals in \spad{f} in terms of \spad{k}.
+    rmap : (K -> F, F) -> F
+      ++ rmap(f, e) rewrites e replacing each kernel k in e by f(k)
+    tanQ : (Q, F) -> F
+      ++ tanQ(q, a) is a local function with a conditional implementation.
+    irootDep : K -> U
+      ++ irootDep(k) is a local function with a conditional implementation.
+
+  Implementation ==> add
+    import from TangentExpansions F
+    import from IntegrationTools(R, F)
+    import from IntegerLinearDependence F
+    import from AlgebraicManipulations(R, F)
+    import from InnerCommonDenominator(Z, Q, Vector Z, Vector Q)
+    P  ==> SparseMultivariatePolynomial(R, K)
+
+    HTRIG := 'htrig
+    TRIG := 'trig
+
+    k2Elem             : (K, List SY) -> F
+    realElem           : (F, List SY) -> F
+    rootDep            : (List K, K)     -> U
+    findRelation       : (List SY, List SY, List K, K) -> U
+    factdeprel         : (List K, K)     -> U
+    toR                : (List K, F) -> List K
+    toY                : List K -> List F
+    toZ                : List K -> List F
+    toU                : List K -> List F
+    toV                : List K -> List F
+    ktoY               : K  -> F
+    ktoZ               : K  -> F
+    ktoU               : K  -> F
+    ktoV               : K  -> F
+    gdCoef?            : (Q, Vector Q) -> Boolean
+    goodCoef           : (Vector Q, List K, SY) ->
+                                 Union(Record(index:Z, ker:K), "failed")
+    tanRN              : (Q, K) -> F
+    rooteval           : (List F, List K, K, Q) -> REC2
+    logeval            : (List F, List K, K, Vector Q) -> REC2
+    expeval            : (List F, List K, K, Vector Q) -> REC2
+    taneval            : (List F, List K, K, Vector Q) -> REC2
+    ataneval           : (List F, List K, K, Vector Q) -> REC2
+    depeval            : (List F, List K, K, Vector Q) -> REC2
+    expnosimp          : (List F, List K, K, Vector Q, List F, F) -> REC2
+    tannosimp          : (List F, List K, K, Vector Q, List F, F) -> REC2
+    rootKernelNormalize : (List F, List K, K) -> Union(REC2, "failed")
+    tanSum             : (F, List F) -> F
+
+    comb?     := F has CombinatorialOpsCategory
+    mpiover2 : F := pi()$F / (-2::F)
+
+    realElem(f, l) == rmap(k +-> k2Elem(k, l), f)
+    realElementary(f, x) == realElem(f, [x])
+    realElementary f     == realElem(f, variables f)
+    k_to_liou : K -> F
+    k_to_liou1 : (K, SY) -> F
+    realLiouvillian(f) == rmap(k_to_liou, f)
+    realLiouvillian(f, x) == rmap((k : K) : F +-> k_to_liou1(k, x), f)
+    toY ker              == [func for k in ker | (func := ktoY k) ~= 0]
+    toZ ker              == [func for k in ker | (func := ktoZ k) ~= 0]
+    toU ker              == [func for k in ker | (func := ktoU k) ~= 0]
+    toV ker              == [func for k in ker | (func := ktoV k) ~= 0]
+    toR(ker, x) == select(s +-> is?(s, NTHR) and first argument(s) = x, ker)
+
+    if R has GcdDomain then
+      tanQ(c, x) ==
+        tanNa(rootSimp zeroOf tanAn(x, denom(c)::PositiveInteger), numer c)
+    else
+      tanQ(c, x) ==
+        tanNa(zeroOf tanAn(x, denom(c)::PositiveInteger), numer c)
+
+    -- tanSum(c, [a1, ..., an]) returns f(c, a1, ..., an) such that
+    -- if ai = tan(ui) then f(c, a1, ..., an) = tan(c + u1 + ... + un).
+    -- MUST BE CAREFUL FOR WHEN c IS AN ODD MULTIPLE of pi/2
+    tanSum(c, l) ==
+      k := c / mpiover2        -- k = - 2 c / pi, check for odd integer
+                               -- tan((2n+1) pi/2 x) = - 1 / tan x
+      (r := retractIfCan(k)@Union(Z, "failed")) case Z and odd?(r::Z) =>
+           - inv tanSum l
+      tanSum concat(tan c, l)
+
+    findQRelation(lv : List Symbol, lpar : List Symbol, lk : List F, _
+             ker : F) : U ==
+
+        empty?(lk) => [true]
+        isconstant := true
+        m := #lv
+        lvv := lv
+        n := #lk
+        v := new(m, 0)$(Vector F)
+        for i in 1..m for var in lv repeat
+            v(i) := differentiate(ker, var)
+            if isconstant then
+                isconstant := v(i) = 0
+        if isconstant then
+            m := #lpar
+            lvv := lpar
+            v := new(m, 0)$(Vector F)
+            for i in 1..m for var in lpar repeat
+                v(i) := differentiate(ker, var)
+                if isconstant then
+                    isconstant := v(i) = 0
+        isconstant =>
+            print(ker::OutputForm)$OutputForm
+            error "Hidden constant detected"
+        mat := new(m, n, 0)$(Matrix F)
+        for i in 1..m for var in lvv repeat
+            for j in 1..n for k in lk repeat
+                mat(i, j) := differentiate(k, var)
+        (u := particularSolutionOverQ(mat, v)) case Vector(Q) => [u::Vector(Q)]
+        [true]
+
+    -- This is only correct if Schanuel Conjecture is true, otherwise
+    -- we may miss some relations.
+    findLinearRelation1(lk : List F, ker : F) : U ==
+        empty?(lk) => [true]
+
+        n := #lk
+        mat := new(1, n, 0)$(Matrix F)
+        v := new(1, ker)$(Vector F)
+        for j in 1..n for k in lk repeat
+            if empty?(variables(k)) then
+                mat(1, j) := k
+            else
+                mat(1, j) := 0::F
+        (u := particularSolutionOverQ(mat, v)) case Vector(Q) => [u::Vector(Q)]
+        [true]
+
+    ALGOP  := '%alg
+    transkers(x : List K) : List K ==
+        [k for k in x | not(has?(operator k, ALGOP))]
+
+    ktoQ(ker : K) : Q ==
+       is?(ker, 'log) and F has RetractableTo Q =>
+          z : F := argument(ker).1
+          qu := retractIfCan(z)@Union(Q, "failed")
+          qu case Q => qu::Q
+          1
+       1
+
+    toQ(lk : List K) : List Q ==
+        [ktoQ(k) for k in lk | is?(k, 'log) or is?(k, 'exp)]
+
+    import from MultiplicativeDependence()
+
+    findLinearRelation2(lk : List K, lz : List F, ker : K) : U ==
+        z : F := argument(ker).1
+        zkers := transkers(kernels(z))
+        empty?(zkers) =>
+            -- Algebraic case, check for dependencies between logarithms
+            -- of rational numbers (we should do better)
+            q := ktoQ(ker)
+            not(q = 1 or q = -1) =>
+                (u := logDependenceQ([toQ (lk)], q)) case Vector(Q) => [u::Vector(Q)]
+                [true]
+            kerF := ker :: F
+            F is Expression(R) and R has ConvertibleTo(Float) _
+              and R has IntegralDomain and R has OrderedSet =>
+                m := #lz
+                for z1 in lz for i in 1..m repeat
+                    Fratio : F := kerF/log(z1)
+                    (fratio := numericIfCan(Fratio, 20)$Numeric(R) _
+                         ) case Float =>
+                        qratio := rationalApproximation(fratio::Float, 8)
+                        nd : Integer
+                        nq : Integer
+                        (qratio = 0 or
+                          abs(fratio/(qratio::Float)-1.0) > 1.0e-16) _
+                          or (abs(nq := numer(qratio)) > 100) _
+                          or (abs(nd := denom(qratio)) > 100) => "iterate"
+                        kertond := (argument(ker).1)^nd
+                        nq > 0 =>
+                            lz1tonq := z1^nq
+                            (kertond = lz1tonq) =>
+                                vv := zero(m)$Vector(Q)
+                                qsetelt!(vv, i, qratio)
+                                return [vv]
+                        lz1tonq := (z1)^(-nq)
+                        kertond*lz1tonq = 1 =>
+                            vv := zero(m)$Vector(Q)
+                            qsetelt!(vv, i, qratio)
+                            return [vv]
+                [true]
+            [true]
+        lpars0 : List K := transkers(lk)
+        lpars1 : List Symbol := [new()$Symbol for k in lpars0]
+        lpars1f : List F := [kernel(s)::F for s in lpars1]
+        ly : List F
+        nz : F
+        if is?(ker, 'log) then
+            ly := [log(eval(x, lpars0, lpars1f)) for x in lz]
+            nz := log(eval(z, lpars0, lpars1f))
+        else
+            not(is?(ker, 'atan)) =>
+                error "findLinearRelation2: kernel should be log or atan"
+            ly := [atan(eval(x, lpars0, lpars1f)) for x in lz]
+            nz := atan(eval(z, lpars0, lpars1f))
+        findQRelation([], lpars1, ly, nz)
+
+    findRelation(lv : List Symbol, lpar : List Symbol, lk : List K, _
+              ker : K) : U ==
+        is?(ker, 'log) or is?(ker, 'exp) =>
+            empty?(variables(ker::F)) =>
+                is?(ker, 'exp) => findLinearRelation1(toY lk, ktoY ker)
+                findLinearRelation2(lk, toZ lk, ker)
+            findQRelation(lv, lpar, toY lk, ktoY ker)
+        is?(ker, 'atan) or is?(ker, 'tan) =>
+            empty?(variables(ker::F)) =>
+                is?(ker, 'tan) => findLinearRelation1(toU lk, ktoU ker)
+                findLinearRelation2(lk, toV lk, ker)
+            findQRelation(lv, lpar, toU lk, ktoU ker)
+        is?(ker, NTHR) => rootDep(lk, ker)
+        comb? and is?(ker, 'factorial) =>
+            factdeprel([x for x in lk | is?(x, 'factorial) and x ~= ker],
+                       ker)
+        [true]
+
+    ktoY k ==
+      is?(k, 'log) => k::F
+      is?(k, 'exp) => first argument k
+      is?(k, 'lambertW) => k::F
+      0
+
+    ktoZ k ==
+      is?(k, 'log) => first argument k
+      is?(k, 'exp) => k::F
+      is?(k, 'lambertW) => (first argument k)/k::F
+      0
+
+    ktoU k ==
+      is?(k, 'atan) => k::F
+      is?(k,  'tan) => first argument k
+      0
+
+    ktoV k ==
+      is?(k,  'tan) => k::F
+      is?(k, 'atan) => first argument k
+      0
+
+    smp_map(f : K -> F, p : SMP) : F ==
+         map(f, y +-> y::F, p)$PolynomialCategoryLifting(
+                                       IndexedExponents K, K, R, SMP, F)
+
+    rmap(f, e) == smp_map(f, numer e)/smp_map(f, denom e)
+
+    LF  ==> LiouvillianFunction(R, F)
+    opint : BasicOperator := operator(operator('%iint)$CommonOperators)$LF
+
+    k2Elem0(k : K, op : BasicOperator, args : List F) : F ==
+      ez, iez, tz2 : F
+
+      z := first args
+
+      is?(op, POWER)       => (zero? z => 0; exp(last(args) * log z))
+      is?(op, 'cot)   => inv tan z
+      is?(op, 'acot)  => atan inv z
+      is?(op, 'asin)  => atan(z / sqrt(1 - z^2))
+      is?(op, 'acos)  => atan(sqrt(1 - z^2) / z)
+      is?(op, 'asec)  => atan sqrt(z^2 - 1)
+      is?(op, 'acsc)  => atan inv sqrt(z^2 - 1)
+      is?(op, 'asinh) => log(sqrt(1 + z^2) + z)
+      is?(op, 'acosh) => log(sqrt(z^2 - 1) + z)
+      is?(op, 'atanh) => log((z + 1) / (1 - z)) / (2::F)
+      is?(op, 'acoth) => log((z + 1) / (z - 1)) / (2::F)
+      is?(op, 'asech) => log((inv z) + sqrt(inv(z^2) - 1))
+      is?(op, 'acsch) => log((inv z) + sqrt(1 + inv(z^2)))
+      is?(op, '%paren) or is?(op, '%box) =>
+        empty? rest args => z
+        k::F
+      if has?(op, HTRIG) then iez  := inv(ez  := exp z)
+      is?(op, 'sinh)  => (ez - iez) / (2::F)
+      is?(op, 'cosh)  => (ez + iez) / (2::F)
+      is?(op, 'tanh)  => (ez - iez) / (ez + iez)
+      is?(op, 'coth)  => (ez + iez) / (ez - iez)
+      is?(op, 'sech)  => 2 * inv(ez + iez)
+      is?(op, 'csch)  => 2 * inv(ez - iez)
+      if has?(op, TRIG) then tz2  := tan(z / (2::F))
+      is?(op, 'sin)   => 2 * tz2 / (1 + tz2^2)
+      is?(op, 'cos)   => (1 - tz2^2) / (1 + tz2^2)
+      is?(op, 'sec)   => (1 + tz2^2) / (1 - tz2^2)
+      is?(op, 'csc)   => (1 + tz2^2) / (2 * tz2)
+      op args
+
+    do_int(op : BasicOperator, args : List(F)) : F ==
+        kf1 := op args
+        vars := variables(kf1)
+        vfs := [v::F for v in vars]
+        dvs := [realLiouvillian(D(kf1, v)) for v in vars]
+        kernel(opint, concat(vfs, dvs))::F
+
+    k_to_liou(k) ==
+        op := operator k
+        args := [realLiouvillian(a) for a in argument(k)]
+        empty?(args) => k::F
+        has?(op, 'prim) and not(is?(op, '%iint)) => do_int(op, args)
+        nm := name(op)
+        nm = 'polylog and
+          (iu := retractIfCan(first(args))@Union(Integer, "failed"))
+                 case Integer =>
+            (i := iu::Integer) > 0 and i < 10 => do_int(op, args)
+            k2Elem0(k, op, args)
+        k2Elem0(k, op, args)
+
+    do_int1(op : BasicOperator, args : List(F), x : SY) : F ==
+        kf1 := op args
+        vars : List(SY) := [x]
+        vfs := [v::F for v in vars]
+        dvs := [realLiouvillian(D(kf1, v), x) for v in vars]
+        kernel(opint, concat(vfs, dvs))::F
+
+    k_to_liou1(k, x) ==
+        op := operator k
+        args := [realLiouvillian(a, x) for a in argument(k)]
+        empty?(args) => k::F
+        has?(op, 'prim) and not(is?(op, '%iint)) => do_int1(op, args, x)
+        nm := name(op)
+        nm = 'Gamma2 and D(first(args), x) = 0 => do_int1(op, args, x)
+        nm = 'polylog and
+          (iu := retractIfCan(first(args))@Union(Integer, "failed"))
+                 case Integer =>
+            (i := iu::Integer) > 0 and i < 10 => do_int(op, args)
+            k2Elem0(k, op, args)
+        (nm = 'ellipticE2 or nm = 'ellipticF) and D(args(2), x) = 0 =>
+            do_int1(op, args, x)
+        nm = 'ellipticPi and D(args(2), x) = 0 and D(args(3), x) = 0 =>
+            do_int1(op, args, x)
+        k2Elem0(k, op, args)
+
+    k2Elem(k, l) ==
+        op := operator k
+        args := [realElem(a, l) for a in argument(k)]
+        empty?(args) => k::F
+        k2Elem0(k, op, args)
+
+--The next 5 functions are used by normalize, once a relation is found
+    depeval(lf, lk, k, v) ==
+        is?(k, 'log)  => logeval(lf, lk, k, v)
+        is?(k, 'exp)  => expeval(lf, lk, k, v)
+        is?(k, 'tan)  => taneval(lf, lk, k, v)
+        is?(k, 'atan) => ataneval(lf, lk, k, v)
+        is?(k, NTHR) => rooteval(lf, lk, k, v(minIndex v))
+        [lf, empty(), empty()]
+
+    rooteval(lf, lk, k, n) ==
+      nv := nthRoot(x := first argument k, m := retract(n)@Z)
+      l  := [r for r in concat(k, toR(lk, x)) |
+             retract(second argument r)@Z ~= m]
+      lv := [nv ^ (n / (retract(second argument r)@Z::Q)) for r in l]
+      nlf := [eval(f, l, lv) for f in lf]
+      [nlf, l, lv]
+
+    ataneval(lf, lk, k, v) ==
+      w := first argument k
+      s := tanSum [tanQ(qelt(v, i), x)
+                   for i in minIndex v .. maxIndex v for x in toV lk]
+      g := +/[qelt(v, i) * x for i in minIndex v .. maxIndex v for x in toU lk]
+      h : F :=
+        zero?(d := 1 + s * w) => mpiover2
+        atan((w - s) / d)
+      g := g + h
+      nlf := [eval(f, [k], [g]) for f in lf]
+      [nlf, [k], [g]]
+
+    gdCoef?(c, v) ==
+      for i in minIndex v .. maxIndex v repeat
+        retractIfCan(qelt(v, i) / c)@Union(Z, "failed") case "failed" =>
+          return false
+      true
+
+
+    -- If k1 is part of k2 we should not express k1 in terms of k2
+    -- (otherwise we would get infinite recursion).
+    -- Below we impose a stronger condition : we require
+    -- height(k1) to be maximal
+
+    goodCoef(v, l, s) ==
+      h : NonNegativeInteger := 0
+      j : Integer := 0
+      ll : List K := []
+      for k in l repeat
+        if (is?(k, 'log) or is?(k, 'exp)
+            or is?(k, 'tan) or is?(k, 'atan)) then
+              ll := cons(k, ll)
+              h := h + 1
+      not (h = (maxIndex(v) - minIndex(v) + 1)) => "failed"
+      h := 0
+      ll := reverse(ll)
+      for i in minIndex v .. maxIndex v for k in ll repeat
+        h1 := height(k)
+        if (h1 > h) then
+          j := i
+          h := h1
+      for i in minIndex v .. maxIndex v for k in ll repeat
+        is?(k, s) and (i >= j) and
+           ((r := recip(qelt(v, i))) case Q) and
+            (retractIfCan(r::Q)@Union(Z, "failed") case Z)
+              and gdCoef?(qelt(v, i), v) => return([i, k])
+      "failed"
+
+    taneval(lf, lk, k, v) ==
+      u := first argument k
+      fns := toU lk
+      c := u - +/[qelt(v, i) * x for i in minIndex v .. maxIndex v for x in fns]
+      (rec := goodCoef(v, lk, 'tan)) case "failed" =>
+          tannosimp(lf, lk, k, v, fns, c)
+      v0 := retract(inv qelt(v, rec.index))@Z
+      lv := [qelt(v, i) for i in minIndex v .. maxIndex v |
+                                                 i ~= rec.index]$List(Q)
+      l  := [kk for kk in lk | kk ~= rec.ker]
+      g := tanSum(-v0 * c, concat(tanNa(k::F, v0),
+           [tanNa(x, - retract(a * v0)@Z) for a in lv for x in toV l]))
+      nlf := [eval(f, [rec.ker], [g]) for f in lf]
+      [nlf, [rec.ker], [g]]
+
+    tannosimp(lf, lk, k, v, fns, c) ==
+      n := maxIndex v
+      lk := [x for x in lk | is?(x, 'tan) or is?(x, 'atan)]
+      lk1 := [x for x in lk for i in 1..n | not(qelt(v, i) = 0)]
+      every?(x +-> is?(x, 'tan), lk1) =>
+        dd := (d := (cd := splitDenominator v).den)::F
+        newt := [tan(u / dd) for u in fns
+                    for i in 1..n | not(qelt(v, i) = 0)]$List(F)
+        newtan := [tanNa(t, d) for t in newt]$List(F)
+        li := [i for i in 1..n | not(qelt(v, i) = 0)]
+        h := tanSum(c, [tanNa(t, qelt(cd.num, i))
+                        for i in li for t in newt])
+        newtan := concat(h, newtan)
+        lk1 := concat(k, lk1)
+        nlf := [eval(f, lk1, newtan) for f in lf]
+        [nlf, lk1, newtan]
+      h := tanSum(c, [tanQ(qelt(v, i), x)
+                      for i in 1..n for x in toV lk])
+      nlf := [eval(f, [k], [h]) for f in lf]
+      [nlf, [k], [h]]
+
+    expnosimp(lf, lk, k, v, fns, g) ==
+        n := maxIndex v
+        lk := [x for x in lk | is?(x, 'exp) or is?(x, 'log)
+                               or is?(x, 'lambertW)]
+        d := (cd := splitDenominator v).den
+        vnum := cd.num
+        h : F := g
+        lke : List(K) := []
+        lexp : List(F) := []
+        for i in 1..n for k1 in lk for y in fns repeat
+            (vi := qelt(v, i)) = 0 => "iterate"
+            di := denom(vi)
+            is?(k1, 'log) or di = 1 =>
+                h := h*exp(y)^vi
+            lke := cons(k1, lke)
+            nui := exp(y/di::F)
+            lexp := cons(nui^di, lexp)
+            h := h*nui^numer(vi)
+        lke := cons(k, lke)
+        lexp := cons(h, lexp)
+        nlf := [eval(f, lke, lexp) for f in lf]
+        [nlf, lke, lexp]
+
+    logeval(lf, lk, k, v) ==
+      z := first argument k
+      dd := lcm([denom(qelt(v, i))$Q for i in minIndex v .. maxIndex v
+                ]$List(Z))
+      c := z^dd / (*/[x^(dd*qelt(v, i))
+                   for x in toZ lk for i in minIndex v .. maxIndex v])
+-- CHANGED log ktoZ x TO ktoY x SINCE WE WANT log exp f TO BE REPLACED BY f.
+      g := +/[qelt(v, i) * x
+              for i in minIndex v .. maxIndex v for x in toY lk]
+                + log(c)/(dd::R::F)
+      nlf := [eval(f, [k], [g]) for f in lf]
+      [nlf, [k], [g]]
+
+    rischNormalize(lf : List F, vars : List SY) : REC2 ==
+        funs : List K := tower lf
+        pars := variables(lf)
+        pars := setDifference(pars, vars)
+        empty?(funs) => [lf, empty(), empty()]
+        n := #funs
+
+        for i in 1..n for kk in rest funs repeat
+            klist := first(funs, i)
+            -- NO EVALUATION ON AN EMPTY VECTOR, WILL CAUSE INFINITE LOOP
+            (c := findRelation(vars, pars, klist, kk)) case vec
+              and not empty?(c.vec) =>
+                rec := depeval(lf, klist, kk, c.vec)
+                rn  := rischNormalize(rec.funcs, vars)
+                return [rn.funcs,
+                        concat(rec.kers, rn.kers), concat(rec.vals, rn.vals)]
+            c case func =>
+                nlf := [eval(f, [kk], [c.func]) for f in lf]
+                rn := rischNormalize(nlf, vars)
+                return [rn.funcs, concat(kk, rn.kers), concat(c.func, rn.vals)]
+        [lf, empty(), empty()]
+
+    rischNormalize(f : F, vars : List SY) : REC ==
+        rn := rischNormalize([f], vars)
+        [first(rn.funcs), rn.kers, rn.vals]
+
+    rischNormalize(f : F, v : SY) : REC == rischNormalize(f, [v])
+
+    rootNormalize(f, k) ==
+        (u := rootKernelNormalize([f], toR(tower f, first argument k), k))
+             case "failed" => f
+        first((u::REC2).funcs)
+
+
+    rootKernelNormalize(lf, l, k) ==
+      (c := rootDep(l, k)) case vec =>
+          rooteval(lf, l, k, (c.vec)(minIndex(c.vec)))
+      "failed"
+
+    validExponential(twr, eta, x) ==
+      (c := particularSolutionOverQ(construct([differentiate(g, x)
+         for g in (fns := toY twr)]$List(F))@Vector(F),
+           differentiate(eta, x))) case "failed" => "failed"
+      v := c::Vector(Q)
+      g := eta - +/[qelt(v, i) * yy
+                        for i in minIndex v .. maxIndex v for yy in fns]
+      */[exp(yy) ^ qelt(v, i)
+                for i in minIndex v .. maxIndex v for yy in fns] * exp g
+
+    if R has GcdDomain then
+      import from PolynomialRoots(IndexedExponents K, K, R, P, F)
+      irootDep(k : K) : U ==
+         n : N := (retract(second argument k)@Z)::N
+         pr := froot(first argument k, n)
+         not(pr.coef = 1) or not(pr.exponent = n) =>
+             pr.exponent = 1 => [pr.coef*pr.radicand]
+             nf : F := (pr.exponent)::F
+             nr : F := pr.radicand
+             nk : F := kernel(operator k, [nr, nf])
+             nv : F := pr.coef*nk
+             [nv]
+         [true]
+    else
+      irootDep(k : K) : U == [true]
+
+    rootDep(ker, k) ==
+      empty?(ker := toR(ker, first argument k)) => irootDep(k)
+      [new(1, lcm(retract(second argument k)@Z,
+       "lcm"/[retract(second argument r)@Z for r in ker])::Q)$Vector(Q)]
+
+    expeval(lf, lk, k, v) ==
+      y   := first argument k
+      fns := toY lk
+      g := y - +/[qelt(v, i) * z for i in minIndex v .. maxIndex v for z in fns]
+      (rec := goodCoef(v, lk, 'exp)) case "failed" =>
+          expnosimp(lf, lk, k, v, fns, exp g)
+      v0 := retract(inv qelt(v, rec.index))@Z
+      lv := [qelt(v, i) for i in minIndex v .. maxIndex v |
+                                                 i ~= rec.index]$List(Q)
+      l  := [kk for kk in lk | kk ~= rec.ker]
+      h : F := */[exp(z) ^ (- retract(a * v0)@Z) for a in lv for z in toY l]
+      h := h * exp(-v0 * g) * (k::F) ^ v0
+      nlf := [eval(f, [rec.ker], [h]) for f in lf]
+      [nlf, [rec.ker], [h]]
+
+    normalize(f : F) : F == first(normalize([f], []))
+
+    normalize(lf : List F) : List F == normalize(lf, [])
+
+    normalize(f : F, x : SY) : F == first(normalize([f], [x]))
+
+    if F has CombinatorialOpsCategory then
+
+      normalize(lf : List F, lx : List SY) : List F ==
+          lf2 := [factorials realElementary f for f in lf]
+          rischNormalize(lf2, lx).funcs
+
+      factdeprel(l, k) ==
+        ((r := retractIfCan(n := first argument k)@Union(Z, "failed"))
+          case Z) and (r::Z > 0) => [factorial(r::Z)::F]
+        for x in l repeat
+          m := first argument x
+          ((r := retractIfCan(n - m)@Union(Z, "failed")) case Z) =>
+            (r::Z > 0) => return([*/[(m + i::F) for i in 1..r] * x::F])
+            error "bad order of factorials"
+        [true]
+
+    else
+        normalize(lf : List F, lx : List SY) : List F ==
+            lf2 := [realElementary f for f in lf]
+            rischNormalize(lf2, lx).funcs
+

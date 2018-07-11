@@ -1,0 +1,152 @@
+)abbrev package MKFLCFN MakeFloatCompiledFunction
+++ Tools for making compiled functions from top-level expressions
+++ Author: Manuel Bronstein
+++ Date Created: 2 Mar 1990
+++ Description:
+++ MakeFloatCompiledFunction transforms top-level objects into
+++ compiled Lisp functions whose arguments are Lisp floats.
+++ This by-passes the \Language{} compiler and interpreter,
+++ thereby gaining several orders of magnitude.
+MakeFloatCompiledFunction(S) : Exports == Implementation where
+  S : ConvertibleTo InputForm
+
+  INF ==> InputForm
+  SF  ==> DoubleFloat
+  DI1 ==> devaluate(SF -> SF)$Lisp
+  DI2 ==> devaluate((SF, SF) -> SF)$Lisp
+
+  Exports ==> with
+    makeFloatFunction : (S, Symbol)         -> (SF -> SF)
+      ++ makeFloatFunction(expr, x) returns a Lisp function
+      ++ \spad{f: \spadtype{DoubleFloat} -> \spadtype{DoubleFloat}}
+      ++ defined by \spad{f(x) == expr}.
+      ++ Function f is compiled and directly
+      ++ applicable to objects of type \spadtype{DoubleFloat}.
+    makeFloatFunction : (S, Symbol, Symbol) -> ((SF, SF) -> SF)
+      ++ makeFloatFunction(expr, x, y) returns a Lisp function
+      ++ \spad{f: (\spadtype{DoubleFloat}, \spadtype{DoubleFloat}) -> \spadtype{DoubleFloat}}
+      ++ defined by \spad{f(x, y) == expr}.
+      ++ Function f is compiled and directly
+      ++ applicable to objects of type \spad{(\spadtype{DoubleFloat}, \spadtype{DoubleFloat})}.
+
+  Implementation ==> add
+    import from MakeUnaryCompiledFunction(S, SF, SF)
+    import from MakeBinaryCompiledFunction(S, SF, SF, SF)
+
+    streq?    : (INF, String) -> Boolean
+    streqlist? : (INF, List String) -> Boolean
+    gencode   : (String, List INF) -> INF
+    mkLisp    : INF -> Union(INF, "failed")
+    mkLispList : List INF -> Union(List INF, "failed")
+    mkDefun   : (INF, List INF) -> INF
+    mkLispCall : INF -> INF
+    mkPretend : INF -> INF
+    mkCTOR : INF -> INF
+
+    lsf := convert([convert('DoubleFloat)@INF]$List(INF))@INF
+
+    streq?(s, st)    == s = convert(st::Symbol)@INF
+    gencode(s, l)    == convert(concat(convert(s::Symbol)@INF, l))@INF
+    streqlist?(s, l) == member?(string symbol s, l)
+
+    mkPretend form ==
+      convert([convert('pretend), form, lsf]$List(INF))@INF
+
+    mkCTOR form ==
+      convert([convert("c_to_rf"::Symbol), form]$List(INF))@INF
+
+
+    mkLispCall name ==
+      convert([convert("$elt"::Symbol),
+                           convert('Lisp), name]$List(INF))@INF
+
+    mkDefun(s, lv) ==
+      name := convert(new()$Symbol)@INF
+      fun  := convert([convert('DEFUN), name, convert lv,
+              gencode("DECLARE",[gencode("DOUBLE-FLOAT",lv)]),mkCTOR s]$List(INF))@INF
+      EVAL(fun)$Lisp
+      if _$compileDontDefineFunctions$Lisp then COMPILE(name)$Lisp
+      name
+
+    makeFloatFunction(f, x, y) ==
+      (u := mkLisp(convert(f)@INF)) case "failed" =>
+        compiledFunction(f, x, y)
+      name := mkDefun(u::INF, [ix := convert x, iy := convert y])
+      t    := [lsf, lsf]$List(INF)
+      spadname := declare DI2
+      spadform := mkPretend convert([mkLispCall name, ix, iy]$List(INF))@INF
+      interpret function(spadform, [x, y], spadname)
+      binaryFunction compile(spadname, t)
+
+    makeFloatFunction(f, var) ==
+      (u := mkLisp(convert(f)@INF)) case "failed" =>
+        compiledFunction(f, var)
+      name := mkDefun(u::INF, [ivar := convert var])
+      t    := [lsf]$List(INF)
+      spadname := declare DI1
+      spadform := mkPretend convert([mkLispCall name, ivar]$List(INF))@INF
+      interpret function(spadform, [var], spadname)
+      unaryFunction compile(spadname, t)
+
+    mkLispList l ==
+      ans := []$List(INF)
+      for s in l repeat
+        (u := mkLisp s) case "failed" => return "failed"
+        ans := concat(u::INF, ans)
+      reverse! ans
+
+
+    mkLisp s ==
+      atom? s => (integer?(s) => convert((integer s)::SF)@INF; s)
+      op := first(l := destruct s)
+      (u := mkLispList rest l) case "failed" => "failed"
+      ll := u::List(INF)
+      streqlist?(op, ["+","*","/","-"]) => convert(concat(op, ll))@INF
+      streq?(op, "^") =>
+          integer?(ii := l(3)) =>
+              gencode("EXPT", [ll(1), ii])
+          gencode("EXPT", ll)
+      streqlist?(op, ["exp","sin","cos","tan","atan","asin","acos",
+         "log", "sinh","cosh","tanh","asinh","acosh","atanh","sqrt"]) =>
+            gencode(upperCase string symbol op, ll)
+      streq?(op, "nthRoot") =>
+        second(rest(l)) = convert(2::Integer)@INF =>
+           gencode("SQRT",[first ll])
+        gencode("EXPT", concat(first ll, [1$INF / second ll]))
+      streq?(op, "float") =>
+        a := ll.1
+        e := ll.2
+        b := ((ll.3) pretend Integer)::SF
+        _*(a, EXPT(b, e)$Lisp)$Lisp pretend INF
+      "failed"
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

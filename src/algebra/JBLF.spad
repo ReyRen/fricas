@@ -1,0 +1,432 @@
+)abbrev domain JBLF JetBundleLinearFunction
+++ Description:
+++ \spadtype{JetBundleLinearFunction} implements linear functions over
+++ a jet bundle. The coefficients are functions of the independent
+++ variables only.
+
+JetBundleLinearFunction(JB : JBC, D : BFC) : Cat == Def where
+
+  Sy    ==> Symbol
+  PI    ==> PositiveInteger
+  NNI   ==> NonNegativeInteger
+  I     ==> Integer
+  B     ==> Boolean
+  L     ==> List
+  JBC   ==> JetBundleCategory
+  JBE   ==> JetBundleExpression JB
+  JBFC  ==> JetBundleFunctionCategory JB
+  BFC   ==> JetBundleBaseFunctionCategory JB
+  OUT   ==> OutputForm
+  SEM   ==> SparseEchelonMatrix(JB, %)
+  SEMD  ==> SparseEchelonMatrix(JB, D)
+
+  SIMPREC ==> Record(Sys : L %, JM : SEM, Depend : Union("failed", L L NNI))
+
+  Const   ==> "Const"::Sy
+  Indep   ==> "Indep"::Sy
+
+  errmsg1 ==> "non-linear function"
+  errmsg2 ==> "Substitution for 1 not allowed"
+
+  Cat ==> Join(JBFC, Module D, RetractableTo D) with
+
+    if D has lazyRepresentation then
+        lazyRepresentation
+
+    coerce : D -> %
+
+    coerce : L % -> SEMD
+    coerce : SEMD -> L %
+      ++ coercion to matrices over ground domain.
+
+    ground? : % -> B
+      ++ \spad{ground?(l)} yields true, if \spad{l} is an element of the
+      ++ ground domain \spad{D}.
+
+    ground : % -> %
+      ++ \spad{ground(l)} returns the ground part of \spad{l}.
+
+    if D has with retractIfCan : JBE -> Union(D, "failed") then
+
+        retractIfCan : JBE -> Union(%, "failed")
+          ++ \spad{retractIfCan(p)} tries to write a general expression as
+          ++ a linear function.
+
+        retract : JBE -> %
+          ++ \spad{retract(p)} is like \spad{retractIfCan(p)} put yields a
+          ++ hard error, if \spad{p} contains further jet variables.
+
+  Def ==> add
+
+    -- -------------- --
+    -- Representation --
+    -- -------------- --
+
+    -- The linear function is represented by two lists: the first contains
+    -- the coefficients, the second the jet variables. The second list is
+    -- always ordered.
+
+    Rep := Record(Coeffs : L D, JVars : L JB)
+
+    nn : PI := numIndVar()$JB
+      -- global constant for number of independent variables
+
+    monom(c : D, jv : JB) : OUT ==
+        one? c => jv::OUT
+        one? jv => c::OUT
+        c::OUT * jv::OUT
+
+    coerce(l : %) : OUT ==
+        zero? l => 0$NNI ::OUT
+        res : OUT := monom(first(l.Coeffs), first(l.JVars))
+        for c in rest l.Coeffs  for jv in rest l.JVars repeat
+            res := res + monom(c, jv)
+        res
+
+    coerce(jv : JB) : % ==
+        jt := type jv
+        jt = Const => 1
+        jt = Indep => [[jv::D], [1]]
+        [[1], [jv]]
+
+    coerce(ex : D) : % ==
+        zero? ex => 0
+        [[ex], [1]]
+
+    coerce(jm : SEMD) : L % ==
+        res : L % := empty
+        for i in 1..nrows(jm) repeat
+            r := row(jm, i)
+            if not empty? r.Indices then
+                res := cons([r.Entries, r.Indices], res)
+        reverse! res
+
+    coerce(ll : L %) : SEMD ==
+        inds : L JB := empty
+        for l in ll repeat
+            inds := removeDuplicates! merge(">", inds, l.JVars)
+        res : SEMD := new(inds, #ll)
+        for l in ll  for i in 1.. repeat
+            setRow!(res, i, l.JVars, l.Coeffs)
+        res
+
+    ground?(l : %) : B == zero?(l) or one?(first l.JVars)
+
+    ground(l : %) : % ==
+        not member?(1$JB, l.JVars) => 0
+        [[last l.Coeffs], [1$JB]]
+
+    retractIfCan(l : %) : Union(D, "failed") ==
+        zero? l => 0$D
+        one?(first l.JVars)$JB => first l.Coeffs
+        "failed"
+
+    numerator(l : %) : % == l
+
+    denominator(l : %) : % == 1
+
+    if D has with retractIfCan : JBE -> Union(D, "failed") then
+
+        retractIfCan(ex : JBE) : Union(%, "failed") ==
+            pd := retractIfCan(ex)$D
+            pd case D => [[pd::D], [1$JB]]
+            resJ := jetVariables ex
+            resC : L D := empty
+            for jv in resJ repeat
+                cd := retractIfCan(differentiate(ex, jv))$D
+                cd case "failed" => return "failed"
+                resC := cons(cd::D, resC)
+            [reverse! resC, resJ]
+
+        retract(ex : JBE) : % ==
+            pl : Union(%, "failed") := retractIfCan ex
+            pl case "failed" => error errmsg1
+            pl::%
+
+    -- -------- --
+    -- Equality --
+    -- -------- --
+
+    zero?(l : %) : B == empty? l.JVars
+
+    l1 : % = l2 : % == zero?(l1-l2)
+
+    -- ----------- --
+    -- Arithmetics --
+    -- ----------- --
+
+    0 : % == [[], []]
+
+    1 : % == [[1], [1]]
+
+    - l : % == [[-$D c  for c in l.Coeffs], l.JVars]
+
+    l1 : % + l2 : % ==
+        zero? l1 => l2
+        zero? l2 => l1
+        lc2 := copy l2.Coeffs
+        lj2 := copy l2.JVars
+        resC : L D := empty
+        resJ : L JB := empty
+
+        for c1 in l1.Coeffs  for j1 in l1.JVars repeat
+            while not empty?(lj2) and first(lj2) > j1 repeat
+                resC := cons(first lc2, resC)
+                resJ := cons(first lj2, resJ)
+                lc2 := rest lc2
+                lj2 := rest lj2
+            if not empty?(lj2) and first(lj2) = j1 then
+                sum := c1 +$D first lc2
+                if not zero? sum then
+                    resC := cons(sum, resC)
+                    resJ := cons(j1, resJ)
+                lc2 := rest lc2
+                lj2 := rest lj2
+            else
+                resC := cons(c1, resC)
+                resJ := cons(j1, resJ)
+
+        [concat!(reverse! resC, lc2), concat!(reverse! resJ, lj2)]
+
+    i : I * l : % ==
+        zero? i => 0
+        one? i => l
+        [[i *$D c for c in l.Coeffs], l.JVars]
+
+    ex : D * l : % ==
+        zero? ex => 0
+        one? ex => l
+        [[ex *$D c for c in l.Coeffs], l.JVars]
+
+    l1 : % * l2 : % ==
+        zero? l1 or zero? l2 => 0
+        l1.JVars = [1] => first(l1.Coeffs)*l2
+        l2.JVars = [1] => first(l2.Coeffs)*l1
+        error errmsg1
+
+    recip(l : %) : Union(%, "failed") ==
+        l.JVars = [1] =>
+            rc := recip(first(l.Coeffs))$D
+            rc case D => rc::D::%
+            "failed"
+        "failed"
+
+    -- The following two functions are currently only for simple cases
+    -- implemented. This suffices, however, for the needs of simplify!
+
+    l1 : % exquo l2 : % ==
+        not one? first l2.JVars => "failed"
+        d := first l2.Coeffs
+        newC : L D := empty
+        for c in l1.Coeffs repeat
+            e := c exquo d
+            e case "failed" => return "failed"
+            newC := cons(e, newC)
+        [reverse! newC, l1.JVars]
+
+    gcd(l1 : %, l2 : %) : % ==
+        (#l1.JVars > 1) or (#l2.JVars > 1) => 1
+        g := gcd(first l1.Coeffs, first l2.Coeffs)
+        first(l1.JVars) = first(l2.JVars) => [[g], l1.JVars]
+        g::%
+
+    -- -------------- --
+    -- JBFC Functions --
+    -- -------------- --
+
+    jetVariables(l : %) : L JB ==
+        zero? l => []
+        res : L JB := empty
+        for c in l.Coeffs repeat
+            res := merge(">", res, jetVariables c)
+        res := removeDuplicates! res
+        if member?(1, l.JVars) then
+            res := concat!(remove(1, l.JVars), res)
+        else
+            res := append(l.JVars, res)
+        res
+
+    differentiate(l : %, s : Sy) : % ==
+        -- No check whether symbol might be a jet variable!!!
+        resC : L D := empty
+        resJ : L JB := empty
+        for c in l.Coeffs  for j in l.JVars repeat
+            dc := differentiate(c, s)$D
+            if not zero? dc then
+                resC := cons(dc, resC)
+                resJ := cons(j, resJ)
+        [reverse! resC, reverse! resJ]
+
+    differentiate(l : %, jv : JB) : % ==
+        jt := type jv
+        jt = Indep =>
+            resC : L D := empty
+            resJ : L JB := empty
+            for c in l.Coeffs  for j in l.JVars repeat
+                dc := differentiate(c, jv)$D
+                if not zero? dc then
+                    resC := cons(dc, resC)
+                    resJ := cons(j, resJ)
+            [reverse! resC, reverse! resJ]
+        pos := position(jv, l.JVars)
+        pos < minIndex(l.JVars) => 0
+        [[qelt(l.Coeffs, pos)], [1]]
+
+    jacobiMatrix(sys : L %) : SEM ==
+        inds : L JB := empty
+        cinds : L JB := empty
+        for eq in sys repeat
+            inds := removeDuplicates! merge(">", inds, eq.JVars)
+            while #cinds < nn  for co in eq.Coeffs repeat
+                cinds := removeDuplicates! merge(">", cinds, jetVariables(co)$D)
+        empty? cinds =>             -- constant coefficients
+            res : SEM := new(inds, #sys)
+            for eq in sys  for i in 1.. repeat
+                setRow!(res, i, eq.JVars, [co::% for co in eq.Coeffs])
+            res
+        res : SEM := new(append(inds, cinds), #sys)
+        for eq in sys  for i in 1.. repeat
+            ents := [co::%  for co in eq.Coeffs]
+            rowJ : L JB := empty
+            rowC : L % := empty
+            for cjv in cinds repeat
+                dJV : L JB := empty
+                dCo : L D := empty
+                for co in eq.Coeffs  for jv in eq.JVars repeat
+                    dco := differentiate(co, cjv)$D
+                    if not zero? dco then
+                        dJV := cons(jv, dJV)
+                        dCo := cons(dco, dCo)
+                if not empty? dJV then
+                    rowJ := cons(cjv, rowJ)
+                    rowC := cons([reverse! dCo, reverse! dJV], rowC)
+            setRow!(res, i, append(eq.JVars, reverse! rowJ), _
+                            append(ents, reverse! rowC))
+        res
+
+    jacobiMatrix(sys : L %, varlist : L L JB) : SEM ==
+        inds := first varlist
+        for vars in rest varlist repeat
+            inds := removeDuplicates! merge(">", inds, vars)
+        res : SEM := new(inds, #sys)
+        for eq in sys  for vars in varlist  for i in 1.. repeat
+            ents := [co::%  for co in eq.Coeffs]
+            ivars := sort!("<", select((x : JB) : Boolean +->
+                                   type(x) = Indep, vars))
+            if empty? ivars then
+                setRow!(res, i, eq.JVars, ents)
+            else
+                rowJ : L JB := empty
+                rowC : L % := empty
+                for ijv in ivars repeat
+                    dJV : L JB := empty
+                    dCo : L D := empty
+                    for co in eq.Coeffs  for jv in eq.JVars repeat
+                        dco := differentiate(co, ijv)$D
+                        if not zero? dco then
+                            dJV := cons(jv, dJV)
+                            dCo := cons(dco, dCo)
+                    if not empty? dJV then
+                      rowJ := cons(ijv, rowJ)
+                      rowC := cons([reverse! dCo, reverse! dJV], rowC)
+                setRow!(res, i, append(eq.JVars, reverse! rowJ), _
+                                append(ents, reverse! rowC))
+        res
+
+    -- -------------- --
+    -- Simplification --
+    -- -------------- --
+
+    leadingDer(l : %) : JB ==
+        zero? l => 1
+        first l.JVars
+
+    freeOf?(l : %, jv : JB) : B ==
+        type(jv) = Indep =>
+            reduce("and", [freeOf?(c, jv)$D for c in l.Coeffs], true)
+        not member?(jv, l.JVars)
+
+    solveFor(l : %, jv : JB) : Union(%, "failed") ==
+        -- Solving for independent variables not supported!
+        jt := type jv
+        jt = Const or jt = Indep => "failed"
+        pos := position(jv, l.JVars)
+        pos < minIndex(l.JVars) => "failed"
+        one?(#l.JVars) => 0
+        rc := recip(l.Coeffs.pos)$D
+        rc case "failed" => "failed"
+        [[-c*rc  for c in delete(l.Coeffs, pos)], delete(l.JVars, pos)]
+
+    subst(l : %, jv : JB, exp : %) : % ==
+        -- Syntactic substitution.
+        jt := type jv
+        jt = Const => error errmsg2
+        jt = Indep =>                          -- substitution in coefficients
+            xexp : D := retract exp
+            resC : L D := empty
+            resJ : L JB := empty
+            for c in l.Coeffs for cj in l.JVars repeat
+                nc := subst(c, jv, xexp)$D
+                if not zero? nc then
+                    resC := cons(nc, resC)
+                    resJ := cons(cj, resJ)
+            [reverse! resC, reverse! resJ]
+        pos := position(jv, l.JVars)     -- substitution in jet variables
+        zero? pos => l
+        c := qelt(l.Coeffs, pos)
+        nl : % := [delete(l.Coeffs, pos), delete(l.JVars, pos)]
+        nl + c*exp
+
+    simplify(sys : L %, jm : SEM) : SIMPREC ==
+        one?(#sys) => [sys, jm, [[1]]]
+
+        -- make system triangular
+        RRec := primitiveRowEchelon(sys::SEMD)$SEMD
+        newSys := RRec.Ech::L %
+        Trafo := RRec.Lt
+        minR := minRowIndex Trafo
+        maxR := maxRowIndex Trafo
+
+        -- construct new Jacobi matrix and build dependency list
+        inds := allIndices jm
+        cinds := copy inds
+        while not(empty? cinds) and (type(first cinds) ~= Indep) repeat
+            cinds := rest cinds
+        if not empty? cinds then
+            cinds := reverse! cinds
+        newJM : SEM := new(inds, #newSys)
+        dep : L L NNI := empty
+        for eq in newSys  for j in 1.. repeat
+            if empty? cinds then            -- constant coefficients
+                setRow!(newJM, j, eq.JVars, [co::% for co in eq.Coeffs])
+            else                            -- non-constant coefficients
+                ents := [co::%  for co in eq.Coeffs]
+                rowJ : L JB := empty
+                rowC : L % := empty
+                for cjv in cinds repeat
+                    dJV : L JB := empty
+                    dCo : L D := empty
+                    for co in eq.Coeffs  for jv in eq.JVars repeat
+                        dco := differentiate(co, cjv)$D
+                        if not zero? dco then
+                            dJV := cons(jv, dJV)
+                            dCo := cons(dco, dCo)
+                    if not empty? dJV then
+                        rowJ := cons(cjv, rowJ)
+                        rowC := cons([reverse! dCo, reverse! dJV], rowC)
+                setRow!(newJM, j, append(eq.JVars, reverse! rowJ), _
+                                  append(ents, reverse! rowC))
+            depj : L NNI := empty
+            for k in maxR..minR by -1 repeat
+                kb := k+minIndex(sys)-minR
+                if not zero? qelt(Trafo, j, k) then
+                    depj := cons((k-minR+minIndex(depj))::NNI, depj)
+            dep := cons(depj, dep)
+
+        [newSys, newJM, reverse! dep]
+
+    simpOne(f : %) : % ==
+        one?(#(f.JVars)) => [[1], f.JVars]
+        f
+
+

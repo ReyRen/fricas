@@ -1,0 +1,272 @@
+18044               (|FunctionSpaceToUnivariatePowerSeries| R FE |Expon| UPS
+                                                            TRAN UTS TEXP |x|)
+|package|
+(((|FunctionSpaceToUnivariatePowerSeries| |#1| |#2| |#3| |#4| |#5| |#6| |#7|
+                                          |#8|)
+  (CATEGORY |package|
+   (SIGNATURE |exprToUPS|
+    ((|Union| (|:| |%series| |#4|)
+              (|:| |%problem|
+                   (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+     |#2| (|Boolean|)
+     (|Union| #1="complex" #2="real: two sides" #3="real: left side"
+              #4="real: right side" #5="just do it")))
+   (SIGNATURE |exprToGenUPS|
+    ((|Union| (|:| |%series| |#4|)
+              (|:| |%problem|
+                   (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+     |#2| (|Boolean|) (|Union| #1# #2# #3# #4# #5#)))
+   (SIGNATURE |exprToPS|
+    ((|Union| (|:| |%series| |#4|)
+              (|:| |%problem|
+                   (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+     |#2| (|Boolean|) (|Union| #1# #2# #3# #4# #5#) (|Boolean|) |#2|))
+   (SIGNATURE |exprToPS|
+    ((|Union| (|:| |%series| |#4|)
+              (|:| |%problem|
+                   (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+     |#2| (|Boolean|) (|Union| #1# #2# #3# #4# #5#) (|Boolean|) |#2|
+     (|Mapping| (|Boolean|) |#2|) (|Mapping| (|Boolean|) |#2|)
+     (|Mapping| (|Boolean|) |#2|))))
+  (|Join| (|GcdDomain|) (|Comparable|) (|RetractableTo| (|Integer|))
+          (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|AlgebraicallyClosedField|) (|TranscendentalFunctionCategory|)
+          (|Algebra| (|Fraction| (|Integer|))) (|FunctionSpace| |#1|)
+          (CATEGORY |domain| (SIGNATURE |coerce| ($ |#3|))))
+  (|Join| (|OrderedAbelianMonoid|) (|OrderedRing|))
+  (|Join| (|UnivariatePowerSeriesCategory| |#2| |#3|) (|Field|)
+          (|PowerSeriesCategory| |#2| |#3| (|SingletonAsOrderedSet|))
+          (|TranscendentalFunctionCategory|))
+  (|PartialTranscendentalFunctions| |#4|)
+  (|UnivariateTaylorSeriesCategory| |#2|)
+  (|TaylorSeriesExpansion| |#2| |#3| (|SingletonAsOrderedSet|) |#4| |#6|)
+  (|Symbol|))
+ (T |FunctionSpaceToUnivariatePowerSeries|))
+(CATEGORY |package|
+ (SIGNATURE |exprToUPS|
+  ((|Union| (|:| |%series| |#4|)
+            (|:| |%problem|
+                 (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+   |#2| (|Boolean|)
+   (|Union| #1="complex" #2="real: two sides" #3="real: left side"
+            #4="real: right side" #5="just do it")))
+ (SIGNATURE |exprToGenUPS|
+  ((|Union| (|:| |%series| |#4|)
+            (|:| |%problem|
+                 (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+   |#2| (|Boolean|) (|Union| #1# #2# #3# #4# #5#)))
+ (SIGNATURE |exprToPS|
+  ((|Union| (|:| |%series| |#4|)
+            (|:| |%problem|
+                 (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+   |#2| (|Boolean|) (|Union| #1# #2# #3# #4# #5#) (|Boolean|) |#2|))
+ (SIGNATURE |exprToPS|
+  ((|Union| (|:| |%series| |#4|)
+            (|:| |%problem|
+                 (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+   |#2| (|Boolean|) (|Union| #1# #2# #3# #4# #5#) (|Boolean|) |#2|
+   (|Mapping| (|Boolean|) |#2|) (|Mapping| (|Boolean|) |#2|)
+   (|Mapping| (|Boolean|) |#2|))))
+"/git/fricas/src/algebra/FS2UPS.spad"
+((|exprToPS| (*1 *2 *3 *4 *5 *4 *3 *6 *6 *6)
+  (AND
+   (|isDomain| *5
+               (|Union| #1="complex" #2="real: two sides" #3="real: left side"
+                        #4="real: right side" #5="just do it"))
+   (|isDomain| *6 (|Mapping| (|Boolean|) *3))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|Algebra| (|Fraction| (|Integer|)))
+                         (|FunctionSpace| *7)
+                         (CATEGORY |domain| (SIGNATURE |coerce| ($ *8)))))
+   (|ofCategory| *8 (|Join| (|OrderedAbelianMonoid|) (|OrderedRing|)))
+   (|isDomain| *4 (|Boolean|))
+   (|ofCategory| *7
+                 (|Join| (|GcdDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|ofCategory| *9
+                 (|Join| (|UnivariatePowerSeriesCategory| *3 *8) (|Field|)
+                         (|PowerSeriesCategory| *3 *8
+                                                (|SingletonAsOrderedSet|))
+                         (|TranscendentalFunctionCategory|)))
+   (|ofCategory| *11 (|UnivariateTaylorSeriesCategory| *3))
+   (|isDomain| *2
+               (|Union| (|:| |%series| *9)
+                        (|:| |%problem|
+                             (|Record| (|:| |func| (|String|))
+                                       (|:| |prob| (|String|))))))
+   (|isDomain| *1
+               (|FunctionSpaceToUnivariatePowerSeries| *7 *3 *8 *9 *10 *11 *12
+                                                       *13))
+   (|ofCategory| *10 (|PartialTranscendentalFunctions| *9))
+   (|ofCategory| *12
+                 (|TaylorSeriesExpansion| *3 *8 (|SingletonAsOrderedSet|) *9
+                                          *11))
+   (|ofType| *13 (|Symbol|))))
+ (|exprToPS| (*1 *2 *3 *4 *5 *4 *3)
+  (AND (|isDomain| *4 (|Boolean|))
+       (|isDomain| *5 (|Union| #1# #2# #3# #4# #5#))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|ofCategory| *3
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|Algebra| (|Fraction| (|Integer|)))
+                             (|FunctionSpace| *6)
+                             (CATEGORY |domain| (SIGNATURE |coerce| ($ *7)))))
+       (|ofCategory| *7 (|Join| (|OrderedAbelianMonoid|) (|OrderedRing|)))
+       (|ofCategory| *8
+                     (|Join| (|UnivariatePowerSeriesCategory| *3 *7) (|Field|)
+                             (|PowerSeriesCategory| *3 *7
+                                                    (|SingletonAsOrderedSet|))
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *10 (|UnivariateTaylorSeriesCategory| *3))
+       (|isDomain| *2
+                   (|Union| (|:| |%series| *8)
+                            (|:| |%problem|
+                                 (|Record| (|:| |func| (|String|))
+                                           (|:| |prob| (|String|))))))
+       (|isDomain| *1
+                   (|FunctionSpaceToUnivariatePowerSeries| *6 *3 *7 *8 *9 *10
+                                                           *11 *12))
+       (|ofCategory| *9 (|PartialTranscendentalFunctions| *8))
+       (|ofCategory| *11
+                     (|TaylorSeriesExpansion| *3 *7 (|SingletonAsOrderedSet|)
+                                              *8 *10))
+       (|ofType| *12 (|Symbol|))))
+ (|exprToGenUPS| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *4 (|Boolean|))
+       (|isDomain| *5 (|Union| #1# #2# #3# #4# #5#))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|ofCategory| *3
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|Algebra| (|Fraction| (|Integer|)))
+                             (|FunctionSpace| *6)
+                             (CATEGORY |domain| (SIGNATURE |coerce| ($ *7)))))
+       (|ofCategory| *7 (|Join| (|OrderedAbelianMonoid|) (|OrderedRing|)))
+       (|ofCategory| *8
+                     (|Join| (|UnivariatePowerSeriesCategory| *3 *7) (|Field|)
+                             (|PowerSeriesCategory| *3 *7
+                                                    (|SingletonAsOrderedSet|))
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *10 (|UnivariateTaylorSeriesCategory| *3))
+       (|isDomain| *2
+                   (|Union| (|:| |%series| *8)
+                            (|:| |%problem|
+                                 (|Record| (|:| |func| (|String|))
+                                           (|:| |prob| (|String|))))))
+       (|isDomain| *1
+                   (|FunctionSpaceToUnivariatePowerSeries| *6 *3 *7 *8 *9 *10
+                                                           *11 *12))
+       (|ofCategory| *9 (|PartialTranscendentalFunctions| *8))
+       (|ofCategory| *11
+                     (|TaylorSeriesExpansion| *3 *7 (|SingletonAsOrderedSet|)
+                                              *8 *10))
+       (|ofType| *12 (|Symbol|))))
+ (|exprToUPS| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *4 (|Boolean|))
+       (|isDomain| *5 (|Union| #1# #2# #3# #4# #5#))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|ofCategory| *3
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|Algebra| (|Fraction| (|Integer|)))
+                             (|FunctionSpace| *6)
+                             (CATEGORY |domain| (SIGNATURE |coerce| ($ *7)))))
+       (|ofCategory| *7 (|Join| (|OrderedAbelianMonoid|) (|OrderedRing|)))
+       (|ofCategory| *8
+                     (|Join| (|UnivariatePowerSeriesCategory| *3 *7) (|Field|)
+                             (|PowerSeriesCategory| *3 *7
+                                                    (|SingletonAsOrderedSet|))
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *10 (|UnivariateTaylorSeriesCategory| *3))
+       (|isDomain| *2
+                   (|Union| (|:| |%series| *8)
+                            (|:| |%problem|
+                                 (|Record| (|:| |func| (|String|))
+                                           (|:| |prob| (|String|))))))
+       (|isDomain| *1
+                   (|FunctionSpaceToUnivariatePowerSeries| *6 *3 *7 *8 *9 *10
+                                                           *11 *12))
+       (|ofCategory| *9 (|PartialTranscendentalFunctions| *8))
+       (|ofCategory| *11
+                     (|TaylorSeriesExpansion| *3 *7 (|SingletonAsOrderedSet|)
+                                              *8 *10))
+       (|ofType| *12 (|Symbol|)))))
+((|exprToUPS|
+  (((|Union| (|:| |%series| |#4|)
+             (|:| |%problem|
+                  (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+    |#2| (|Boolean|)
+    (|Union| #1="complex" #2="real: two sides" #3="real: left side"
+             #4="real: right side" #5="just do it"))
+   NIL))
+ (|exprToPS|
+  (((|Union| (|:| |%series| |#4|)
+             (|:| |%problem|
+                  (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+    |#2| (|Boolean|) (|Union| #1# #2# #3# #4# #5#) (|Boolean|) |#2|
+    (|Mapping| (|Boolean|) |#2|) (|Mapping| (|Boolean|) |#2|)
+    (|Mapping| (|Boolean|) |#2|))
+   NIL)
+  (((|Union| (|:| |%series| |#4|)
+             (|:| |%problem|
+                  (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+    |#2| (|Boolean|) (|Union| #1# #2# #3# #4# #5#) (|Boolean|) |#2|)
+   NIL))
+ (|exprToGenUPS|
+  (((|Union| (|:| |%series| |#4|)
+             (|:| |%problem|
+                  (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+    |#2| (|Boolean|) (|Union| #1# #2# #3# #4# #5#))
+   NIL)))
+FS2UPS
+((|constructor|
+  (NIL
+   "This package converts expressions in some function space to power series in a variable \\spad{x} with coefficients in that function space. The function \\spadfun{exprToUPS} converts expressions to power series whose coefficients do not contain the variable \\spad{x}. The function \\spadfun{exprToGenUPS} converts functional expressions to power series whose coefficients may involve functions of \\spad{log(x)}."))
+ (|exprToPS|
+  (((|Union| (|:| |%series| |#4|)
+             (|:| |%problem|
+                  (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+    |#2| (|Boolean|)
+    (|Union| #1="complex" #2="real: two sides" #3="real: left side"
+             #4="real: right side" #5="just do it")
+    (|Boolean|) |#2| (|Mapping| (|Boolean|) |#2|) (|Mapping| (|Boolean|) |#2|)
+    (|Mapping| (|Boolean|) |#2|))
+   "exprToPS(\\spad{fcn},{} posCheck?,{} atanFlag,{} log_flag,{} log_val,{} coef_chk,{} inv_chk,{} zero_chk) is like exprToPS(\\spad{fcn},{} posCheck?,{} atanFlag,{} log_flag,{} log_val),{} but fails if \\spad{coef_chk} is \\spad{false} for some coefficient of \\spad{fcn} or if expansion process needs to invert element of \\spad{FE} for which \\spad{inv_chk} is \\spad{false}")
+  (((|Union| (|:| |%series| |#4|)
+             (|:| |%problem|
+                  (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+    |#2| (|Boolean|) (|Union| #1# #2# #3# #4# #5#) (|Boolean|) |#2|)
+   "\\spad{exprToPS(fcn,{} posCheck?,{} atanFlag,{} log_flag,{} log_val)} is like exprToUPS,{} but if \\spad{log_flag} is \\spad{true} it replaces logarithms of expansion variable by \\spad{log_val}"))
+ (|exprToGenUPS|
+  (((|Union| (|:| |%series| |#4|)
+             (|:| |%problem|
+                  (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+    |#2| (|Boolean|) (|Union| #1# #2# #3# #4# #5#))
+   "\\spad{exprToGenUPS(fcn,{} posCheck?,{} atanFlag)} converts the expression \\spad{fcn} to a generalized power series. If \\spad{posCheck?} is \\spad{true},{} log\\spad{'s} of negative numbers are not allowed nor are \\spad{n}th roots of negative numbers with \\spad{n} even. If \\spad{posCheck?} is \\spad{false},{} these are allowed. \\spad{atanFlag} determines how the case \\spad{atan(f(x))},{} where \\spad{f(x)} has a pole,{} will be treated. The possible values of \\spad{atanFlag} are \\spad{\"complex\"},{} \\spad{\"real: two sides\"},{} \\spad{\"real: left side\"},{} \\spad{\"real: right side\"},{} and \\spad{\"just do it\"}. If \\spad{atanFlag} is \\spad{\"complex\"},{} then no series expansion will be computed because,{} viewed as a function of a complex variable,{} \\spad{atan(f(x))} has an essential singularity. Otherwise,{} the sign of the leading coefficient of the series expansion of \\spad{f(x)} determines the constant coefficient in the series expansion of \\spad{atan(f(x))}. If this sign cannot be determined,{} a series expansion is computed only when \\spad{atanFlag} is \\spad{\"just do it\"}. When the leading term in the series expansion of \\spad{f(x)} is of odd degree (or is a rational degree with odd numerator),{} then the constant coefficient in the series expansion of \\spad{atan(f(x))} for values to the left differs from that for values to the right. If \\spad{atanFlag} is \\spad{\"real: two sides\"},{} no series expansion will be computed. If \\spad{atanFlag} is \\spad{\"real: left side\"} the constant coefficient for values to the left will be used and if \\spad{atanFlag} \\spad{\"real: right side\"} the constant coefficient for values to the right will be used. If there is a problem in converting the function to a power series,{} we return a record containing the name of the function that caused the problem and a brief description of the problem. When expanding the expression into a series it is assumed that the series is centered at 0. For a series centered at a,{} the user should perform the substitution \\spad{x -> x + a} before calling this function."))
+ (|exprToUPS|
+  (((|Union| (|:| |%series| |#4|)
+             (|:| |%problem|
+                  (|Record| (|:| |func| (|String|)) (|:| |prob| (|String|)))))
+    |#2| (|Boolean|) (|Union| #1# #2# #3# #4# #5#))
+   "\\spad{exprToUPS(fcn,{} posCheck?,{} atanFlag)} converts the expression \\spad{fcn} to a power series. If \\spad{posCheck?} is \\spad{true},{} log\\spad{'s} of negative numbers are not allowed nor are \\spad{n}th roots of negative numbers with \\spad{n} even. If \\spad{posCheck?} is \\spad{false},{} these are allowed. \\spad{atanFlag} determines how the case \\spad{atan(f(x))},{} where \\spad{f(x)} has a pole,{} will be treated. The possible values of \\spad{atanFlag} are \\spad{\"complex\"},{} \\spad{\"real: two sides\"},{} \\spad{\"real: left side\"},{} \\spad{\"real: right side\"},{} and \\spad{\"just do it\"}. If \\spad{atanFlag} is \\spad{\"complex\"},{} then no series expansion will be computed because,{} viewed as a function of a complex variable,{} \\spad{atan(f(x))} has an essential singularity. Otherwise,{} the sign of the leading coefficient of the series expansion of \\spad{f(x)} determines the constant coefficient in the series expansion of \\spad{atan(f(x))}. If this sign cannot be determined,{} a series expansion is computed only when \\spad{atanFlag} is \\spad{\"just do it\"}. When the leading term in the series expansion of \\spad{f(x)} is of odd degree (or is a rational degree with odd numerator),{} then the constant coefficient in the series expansion of \\spad{atan(f(x))} for values to the left differs from that for values to the right. If \\spad{atanFlag} is \\spad{\"real: two sides\"},{} no series expansion will be computed. If \\spad{atanFlag} is \\spad{\"real: left side\"} the constant coefficient for values to the left will be used and if \\spad{atanFlag} \\spad{\"real: right side\"} the constant coefficient for values to the right will be used. If there is a problem in converting the function to a power series,{} a record containing the name of the function that caused the problem and a brief description of the problem is returned. When expanding the expression into a series it is assumed that the series is centered at 0. For a series centered at a,{} the user should perform the substitution \\spad{x -> x + a} before calling this function."))
+ (|coerce|
+  (($ |#3|)
+   "\\spad{coerce(e)} converts an 'exponent' \\spad{e} to an 'expression'")))
+(("documentation" 0 11648) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 11641) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 10566) ("modemaps" 0 3344) ("sourceFile" 0 3306)
+ ("constructorCategory" 0 2209) ("constructorModemap" 0 166)
+ ("constructorKind" 0 156) ("constructorForm" 0 20))

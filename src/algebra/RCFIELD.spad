@@ -1,0 +1,152 @@
+)abbrev category RCFIELD RealClosedField
+++ Author: Renaud Rioboo
+++ Date Created: may 1993
+++ Basic Functions: provides computations with generic real roots of
+++                  polynomials
+++ Related Constructors: SimpleOrderedAlgebraicExtension, RealClosure
+++ Also See:
+++ AMS Classifications:
+++ Keywords: Real Algebraic Numbers
+++ References:
+++ Description:
+++ \spadtype{RealClosedField} provides common access
+++ functions for all real closed fields.
+RealClosedField : Category == PUB where
+
+    E ==> OutputForm
+    SUP ==> SparseUnivariatePolynomial
+    PME ==> SUP(%)
+    N ==> NonNegativeInteger
+    PI ==> PositiveInteger
+    RN ==> Fraction(Integer)
+    Z  ==> Integer
+    POLY ==> Polynomial
+    PACK ==> SparseUnivariatePolynomialFunctions2
+
+    PUB == Join(CharacteristicZero,
+                OrderedRing,
+                CommutativeRing,
+                Field,
+                FullyRetractableTo(Fraction(Integer)),
+                Algebra Integer,
+                Algebra(Fraction(Integer)),
+                RadicalCategory) with
+
+        mainForm :   % -> Union(E,"failed")
+             ++ \spad{mainForm(x)} is the main algebraic quantity name of
+             ++ \spad{x}
+
+        mainDefiningPolynomial :   % -> Union(PME,"failed")
+             ++ \spad{mainDefiningPolynomial(x)} is the defining
+             ++ polynomial for the main algebraic quantity of \spad{x}
+
+        mainValue :   % -> Union(PME,"failed")
+             ++ \spad{mainValue(x)} is the expression of \spad{x} in terms
+             ++ of \spad{SparseUnivariatePolynomial(%)}
+
+        rootOf :          (PME,PI,E)           -> Union(%,"failed")
+             ++ \spad{rootOf(pol, n, name)} creates the nth root for the order
+             ++ of \spad{pol} and names it \spad{name}
+
+        rootOf :          (PME,PI)             -> Union(%,"failed")
+             ++ \spad{rootOf(pol, n)} creates the nth root for the order
+             ++ of \spad{pol} and gives it unique name
+
+        allRootsOf :       PME                ->  List %
+             ++ \spad{allRootsOf(pol)} creates all the roots
+             ++ of \spad{pol} naming each uniquely
+
+        allRootsOf :       (SUP(RN))          ->  List %
+             ++ \spad{allRootsOf(pol)} creates all the roots
+             ++ of \spad{pol} naming each uniquely
+
+        allRootsOf :       (SUP(Z))          ->  List %
+             ++ \spad{allRootsOf(pol)} creates all the roots
+             ++ of \spad{pol} naming each uniquely
+
+        allRootsOf :       (POLY(%))         ->  List %
+             ++ \spad{allRootsOf(pol)} creates all the roots
+             ++ of \spad{pol} naming each uniquely
+
+        allRootsOf :       (POLY(RN))        ->  List %
+             ++ \spad{allRootsOf(pol)} creates all the roots
+             ++ of \spad{pol} naming each uniquely
+
+        allRootsOf :       (POLY(Z))         ->  List %
+             ++ \spad{allRootsOf(pol)} creates all the roots
+             ++ of \spad{pol} naming each uniquely
+
+        sqrt :            (%, PI)               ->     %
+             ++ \spad{sqrt(x, n)} is \spad{x ^ (1/n)}
+
+        sqrt :              %                  ->     %
+             ++ \spad{sqrt(x)} is \spad{x ^ (1/2)}
+
+        sqrt :             RN                  ->     %
+             ++ \spad{sqrt(x)} is \spad{x ^ (1/2)}
+
+        sqrt :              Z                  ->     %
+             ++ \spad{sqrt(x)} is \spad{x ^ (1/2)}
+
+        rename! :        (%, E)                ->     %
+             ++ \spad{rename!(x, name)} changes the way \spad{x} is printed
+
+        rename :         (%, E)                ->     %
+             ++ \spad{rename(x, name)} gives a new number that prints as name
+
+        approximate :       (%, %) -> RN
+              ++ \spad{approximate(n, p)} gives an approximation of \spad{n}
+              ++ that has precision \spad{p}
+
+      add
+
+        sqrt(a : %) : % == sqrt(a, 2)
+
+        sqrt(a : RN) : % == sqrt(a::%, 2)
+
+        sqrt(a : Z) : % == sqrt(a::%, 2)
+
+        characteristic() == 0
+
+        rootOf(pol, n, o) ==
+          r := rootOf(pol, n)
+          r case "failed" => "failed"
+          rename!(r, o)
+
+        rootOf(pol, n) ==
+          liste : List(%) := allRootsOf(pol)
+          # liste > n => "failed"
+          liste.n
+
+
+        sqrt(x, n) ==
+          n = 1 => x
+          zero?(x) => 0
+          one?(x) => 1
+          if odd?(n)
+          then
+            r := rootOf(monomial(1, n) - (x :: PME), 1)
+          else
+            r := rootOf(monomial(1, n) - (x :: PME), 2)
+          r case "failed" => error "no roots"
+          n = 2 => rename(r, root(x::E)$E)
+          rename(r, root(x :: E, n :: E)$E)
+
+        (x : %) ^ (rn : RN) == sqrt(x^numer(rn), denom(rn)::PI)
+
+        nthRoot(x, n) ==
+          zero?(n) => x
+          negative?(n) => inv(sqrt(x, (-n) :: PI))
+          sqrt(x, n :: PI)
+
+        allRootsOf(p : SUP(RN)) == allRootsOf(map(z +-> z::%, p)$PACK(RN, %))
+
+        allRootsOf(p : SUP(Z)) == allRootsOf(map(z +-> z::%, p)$PACK(Z, %))
+
+        allRootsOf(p : POLY(%)) == allRootsOf(univariate(p))
+
+        allRootsOf(p : POLY(RN)) == allRootsOf(univariate(p))
+
+        allRootsOf(p : POLY(Z)) == allRootsOf(univariate(p))
+
+

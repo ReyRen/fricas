@@ -1,0 +1,58 @@
+3057                (MAKEPROP '|DiophantineSolutionPackage| 'NILADIC T)
+(|DiophantineSolutionPackage|)
+|package|
+(((|DiophantineSolutionPackage|)
+  (CATEGORY |package|
+   (SIGNATURE |dioSolve|
+    ((|Record| (|:| |varOrder| (|List| (|Symbol|)))
+               (|:| |inhom|
+                    (|Union| (|List| (|Vector| (|NonNegativeInteger|)))
+                             "failed"))
+               (|:| |hom| (|List| (|Vector| (|NonNegativeInteger|)))))
+     (|Equation| (|Polynomial| (|Integer|)))))))
+ (T |DiophantineSolutionPackage|))
+(CATEGORY |package|
+ (SIGNATURE |dioSolve|
+  ((|Record| (|:| |varOrder| (|List| (|Symbol|)))
+             (|:| |inhom|
+                  (|Union| (|List| (|Vector| (|NonNegativeInteger|)))
+                           "failed"))
+             (|:| |hom| (|List| (|Vector| (|NonNegativeInteger|)))))
+   (|Equation| (|Polynomial| (|Integer|))))))
+"/git/fricas/src/algebra/DIOSP.spad"
+((|dioSolve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Equation| (|Polynomial| (|Integer|))))
+       (|isDomain| *2
+                   (|Record| (|:| |varOrder| (|List| (|Symbol|)))
+                             (|:| |inhom|
+                                  (|Union|
+                                   (|List| (|Vector| (|NonNegativeInteger|)))
+                                   "failed"))
+                             (|:| |hom|
+                                  (|List| (|Vector| (|NonNegativeInteger|))))))
+       (|isDomain| *1 (|DiophantineSolutionPackage|)))))
+((|dioSolve|
+  (((|Record| (|:| |varOrder| (|List| (|Symbol|)))
+              (|:| |inhom|
+                   (|Union| (|List| (|Vector| (|NonNegativeInteger|)))
+                            "failed"))
+              (|:| |hom| (|List| (|Vector| (|NonNegativeInteger|)))))
+    (|Equation| (|Polynomial| (|Integer|))))
+   26)))
+DIOSP
+((|constructor|
+  (NIL
+   "any solution of a homogeneous linear Diophantine equation can be represented as a sum of minimal solutions,{} which form a \"basis\" (a minimal solution cannot be represented as a nontrivial sum of solutions) in the case of an inhomogeneous linear Diophantine equation,{} each solution is the sum of a inhomogeneous solution and any number of homogeneous solutions therefore,{} it suffices to compute two sets: \\indented{3}{1. all minimal inhomogeneous solutions} \\indented{3}{2. all minimal homogeneous solutions} the algorithm implemented is a completion procedure,{} which enumerates all solutions in a recursive depth-first-search it can be seen as finding monotone paths in a graph for more details see Reference"))
+ (|dioSolve|
+  (((|Record| (|:| |varOrder| (|List| (|Symbol|)))
+              (|:| |inhom|
+                   (|Union| (|List| (|Vector| (|NonNegativeInteger|)))
+                            "failed"))
+              (|:| |hom| (|List| (|Vector| (|NonNegativeInteger|)))))
+    (|Equation| (|Polynomial| (|Integer|))))
+   "\\spad{dioSolve(u)} computes a basis of all minimal solutions for linear homogeneous Diophantine equation \\spad{u},{} then all minimal solutions of inhomogeneous equation")))
+(("documentation" 0 1811) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1805) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1480) ("modemaps" 0 919) ("sourceFile" 0 882)
+ ("constructorCategory" 0 540) ("constructorModemap" 0 113)
+ ("constructorKind" 0 103) ("constructorForm" 0 72) ("NILADIC" 0 20))

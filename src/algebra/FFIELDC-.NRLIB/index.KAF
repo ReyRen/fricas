@@ -1,0 +1,121 @@
+5914                (|FiniteFieldCategory&| S)
+|domain|
+(((|FiniteFieldCategory&| |#1|)
+  (CATEGORY |domain| (SIGNATURE |order| ((|PositiveInteger|) |#1|))
+   (SIGNATURE |discreteLog| ((|NonNegativeInteger|) |#1|))
+   (SIGNATURE |primitive?| ((|Boolean|) |#1|))
+   (SIGNATURE |createPrimitiveElement| (|#1|))
+   (SIGNATURE |charthRoot| (|#1| |#1|))
+   (SIGNATURE |squareFreePolynomial|
+    ((|Factored| (|SparseUnivariatePolynomial| |#1|))
+     (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |factorPolynomial|
+    ((|Factored| (|SparseUnivariatePolynomial| |#1|))
+     (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |factorSquareFreePolynomial|
+    ((|Factored| (|SparseUnivariatePolynomial| |#1|))
+     (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |conditionP|
+    ((|Union| (|Vector| |#1|) "failed") (|Matrix| |#1|)))
+   (SIGNATURE |differentiate| (|#1| |#1|))
+   (SIGNATURE |differentiate| (|#1| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |init| (|#1|))
+   (SIGNATURE |nextItem| ((|Union| |#1| "failed") |#1|))
+   (SIGNATURE |discreteLog|
+    ((|Union| (|NonNegativeInteger|) "failed") |#1| |#1|))
+   (SIGNATURE |order| ((|OnePointCompletion| (|PositiveInteger|)) |#1|))
+   (SIGNATURE |charthRoot| ((|Union| |#1| "failed") |#1|))
+   (SIGNATURE |gcdPolynomial|
+    ((|SparseUnivariatePolynomial| |#1|) (|SparseUnivariatePolynomial| |#1|)
+     (|SparseUnivariatePolynomial| |#1|))))
+  (|FiniteFieldCategory|))
+ (T |FiniteFieldCategory&|))
+(CATEGORY |domain| (SIGNATURE |order| ((|PositiveInteger|) |#1|))
+ (SIGNATURE |discreteLog| ((|NonNegativeInteger|) |#1|))
+ (SIGNATURE |primitive?| ((|Boolean|) |#1|))
+ (SIGNATURE |createPrimitiveElement| (|#1|))
+ (SIGNATURE |charthRoot| (|#1| |#1|))
+ (SIGNATURE |squareFreePolynomial|
+  ((|Factored| (|SparseUnivariatePolynomial| |#1|))
+   (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |factorPolynomial|
+  ((|Factored| (|SparseUnivariatePolynomial| |#1|))
+   (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |factorSquareFreePolynomial|
+  ((|Factored| (|SparseUnivariatePolynomial| |#1|))
+   (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |conditionP| ((|Union| (|Vector| |#1|) "failed") (|Matrix| |#1|)))
+ (SIGNATURE |differentiate| (|#1| |#1|))
+ (SIGNATURE |differentiate| (|#1| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |init| (|#1|))
+ (SIGNATURE |nextItem| ((|Union| |#1| "failed") |#1|))
+ (SIGNATURE |discreteLog|
+  ((|Union| (|NonNegativeInteger|) "failed") |#1| |#1|))
+ (SIGNATURE |order| ((|OnePointCompletion| (|PositiveInteger|)) |#1|))
+ (SIGNATURE |charthRoot| ((|Union| |#1| "failed") |#1|))
+ (SIGNATURE |gcdPolynomial|
+  ((|SparseUnivariatePolynomial| |#1|) (|SparseUnivariatePolynomial| |#1|)
+   (|SparseUnivariatePolynomial| |#1|))))
+"/git/fricas/src/algebra/FFIELDC.spad"
+((|squareFreePolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   81))
+ (|primitive?| (((|Boolean|) $) 48))
+ (|order| (((|OnePointCompletion| (|PositiveInteger|)) $) 20)
+  (((|PositiveInteger|) $) 51))
+ (|nextItem| (((|Union| $ "failed") $) 16)) (|init| (($) 9))
+ (|gcdPolynomial|
+  (((|SparseUnivariatePolynomial| $) (|SparseUnivariatePolynomial| $)
+    (|SparseUnivariatePolynomial| $))
+   99))
+ (|factorSquareFreePolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   96))
+ (|factorPolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   84))
+ (|discreteLog| (((|Union| (|NonNegativeInteger|) "failed") $ $) 74)
+  (((|NonNegativeInteger|) $) 60))
+ (|differentiate| (($ $ (|NonNegativeInteger|)) NIL) (($ $) 8))
+ (|createPrimitiveElement| (($) 40))
+ (|conditionP| (((|Union| (|Vector| $) "failed") (|Matrix| $)) 30))
+ (|charthRoot| (((|Union| $ "failed") $) 36) (($ $) 35)))
+FFIELDC-
+((|constructor| (NIL "FiniteFieldCategory is the category of finite fields"))
+ (|representationType|
+  (((|Union| "prime" "polynomial" "normal" "cyclic"))
+   "\\spad{representationType()} returns the type of the representation,{} one of: \\spad{prime},{} \\spad{polynomial},{} \\spad{normal},{} or \\spad{cyclic}."))
+ (|order|
+  (((|PositiveInteger|) $)
+   "\\spad{order(b)} computes the order of an element \\spad{b} in the multiplicative group of the field. Error: if \\spad{b} equals 0."))
+ (|discreteLog|
+  (((|NonNegativeInteger|) $)
+   "\\spad{discreteLog(a)} computes the discrete logarithm of \\spad{a} with respect to \\spad{primitiveElement()} of the field."))
+ (|primitive?|
+  (((|Boolean|) $)
+   "\\spad{primitive?(b)} tests whether the element \\spad{b} is a generator of the (cyclic) multiplicative group of the field,{} \\spadignore{i.e.} is a primitive element. Implementation Note: see \\spad{ch}.IX.1.3,{} th.2 in \\spad{D}. Lipson."))
+ (|primitiveElement|
+  (($)
+   "\\spad{primitiveElement()} returns a primitive element stored in a global variable in the domain. At first call,{} the primitive element is computed by calling \\spadfun{createPrimitiveElement}."))
+ (|createPrimitiveElement|
+  (($)
+   "\\spad{createPrimitiveElement()} computes a generator of the (cyclic) multiplicative group of the field."))
+ (|tableForDiscreteLogarithm|
+  (((|Table| (|PositiveInteger|) (|NonNegativeInteger|)) (|Integer|))
+   "\\spad{tableForDiscreteLogarithm(a,{} n)} returns a table of the discrete logarithms of \\spad{a^0} up to \\spad{a^(n-1)} which,{} called with key \\spad{lookup(a^i)} returns \\spad{i} for \\spad{i} in \\spad{0..n-1}. Error: if not called for prime divisors of order of \\indented{7}{multiplicative group.}"))
+ (|factorsOfCyclicGroupSize|
+  (((|List|
+     (|Record| (|:| |factor| (|Integer|))
+               (|:| |exponent| (|NonNegativeInteger|)))))
+   "\\spad{factorsOfCyclicGroupSize()} returns the factorization of size()\\spad{-1}"))
+ (|charthRoot|
+  (($ $)
+   "\\spad{charthRoot(a)} takes the characteristic'th root of {\\em a}. Note: such a root is alway defined in finite fields.")))
+(("documentation" 0 3788) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3779) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2757) ("modemaps" 0 NIL) ("sourceFile" 0 2718)
+ ("constructorCategory" 0 1459) ("constructorModemap" 0 56)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

@@ -1,0 +1,77 @@
+)abbrev package GENMFACT GeneralizedMultivariateFactorize
+++ Author: P. Gianni
+++ Date Created: 1983
+++ Basic Functions:
+++ Related Constructors: MultFiniteFactorize, AlgebraicMultFact, MultivariateFactorize
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   This is the top level package for doing multivariate factorization
+++ over basic domains like \spadtype{Integer} or \spadtype{Fraction Integer}.
+
+GeneralizedMultivariateFactorize(OV, E, S, R, P) : C == T
+ where
+  R          :   IntegralDomain
+                    -- with factor on R[x]
+  S          :   IntegralDomain
+  OV    :   OrderedSet  with
+                 convert : % -> Symbol
+                   ++ convert(x) converts x to a symbol
+                 variable : Symbol -> Union(%, "failed")
+                   ++ variable(s) makes an element from symbol s or fails.
+  E          :   OrderedAbelianMonoidSup
+  P          :   PolynomialCategory(R, E, OV)
+
+  C == with
+    factor      :      P  ->  Factored P
+      ++ factor(p) factors the multivariate polynomial p over its coefficient
+      ++ domain
+
+  T == add
+    factor(p : P) : Factored P ==
+      R has FiniteFieldCategory => factor(p)$MultFiniteFactorize(OV, E, R, P)
+      R is Polynomial(S) and S has EuclideanDomain =>
+         factor(p)$MPolyCatPolyFactorizer(E, OV, S, P)
+      R is Fraction(S) and S has CharacteristicZero and
+        S has EuclideanDomain and S has PolynomialFactorizationExplicit =>
+            factor(p)$MRationalFactorize(E, OV, S, P)
+      R is Fraction Polynomial S =>
+         factor(p)$MPolyCatRationalFunctionFactorizer(E, OV, S, P)
+      R has CharacteristicZero and R has EuclideanDomain
+         and R has PolynomialFactorizationExplicit =>
+               factor(p)$MultivariateFactorize(OV, E, R, P)
+      error "factor for this domain is unimplemented"
+
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

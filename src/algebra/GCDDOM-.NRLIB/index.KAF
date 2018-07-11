@@ -1,0 +1,55 @@
+2361                (|GcdDomain&| S)
+|domain|
+(((|GcdDomain&| |#1|)
+  (CATEGORY |domain|
+   (SIGNATURE |gcdPolynomial|
+    ((|SparseUnivariatePolynomial| |#1|) (|SparseUnivariatePolynomial| |#1|)
+     (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |lcm| (|#1| (|List| |#1|))) (SIGNATURE |lcm| (|#1| |#1| |#1|))
+   (SIGNATURE |gcd| (|#1| (|List| |#1|))) (SIGNATURE |gcd| (|#1| |#1| |#1|))
+   (SIGNATURE |lcmCoef|
+    ((|Record| (|:| |llcm_res| |#1|) (|:| |coeff1| |#1|) (|:| |coeff2| |#1|))
+     |#1| |#1|)))
+  (|GcdDomain|))
+ (T |GcdDomain&|))
+(CATEGORY |domain|
+ (SIGNATURE |gcdPolynomial|
+  ((|SparseUnivariatePolynomial| |#1|) (|SparseUnivariatePolynomial| |#1|)
+   (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |lcm| (|#1| (|List| |#1|))) (SIGNATURE |lcm| (|#1| |#1| |#1|))
+ (SIGNATURE |gcd| (|#1| (|List| |#1|))) (SIGNATURE |gcd| (|#1| |#1| |#1|))
+ (SIGNATURE |lcmCoef|
+  ((|Record| (|:| |llcm_res| |#1|) (|:| |coeff1| |#1|) (|:| |coeff2| |#1|))
+   |#1| |#1|)))
+"/git/fricas/src/algebra/GCDDOM.spad"
+((|lcmCoef|
+  (((|Record| (|:| |llcm_res| $) (|:| |coeff1| $) (|:| |coeff2| $)) $ $) 44))
+ (|lcm| (($ $ $) 14) (($ (|List| $)) 21))
+ (|gcdPolynomial|
+  (((|SparseUnivariatePolynomial| $) (|SparseUnivariatePolynomial| $)
+    (|SparseUnivariatePolynomial| $))
+   42))
+ (|gcd| (($ $ $) NIL) (($ (|List| $)) 22)))
+GCDDOM-
+((|constructor|
+  (NIL
+   "This category describes domains where \\spadfun{\\spad{gcd}} can be computed but where there is no guarantee of the existence of \\spadfun{factor} operation for factorization into irreducibles. However,{} if such a \\spadfun{factor} operation exist,{} factorization will be unique up to order and units."))
+ (|gcdPolynomial|
+  (((|SparseUnivariatePolynomial| $) (|SparseUnivariatePolynomial| $)
+    (|SparseUnivariatePolynomial| $))
+   "\\spad{gcdPolynomial(p,{} q)} returns the greatest common divisor (\\spad{gcd}) of univariate polynomials over the domain"))
+ (|lcm|
+  (($ (|List| $))
+   "\\spad{lcm(l)} returns the least common multiple of the elements of the list \\spad{l}.")
+  (($ $ $)
+   "\\spad{lcm(x,{} y)} returns the least common multiple of \\spad{x} and \\spad{y}."))
+ (|gcd|
+  (($ (|List| $))
+   "\\spad{gcd(l)} returns the common \\spad{gcd} of the elements in the list \\spad{l}.")
+  (($ $ $)
+   "\\spad{gcd(x,{} y)} returns the greatest common divisor of \\spad{x} and \\spad{y}.")))
+(("documentation" 0 1332) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1324) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1014) ("modemaps" 0 NIL) ("sourceFile" 0 976)
+ ("constructorCategory" 0 549) ("constructorModemap" 0 46)
+ ("constructorKind" 0 37) ("constructorForm" 0 20))

@@ -1,0 +1,158 @@
+7348                (|ComplexTrigonometricManipulations| R F)
+|package|
+(((|ComplexTrigonometricManipulations| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |complexNormalize| (|#2| |#2|))
+   (SIGNATURE |complexNormalize| (|#2| |#2| (|Symbol|)))
+   (SIGNATURE |complexElementary| (|#2| |#2|))
+   (SIGNATURE |complexElementary| (|#2| |#2| (|Symbol|)))
+   (SIGNATURE |real| ((|Expression| |#1|) |#2|))
+   (SIGNATURE |imag| ((|Expression| |#1|) |#2|))
+   (SIGNATURE |real?| ((|Boolean|) |#2|)) (SIGNATURE |trigs| (|#2| |#2|))
+   (SIGNATURE |complexForm| ((|Complex| (|Expression| |#1|)) |#2|)))
+  (|Join| (|IntegralDomain|) (|Comparable|) (|RetractableTo| (|Integer|)))
+  (|Join| (|AlgebraicallyClosedField|) (|TranscendentalFunctionCategory|)
+          (|FunctionSpace| (|Complex| |#1|))))
+ (T |ComplexTrigonometricManipulations|))
+(CATEGORY |package| (SIGNATURE |complexNormalize| (|#2| |#2|))
+ (SIGNATURE |complexNormalize| (|#2| |#2| (|Symbol|)))
+ (SIGNATURE |complexElementary| (|#2| |#2|))
+ (SIGNATURE |complexElementary| (|#2| |#2| (|Symbol|)))
+ (SIGNATURE |real| ((|Expression| |#1|) |#2|))
+ (SIGNATURE |imag| ((|Expression| |#1|) |#2|))
+ (SIGNATURE |real?| ((|Boolean|) |#2|)) (SIGNATURE |trigs| (|#2| |#2|))
+ (SIGNATURE |complexForm| ((|Complex| (|Expression| |#1|)) |#2|)))
+"/git/fricas/src/algebra/CTRIGMNP.spad"
+((|complexForm| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|IntegralDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))))
+   (|isDomain| *2 (|Complex| (|Expression| *4)))
+   (|isDomain| *1 (|ComplexTrigonometricManipulations| *4 *3))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| (|Complex| *4))))))
+ (|trigs| (*1 *2 *2)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|IntegralDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))))
+   (|isDomain| *1 (|ComplexTrigonometricManipulations| *3 *2))
+   (|ofCategory| *2
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| (|Complex| *3))))))
+ (|real?| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|IntegralDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))))
+   (|isDomain| *2 (|Boolean|))
+   (|isDomain| *1 (|ComplexTrigonometricManipulations| *4 *3))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| (|Complex| *4))))))
+ (|imag| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|IntegralDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))))
+   (|isDomain| *2 (|Expression| *4))
+   (|isDomain| *1 (|ComplexTrigonometricManipulations| *4 *3))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| (|Complex| *4))))))
+ (|real| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|IntegralDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))))
+   (|isDomain| *2 (|Expression| *4))
+   (|isDomain| *1 (|ComplexTrigonometricManipulations| *4 *3))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| (|Complex| *4))))))
+ (|complexElementary| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|ofCategory| *4
+                     (|Join| (|IntegralDomain|) (|Comparable|)
+                             (|RetractableTo| (|Integer|))))
+       (|isDomain| *1 (|ComplexTrigonometricManipulations| *4 *2))
+       (|ofCategory| *2
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|FunctionSpace| (|Complex| *4))))))
+ (|complexElementary| (*1 *2 *2)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|IntegralDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))))
+   (|isDomain| *1 (|ComplexTrigonometricManipulations| *3 *2))
+   (|ofCategory| *2
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| (|Complex| *3))))))
+ (|complexNormalize| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|ofCategory| *4
+                     (|Join| (|IntegralDomain|) (|Comparable|)
+                             (|RetractableTo| (|Integer|))))
+       (|isDomain| *1 (|ComplexTrigonometricManipulations| *4 *2))
+       (|ofCategory| *2
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|FunctionSpace| (|Complex| *4))))))
+ (|complexNormalize| (*1 *2 *2)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|IntegralDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))))
+   (|isDomain| *1 (|ComplexTrigonometricManipulations| *3 *2))
+   (|ofCategory| *2
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| (|Complex| *3)))))))
+((|trigs| ((|#2| |#2|) 29)) (|real?| (((|Boolean|) |#2|) 20))
+ (|real| (((|Expression| |#1|) |#2|) 13))
+ (|imag| (((|Expression| |#1|) |#2|) 15))
+ (|complexNormalize| ((|#2| |#2| (|Symbol|)) 67) ((|#2| |#2|) 69))
+ (|complexForm| (((|Complex| (|Expression| |#1|)) |#2|) 10))
+ (|complexElementary| ((|#2| |#2| (|Symbol|)) 64) ((|#2| |#2|) 55)))
+CTRIGMNP
+((|constructor|
+  (NIL
+   "\\spadtype{ComplexTrigonometricManipulations} provides function that compute the real and imaginary parts of complex functions."))
+ (|complexForm|
+  (((|Complex| (|Expression| |#1|)) |#2|)
+   "\\spad{complexForm(f)} returns \\spad{[real f,{} imag f]}."))
+ (|trigs|
+  ((|#2| |#2|)
+   "\\spad{trigs(f)} rewrites all the complex logs and exponentials appearing in \\spad{f} in terms of trigonometric functions."))
+ (|real?|
+  (((|Boolean|) |#2|)
+   "\\spad{real?(f)} returns \\spad{true} if \\spad{f = real f}."))
+ (|imag|
+  (((|Expression| |#1|) |#2|)
+   "\\spad{imag(f)} returns the imaginary part of \\spad{f} where \\spad{f} is a complex function."))
+ (|real|
+  (((|Expression| |#1|) |#2|)
+   "\\spad{real(f)} returns the real part of \\spad{f} where \\spad{f} is a complex function."))
+ (|complexElementary|
+  ((|#2| |#2| (|Symbol|))
+   "\\spad{complexElementary(f,{} x)} rewrites the kernels of \\spad{f} involving \\spad{x} in terms of the 2 fundamental complex transcendental elementary functions: \\spad{log,{} exp}.")
+  ((|#2| |#2|)
+   "\\spad{complexElementary(f)} rewrites \\spad{f} in terms of the 2 fundamental complex transcendental elementary functions: \\spad{log,{} exp}."))
+ (|complexNormalize|
+  ((|#2| |#2| (|Symbol|))
+   "\\spad{complexNormalize(f,{} x)} rewrites \\spad{f} using the least possible number of complex independent kernels involving \\spad{x}.")
+  ((|#2| |#2|)
+   "\\spad{complexNormalize(f)} rewrites \\spad{f} using the least possible number of complex independent kernels.")))
+(("documentation" 0 5808) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 5799) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5456) ("modemaps" 0 1320) ("sourceFile" 0 1280)
+ ("constructorCategory" 0 828) ("constructorModemap" 0 72)
+ ("constructorKind" 0 62) ("constructorForm" 0 20))

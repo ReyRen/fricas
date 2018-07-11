@@ -1,0 +1,41 @@
+)abbrev package FRUTIL FactoredFunctionUtilities
+++ Author:
+++ Basic Operations: refine
+++ Related Constructors: Factored
+++ Also See:
+++ AMS Classifications: 11A51, 11Y05
+++ Keywords: factor
+++ References:
+++ Description:
+++   \spadtype{FactoredFunctionUtilities} implements some utility
+++   functions for manipulating factored objects.
+FactoredFunctionUtilities(R) : Exports == Implementation where
+  R : IntegralDomain
+  FR ==> Factored R
+
+  Exports ==> with
+    refine : (FR, R -> FR) -> FR
+      ++ refine(u, fn) is used to apply the function \userfun{fn} to
+      ++ each factor of \spadvar{u} and then build a new factored
+      ++ object from the results.  For example, if \spadvar{u} were
+      ++ created by calling \spad{nilFactor(10, 2)} then
+      ++ \spad{refine(u, factor)} would create a factored object equal
+      ++ to that created by \spad{factor(100)} or
+      ++ \spad{primeFactor(2, 2) * primeFactor(5, 2)}.
+
+  Implementation ==> add
+    fUnion ==> Union("nil", "sqfr", "irred", "prime")
+    FF     ==> Record(flag : fUnion, factor : R, exponent : NonNegativeInteger)
+
+    refine(f, func) ==
+       u := unit(f)
+       l : List FF := empty()
+       for item in factorList f repeat
+         fitem := func item.factor
+         u := u*unit(fitem) ^ item.exponent
+         if item.exponent = 1 then
+            l := concat(factorList fitem, l)
+         else l := concat!([[v.flag, v.factor, v.exponent * item.exponent]
+                            for v in factorList fitem], l)
+       makeFR(u, l)
+

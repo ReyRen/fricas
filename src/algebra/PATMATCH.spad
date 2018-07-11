@@ -1,0 +1,99 @@
+)abbrev package PATMATCH PatternMatch
+++ Top-level pattern matching functions
+++ Author: Manuel Bronstein
+++ Date Created: 3 Dec 1989
+++ Description:
+++   This package provides the top-level pattern macthing functions.
+++ Keywords: pattern, matching.
+PatternMatch(Base, Subject, Pat) : Exports == Implementation where
+  Base   : SetCategory
+  Subject : PatternMatchable Base
+  Pat    : ConvertibleTo Pattern Base
+
+  Exports ==> with
+    is? : (Subject, Pat)      -> Boolean
+      ++ is?(expr, pat) tests if the expression expr matches
+      ++ the pattern pat.
+    is? : (List Subject, Pat) -> Boolean
+      ++ is?([e1, ..., en], pat) tests if the list of
+      ++ expressions \spad{[e1, ..., en]} matches
+      ++ the pattern pat.
+    Is : (List Subject, Pat) ->
+                     PatternMatchListResult(Base, Subject, List Subject)
+      ++ Is([e1, ..., en], pat) matches the pattern pat on the list of
+      ++ expressions \spad{[e1, ..., en]} and returns the result.
+    if Subject has RetractableTo(Symbol) then
+      Is : (Subject, Pat) -> List Equation Subject
+        ++ Is(expr, pat) matches the pattern pat on the expression
+        ++ expr and returns a list of matches \spad{[v1 = e1, ..., vn = en]};
+        ++ returns an empty list if either expr is exactly equal to
+        ++ pat or if pat does not match expr.
+    else
+      if Subject has Ring then
+        Is : (Subject, Pat) -> List Equation Polynomial Subject
+          ++ Is(expr, pat) matches the pattern pat on the expression
+          ++ expr and returns a list of matches \spad{[v1 = e1, ..., vn = en]};
+          ++ returns an empty list if either expr is exactly equal to
+          ++ pat or if pat does not match expr.
+      else
+        Is : (Subject, Pat) -> PatternMatchResult(Base, Subject)
+          ++ Is(expr, pat) matches the pattern pat on the expression
+          ++ expr and returns a match of the form \spad{[v1 = e1, ..., vn = en]};
+          ++ returns an empty match if expr is exactly equal to pat.
+          ++ returns a \spadfun{failed} match if pat does not match expr.
+
+  Implementation ==> add
+    import from PatternMatchListAggregate(Base, Subject, List Subject)
+
+    ist : (Subject, Pat) -> PatternMatchResult(Base, Subject)
+
+    ist(s, p)                  == patternMatch(s, convert p, new())
+    is?(s :     Subject, p : Pat) == not failed? ist(s, p)
+    is?(s : List Subject, p : Pat) == not failed? Is(s, p)
+    Is(s : List Subject,  p : Pat) == patternMatch(s, convert p, new())
+
+    if Subject has RetractableTo(Symbol) then
+      Is(s : Subject, p : Pat) : List(Equation Subject) ==
+        failed?(r := ist(s, p)) => empty()
+        [rec.key::Subject = rec.entry for rec in destruct r]
+
+    else
+      if Subject has Ring then
+        Is(s : Subject, p : Pat) : List(Equation Polynomial Subject) ==
+          failed?(r := ist(s, p)) => empty()
+          [rec.key::Polynomial(Subject) =$Equation(Polynomial Subject)
+           rec.entry::Polynomial(Subject) for rec in destruct r]
+
+      else
+        Is(s : Subject, p : Pat) : PatternMatchResult(Base, Subject) == ist(s, p)
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

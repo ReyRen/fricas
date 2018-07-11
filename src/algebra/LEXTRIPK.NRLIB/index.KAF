@@ -1,0 +1,318 @@
+16109               (|LexTriangularPackage| R |ls|)
+|package|
+(((|LexTriangularPackage| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |zeroDimensional?|
+    ((|Boolean|)
+     (|List|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))))
+   (SIGNATURE |fglmIfCan|
+    ((|Union|
+      (|List|
+       (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+      "failed")
+     (|List|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))))
+   (SIGNATURE |groebner|
+    ((|List|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+     (|List|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))))
+   (SIGNATURE |lexTriangular|
+    ((|List| (|RegularChain| |#1| |#2|))
+     (|List|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+     (|Boolean|)))
+   (SIGNATURE |squareFreeLexTriangular|
+    ((|List|
+      (|SquareFreeRegularTriangularSet| |#1|
+                                        (|IndexedExponents|
+                                         (|OrderedVariableList| |#2|))
+                                        (|OrderedVariableList| |#2|)
+                                        (|NewSparseMultivariatePolynomial| |#1|
+                                                                           (|OrderedVariableList|
+                                                                            |#2|))))
+     (|List|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+     (|Boolean|)))
+   (SIGNATURE |zeroSetSplit|
+    ((|List| (|RegularChain| |#1| |#2|))
+     (|List|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+     (|Boolean|)))
+   (SIGNATURE |zeroSetSplit|
+    ((|List|
+      (|SquareFreeRegularTriangularSet| |#1|
+                                        (|IndexedExponents|
+                                         (|OrderedVariableList| |#2|))
+                                        (|OrderedVariableList| |#2|)
+                                        (|NewSparseMultivariatePolynomial| |#1|
+                                                                           (|OrderedVariableList|
+                                                                            |#2|))))
+     (|List|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+     (|Boolean|))))
+  (|GcdDomain|) (|List| (|Symbol|)))
+ (T |LexTriangularPackage|))
+(CATEGORY |package|
+ (SIGNATURE |zeroDimensional?|
+  ((|Boolean|)
+   (|List|
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))))
+ (SIGNATURE |fglmIfCan|
+  ((|Union|
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    "failed")
+   (|List|
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))))
+ (SIGNATURE |groebner|
+  ((|List|
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+   (|List|
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))))
+ (SIGNATURE |lexTriangular|
+  ((|List| (|RegularChain| |#1| |#2|))
+   (|List|
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+   (|Boolean|)))
+ (SIGNATURE |squareFreeLexTriangular|
+  ((|List|
+    (|SquareFreeRegularTriangularSet| |#1|
+                                      (|IndexedExponents|
+                                       (|OrderedVariableList| |#2|))
+                                      (|OrderedVariableList| |#2|)
+                                      (|NewSparseMultivariatePolynomial| |#1|
+                                                                         (|OrderedVariableList|
+                                                                          |#2|))))
+   (|List|
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+   (|Boolean|)))
+ (SIGNATURE |zeroSetSplit|
+  ((|List| (|RegularChain| |#1| |#2|))
+   (|List|
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+   (|Boolean|)))
+ (SIGNATURE |zeroSetSplit|
+  ((|List|
+    (|SquareFreeRegularTriangularSet| |#1|
+                                      (|IndexedExponents|
+                                       (|OrderedVariableList| |#2|))
+                                      (|OrderedVariableList| |#2|)
+                                      (|NewSparseMultivariatePolynomial| |#1|
+                                                                         (|OrderedVariableList|
+                                                                          |#2|))))
+   (|List|
+    (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+   (|Boolean|))))
+"/git/fricas/src/algebra/LEXTRIPK.spad"
+((|zeroSetSplit| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|NewSparseMultivariatePolynomial| *5
+                                                   (|OrderedVariableList|
+                                                    *6))))
+   (|isDomain| *4 (|Boolean|)) (|ofCategory| *5 (|GcdDomain|))
+   (|ofType| *6 (|List| (|Symbol|)))
+   (|isDomain| *2
+               (|List|
+                (|SquareFreeRegularTriangularSet| *5
+                                                  (|IndexedExponents|
+                                                   (|OrderedVariableList| *6))
+                                                  (|OrderedVariableList| *6)
+                                                  (|NewSparseMultivariatePolynomial|
+                                                   *5
+                                                   (|OrderedVariableList|
+                                                    *6)))))
+   (|isDomain| *1 (|LexTriangularPackage| *5 *6))))
+ (|zeroSetSplit| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|NewSparseMultivariatePolynomial| *5
+                                                   (|OrderedVariableList|
+                                                    *6))))
+   (|isDomain| *4 (|Boolean|)) (|ofCategory| *5 (|GcdDomain|))
+   (|ofType| *6 (|List| (|Symbol|)))
+   (|isDomain| *2 (|List| (|RegularChain| *5 *6)))
+   (|isDomain| *1 (|LexTriangularPackage| *5 *6))))
+ (|squareFreeLexTriangular| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|NewSparseMultivariatePolynomial| *5
+                                                   (|OrderedVariableList|
+                                                    *6))))
+   (|isDomain| *4 (|Boolean|)) (|ofCategory| *5 (|GcdDomain|))
+   (|ofType| *6 (|List| (|Symbol|)))
+   (|isDomain| *2
+               (|List|
+                (|SquareFreeRegularTriangularSet| *5
+                                                  (|IndexedExponents|
+                                                   (|OrderedVariableList| *6))
+                                                  (|OrderedVariableList| *6)
+                                                  (|NewSparseMultivariatePolynomial|
+                                                   *5
+                                                   (|OrderedVariableList|
+                                                    *6)))))
+   (|isDomain| *1 (|LexTriangularPackage| *5 *6))))
+ (|lexTriangular| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|NewSparseMultivariatePolynomial| *5
+                                                   (|OrderedVariableList|
+                                                    *6))))
+   (|isDomain| *4 (|Boolean|)) (|ofCategory| *5 (|GcdDomain|))
+   (|ofType| *6 (|List| (|Symbol|)))
+   (|isDomain| *2 (|List| (|RegularChain| *5 *6)))
+   (|isDomain| *1 (|LexTriangularPackage| *5 *6))))
+ (|groebner| (*1 *2 *2)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|NewSparseMultivariatePolynomial| *3
+                                                   (|OrderedVariableList|
+                                                    *4))))
+   (|ofCategory| *3 (|GcdDomain|)) (|ofType| *4 (|List| (|Symbol|)))
+   (|isDomain| *1 (|LexTriangularPackage| *3 *4))))
+ (|fglmIfCan| (*1 *2 *2)
+  (|partial| AND
+   (|isDomain| *2
+               (|List|
+                (|NewSparseMultivariatePolynomial| *3
+                                                   (|OrderedVariableList|
+                                                    *4))))
+   (|ofCategory| *3 (|GcdDomain|)) (|ofType| *4 (|List| (|Symbol|)))
+   (|isDomain| *1 (|LexTriangularPackage| *3 *4))))
+ (|zeroDimensional?| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|NewSparseMultivariatePolynomial| *4
+                                                   (|OrderedVariableList|
+                                                    *5))))
+   (|ofCategory| *4 (|GcdDomain|)) (|ofType| *5 (|List| (|Symbol|)))
+   (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|LexTriangularPackage| *4 *5)))))
+((|zeroSetSplit|
+  (((|List|
+     (|SquareFreeRegularTriangularSet| |#1|
+                                       (|IndexedExponents|
+                                        (|OrderedVariableList| |#2|))
+                                       (|OrderedVariableList| |#2|)
+                                       (|NewSparseMultivariatePolynomial| |#1|
+                                                                          (|OrderedVariableList|
+                                                                           |#2|))))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Boolean|))
+   70)
+  (((|List| (|RegularChain| |#1| |#2|))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Boolean|))
+   56))
+ (|zeroDimensional?|
+  (((|Boolean|)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   22))
+ (|squareFreeLexTriangular|
+  (((|List|
+     (|SquareFreeRegularTriangularSet| |#1|
+                                       (|IndexedExponents|
+                                        (|OrderedVariableList| |#2|))
+                                       (|OrderedVariableList| |#2|)
+                                       (|NewSparseMultivariatePolynomial| |#1|
+                                                                          (|OrderedVariableList|
+                                                                           |#2|))))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Boolean|))
+   69))
+ (|lexTriangular|
+  (((|List| (|RegularChain| |#1| |#2|))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Boolean|))
+   55))
+ (|groebner|
+  (((|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   26))
+ (|fglmIfCan|
+  (((|Union|
+     (|List|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+     "failed")
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   25)))
+LEXTRIPK
+((|constructor|
+  (NIL
+   "A package for solving polynomial systems with finitely many solutions. The decompositions are given by means of regular triangular sets. The computations use lexicographical Groebner bases. The main operations are \\spadopFrom{lexTriangular}{LexTriangularPackage} and \\spadopFrom{squareFreeLexTriangular}{LexTriangularPackage}. The second one provide decompositions by means of square-free regular triangular sets. Both are based on the {\\em lexTriangular} method described in [1]. They differ from the algorithm described in [2] by the fact that multiciplities of the roots are not kept. With the \\spadopFrom{squareFreeLexTriangular}{LexTriangularPackage} operation all multiciplities are removed. With the other operation some multiciplities may remain. Both operations admit an optional argument to produce normalized triangular sets. \\newline"))
+ (|zeroSetSplit|
+  (((|List|
+     (|SquareFreeRegularTriangularSet| |#1|
+                                       (|IndexedExponents|
+                                        (|OrderedVariableList| |#2|))
+                                       (|OrderedVariableList| |#2|)
+                                       (|NewSparseMultivariatePolynomial| |#1|
+                                                                          (|OrderedVariableList|
+                                                                           |#2|))))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Boolean|))
+   "\\spad{zeroSetSplit(lp,{} norm?)} decomposes the variety associated with \\spad{lp} into square-free regular chains. Thus a point belongs to this variety iff it is a regular zero of a regular set in in the output. Note that \\spad{lp} needs to generate a zero-dimensional ideal. If \\spad{norm?} is \\spad{true} then the regular sets are normalized.")
+  (((|List| (|RegularChain| |#1| |#2|))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Boolean|))
+   "\\spad{zeroSetSplit(lp,{} norm?)} decomposes the variety associated with \\spad{lp} into regular chains. Thus a point belongs to this variety iff it is a regular zero of a regular set in in the output. Note that \\spad{lp} needs to generate a zero-dimensional ideal. If \\spad{norm?} is \\spad{true} then the regular sets are normalized."))
+ (|squareFreeLexTriangular|
+  (((|List|
+     (|SquareFreeRegularTriangularSet| |#1|
+                                       (|IndexedExponents|
+                                        (|OrderedVariableList| |#2|))
+                                       (|OrderedVariableList| |#2|)
+                                       (|NewSparseMultivariatePolynomial| |#1|
+                                                                          (|OrderedVariableList|
+                                                                           |#2|))))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Boolean|))
+   "\\spad{squareFreeLexTriangular(base,{} norm?)} decomposes the variety associated with \\spad{base} into square-free regular chains. Thus a point belongs to this variety iff it is a regular zero of a regular set in in the output. Note that \\spad{base} needs to be a lexicographical Groebner basis of a zero-dimensional ideal. If \\spad{norm?} is \\spad{true} then the regular sets are normalized."))
+ (|lexTriangular|
+  (((|List| (|RegularChain| |#1| |#2|))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|Boolean|))
+   "\\spad{lexTriangular(base,{} norm?)} decomposes the variety associated with \\spad{base} into regular chains. Thus a point belongs to this variety iff it is a regular zero of a regular set in in the output. Note that \\spad{base} needs to be a lexicographical Groebner basis of a zero-dimensional ideal. If \\spad{norm?} is \\spad{true} then the regular sets are normalized."))
+ (|groebner|
+  (((|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   "\\spad{groebner(lp)} returns the lexicographical Groebner basis of \\spad{lp}. If \\spad{lp} generates a zero-dimensional ideal then the {\\em FGLM} strategy is used,{} otherwise the {\\em Sugar} strategy is used."))
+ (|fglmIfCan|
+  (((|Union|
+     (|List|
+      (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|)))
+     "failed")
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   "\\spad{fglmIfCan(lp)} returns the lexicographical Groebner basis of \\spad{lp} by using the {\\em FGLM} strategy,{} if \\spad{zeroDimensional?(lp)} holds ."))
+ (|zeroDimensional?|
+  (((|Boolean|)
+    (|List|
+     (|NewSparseMultivariatePolynomial| |#1| (|OrderedVariableList| |#2|))))
+   "\\spad{zeroDimensional?(lp)} returns \\spad{true} iff \\spad{lp} generates a zero-dimensional ideal \\spad{w}.\\spad{r}.\\spad{t}. the variables involved in \\spad{lp}.")))
+(("documentation" 0 11054) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 11045) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 8863) ("modemaps" 0 4703) ("sourceFile" 0 4663)
+ ("constructorCategory" 0 2465) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

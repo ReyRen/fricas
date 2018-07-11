@@ -1,0 +1,51 @@
+)abbrev domain ASTACK ArrayStack
+++ Author: Michael Monagan and Stephen Watt
+++ Date Created: June 86 and July 87
+++ Basic Operations:
+++ Related Domains:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+++ Description:
+
+++ A stack represented as a flexible array.
+
+ArrayStack(S : SetCategory) : StackAggregate(S) with
+    arrayStack : List S -> %
+      ++ arrayStack([x, y, ..., z]) creates an array stack with first (top)
+      ++ element x, second element y, ..., and last element z.
+  == add
+    Rep := IndexedFlexibleArray(S, 0)
+
+    -- system operations
+    # s == _#(s)$Rep
+    s = t == s =$Rep t
+    copy s == copy(s)$Rep
+    coerce(d) : OutputForm ==
+        empty? d => empty()$(List S) ::OutputForm
+        n := #d
+        [(d.(n - i))::OutputForm for i in 1..n]::OutputForm
+
+    -- stack operations
+    empty? s == empty?(s)$Rep
+    extract! s == pop! s
+    inspect(s) == top(s)
+    insert!(e, s) == (push!(e, s);s)
+    parts(s) == reverse(parts(s)$Rep)
+    push!(e, s) == (concat!(s, e); e)
+    pop! s ==
+        if empty? s then error "empty stack"
+        m := maxIndex s
+        r := s.m
+        delete!(s, m)
+        r
+    top s == if empty? s then error "empty stack" else s.maxIndex(s)
+    construct(l) == construct(reverse(l))$Rep
+    arrayStack l == construct(l)
+    empty() == empty()$Rep
+    map(f, s) == map(f, s)$Rep
+    map!(f, s) == map!(f, s)$Rep
+    hashUpdate!(hs, s) == hashUpdate!(hs, s)$Rep
+

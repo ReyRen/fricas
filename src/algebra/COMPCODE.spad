@@ -1,0 +1,242 @@
+)abbrev package COMPCODE compCode
+++ Author: Martin Baker
+++ Date Created: June 2011
+++ Basic Operations:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/computation/codeGen/
+++ Description:
+++ Maps abstract computational structures to real-world FriCAS code
+++
+++ This allows FriCAS domains to be created from an instance of
+++ Lambda it also allows FriCAS categories to be created from an
+++ instance of intuitionisticLogic.
+++
+++ So by the Curry-Howard isomorphism we can coerce to the
+++ intuitionisticLogic from Lambda. This gives an isomorphism where
+++ theorems in intuitionistic logic correspond to type signatures in
+++ combinatory logic and programs in intuitionistic logic correspond
+++ to the proofs of those theorems in combinatory logic.
+++
+++ As an example of this in Haskell
+++ see "Djinn, a theorem prover in Haskell, for Haskell" here:
+++ http://lambda-the-ultimate.org/node/1178
+++
+++ see also: Philip Wadler - Theorems for free!
+++ http://homepages.inf.ed.ac.uk/wadler/topics/parametricity.html
+
+compCode() : Exports == Implementation where
+
+ NNI==> NonNegativeInteger
+ LC ==> Lambda Typed
+
+ Exports ==> with
+  writeCategory : (content : List ILogic, filename : String, shortName : String, longName : String) -> Void
+    ++ writes a category to a file.
+  writePackage : (content : List LC, _
+                filename : String, _
+                shortName : String, _
+                longName : String, _
+                catName : String) -> Void
+    ++ writes a package to a file.
+
+ Implementation ==> add
+
+  import from Typed
+  import from ILogic
+  import from List(LC)
+
+  -- used by writeCategory to generate the start of the file
+  genCatHeader(shortName : String, longName : String) : List String ==
+    [concat([")abbrev category ",shortName," ",longName]),_
+     "",_
+     concat([longName,"() : Category == Type with"]),_
+     "",_
+     ""]
+
+  -- used by writeCategory to generate an individual function
+  -- declaration
+  -- content is the intuitionistic logic expression to be used to
+  --      create the function declaration
+  -- numb is an integer value that will be used to generate a
+  --      unique function name
+  genFuncDeclar(content : ILogic, numb : NNI) : List String ==
+    fac : List ILogic := factor(content)
+    if empty?(fac) then return [concat(["  -- error",_
+             toString(content)])]
+    deduct : List ILogic := deductions(fac)
+    if empty?(deduct) then deduct := fac
+    resType : ILogic := first deduct
+    resStr : String := concat(["  fn",string(numb),":("])
+    notfst : Boolean := false()
+    for thisTerm in fac repeat
+      if notfst then resStr := concat(resStr,",")
+      resStr := concat(resStr, toStringUnwrapped(thisTerm))
+      notfst := true()
+    resStr := concat([resStr,") -> ",toStringUnwrapped(resType)])
+    [resStr]
+
+  -- used by writeCategory to generate the end of the file
+  genCatFooter() : List String ==
+    ["","@"]
+
+  -- used by writePackage to generate the start of the file
+  genPackageHeader(shortName : String, longName : String, catName : String) : List String ==
+    [concat([")abbrev package ",shortName," ",longName]),_
+     "",_
+     concat([longName,"(): Exports == Implementation where"]),_
+     "",_
+     concat([" Exports ==> ",catName," with"]),_
+     "",_
+     " Implementation ==> add",_
+     ""]
+
+  -- return string representation using conventional notation, that is
+  -- deBruijn index is replaced by name using String value for bound variables.
+  -- notation assumes association to the left, in the absence of
+  -- brackets, the term to the left binds more tightly than the
+  -- one on the right.
+  genLambdaTerm(n : LC, boundL : List String) : String ==
+    s:String := ""
+    --print(message "genLambdaTerm(" << toString(n) << ")")
+    if isBoundNode?(n) then
+      -- convert deBruijn index
+      i : NNI := getBoundValue(n) + 1
+      if i > 0 and i <= #boundL then return boundL.i
+      s := string(i-1)
+    if isFreeNode?(n) then
+      s := getName(getVariable(n))$Typed
+    if isCompound?(n) then
+      ch := getChildren(n)
+      s := concat([" ",genLambdaTerm(first ch,boundL),"(",genLambdaTerm(second ch,boundL),")"])
+    if isLambda?(n) then
+      -- nested lambda term so use +->
+      varName : String := getName(getVariable(n))$Typed
+      while member?(varName, boundL) repeat
+        varName := concat(varName,"'")
+      boundL2 : List String := concat(boundL, varName)
+      ch := getChildren(n)
+      s := concat([" ",varName,"+->(",genLambdaTerm(first ch,boundL2),")"])
+    s
+
+  -- used by writePackage to generate the function definitions
+  -- content is the lambda expression to be used to
+  --      create the function definition
+  -- numb is an integer value that will be used to generate a
+  --      unique function name
+  genFuncDefn(content : LC, numb : NNI) : List String ==
+    sl := [""]
+    if isLambda?(content) then
+      var := getVariable(content)
+      lhs : String := toString(var)
+      lhsn : String := getName(var)
+      lhst : String := toStringUnwrapped(getType(var))
+      return [concat(["  fn",string(numb),"(",lhs,"):",lhst," == ",_
+        genLambdaTerm(first getChildren(content), [lhsn])_
+        ])$String]
+    sl
+
+  -- used by writePackage to generate the end of the file
+  genPackageFooter() : List String ==
+    ["","@"]
+
+  -- writes a category to a file.
+  writeCategory(content : List ILogic, _
+                filename : String, _
+                shortName : String, _
+                longName : String) : Void ==
+    f1:TextFile := open(filename::FileName,"output")
+    lines := genCatHeader(shortName, longName)
+    -- fnNum is integer used to generate a unique function name
+    fnNum : NNI := 1::NNI
+    for thisEq in content repeat
+      lines := concat(lines, genFuncDeclar(thisEq, fnNum))
+      fnNum := fnNum + 1
+    lines := concat(lines, genCatFooter())
+    for line in lines repeat
+      writeLine!(f1, line)
+    close! f1
+
+  -- writes a domain to a file.
+  writePackage(content : List LC, _
+                filename : String, _
+                shortName : String, _
+                longName : String, _
+                catName : String) : Void ==
+    f1:TextFile := open(filename::FileName,"output")
+    lines := genPackageHeader(shortName, longName, catName)
+    -- fnNum is integer used to generate a unique function name
+    fnNum : NNI := 1::NNI
+    for thisEq in content repeat
+      --print(message "writePackage(" << toString(thisEq) << ")")
+      lines := concat(lines, genFuncDefn(thisEq, fnNum))
+      fnNum := fnNum + 1
+    lines := concat(lines, genPackageFooter())
+    for line in lines repeat
+      writeLine!(f1, line)
+    close! f1
+
+--Copyright (c) 2011-2016, Martin J Baker.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of Martin J Baker. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+)if false
+\eject
+\begin{thebibliography}{99}
+For more details see:
+[1] Philip Wadler 1989 - Theorems for free!
+http://homepages.inf.ed.ac.uk/wadler/topics/parametricity.html
+[2] "Djinn, a theorem prover in Haskell, for Haskell" here:
+http://lambda-the-ultimate.org/node/1178
+[3] Roy Dyckhoff 1992 - Contraction-free sequent calculi for intuitionistic logic
+[4] http://www.euclideanspace.com/prog/scratchpad/mycode/computation/
+[5] Tutorial for lambda calculus:
+http://www.euclideanspace.com/prog/scratchpad/mycode/computation/lambda/
+[6] Tutorial for SKI calculus:
+http://www.euclideanspace.com/prog/scratchpad/mycode/computation/ski/
+[7] Tutorial for Intuitionistic Logic
+http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/intuitionistic/
+[8] Tutorial for utilities to coerce between computation domains
+http://www.euclideanspace.com/prog/scratchpad/mycode/computation/utility/
+[9] Tutorial for FriCAS source code generation
+http://www.euclideanspace.com/prog/scratchpad/mycode/computation/codeGen/
+[10] J. Lambek, P. J. Scott 1988
+     Introduction to Higher-Order Categorical Logic ISBN : 0521356539
+     This book shows the relationship between mathematical logic and category
+     theory. Although this is not used in the current code, it suggests
+     a promising generalisation.
+[11] Peter J. Denning, 2010
+Discussion of "What is computing?"
+\end{thebibliography}
+\end{document}
+)endif

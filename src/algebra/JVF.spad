@@ -1,0 +1,272 @@
+)abbrev domain JVF JetVectorField
+++ Description:
+++ \spad{JetVectorField(JB, D)} implements vector fields over the jet bundle
+++ \spad{JB} with coefficients from \spad{D}. The fields operate on functions
+++ from \spad{D}.
+
+JetVectorField(JB : JBC, D : JBFC JB) : Cat == Def where
+
+  I    ==> Integer
+  PI   ==> PositiveInteger
+  NNI  ==> NonNegativeInteger
+  Sy   ==> Symbol
+  L    ==> List
+  B    ==> Boolean
+  M    ==> Matrix
+  MD   ==> Matrix D
+  JBC  ==> JetBundleCategory
+  JBFC ==> JetBundleFunctionCategory
+  OUT  ==> OutputForm
+
+  Indep  ==> "Indep"::Sy
+  Dep    ==> "Dep"::Sy
+  errmsg ==> "not base vector field in prolong"
+
+
+  Cat ==> Module(D) with
+
+    diff : JB -> %
+      ++ \spad{diff(jb)} returns the base vector field in direction \spad{jb}.
+
+    diffX : PI -> %
+      ++ \spad{diffX(i)} returns the base vector field in direction
+      ++ \spad{X(i)}.
+
+    diffU : PI -> %
+      ++ \spad{diffU(i)} returns the base vector field in direction
+      ++ \spad{U(i)}.
+
+    diffP : (PI, L NNI) -> %
+      ++ \spad{diffP(i, mu)} returns the base vector field in direction
+      ++ \spad{P(i, mu)}.
+
+    coefficients : % -> L D
+      ++ \spad{coefficients(v)} yields the coefficients of \spad{v}.
+
+    directions : % -> L JB
+      ++ \spad{directions(v)} yields the directions of the base vectors where
+      ++ \spad{v} has non-vanishing coefficients.
+
+    coefficient : (%, JB) -> D
+      ++ \spad{coefficient(v, jb)} returns the coefficient of \spad{v} in
+      ++ direction \spad{jb}.
+
+    copy : % -> %
+      ++ \spad{copy(v)} returns a copy of the vector field \spad{v}.
+
+    commutator : (%, %) -> %
+      ++ \spad{commutator(v, w)} calculates the commutator of two vector fields.
+
+    table : L % -> TwoDimensionalArray %
+      ++ \spad{table(lv)} computes the commutator table for a given list of
+      ++ vector fields.
+
+    lie : (%, %) -> %
+      ++ \spad{lie(v, w)} calculates the Lie derivative of \spad{w} with
+      ++ respect to \spad{v}. (This yields the commutator of the fields.)
+
+    eval : (%, D) -> D
+      ++ \spad{eval(v, f)} applies the vector field \spad{v} to the function
+      ++ \spad{f}.
+
+    prolong : (%, NNI) -> %
+      ++ \spad{prolong(v, q)} prolongs a vector field \spad{v} defined on the
+      ++ base space into the jet bundle of order \spad{q}.
+
+  Def ==> add
+
+    nn : PI := numIndVar()$JB
+    mm : PI := numDepVar()$JB
+    -- global variables with the numbers of variables
+
+    -- -------------- --
+    -- Representation --
+    -- -------------- --
+
+    Rep := Record(Coeff : L D, Dir : L JB)
+
+    diff(jb : JB) : % == [[1], [jb]]
+
+    diffX(i : PI) : % == diff X(i)$JB
+
+    diffU(i : PI) : % == diff U(i)$JB
+
+    diffP(i : PI, mu : L NNI) : % == diff P(i, mu)$JB
+
+    monom(c : D, jb : JB) : OUT ==
+        one? c => sub(message("D"), jb::OUT)
+        c::OUT * sub(message("D"), jb::OUT)
+
+    coerce(v : %) : OUT ==
+        empty? v.Dir => 0$D ::OUT
+        one?(#v.Dir) => monom(first v.Coeff, first v.Dir)
+        reduce("+", [monom(c, jb) for c in v.Coeff for jb in v.Dir])
+
+    coefficients(v : %) : L D == copy v.Coeff
+
+    directions(v : %) : L JB == copy v.Dir
+
+    coefficient(v : %, jb : JB) : D ==
+        pos := position(jb, v.Dir)
+        pos < minIndex(v.Dir) => 0
+        qelt(v.Coeff, pos)
+
+    copy(v : %) : % == [copy v.Coeff, copy v.Dir]
+
+    -- ---------- --
+    -- Arithmetic --
+    -- ---------- --
+
+    0 : % == [empty, empty]
+
+    zero?(v : %) : B == empty? v.Dir
+
+    - v : % == [[-$D c  for c in v.Coeff], v.Dir]
+
+    v : % + w : % ==
+        zero? v => w
+        zero? w => v
+        lc2 : L D := copy w.Coeff
+        lj2 : L JB := copy w.Dir
+        resC : L D := empty
+        resJ : L JB := empty
+
+        for c1 in v.Coeff  for j1 in v.Dir repeat
+            while not empty?(lj2) and first(lj2) < j1 repeat
+                resC := cons(first lc2, resC)
+                resJ := cons(first lj2, resJ)
+                lc2 := rest lc2
+                lj2 := rest lj2
+            if not empty?(lj2) and first(lj2) = j1 then
+                sum := c1 +$D first lc2
+                if not zero? sum then
+                    resC := cons(sum, resC)
+                    resJ := cons(j1, resJ)
+                lc2 := rest lc2
+                lj2 := rest lj2
+            else
+                resC := cons(c1, resC)
+                resJ := cons(j1, resJ)
+
+        [concat!(reverse! resC, lc2), concat!(reverse! resJ, lj2)]
+
+    f : D * v : % ==
+        zero? f => 0
+        [[f *$D c  for c in v.Coeff], v.Dir]
+
+    -- ------------ --
+    -- Prolongation --
+    -- ------------ --
+
+    prolong(v : %, q : NNI) : % ==
+        zero? q => v
+        dirs := directions v
+        coeffs := coefficients v
+        xi : L D := empty
+        eta : L D := empty
+        ind1 : L PI := empty
+        ind2 : L PI := empty
+
+        for jv in dirs  for co in coeffs repeat
+            jt := type jv
+            if jt = Indep then
+                xi := cons(co, xi)
+                ind1 := cons(index(jv), ind1)
+            else if jt = Dep then
+                eta := cons(co, eta)
+                ind2 := cons(index(jv), ind2)
+            else
+                error errmsg
+
+        dxi : MD := new(#xi, nn, 0)
+        for co in xi  for i in 1.. repeat
+            jm := jacobiMatrix [co]
+            for j in 1..nn repeat
+                qsetelt!(dxi, i, j, formalDiff2(co, j::PI, jm).DPhi)
+
+        j : I := mm
+        oldCo : L D := empty
+        for co in eta  for i in ind2 repeat
+            while j > i repeat
+                oldCo := cons(0, oldCo)
+                j := j-1
+            oldCo := cons(co, oldCo)
+            j := j-1
+        if not zero? j then
+            for i in 1..j repeat
+                oldCo := cons(0, oldCo)
+        oldDir : L JB := [U(i::PI)  for i in 1..mm]
+
+        res : % := v
+        for qq in 1..q repeat
+            newCo : L D := empty
+            newDir : L JB := empty
+            for jv in oldDir  for co in oldCo repeat
+                jm := jacobiMatrix [co]
+                a := index jv
+                mu := multiIndex jv
+                for k in max(1, class(jv))..nn repeat
+                    newjv := differentiate(jv, k::PI)::JB
+                    newco := formalDiff2(co, k::PI, jm).DPhi
+                    for i in ind1  for j in 1.. repeat
+                        nu := copy mu
+                        qsetelt!(nu, i, qelt(nu, i)+1)
+                        newco := newco - qelt(dxi, j, k)*(Pm(a, nu)$JB::D)
+                    res := res + newco*diff(newjv)
+                    newCo := cons(newco, newCo)
+                    newDir := cons(newjv, newDir)
+            oldCo := newCo
+            oldDir := newDir
+
+        res
+
+    -- -------------------- --
+    -- Geometric Operations --
+    -- -------------------- --
+
+    eval(v : %, f : D) : D ==
+        res : D := 0
+        for c in v.Coeff  for jb in v.Dir repeat
+            res := res + c*differentiate(f, jb)
+        res
+
+    commutator(v : %, w : %) : % ==
+        rco : L D := empty
+        rjb : L JB := empty
+        for c1 in v.Coeff  for j1 in v.Dir repeat
+            sum : D := 0
+            for c2 in w.Coeff  for j2 in w.Dir repeat
+                sum := sum + c2*differentiate(c1, j2)
+            if not zero? sum then
+                rco := cons(sum, rco)
+                rjb := cons(j1, rjb)
+        res1 : % := [reverse! rco, reverse! rjb]
+
+        rco : L D := empty
+        rjb : L JB := empty
+        for c2 in w.Coeff  for j2 in w.Dir repeat
+            sum : D := 0
+            for c1 in v.Coeff  for j1 in v.Dir repeat
+                sum := sum + c1*differentiate(c2, j1)
+            if not zero? sum then
+                rco := cons(sum, rco)
+                rjb := cons(j2, rjb)
+        res2 : % := [reverse! rco, reverse! rjb]
+        res2 - res1
+
+    table(lv : L %) : TwoDimensionalArray % ==
+        len := #lv
+        zero? len => error "empty list in table"
+        res : TwoDimensionalArray % := new(len, len, 0)
+        for i in 1..  until empty? lv repeat
+            v1 := first lv
+            lv := rest lv
+            for v2 in lv  for j in (i+1).. repeat
+                c := commutator(v1, v2)
+                qsetelt!(res, i, j, c)
+                qsetelt!(res, j, i, -c)
+        res
+
+    lie(v : %, w : %) : % == commutator(v, w)
+
+

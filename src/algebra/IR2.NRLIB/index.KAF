@@ -1,0 +1,144 @@
+5472                (|IntegrationResultFunctions2| E F)
+|package|
+(((|IntegrationResultFunctions2| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |map|
+    ((|IntegrationResult| |#2|) (|Mapping| |#2| |#1|)
+     (|IntegrationResult| |#1|)))
+   (SIGNATURE |map|
+    ((|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeff| |#2|)) "failed")
+     (|Mapping| |#2| |#1|)
+     (|Union| (|Record| (|:| |ratpart| |#1|) (|:| |coeff| |#1|)) "failed")))
+   (SIGNATURE |map|
+    ((|Union| |#2| "failed") (|Mapping| |#2| |#1|) (|Union| |#1| "failed")))
+   (SIGNATURE |map|
+    ((|Union|
+      (|Record| (|:| |mainpart| |#2|)
+                (|:| |limitedlogs|
+                     (|List|
+                      (|Record| (|:| |coeff| |#2|) (|:| |logand| |#2|)))))
+      "failed")
+     (|Mapping| |#2| |#1|)
+     (|Union|
+      (|Record| (|:| |mainpart| |#1|)
+                (|:| |limitedlogs|
+                     (|List|
+                      (|Record| (|:| |coeff| |#1|) (|:| |logand| |#1|)))))
+      "failed"))))
+  (|Field|) (|Field|))
+ (T |IntegrationResultFunctions2|))
+(CATEGORY |package|
+ (SIGNATURE |map|
+  ((|IntegrationResult| |#2|) (|Mapping| |#2| |#1|)
+   (|IntegrationResult| |#1|)))
+ (SIGNATURE |map|
+  ((|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeff| |#2|)) "failed")
+   (|Mapping| |#2| |#1|)
+   (|Union| (|Record| (|:| |ratpart| |#1|) (|:| |coeff| |#1|)) "failed")))
+ (SIGNATURE |map|
+  ((|Union| |#2| "failed") (|Mapping| |#2| |#1|) (|Union| |#1| "failed")))
+ (SIGNATURE |map|
+  ((|Union|
+    (|Record| (|:| |mainpart| |#2|)
+              (|:| |limitedlogs|
+                   (|List| (|Record| (|:| |coeff| |#2|) (|:| |logand| |#2|)))))
+    "failed")
+   (|Mapping| |#2| |#1|)
+   (|Union|
+    (|Record| (|:| |mainpart| |#1|)
+              (|:| |limitedlogs|
+                   (|List| (|Record| (|:| |coeff| |#1|) (|:| |logand| |#1|)))))
+    "failed"))))
+"/git/fricas/src/algebra/IR2.spad"
+((|map| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Mapping| *6 *5))
+   (|isDomain| *4
+               (|Union|
+                (|Record| (|:| |mainpart| *5)
+                          (|:| |limitedlogs|
+                               (|List|
+                                (|Record| (|:| |coeff| *5)
+                                          (|:| |logand| *5)))))
+                "failed"))
+   (|ofCategory| *5 (|Field|)) (|ofCategory| *6 (|Field|))
+   (|isDomain| *2
+               (|Record| (|:| |mainpart| *6)
+                         (|:| |limitedlogs|
+                              (|List|
+                               (|Record| (|:| |coeff| *6)
+                                         (|:| |logand| *6))))))
+   (|isDomain| *1 (|IntegrationResultFunctions2| *5 *6))))
+ (|map| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Mapping| *2 *5))
+   (|isDomain| *4 (|Union| *5 "failed")) (|ofCategory| *5 (|Field|))
+   (|ofCategory| *2 (|Field|))
+   (|isDomain| *1 (|IntegrationResultFunctions2| *5 *2))))
+ (|map| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Mapping| *6 *5))
+   (|isDomain| *4
+               (|Union| (|Record| (|:| |ratpart| *5) (|:| |coeff| *5))
+                        "failed"))
+   (|ofCategory| *5 (|Field|)) (|ofCategory| *6 (|Field|))
+   (|isDomain| *2 (|Record| (|:| |ratpart| *6) (|:| |coeff| *6)))
+   (|isDomain| *1 (|IntegrationResultFunctions2| *5 *6))))
+ (|map| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *6 *5))
+       (|isDomain| *4 (|IntegrationResult| *5)) (|ofCategory| *5 (|Field|))
+       (|ofCategory| *6 (|Field|)) (|isDomain| *2 (|IntegrationResult| *6))
+       (|isDomain| *1 (|IntegrationResultFunctions2| *5 *6)))))
+((|map|
+  (((|Union|
+     (|Record| (|:| |mainpart| |#2|)
+               (|:| |limitedlogs|
+                    (|List|
+                     (|Record| (|:| |coeff| |#2|) (|:| |logand| |#2|)))))
+     "failed")
+    (|Mapping| |#2| |#1|)
+    (|Union|
+     (|Record| (|:| |mainpart| |#1|)
+               (|:| |limitedlogs|
+                    (|List|
+                     (|Record| (|:| |coeff| |#1|) (|:| |logand| |#1|)))))
+     "failed"))
+   38)
+  (((|Union| |#2| "failed") (|Mapping| |#2| |#1|) (|Union| |#1| "failed")) 11)
+  (((|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeff| |#2|)) "failed")
+    (|Mapping| |#2| |#1|)
+    (|Union| (|Record| (|:| |ratpart| |#1|) (|:| |coeff| |#1|)) "failed"))
+   31)
+  (((|IntegrationResult| |#2|) (|Mapping| |#2| |#1|)
+    (|IntegrationResult| |#1|))
+   26)))
+IR2
+((|constructor|
+  (NIL
+   "\\indented{1}{Internally used by the integration packages} Author: Manuel Bronstein Date Created: 1987 Keywords: integration."))
+ (|map|
+  (((|Union|
+     (|Record| (|:| |mainpart| |#2|)
+               (|:| |limitedlogs|
+                    (|List|
+                     (|Record| (|:| |coeff| |#2|) (|:| |logand| |#2|)))))
+     "failed")
+    (|Mapping| |#2| |#1|)
+    (|Union|
+     (|Record| (|:| |mainpart| |#1|)
+               (|:| |limitedlogs|
+                    (|List|
+                     (|Record| (|:| |coeff| |#1|) (|:| |logand| |#1|)))))
+     "failed"))
+   "\\spad{map(f,{} ufe)} \\undocumented")
+  (((|Union| |#2| "failed") (|Mapping| |#2| |#1|) (|Union| |#1| "failed"))
+   "\\spad{map(f,{} ue)} \\undocumented")
+  (((|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeff| |#2|)) "failed")
+    (|Mapping| |#2| |#1|)
+    (|Union| (|Record| (|:| |ratpart| |#1|) (|:| |coeff| |#1|)) "failed"))
+   "\\spad{map(f,{} ure)} \\undocumented")
+  (((|IntegrationResult| |#2|) (|Mapping| |#2| |#1|)
+    (|IntegrationResult| |#1|))
+   "\\spad{map(f,{} ire)} \\undocumented")))
+(("documentation" 0 4371) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4367) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3568) ("modemaps" 0 1896) ("sourceFile" 0 1861)
+ ("constructorCategory" 0 1059) ("constructorModemap" 0 66)
+ ("constructorKind" 0 56) ("constructorForm" 0 20))

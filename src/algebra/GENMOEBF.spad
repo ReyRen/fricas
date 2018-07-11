@@ -1,0 +1,73 @@
+)abbrev domain GENMOEBF GeneralizedFiniteMoebiusFunction
+++ Author: Franz Lehner
+++ Date Created: 06.03.2011
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ A domain for generalized Moebius functions of explicit subposets.
+GeneralizedFiniteMoebiusFunction(P : Join(PartialOrder, SetCategory), R: Field) : Exports == Implementation where
+  NNI ==> NonNegativeInteger
+  MATL ==> Record(zmatrix : Matrix R, mmatrix : Matrix R, indices : List P)
+  TRIMATI ==> TriangularMatrixOperations(R, Vector R, Vector R, Matrix R)
+
+  Exports ==> with
+    generalizedMoebiusFunction : (List P, (P, P) -> R) -> %
+      ++ \spad{generalizedMoebiusFunction(pp, zeta)} inverts the given
+      ++ zeta function
+    canonicalMoebiusFunction : (List P) -> %
+      ++ \spad{canonicalMoebiusFunction(pp)} inverts the canonical zeta
+      ++ function
+    apply : (mf : %, pi : P, si : P) -> R
+      ++ \spad{mf(pi, si)} evaluates the Moebius function mf at pi and si
+    members : % -> List P
+      ++ \spad{members(mf)} returns the elements of the subposet
+    moebiusMatrix : % -> Matrix R
+      ++ \spad{moebiusMatrix()} returns the Moebius matrix
+
+  Implementation ==> add
+
+    Rep :=  MATL
+    rep(x : %) : Rep == x::Rep
+    per(r : Rep) : % == r::%
+
+    members(mf : %) : List P == rep(mf).indices
+
+    generalizedMoebiusFunction(xx : List P, z : (P, P) -> R) : % ==
+        xxo : List P := removeDuplicates topologicalSort("<=", xx
+                                                        )$(ListPackage P)
+        zf : Matrix R := matrix [[(if y <= x then z(x, y) else 0)
+                                    for x in xxo] for y in xxo]
+        mf : Union(Matrix R, "failed") := inverse zf
+        mf case "failed" => error "zeta not invertible"
+        return per ([zf, mf, xxo]$Rep)
+
+    canonicalZeta : (P, P) -> R
+    canonicalZeta(pi, si) ==
+        if pi <= si then
+            return 1
+        0
+
+    apply(mf : %, x : P, y : P) ==
+        mfn : Matrix R := (rep mf) mmatrix
+        kx := position(x, members mf)
+        ky := position(y, members mf)
+        zero? kx or zero? ky =>
+            error "not members"
+        return (mfn)(ky, kx)
+
+    moebiusMatrix(mf : %) : Matrix R == rep(mf) mmatrix
+
+    zetaMatrix(mf : %) : Matrix R == rep(mf) zmatrix
+
+    coerce(mf : %) : OutputForm == message("m")
+
+)if false
+\section{Poset Code}
+As already described, the representation in the following categories contains
+the whole order and not just one element (unlike PartialOrder in catdef.spad).
+)endif
+

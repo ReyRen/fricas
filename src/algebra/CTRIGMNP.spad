@@ -1,0 +1,137 @@
+)abbrev package CTRIGMNP ComplexTrigonometricManipulations
+++ Real and Imaginary parts of complex functions
+++ Author: Manuel Bronstein
+++ Date Created: 11 June 1993
+++ Description:
+++   \spadtype{ComplexTrigonometricManipulations} provides function that
+++   compute the real and imaginary parts of complex functions.
+++ Keywords: complex, function, manipulation.
+ComplexTrigonometricManipulations(R, F) : Exports == Implementation where
+  R : Join(IntegralDomain, Comparable, RetractableTo Integer)
+  F : Join(AlgebraicallyClosedField, TranscendentalFunctionCategory,
+           FunctionSpace Complex R)
+
+
+  SY  ==> Symbol
+  FR  ==> Expression R
+  K   ==> Kernel F
+
+
+  Exports ==> with
+    complexNormalize : F -> F
+      ++ complexNormalize(f) rewrites \spad{f} using the least possible number
+      ++ of complex independent kernels.
+    complexNormalize : (F, SY) -> F
+      ++ complexNormalize(f, x) rewrites \spad{f} using the least possible
+      ++ number of complex independent kernels involving \spad{x}.
+    complexElementary : F -> F
+      ++ complexElementary(f) rewrites \spad{f} in terms of the 2 fundamental
+      ++ complex transcendental elementary functions: \spad{log, exp}.
+    complexElementary : (F, SY) -> F
+      ++ complexElementary(f, x) rewrites the kernels of \spad{f} involving
+      ++ \spad{x} in terms of the 2 fundamental complex
+      ++ transcendental elementary functions: \spad{log, exp}.
+    real   : F -> FR
+      ++ real(f) returns the real part of \spad{f} where \spad{f} is a complex
+      ++ function.
+    imag   : F -> FR
+      ++ imag(f) returns the imaginary part of \spad{f} where \spad{f}
+      ++ is a complex function.
+    real?  : F -> Boolean
+      ++ real?(f) returns \spad{true} if \spad{f = real f}.
+    trigs  : F -> F
+      ++ trigs(f) rewrites all the complex logs and exponentials
+      ++ appearing in \spad{f} in terms of trigonometric functions.
+    complexForm : F -> Complex FR
+      ++ complexForm(f) returns \spad{[real f, imag f]}.
+
+  Implementation ==> add
+    import from InnerTrigonometricManipulations(R, FR, F)
+    import from ElementaryFunctionStructurePackage(Complex R, F)
+    import from Complex FR
+    import from List(Complex(R))
+    import from List(K)
+    import from List(Symbol)
+    import from SparseMultivariatePolynomial(Complex(R), K)
+    import from BasicOperator
+
+    RTRIG := 'rtrig
+
+    rreal? : Complex R -> Boolean
+    kreal? : Kernel F -> Boolean
+    localexplogs  : (F, F) -> F
+
+    real f        == real complexForm f
+    imag f        == imag complexForm f
+    rreal? r      == zero? imag r
+    kreal? k      == every?(real?, argument k)$List(F)
+    complexForm f == explogs2trigs f
+
+    trigs f ==
+      GF2FG explogs2trigs f
+
+    real? f ==
+      every?(rreal?, coefficients numer f)
+        and every?(rreal?, coefficients denom f) and every?(kreal?, kernels f)
+
+    localexplogs(f, g) ==
+      trigs2explogs(g, [k for k in tower f
+                          | is?(k, 'tan) or is?(k, 'cot)])
+
+    complexElementary f ==
+      any?(x +-> has?(x, RTRIG),
+        operators(g := realElementary f))$List(BasicOperator) =>
+          localexplogs(f, g)
+      g
+
+    complexElementary(f, x) ==
+      any?(y +-> has?(operator y, RTRIG),
+       [k for k in tower(g := realElementary(f, x))
+                 | member?(x, variables(k::F))]$List(K))$List(K) =>
+                     localexplogs(f, g)
+      g
+
+    complexNormalize(f, x) ==
+      any?(y +-> has?(operator y, RTRIG),
+       [k for k in tower(g := realElementary(f, x))
+               | member?(x, variables(k::F))]$List(K))$List(K) =>
+                   (rischNormalize(localexplogs(f, g), x).func)
+      rischNormalize(g, x).func
+
+    complexNormalize f ==
+      l := variables(g := realElementary f)
+      any?(y +-> has?(y, RTRIG), operators g)$List(BasicOperator) =>
+        h := localexplogs(f, g)
+        rischNormalize(h, empty()).func
+      rischNormalize(g, empty()).func
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

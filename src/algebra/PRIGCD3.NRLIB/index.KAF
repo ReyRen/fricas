@@ -1,0 +1,224 @@
+10769               (MAKEPROP '|PrimGCD| 'NILADIC T)
+(|PrimGCD|)
+|package|
+(((|PrimGCD|)
+  (CATEGORY |package|
+   (SIGNATURE |lcx0|
+    ((|Record|
+      (|:| |lcx0lc| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+      (|:| |lcx0m| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))))
+     (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+     (|List| (|Symbol|))))
+   (SIGNATURE |lcz|
+    ((|Record|
+      (|:| |lczlc| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+      (|:| |k| (|Integer|)))
+     (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)) (|Symbol|)))
+   (SIGNATURE |coeffs0|
+    ((|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+     (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+     (|List| (|Symbol|))
+     (|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))))
+   (SIGNATURE |coeffs1|
+    ((|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+     (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+     (|List| (|Symbol|))))
+   (SIGNATURE |alg_reduce0|
+    ((|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+     (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+     (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+     (|List| (|Symbol|)) (|Symbol|)))
+   (SIGNATURE |alg_reduce|
+    ((|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+     (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+     (|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+     (|List| (|Symbol|)) (|List| (|Symbol|))))
+   (SIGNATURE |alg_trial_division|
+    ((|Boolean|) (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+     (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+     (|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+     (|List| (|Symbol|)) (|List| (|Symbol|))))))
+ (T |PrimGCD|))
+(CATEGORY |package|
+ (SIGNATURE |lcx0|
+  ((|Record|
+    (|:| |lcx0lc| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+    (|:| |lcx0m| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))))
+   (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+   (|List| (|Symbol|))))
+ (SIGNATURE |lcz|
+  ((|Record|
+    (|:| |lczlc| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+    (|:| |k| (|Integer|)))
+   (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)) (|Symbol|)))
+ (SIGNATURE |coeffs0|
+  ((|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+   (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)) (|List| (|Symbol|))
+   (|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))))
+ (SIGNATURE |coeffs1|
+  ((|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+   (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+   (|List| (|Symbol|))))
+ (SIGNATURE |alg_reduce0|
+  ((|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+   (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+   (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)) (|List| (|Symbol|))
+   (|Symbol|)))
+ (SIGNATURE |alg_reduce|
+  ((|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+   (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+   (|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+   (|List| (|Symbol|)) (|List| (|Symbol|))))
+ (SIGNATURE |alg_trial_division|
+  ((|Boolean|) (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+   (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+   (|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+   (|List| (|Symbol|)) (|List| (|Symbol|)))))
+"/git/fricas/src/algebra/PRIGCD3.spad"
+((|alg_trial_division| (*1 *2 *3 *3 *4 *5 *5)
+  (AND
+   (|isDomain| *4
+               (|List|
+                (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))))
+   (|isDomain| *5 (|List| (|Symbol|)))
+   (|isDomain| *3 (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+   (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|PrimGCD|))))
+ (|alg_reduce| (*1 *2 *2 *3 *4 *4)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))))
+   (|isDomain| *4 (|List| (|Symbol|)))
+   (|isDomain| *2 (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+   (|isDomain| *1 (|PrimGCD|))))
+ (|alg_reduce0| (*1 *2 *2 *2 *3 *4)
+  (AND (|isDomain| *2 (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+       (|isDomain| *3 (|List| (|Symbol|))) (|isDomain| *4 (|Symbol|))
+       (|isDomain| *1 (|PrimGCD|))))
+ (|coeffs1| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+       (|isDomain| *4 (|List| (|Symbol|)))
+       (|isDomain| *2
+                   (|List|
+                    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))))
+       (|isDomain| *1 (|PrimGCD|))))
+ (|coeffs0| (*1 *2 *3 *4 *2)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))))
+   (|isDomain| *3 (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+   (|isDomain| *4 (|List| (|Symbol|))) (|isDomain| *1 (|PrimGCD|))))
+ (|lcz| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+       (|isDomain| *4 (|Symbol|))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |lczlc|
+                         (|SparseMultivariatePolynomial| (|Integer|)
+                                                         (|Symbol|)))
+                    (|:| |k| (|Integer|))))
+       (|isDomain| *1 (|PrimGCD|))))
+ (|lcx0| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+       (|isDomain| *4 (|List| (|Symbol|)))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |lcx0lc|
+                         (|SparseMultivariatePolynomial| (|Integer|)
+                                                         (|Symbol|)))
+                    (|:| |lcx0m|
+                         (|SparseMultivariatePolynomial| (|Integer|)
+                                                         (|Symbol|)))))
+       (|isDomain| *1 (|PrimGCD|)))))
+((|lcz|
+  (((|Record|
+     (|:| |lczlc| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+     (|:| |k| (|Integer|)))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)) (|Symbol|))
+   17))
+ (|lcx0|
+  (((|Record|
+     (|:| |lcx0lc| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+     (|:| |lcx0m| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|List| (|Symbol|)))
+   10))
+ (|coeffs1|
+  (((|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|List| (|Symbol|)))
+   23))
+ (|coeffs0|
+  (((|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)) (|List| (|Symbol|))
+    (|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))))
+   22))
+ (|alg_trial_division|
+  (((|Boolean|) (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+    (|List| (|Symbol|)) (|List| (|Symbol|)))
+   32))
+ (|alg_reduce0|
+  (((|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)) (|List| (|Symbol|))
+    (|Symbol|))
+   29))
+ (|alg_reduce|
+  (((|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+    (|List| (|Symbol|)) (|List| (|Symbol|)))
+   30)))
+PRIGCD3
+((|constructor|
+  (NIL
+   "This is unfinished package for computing primitive \\indented{1}{\\spad{gcd} over algebraic extensions.\\space{2}Algebraic extension is defined} \\indented{1}{by list of polynomial forming triangular system.} \\indented{1}{Currently implemented is only trial division.}"))
+ (|alg_trial_division|
+  (((|Boolean|) (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+    (|List| (|Symbol|)) (|List| (|Symbol|)))
+   "\\spad{alg_trial_division(x,{} y,{} lm,{} lv,{} lz)} checks if \\spad{x} is divisible by \\spad{y} in algebraic extension defined by \\spad{lm}. \\spad{lz} is list of algebraic variables,{} \\spad{lv} is list of independent (polynomial) variables. Other variables serve as parameters."))
+ (|alg_reduce|
+  (((|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+    (|List| (|Symbol|)) (|List| (|Symbol|)))
+   "\\spad{alg_reduce(x,{} lm,{} lv,{} lz)} reduces \\spad{x} modulo elements of \\spad{lm}."))
+ (|alg_reduce0|
+  (((|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)) (|List| (|Symbol|))
+    (|Symbol|))
+   "\\spad{alg_reduce0(x,{} m,{} lv,{} z)} performs single reduction step."))
+ (|coeffs1|
+  (((|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|List| (|Symbol|)))
+   "\\spad{coeffs1(x,{} lv)} computes list of coefficients of \\spad{x} with respect to variables in \\spad{lv}. Variables in \\spad{lv} must be decreasing and bigger than all other variables of \\spad{x}."))
+ (|coeffs0|
+  (((|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)) (|List| (|Symbol|))
+    (|List| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))))
+   "\\spad{coeffs0(x,{} lv,{} lp)} is used by \\spad{coeffs1}"))
+ (|lcz|
+  (((|Record|
+     (|:| |lczlc| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+     (|:| |k| (|Integer|)))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)) (|Symbol|))
+   "\\spad{lcz(x,{} z)} computes leading coefficient and degree of \\spad{x} with respect to variable \\spad{z}."))
+ (|lcx0|
+  (((|Record|
+     (|:| |lcx0lc| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|)))
+     (|:| |lcx0m| (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))))
+    (|SparseMultivariatePolynomial| (|Integer|) (|Symbol|))
+    (|List| (|Symbol|)))
+   "\\spad{lcx0(x,{} lv)} computes leading coefficient of \\spad{x} and corresponding product of variables (monomial with coefficient 1) with respect to variables in \\spad{lv} Variables in \\spad{lv} must be decreasing and bigger than all other variables of \\spad{x}.")))
+(("documentation" 0 7735) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 7727) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 6066) ("modemaps" 0 3570) ("sourceFile" 0 3531)
+ ("constructorCategory" 0 1856) ("constructorModemap" 0 75)
+ ("constructorKind" 0 65) ("constructorForm" 0 53) ("NILADIC" 0 20))

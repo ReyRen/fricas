@@ -1,0 +1,65 @@
+3053                (MAKEPROP '|UserDefinedVariableOrdering| 'NILADIC T)
+(|UserDefinedVariableOrdering|)
+|package|
+(((|UserDefinedVariableOrdering|)
+  (CATEGORY |package|
+   (SIGNATURE |setVariableOrder| ((|Void|) (|List| (|Symbol|))))
+   (SIGNATURE |setVariableOrder|
+    ((|Void|) (|List| (|Symbol|)) (|List| (|Symbol|))))
+   (SIGNATURE |getVariableOrder|
+    ((|Record| (|:| |high| (|List| (|Symbol|)))
+               (|:| |low| (|List| (|Symbol|))))))
+   (SIGNATURE |resetVariableOrder| ((|Void|)))))
+ (T |UserDefinedVariableOrdering|))
+(CATEGORY |package|
+ (SIGNATURE |setVariableOrder| ((|Void|) (|List| (|Symbol|))))
+ (SIGNATURE |setVariableOrder|
+  ((|Void|) (|List| (|Symbol|)) (|List| (|Symbol|))))
+ (SIGNATURE |getVariableOrder|
+  ((|Record| (|:| |high| (|List| (|Symbol|)))
+             (|:| |low| (|List| (|Symbol|))))))
+ (SIGNATURE |resetVariableOrder| ((|Void|))))
+"/git/fricas/src/algebra/UDVO.spad"
+((|resetVariableOrder| (*1 *2)
+  (AND (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|UserDefinedVariableOrdering|))))
+ (|getVariableOrder| (*1 *2)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |high| (|List| (|Symbol|)))
+                         (|:| |low| (|List| (|Symbol|)))))
+   (|isDomain| *1 (|UserDefinedVariableOrdering|))))
+ (|setVariableOrder| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|List| (|Symbol|))) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|UserDefinedVariableOrdering|))))
+ (|setVariableOrder| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Symbol|))) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|UserDefinedVariableOrdering|)))))
+((|setVariableOrder| (((|Void|) (|List| (|Symbol|)) (|List| (|Symbol|))) 12)
+  (((|Void|) (|List| (|Symbol|))) 10))
+ (|resetVariableOrder| (((|Void|)) 13))
+ (|getVariableOrder|
+  (((|Record| (|:| |high| (|List| (|Symbol|)))
+              (|:| |low| (|List| (|Symbol|)))))
+   17)))
+UDVO
+((|constructor|
+  (NIL
+   "This packages provides functions to allow the user to select the ordering on the variables and operators for displaying polynomials,{} fractions and expressions. The ordering affects the display only and not the computations."))
+ (|resetVariableOrder|
+  (((|Void|))
+   "\\spad{resetVariableOrder()} cancels any previous use of setVariableOrder and returns to the default system ordering."))
+ (|getVariableOrder|
+  (((|Record| (|:| |high| (|List| (|Symbol|)))
+              (|:| |low| (|List| (|Symbol|)))))
+   "\\spad{getVariableOrder()} returns \\spad{[[b1,{} ...,{} bm],{} [a1,{} ...,{} an]]} such that the ordering on the variables was given by \\spad{setVariableOrder([b1,{} ...,{} bm],{} [a1,{} ...,{} an])}."))
+ (|setVariableOrder|
+  (((|Void|) (|List| (|Symbol|)) (|List| (|Symbol|)))
+   "\\spad{setVariableOrder([b1,{} ...,{} bm],{} [a1,{} ...,{} an])} defines an ordering on the variables given by \\spad{b1 > b2 > ... > bm >} other variables \\spad{> a1 > a2 > ... > an}.")
+  (((|Void|) (|List| (|Symbol|)))
+   "\\spad{setVariableOrder([a1,{} ...,{} an])} defines an ordering on the variables given by \\spad{a1 > a2 > ... > an > other variables}.")))
+(("documentation" 0 1864) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1859) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1578) ("modemaps" 0 916) ("sourceFile" 0 880)
+ ("constructorCategory" 0 541) ("constructorModemap" 0 115)
+ ("constructorKind" 0 105) ("constructorForm" 0 73) ("NILADIC" 0 20))

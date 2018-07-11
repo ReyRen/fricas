@@ -1,0 +1,121 @@
+5484                (|PowerSeriesLimitPackage| R FE)
+|package|
+(((|PowerSeriesLimitPackage| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |limit|
+    ((|Union| (|OrderedCompletion| |#2|)
+              (|Record|
+               (|:| |leftHandLimit|
+                    (|Union| (|OrderedCompletion| |#2|) #1="failed"))
+               (|:| |rightHandLimit| (|Union| (|OrderedCompletion| |#2|) #1#)))
+              "failed")
+     |#2| (|Equation| (|OrderedCompletion| |#2|))))
+   (SIGNATURE |complexLimit|
+    ((|Union| (|OnePointCompletion| |#2|) "failed") |#2|
+     (|Equation| (|OnePointCompletion| |#2|))))
+   (SIGNATURE |limit|
+    ((|Union| (|OrderedCompletion| |#2|) #1#) |#2| (|Equation| |#2|)
+     (|String|))))
+  (|Join| (|GcdDomain|) (|Comparable|) (|RetractableTo| (|Integer|))
+          (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|AlgebraicallyClosedField|) (|TranscendentalFunctionCategory|)
+          (|FunctionSpace| |#1|)))
+ (T |PowerSeriesLimitPackage|))
+(CATEGORY |package|
+ (SIGNATURE |limit|
+  ((|Union| (|OrderedCompletion| |#2|)
+            (|Record|
+             (|:| |leftHandLimit|
+                  (|Union| (|OrderedCompletion| |#2|) #1="failed"))
+             (|:| |rightHandLimit| (|Union| (|OrderedCompletion| |#2|) #1#)))
+            "failed")
+   |#2| (|Equation| (|OrderedCompletion| |#2|))))
+ (SIGNATURE |complexLimit|
+  ((|Union| (|OnePointCompletion| |#2|) "failed") |#2|
+   (|Equation| (|OnePointCompletion| |#2|))))
+ (SIGNATURE |limit|
+  ((|Union| (|OrderedCompletion| |#2|) #1#) |#2| (|Equation| |#2|) (|String|))))
+"/git/fricas/src/algebra/LIMITPS.spad"
+((|limit| (*1 *2 *3 *4 *5)
+  (|partial| AND (|isDomain| *4 (|Equation| *3)) (|isDomain| *5 (|String|))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| *6)))
+   (|ofCategory| *6
+                 (|Join| (|GcdDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *2 (|OrderedCompletion| *3))
+   (|isDomain| *1 (|PowerSeriesLimitPackage| *6 *3))))
+ (|complexLimit| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *4 (|Equation| (|OnePointCompletion| *3)))
+   (|ofCategory| *5
+                 (|Join| (|GcdDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *2 (|OnePointCompletion| *3))
+   (|isDomain| *1 (|PowerSeriesLimitPackage| *5 *3))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| *5)))))
+ (|limit| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Equation| (|OrderedCompletion| *3)))
+       (|ofCategory| *3
+                     (|Join| (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)
+                             (|FunctionSpace| *5)))
+       (|ofCategory| *5
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Union| (|OrderedCompletion| *3)
+                            (|Record|
+                             (|:| |leftHandLimit|
+                                  (|Union| (|OrderedCompletion| *3)
+                                           #1="failed"))
+                             (|:| |rightHandLimit|
+                                  (|Union| (|OrderedCompletion| *3) #1#)))
+                            "failed"))
+       (|isDomain| *1 (|PowerSeriesLimitPackage| *5 *3)))))
+((|limit|
+  (((|Union| (|OrderedCompletion| |#2|) #1="failed") |#2| (|Equation| |#2|)
+    (|String|))
+   91)
+  (((|Union| (|OrderedCompletion| |#2|)
+             (|Record|
+              (|:| |leftHandLimit| (|Union| (|OrderedCompletion| |#2|) #1#))
+              (|:| |rightHandLimit| (|Union| (|OrderedCompletion| |#2|) #1#)))
+             "failed")
+    |#2| (|Equation| (|OrderedCompletion| |#2|)))
+   116))
+ (|complexLimit|
+  (((|Union| (|OnePointCompletion| |#2|) "failed") |#2|
+    (|Equation| (|OnePointCompletion| |#2|)))
+   121)))
+LIMITPS
+((|constructor|
+  (NIL
+   "PowerSeriesLimitPackage implements limits of expressions in one or more variables as one of the variables approaches a limiting value. Included are two-sided limits,{} left- and right- hand limits,{} and limits at plus or minus infinity."))
+ (|complexLimit|
+  (((|Union| (|OnePointCompletion| |#2|) "failed") |#2|
+    (|Equation| (|OnePointCompletion| |#2|)))
+   "\\spad{complexLimit(f(x),{} x = a)} computes the complex limit \\spad{lim(x -> a,{} f(x))}."))
+ (|limit|
+  (((|Union| (|OrderedCompletion| |#2|) #1="failed") |#2| (|Equation| |#2|)
+    (|String|))
+   "\\spad{limit(f(x),{}x=a,{}\"left\")} computes the left hand real limit \\spad{lim(x -> a-,{} f(x))}; \\spad{limit(f(x),{}x=a,{}\"right\")} computes the right hand real limit \\spad{lim(x -> a+,{} f(x))}.")
+  (((|Union| (|OrderedCompletion| |#2|)
+             (|Record|
+              (|:| |leftHandLimit| (|Union| (|OrderedCompletion| |#2|) #1#))
+              (|:| |rightHandLimit| (|Union| (|OrderedCompletion| |#2|) #1#)))
+             "failed")
+    |#2| (|Equation| (|OrderedCompletion| |#2|)))
+   "\\spad{limit(f(x),{} x = a)} computes the real limit \\spad{lim(x -> a,{} f(x))}.")))
+(("documentation" 0 4304) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4296) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3757) ("modemaps" 0 1597) ("sourceFile" 0 1558)
+ ("constructorCategory" 0 976) ("constructorModemap" 0 63)
+ ("constructorKind" 0 53) ("constructorForm" 0 20))

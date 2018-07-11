@@ -1,0 +1,52 @@
+2036                (|UniversalSegmentFunctions2| R S)
+|package|
+(((|UniversalSegmentFunctions2| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |map|
+    ((|UniversalSegment| |#2|) (|Mapping| |#2| |#1|)
+     (|UniversalSegment| |#1|)))
+   (IF (|has| |#1| (|OrderedRing|))
+       (SIGNATURE |map|
+        ((|Stream| |#2|) (|Mapping| |#2| |#1|) (|UniversalSegment| |#1|)))
+       |noBranch|))
+  (|Type|) (|Type|))
+ (T |UniversalSegmentFunctions2|))
+(CATEGORY |package|
+ (SIGNATURE |map|
+  ((|UniversalSegment| |#2|) (|Mapping| |#2| |#1|) (|UniversalSegment| |#1|)))
+ (IF (|has| |#1| (|OrderedRing|))
+     (SIGNATURE |map|
+      ((|Stream| |#2|) (|Mapping| |#2| |#1|) (|UniversalSegment| |#1|)))
+     |noBranch|))
+"/git/fricas/src/algebra/UNISEG2.spad"
+((|map| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *6 *5))
+       (|isDomain| *4 (|UniversalSegment| *5))
+       (|ofCategory| *5 (|OrderedRing|)) (|ofCategory| *5 (|Type|))
+       (|ofCategory| *6 (|Type|)) (|isDomain| *2 (|Stream| *6))
+       (|isDomain| *1 (|UniversalSegmentFunctions2| *5 *6))))
+ (|map| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *6 *5))
+       (|isDomain| *4 (|UniversalSegment| *5)) (|ofCategory| *5 (|Type|))
+       (|ofCategory| *6 (|Type|)) (|isDomain| *2 (|UniversalSegment| *6))
+       (|isDomain| *1 (|UniversalSegmentFunctions2| *5 *6)))))
+((|map|
+  (((|Stream| |#2|) (|Mapping| |#2| |#1|) (|UniversalSegment| |#1|)) 23
+   (|has| |#1| (|OrderedRing|)))
+  (((|UniversalSegment| |#2|) (|Mapping| |#2| |#1|) (|UniversalSegment| |#1|))
+   17)))
+((|HasCategory| |#1| '(|OrderedRing|)))
+UNISEG2
+((|constructor|
+  (NIL
+   "This package provides operations for mapping functions onto segments."))
+ (|map|
+  (((|Stream| |#2|) (|Mapping| |#2| |#1|) (|UniversalSegment| |#1|))
+   "\\spad{map(f,{} s)} expands the segment \\spad{s},{} applying \\spad{f} to each value.")
+  (((|UniversalSegment| |#2|) (|Mapping| |#2| |#1|) (|UniversalSegment| |#1|))
+   "\\spad{map(f,{} seg)} returns the new segment obtained by applying \\spad{f} to the endpoints of seg.")))
+(("documentation" 0 1577) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1569) ("predicates" 0 1529) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1328) ("modemaps" 0 750) ("sourceFile" 0 711)
+ ("constructorCategory" 0 447) ("constructorModemap" 0 65)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

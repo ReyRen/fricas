@@ -1,0 +1,178 @@
+8495                (|RecursiveAggregate| S)
+|category|
+(((|RecursiveAggregate| |#1|) (|Category|) (|Type|)) (T |RecursiveAggregate|))
+(|Join| (|HomogeneousAggregate| |t#1|)
+        (CATEGORY |domain| (SIGNATURE |children| ((|List| $) $))
+         (SIGNATURE |nodes| ((|List| $) $)) (SIGNATURE |leaf?| ((|Boolean|) $))
+         (SIGNATURE |value| (|t#1| $)) (SIGNATURE |elt| (|t#1| $ "value"))
+         (SIGNATURE |cyclic?| ((|Boolean|) $))
+         (SIGNATURE |leaves| ((|List| |t#1|) $))
+         (SIGNATURE |distance| ((|Integer|) $ $))
+         (IF (|has| |t#1| (|BasicType|))
+             (PROGN
+              (SIGNATURE |child?| ((|Boolean|) $ $))
+              (SIGNATURE |node?| ((|Boolean|) $ $)))
+             |noBranch|)
+         (IF (|has| $ (|shallowlyMutable|))
+             (PROGN
+              (SIGNATURE |setchildren!| ($ $ (|List| $)))
+              (SIGNATURE |setelt!| (|t#1| $ "value" |t#1|))
+              (SIGNATURE |setvalue!| (|t#1| $ |t#1|)))
+             |noBranch|)))
+"/git/fricas/src/algebra/RCAGG.spad"
+((|children| (*1 *2 *1)
+  (AND (|ofCategory| *3 (|Type|)) (|isDomain| *2 (|List| *1))
+       (|ofCategory| *1 (|RecursiveAggregate| *3))))
+ (|nodes| (*1 *2 *1)
+  (AND (|ofCategory| *3 (|Type|)) (|isDomain| *2 (|List| *1))
+       (|ofCategory| *1 (|RecursiveAggregate| *3))))
+ (|leaf?| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|RecursiveAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|isDomain| *2 (|Boolean|))))
+ (|value| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|RecursiveAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|elt| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 "value") (|ofCategory| *1 (|RecursiveAggregate| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|cyclic?| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|RecursiveAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|isDomain| *2 (|Boolean|))))
+ (|leaves| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|RecursiveAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|isDomain| *2 (|List| *3))))
+ (|distance| (*1 *2 *1 *1)
+  (AND (|ofCategory| *1 (|RecursiveAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|isDomain| *2 (|Integer|))))
+ (|child?| (*1 *2 *1 *1)
+  (AND (|ofCategory| *1 (|RecursiveAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|ofCategory| *3 (|BasicType|)) (|isDomain| *2 (|Boolean|))))
+ (|node?| (*1 *2 *1 *1)
+  (AND (|ofCategory| *1 (|RecursiveAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|ofCategory| *3 (|BasicType|)) (|isDomain| *2 (|Boolean|))))
+ (|setchildren!| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|List| *1)) (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|RecursiveAggregate| *3)) (|ofCategory| *3 (|Type|))))
+ (|setelt!| (*1 *2 *1 *3 *2)
+  (AND (|isDomain| *3 "value") (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|RecursiveAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|setvalue!| (*1 *2 *1 *2)
+  (AND (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|RecursiveAggregate| *2)) (|ofCategory| *2 (|Type|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|value| ((|#1| $) 6)) (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|setvalue!| ((|#1| $ |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|setelt!| ((|#1| $ "value" |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|setchildren!| (($ $ (|List| $)) 6 (|has| $ (|shallowlyMutable|))))
+ (|sample| (($) 6 T CONST))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|nodes| (((|List| $) $) 6))
+ (|node?| (((|Boolean|) $ $) 6 (|has| |#1| (|BasicType|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|leaves| (((|List| |#1|) $) 6)) (|leaf?| (((|Boolean|) $) 6))
+ (|latex| (((|String|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|elt| ((|#1| $ "value") 6)) (|distance| (((|Integer|) $ $) 6))
+ (|cyclic?| (((|Boolean|) $) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|coerce| (((|OutputForm|) $) 6 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|children| (((|List| $) $) 6))
+ (|child?| (((|Boolean|) $ $) 6 (|has| |#1| (|BasicType|))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+RCAGG
+(((|HomogeneousAggregate| |#1|) . T))
+(((|Aggregate|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|SetCategory|) |has| |t#1| (|SetCategory|)) ((|Type|) . T))
+((|constructor|
+  (NIL
+   "A recursive aggregate over a type \\spad{S} is a model for a a directed graph containing values of type \\spad{S}. Recursively,{} a recursive aggregate is either empty or a {\\em node} consisting of a \\spadfun{value} from \\spad{S} and 0 or more \\spadfun{children} which are recursive aggregates. A node with no children is called a \\spadfun{leaf} node. A recursive aggregate may be cyclic for which some operations as noted may go into an infinite loop."))
+ (|setvalue!|
+  ((|#1| $ |#1|)
+   "\\spad{setvalue!(u,{} x)} sets the value of node \\spad{u} to \\spad{x}."))
+ (|setelt!|
+  ((|#1| $ "value" |#1|)
+   "\\spad{setelt!(u,{} \"value\",{} x)} (also written \\spad{u.value := x}) is equivalent to \\spad{setvalue!(u,{} x)}"))
+ (|setchildren!|
+  (($ $ (|List| $))
+   "\\spad{setchildren!(u,{} v)} replaces the current children of node \\spad{u} with the members of \\spad{v} in left-to-right order."))
+ (|node?|
+  (((|Boolean|) $ $)
+   "\\spad{node?(u,{} v)} tests if node \\spad{u} is contained in node \\spad{v} (either as a child,{} a child of a child,{} etc.)."))
+ (|child?|
+  (((|Boolean|) $ $)
+   "\\spad{child?(u,{} v)} tests if node \\spad{u} is a child of node \\spad{v}."))
+ (|distance|
+  (((|Integer|) $ $)
+   "\\spad{distance(u,{} v)} returns the path length (an integer) from node \\spad{u} to \\spad{v}."))
+ (|leaves|
+  (((|List| |#1|) $)
+   "\\spad{leaves(u)} returns the list of leaves in aggregate \\spad{u}."))
+ (|cyclic?|
+  (((|Boolean|) $) "\\spad{cyclic?(u)} tests if \\spad{u} has a cycle."))
+ (|elt|
+  ((|#1| $ "value")
+   "\\spad{elt(u,{} \"value\")} (also written: \\spad{u.value}) is equivalent to \\spad{value(u)}."))
+ (|value|
+  ((|#1| $) "\\spad{value(u)} returns the value of the node \\spad{u}."))
+ (|leaf?|
+  (((|Boolean|) $) "\\spad{leaf?(u)} tests if \\spad{u} is a terminal node."))
+ (|nodes|
+  (((|List| $) $)
+   "\\spad{nodes(u)} returns a list of all of the nodes of aggregate \\spad{u}."))
+ (|children|
+  (((|List| $) $)
+   "\\spad{children(u)} returns a list of the children of aggregate \\spad{u}.")))
+(("documentation" 0 6420) ("ancestors" 0 5913) ("parents" 0 5875)
+ ("abbreviation" 0 5869) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2957) ("modemaps" 0 1033) ("sourceFile" 0 996)
+ ("constructorCategory" 0 135) ("constructorModemap" 0 56)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

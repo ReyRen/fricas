@@ -1,0 +1,30 @@
+)abbrev domain HEXADEC HexadecimalExpansion
+++ Author: Clifton J. Williamson
+++ Date Created: April 26, 1990
+++ Basic Operations:
+++ Related Domains: RadixExpansion
+++ Also See:
+++ AMS Classifications:
+++ Keywords: radix, base, hexadecimal
+++ Examples:
+++ References:
+++ Description:
+++   This domain allows rational numbers to be presented as repeating
+++   hexadecimal expansions.
+
+HexadecimalExpansion() : Exports == Implementation where
+  Exports ==> QuotientFieldCategory(Integer) with
+    coerce : % -> Fraction Integer
+      ++ coerce(h) converts a hexadecimal expansion to a rational number.
+    coerce : % -> RadixExpansion(16)
+      ++ coerce(h) converts a hexadecimal expansion to a radix expansion
+      ++ with base 16.
+    fractionPart : % -> Fraction Integer
+      ++ fractionPart(h) returns the fractional part of a hexadecimal expansion.
+    hex : Fraction Integer -> %
+      ++ hex(r) converts a rational number to a hexadecimal expansion.
+
+  Implementation ==> RadixExpansion(16) add
+    hex r == r :: %
+    coerce(x : %) : RadixExpansion(16) == x pretend RadixExpansion(16)
+

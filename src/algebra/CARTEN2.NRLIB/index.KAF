@@ -1,0 +1,60 @@
+2424                (|CartesianTensorFunctions2| |minix| |dim| S T$)
+|package|
+(((|CartesianTensorFunctions2| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |reshape|
+    ((|CartesianTensor| |#1| |#2| |#4|) (|List| |#4|)
+     (|CartesianTensor| |#1| |#2| |#3|)))
+   (SIGNATURE |map|
+    ((|CartesianTensor| |#1| |#2| |#4|) (|Mapping| |#4| |#3|)
+     (|CartesianTensor| |#1| |#2| |#3|))))
+  (|Integer|) (|NonNegativeInteger|) (|CommutativeRing|) (|CommutativeRing|))
+ (T |CartesianTensorFunctions2|))
+(CATEGORY |package|
+ (SIGNATURE |reshape|
+  ((|CartesianTensor| |#1| |#2| |#4|) (|List| |#4|)
+   (|CartesianTensor| |#1| |#2| |#3|)))
+ (SIGNATURE |map|
+  ((|CartesianTensor| |#1| |#2| |#4|) (|Mapping| |#4| |#3|)
+   (|CartesianTensor| |#1| |#2| |#3|))))
+"/git/fricas/src/algebra/CARTEN2.spad"
+((|map| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *8 *7))
+       (|isDomain| *4 (|CartesianTensor| *5 *6 *7)) (|ofType| *5 (|Integer|))
+       (|ofType| *6 (|NonNegativeInteger|))
+       (|ofCategory| *7 (|CommutativeRing|))
+       (|ofCategory| *8 (|CommutativeRing|))
+       (|isDomain| *2 (|CartesianTensor| *5 *6 *8))
+       (|isDomain| *1 (|CartesianTensorFunctions2| *5 *6 *7 *8))))
+ (|reshape| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *8)) (|isDomain| *4 (|CartesianTensor| *5 *6 *7))
+       (|ofType| *5 (|Integer|)) (|ofType| *6 (|NonNegativeInteger|))
+       (|ofCategory| *7 (|CommutativeRing|))
+       (|ofCategory| *8 (|CommutativeRing|))
+       (|isDomain| *2 (|CartesianTensor| *5 *6 *8))
+       (|isDomain| *1 (|CartesianTensorFunctions2| *5 *6 *7 *8)))))
+((|reshape|
+  (((|CartesianTensor| |#1| |#2| |#4|) (|List| |#4|)
+    (|CartesianTensor| |#1| |#2| |#3|))
+   14))
+ (|map|
+  (((|CartesianTensor| |#1| |#2| |#4|) (|Mapping| |#4| |#3|)
+    (|CartesianTensor| |#1| |#2| |#3|))
+   18)))
+CARTEN2
+((|constructor|
+  (NIL
+   "This package provides functions to enable conversion of tensors given conversion of the components."))
+ (|map|
+  (((|CartesianTensor| |#1| |#2| |#4|) (|Mapping| |#4| |#3|)
+    (|CartesianTensor| |#1| |#2| |#3|))
+   "\\spad{map(f,{} ts)} does a componentwise conversion of the tensor \\spad{ts} to a tensor with components of type \\spad{T}."))
+ (|reshape|
+  (((|CartesianTensor| |#1| |#2| |#4|) (|List| |#4|)
+    (|CartesianTensor| |#1| |#2| |#3|))
+   "\\spad{reshape(lt,{} ts)} organizes the list of components \\spad{lt} into a tensor with the same shape as \\spad{ts}.")))
+(("documentation" 0 1821) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1813) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1582) ("modemaps" 0 802) ("sourceFile" 0 763)
+ ("constructorCategory" 0 510) ("constructorModemap" 0 79)
+ ("constructorKind" 0 69) ("constructorForm" 0 20))

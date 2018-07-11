@@ -1,0 +1,109 @@
+)abbrev domain TENSPOW TensorPower
+++ Author: Franz Lehner lehner@finanz.math.tugraz.at
+++ Date Created: 2009
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   Tensor powers of a free module over a commutative ring.
+++   It is represented as a free module over the cartesian power
+++   of the basis.
+TensorPower(n : NonNegativeInteger, R : CommutativeRing, B : OrderedSet, _
+    M : FreeModuleCategory(R, B)) : TPcat == TPimp where
+    TPcat == Join(TensorPowerCategory(n, R, M),
+                  FreeModuleCategory(R, Vector(B))) with
+        tensor : List B -> %
+
+    TERM1 ==> Record(k : B, c : R)
+
+    Bn ==> Vector B
+    Bntmp ==> List B
+    TERM  ==> Record(k : Bn, c : R)
+    TERMtmp ==> Record(k : Bntmp, c : R)
+
+    TPimp == FreeModule(R, Bn) add
+
+        coerce(x : %) : OutputForm ==
+            zero? x => (0$R) :: OutputForm
+            le : List OutputForm := []
+            rec : TERM
+            for rec in reverse listOfTerms x repeat
+              ko : OutputForm :=
+                  reduce(tensor, [b::OutputForm for b in parts rec k])
+              rec.c = 1 => le := cons(ko, le)
+              le := cons(rec.c :: OutputForm * ko, le)
+            reduce("+",le)
+
+)if false
+\subsection{Creating tensors}
+
+[[partialTensor(bb, xx)]] computes the tensor product
+of the basis elements [[bb]] with the tensor product
+of the elements of xx. The result is a list of terms
+in non-reversed order.
+In the very end of [[tensor]] this list is reversed.
+This way concatenation of lists is avoided
+(at the cost of some list reversals)
+and also no sorting is required.
+
+)endif
+
+        partialTensor : (List B, List M)->List TERMtmp
+
+
+        partialTensor(bb : List B, xx : List M) : List TERMtmp ==
+            res : List TERMtmp
+            x1 : M := first xx
+            xr : List M := rest xx
+            s1 : List TERM1
+            tt : List TERMtmp
+            if empty? xr then
+                for s1 in listOfTerms x1 repeat
+                    res := cons([ cons(s1.k, bb), s1.c], res)
+              else
+                for s1 in listOfTerms x1 repeat
+                    for tt in partialTensor(cons(s1.k, bb), xr) repeat
+                        res := cons([tt k, s1 c*tt c], res)
+            reverse res
+
+        tensor(bb : List B) : % == monomial(1, vector bb)
+
+        -- Always satisfied, but compiler is too weak to notice this
+        if Vector(B) has Comparable then
+
+            tensor(xx : List M) : % ==
+                not size?(xx,n) => error "wrong size"
+                any?(zero?, xx) => 0
+                res : List TERM := []
+                tt : TERMtmp
+                for tt in partialTensor(empty()$(List B), xx) repeat
+                    res := cons([vector reverse tt k, tt c], res)
+                constructOrdered reverse res
+
+        -- Multiplication in the algebra
+        -- We must reconstruct the elements of the factors. Take all terms,
+        -- extract the coefficients, take the product of the basis elements
+        -- in the algebras and tensorize.
+
+        if M has Algebra(R) then
+            (x1 : % * x2 : %) : % ==
+                res : List TERM := empty()
+                for t1 in listOfTerms x1 repeat
+                    for t2 in listOfTerms x2 repeat
+                        -- the coefficients
+                        t1c : R := t1.c
+                        t2c : R := t2.c
+                        -- the basis elements
+                        t1k : Bn := t1.k
+                        t2k : Bn := t2.k
+                        t1t2 : % :=  (t1 c)*(t2 c)*tensor([monomial(1, b1)*
+                              monomial(1, b2) _
+                            for b1 in parts t1 k for b2 in parts t2 k])
+                        for t in listOfTerms t1t2 repeat
+                            res := cons(t, res)
+                construct res
+
+

@@ -1,0 +1,26 @@
+925                 (|RepeatedSquaring| S)
+|package|
+(((|RepeatedSquaring| |#1|)
+  (CATEGORY |package| (SIGNATURE |expt| (|#1| |#1| (|PositiveInteger|))))
+  (|Join| (|SetCategory|) (CATEGORY |domain| (SIGNATURE * ($ $ $)))))
+ (T |RepeatedSquaring|))
+(CATEGORY |package| (SIGNATURE |expt| (|#1| |#1| (|PositiveInteger|))))
+"/git/fricas/src/algebra/REPSQ.spad"
+((|expt| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *1 (|RepeatedSquaring| *2))
+       (|ofCategory| *2
+                     (|Join| (|SetCategory|)
+                             (CATEGORY |domain| (SIGNATURE * ($ $ $))))))))
+((|expt| ((|#1| |#1| (|PositiveInteger|)) 9)))
+REPSQ
+((|constructor| (NIL "Implements exponentiation by repeated squaring"))
+ (|expt|
+  ((|#1| |#1| (|PositiveInteger|))
+   "\\spad{expt(r,{} i)} computes r^i by repeated squaring"))
+ (* (($ $ $) "\\spad{x*y} returns the product of \\spad{x} and \\spad{y}")))
+(("documentation" 0 670) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 664) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 617) ("modemaps" 0 359) ("sourceFile" 0 322)
+ ("constructorCategory" 0 250) ("constructorModemap" 0 53)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

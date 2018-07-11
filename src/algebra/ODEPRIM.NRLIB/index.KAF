@@ -1,0 +1,190 @@
+10564               (|PrimitiveRatDE| F UP L LQ)
+|package|
+(((|PrimitiveRatDE| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |denomLODE| ((|Union| |#2| "failed") |#3| (|Fraction| |#2|)))
+   (SIGNATURE |denomLODE| (|#2| |#3| (|List| (|Fraction| |#2|))))
+   (SIGNATURE |indicialEquations|
+    ((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#3|))
+   (SIGNATURE |indicialEquations|
+    ((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#3| |#2|))
+   (SIGNATURE |indicialEquation| (|#2| |#3| |#1|))
+   (SIGNATURE |indicialEquations|
+    ((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#4|))
+   (SIGNATURE |indicialEquations|
+    ((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#4| |#2|))
+   (SIGNATURE |indicialEquation| (|#2| |#4| |#1|))
+   (SIGNATURE |splitDenominator|
+    ((|Record| (|:| |eq| |#3|) (|:| |rh| (|List| (|Fraction| |#2|)))) |#4|
+     (|List| (|Fraction| |#2|)))))
+  (|Join| (|Field|) (|CharacteristicZero|)
+          (|RetractableTo| (|Fraction| (|Integer|))))
+  (|UnivariatePolynomialCategory| |#1|)
+  (|LinearOrdinaryDifferentialOperatorCategory| |#2|)
+  (|LinearOrdinaryDifferentialOperatorCategory| (|Fraction| |#2|)))
+ (T |PrimitiveRatDE|))
+(CATEGORY |package|
+ (SIGNATURE |denomLODE| ((|Union| |#2| "failed") |#3| (|Fraction| |#2|)))
+ (SIGNATURE |denomLODE| (|#2| |#3| (|List| (|Fraction| |#2|))))
+ (SIGNATURE |indicialEquations|
+  ((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#3|))
+ (SIGNATURE |indicialEquations|
+  ((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#3| |#2|))
+ (SIGNATURE |indicialEquation| (|#2| |#3| |#1|))
+ (SIGNATURE |indicialEquations|
+  ((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#4|))
+ (SIGNATURE |indicialEquations|
+  ((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#4| |#2|))
+ (SIGNATURE |indicialEquation| (|#2| |#4| |#1|))
+ (SIGNATURE |splitDenominator|
+  ((|Record| (|:| |eq| |#3|) (|:| |rh| (|List| (|Fraction| |#2|)))) |#4|
+   (|List| (|Fraction| |#2|)))))
+"/git/fricas/src/algebra/ODEPRIM.spad"
+((|splitDenominator| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|List| (|Fraction| *6)))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *5
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|isDomain| *2
+                   (|Record| (|:| |eq| *7)
+                             (|:| |rh| (|List| (|Fraction| *6)))))
+       (|isDomain| *1 (|PrimitiveRatDE| *5 *6 *7 *3))
+       (|ofCategory| *7 (|LinearOrdinaryDifferentialOperatorCategory| *6))
+       (|ofCategory| *3
+                     (|LinearOrdinaryDifferentialOperatorCategory|
+                      (|Fraction| *6)))))
+ (|indicialEquation| (*1 *2 *3 *4)
+  (AND (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))
+       (|isDomain| *1 (|PrimitiveRatDE| *4 *2 *5 *3))
+       (|ofCategory| *4
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|ofCategory| *5 (|LinearOrdinaryDifferentialOperatorCategory| *2))
+       (|ofCategory| *3
+                     (|LinearOrdinaryDifferentialOperatorCategory|
+                      (|Fraction| *2)))))
+ (|indicialEquations| (*1 *2 *3 *4)
+  (AND
+   (|ofCategory| *5
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| *5))
+   (|isDomain| *2 (|List| (|Record| (|:| |center| *4) (|:| |equation| *4))))
+   (|isDomain| *1 (|PrimitiveRatDE| *5 *4 *6 *3))
+   (|ofCategory| *6 (|LinearOrdinaryDifferentialOperatorCategory| *4))
+   (|ofCategory| *3
+                 (|LinearOrdinaryDifferentialOperatorCategory|
+                  (|Fraction| *4)))))
+ (|indicialEquations| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+   (|isDomain| *2 (|List| (|Record| (|:| |center| *5) (|:| |equation| *5))))
+   (|isDomain| *1 (|PrimitiveRatDE| *4 *5 *6 *3))
+   (|ofCategory| *6 (|LinearOrdinaryDifferentialOperatorCategory| *5))
+   (|ofCategory| *3
+                 (|LinearOrdinaryDifferentialOperatorCategory|
+                  (|Fraction| *5)))))
+ (|indicialEquation| (*1 *2 *3 *4)
+  (AND (|ofCategory| *2 (|UnivariatePolynomialCategory| *4))
+       (|isDomain| *1 (|PrimitiveRatDE| *4 *2 *3 *5))
+       (|ofCategory| *4
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *2))
+       (|ofCategory| *5
+                     (|LinearOrdinaryDifferentialOperatorCategory|
+                      (|Fraction| *2)))))
+ (|indicialEquations| (*1 *2 *3 *4)
+  (AND
+   (|ofCategory| *5
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| *5))
+   (|isDomain| *2 (|List| (|Record| (|:| |center| *4) (|:| |equation| *4))))
+   (|isDomain| *1 (|PrimitiveRatDE| *5 *4 *3 *6))
+   (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *4))
+   (|ofCategory| *6
+                 (|LinearOrdinaryDifferentialOperatorCategory|
+                  (|Fraction| *4)))))
+ (|indicialEquations| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|ofCategory| *5 (|UnivariatePolynomialCategory| *4))
+   (|isDomain| *2 (|List| (|Record| (|:| |center| *5) (|:| |equation| *5))))
+   (|isDomain| *1 (|PrimitiveRatDE| *4 *5 *3 *6))
+   (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *5))
+   (|ofCategory| *6
+                 (|LinearOrdinaryDifferentialOperatorCategory|
+                  (|Fraction| *5)))))
+ (|denomLODE| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|List| (|Fraction| *2)))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *5))
+       (|isDomain| *1 (|PrimitiveRatDE| *5 *2 *3 *6))
+       (|ofCategory| *5
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *2))
+       (|ofCategory| *6
+                     (|LinearOrdinaryDifferentialOperatorCategory|
+                      (|Fraction| *2)))))
+ (|denomLODE| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *4 (|Fraction| *2))
+   (|ofCategory| *2 (|UnivariatePolynomialCategory| *5))
+   (|isDomain| *1 (|PrimitiveRatDE| *5 *2 *3 *6))
+   (|ofCategory| *5
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *2))
+   (|ofCategory| *6 (|LinearOrdinaryDifferentialOperatorCategory| *4)))))
+((|splitDenominator|
+  (((|Record| (|:| |eq| |#3|) (|:| |rh| (|List| (|Fraction| |#2|)))) |#4|
+    (|List| (|Fraction| |#2|)))
+   51))
+ (|indicialEquations|
+  (((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#4| |#2|)
+   59)
+  (((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#4|) 58)
+  (((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#3| |#2|)
+   20)
+  (((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#3|) 21))
+ (|indicialEquation| ((|#2| |#4| |#1|) 60) ((|#2| |#3| |#1|) 27))
+ (|denomLODE| ((|#2| |#3| (|List| (|Fraction| |#2|))) 94)
+  (((|Union| |#2| "failed") |#3| (|Fraction| |#2|)) 91)))
+ODEPRIM
+((|constructor|
+  (NIL
+   "\\spad{PrimitiveRatDE} provides functions for in-field solutions of linear \\indented{1}{ordinary differential equations,{} in the transcendental case.} \\indented{1}{The derivation to use is given by the parameter \\spad{L}.}"))
+ (|splitDenominator|
+  (((|Record| (|:| |eq| |#3|) (|:| |rh| (|List| (|Fraction| |#2|)))) |#4|
+    (|List| (|Fraction| |#2|)))
+   "\\spad{splitDenominator(op,{} [g1,{} ...,{} gm])} returns \\spad{op0,{} [h1,{} ...,{} hm]} such that the equations \\spad{op y = c1 g1 + ... + cm gm} and \\spad{op0 y = c1 h1 + ... + cm hm} have the same solutions."))
+ (|indicialEquation|
+  ((|#2| |#4| |#1|)
+   "\\spad{indicialEquation(op,{} a)} returns the indicial equation of \\spad{op} at \\spad{a}.")
+  ((|#2| |#3| |#1|)
+   "\\spad{indicialEquation(op,{} a)} returns the indicial equation of \\spad{op} at \\spad{a}."))
+ (|indicialEquations|
+  (((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#4| |#2|)
+   "\\spad{indicialEquations(op,{} p)} returns \\spad{[[d1,{} e1],{} ...,{} [dq,{} eq]]} where the \\spad{d_i}\\spad{'s} are the affine singularities of \\spad{op} above the roots of \\spad{p},{} and the \\spad{e_i}\\spad{'s} are the indicial equations at each \\spad{d_i}.")
+  (((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#4|)
+   "\\spad{indicialEquations op} returns \\spad{[[d1,{} e1],{} ...,{} [dq,{} eq]]} where the \\spad{d_i}\\spad{'s} are the affine singularities of \\spad{op},{} and the \\spad{e_i}\\spad{'s} are the indicial equations at each \\spad{d_i}.")
+  (((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#3| |#2|)
+   "\\spad{indicialEquations(op,{} p)} returns \\spad{[[d1,{} e1],{} ...,{} [dq,{} eq]]} where the \\spad{d_i}\\spad{'s} are the affine singularities of \\spad{op} above the roots of \\spad{p},{} and the \\spad{e_i}\\spad{'s} are the indicial equations at each \\spad{d_i}.")
+  (((|List| (|Record| (|:| |center| |#2|) (|:| |equation| |#2|))) |#3|)
+   "\\spad{indicialEquations op} returns \\spad{[[d1,{} e1],{} ...,{} [dq,{} eq]]} where the \\spad{d_i}\\spad{'s} are the affine singularities of \\spad{op},{} and the \\spad{e_i}\\spad{'s} are the indicial equations at each \\spad{d_i}."))
+ (|denomLODE|
+  ((|#2| |#3| (|List| (|Fraction| |#2|)))
+   "\\spad{denomLODE(op,{} [g1,{} ...,{} gm])} returns a polynomial \\spad{d} such that any rational solution of \\spad{op y = c1 g1 + ... + cm gm} is of the form \\spad{p/d} for some polynomial \\spad{p}.")
+  (((|Union| |#2| "failed") |#3| (|Fraction| |#2|))
+   "\\spad{denomLODE(op,{} g)} returns a polynomial \\spad{d} such that any rational solution of \\spad{op y = g} is of the form \\spad{p/d} for some polynomial \\spad{p},{} and \"failed\",{} if the equation has no rational solution.")))
+(("documentation" 0 7791) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 7783) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 7123) ("modemaps" 0 2091) ("sourceFile" 0 2052)
+ ("constructorCategory" 0 1233) ("constructorModemap" 0 59)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

@@ -1,0 +1,32 @@
+)abbrev category QUAGG QueueAggregate
+++ Author: Michael Monagan; revised by Manuel Bronstein and Richard Jenks
+++ Date Created: August 87 through August 88
+++ Basic Operations:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ A queue is a bag where the first item inserted is the first item extracted.
+QueueAggregate(S : Type) : Category == Join(BagAggregate S, finiteAggregate) with
+   enqueue! : (S, %) -> S
+     ++ enqueue!(x, q) inserts x into the queue q at the back end.
+   dequeue! : % -> S
+     ++ dequeue!(q) destructively extracts the first (top) element
+     ++ from queue q. The element previously second in the queue
+     ++ becomes the first element.
+     ++ Error: if q is empty.
+   rotate! : % -> %
+     ++ rotate!(q) rotates queue q so that the element at the front of
+     ++ the queue goes to the back of the queue.
+     ++ Note: rotate!(q) is equivalent to enqueue!(dequeue!(q)).
+   front : % -> S
+     ++ front(q) returns the element at the front of the queue.
+     ++ The queue q is unchanged by this operation.
+     ++ Error: if q is empty.
+   back : % -> S
+     ++ back(q) returns the element at the back of the queue.
+     ++ The queue q is unchanged by this operation.
+     ++ Error: if q is empty.
+

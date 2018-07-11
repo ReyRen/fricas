@@ -1,0 +1,33 @@
+1454                (|ResolveLatticeCompletion| S)
+|package|
+(((|ResolveLatticeCompletion| |#1|)
+  (CATEGORY |package| (SIGNATURE |coerce| ((|Void|) |#1|))
+   (SIGNATURE |coerce| (|#1| (|Exit|))))
+  (|Type|))
+ (T |ResolveLatticeCompletion|))
+(CATEGORY |package| (SIGNATURE |coerce| ((|Void|) |#1|))
+ (SIGNATURE |coerce| (|#1| (|Exit|))))
+"/git/fricas/src/algebra/RESLATC.spad"
+((|coerce| (*1 *2 *3)
+           (AND (|isDomain| *3 (|Exit|))
+                (|isDomain| *1 (|ResolveLatticeCompletion| *2))
+                (|ofCategory| *2 (|Type|))))
+ (|coerce| (*1 *2 *3)
+           (AND (|isDomain| *2 (|Void|))
+                (|isDomain| *1 (|ResolveLatticeCompletion| *3))
+                (|ofCategory| *3 (|Type|)))))
+((|coerce| ((|#1| (|Exit|)) 11) (((|Void|) |#1|) 9)))
+RESLATC
+((|constructor|
+  (NIL
+   "This package provides coercions for the special types \\spadtype{Exit} and \\spadtype{Void}."))
+ (|coerce|
+  ((|#1| (|Exit|))
+   "\\spad{coerce(e)} is never really evaluated. This coercion is used for formal type correctness when a function will not return directly to its caller.")
+  (((|Void|) |#1|)
+   "\\spad{coerce(s)} throws all information about \\spad{s} away. This coercion allows values of any type to appear in contexts where they will not be used. For example,{} it allows the resolution of different types in the \\spad{then} and \\spad{else} branches when an \\spad{if} is in a context where the resulting value is not used.")))
+(("documentation" 0 784) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 776) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 722) ("modemaps" 0 377) ("sourceFile" 0 338)
+ ("constructorCategory" 0 242) ("constructorModemap" 0 61)
+ ("constructorKind" 0 51) ("constructorForm" 0 20))

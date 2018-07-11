@@ -1,0 +1,190 @@
+)abbrev domain TENSOR TensorProduct
+++ Author: Franz Lehner lehner@finanz.math.tugraz.at, Waldek Hebisch
+++ Date Created: 2009
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   Tensor product of free modules over a commutative ring.
+++   It is represented as a free module over the direct product
+++   of the respective bases. The factor domains must provide
+++   operations \spad{listOfTerms}, whose result is assumed
+++   to be stored in reverse order.
+TensorProduct(R : CommutativeRing, B1 : OrderedSet, B2 : OrderedSet, _
+              M1 : FreeModuleCategory(R, B1), M2 : FreeModuleCategory(R, B2)
+             ) : TPcat == TPimp where
+    TPcat == Join(TensorProductCategory(R, M1, M2), _
+        FreeModuleCategory(R, Product(B1, B2))) with
+            if M1 has Algebra(R) and M2 has Algebra(R) then Algebra(R)
+
+    TERM1 ==> Record(k : B1, c : R)
+    TERM2 ==> Record(k : B2, c : R)
+    B1xB2 ==> Product(B1, B2)
+    TERM  ==> Record(k : B1xB2, c : R)
+
+    TPimp == FreeModule(R, Product(B1, B2)) add
+        import from TERM1, TERM2, TERM, B1xB2
+
+        termgreater? : (TERM, TERM)->Boolean
+
+        termgreater?(t1 : TERM, t2 : TERM) == t2.k < t1.k
+
+        tensor(x1 : M1, x2 : M2) : % ==
+            zero? x1 or zero? x2 => return 0
+            ltx1 : List TERM1 := listOfTerms x1
+            ltx2 : List TERM2 := listOfTerms x2
+            res : List TERM := []
+            for s1 in reverse ltx1 repeat
+                for s2 in reverse ltx2 repeat
+                    res := cons([[s1.k, s2.k], s1.c*s2.c]$TERM, res)
+            constructOrdered res
+
+        if M1 has Algebra(R) and M2 has Algebra(R) then
+            (x1 : % * x2 : %) : % ==
+                res : List TERM := empty()
+                for t1 in listOfTerms x1 repeat
+                    for t2 in listOfTerms x2 repeat
+                        -- the coefficients
+                        t1c : R := t1.c
+                        t2c : R := t2.c
+                        -- the basis elements
+                        t1k : B1xB2 := t1.k
+                        t2k : B1xB2 := t2.k
+                        t1a : M1 := monomial(t1.c, first t1k)
+                        t1b : M2 := monomial(1, second t1k)
+                        t2a : M1 := monomial(t2.c, first t2k)
+                        t2b : M2 := monomial(1, second t2k)
+                        for t in listOfTerms tensor(t1a*t2a, t1b*t2b) repeat
+                            res := cons(t, res)
+                construct res
+
+        coerce(x : %) : OutputForm ==
+            zero? x => (0$R) ::OutputForm
+            le : List OutputForm := []
+            rec : TERM
+            for rec in reverse listOfTerms x repeat
+              ko : OutputForm := tensor((first rec k)::OutputForm,
+                                      (second rec k)::OutputForm)
+              rec.c = 1 => le := cons(ko, le)
+              le := cons(rec.c :: OutputForm * ko, le)
+            reduce("+", le)
+
+
+)if false
+\subsection{Creating tensors}
+
+
+There are several ways to finish the product,
+a fast one just using concatenation of lists and [[constructOrdered]].
+It relies on the assumption that the terms of the two factors are
+in reserve order and that the product basis uses lexicographical order.
+
+The following table shows a comparison of speed
+(Debian 4.0 amd64 on \verb|Intel(R) Core(TM)2 Duo CPU T7100 @ 1.80GHz|)
+for tensoring two elements with $n$ terms and different methods
+of finishing the tensor product.
+<<profiling.input>>=
+n := 1000
+
+M := FreeModule(Integer, Symbol)
+N := FreeModule(Integer, Symbol)
+MxN := TensorProduct(Integer, Symbol, Symbol, M, N)
+
+aa := [subscript('a, [k])::M for k in 1..n];
+bb := [subscript('b, [k])::N for k in 1..n];
+
+a := reduce(+, aa);
+b := reduce(+, bb);
+
+)lisp (require : sb-sprof)
+)lisp (sb-sprof : start-profiling)
+t := tensor(a, b)$MxN;
+)lisp (sb-sprof : stop-profiling)
+)lisp (sb-sprof : report)
+@
+
+We compare the following methods.
+\begin{enumerate}
+\item sum : adding elementary tensors term by term (very slow)
+<<TensorProduct - tensor - result sum>>=
+res : % := 0
+for s1 in ltx1 repeat
+    for s2 in ltx2 repeat
+        res := res + monomial(s1.c*s2.c, [s1.k, s2.k])
+res
+@
+\item concat! : append elementary tensors at the end
+<<TensorProduct - tensor - result concat!>>=
+res : List TERM := []
+for s1 in ltx1 repeat
+    for s2 in ltx2 repeat
+        res := concat!(res, [[s1.k, s2.k], s1.c*s2.c]$TERM)
+res pretend %
+@
+
+\item construct : using [[constructOrdered]] without checking
+if the list of terms is ordered
+<<TensorProduct - tensor - result construct>>=
+res : List TERM := []
+for s1 in reverse ltx1 repeat
+    for s2 in reverse ltx2 repeat
+        res := cons([[s1.k, s2.k], s1.c*s2.c]$TERM, res)
+constructOrdered res
+@
+\item reverse+sort! : sort the list of terms before committing
+<<TensorProduct - tensor - result sort!>>=
+res : List TERM := []
+for s1 in reverse ltx1 repeat
+    for s2 in reverse ltx2 repeat
+        res := cons([[s1.k, s2.k], s1.c*s2.c]$TERM, res)
+res := sort!(termgreater?, res)
+constructOrdered res
+@
+
+\item reverse+sorted?+sort! : only sort the list if it is not sorted
+<<TensorProduct - tensor - result sorted? + sort!>>=
+res : List TERM := []
+for s1 in reverse ltx1 repeat
+    for s2 in reverse ltx2 repeat
+        res := cons([[s1.k, s2.k], s1.c*s2.c]$TERM, res)
+if not sorted?(termgreater?, res) then
+    res := sort!(termgreater?, res)
+constructOrdered res
+@
+\end{enumerate}
+The time is measured in seconds.
+\begin{verbatim}
+ n     sum     concat!   construct   reverse+sort!  reverse+sorted?+sort!
+100   17.47      0.25      0.02        0.04             0.02
+200     -        6.06      0.02        0.09             0.02
+500     -      139.38      0.08        0.56             0.11
+1000    -         -        0.19        2.5              0.38
+\end{verbatim}
+
+For a tensor product of $1000$ times $1000$ terms
+this shows for example that skipping the check
+if the result is in the correct order
+gains a speedup by a factor $2$.
+
+\subsection{Multiplication in the algebra}
+We must reconstruct the elements of the factors. Take all terms,
+extract the coefficients, take the product of the basis elements
+in the algebras and tensorize.
+Again experiments show a large speed gain by pushing
+the sorting of the result to the very end.
+
+\section{category TENSPC TensorPowerCategory}
+See comment in DivisionRing() (catdef.spad):
+\begin{verbatim}
+-- Q-algebra is a lie, should be conditional on characteristic 0,
+-- but knownInfo cannot handle the following commented
+--    if % has CharacteristicZero then Algebra Fraction Integer
+\end{verbatim}
+Same here : we want TensorPowerCategory(2, R, M)
+to be TenworProductCategory(R, M, M),
+but apparently knownInfo cannot handle conditionals in categories.
+)endif
+

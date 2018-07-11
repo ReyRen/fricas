@@ -1,0 +1,23 @@
+
+-- Input for page KernelXmpPage
+)clear all
+
+x :: Expression Integer
+kernel x
+sin(x) + cos(x)
+kernels %
+sin(x)^2 + sin(x) + cos(x)
+kernels %
+kernels(1 :: Expression Integer)
+mainKernel(cos(x) + tan(x))
+height kernel x
+height mainKernel(sin x)
+height mainKernel(sin cos x)
+height mainKernel(sin cos (tan x + sin x))
+operator mainKernel(sin cos (tan x + sin x))
+name mainKernel(sin cos (tan x + sin x))
+f := operator 'f
+e := f(x, y, 10)
+is?(e, f)
+is?(e, 'f)
+argument mainKernel e

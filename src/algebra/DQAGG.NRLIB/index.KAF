@@ -1,0 +1,139 @@
+6875                (|DequeueAggregate| S)
+|category|
+(((|DequeueAggregate| |#1|) (|Category|) (|Type|)) (T |DequeueAggregate|))
+(|Join| (|StackAggregate| |t#1|) (|QueueAggregate| |t#1|)
+        (CATEGORY |domain| (SIGNATURE |bottom| (|t#1| $))
+         (SIGNATURE |insertTop!| (|t#1| |t#1| $))
+         (SIGNATURE |insertBottom!| (|t#1| |t#1| $))
+         (SIGNATURE |extractTop!| (|t#1| $))
+         (SIGNATURE |extractBottom!| (|t#1| $)) (SIGNATURE |reverse!| ($ $))))
+"/git/fricas/src/algebra/DQAGG.spad"
+((|bottom| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|DequeueAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|insertTop!| (*1 *2 *2 *1)
+  (AND (|ofCategory| *1 (|DequeueAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|insertBottom!| (*1 *2 *2 *1)
+  (AND (|ofCategory| *1 (|DequeueAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|extractTop!| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|DequeueAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|extractBottom!| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|DequeueAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|reverse!| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|DequeueAggregate| *2)) (|ofCategory| *2 (|Type|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|top| ((|#1| $) 6)) (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|sample| (($) 6 T CONST)) (|rotate!| (($ $) 6)) (|reverse!| (($ $) 6))
+ (|removeDuplicates|
+  (($ $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove| (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+           (($ |#1| $) 6
+            (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|push!| ((|#1| |#1| $) 6)) (|pop!| ((|#1| $) 6))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|latex| (((|String|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|inspect| ((|#1| $) 6)) (|insertTop!| ((|#1| |#1| $) 6))
+ (|insertBottom!| ((|#1| |#1| $) 6)) (|insert!| (($ |#1| $) 6))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|front| ((|#1| $) 6))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) 6))
+ (|extractTop!| ((|#1| $) 6)) (|extractBottom!| ((|#1| $) 6))
+ (|extract!| ((|#1| $) 6))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|enqueue!| ((|#1| |#1| $) 6))
+ (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6)) (|dequeue!| ((|#1| $) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|convert| (((|InputForm|) $) 6 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 6))
+ (|coerce| (((|OutputForm|) $) 6 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|bottom| ((|#1| $) 6)) (|back| ((|#1| $) 6))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+DQAGG
+(((|StackAggregate| |#1|) . T) ((|QueueAggregate| |#1|) . T))
+(((|Aggregate|) . T) ((|BagAggregate| |t#1|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Collection| |t#1|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|QueueAggregate| |#1|) . T) ((|SetCategory|) |has| |t#1| (|SetCategory|))
+ ((|StackAggregate| |#1|) . T) ((|Type|) . T) ((|finiteAggregate|) . T)
+ ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "A dequeue is a doubly ended stack,{} that is,{} a bag where first items inserted are the first items extracted,{} at either the front or the back end of the data structure."))
+ (|reverse!|
+  (($ $)
+   "\\spad{reverse!(d)} destructively replaces \\spad{d} by its reverse dequeue,{} \\spadignore{i.e.} the top (front) element is now the bottom (back) element,{} and so on."))
+ (|extractBottom!|
+  ((|#1| $)
+   "\\spad{extractBottom!(d)} destructively extracts the bottom (back) element from the dequeue \\spad{d}. Error: if \\spad{d} is empty."))
+ (|extractTop!|
+  ((|#1| $)
+   "\\spad{extractTop!(d)} destructively extracts the top (front) element from the dequeue \\spad{d}. Error: if \\spad{d} is empty."))
+ (|insertBottom!|
+  ((|#1| |#1| $)
+   "\\spad{insertBottom!(x,{} d)} destructively inserts \\spad{x} into the dequeue \\spad{d} at the bottom (back) of the dequeue."))
+ (|insertTop!|
+  ((|#1| |#1| $)
+   "\\spad{insertTop!(x,{} d)} destructively inserts \\spad{x} into the dequeue \\spad{d},{} that is,{} at the top (front) of the dequeue. The element previously at the top of the dequeue becomes the second in the dequeue,{} and so on."))
+ (|bottom|
+  ((|#1| $)
+   "\\spad{bottom(d)} returns the element at the bottom (back) of the dequeue.")))
+(("documentation" 0 5595) ("ancestors" 0 4836) ("parents" 0 4774)
+ ("abbreviation" 0 4768) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1142) ("modemaps" 0 509) ("sourceFile" 0 472)
+ ("constructorCategory" 0 129) ("constructorModemap" 0 54)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

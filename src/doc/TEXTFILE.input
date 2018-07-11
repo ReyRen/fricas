@@ -1,0 +1,18 @@
+
+-- Input for page TextFileXmpPage
+)clear all
+
+f1: TextFile := open("/etc/group", "input")
+f2: TextFile := open("/tmp/MOTD", "output")
+l := readLine! f1
+writeLine!(f2, upperCase l)
+while not endOfFile? f1 repeat
+    s := readLine! f1
+    writeLine!(f2, upperCase s)
+
+close! f1
+write!(f2, "-The-")
+write!(f2, "-End-")
+writeLine! f2
+close! f2
+)system rm /tmp/MOTD

@@ -1,0 +1,13 @@
+)abbrev package DROPT1 DrawOptionFunctions1
+++ This package \undocumented{}
+DrawOptionFunctions1(S : Type) : Exports == Implementation where
+ Exports ==> with
+  option : (List DrawOption, Symbol) -> Union(S, "failed")
+    ++ option(l, s) determines whether the indicated drawing option, s,
+    ++ is contained in the list of drawing options, l, which is defined
+    ++ by the draw command.
+ Implementation ==> add
+  option(l, s) ==
+    (u := option(l, s)@Union(Any, "failed")) case "failed" => "failed"
+    retract(u::Any)$AnyFunctions1(S)
+

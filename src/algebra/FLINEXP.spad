@@ -1,0 +1,27 @@
+)abbrev category FLINEXP FullyLinearlyExplicitOver
+++ Author:
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ S is \spadtype{FullyLinearlyExplicitOver R} means that S is a
+++ \spadtype{LinearlyExplicitOver R} and, in addition, if R is a
+++ \spadtype{LinearlyExplicitOver Integer}, then so is S
+FullyLinearlyExplicitOver(R : Ring) : Category ==
+  LinearlyExplicitOver R with
+    if (R has LinearlyExplicitOver Integer) then
+            LinearlyExplicitOver Integer
+ add
+  if not(R is Integer) then
+      if (R has LinearlyExplicitOver Integer) then
+          reducedSystem(m : Matrix %) : Matrix(Integer) ==
+              reducedSystem(reducedSystem(m)@Matrix(R))
+
+          reducedSystem(m : Matrix %, v : Vector %) :
+                Record(mat : Matrix(Integer), vec : Vector(Integer)) ==
+              rec := reducedSystem(m, v)@Record(mat : Matrix R, vec : Vector R)
+              reducedSystem(rec.mat, rec.vec)
+

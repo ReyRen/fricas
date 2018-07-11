@@ -1,0 +1,119 @@
+5267                (|PriorityQueueAggregate| S)
+|category|
+(((|PriorityQueueAggregate| |#1|) (|Category|) (|OrderedSet|))
+ (T |PriorityQueueAggregate|))
+(|Join| (|BagAggregate| |t#1|) (|finiteAggregate|)
+        (CATEGORY |domain| (SIGNATURE |max| (|t#1| $))
+         (SIGNATURE |merge| ($ $ $)) (SIGNATURE |merge!| ($ $ $))))
+"/git/fricas/src/algebra/PRQAGG.spad"
+((|max| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|PriorityQueueAggregate| *2))
+       (|ofCategory| *2 (|OrderedSet|))))
+ (|merge| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|PriorityQueueAggregate| *2))
+       (|ofCategory| *2 (|OrderedSet|))))
+ (|merge!| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|PriorityQueueAggregate| *2))
+       (|ofCategory| *2 (|OrderedSet|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|sample| (($) 6 T CONST))
+ (|removeDuplicates|
+  (($ $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove| (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+           (($ |#1| $) 6
+            (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|merge!| (($ $ $) 6)) (|merge| (($ $ $) 6))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|latex| (((|String|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|inspect| ((|#1| $) 6)) (|insert!| (($ |#1| $) 6))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) 6))
+ (|extract!| ((|#1| $) 6))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|convert| (((|InputForm|) $) 6 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 6))
+ (|coerce| (((|OutputForm|) $) 6 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+PRQAGG
+(((|BagAggregate| |#1|) . T) ((|finiteAggregate|) . T))
+(((|Aggregate|) . T) ((|BagAggregate| |#1|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Collection| |t#1|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|SetCategory|) |has| |t#1| (|SetCategory|)) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "A priority queue is a bag of items from an ordered set where the item extracted is always the maximum element."))
+ (|merge!|
+  (($ $ $)
+   "\\spad{merge!(q,{} q1)} destructively changes priority queue \\spad{q} to include the values from priority queue \\spad{q1}."))
+ (|merge|
+  (($ $ $)
+   "\\spad{merge(q1,{} q2)} returns combines priority queues \\spad{q1} and \\spad{q2} to return a single priority queue \\spad{q}."))
+ (|max|
+  ((|#1| $)
+   "\\spad{max(q)} returns the maximum element of priority queue \\spad{q}.")))
+(("documentation" 0 4716) ("ancestors" 0 4019) ("parents" 0 3963)
+ ("abbreviation" 0 3956) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 726) ("modemaps" 0 366) ("sourceFile" 0 328)
+ ("constructorCategory" 0 154) ("constructorModemap" 0 60)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

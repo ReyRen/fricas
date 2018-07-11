@@ -1,0 +1,144 @@
+)abbrev domain FM FreeModule
+++ Author: Dave Barton, James Davenport, Barry Trager
+++ Basic Functions: BiModule(R, R)
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ A bi-module is a free module
+++ over a ring with generators indexed by an ordered set.
+++ Each element can be expressed as a finite linear combination of
+++ generators. Only non-zero terms are stored.
+
+++ old domain FreeModule1 was merged to it in May 2009
+++ The description of the latter:
+++   This domain implements linear combinations
+++   of elements from the domain \spad{S} with coefficients
+++   in the domain \spad{R} where \spad{S} is an ordered set
+++   and \spad{R} is a ring (which may be non-commutative).
+++   This domain is used by domains of non-commutative algebra such as:
+++       \spadtype{XDistributedPolynomial},
+++       \spadtype{XRecursivePolynomial}.
+++   Author: Michel Petitot (petitot@lifl.fr)
+
+
+FreeModule(R : Join(SemiRng, AbelianMonoid), S : SetCategory) :
+        Join(BiModule(R, R), FreeModuleCategory(R, S)) with
+    if R has CommutativeRing then Module(R)
+ == IndexedDirectProductObject(R, S) add
+    --representations
+       Term ==>  Record(k : S, c : R)
+       Rep :=  List Term
+
+       rep(x:%):Rep == x :: Rep
+       per(r:Rep):% == r :: %
+
+    --declarations
+       x, y : %
+       r : R
+       n : Integer
+       f : R -> R
+       s : S
+       lt : List Term
+   --define
+       r_one : R :=
+           R has Monoid => 1
+           0
+       if R has noZeroDivisors then
+         r * x  ==
+             zero? r => 0
+             (r = r_one) => x
+           --map(x+->r*x1, x)
+             [[u.k, r*u.c] for u in x ]
+       else
+         r * x  ==
+             zero? r => 0
+             (r = r_one) => x
+           --map(x1+->r*x1, x)
+             [[u.k, a] for u in x | (a := r*u.c) ~= 0$R]
+
+       if R has noZeroDivisors then
+         x * r  ==
+             zero? r => 0
+             (r = r_one) => x
+           --map(x1+->r*x1, x)
+             [[u.k, u.c*r] for u in x ]
+       else
+         x * r  ==
+             zero? r => 0
+             (r = r_one) => x
+           --map(x1+->r*x1, x)
+             [[u.k, a] for u in x | (a := u.c*r) ~= 0$R]
+
+       r * s ==
+         r = 0 => 0
+         [[s, r]$Term]
+
+       s * r ==
+         r = 0 => 0
+         [[s, r]$Term]
+
+       if R has Monoid then
+           coerce(x) : OutputForm ==
+               empty?(x) => (0$R) :: OutputForm
+               le : List OutputForm := []
+               for rec in reverse x repeat
+                   rec.c = 1 => le := cons(rec.k :: OutputForm, le)
+                   le := cons(rec.c :: OutputForm *  rec.k :: OutputForm, le)
+               reduce("+", le)
+       else
+           coerce(x) : OutputForm ==
+               reduce("+", [rec.c :: OutputForm *  rec.k :: OutputForm
+                             for rec in x])
+
+       support x == [t.k for t in x]
+
+       coefficients x == [t.c for t in x]
+
+       monom(b : S, r : R) : % == [[b, r]$Term]
+
+       monomials x == [ monom(t.k, t.c) for t in x]
+
+       if R has SemiRing then
+           retractIfCan x ==
+               numberOfMonomials(x) ~= 1 => "failed"
+               x.first.c = 1 => x.first.k
+               "failed"
+
+           retract x ==
+               (rr := retractIfCan x) case "failed" =>
+                   error "FM1.retract impossible"
+               rr :: S
+
+           coerce(s : S) : % == [[s, 1$R]]
+
+       if S has Comparable then
+
+           coefficient(x, s) ==
+               empty?(x) => 0$R
+               smaller?(s, x.first.k) => coefficient(rest x, s)
+               x.first.k = s => x.first.c
+               0$R
+
+       else
+
+           coefficient(x, s) ==
+               xr := x::Rep
+               for t in xr repeat
+                   if t.k = s then return t.c
+               0
+
+       if R has CommutativeRing then
+           f : S->R
+           x : %
+           t : Term
+           linearExtend(f, x) ==
+               zero? x => 0
+               res : R := 0
+               for t in listOfTerms x repeat
+                   res := res + (t c)*f(t k)
+               res
+
+

@@ -1,0 +1,52 @@
+2030                (|CoerceVectorMatrixPackage| R)
+|package|
+(((|CoerceVectorMatrixPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |coerceP|
+    ((|Vector| (|Matrix| (|Polynomial| |#1|))) (|Vector| (|Matrix| |#1|))))
+   (SIGNATURE |coerce|
+    ((|Vector| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+     (|Vector| (|Matrix| |#1|)))))
+  (|CommutativeRing|))
+ (T |CoerceVectorMatrixPackage|))
+(CATEGORY |package|
+ (SIGNATURE |coerceP|
+  ((|Vector| (|Matrix| (|Polynomial| |#1|))) (|Vector| (|Matrix| |#1|))))
+ (SIGNATURE |coerce|
+  ((|Vector| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+   (|Vector| (|Matrix| |#1|)))))
+"/git/fricas/src/algebra/CVMP.spad"
+((|coerce| (*1 *2 *3)
+           (AND (|isDomain| *3 (|Vector| (|Matrix| *4)))
+                (|ofCategory| *4 (|CommutativeRing|))
+                (|isDomain| *2
+                            (|Vector|
+                             (|Matrix| (|Fraction| (|Polynomial| *4)))))
+                (|isDomain| *1 (|CoerceVectorMatrixPackage| *4))))
+ (|coerceP| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Vector| (|Matrix| *4)))
+       (|ofCategory| *4 (|CommutativeRing|))
+       (|isDomain| *2 (|Vector| (|Matrix| (|Polynomial| *4))))
+       (|isDomain| *1 (|CoerceVectorMatrixPackage| *4)))))
+((|coerceP|
+  (((|Vector| (|Matrix| (|Polynomial| |#1|))) (|Vector| (|Matrix| |#1|))) 22))
+ (|coerce|
+  (((|Vector| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+    (|Vector| (|Matrix| |#1|)))
+   30)))
+CVMP
+((|constructor|
+  (NIL
+   "CoerceVectorMatrixPackage: an unexposed,{} technical package for data conversions"))
+ (|coerce|
+  (((|Vector| (|Matrix| (|Fraction| (|Polynomial| |#1|))))
+    (|Vector| (|Matrix| |#1|)))
+   "\\spad{coerce(v)} coerces a vector \\spad{v} with entries in \\spadtype{Matrix R} as vector over \\spadtype{Matrix Fraction Polynomial R}"))
+ (|coerceP|
+  (((|Vector| (|Matrix| (|Polynomial| |#1|))) (|Vector| (|Matrix| |#1|)))
+   "\\spad{coerceP(v)} coerces a vector \\spad{v} with entries in \\spadtype{Matrix R} as vector over \\spadtype{Matrix Polynomial R}")))
+(("documentation" 0 1447) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1442) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1240) ("modemaps" 0 660) ("sourceFile" 0 624)
+ ("constructorCategory" 0 396) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

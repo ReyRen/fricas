@@ -1,0 +1,162 @@
+7826                (MAKEPROP '|RadicalEigenPackage| 'NILADIC T)
+(|RadicalEigenPackage|)
+|package|
+(((|RadicalEigenPackage|)
+  (CATEGORY |package|
+   (SIGNATURE |radicalEigenvectors|
+    ((|List|
+      (|Record| (|:| |radval| (|Expression| (|Integer|)))
+                (|:| |radmult| (|Integer|))
+                (|:| |radvect|
+                     (|List| (|Matrix| (|Expression| (|Integer|)))))))
+     (|Matrix| (|Fraction| (|Polynomial| (|Integer|))))))
+   (SIGNATURE |radicalEigenvector|
+    ((|List| (|Matrix| (|Expression| (|Integer|)))) (|Expression| (|Integer|))
+     (|Matrix| (|Fraction| (|Polynomial| (|Integer|))))))
+   (SIGNATURE |radicalEigenvalues|
+    ((|List| (|Expression| (|Integer|)))
+     (|Matrix| (|Fraction| (|Polynomial| (|Integer|))))))
+   (SIGNATURE |eigenMatrix|
+    ((|Union| (|Matrix| (|Expression| (|Integer|))) "failed")
+     (|Matrix| (|Fraction| (|Polynomial| (|Integer|))))))
+   (SIGNATURE |normalise|
+    ((|Matrix| (|Expression| (|Integer|)))
+     (|Matrix| (|Expression| (|Integer|)))))
+   (SIGNATURE |gramschmidt|
+    ((|List| (|Matrix| (|Expression| (|Integer|))))
+     (|List| (|Matrix| (|Expression| (|Integer|))))))
+   (SIGNATURE |orthonormalBasis|
+    ((|List| (|Matrix| (|Expression| (|Integer|))))
+     (|Matrix| (|Fraction| (|Polynomial| (|Integer|))))))))
+ (T |RadicalEigenPackage|))
+(CATEGORY |package|
+ (SIGNATURE |radicalEigenvectors|
+  ((|List|
+    (|Record| (|:| |radval| (|Expression| (|Integer|)))
+              (|:| |radmult| (|Integer|))
+              (|:| |radvect| (|List| (|Matrix| (|Expression| (|Integer|)))))))
+   (|Matrix| (|Fraction| (|Polynomial| (|Integer|))))))
+ (SIGNATURE |radicalEigenvector|
+  ((|List| (|Matrix| (|Expression| (|Integer|)))) (|Expression| (|Integer|))
+   (|Matrix| (|Fraction| (|Polynomial| (|Integer|))))))
+ (SIGNATURE |radicalEigenvalues|
+  ((|List| (|Expression| (|Integer|)))
+   (|Matrix| (|Fraction| (|Polynomial| (|Integer|))))))
+ (SIGNATURE |eigenMatrix|
+  ((|Union| (|Matrix| (|Expression| (|Integer|))) "failed")
+   (|Matrix| (|Fraction| (|Polynomial| (|Integer|))))))
+ (SIGNATURE |normalise|
+  ((|Matrix| (|Expression| (|Integer|)))
+   (|Matrix| (|Expression| (|Integer|)))))
+ (SIGNATURE |gramschmidt|
+  ((|List| (|Matrix| (|Expression| (|Integer|))))
+   (|List| (|Matrix| (|Expression| (|Integer|))))))
+ (SIGNATURE |orthonormalBasis|
+  ((|List| (|Matrix| (|Expression| (|Integer|))))
+   (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))))
+"/git/fricas/src/algebra/REP.spad"
+((|orthonormalBasis| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+       (|isDomain| *2 (|List| (|Matrix| (|Expression| (|Integer|)))))
+       (|isDomain| *1 (|RadicalEigenPackage|))))
+ (|gramschmidt| (*1 *2 *2)
+  (AND (|isDomain| *2 (|List| (|Matrix| (|Expression| (|Integer|)))))
+       (|isDomain| *1 (|RadicalEigenPackage|))))
+ (|normalise| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|RadicalEigenPackage|))))
+ (|eigenMatrix| (*1 *2 *3)
+  (|partial| AND
+   (|isDomain| *3 (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+   (|isDomain| *2 (|Matrix| (|Expression| (|Integer|))))
+   (|isDomain| *1 (|RadicalEigenPackage|))))
+ (|radicalEigenvalues| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|RadicalEigenPackage|))))
+ (|radicalEigenvector| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Expression| (|Integer|)))
+       (|isDomain| *4 (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+       (|isDomain| *2 (|List| (|Matrix| (|Expression| (|Integer|)))))
+       (|isDomain| *1 (|RadicalEigenPackage|))))
+ (|radicalEigenvectors| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |radval| (|Expression| (|Integer|)))
+                              (|:| |radmult| (|Integer|))
+                              (|:| |radvect|
+                                   (|List|
+                                    (|Matrix| (|Expression| (|Integer|))))))))
+       (|isDomain| *1 (|RadicalEigenPackage|)))))
+((|radicalEigenvectors|
+  (((|List|
+     (|Record| (|:| |radval| (|Expression| (|Integer|)))
+               (|:| |radmult| (|Integer|))
+               (|:| |radvect| (|List| (|Matrix| (|Expression| (|Integer|)))))))
+    (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+   57))
+ (|radicalEigenvector|
+  (((|List| (|Matrix| (|Expression| (|Integer|)))) (|Expression| (|Integer|))
+    (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+   47))
+ (|radicalEigenvalues|
+  (((|List| (|Expression| (|Integer|)))
+    (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+   40))
+ (|orthonormalBasis|
+  (((|List| (|Matrix| (|Expression| (|Integer|))))
+    (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+   67))
+ (|normalise|
+  (((|Matrix| (|Expression| (|Integer|)))
+    (|Matrix| (|Expression| (|Integer|))))
+   32))
+ (|gramschmidt|
+  (((|List| (|Matrix| (|Expression| (|Integer|))))
+    (|List| (|Matrix| (|Expression| (|Integer|)))))
+   59))
+ (|eigenMatrix|
+  (((|Union| (|Matrix| (|Expression| (|Integer|))) "failed")
+    (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+   64)))
+REP
+((|constructor|
+  (NIL
+   "Package for the computation of eigenvalues and eigenvectors. This package works for matrices with coefficients which are rational functions over the integers. (see \\spadtype{Fraction Polynomial Integer}). The eigenvalues and eigenvectors are expressed in terms of radicals."))
+ (|orthonormalBasis|
+  (((|List| (|Matrix| (|Expression| (|Integer|))))
+    (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+   "\\spad{orthonormalBasis(m)} returns the orthogonal matrix \\spad{b} such that \\spad{b*m*(inverse b)} is diagonal. Error: if \\spad{m} is not a symmetric matrix."))
+ (|gramschmidt|
+  (((|List| (|Matrix| (|Expression| (|Integer|))))
+    (|List| (|Matrix| (|Expression| (|Integer|)))))
+   "\\spad{gramschmidt(lv)} converts the list of column vectors \\spad{lv} into a set of orthogonal column vectors of euclidean length 1 using the Gram-Schmidt algorithm."))
+ (|normalise|
+  (((|Matrix| (|Expression| (|Integer|)))
+    (|Matrix| (|Expression| (|Integer|))))
+   "\\spad{normalise(v)} returns the column vector \\spad{v} divided by its euclidean norm; when possible,{} the vector \\spad{v} is expressed in terms of radicals."))
+ (|eigenMatrix|
+  (((|Union| (|Matrix| (|Expression| (|Integer|))) "failed")
+    (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+   "\\spad{eigenMatrix(m)} returns the matrix \\spad{b} such that \\spad{b*m*(inverse b)} is diagonal,{} or \"failed\" if no such \\spad{b} exists."))
+ (|radicalEigenvalues|
+  (((|List| (|Expression| (|Integer|)))
+    (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+   "\\spad{radicalEigenvalues(m)} computes the eigenvalues of the matrix \\spad{m}; when possible,{} the eigenvalues are expressed in terms of radicals."))
+ (|radicalEigenvector|
+  (((|List| (|Matrix| (|Expression| (|Integer|)))) (|Expression| (|Integer|))
+    (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+   "\\spad{radicalEigenvector(c,{} m)} computes the eigenvector(\\spad{s}) of the matrix \\spad{m} corresponding to the eigenvalue \\spad{c}; when possible,{} values are expressed in terms of radicals."))
+ (|radicalEigenvectors|
+  (((|List|
+     (|Record| (|:| |radval| (|Expression| (|Integer|)))
+               (|:| |radmult| (|Integer|))
+               (|:| |radvect| (|List| (|Matrix| (|Expression| (|Integer|)))))))
+    (|Matrix| (|Fraction| (|Polynomial| (|Integer|)))))
+   "\\spad{radicalEigenvectors(m)} computes the eigenvalues and the corresponding eigenvectors of the matrix \\spad{m}; when possible,{} values are expressed in terms of radicals.")))
+(("documentation" 0 5287) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 5283) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4199) ("modemaps" 0 2476) ("sourceFile" 0 2441)
+ ("constructorCategory" 0 1333) ("constructorModemap" 0 99)
+ ("constructorKind" 0 89) ("constructorForm" 0 65) ("NILADIC" 0 20))

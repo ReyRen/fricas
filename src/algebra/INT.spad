@@ -1,0 +1,154 @@
+)abbrev domain INT Integer
+++ Author:
+++ Basic Operations:
+++ Related Constructors:
+++ Keywords: integer
+++ Description: \spadtype{Integer} provides the domain of arbitrary precision
+++ integers.
+
+Integer : Join(IntegerNumberSystem, LinearlyExplicitOver Integer,
+               PolynomialFactorizationExplicit, ConvertibleTo String,
+               OpenMath, Canonical, canonicalsClosed) with
+    random   : % -> %
+      ++ random(n) returns a random integer from 0 to \spad{n-1}.
+ == add
+      ZP ==> SparseUnivariatePolynomial %
+      ZZP ==> SparseUnivariatePolynomial Integer
+      x, y : %
+      n : NonNegativeInteger
+
+      writeOMInt(dev : OpenMathDevice, x : %) : Void ==
+        if x < 0 then
+          OMputApp(dev)
+          OMputSymbol(dev, "arith1", "unary_minus")
+          OMputInteger(dev, (-x) pretend Integer)
+          OMputEndApp(dev)
+        else
+          OMputInteger(dev, x pretend Integer)
+
+      OMwrite(dev : OpenMathDevice, x : %, wholeObj : Boolean) : Void ==
+        if wholeObj then
+          OMputObject(dev)
+        writeOMInt(dev, x)
+        if wholeObj then
+          OMputEndObject(dev)
+
+      zero? x == ZEROP(x)$Lisp
+      one? x == x = 1
+      0 == 0$Lisp
+      1 == 1$Lisp
+      base()  == 2$Lisp
+      copy x  == x
+      inc  x  == x + 1
+      dec  x  == x - 1
+      hashUpdate!(hs, s) == update!(hs, SXHASH(s)$Lisp)$HashState
+      negative? x == MINUSP(x)$Lisp
+      coerce(x) : OutputForm == outputForm(x pretend Integer)
+      coerce(m : Integer) : % == m pretend %
+      convert(x : %) : Integer == x pretend Integer
+      length a == INTEGER_-LENGTH(a)$Lisp
+      addmod(a, b, p) ==
+         (c := a + b) >= p => c - p
+         c
+      submod(a, b, p) ==
+         (c := a - b) < 0 => c + p
+         c
+      mulmod(a, b, p) == (a * b) rem p
+      convert(x : %) : Float       == coerce(x pretend Integer)$Float
+      convert(x : %) : DoubleFloat  == coerce(x pretend Integer)$DoubleFloat
+      convert(x : %) : InputForm   == convert(x pretend Integer)$InputForm
+      convert(x : %) : String      == string(x pretend Integer)$String
+
+      latex(x : %) : String ==
+        s : String := string(x pretend Integer)$String
+        (0 <= (x pretend Integer)) and ((x pretend Integer) < 10) => s
+        concat("{", concat(s, "}")$String)$String
+
+      positiveRemainder(a, b) ==
+        negative?(r := a rem b) =>
+           negative? b => r - b
+           r + b
+        r
+
+      reducedSystem(m : Matrix %) : Matrix(Integer) ==
+        m pretend Matrix(Integer)
+
+      reducedSystem(m : Matrix %, vec : Vector %):
+       Record(mat : Matrix(Integer), vec : Vector(Integer)) ==
+        [m pretend Matrix(Integer), vec pretend Vector(Integer)]
+
+      abs(x) == ABS(x)$Lisp
+      random(x) == RANDOM(x)$Lisp
+      x = y == EQL(x, y)$Lisp
+      x < y == (x<y)$Lisp
+      -- critical for coercions to NonNegativeInteger
+      x >= y == (x >= y)$Lisp
+      - x == (-x)$Lisp
+      x + y == (x+y)$Lisp
+      x - y == (x-y)$Lisp
+      x * y == (x*y)$Lisp
+      (m : Integer) * (y : %) == (m*y)$Lisp -- for subsumption problem
+      x ^ n == EXPT(x, n)$Lisp
+      odd? x == ODDP(x)$Lisp
+      max(x, y) == MAX(x, y)$Lisp
+      min(x, y) == MIN(x, y)$Lisp
+      divide(x, y) == DIVIDE2(x, y)$Lisp
+      x quo y == QUOTIENT2(x, y)$Lisp
+      x rem y == REM(x, y)$Lisp
+      shift(x, y) == ASH(x, y)$Lisp
+      x exquo y ==
+         zero? y => "failed"
+         z : SExpression := INTEXQUO(x, y)$Lisp
+         integer?(z) => z pretend %
+         "failed"
+      recip(x) == if (x = 1) or x=-1 then x else "failed"
+      gcd(x, y) == GCD(x, y)$Lisp
+      UCA ==> Record(unit : %, canonical : %, associate : %)
+      unitNormal x ==
+         x < 0 => [-1, -x, -1]$UCA
+         [1, x, 1]$UCA
+      unitCanonical x == abs x
+      solveLinearPolynomialEquation(lp:List ZP,p:ZP):Union(List ZP,"failed") ==
+         solveLinearPolynomialEquation(lp pretend List ZZP,
+               p pretend ZZP)$IntegerSolveLinearPolynomialEquation pretend
+                     Union(List ZP,"failed")
+      squareFreePolynomial(p : ZP) : Factored ZP ==
+        squareFree(p)$UnivariatePolynomialSquareFree(%, ZP)
+      factorPolynomial(p : ZP) : Factored ZP ==
+         -- GaloisGroupFactorizer doesn't factor the content
+         -- so we have to do this by hand
+         pp := primitivePart p
+         leadingCoefficient pp = leadingCoefficient p =>
+             factor(p)$GaloisGroupFactorizer(ZP)
+         mergeFactors(factor(pp)$GaloisGroupFactorizer(ZP),
+                        map((x1 : %) : ZP+->x1::ZP,
+                            factor((leadingCoefficient p exquo
+                                    leadingCoefficient pp)
+                                   ::%))$FactoredFunctions2(%, ZP))
+      factorSquareFreePolynomial(p : ZP) : Factored ZP ==
+           factorSquareFree(p)$GaloisGroupFactorizer(ZP)
+      gcdPolynomial(p : ZP, q : ZP) : ZP ==
+         zero? p => unitCanonical q
+         zero? q => unitCanonical p
+         gcd([p, q])$HeuGcd(ZP)
+      opposite?(x,y) == x = -y
+      annihilate?(x,y) == zero? x or zero? y
+--    myNextPrime: (%, NonNegativeInteger) -> %
+--    myNextPrime(x, n) ==
+--       nextPrime(x)$IntegerPrimesPackage(%)
+--    TT := InnerModularGcd(%, ZP, 67108859 pretend %, myNextPrime)
+--    gcdPolynomial(p, q) == modularGcd(p, q)$TT
+
+      -- copied from IntegerNumberSystem to get inline optimization,
+      -- speeds up functions like 'primes'
+      powmod(x, n : %, p) ==
+         if negative? x then x := positiveRemainder(x, p)
+         zero? x => 0
+         zero? n => 1
+         y : % := 1
+         z := x
+         repeat
+            if odd? n then y := mulmod(y, z, p)
+            zero?(n := shift(n, -1)) => return y
+            z := mulmod(z, z, p)
+

@@ -1,0 +1,93 @@
+4489                (|FunctionSpacePrimitiveElement| R F)
+|package|
+(((|FunctionSpacePrimitiveElement| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |primitiveElement|
+    ((|Record| (|:| |primelt| |#2|)
+               (|:| |poly| (|List| (|SparseUnivariatePolynomial| |#2|)))
+               (|:| |prim| (|SparseUnivariatePolynomial| |#2|)))
+     (|List| |#2|)))
+   (IF (|has| |#2| (|AlgebraicallyClosedField|))
+       (SIGNATURE |primitiveElement|
+        ((|Record| (|:| |primelt| |#2|)
+                   (|:| |pol1| (|SparseUnivariatePolynomial| |#2|))
+                   (|:| |pol2| (|SparseUnivariatePolynomial| |#2|))
+                   (|:| |prim| (|SparseUnivariatePolynomial| |#2|)))
+         |#2| |#2|))
+       |noBranch|))
+  (|Join| (|IntegralDomain|) (|Comparable|) (|CharacteristicZero|))
+  (|FunctionSpace| |#1|))
+ (T |FunctionSpacePrimitiveElement|))
+(CATEGORY |package|
+ (SIGNATURE |primitiveElement|
+  ((|Record| (|:| |primelt| |#2|)
+             (|:| |poly| (|List| (|SparseUnivariatePolynomial| |#2|)))
+             (|:| |prim| (|SparseUnivariatePolynomial| |#2|)))
+   (|List| |#2|)))
+ (IF (|has| |#2| (|AlgebraicallyClosedField|))
+     (SIGNATURE |primitiveElement|
+      ((|Record| (|:| |primelt| |#2|)
+                 (|:| |pol1| (|SparseUnivariatePolynomial| |#2|))
+                 (|:| |pol2| (|SparseUnivariatePolynomial| |#2|))
+                 (|:| |prim| (|SparseUnivariatePolynomial| |#2|)))
+       |#2| |#2|))
+     |noBranch|))
+"/git/fricas/src/algebra/FSPRMELT.spad"
+((|primitiveElement| (*1 *2 *3 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|IntegralDomain|) (|Comparable|)
+                         (|CharacteristicZero|)))
+   (|isDomain| *2
+               (|Record| (|:| |primelt| *3)
+                         (|:| |pol1| (|SparseUnivariatePolynomial| *3))
+                         (|:| |pol2| (|SparseUnivariatePolynomial| *3))
+                         (|:| |prim| (|SparseUnivariatePolynomial| *3))))
+   (|isDomain| *1 (|FunctionSpacePrimitiveElement| *4 *3))
+   (|ofCategory| *3 (|AlgebraicallyClosedField|))
+   (|ofCategory| *3 (|FunctionSpace| *4))))
+ (|primitiveElement| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *5)) (|ofCategory| *5 (|FunctionSpace| *4))
+       (|ofCategory| *4
+                     (|Join| (|IntegralDomain|) (|Comparable|)
+                             (|CharacteristicZero|)))
+       (|isDomain| *2
+                   (|Record| (|:| |primelt| *5)
+                             (|:| |poly|
+                                  (|List| (|SparseUnivariatePolynomial| *5)))
+                             (|:| |prim| (|SparseUnivariatePolynomial| *5))))
+       (|isDomain| *1 (|FunctionSpacePrimitiveElement| *4 *5)))))
+((|primitiveElement|
+  (((|Record| (|:| |primelt| |#2|)
+              (|:| |pol1| (|SparseUnivariatePolynomial| |#2|))
+              (|:| |pol2| (|SparseUnivariatePolynomial| |#2|))
+              (|:| |prim| (|SparseUnivariatePolynomial| |#2|)))
+    |#2| |#2|)
+   93 (|has| |#2| (|AlgebraicallyClosedField|)))
+  (((|Record| (|:| |primelt| |#2|)
+              (|:| |poly| (|List| (|SparseUnivariatePolynomial| |#2|)))
+              (|:| |prim| (|SparseUnivariatePolynomial| |#2|)))
+    (|List| |#2|))
+   58)))
+((|HasCategory| |#2| '(|AlgebraicallyClosedField|)))
+FSPRMELT
+((|constructor|
+  (NIL
+   "FunctionsSpacePrimitiveElement provides functions to compute primitive elements in functions spaces."))
+ (|primitiveElement|
+  (((|Record| (|:| |primelt| |#2|)
+              (|:| |pol1| (|SparseUnivariatePolynomial| |#2|))
+              (|:| |pol2| (|SparseUnivariatePolynomial| |#2|))
+              (|:| |prim| (|SparseUnivariatePolynomial| |#2|)))
+    |#2| |#2|)
+   "\\spad{primitiveElement(a1,{} a2)} returns \\spad{[a,{} q1,{} q2,{} q]} such that \\spad{k(a1,{} a2) = k(a)},{} \\spad{\\spad{ai} = \\spad{qi}(a)},{} and \\spad{q(a) = 0}. The minimal polynomial for \\spad{a2} may involve \\spad{a1},{} but the minimal polynomial for \\spad{a1} may not involve \\spad{a2}; This operations uses \\spadfun{resultant}.")
+  (((|Record| (|:| |primelt| |#2|)
+              (|:| |poly| (|List| (|SparseUnivariatePolynomial| |#2|)))
+              (|:| |prim| (|SparseUnivariatePolynomial| |#2|)))
+    (|List| |#2|))
+   "\\spad{primitiveElement([a1,{} ...,{} an])} returns \\spad{[a,{} [q1,{} ...,{} qn],{} q]} such that then \\spad{k(a1,{} ...,{} an) = k(a)},{} \\spad{\\spad{ai} = \\spad{qi}(a)},{} and \\spad{q(a) = 0}. This operation uses the technique of \\spadglossSee{groebner bases}{Groebner basis}.")))
+(("documentation" 0 3257) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3248) ("predicates" 0 3195) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2686) ("modemaps" 0 1502) ("sourceFile" 0 1462)
+ ("constructorCategory" 0 868) ("constructorModemap" 0 68)
+ ("constructorKind" 0 58) ("constructorForm" 0 20))

@@ -1,0 +1,51 @@
+)abbrev package UPOLYC2 UnivariatePolynomialCategoryFunctions2
+++ Author:
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ Mapping from polynomials over R to polynomials over S
+++ given a map from R to S assumed to send zero to zero.
+
+UnivariatePolynomialCategoryFunctions2(R, PR, S, PS) : Exports == Impl where
+  R, S : Join(SemiRng, AbelianMonoid)
+  PR  : UnivariatePolynomialCategory R
+  PS  : UnivariatePolynomialCategory S
+
+  Exports ==> with
+    map : (R -> S, PR) -> PS
+     ++ map(f, p) takes a function f from R to S,
+     ++ and applies it to each (non-zero) coefficient of a polynomial p
+     ++ over R, getting a new polynomial over S.
+     ++ Note: since the map is not applied to zero elements, it may map zero
+     ++ to zero.
+
+  Impl ==> add
+
+    op_of_PS : Symbol := CAR(devaluate(PS)$Lisp)$Lisp
+
+    if op_of_PS = 'UnivariatePolynomial
+         or PS is SparseUnivariatePolynomial(S) then
+
+        TermPS ==>  Record(k : Integer, c : S)
+        RepPS :=  List TermPS
+
+        map(f, p) ==
+            ans : RepPS := []
+            while not(p = 0) repeat
+                nc := f leadingCoefficient p
+                if nc ~= 0 then
+                    ans := cons([degree p, nc]$TermPS, ans)
+                p := reductum p
+            reverse!(ans) pretend PS
+    else
+        map(f, p) ==
+            ans : PS := 0
+            while not(p = 0) repeat
+                ans := ans + monomial(f leadingCoefficient p, degree p)
+                p   := reductum p
+            ans
+

@@ -1,0 +1,40 @@
+1731                (|RetractSolvePackage| Q R)
+|package|
+(((|RetractSolvePackage| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |solveRetract|
+    ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#2|)))))
+     (|List| (|Polynomial| |#2|)) (|List| (|Symbol|)))))
+  (|IntegralDomain|) (|Join| (|IntegralDomain|) (|RetractableTo| |#1|)))
+ (T |RetractSolvePackage|))
+(CATEGORY |package|
+ (SIGNATURE |solveRetract|
+  ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#2|)))))
+   (|List| (|Polynomial| |#2|)) (|List| (|Symbol|)))))
+"/git/fricas/src/algebra/RETSOL.spad"
+((|solveRetract| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *6)))
+       (|isDomain| *4 (|List| (|Symbol|)))
+       (|ofCategory| *6 (|Join| (|IntegralDomain|) (|RetractableTo| *5)))
+       (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|List| (|Equation| (|Fraction| (|Polynomial| *6))))))
+       (|isDomain| *1 (|RetractSolvePackage| *5 *6)))))
+((|solveRetract|
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#2|)))))
+    (|List| (|Polynomial| |#2|)) (|List| (|Symbol|)))
+   35)))
+RETSOL
+((|constructor|
+  (NIL
+   "RetractSolvePackage is an interface to \\spadtype{SystemSolvePackage} that attempts to retract the coefficients of the equations before solving."))
+ (|solveRetract|
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#2|)))))
+    (|List| (|Polynomial| |#2|)) (|List| (|Symbol|)))
+   "\\spad{solveRetract(lp,{} lv)} finds the solutions of the list \\spad{lp} of rational functions with respect to the list of symbols \\spad{lv}. The function tries to retract all the coefficients of the equations to \\spad{Q} before solving if possible.")))
+(("documentation" 0 1156) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1149) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1001) ("modemaps" 0 579) ("sourceFile" 0 541)
+ ("constructorCategory" 0 372) ("constructorModemap" 0 58)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

@@ -1,0 +1,143 @@
+6869                (|Database| S)
+|domain|
+(((|Database| |#1|)
+  (|Join| (|SetCategory|)
+          (CATEGORY |domain| (SIGNATURE |elt| ($ $ (|QueryEquation|)))
+           (SIGNATURE |elt| ((|DataList| (|String|)) $ (|Symbol|)))
+           (SIGNATURE + ($ $ $)) (SIGNATURE - ($ $ $))
+           (SIGNATURE |coerce| ($ (|List| |#1|)))
+           (SIGNATURE |display| ((|Void|) $))
+           (SIGNATURE |fullDisplay| ((|Void|) $))
+           (SIGNATURE |fullDisplay|
+            ((|Void|) $ (|PositiveInteger|) (|PositiveInteger|)))))
+  (|Join| (|OrderedSet|)
+          (CATEGORY |domain| (SIGNATURE |elt| ((|String|) $ (|Symbol|)))
+           (SIGNATURE |display| ((|Void|) $))
+           (SIGNATURE |fullDisplay| ((|Void|) $)))))
+ (T |Database|))
+(|Join| (|SetCategory|)
+        (CATEGORY |domain| (SIGNATURE |elt| ($ $ (|QueryEquation|)))
+         (SIGNATURE |elt| ((|DataList| (|String|)) $ (|Symbol|)))
+         (SIGNATURE + ($ $ $)) (SIGNATURE - ($ $ $))
+         (SIGNATURE |coerce| ($ (|List| |#1|)))
+         (SIGNATURE |display| ((|Void|) $))
+         (SIGNATURE |fullDisplay| ((|Void|) $))
+         (SIGNATURE |fullDisplay|
+          ((|Void|) $ (|PositiveInteger|) (|PositiveInteger|)))))
+"/git/fricas/src/algebra/DBASE.spad"
+((|elt| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|QueryEquation|)) (|isDomain| *1 (|Database| *3))
+       (|ofCategory| *3
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |elt| ((|String|) $ (|Symbol|)))
+                              (SIGNATURE |display| ((|Void|) $))
+                              (SIGNATURE |fullDisplay| ((|Void|) $)))))))
+ (|elt| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *2 (|DataList| (|String|)))
+       (|isDomain| *1 (|Database| *4))
+       (|ofCategory| *4
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |elt| ((|String|) $ *3))
+                              (SIGNATURE |display| ((|Void|) $))
+                              (SIGNATURE |fullDisplay| ((|Void|) $)))))))
+ (+ (*1 *1 *1 *1)
+    (AND (|isDomain| *1 (|Database| *2))
+         (|ofCategory| *2
+                       (|Join| (|OrderedSet|)
+                               (CATEGORY |domain|
+                                (SIGNATURE |elt| ((|String|) $ (|Symbol|)))
+                                (SIGNATURE |display| ((|Void|) $))
+                                (SIGNATURE |fullDisplay| ((|Void|) $)))))))
+ (- (*1 *1 *1 *1)
+    (AND (|isDomain| *1 (|Database| *2))
+         (|ofCategory| *2
+                       (|Join| (|OrderedSet|)
+                               (CATEGORY |domain|
+                                (SIGNATURE |elt| ((|String|) $ (|Symbol|)))
+                                (SIGNATURE |display| ((|Void|) $))
+                                (SIGNATURE |fullDisplay| ((|Void|) $)))))))
+ (|coerce| (*1 *1 *2)
+           (AND (|isDomain| *2 (|List| *3))
+                (|ofCategory| *3
+                              (|Join| (|OrderedSet|)
+                                      (CATEGORY |domain|
+                                       (SIGNATURE |elt|
+                                        ((|String|) $ (|Symbol|)))
+                                       (SIGNATURE |display| ((|Void|) $))
+                                       (SIGNATURE |fullDisplay|
+                                        ((|Void|) $)))))
+                (|isDomain| *1 (|Database| *3))))
+ (|display| (*1 *2 *1)
+            (AND (|isDomain| *2 (|Void|)) (|isDomain| *1 (|Database| *3))
+                 (|ofCategory| *3
+                               (|Join| (|OrderedSet|)
+                                       (CATEGORY |domain|
+                                        (SIGNATURE |elt|
+                                         ((|String|) $ (|Symbol|)))
+                                        (SIGNATURE |display| (*2 $))
+                                        (SIGNATURE |fullDisplay| (*2 $)))))))
+ (|fullDisplay| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Void|)) (|isDomain| *1 (|Database| *3))
+       (|ofCategory| *3
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |elt| ((|String|) $ (|Symbol|)))
+                              (SIGNATURE |display| (*2 $))
+                              (SIGNATURE |fullDisplay| (*2 $)))))))
+ (|fullDisplay| (*1 *2 *1 *3 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|Database| *4))
+       (|ofCategory| *4
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |elt| ((|String|) $ (|Symbol|)))
+                              (SIGNATURE |display| (*2 $))
+                              (SIGNATURE |fullDisplay| (*2 $))))))))
+((~= (((|Boolean|) $ $) NIL)) (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|fullDisplay| (((|Void|) $) 36)
+  (((|Void|) $ (|PositiveInteger|) (|PositiveInteger|)) 38))
+ (|elt| (($ $ (|QueryEquation|)) 19)
+  (((|DataList| (|String|)) $ (|Symbol|)) 15))
+ (|display| (((|Void|) $) 34))
+ (|coerce| (((|OutputForm|) $) 31) (($ (|List| |#1|)) 8))
+ (= (((|Boolean|) $ $) NIL)) (- (($ $ $) 27)) (+ (($ $ $) 22)))
+DBASE
+(((|SetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "\\indented{1}{This domain implements a simple view of a database whose fields are} indexed by symbols"))
+ (|coerce|
+  (($ (|List| |#1|)) "\\spad{coerce(l)} makes a database out of a list"))
+ (-
+  (($ $ $)
+   "\\spad{db1-db2} returns the difference of databases \\spad{db1} and \\spad{db2} \\spadignore{i.e.} consisting of elements in \\spad{db1} but not in \\spad{db2}"))
+ (+
+  (($ $ $)
+   "\\spad{db1+db2} returns the merge of databases \\spad{db1} and \\spad{db2}"))
+ (|fullDisplay|
+  (((|Void|) $ (|PositiveInteger|) (|PositiveInteger|))
+   "\\spad{fullDisplay(db,{} start,{} end )} prints full details of entries in the range \\spad{start..end} in \\spad{db}.")
+  (((|Void|) $)
+   "\\spad{fullDisplay(db)} prints full details of each entry in \\spad{db}.")
+  (((|Void|) $) "\\spad{fullDisplay(x)} displays \\spad{x} in detail"))
+ (|display|
+  (((|Void|) $)
+   "\\spad{display(db)} prints a summary line for each entry in \\spad{db}.")
+  (((|Void|) $) "\\spad{display(x)} displays \\spad{x} in some form"))
+ (|elt|
+  (((|DataList| (|String|)) $ (|Symbol|))
+   "\\spad{elt(db,{} s)} returns the \\spad{s} field of each element of \\spad{db}.")
+  (($ $ (|QueryEquation|))
+   "\\spad{elt(db,{} q)} returns all elements of \\spad{db} which satisfy \\spad{q}.")
+  (((|String|) $ (|Symbol|))
+   "\\spad{elt(x,{} s)} returns an element of \\spad{x} indexed by \\spad{s}")))
+(("documentation" 0 5472) ("ancestors" 0 5391) ("parents" 0 5367)
+ ("abbreviation" 0 5361) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4875) ("modemaps" 0 1237) ("sourceFile" 0 1200)
+ ("constructorCategory" 0 748) ("constructorModemap" 0 44)
+ ("constructorKind" 0 35) ("constructorForm" 0 20))

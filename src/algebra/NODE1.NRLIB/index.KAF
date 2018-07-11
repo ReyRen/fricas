@@ -1,0 +1,42 @@
+1956                (|NonLinearFirstOrderODESolver| R F)
+|package|
+(((|NonLinearFirstOrderODESolver| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |solve|
+    ((|Union| |#2| "failed") |#2| |#2| (|BasicOperator|) (|Symbol|))))
+  (|Join| (|Comparable|) (|PolynomialFactorizationExplicit|)
+          (|RetractableTo| (|Integer|)) (|LinearlyExplicitOver| (|Integer|))
+          (|CharacteristicZero|))
+  (|Join| (|AlgebraicallyClosedFunctionSpace| |#1|)
+          (|TranscendentalFunctionCategory|) (|PrimitiveFunctionCategory|)))
+ (T |NonLinearFirstOrderODESolver|))
+(CATEGORY |package|
+ (SIGNATURE |solve|
+  ((|Union| |#2| "failed") |#2| |#2| (|BasicOperator|) (|Symbol|))))
+"/git/fricas/src/algebra/NODE1.spad"
+((|solve| (*1 *2 *2 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|BasicOperator|)) (|isDomain| *4 (|Symbol|))
+   (|ofCategory| *5
+                 (|Join| (|Comparable|) (|PolynomialFactorizationExplicit|)
+                         (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))
+                         (|CharacteristicZero|)))
+   (|isDomain| *1 (|NonLinearFirstOrderODESolver| *5 *2))
+   (|ofCategory| *2
+                 (|Join| (|AlgebraicallyClosedFunctionSpace| *5)
+                         (|TranscendentalFunctionCategory|)
+                         (|PrimitiveFunctionCategory|))))))
+((|solve|
+  (((|Union| |#2| "failed") |#2| |#2| (|BasicOperator|) (|Symbol|)) 35)))
+NODE1
+((|constructor|
+  (NIL
+   "NonLinearFirstOrderODESolver provides a function for finding closed form first integrals of nonlinear ordinary differential equations of order 1."))
+ (|solve|
+  (((|Union| |#2| "failed") |#2| |#2| (|BasicOperator|) (|Symbol|))
+   "\\spad{solve(M(x,{} y),{} N(x,{} y),{} y,{} x)} returns \\spad{F(x,{} y)} such that \\spad{F(x,{} y) = c} for a constant \\spad{c} is a first integral of the equation \\spad{M(x,{} y) dx + N(x,{} y) dy = 0},{} or \"failed\" if no first-integral can be found.")))
+(("documentation" 0 1435) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1429) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1345) ("modemaps" 0 711) ("sourceFile" 0 674)
+ ("constructorCategory" 0 565) ("constructorModemap" 0 67)
+ ("constructorKind" 0 57) ("constructorForm" 0 20))

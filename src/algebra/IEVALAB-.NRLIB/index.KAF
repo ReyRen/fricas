@@ -1,0 +1,25 @@
+1143                (|InnerEvalable&| S A B)
+|domain|
+(((|InnerEvalable&| |#1| |#2| |#3|)
+  (CATEGORY |domain| (SIGNATURE |eval| (|#1| |#1| |#2| |#3|))
+   (SIGNATURE |eval| (|#1| |#1| (|List| |#2|) (|List| |#3|))))
+  (|InnerEvalable| |#2| |#3|) (|SetCategory|) (|Type|))
+ (T |InnerEvalable&|))
+(CATEGORY |domain| (SIGNATURE |eval| (|#1| |#1| |#2| |#3|))
+ (SIGNATURE |eval| (|#1| |#1| (|List| |#2|) (|List| |#3|))))
+"/git/fricas/src/algebra/IEVALAB.spad"
+((|eval| (($ $ (|List| |#2|) (|List| |#3|)) NIL) (($ $ |#2| |#3|) 12)))
+IEVALAB-
+((|constructor|
+  (NIL
+   "This category provides \\spadfun{eval} operations. A domain may belong to this category if it is possible to make ``evaluation\\spad{''} substitutions. The difference between this and \\spadtype{Evalable} is that the operations in this category specify the substitution as a pair of arguments rather than as an equation."))
+ (|eval|
+  (($ $ (|List| |#2|) (|List| |#3|))
+   "\\spad{eval(f,{} [x1,{} ...,{} xn],{} [v1,{} ...,{} vn])} replaces \\spad{xi} by \\spad{vi} in \\spad{f}.")
+  (($ $ |#2| |#3|)
+   "\\spad{eval(f,{} x,{} v)} replaces \\spad{x} by \\spad{v} in \\spad{f}.")))
+(("documentation" 0 535) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 526) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 454) ("modemaps" 0 NIL) ("sourceFile" 0 415)
+ ("constructorCategory" 0 294) ("constructorModemap" 0 54)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

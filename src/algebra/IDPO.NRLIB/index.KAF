@@ -1,0 +1,262 @@
+12340               (|IndexedDirectProductObject| A S)
+|domain|
+(((|IndexedDirectProductObject| |#1| |#2|)
+  (|IndexedDirectProductCategory| |#1| |#2|) (|SetCategory|) (|SetCategory|))
+ (T |IndexedDirectProductObject|))
+(|IndexedDirectProductCategory| |#1| |#2|)
+"/git/fricas/src/algebra/IDPO.spad"
+((~=
+  (((|Boolean|) $ $) NIL
+   (OR (|has| |#1| (|AbelianMonoid|))
+       (AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|zero?|
+  (((|Boolean|) $) 49
+   (OR (|has| |#1| (|AbelianMonoid|))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|sup|
+  (($ $ $) 69
+   (AND (|has| |#1| (|OrderedAbelianMonoidSup|)) (|has| |#2| (|OrderedSet|)))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) 66
+   (OR (|has| |#1| (|CancellationAbelianMonoid|))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|smaller?|
+  (((|Boolean|) $ $) 37
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|sample|
+  (($) NIL
+   (OR (|has| |#1| (|AbelianMonoid|))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))
+   CONST))
+ (|reductum| (($ $) 32 (|has| |#2| (|Comparable|))))
+ (|opposite?|
+  (((|Boolean|) $ $) NIL
+   (OR (|has| |#1| (|AbelianMonoid|))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|numberOfMonomials| (((|NonNegativeInteger|) $) 22))
+ (|monomial?| (((|Boolean|) $) 20)) (|monomial| (($ |#1| |#2|) 26))
+ (|min|
+  (($ $ $) NIL
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|max|
+  (($ $ $) NIL
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 28))
+ (|listOfTerms| (((|List| (|Record| (|:| |k| |#2|) (|:| |c| |#1|))) $) 18))
+ (|leadingTerm|
+  (((|Record| (|:| |k| |#2|) (|:| |c| |#1|)) $) 44
+   (|has| |#2| (|Comparable|))))
+ (|leadingSupport| ((|#2| $) 38 (|has| |#2| (|Comparable|))))
+ (|leadingMonomial| (($ $) 39 (|has| |#2| (|Comparable|))))
+ (|leadingCoefficient| ((|#1| $) 33 (|has| |#2| (|Comparable|))))
+ (|latex|
+  (((|String|) $) NIL
+   (OR (|has| |#1| (|AbelianMonoid|))
+       (AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 48
+   (OR (|has| |#1| (|AbelianMonoid|))
+       (AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|hash|
+  (((|SingleInteger|) $) NIL
+   (OR (|has| |#1| (|AbelianMonoid|))
+       (AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|constructOrdered|
+  (($ (|List| (|Record| (|:| |k| |#2|) (|:| |c| |#1|)))) 43
+   (|has| |#2| (|Comparable|))))
+ (|construct| (($ (|List| (|Record| (|:| |k| |#2|) (|:| |c| |#1|)))) 42))
+ (|coerce|
+  (((|OutputForm|) $) 15
+   (OR (|has| |#1| (|AbelianMonoid|))
+       (AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (|Zero|
+  (($) 23
+   (OR (|has| |#1| (|AbelianMonoid|))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))
+   CONST))
+ (>=
+  (((|Boolean|) $ $) NIL
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (>
+  (((|Boolean|) $ $) NIL
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (=
+  (((|Boolean|) $ $) 31
+   (OR (|has| |#1| (|AbelianMonoid|))
+       (AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (<=
+  (((|Boolean|) $ $) NIL
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (<
+  (((|Boolean|) $ $) 67
+   (OR (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (- (($ $ $) 63 (|has| |#1| (|AbelianGroup|)))
+    (($ $) 58 (|has| |#1| (|AbelianGroup|))))
+ (+
+  (($ $ $) 54
+   (OR (|has| |#1| (|AbelianMonoid|))
+       (AND (|has| |#1| (|OrderedAbelianMonoid|)) (|has| |#2| (|OrderedSet|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedSet|))))))
+ (* (($ (|Integer|) $) 61 (|has| |#1| (|AbelianGroup|)))
+    (($ (|NonNegativeInteger|) $) 56
+     (OR (|has| |#1| (|AbelianMonoid|))
+         (AND (|has| |#1| (|OrderedAbelianMonoid|))
+              (|has| |#2| (|OrderedSet|)))
+         (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+              (|has| |#2| (|OrderedSet|)))))
+    (($ (|PositiveInteger|) $) NIL
+     (OR (|has| |#1| (|AbelianMonoid|))
+         (AND (|has| |#1| (|OrderedAbelianMonoid|))
+              (|has| |#2| (|OrderedSet|)))
+         (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+              (|has| |#2| (|OrderedSet|)))))))
+((|HasCategory| |#1| '(|AbelianGroup|))
+ (AND (|HasCategory| |#1| '(|OrderedAbelianMonoidSup|))
+      (|HasCategory| |#2| '(|OrderedSet|)))
+ (OR
+  (AND (|HasCategory| |#1| '(|OrderedAbelianMonoid|))
+       (|HasCategory| |#2| '(|OrderedSet|)))
+  (AND (|HasCategory| |#1| '(|OrderedAbelianMonoidSup|))
+       (|HasCategory| |#2| '(|OrderedSet|))))
+ (OR (|HasCategory| |#1| '(|AbelianGroup|))
+     (|HasCategory| |#1| '(|CancellationAbelianMonoid|)))
+ (OR (|HasCategory| |#1| '(|AbelianGroup|))
+     (|HasCategory| |#1| '(|AbelianMonoid|))
+     (|HasCategory| |#1| '(|CancellationAbelianMonoid|)))
+ (|HasCategory| |#2| '(|Comparable|))
+ (OR
+  (AND (|HasCategory| |#1| '(|Comparable|))
+       (|HasCategory| |#2| '(|Comparable|)))
+  (AND (|HasCategory| |#1| '(|OrderedAbelianMonoid|))
+       (|HasCategory| |#2| '(|OrderedSet|)))
+  (AND (|HasCategory| |#1| '(|OrderedAbelianMonoidSup|))
+       (|HasCategory| |#2| '(|OrderedSet|))))
+ (OR (|HasCategory| |#1| '(|AbelianMonoid|))
+     (AND (|HasCategory| |#1| '(|Comparable|))
+          (|HasCategory| |#2| '(|Comparable|))))
+ (OR (|HasCategory| |#1| '(|AbelianGroup|))
+     (|HasCategory| |#1| '(|AbelianMonoid|))
+     (|HasCategory| |#1| '(|CancellationAbelianMonoid|))
+     (AND (|HasCategory| |#1| '(|Comparable|))
+          (|HasCategory| |#2| '(|Comparable|)))
+     (AND (|HasCategory| |#1| '(|OrderedAbelianMonoid|))
+          (|HasCategory| |#2| '(|OrderedSet|)))
+     (AND (|HasCategory| |#1| '(|OrderedAbelianMonoidSup|))
+          (|HasCategory| |#2| '(|OrderedSet|))))
+ (OR (|HasCategory| |#1| '(|CancellationAbelianMonoid|))
+     (AND (|HasCategory| |#1| '(|OrderedAbelianMonoidSup|))
+          (|HasCategory| |#2| '(|OrderedSet|))))
+ (OR (|HasCategory| |#1| '(|AbelianMonoid|))
+     (AND (|HasCategory| |#1| '(|OrderedAbelianMonoid|))
+          (|HasCategory| |#2| '(|OrderedSet|)))
+     (AND (|HasCategory| |#1| '(|OrderedAbelianMonoidSup|))
+          (|HasCategory| |#2| '(|OrderedSet|))))
+ (OR (|HasCategory| |#1| '(|AbelianMonoid|))
+     (AND (|HasCategory| |#1| '(|Comparable|))
+          (|HasCategory| |#2| '(|Comparable|)))
+     (AND (|HasCategory| |#1| '(|OrderedAbelianMonoid|))
+          (|HasCategory| |#2| '(|OrderedSet|)))
+     (AND (|HasCategory| |#1| '(|OrderedAbelianMonoidSup|))
+          (|HasCategory| |#2| '(|OrderedSet|)))))
+IDPO
+(((|IndexedDirectProductCategory| |#1| |#2|) . T))
+(((|AbelianGroup|) |has| |t#1| (|AbelianGroup|))
+ ((|AbelianMonoid|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|)))
+  (|has| |t#1| (|AbelianMonoid|)))
+ ((|AbelianProductCategory| |t#1|) . T)
+ ((|AbelianSemiGroup|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|)))
+  (|has| |t#1| (|AbelianMonoid|)))
+ ((|BasicType|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|Comparable|)) (|has| |t#2| (|Comparable|)))
+  (|has| |t#1| (|AbelianMonoid|)))
+ ((|CancellationAbelianMonoid|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (|has| |t#1| (|CancellationAbelianMonoid|)))
+ ((|CoercibleTo| (|OutputForm|)) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|Comparable|)) (|has| |t#2| (|Comparable|)))
+  (|has| |t#1| (|AbelianMonoid|)))
+ ((|Comparable|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|Comparable|)) (|has| |t#2| (|Comparable|))))
+ ((|IndexedDirectProductCategory| |#1| |#2|) . T)
+ ((|OrderedAbelianMonoid|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|OrderedAbelianMonoidSup|) AND (|has| |t#1| (|OrderedAbelianMonoidSup|))
+  (|has| |t#2| (|OrderedSet|)))
+ ((|OrderedAbelianSemiGroup|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|OrderedCancellationAbelianMonoid|) AND
+  (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+ ((|OrderedSet|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|PartialOrder|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|SetCategory|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|Comparable|)) (|has| |t#2| (|Comparable|)))
+  (|has| |t#1| (|AbelianMonoid|))))
+((|constructor|
+  (NIL
+   "Indexed direct products of objects over a set \\spad{A} of generators indexed by an ordered set \\spad{S}. It currently provides the ground for,{} \\spadignore{e.g.} \\spadtype{FreeModule} which lies at the basis of polynomials of all sorts. All items have finite support. If A is a monoid,{} then only non-zero terms are stored. If A has additive structure,{} it is propagated coordinatewise to the product. Similarly,{} comparisons are propagated using lexicographic ordering.")))
+(("documentation" 0 11830) ("ancestors" 0 9060) ("parents" 0 9009)
+ ("abbreviation" 0 9004) ("predicates" 0 6698) ("superDomain" 0 NIL)
+ ("operationAlist" 0 299) ("modemaps" 0 NIL) ("sourceFile" 0 263)
+ ("constructorCategory" 0 220) ("constructorModemap" 0 64)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

@@ -1,0 +1,147 @@
+6749                (|DictionaryOperations| S)
+|category|
+(((|DictionaryOperations| |#1|) (|Category|) (|Type|))
+ (T |DictionaryOperations|))
+(|Join| (|BagAggregate| |t#1|)
+        (CATEGORY |domain| (SIGNATURE |dictionary| ($))
+         (SIGNATURE |dictionary| ($ (|List| |t#1|)))
+         (IF (|has| $ (|finiteAggregate|))
+             (PROGN
+              (IF (|has| |t#1| (|BasicType|))
+                  (SIGNATURE |remove!| ($ |t#1| $))
+                  |noBranch|)
+              (SIGNATURE |remove!| ($ (|Mapping| (|Boolean|) |t#1|) $))
+              (SIGNATURE |select!| ($ (|Mapping| (|Boolean|) |t#1|) $)))
+             |noBranch|)))
+"/git/fricas/src/algebra/DIOPS.spad"
+((|dictionary| (*1 *1)
+  (AND (|ofCategory| *1 (|DictionaryOperations| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|dictionary| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|Type|))
+       (|ofCategory| *1 (|DictionaryOperations| *3))))
+ (|remove!| (*1 *1 *2 *1)
+  (AND (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|DictionaryOperations| *2)) (|ofCategory| *2 (|Type|))
+       (|ofCategory| *2 (|BasicType|))))
+ (|remove!| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|Mapping| (|Boolean|) *3))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|DictionaryOperations| *3))
+       (|ofCategory| *3 (|Type|))))
+ (|select!| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|Mapping| (|Boolean|) *3))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|DictionaryOperations| *3))
+       (|ofCategory| *3 (|Type|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|select!|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|sample| (($) 6 T CONST))
+ (|removeDuplicates|
+  (($ $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove!|
+  (($ |#1| $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|remove| (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+           (($ |#1| $) 6
+            (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|latex| (((|String|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|inspect| ((|#1| $) 6)) (|insert!| (($ |#1| $) 6))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) 6))
+ (|extract!| ((|#1| $) 6))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|dictionary| (($) 6) (($ (|List| |#1|)) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|convert| (((|InputForm|) $) 6 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 6))
+ (|coerce| (((|OutputForm|) $) 6 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+DIOPS
+(((|BagAggregate| |#1|) . T))
+(((|Aggregate|) . T) ((|BagAggregate| |#1|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Collection| |t#1|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|SetCategory|) |has| |t#1| (|SetCategory|)) ((|Type|) . T)
+ ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "This category is a collection of operations common to both categories \\spadtype{Dictionary} and \\spadtype{MultiDictionary}"))
+ (|select!|
+  (($ (|Mapping| (|Boolean|) |#1|) $)
+   "\\spad{select!(p,{} d)} destructively changes dictionary \\spad{d} by removing all entries \\spad{x} such that \\spad{p(x)} is not \\spad{true}."))
+ (|remove!|
+  (($ (|Mapping| (|Boolean|) |#1|) $)
+   "\\spad{remove!(p,{} d)} destructively changes dictionary \\spad{d} by removing all entries \\spad{x} such that \\spad{p(x)} is \\spad{true}.")
+  (($ |#1| $)
+   "\\spad{remove!(x,{} d)} destructively changes dictionary \\spad{d} by removing all entries \\spad{y} such that \\spad{y = x}."))
+ (|dictionary|
+  (($ (|List| |#1|))
+   "\\spad{dictionary([x,{} y,{} ...,{} z])} creates a dictionary consisting of entries \\spad{x,{} y,{} ...,{} z}.")
+  (($)
+   "\\spad{dictionary()}\\$\\spad{D} creates an empty dictionary of type \\spad{D}.")))
+(("documentation" 0 5799) ("ancestors" 0 5128) ("parents" 0 5098)
+ ("abbreviation" 0 5092) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1550) ("modemaps" 0 682) ("sourceFile" 0 645)
+ ("constructorCategory" 0 142) ("constructorModemap" 0 58)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

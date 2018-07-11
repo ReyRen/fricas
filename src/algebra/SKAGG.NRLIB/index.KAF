@@ -1,0 +1,115 @@
+5559                (|StackAggregate| S)
+|category|
+(((|StackAggregate| |#1|) (|Category|) (|Type|)) (T |StackAggregate|))
+(|Join| (|BagAggregate| |t#1|) (|finiteAggregate|)
+        (CATEGORY |domain| (SIGNATURE |push!| (|t#1| |t#1| $))
+         (SIGNATURE |pop!| (|t#1| $)) (SIGNATURE |top| (|t#1| $))))
+"/git/fricas/src/algebra/SKAGG.spad"
+((|push!| (*1 *2 *2 *1)
+  (AND (|ofCategory| *1 (|StackAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|pop!| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|StackAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|top| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|StackAggregate| *2)) (|ofCategory| *2 (|Type|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|top| ((|#1| $) 6)) (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|sample| (($) 6 T CONST))
+ (|removeDuplicates|
+  (($ $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove| (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+           (($ |#1| $) 6
+            (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|push!| ((|#1| |#1| $) 6)) (|pop!| ((|#1| $) 6))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|latex| (((|String|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|inspect| ((|#1| $) 6)) (|insert!| (($ |#1| $) 6))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) 6))
+ (|extract!| ((|#1| $) 6))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|convert| (((|InputForm|) $) 6 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 6))
+ (|coerce| (((|OutputForm|) $) 6 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+SKAGG
+(((|BagAggregate| |#1|) . T) ((|finiteAggregate|) . T))
+(((|Aggregate|) . T) ((|BagAggregate| |#1|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Collection| |t#1|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|SetCategory|) |has| |t#1| (|SetCategory|)) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "A stack is a bag where the last item inserted is the first item extracted."))
+ (|top|
+  ((|#1| $)
+   "\\spad{top(s)} returns the top element \\spad{x} from \\spad{s}; \\spad{s} remains unchanged. Note: Use \\spad{pop!(s)} to obtain \\spad{x} and remove it from \\spad{s}."))
+ (|pop!|
+  ((|#1| $)
+   "\\spad{pop!(s)} returns the top element \\spad{x},{} destructively removing \\spad{x} from \\spad{s}. Note: Use \\spad{top(s)} to obtain \\spad{x} without removing it from \\spad{s}. Error: if \\spad{s} is empty."))
+ (|push!|
+  ((|#1| |#1| $)
+   "\\spad{push!(x,{} s)} pushes \\spad{x} onto stack \\spad{s},{} \\spadignore{i.e.} destructively changing \\spad{s} so as to have a new first (top) element \\spad{x}. Afterwards,{} pop!(\\spad{s}) produces \\spad{x} and pop!(\\spad{s}) produces the original \\spad{s}.")))
+(("documentation" 0 4713) ("ancestors" 0 4016) ("parents" 0 3960)
+ ("abbreviation" 0 3954) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 634) ("modemaps" 0 342) ("sourceFile" 0 305)
+ ("constructorCategory" 0 123) ("constructorModemap" 0 52)
+ ("constructorKind" 0 41) ("constructorForm" 0 20))

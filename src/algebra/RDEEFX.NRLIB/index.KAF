@@ -1,0 +1,73 @@
+3290                (|ElementaryRischDEX| R F)
+|package|
+(((|ElementaryRischDEX| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |ei_int|
+    ((|Record| (|:| |ans| |#2|) (|:| |right| |#2|) (|:| |primpart| |#2|)
+               (|:| |sol?| (|Boolean|)))
+     (|Integer|) |#2| |#2| (|Symbol|)))
+   (SIGNATURE |mk_erf| (|#2| |#2| |#2|)))
+  (|Join| (|PolynomialFactorizationExplicit|) (|Comparable|)
+          (|CharacteristicZero|) (|RetractableTo| (|Integer|))
+          (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|TranscendentalFunctionCategory|) (|AlgebraicallyClosedField|)
+          (|LiouvillianFunctionCategory|) (|SpecialFunctionCategory|)
+          (|FunctionSpace| |#1|)))
+ (T |ElementaryRischDEX|))
+(CATEGORY |package|
+ (SIGNATURE |ei_int|
+  ((|Record| (|:| |ans| |#2|) (|:| |right| |#2|) (|:| |primpart| |#2|)
+             (|:| |sol?| (|Boolean|)))
+   (|Integer|) |#2| |#2| (|Symbol|)))
+ (SIGNATURE |mk_erf| (|#2| |#2| |#2|)))
+"/git/fricas/src/algebra/RDEEFX.spad"
+((|mk_erf| (*1 *2 *2 *2)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|PolynomialFactorizationExplicit|) (|Comparable|)
+                         (|CharacteristicZero|) (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *1 (|ElementaryRischDEX| *3 *2))
+   (|ofCategory| *2
+                 (|Join| (|TranscendentalFunctionCategory|)
+                         (|AlgebraicallyClosedField|)
+                         (|LiouvillianFunctionCategory|)
+                         (|SpecialFunctionCategory|) (|FunctionSpace| *3)))))
+ (|ei_int| (*1 *2 *3 *4 *4 *5)
+  (AND (|isDomain| *5 (|Symbol|)) (|isDomain| *3 (|Integer|))
+       (|ofCategory| *6
+                     (|Join| (|PolynomialFactorizationExplicit|) (|Comparable|)
+                             (|CharacteristicZero|) (|RetractableTo| *3)
+                             (|LinearlyExplicitOver| *3)))
+       (|isDomain| *2
+                   (|Record| (|:| |ans| *4) (|:| |right| *4)
+                             (|:| |primpart| *4) (|:| |sol?| (|Boolean|))))
+       (|isDomain| *1 (|ElementaryRischDEX| *6 *4))
+       (|ofCategory| *4
+                     (|Join| (|TranscendentalFunctionCategory|)
+                             (|AlgebraicallyClosedField|)
+                             (|LiouvillianFunctionCategory|)
+                             (|SpecialFunctionCategory|)
+                             (|FunctionSpace| *6))))))
+((|mk_erf| ((|#2| |#2| |#2|) 366))
+ (|ei_int|
+  (((|Record| (|:| |ans| |#2|) (|:| |right| |#2|) (|:| |primpart| |#2|)
+              (|:| |sol?| (|Boolean|)))
+    (|Integer|) |#2| |#2| (|Symbol|))
+   68)))
+RDEEFX
+((|constructor|
+  (NIL
+   "This package generates exponential integrals corresponding to polynomial part of the integral. \\blankline"))
+ (|mk_erf|
+  ((|#2| |#2| |#2|) "\\spad{mk_erf(u,{} f)} should be local but conditional"))
+ (|ei_int|
+  (((|Record| (|:| |ans| |#2|) (|:| |right| |#2|) (|:| |primpart| |#2|)
+              (|:| |sol?| (|Boolean|)))
+    (|Integer|) |#2| |#2| (|Symbol|))
+   "\\spad{ei_int(n,{} f,{} g,{} x)} returns \\spad{[h,{} u,{} t,{} s]} such that \\spad{u*exp(n*f) = (h*exp(n*f))' + t'} where \\spad{t} involves special functions. When \\spad{s} is \\spad{true} then \\spad{f = u},{} otherwise ei_int returns partial answer,{}")))
+(("documentation" 0 2636) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2629) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2424) ("modemaps" 0 978) ("sourceFile" 0 940)
+ ("constructorCategory" 0 711) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

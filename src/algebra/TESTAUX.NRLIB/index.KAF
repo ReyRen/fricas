@@ -1,0 +1,167 @@
+9119                (|UnittestAux| R)
+|package|
+(((|UnittestAux| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |testEqualsAux| ((|Void|) (|String|) |#1| |#1|))
+   (SIGNATURE |xftestEqualsAux| ((|Void|) (|String|) |#1| |#1|))
+   (SIGNATURE |testNotEqualsAux| ((|Void|) (|String|) |#1| |#1|))
+   (SIGNATURE |xftestNotEqualsAux| ((|Void|) (|String|) |#1| |#1|))
+   (SIGNATURE |testTrueAux| ((|Void|) (|String|) |#1|))
+   (SIGNATURE |xftestTrueAux| ((|Void|) (|String|) |#1|))
+   (SIGNATURE |testLibraryErrorAux| ((|Void|) (|String|) |#1|))
+   (SIGNATURE |xftestLibraryErrorAux| ((|Void|) (|String|) |#1|))
+   (SIGNATURE |testEqualsAuxCmp| ((|Boolean|) |#1| |#1|))
+   (IF (|has| |#1| (|RealNumberSystem|))
+       (PROGN
+        (SIGNATURE |testRealEqualsAux| ((|Void|) (|String|) |#1| |#1|))
+        (SIGNATURE |xftestRealEqualsAux| ((|Void|) (|String|) |#1| |#1|))
+        (SIGNATURE |testComplexEqualsAux|
+         ((|Void|) (|String|) (|Complex| |#1|) (|Complex| |#1|)))
+        (SIGNATURE |xftestComplexEqualsAux|
+         ((|Void|) (|String|) (|Complex| |#1|) (|Complex| |#1|)))
+        (SIGNATURE |testAbsolutePrecision| (|#1| |#1|))
+        (SIGNATURE |testRelativePrecision| (|#1| |#1|)))
+       |noBranch|))
+  (|BasicType|))
+ (T |UnittestAux|))
+(CATEGORY |package| (SIGNATURE |testEqualsAux| ((|Void|) (|String|) |#1| |#1|))
+ (SIGNATURE |xftestEqualsAux| ((|Void|) (|String|) |#1| |#1|))
+ (SIGNATURE |testNotEqualsAux| ((|Void|) (|String|) |#1| |#1|))
+ (SIGNATURE |xftestNotEqualsAux| ((|Void|) (|String|) |#1| |#1|))
+ (SIGNATURE |testTrueAux| ((|Void|) (|String|) |#1|))
+ (SIGNATURE |xftestTrueAux| ((|Void|) (|String|) |#1|))
+ (SIGNATURE |testLibraryErrorAux| ((|Void|) (|String|) |#1|))
+ (SIGNATURE |xftestLibraryErrorAux| ((|Void|) (|String|) |#1|))
+ (SIGNATURE |testEqualsAuxCmp| ((|Boolean|) |#1| |#1|))
+ (IF (|has| |#1| (|RealNumberSystem|))
+     (PROGN
+      (SIGNATURE |testRealEqualsAux| ((|Void|) (|String|) |#1| |#1|))
+      (SIGNATURE |xftestRealEqualsAux| ((|Void|) (|String|) |#1| |#1|))
+      (SIGNATURE |testComplexEqualsAux|
+       ((|Void|) (|String|) (|Complex| |#1|) (|Complex| |#1|)))
+      (SIGNATURE |xftestComplexEqualsAux|
+       ((|Void|) (|String|) (|Complex| |#1|) (|Complex| |#1|)))
+      (SIGNATURE |testAbsolutePrecision| (|#1| |#1|))
+      (SIGNATURE |testRelativePrecision| (|#1| |#1|)))
+     |noBranch|))
+"/git/fricas/src/algebra/TESTAUX.spad"
+((|testRelativePrecision| (*1 *2 *2)
+  (AND (|isDomain| *1 (|UnittestAux| *2))
+       (|ofCategory| *2 (|RealNumberSystem|)) (|ofCategory| *2 (|BasicType|))))
+ (|testAbsolutePrecision| (*1 *2 *2)
+  (AND (|isDomain| *1 (|UnittestAux| *2))
+       (|ofCategory| *2 (|RealNumberSystem|)) (|ofCategory| *2 (|BasicType|))))
+ (|xftestComplexEqualsAux| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *4 (|Complex| *5))
+       (|ofCategory| *5 (|RealNumberSystem|)) (|ofCategory| *5 (|BasicType|))
+       (|isDomain| *2 (|Void|)) (|isDomain| *1 (|UnittestAux| *5))))
+ (|testComplexEqualsAux| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *4 (|Complex| *5))
+       (|ofCategory| *5 (|RealNumberSystem|)) (|ofCategory| *5 (|BasicType|))
+       (|isDomain| *2 (|Void|)) (|isDomain| *1 (|UnittestAux| *5))))
+ (|xftestRealEqualsAux| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|UnittestAux| *4))
+       (|ofCategory| *4 (|RealNumberSystem|)) (|ofCategory| *4 (|BasicType|))))
+ (|testRealEqualsAux| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|UnittestAux| *4))
+       (|ofCategory| *4 (|RealNumberSystem|)) (|ofCategory| *4 (|BasicType|))))
+ (|testEqualsAuxCmp| (*1 *2 *3 *3)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|UnittestAux| *3))
+       (|ofCategory| *3 (|BasicType|))))
+ (|xftestLibraryErrorAux| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|UnittestAux| *4)) (|ofCategory| *4 (|BasicType|))))
+ (|testLibraryErrorAux| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|UnittestAux| *4)) (|ofCategory| *4 (|BasicType|))))
+ (|xftestTrueAux| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|UnittestAux| *4)) (|ofCategory| *4 (|BasicType|))))
+ (|testTrueAux| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|UnittestAux| *4)) (|ofCategory| *4 (|BasicType|))))
+ (|xftestNotEqualsAux| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|UnittestAux| *4)) (|ofCategory| *4 (|BasicType|))))
+ (|testNotEqualsAux| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|UnittestAux| *4)) (|ofCategory| *4 (|BasicType|))))
+ (|xftestEqualsAux| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|UnittestAux| *4)) (|ofCategory| *4 (|BasicType|))))
+ (|testEqualsAux| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|UnittestAux| *4)) (|ofCategory| *4 (|BasicType|)))))
+((|xftestTrueAux| (((|Void|) (|String|) |#1|) 58))
+ (|xftestRealEqualsAux|
+  (((|Void|) (|String|) |#1| |#1|) 44 (|has| |#1| (|RealNumberSystem|))))
+ (|xftestNotEqualsAux| (((|Void|) (|String|) |#1| |#1|) 55))
+ (|xftestLibraryErrorAux| (((|Void|) (|String|) |#1|) 62))
+ (|xftestEqualsAux| (((|Void|) (|String|) |#1| |#1|) 26))
+ (|xftestComplexEqualsAux|
+  (((|Void|) (|String|) (|Complex| |#1|) (|Complex| |#1|)) 53
+   (|has| |#1| (|RealNumberSystem|))))
+ (|testTrueAux| (((|Void|) (|String|) |#1|) 57))
+ (|testRelativePrecision| ((|#1| |#1|) 32 (|has| |#1| (|RealNumberSystem|))))
+ (|testRealEqualsAux|
+  (((|Void|) (|String|) |#1| |#1|) 43 (|has| |#1| (|RealNumberSystem|))))
+ (|testNotEqualsAux| (((|Void|) (|String|) |#1| |#1|) 54))
+ (|testLibraryErrorAux| (((|Void|) (|String|) |#1|) 60))
+ (|testEqualsAuxCmp| (((|Boolean|) |#1| |#1|) 19))
+ (|testEqualsAux| (((|Void|) (|String|) |#1| |#1|) 25))
+ (|testComplexEqualsAux|
+  (((|Void|) (|String|) (|Complex| |#1|) (|Complex| |#1|)) 52
+   (|has| |#1| (|RealNumberSystem|))))
+ (|testAbsolutePrecision| ((|#1| |#1|) 33 (|has| |#1| (|RealNumberSystem|)))))
+((|HasCategory| |#1| '(|RealNumberSystem|)))
+TESTAUX
+((|constructor|
+  (NIL
+   "UnittestAux is an auxiliary package to Unittest,{} that performs \\indented{13}{checking of tests,{} dealing also with fatal errors.}"))
+ (|testRelativePrecision|
+  ((|#1| |#1|)
+   "\\spad{testRelativePrecision(eps)} returns the current absolute precision used for floating point comparison,{} and then sets it to \\spad{eps}. The default value is 1.0e-15."))
+ (|testAbsolutePrecision|
+  ((|#1| |#1|)
+   "\\spad{testAbsolutePrecision(eps)} returns the current absolute precision used for floating point comparison,{} and then sets it to \\spad{eps}. The default value is 1.0e-15."))
+ (|xftestComplexEqualsAux|
+  (((|Void|) (|String|) (|Complex| |#1|) (|Complex| |#1|))
+   "like testEquals,{} but expects failure."))
+ (|testComplexEqualsAux|
+  (((|Void|) (|String|) (|Complex| |#1|) (|Complex| |#1|))
+   "\\spad{testComplexEqualsAux(inp ex1,{} ex2)} states that \\spad{ex1} and \\spad{ex2} should be approximately equal as complex numbers,{} taking into acount \\spadfun{testAbsolutePrecision} and \\spadfun{testRelativePrecision}."))
+ (|xftestRealEqualsAux|
+  (((|Void|) (|String|) |#1| |#1|) "like testEquals,{} but expects failure."))
+ (|testRealEqualsAux|
+  (((|Void|) (|String|) |#1| |#1|)
+   "\\spad{testRealEqualsAux(inp,{} ex1,{} ex2)} states that \\spad{ex1} and \\spad{ex2} should be approximately equal as real numbers,{} taking into acount \\spadfun{testAbsolutePrecision} and \\spadfun{testRelativePrecision}."))
+ (|testEqualsAuxCmp|
+  (((|Boolean|) |#1| |#1|)
+   "\\spad{testEqualsAuxCmp should} be local but is conditional"))
+ (|xftestLibraryErrorAux|
+  (((|Void|) (|String|) |#1|) "like testEquals,{} but expects failure."))
+ (|testLibraryErrorAux|
+  (((|Void|) (|String|) |#1|)
+   "\\spad{testLibraryErrorAux(inp,{} ex)} states that ex should throw an error. Such a test will never count as a fatal error."))
+ (|xftestTrueAux|
+  (((|Void|) (|String|) |#1|) "like testEquals,{} but expects failure."))
+ (|testTrueAux|
+  (((|Void|) (|String|) |#1|)
+   "\\spad{testTrueAux(inp,{} ex)} states that ex should be \\spad{true}."))
+ (|xftestNotEqualsAux|
+  (((|Void|) (|String|) |#1| |#1|) "like testEquals,{} but expects failure."))
+ (|testNotEqualsAux|
+  (((|Void|) (|String|) |#1| |#1|)
+   "testNotEquals(inp,{} \\spad{ex1},{} \\spad{ex2}) states that \\spad{ex1} and \\spad{ex2} should be different."))
+ (|xftestEqualsAux|
+  (((|Void|) (|String|) |#1| |#1|) "like testEquals,{} but expects failure."))
+ (|testEqualsAux|
+  (((|Void|) (|String|) |#1| |#1|)
+   "testEquals(inp,{} \\spad{ex1},{} \\spad{ex2}) states that \\spad{ex1} and \\spad{ex2} should be equal. To sidestep the possibility that the equality function of the domain \\spad{R} performs some simplifications,{} we convert \\spad{ex1} and \\spad{ex2} to \\spad{InputForm},{} if possible.")))
+(("documentation" 0 6326) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 6318) ("predicates" 0 6273) ("superDomain" 0 NIL)
+ ("operationAlist" 0 5167) ("modemaps" 0 2380) ("sourceFile" 0 2341)
+ ("constructorCategory" 0 1246) ("constructorModemap" 0 48)
+ ("constructorKind" 0 38) ("constructorForm" 0 20))

@@ -1,0 +1,87 @@
+4490                (|SturmHabichtPackage| R UP)
+|package|
+(((|SturmHabichtPackage| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |SturmHabichtSequence| ((|List| |#2|) |#2| |#2|))
+   (SIGNATURE |SturmHabichtCoefficients| ((|List| |#1|) |#2| |#2|))
+   (SIGNATURE |SturmHabicht| ((|Integer|) |#2| |#2|))
+   (SIGNATURE |countRealRoots| ((|Integer|) |#2|))
+   (IF (|has| |#1| (|GcdDomain|))
+       (PROGN
+        (SIGNATURE |SturmHabichtMultiple| ((|Integer|) |#2| |#2|))
+        (SIGNATURE |countRealRootsMultiple| ((|Integer|) |#2|)))
+       |noBranch|))
+  (|OrderedIntegralDomain|) (|UnivariatePolynomialCategory| |#1|))
+ (T |SturmHabichtPackage|))
+(CATEGORY |package|
+ (SIGNATURE |SturmHabichtSequence| ((|List| |#2|) |#2| |#2|))
+ (SIGNATURE |SturmHabichtCoefficients| ((|List| |#1|) |#2| |#2|))
+ (SIGNATURE |SturmHabicht| ((|Integer|) |#2| |#2|))
+ (SIGNATURE |countRealRoots| ((|Integer|) |#2|))
+ (IF (|has| |#1| (|GcdDomain|))
+     (PROGN
+      (SIGNATURE |SturmHabichtMultiple| ((|Integer|) |#2| |#2|))
+      (SIGNATURE |countRealRootsMultiple| ((|Integer|) |#2|)))
+     |noBranch|))
+"/git/fricas/src/algebra/SHP.spad"
+((|countRealRootsMultiple| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *4 (|OrderedIntegralDomain|)) (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|SturmHabichtPackage| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|SturmHabichtMultiple| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *4 (|OrderedIntegralDomain|)) (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|SturmHabichtPackage| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|countRealRoots| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|OrderedIntegralDomain|)) (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|SturmHabichtPackage| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|SturmHabicht| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|OrderedIntegralDomain|)) (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|SturmHabichtPackage| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|SturmHabichtCoefficients| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|OrderedIntegralDomain|)) (|isDomain| *2 (|List| *4))
+       (|isDomain| *1 (|SturmHabichtPackage| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4))))
+ (|SturmHabichtSequence| (*1 *2 *3 *3)
+  (AND (|ofCategory| *4 (|OrderedIntegralDomain|)) (|isDomain| *2 (|List| *3))
+       (|isDomain| *1 (|SturmHabichtPackage| *4 *3))
+       (|ofCategory| *3 (|UnivariatePolynomialCategory| *4)))))
+((|countRealRootsMultiple| (((|Integer|) |#2|) 66 (|has| |#1| (|GcdDomain|))))
+ (|countRealRoots| (((|Integer|) |#2|) 51))
+ (|SturmHabichtSequence| (((|List| |#2|) |#2| |#2|) 39))
+ (|SturmHabichtMultiple|
+  (((|Integer|) |#2| |#2|) 53 (|has| |#1| (|GcdDomain|))))
+ (|SturmHabichtCoefficients| (((|List| |#1|) |#2| |#2|) 42))
+ (|SturmHabicht| (((|Integer|) |#2| |#2|) 50)))
+((|HasCategory| |#1| '(|GcdDomain|)))
+SHP
+((|constructor|
+  (NIL
+   "This package provides functions for counting real roots of univariate polynomials over an OrderedIntegralDomain."))
+ (|countRealRootsMultiple|
+  (((|Integer|) |#2|)
+   "\\spad{countRealRootsMultiple(p)} says how many real roots \\spad{p} has,{} counted with multiplicity"))
+ (|SturmHabichtMultiple|
+  (((|Integer|) |#2| |#2|)
+   "\\spad{SturmHabichtMultiple(p1,{} p2)} computes \\spad{c_}{+}\\spad{-c_}{-} where \\spad{c_}{+} is the number of real roots of \\spad{p1} with \\spad{p2>0} and \\spad{c_}{-} is the number of real roots of \\spad{p1} with \\spad{p2<0}. If \\spad{p2=1} what you get is the number of real roots of \\spad{p1}."))
+ (|countRealRoots|
+  (((|Integer|) |#2|)
+   "\\spad{countRealRoots(p)} says how many real roots \\spad{p} has"))
+ (|SturmHabicht|
+  (((|Integer|) |#2| |#2|)
+   "\\spad{SturmHabicht(p1,{} p2)} computes \\spad{c_}{+}\\spad{-c_}{-} where \\spad{c_}{+} is the number of real roots of \\spad{p1} with \\spad{p2>0} and \\spad{c_}{-} is the number of real roots of \\spad{p1} with \\spad{p2<0}. If \\spad{p2=1} what you get is the number of real roots of \\spad{p1}."))
+ (|SturmHabichtCoefficients|
+  (((|List| |#1|) |#2| |#2|)
+   "\\spad{SturmHabichtCoefficients(p1,{} p2)} computes the principal Sturm-Habicht coefficients of \\spad{p1} and \\spad{p2}"))
+ (|SturmHabichtSequence|
+  (((|List| |#2|) |#2| |#2|)
+   "\\spad{SturmHabichtSequence(p1,{} p2)} computes the Sturm-Habicht sequence of \\spad{p1} and \\spad{p2}")))
+(("documentation" 0 3007) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3003) ("predicates" 0 2965) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2592) ("modemaps" 0 1123) ("sourceFile" 0 1088)
+ ("constructorCategory" 0 649) ("constructorModemap" 0 59)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

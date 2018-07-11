@@ -1,0 +1,32 @@
+1309                (|Evalable| R)
+|category|
+(((|Evalable| |#1|) (|Category|) (|SetCategory|)) (T |Evalable|))
+(|Join| (|InnerEvalable| |t#1| |t#1|)
+        (CATEGORY |domain| (SIGNATURE |eval| ($ $ (|Equation| |t#1|)))
+         (SIGNATURE |eval| ($ $ (|List| (|Equation| |t#1|))))))
+"/git/fricas/src/algebra/EVALAB.spad"
+((|eval| (*1 *1 *1 *2)
+         (AND (|isDomain| *2 (|Equation| *3)) (|ofCategory| *1 (|Evalable| *3))
+              (|ofCategory| *3 (|SetCategory|))))
+ (|eval| (*1 *1 *1 *2)
+         (AND (|isDomain| *2 (|List| (|Equation| *3)))
+              (|ofCategory| *1 (|Evalable| *3))
+              (|ofCategory| *3 (|SetCategory|)))))
+((|eval| (($ $ (|List| |#1|) (|List| |#1|)) 6) (($ $ |#1| |#1|) 6)
+         (($ $ (|Equation| |#1|)) 6) (($ $ (|List| (|Equation| |#1|))) 6)))
+EVALAB
+(((|InnerEvalable| |#1| |#1|) . T))
+(((|InnerEvalable| |#1| |#1|) . T))
+((|constructor|
+  (NIL
+   "This category provides \\spadfun{eval} operations. A domain may belong to this category if it is possible to make ``evaluation\\spad{''} substitutions."))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|)))
+   "\\spad{eval(f,{} [x1 = v1,{} ...,{} xn = vn])} replaces \\spad{xi} by \\spad{vi} in \\spad{f}.")
+  (($ $ (|Equation| |#1|))
+   "\\spad{eval(f,{} x = v)} replaces \\spad{x} by \\spad{v} in \\spad{f}.")))
+(("documentation" 0 875) ("ancestors" 0 839) ("parents" 0 803)
+ ("abbreviation" 0 796) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 653) ("modemaps" 0 323) ("sourceFile" 0 285)
+ ("constructorCategory" 0 112) ("constructorModemap" 0 46)
+ ("constructorKind" 0 35) ("constructorForm" 0 20))

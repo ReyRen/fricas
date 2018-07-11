@@ -1,0 +1,72 @@
+3323                (|DistributionContinuedFractionPackage| R |z|)
+|package|
+(((|DistributionContinuedFractionPackage| |#1| |#2|)
+  (CATEGORY |package|
+   (IF (|has| |#1| (|Field|))
+       (SIGNATURE |JContinuedFraction|
+        ((|ContinuedFraction| (|UnivariatePolynomial| |#2| |#1|))
+         (|Distribution| |#1|) (|UnivariatePolynomial| |#2| |#1|)))
+       (IF (|has| |#1| (|IntegralDomain|))
+           (SIGNATURE |JContinuedFraction|
+            ((|ContinuedFraction|
+              (|UnivariatePolynomial| |#2| (|Fraction| |#1|)))
+             (|Distribution| |#1|)
+             (|UnivariatePolynomial| |#2| (|Fraction| |#1|))))
+           |noBranch|)))
+  (|CommutativeRing|) (|Symbol|))
+ (T |DistributionContinuedFractionPackage|))
+(CATEGORY |package|
+ (IF (|has| |#1| (|Field|))
+     (SIGNATURE |JContinuedFraction|
+      ((|ContinuedFraction| (|UnivariatePolynomial| |#2| |#1|))
+       (|Distribution| |#1|) (|UnivariatePolynomial| |#2| |#1|)))
+     (IF (|has| |#1| (|IntegralDomain|))
+         (SIGNATURE |JContinuedFraction|
+          ((|ContinuedFraction|
+            (|UnivariatePolynomial| |#2| (|Fraction| |#1|)))
+           (|Distribution| |#1|)
+           (|UnivariatePolynomial| |#2| (|Fraction| |#1|))))
+         |noBranch|)))
+"/git/fricas/src/algebra/DSTCFPG.spad"
+((|JContinuedFraction| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Distribution| *5))
+       (|isDomain| *4 (|UnivariatePolynomial| *6 (|Fraction| *5)))
+       (|ofCategory| *5 (|IntegralDomain|)) (|not| (|ofCategory| *5 (|Field|)))
+       (|ofCategory| *5 (|CommutativeRing|)) (|ofType| *6 (|Symbol|))
+       (|isDomain| *2
+                   (|ContinuedFraction|
+                    (|UnivariatePolynomial| *6 (|Fraction| *5))))
+       (|isDomain| *1 (|DistributionContinuedFractionPackage| *5 *6))))
+ (|JContinuedFraction| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Distribution| *5))
+       (|isDomain| *4 (|UnivariatePolynomial| *6 *5))
+       (|ofCategory| *5 (|Field|)) (|ofCategory| *5 (|CommutativeRing|))
+       (|ofType| *6 (|Symbol|))
+       (|isDomain| *2 (|ContinuedFraction| (|UnivariatePolynomial| *6 *5)))
+       (|isDomain| *1 (|DistributionContinuedFractionPackage| *5 *6)))))
+((|JContinuedFraction|
+  (((|ContinuedFraction| (|UnivariatePolynomial| |#2| (|Fraction| |#1|)))
+    (|Distribution| |#1|) (|UnivariatePolynomial| |#2| (|Fraction| |#1|)))
+   47 (AND (|has| |#1| (|IntegralDomain|)) (|not| (|has| |#1| (|Field|)))))
+  (((|ContinuedFraction| (|UnivariatePolynomial| |#2| |#1|))
+    (|Distribution| |#1|) (|UnivariatePolynomial| |#2| |#1|))
+   29 (|has| |#1| (|Field|)))))
+((|HasCategory| |#1| '(|Field|))
+ (AND (|HasCategory| |#1| '(|IntegralDomain|))
+      (|not| (|HasCategory| |#1| '(|Field|)))))
+DSTCFPG
+((|constructor|
+  (NIL
+   "A package to compute Jacobi continued fractions of Cauchy transforms."))
+ (|JContinuedFraction|
+  (((|ContinuedFraction| (|UnivariatePolynomial| |#2| (|Fraction| |#1|)))
+    (|Distribution| |#1|) (|UnivariatePolynomial| |#2| (|Fraction| |#1|)))
+   "\\spad{JContinuedFraction(d,{} z)} returns the Cauchy transform as a continued fraction at \\spad{z}.")
+  (((|ContinuedFraction| (|UnivariatePolynomial| |#2| |#1|))
+    (|Distribution| |#1|) (|UnivariatePolynomial| |#2| |#1|))
+   "\\spad{JContinuedFraction(d,{} z)} returns the Cauchy transform as a continued fraction at \\spad{z}.")))
+(("documentation" 0 2710) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2702) ("predicates" 0 2574) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2171) ("modemaps" 0 1286) ("sourceFile" 0 1247)
+ ("constructorCategory" 0 740) ("constructorModemap" 0 77)
+ ("constructorKind" 0 67) ("constructorForm" 0 20))

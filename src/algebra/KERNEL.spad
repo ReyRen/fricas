@@ -1,0 +1,156 @@
+)abbrev domain KERNEL Kernel
+++ Operators applied to elements of a set
+++ Author: Manuel Bronstein
+++ Date Created: 22 March 1988
+++ Description:
+++ A kernel over a set S is an operator applied to a given list
+++ of arguments from S.
+Kernel(S : Comparable) : Exports == Implementation where
+  O  ==> OutputForm
+  N  ==> NonNegativeInteger
+  OP ==> BasicOperator
+
+  Exports ==> Join(CachableSet, OrderedSet, Patternable S) with
+    name    : % -> Symbol
+      ++ name(op(a1, ..., an)) returns the name of op.
+    operator : % -> OP
+      ++ operator(op(a1, ..., an)) returns the operator op.
+    argument : % -> List S
+      ++ argument(op(a1, ..., an)) returns \spad{[a1, ..., an]}.
+    height  : % -> N
+      ++ height(k) returns the nesting level of k.
+    kernel  : (OP, List S, N) -> %
+      ++ kernel(op, [a1, ..., an], m) returns the kernel \spad{op(a1, ..., an)}
+      ++ of nesting level m.
+      ++ Error: if op is k-ary for some k not equal to n.
+    kernel  : Symbol -> %
+      ++ kernel(x) returns x viewed as a kernel.
+    symbolIfCan : % -> Union(Symbol, "failed")
+      ++ symbolIfCan(k) returns k viewed as a symbol if k is a symbol, and
+      ++ "failed" otherwise.
+    is?     : (%, OP) -> Boolean
+      ++ is?(op(a1, ..., an), f) tests if op = f.
+    is?     : (%, Symbol) -> Boolean
+      ++ is?(op(a1, ..., an), s) tests if the name of op is s.
+    if S has ConvertibleTo InputForm then ConvertibleTo InputForm
+
+  Implementation ==> add
+    import from SortedCache(%)
+
+    operator(k : %) : OP == SPAD_-KERNEL_-OP(k)$Lisp
+    argument(k : %) : List S == SPAD_-KERNEL_-ARG(k)$Lisp
+    height(k) == SPAD_-KERNEL_-NEST(k)$Lisp
+    position(k : %) : N == SPAD_-KERNEL_-POSIT(k)$Lisp
+    setPosition(k, n) == SET_-SPAD_-KERNEL_-POSIT(k, n)$Lisp
+    mkKer(o : OP, a : List S, n : N) : % == makeSpadKernel(o, a, n)$Lisp
+
+    SYMBOL  := '%symbol
+    PMPRED  := '%pmpredicate
+    PMOPT   := '%pmoptional
+    PMMULT  := '%pmmultiple
+    PMCONST := '%pmconstant
+    SPECIALDISP  := '%specialDisp
+    SPECIALEQUAL := '%specialEqual
+    SPECIALINPUT := '%specialInput
+
+
+    clearCache()
+
+    B2Z   : Boolean -> Integer
+    triage : (%, %) -> Integer
+    preds : OP      -> List Any
+
+    is?(k : %, s : Symbol) == is?(operator k, s)
+    is?(k : %, o : OP)     == (operator k) = o
+    name k             == name operator k
+    B2Z flag           == (flag => -1; 1)
+    kernel s           == kernel(assert(operator(s, 0), SYMBOL), [], 1)
+
+    preds o ==
+      (u := property(o, PMPRED)) case "failed" => []
+      (u::None) pretend List(Any)
+
+    symbolIfCan k ==
+      has?(operator k, SYMBOL) => name operator k
+      "failed"
+
+    kerEqual(k1 : %, k2 : %, f : (%, %) -> Boolean) : Boolean ==
+        height(k1)   ~= height(k2)   => false
+        operator(k1) ~= operator(k2) => false
+        #(argument k1) ~= #(argument k2) => false
+        f(k1, k2)
+
+    kernelEnterInCache(k : %) : % ==
+        if (f0 := property(operator k, SPECIALEQUAL)) case None then
+            f1 := (f0::None) pretend ((%, %) -> Boolean)
+            (res := linearSearch(k, y +-> kerEqual(k, y, f1))) case % =>
+                return res::%
+        enterInCache(k, triage)
+
+    k1 = k2 ==
+      if position(k1) = 0 then k1 := kernelEnterInCache(k1)
+      if position(k2) = 0 then k2 := kernelEnterInCache(k2)
+      position(k1) = position(k2)
+
+    k1 < k2 ==
+      if position(k1) = 0 then k1 := kernelEnterInCache(k1)
+      if position(k2) = 0 then k2 := kernelEnterInCache(k2)
+      position(k1) < position(k2)
+
+    kernel(fn, x, n) ==
+      ((u := arity fn) case N) and (#x ~= u::N)
+                                    => error "Wrong number of arguments"
+      kernelEnterInCache(mkKer(fn, x, n))
+
+    -- SPECIALDISP contains a map List S -> OutputForm
+    -- it is used when the converting the arguments first is not good,
+    -- for instance with formal derivatives.
+    coerce(k : %) : OutputForm ==
+      (v := symbolIfCan k) case Symbol => v::Symbol::OutputForm
+      (f := property(o := operator k, SPECIALDISP)) case None =>
+        ((f::None) pretend (List S -> OutputForm)) (argument k)
+      l := [x::OutputForm for x in argument k]$List(OutputForm)
+      (u := display o) case "failed" => prefix(name(o)::OutputForm, l)
+      (u::(List OutputForm -> OutputForm)) l
+
+    triage(k1, k2) ==
+      height(k1)   ~= height(k2)   => B2Z(height(k1)   < height(k2))
+      operator(k1) ~= operator(k2) => B2Z(operator(k1) < operator(k2))
+      (n1 := #(argument k1)) ~= (n2 := #(argument k2)) => B2Z(n1 < n2)
+      -- Handled by linear search earlier
+      -- ((func := property(operator k1, SPECIALEQUAL)) case None) and
+      --  (((func::None) pretend ((%, %) -> Boolean)) (k1, k2)) => 0
+      for x1 in argument(k1) for x2 in argument(k2) repeat
+        x1 ~= x2 => return B2Z(smaller?(x1, x2))
+      0
+
+    if S has ConvertibleTo InputForm then
+      convert(k : %) : InputForm ==
+        (v := symbolIfCan k) case Symbol => convert(v::Symbol)@InputForm
+        (f := property(o := operator k, SPECIALINPUT)) case None =>
+          ((f::None) pretend (List S -> InputForm)) (argument k)
+        l := [convert x for x in argument k]$List(InputForm)
+        (u := input operator k) case "failed" =>
+          convert concat(convert name operator k, l)
+        (u::(List InputForm -> InputForm)) l
+
+    if S has ConvertibleTo Pattern Integer then
+      convert(k : %) : Pattern(Integer) ==
+        o := operator k
+        (v := symbolIfCan k) case Symbol =>
+          s  := patternVariable(v::Symbol,
+                      has?(o, PMCONST), has?(o, PMOPT), has?(o, PMMULT))
+          empty?(l := preds o) => s
+          setPredicates(s, l)
+        o [convert x for x in argument(k)]$List(Pattern Integer)
+
+    if S has ConvertibleTo Pattern Float then
+      convert(k : %) : Pattern(Float) ==
+        o := operator k
+        (v := symbolIfCan k) case Symbol =>
+          s  := patternVariable(v::Symbol,
+                      has?(o, PMCONST), has?(o, PMOPT), has?(o, PMMULT))
+          empty?(l := preds o) => s
+          setPredicates(s, l)
+        o [convert x for x in argument(k)]$List(Pattern Float)
+

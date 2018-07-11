@@ -1,0 +1,24 @@
+)abbrev package FSRROOT FunctionSpaceRationalRoots
+FunctionSpaceRationalRoots(R, F)  : Exports == Implementation where
+  R : Join(IntegralDomain, Comparable, CharacteristicZero,
+           RetractableTo Integer, LinearlyExplicitOver Integer)
+  F : FunctionSpace R
+  K   ==> Kernel F
+  Z   ==> Integer
+  Q   ==> Fraction Z
+
+  Exports ==> with
+
+    get_rational_roots : (F, K) -> List(Q)
+      ++ get_rational_roots(f, k) finds rational root of
+      ++ f treated as univariate polynomial in k.
+
+  Implementation ==> add
+
+    UP  ==> SparseUnivariatePolynomial F
+    RF  ==> Fraction UP
+
+    get_rational_roots(eq1f : F, k1 : K) : List(Q) ==
+        eq2p := numer(univariate(eq1f, k1))$RF
+        get_rational_roots(eq2p)$PolynomialRationalRoots(F, UP)
+

@@ -1,0 +1,76 @@
+3223                (|LUDecomposition| D)
+|package|
+(((|LUDecomposition| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |LUDecomp|
+    ((|Record| (|:| LU (|Matrix| |#1|)) (|:| |Perm| (|Vector| (|Integer|)))
+               (|:| |Pivots| (|List| |#1|)))
+     (|Matrix| |#1|)))
+   (SIGNATURE |LUSolve|
+    ((|Vector| |#1|) (|Matrix| |#1|) (|Vector| (|Integer|)) (|Vector| |#1|)))
+   (SIGNATURE |LUInverse|
+    ((|Record| (|:| |Inv| (|Matrix| |#1|)) (|:| |Pivots| (|List| |#1|)))
+     (|Matrix| |#1|))))
+  (|Field|))
+ (T |LUDecomposition|))
+(CATEGORY |package|
+ (SIGNATURE |LUDecomp|
+  ((|Record| (|:| LU (|Matrix| |#1|)) (|:| |Perm| (|Vector| (|Integer|)))
+             (|:| |Pivots| (|List| |#1|)))
+   (|Matrix| |#1|)))
+ (SIGNATURE |LUSolve|
+  ((|Vector| |#1|) (|Matrix| |#1|) (|Vector| (|Integer|)) (|Vector| |#1|)))
+ (SIGNATURE |LUInverse|
+  ((|Record| (|:| |Inv| (|Matrix| |#1|)) (|:| |Pivots| (|List| |#1|)))
+   (|Matrix| |#1|))))
+"/git/fricas/src/algebra/LUD.spad"
+((|LUInverse| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *4)) (|ofCategory| *4 (|Field|))
+       (|isDomain| *2
+                   (|Record| (|:| |Inv| (|Matrix| *4))
+                             (|:| |Pivots| (|List| *4))))
+       (|isDomain| *1 (|LUDecomposition| *4))))
+ (|LUSolve| (*1 *2 *3 *4 *2)
+  (AND (|isDomain| *2 (|Vector| *5)) (|isDomain| *3 (|Matrix| *5))
+       (|isDomain| *4 (|Vector| (|Integer|))) (|ofCategory| *5 (|Field|))
+       (|isDomain| *1 (|LUDecomposition| *5))))
+ (|LUDecomp| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *4)) (|ofCategory| *4 (|Field|))
+       (|isDomain| *2
+                   (|Record| (|:| LU (|Matrix| *4))
+                             (|:| |Perm| (|Vector| (|Integer|)))
+                             (|:| |Pivots| (|List| *4))))
+       (|isDomain| *1 (|LUDecomposition| *4)))))
+((|LUSolve|
+  (((|Vector| |#1|) (|Matrix| |#1|) (|Vector| (|Integer|)) (|Vector| |#1|))
+   26))
+ (|LUInverse|
+  (((|Record| (|:| |Inv| (|Matrix| |#1|)) (|:| |Pivots| (|List| |#1|)))
+    (|Matrix| |#1|))
+   29))
+ (|LUDecomp|
+  (((|Record| (|:| LU (|Matrix| |#1|)) (|:| |Perm| (|Vector| (|Integer|)))
+              (|:| |Pivots| (|List| |#1|)))
+    (|Matrix| |#1|))
+   22)))
+LUD
+((|constructor|
+  (NIL
+   "\\spadtype{LUDecomposition} contains procedures to solve linear systems of equations or to compute inverses using a LU decomposition."))
+ (|LUInverse|
+  (((|Record| (|:| |Inv| (|Matrix| |#1|)) (|:| |Pivots| (|List| |#1|)))
+    (|Matrix| |#1|))
+   "\\spad{LUInverse(A)} computes the inverse of \\spad{A} using a LU decomposition."))
+ (|LUSolve|
+  (((|Vector| |#1|) (|Matrix| |#1|) (|Vector| (|Integer|)) (|Vector| |#1|))
+   "\\spad{LUSolve(LU,{} Perm,{} B)} uses a previously computed \\spad{LU} decomposition to solve a linear system with right hand side \\spad{B}. \\spad{LU} and \\spad{Perm} are as given by \\spad{LUDecomp}."))
+ (|LUDecomp|
+  (((|Record| (|:| LU (|Matrix| |#1|)) (|:| |Perm| (|Vector| (|Integer|)))
+              (|:| |Pivots| (|List| |#1|)))
+    (|Matrix| |#1|))
+   "\\spad{LUDecomp(A)} computes a LU decomposition of \\spad{A} using the algorithm of Crout. \\spad{LU} contains both triangular matrices; \\spad{Perm} is the permutation used for partial pivoting and \\spad{Pivots} yields the used pivots.")))
+(("documentation" 0 2166) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2162) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1789) ("modemaps" 0 963) ("sourceFile" 0 928)
+ ("constructorCategory" 0 532) ("constructorModemap" 0 52)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

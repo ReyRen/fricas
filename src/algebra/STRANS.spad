@@ -1,0 +1,157 @@
+)abbrev package STRANS STransformPackage
+++ Author: Franz Lehner lehner@math.tugraz.at, Waldek Hebisch
+++ Date Created: 2010
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   A package to computes Taylor and Puiseux series of S-transforms.
+STransformPackage(R, UTSR, ULSR, UPSR) : Exports == Implementation where
+  R : Join(CommutativeRing, Algebra Fraction Integer)
+  UTSR : UnivariateTaylorSeriesCategory R
+  ULSR : UnivariateLaurentSeriesConstructorCategory(R, UTSR)
+  UPSR : UnivariatePuiseuxSeriesConstructorCategory(R, ULSR)
+  DISTR ==> Distribution R
+  STTAYLORR ==> StreamTaylorSeriesOperations R
+  TERM ==> Record(k : Fraction Integer, c : Coef)
+  STRREC ==> Record(order : Fraction Integer, coeff : Stream R)
+  Exports ==> with
+    STransform1 : (DISTR) -> UTSR
+      ++ \spad{STransform(x)} returns the Taylor expansion the S-transform
+      ++ \spad{S(z)} of the distribution \spad{x} if the mean is nonzero.
+    STransform2 : (DISTR) -> UPSR
+      ++ \spad{STransform(x)} returns the Puiseux expansion of the
+      ++ S-transform \spad{S(z)} if the mean is zero.
+    STransform : DISTR -> UPSR
+      ++ \spad{STransform(x)} returns the Puiseux expansion of the
+      ++ S-transform \spad{S(z)}.
+    distributionBySTransform : UPSR -> DISTR
+      ++ of the distributions \spad{x} if the mean is zero
+      ++ \spad{distributionBySTransform(x)} returns the distribution
+      ++ with S-transform x.
+    freeMultiplicativeConvolution : (DISTR, DISTR) -> DISTR
+      ++ \spad{freeMultiplicativeConvolution(x, y)} returns the free
+      ++ multiplicative convolution of the distributions
+      ++ \spad{x} and \spad{y}.
+  Implementation ==> add
+    STransform1(x : DISTR) : UTSR ==
+        mom : Stream R := stream moments x
+        zero? first mom => error "mean is zero!"
+        mom := cons(0, mom)
+        chi : Stream R := revert(mom)$STTAYLORR
+        -- S = chi + chi/z
+        res := sequence chi + sequence rest chi
+        series stream res
+
+    STransform2(x : DISTR) : UPSR ==
+        mom : Stream R := stream moments x
+        not zero? first mom => error "mean is nonzero!"
+        -- divide by z^2, take square root and multiply with z
+        mom2 := cons(0, powern(1/2, rest mom)$STTAYLORR)
+        chi2 := revert(mom2)$STTAYLORR
+        res2 : UTSR := series chi2
+        -- S2 = chi2+chi2/z^2
+        S2 : ULSR := laurent(-2, res2)+laurent(0, res2)
+        puiseux(1/2, S2)$UPSR
+
+    -- two in one
+    STransform(x : DISTR) : UPSR ==
+        mom : Stream R := stream moments x
+        if zero? first mom then
+            -- case of mean zero
+            mom2 := cons(0, powern(1/2, rest mom)$STTAYLORR)
+            chi2 := revert(mom2)$STTAYLORR
+            res2 : UTSR := series chi2
+            -- S2 = chi2+chi2/z^2
+            S2 : ULSR := laurent(-2, res2)+laurent(0, res2)
+            puiseux(1/2, S2)$UPSR
+          else
+            -- case of mean nonzero
+            mom := cons(0, mom)
+            chi : Stream R := revert(mom)$STTAYLORR
+            -- S = chi + chi/z
+            res := sequence chi + sequence rest chi
+            S : UTSR := series stream res
+            puiseux(1, laurent(0, S))$UPSR --$
+
+)if false
+
+Getting back from the $S$-transform $S(z)$ to the distribution,
+the procedure is
+$$
+\chi(z) = S(z)\frac{z}{1+z}
+$$
+then $\psi(z)=\chi^{-1}(z)=\sum_{n=1}^\infty m_n z^n$.
+
+There are two possibilities for $S(z)$:
+If the first moment is nonzero, then
+$S(z)$ is a Taylor series
+$$
+{1 \over {m \sb {1}}}+{{{-{m \sb {2}}+{{m \sb {1}} \sp 2}} \over {{m \sb {1}}
+\sp 3}} \  z}+{{{-{{m \sb {1}} \  {m \sb {3}}}+{2 \  {{m \sb {2}} \sp 2}}
+-{{{m \sb {1}} \sp 2} \  {m \sb {2}}}} \over {{m \sb {1}} \sp 5}} \  {z \sp
+2}}+{O
+\left(
+{{z \sp 3}}
+\right)}
+$$
+with nonzero constant term.
+
+If the first moment vanishes, then
+$S(z)$ is a Puiseux series
+$$
+{{1 \over {\sqrt {{m \sb {2}}}}} \  {z \sp {\left( -{1 \over 2}
+\right)}}}
+-{{m \sb {3}} \over {2 \  {{m \sb {2}} \sp 2}}}+{{{-{4 \  {m \sb {2}} \  {m
+\sb {4}}}+{5 \  {{m \sb {3}} \sp 2}}+{8 \  {{m \sb {2}} \sp 3}}} \over {8 \
+{{m \sb {2}} \sp 3} \  {\sqrt {{m \sb {2}}}}}} \  {z \sp {1 \over 2}}}+{O
+\left(
+{{z \sp 1}}
+\right)}
+$$
+otherwise the first and second moments vanish
+and it is not the S-transform of a nontrivial probability measure.
+
+In the first case we must multiply with
+$$
+\frac{z}{1+z} = z-z^2+z^3-z^4+-\dotsm{}
+$$
+then invert and extract coefficients to get the moments.
+In the second case we must first evaluate at $z^2$, multiply
+with
+$$
+\frac{z^2}{1+z^2} = z^2-z^4+z^6-z^8+-\dotsm{}
+$$
+invert and evaluate at $\sqrt{z}$,
+i.e., call
+\spad{puiseux(1/2, f)\$UPXS(EXPR INT, z,  0)}.
+
+)endif
+
+    distributionBySTransform(S : UPSR) : DISTR ==
+        if order(S) = 0 then
+          -- Taylor case
+          S1 : UTSR := retract retract S
+          -- multiply with z/(1+z)
+          z1z : UTSR := series(cons(0, repeating([1, -1])$(Stream R)))
+          chi : Stream R := coefficients(S1*z1z)
+          psi : Stream R := revert(chi)$STTAYLORR
+          return distributionByMoments sequence rest psi
+        else if not order(S) = -1/2 then
+          error "Not an S-transform"
+        if not rationalPower S = 1/2 then
+          error "Not an S-transform"
+        -- Puiseux case. Evaluating at z^2 is the same
+        -- as taking the Laurent representative
+        S2 := laurentRep S
+        -- multiply with z^2/(1+z^2)
+        z1z : UTSR := series(cons(0, repeating([0, 1, 0, -1])$(Stream R)))
+        chi2 : UTSR := retract(S2*laurent(0, z1z))
+        psi2 := revert(coefficients chi2)$STTAYLORR
+        psi := powern(2::Fraction Integer, psi2)
+        distributionByMoments sequence rest psi
+
+

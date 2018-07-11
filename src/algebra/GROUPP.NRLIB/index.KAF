@@ -1,0 +1,153 @@
+8795                (MAKEPROP '|GroupPresentation| 'NILADIC T)
+(|GroupPresentation|)
+|domain|
+(((|GroupPresentation|)
+  (|Join| (|SetCategory|)
+          (CATEGORY |domain|
+           (SIGNATURE |groupPresentation|
+            ($ (|List| (|NonNegativeInteger|)) (|List| (|List| (|Integer|)))))
+           (SIGNATURE |groupPresentation| ($ (|List| (|NonNegativeInteger|))))
+           (SIGNATURE |groupPresentation| ($)) (SIGNATURE |simplify| ($ $))
+           (SIGNATURE |simplify| ($ $ (|Boolean|)))
+           (SIGNATURE |refactor| ($ $))
+           (SIGNATURE |quotient| ($ $ (|List| (|NonNegativeInteger|))))
+           (SIGNATURE |quotient| ($ $ (|List| (|List| (|Integer|)))))
+           (SIGNATURE |directProduct| ($ $ $))
+           (SIGNATURE |cyclicGroup| ($ (|PositiveInteger|)))
+           (SIGNATURE |dihedralGroup| ($ (|PositiveInteger|)))
+           (SIGNATURE |symmetricGroup| ($ (|PositiveInteger|)))
+           (SIGNATURE |toPermutationIfCan|
+            ((|Union| (|PermutationGroup| (|Integer|)) "failed") $))
+           (SIGNATURE |toPermutationIfCan|
+            ((|Union| (|PermutationGroup| (|Integer|)) "failed") $
+             (|Boolean|)))
+           (SIGNATURE |toPermutationIfCan|
+            ((|Union| (|PermutationGroup| (|Integer|)) "failed") $
+             (|List| (|List| (|Integer|))) (|Boolean|))))))
+ (T |GroupPresentation|))
+(|Join| (|SetCategory|)
+        (CATEGORY |domain|
+         (SIGNATURE |groupPresentation|
+          ($ (|List| (|NonNegativeInteger|)) (|List| (|List| (|Integer|)))))
+         (SIGNATURE |groupPresentation| ($ (|List| (|NonNegativeInteger|))))
+         (SIGNATURE |groupPresentation| ($)) (SIGNATURE |simplify| ($ $))
+         (SIGNATURE |simplify| ($ $ (|Boolean|))) (SIGNATURE |refactor| ($ $))
+         (SIGNATURE |quotient| ($ $ (|List| (|NonNegativeInteger|))))
+         (SIGNATURE |quotient| ($ $ (|List| (|List| (|Integer|)))))
+         (SIGNATURE |directProduct| ($ $ $))
+         (SIGNATURE |cyclicGroup| ($ (|PositiveInteger|)))
+         (SIGNATURE |dihedralGroup| ($ (|PositiveInteger|)))
+         (SIGNATURE |symmetricGroup| ($ (|PositiveInteger|)))
+         (SIGNATURE |toPermutationIfCan|
+          ((|Union| (|PermutationGroup| (|Integer|)) "failed") $))
+         (SIGNATURE |toPermutationIfCan|
+          ((|Union| (|PermutationGroup| (|Integer|)) "failed") $ (|Boolean|)))
+         (SIGNATURE |toPermutationIfCan|
+          ((|Union| (|PermutationGroup| (|Integer|)) "failed") $
+           (|List| (|List| (|Integer|))) (|Boolean|)))))
+"/git/fricas/src/algebra/GROUPP.spad"
+((|groupPresentation| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|List| (|NonNegativeInteger|)))
+       (|isDomain| *3 (|List| (|List| (|Integer|))))
+       (|isDomain| *1 (|GroupPresentation|))))
+ (|groupPresentation| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|NonNegativeInteger|)))
+       (|isDomain| *1 (|GroupPresentation|))))
+ (|groupPresentation| (*1 *1) (|isDomain| *1 (|GroupPresentation|)))
+ (|simplify| (*1 *1 *1) (|isDomain| *1 (|GroupPresentation|)))
+ (|simplify| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|GroupPresentation|))))
+ (|refactor| (*1 *1 *1) (|isDomain| *1 (|GroupPresentation|)))
+ (|quotient| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|NonNegativeInteger|)))
+       (|isDomain| *1 (|GroupPresentation|))))
+ (|quotient| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|List| (|Integer|))))
+       (|isDomain| *1 (|GroupPresentation|))))
+ (|directProduct| (*1 *1 *1 *1) (|isDomain| *1 (|GroupPresentation|)))
+ (|cyclicGroup| (*1 *1 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|GroupPresentation|))))
+ (|dihedralGroup| (*1 *1 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|GroupPresentation|))))
+ (|symmetricGroup| (*1 *1 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|GroupPresentation|))))
+ (|toPermutationIfCan| (*1 *2 *1)
+  (|partial| AND (|isDomain| *2 (|PermutationGroup| (|Integer|)))
+   (|isDomain| *1 (|GroupPresentation|))))
+ (|toPermutationIfCan| (*1 *2 *1 *3)
+  (|partial| AND (|isDomain| *3 (|Boolean|))
+   (|isDomain| *2 (|PermutationGroup| (|Integer|)))
+   (|isDomain| *1 (|GroupPresentation|))))
+ (|toPermutationIfCan| (*1 *2 *1 *3 *4)
+  (|partial| AND (|isDomain| *3 (|List| (|List| (|Integer|))))
+   (|isDomain| *4 (|Boolean|)) (|isDomain| *2 (|PermutationGroup| (|Integer|)))
+   (|isDomain| *1 (|GroupPresentation|)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|toPermutationIfCan|
+  (((|Union| (|PermutationGroup| (|Integer|)) "failed") $) 120)
+  (((|Union| (|PermutationGroup| (|Integer|)) "failed") $ (|Boolean|)) 119)
+  (((|Union| (|PermutationGroup| (|Integer|)) "failed") $
+    (|List| (|List| (|Integer|))) (|Boolean|))
+   121))
+ (|symmetricGroup| (($ (|PositiveInteger|)) 82))
+ (|simplify| (($ $) 71) (($ $ (|Boolean|)) 70)) (|refactor| (($ $) 27))
+ (|quotient| (($ $ (|List| (|NonNegativeInteger|))) 72)
+  (($ $ (|List| (|List| (|Integer|)))) 75))
+ (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|groupPresentation|
+  (($ (|List| (|NonNegativeInteger|)) (|List| (|List| (|Integer|)))) 11)
+  (($ (|List| (|NonNegativeInteger|))) 12) (($) 13))
+ (|directProduct| (($ $ $) 78)) (|dihedralGroup| (($ (|PositiveInteger|)) 81))
+ (|cyclicGroup| (($ (|PositiveInteger|)) 80))
+ (|coerce| (((|OutputForm|) $) 67)) (= (((|Boolean|) $ $) 36)))
+GROUPP
+(((|SetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "\\indented{2}{Group represented by its generators and relations.} \\indented{2}{Here we use it to hold homotopy group such as fundamental group.} \\indented{2}{for more documentation see:} \\indented{2}{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/finiteGroup/presentation/} Date Created: Jan 2016 Basic Operations: Related packages: Related categories: Related Domains: PermutationGroup Also See: AMS Classifications:"))
+ (|toPermutationIfCan|
+  (((|Union| (|PermutationGroup| (|Integer|)) "failed") $
+    (|List| (|List| (|Integer|))) (|Boolean|))
+   "\\spad{toPermutationIfCan(a,{} sg,{} trace)} returns permutation representation of a on cosets of subgroup generate by \\spad{sg} or \"failed\" if computation exceed resource limit. trace activates debugging printouts.")
+  (((|Union| (|PermutationGroup| (|Integer|)) "failed") $ (|Boolean|))
+   "convert to permutation group return \"failed\" for infinite groups. For more information about the algorithm see: \\url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/finiteGroup/pres2perm/}")
+  (((|Union| (|PermutationGroup| (|Integer|)) "failed") $)
+   "convert to permutation group return \"failed\" for infinite groups. For more information about the algorithm see: \\url{http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/finiteGroup/pres2perm/}"))
+ (|symmetricGroup|
+  (($ (|PositiveInteger|))
+   "\\spad{symmetricGroup(n)} constructs the symmetric group of order \\spad{n}-1. Note: generates all possible relations may not be minimal."))
+ (|dihedralGroup|
+  (($ (|PositiveInteger|))
+   "\\spad{dihedralGroup(n)} constructs the dihedral group of order 2n acting on integers 1,{} ...,{} \\spad{N}."))
+ (|cyclicGroup|
+  (($ (|PositiveInteger|))
+   "\\spad{cyclicGroup(n)} constructs the cyclic group of order \\spad{n} acting on the integers 1,{} ...,{} \\spad{n}."))
+ (|directProduct| (($ $ $) "\\spad{directProduct of} two groups"))
+ (|quotient|
+  (($ $ (|List| (|List| (|Integer|))))
+   "take quotient by adding relations specified by addrel")
+  (($ $ (|List| (|NonNegativeInteger|)))
+   "take quotient by removing generators specified by remgen"))
+ (|refactor|
+  (($ $)
+   "actual value of generators is not important,{} it is only important that they correspond to the appropriate entries in the relations. Therefore we can refactor the generators without changing the group represented."))
+ (|simplify| (($ $ (|Boolean|)) "simplify with option to trace")
+  (($ $)
+   "There may not be a simplest form but it is possible to do some simplifications as follows: 1. Remove all zero terms in relations. 2. If a relation consists of a single generator then remove \\indented{3}{that generator.} 3. If a relation consists of a pair of generators then make the \\indented{3}{second generator the inverse of the first.} 4. If a generator is adjacent to its inverse then cancel them out. 5. Remove duplicate relations. 6. Substitute one relation in another."))
+ (|groupPresentation|
+  (($) "construct trivial group with no generators or relations")
+  (($ (|List| (|NonNegativeInteger|)))
+   "construct free group with generators but no relations")
+  (($ (|List| (|NonNegativeInteger|)) (|List| (|List| (|Integer|))))
+   "construct from generators and relations")))
+(("documentation" 0 5510) ("ancestors" 0 5429) ("parents" 0 5405)
+ ("abbreviation" 0 5398) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4408) ("modemaps" 0 2555) ("sourceFile" 0 2517)
+ ("constructorCategory" 0 1363) ("constructorModemap" 0 94)
+ ("constructorKind" 0 85) ("constructorForm" 0 63) ("NILADIC" 0 20))

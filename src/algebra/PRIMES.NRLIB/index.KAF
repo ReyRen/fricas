@@ -1,0 +1,47 @@
+3099                (|IntegerPrimesPackage| I)
+|package|
+(((|IntegerPrimesPackage| |#1|)
+  (CATEGORY |package| (SIGNATURE |prime?| ((|Boolean|) |#1|))
+   (SIGNATURE |nextPrime| (|#1| |#1|)) (SIGNATURE |prevPrime| (|#1| |#1|))
+   (SIGNATURE |primes| ((|List| |#1|) |#1| |#1|)))
+  (|IntegerNumberSystem|))
+ (T |IntegerPrimesPackage|))
+(CATEGORY |package| (SIGNATURE |prime?| ((|Boolean|) |#1|))
+ (SIGNATURE |nextPrime| (|#1| |#1|)) (SIGNATURE |prevPrime| (|#1| |#1|))
+ (SIGNATURE |primes| ((|List| |#1|) |#1| |#1|)))
+"/git/fricas/src/algebra/PRIMES.spad"
+((|primes| (*1 *2 *3 *3)
+  (AND (|isDomain| *2 (|List| *3)) (|isDomain| *1 (|IntegerPrimesPackage| *3))
+       (|ofCategory| *3 (|IntegerNumberSystem|))))
+ (|prevPrime| (*1 *2 *2)
+  (AND (|isDomain| *1 (|IntegerPrimesPackage| *2))
+       (|ofCategory| *2 (|IntegerNumberSystem|))))
+ (|nextPrime| (*1 *2 *2)
+  (AND (|isDomain| *1 (|IntegerPrimesPackage| *2))
+       (|ofCategory| *2 (|IntegerNumberSystem|))))
+ (|prime?| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|IntegerPrimesPackage| *3))
+       (|ofCategory| *3 (|IntegerNumberSystem|)))))
+((|primes| (((|List| |#1|) |#1| |#1|) 43)) (|prime?| (((|Boolean|) |#1|) 40))
+ (|prevPrime| ((|#1| |#1|) 66)) (|nextPrime| ((|#1| |#1|) 65)))
+PRIMES
+((|constructor|
+  (NIL
+   "The \\spadtype{IntegerPrimesPackage} implements a modification of Rabin\\spad{'s} probabilistic primality test and the utility functions \\spadfun{nextPrime},{} \\spadfun{prevPrime} and \\spadfun{primes}."))
+ (|primes|
+  (((|List| |#1|) |#1| |#1|)
+   "\\spad{primes(a,{} b)} returns a list of all primes \\spad{p} with \\spad{a <= p <= b}"))
+ (|prevPrime|
+  ((|#1| |#1|)
+   "\\spad{prevPrime(n)} returns the largest prime strictly smaller than \\spad{n}"))
+ (|nextPrime|
+  ((|#1| |#1|)
+   "\\spad{nextPrime(n)} returns the smallest prime strictly larger than \\spad{n}"))
+ (|prime?|
+  (((|Boolean|) |#1|)
+   "\\spad{prime?(n)} returns \\spad{true} if \\spad{n} is prime and \\spad{false} if not. Note that we ignore sign of \\spad{n},{} so \\spad{-5} is considered prime. The algorithm used is Rabin\\spad{'s} probabilistic primality test (reference: Knuth Volume 2 Semi Numerical Algorithms). If \\spad{prime? n} returns \\spad{false},{} \\spad{n} is proven composite. If \\spad{prime? n} returns \\spad{true},{} prime? may be in error however,{} the probability of error is very low. and is zero below 25*10^9 (due to a result of Pomerance et al),{} below 10^12 and 10^13 due to results of Pinch,{} and below 341550071728321 due to a result of Jaeschke. Specifically,{} this implementation does at least 10 pseudo prime tests and so the probability of error is \\spad{< 4^(-10)}. The running time of this method is cubic in the length of the input \\spad{n},{} that is \\spad{O( (log n)^3 )},{} for \\spad{n<10^20}. beyond that,{} the algorithm is quartic,{} \\spad{O( (log n)^4 )}. Two improvements due to Davenport have been incorporated which catches some trivial strong pseudo-primes,{} such as [Jaeschke,{} 1991] 1377161253229053 * 413148375987157,{} which the original algorithm regards as prime")))
+(("documentation" 0 1264) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1257) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1115) ("modemaps" 0 553) ("sourceFile" 0 515)
+ ("constructorCategory" 0 333) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

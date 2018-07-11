@@ -1,0 +1,40 @@
+2498                (|FreeModuleCategory&| A R S)
+|domain|
+(((|FreeModuleCategory&| |#1| |#2| |#3|)
+  (CATEGORY |domain| (SIGNATURE |smaller?| ((|Boolean|) |#1| |#1|)))
+  (|FreeModuleCategory| |#2| |#3|) (|Join| (|SemiRng|) (|AbelianMonoid|))
+  (|SetCategory|))
+ (T |FreeModuleCategory&|))
+(CATEGORY |domain| (SIGNATURE |smaller?| ((|Boolean|) |#1| |#1|)))
+"/git/fricas/src/algebra/FMCAT.spad"
+((|smaller?| (((|Boolean|) $ $) 18)))
+((|HasCategory| |#3| '(|Comparable|)) (|HasCategory| |#2| '(|Comparable|))
+ (|HasCategory| |#2| '(|CommutativeRing|)) (|HasCategory| |#2| '(|SemiRing|)))
+FMCAT-
+((|constructor|
+  (NIL
+   "A domain of this category implements formal linear combinations of elements from a domain \\spad{Basis} with coefficients in a domain \\spad{R}. The domain \\spad{Basis} needs only to belong to the category \\spadtype{SetCategory} and \\spad{R} to the category \\spadtype{Ring}. Thus the coefficient ring may be non-commutative. See the \\spadtype{XDistributedPolynomial} constructor for examples of domains built with the \\spadtype{FreeModuleCategory} category constructor. Author: Michel Petitot (petitot@lifl.\\spad{fr}) \\blankline Note (Franz Lehner,{} June 2009): Since \\spad{leadingTerm} makes no sense for unordered base sets,{} and at the time of this writing this domain was never used for such,{} the base set is required to be \\spad{Comparable}. \\spad{FreeModule} originally was not of FreeModuleCategory. Some functions (like \\spad{support},{} \\spad{coefficients},{} \\spad{monomials},{} ...) from here could be moved to \\spad{IndexedDirectProductCategory} but at the moment there is no need for this."))
+ (|linearExtend|
+  ((|#2| (|Mapping| |#2| |#3|) $)
+   "\\spad{linearExtend: (f,{} x)} returns the linear extension of a map defined on the basis applied to a linear combination"))
+ (|coefficient|
+  ((|#2| $ |#3|)
+   "\\spad{coefficient(x,{} s)} returns the coefficient of the basis element \\spad{s}"))
+ (|monomials|
+  (((|List| $) $)
+   "\\spad{monomials(x)} returns the list of \\spad{r_i*b_i} whose sum is \\spad{x}."))
+ (|support|
+  (((|List| |#3|) $)
+   "\\spad{support(x)} returns the list of basis elements with nonzero coefficients."))
+ (|coefficients|
+  (((|List| |#2|) $)
+   "\\spad{coefficients(x)} returns the list of coefficients of \\spad{x}."))
+ (*
+  (($ |#3| |#2|)
+   "\\spad{s*r} returns the product \\spad{r*s} used by \\spadtype{XRecursivePolynomial}")
+  (($ |#2| |#3|) "\\spad{r*b} returns the product of \\spad{r} by \\spad{b}.")))
+(("documentation" 0 593) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 586) ("predicates" 0 432) ("superDomain" 0 NIL)
+ ("operationAlist" 0 394) ("modemaps" 0 NIL) ("sourceFile" 0 357)
+ ("constructorCategory" 0 290) ("constructorModemap" 0 59)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

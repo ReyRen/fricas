@@ -1,0 +1,41 @@
+1956                (|MPolyCatPolyFactorizer| E OV R PPR)
+|package|
+(((|MPolyCatPolyFactorizer| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#4|) |#4|)))
+  (|OrderedAbelianMonoidSup|)
+  (|Join| (|OrderedSet|)
+          (CATEGORY |domain| (SIGNATURE |convert| ((|Symbol|) $))
+           (SIGNATURE |variable| ((|Union| $ "failed") (|Symbol|)))))
+  (|EuclideanDomain|) (|PolynomialCategory| (|Polynomial| |#3|) |#1| |#2|))
+ (T |MPolyCatPolyFactorizer|))
+(CATEGORY |package| (SIGNATURE |factor| ((|Factored| |#4|) |#4|)))
+"/git/fricas/src/algebra/MPCPF.spad"
+((|factor| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |convert| ((|Symbol|) $))
+                              (SIGNATURE |variable|
+                               ((|Union| $ "failed") (|Symbol|))))))
+       (|ofCategory| *6 (|EuclideanDomain|)) (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|MPolyCatPolyFactorizer| *4 *5 *6 *3))
+       (|ofCategory| *3 (|PolynomialCategory| (|Polynomial| *6) *4 *5)))))
+((|factor| (((|Factored| |#4|) |#4|) 40)))
+MPCPF
+((|constructor|
+  (NIL
+   "\\indented{3}{This package exports a factor operation for multivariate polynomials} with coefficients which are polynomials over some ring \\spad{R} over which we can factor. It is used internally by packages such as the solve package which need to work with polynomials in a specific set of variables with coefficients which are polynomials in all the other variables."))
+ (|factor|
+  (((|Factored| |#4|) |#4|)
+   "\\spad{factor(p)} factors a polynomial with polynomial coefficients."))
+ (|variable|
+  (((|Union| $ "failed") (|Symbol|))
+   "\\spad{variable(s)} makes an element from symbol \\spad{s} or fails."))
+ (|convert|
+  (((|Symbol|) $) "\\spad{convert(x)} converts \\spad{x} to a symbol")))
+(("documentation" 0 1230) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1224) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1181) ("modemaps" 0 588) ("sourceFile" 0 551)
+ ("constructorCategory" 0 484) ("constructorModemap" 0 68)
+ ("constructorKind" 0 58) ("constructorForm" 0 20))

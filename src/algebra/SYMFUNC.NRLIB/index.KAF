@@ -1,0 +1,32 @@
+1430                (|SymmetricFunctions| R)
+|package|
+(((|SymmetricFunctions| |#1|)
+  (CATEGORY |package| (SIGNATURE |symFunc| ((|Vector| |#1|) (|List| |#1|)))
+   (SIGNATURE |symFunc| ((|Vector| |#1|) |#1| (|PositiveInteger|))))
+  (|Ring|))
+ (T |SymmetricFunctions|))
+(CATEGORY |package| (SIGNATURE |symFunc| ((|Vector| |#1|) (|List| |#1|)))
+ (SIGNATURE |symFunc| ((|Vector| |#1|) |#1| (|PositiveInteger|))))
+"/git/fricas/src/algebra/SYMFUNC.spad"
+((|symFunc| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|PositiveInteger|)) (|isDomain| *2 (|Vector| *3))
+       (|isDomain| *1 (|SymmetricFunctions| *3)) (|ofCategory| *3 (|Ring|))))
+ (|symFunc| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4)) (|ofCategory| *4 (|Ring|))
+       (|isDomain| *2 (|Vector| *4))
+       (|isDomain| *1 (|SymmetricFunctions| *4)))))
+((|symFunc| (((|Vector| |#1|) |#1| (|PositiveInteger|)) 18)
+  (((|Vector| |#1|) (|List| |#1|)) 22)))
+SYMFUNC
+((|constructor|
+  (NIL "Computes all the symmetric functions in \\spad{n} variables."))
+ (|symFunc|
+  (((|Vector| |#1|) |#1| (|PositiveInteger|))
+   "\\spad{symFunc(r,{} n)} returns the vector of the elementary symmetric functions in \\spad{[r,{} r,{} ...,{} r]} \\spad{n} times.")
+  (((|Vector| |#1|) (|List| |#1|))
+   "\\spad{symFunc([r1,{} ...,{} rn])} returns the vector of the elementary symmetric functions in the \\spad{\\spad{ri}'s}: \\spad{[r1 + ... + rn,{} r1 r2 + ... + r(n-1) rn,{} ...,{} r1 r2 ... rn]}.")))
+(("documentation" 0 909) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 901) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 800) ("modemaps" 0 449) ("sourceFile" 0 410)
+ ("constructorCategory" 0 269) ("constructorModemap" 0 55)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

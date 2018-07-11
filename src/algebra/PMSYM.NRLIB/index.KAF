@@ -1,0 +1,35 @@
+1345                (|PatternMatchSymbol| S)
+|package|
+(((|PatternMatchSymbol| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |patternMatch|
+    ((|PatternMatchResult| |#1| (|Symbol|)) (|Symbol|) (|Pattern| |#1|)
+     (|PatternMatchResult| |#1| (|Symbol|)))))
+  (|SetCategory|))
+ (T |PatternMatchSymbol|))
+(CATEGORY |package|
+ (SIGNATURE |patternMatch|
+  ((|PatternMatchResult| |#1| (|Symbol|)) (|Symbol|) (|Pattern| |#1|)
+   (|PatternMatchResult| |#1| (|Symbol|)))))
+"/git/fricas/src/algebra/PMSYM.spad"
+((|patternMatch| (*1 *2 *3 *4 *2)
+  (AND (|isDomain| *2 (|PatternMatchResult| *5 (|Symbol|)))
+       (|isDomain| *3 (|Symbol|)) (|isDomain| *4 (|Pattern| *5))
+       (|ofCategory| *5 (|SetCategory|))
+       (|isDomain| *1 (|PatternMatchSymbol| *5)))))
+((|patternMatch|
+  (((|PatternMatchResult| |#1| (|Symbol|)) (|Symbol|) (|Pattern| |#1|)
+    (|PatternMatchResult| |#1| (|Symbol|)))
+   17)))
+PMSYM
+((|constructor|
+  (NIL "This package provides pattern matching functions on symbols."))
+ (|patternMatch|
+  (((|PatternMatchResult| |#1| (|Symbol|)) (|Symbol|) (|Pattern| |#1|)
+    (|PatternMatchResult| |#1| (|Symbol|)))
+   "\\spad{patternMatch(expr,{} pat,{} res)} matches the pattern \\spad{pat} to the expression \\spad{expr}; res contains the variables of \\spad{pat} which are already matched and their matches (necessary for recursion).")))
+(("documentation" 0 899) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 893) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 752) ("modemaps" 0 500) ("sourceFile" 0 463)
+ ("constructorCategory" 0 301) ("constructorModemap" 0 55)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

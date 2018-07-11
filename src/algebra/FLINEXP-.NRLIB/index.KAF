@@ -1,0 +1,45 @@
+1823                (|FullyLinearlyExplicitOver&| S R)
+|domain|
+(((|FullyLinearlyExplicitOver&| |#1| |#2|)
+  (CATEGORY |domain|
+   (SIGNATURE |reducedSystem| ((|Matrix| (|Integer|)) (|Matrix| |#1|)))
+   (SIGNATURE |reducedSystem|
+    ((|Record| (|:| |mat| (|Matrix| (|Integer|)))
+               (|:| |vec| (|Vector| (|Integer|))))
+     (|Matrix| |#1|) (|Vector| |#1|)))
+   (SIGNATURE |reducedSystem|
+    ((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#2|)))
+     (|Matrix| |#1|) (|Vector| |#1|)))
+   (SIGNATURE |reducedSystem| ((|Matrix| |#2|) (|Matrix| |#1|))))
+  (|FullyLinearlyExplicitOver| |#2|) (|Ring|))
+ (T |FullyLinearlyExplicitOver&|))
+(CATEGORY |domain|
+ (SIGNATURE |reducedSystem| ((|Matrix| (|Integer|)) (|Matrix| |#1|)))
+ (SIGNATURE |reducedSystem|
+  ((|Record| (|:| |mat| (|Matrix| (|Integer|)))
+             (|:| |vec| (|Vector| (|Integer|))))
+   (|Matrix| |#1|) (|Vector| |#1|)))
+ (SIGNATURE |reducedSystem|
+  ((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#2|)))
+   (|Matrix| |#1|) (|Vector| |#1|)))
+ (SIGNATURE |reducedSystem| ((|Matrix| |#2|) (|Matrix| |#1|))))
+"/git/fricas/src/algebra/FLINEXP.spad"
+((|reducedSystem| (((|Matrix| |#2|) (|Matrix| $)) NIL)
+  (((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#2|)))
+    (|Matrix| $) (|Vector| $))
+   NIL)
+  (((|Record| (|:| |mat| (|Matrix| (|Integer|)))
+              (|:| |vec| (|Vector| (|Integer|))))
+    (|Matrix| $) (|Vector| $))
+   19)
+  (((|Matrix| (|Integer|)) (|Matrix| $)) 13)))
+((|HasCategory| |#2| (LIST '|LinearlyExplicitOver| '(|Integer|))))
+FLINEXP-
+((|constructor|
+  (NIL
+   "\\spad{S} is \\spadtype{FullyLinearlyExplicitOver R} means that \\spad{S} is a \\spadtype{LinearlyExplicitOver R} and,{} in addition,{} if \\spad{R} is a \\spadtype{LinearlyExplicitOver Integer},{} then so is \\spad{S}")))
+(("documentation" 0 1573) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1564) ("predicates" 0 1497) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1148) ("modemaps" 0 NIL) ("sourceFile" 0 1109)
+ ("constructorCategory" 0 659) ("constructorModemap" 0 64)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

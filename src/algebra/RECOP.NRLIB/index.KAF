@@ -1,0 +1,139 @@
+7047                (|RecurrenceOperator| R F)
+|package|
+(((|RecurrenceOperator| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |makeRec|
+    (|#2| (|BasicOperator|) (|Symbol|) |#2| (|List| |#2|) (|Stream| |#2|)))
+   (SIGNATURE |makeFEq|
+    (|#2| (|BasicOperator|) (|Symbol|) (|Symbol|) |#2| (|List| |#2|)
+     (|Stream| |#2|)))
+   (SIGNATURE |getEq| (|#2| |#2|))
+   (SIGNATURE |values| ((|NonNegativeInteger|)))
+   (SIGNATURE |values| ((|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |eltable?| ((|Boolean|) |#2|)))
+  (|Join| (|Comparable|) (|IntegralDomain|) (|ConvertibleTo| (|InputForm|)))
+  (|Join| (|FunctionSpace| |#1|) (|AbelianMonoid|)
+          (|RetractableTo| (|Integer|)) (|RetractableTo| (|Symbol|))
+          (|PartialDifferentialRing| (|Symbol|)) (|CombinatorialOpsCategory|)))
+ (T |RecurrenceOperator|))
+(CATEGORY |package|
+ (SIGNATURE |makeRec|
+  (|#2| (|BasicOperator|) (|Symbol|) |#2| (|List| |#2|) (|Stream| |#2|)))
+ (SIGNATURE |makeFEq|
+  (|#2| (|BasicOperator|) (|Symbol|) (|Symbol|) |#2| (|List| |#2|)
+   (|Stream| |#2|)))
+ (SIGNATURE |getEq| (|#2| |#2|)) (SIGNATURE |values| ((|NonNegativeInteger|)))
+ (SIGNATURE |values| ((|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |eltable?| ((|Boolean|) |#2|)))
+"/git/fricas/src/algebra/RECOP.spad"
+((|eltable?| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|Comparable|) (|IntegralDomain|)
+                         (|ConvertibleTo| (|InputForm|))))
+   (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|RecurrenceOperator| *4 *3))
+   (|ofCategory| *3
+                 (|Join| (|FunctionSpace| *4) (|AbelianMonoid|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Symbol|))
+                         (|PartialDifferentialRing| (|Symbol|))
+                         (|CombinatorialOpsCategory|)))))
+ (|values| (*1 *2 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|ofCategory| *3
+                     (|Join| (|Comparable|) (|IntegralDomain|)
+                             (|ConvertibleTo| (|InputForm|))))
+       (|isDomain| *1 (|RecurrenceOperator| *3 *4))
+       (|ofCategory| *4
+                     (|Join| (|FunctionSpace| *3) (|AbelianMonoid|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Symbol|))
+                             (|PartialDifferentialRing| (|Symbol|))
+                             (|CombinatorialOpsCategory|)))))
+ (|values| (*1 *2)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|Comparable|) (|IntegralDomain|)
+                         (|ConvertibleTo| (|InputForm|))))
+   (|isDomain| *2 (|NonNegativeInteger|))
+   (|isDomain| *1 (|RecurrenceOperator| *3 *4))
+   (|ofCategory| *4
+                 (|Join| (|FunctionSpace| *3) (|AbelianMonoid|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Symbol|))
+                         (|PartialDifferentialRing| (|Symbol|))
+                         (|CombinatorialOpsCategory|)))))
+ (|getEq| (*1 *2 *2)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|Comparable|) (|IntegralDomain|)
+                         (|ConvertibleTo| (|InputForm|))))
+   (|isDomain| *1 (|RecurrenceOperator| *3 *2))
+   (|ofCategory| *2
+                 (|Join| (|FunctionSpace| *3) (|AbelianMonoid|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Symbol|))
+                         (|PartialDifferentialRing| (|Symbol|))
+                         (|CombinatorialOpsCategory|)))))
+ (|makeFEq| (*1 *2 *3 *4 *4 *2 *5 *6)
+  (AND (|isDomain| *3 (|BasicOperator|)) (|isDomain| *5 (|List| *2))
+       (|isDomain| *6 (|Stream| *2))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| *7) (|AbelianMonoid|)
+                             (|RetractableTo| (|Integer|)) (|RetractableTo| *4)
+                             (|PartialDifferentialRing| *4)
+                             (|CombinatorialOpsCategory|)))
+       (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *7
+                     (|Join| (|Comparable|) (|IntegralDomain|)
+                             (|ConvertibleTo| (|InputForm|))))
+       (|isDomain| *1 (|RecurrenceOperator| *7 *2))))
+ (|makeRec| (*1 *2 *3 *4 *2 *5 *6)
+  (AND (|isDomain| *3 (|BasicOperator|)) (|isDomain| *5 (|List| *2))
+       (|isDomain| *6 (|Stream| *2))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| *7) (|AbelianMonoid|)
+                             (|RetractableTo| (|Integer|)) (|RetractableTo| *4)
+                             (|PartialDifferentialRing| *4)
+                             (|CombinatorialOpsCategory|)))
+       (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *7
+                     (|Join| (|Comparable|) (|IntegralDomain|)
+                             (|ConvertibleTo| (|InputForm|))))
+       (|isDomain| *1 (|RecurrenceOperator| *7 *2)))))
+((|values| (((|NonNegativeInteger|) (|NonNegativeInteger|)) 124)
+  (((|NonNegativeInteger|)) 93))
+ (|makeRec|
+  ((|#2| (|BasicOperator|) (|Symbol|) |#2| (|List| |#2|) (|Stream| |#2|)) 76))
+ (|makeFEq|
+  ((|#2| (|BasicOperator|) (|Symbol|) (|Symbol|) |#2| (|List| |#2|)
+    (|Stream| |#2|))
+   119))
+ (|getEq| ((|#2| |#2|) 121)) (|eltable?| (((|Boolean|) |#2|) 122)))
+RECOP
+((|constructor|
+  (NIL
+   "This package provides an operator for the \\spad{n}-th term of a recurrence and an operator for the coefficient of \\spad{x^n} in a function specified by a functional equation."))
+ (|eltable?|
+  (((|Boolean|) |#2|)
+   "\\spad{eltable? r} returns whether the operator determines (most likely) the sequence completely."))
+ (|values|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{values N} sets the number of initial values to display at most.")
+  (((|NonNegativeInteger|))
+   "\\spad{values()} returns the number of initial values to display at most."))
+ (|getEq|
+  ((|#2| |#2|)
+   "\\spad{getEq f} returns the defining equation,{} if \\spad{f} represents the coefficient of an ADE or a recurrence."))
+ (|makeFEq|
+  ((|#2| (|BasicOperator|) (|Symbol|) (|Symbol|) |#2| (|List| |#2|)
+    (|Stream| |#2|))
+   "\\spad{evalADE(f,{} x,{} n,{} eq,{} parameters,{} values)} creates an expression that stands for the coefficient of \\spad{x^n} in the Taylor expansion of \\spad{f}(\\spad{x}),{} where \\spad{f}(\\spad{x}) is given by the functional equation \\spad{eq}. The argument values specifies the first few Taylor coefficients."))
+ (|makeRec|
+  ((|#2| (|BasicOperator|) (|Symbol|) |#2| (|List| |#2|) (|Stream| |#2|))
+   "\\spad{makeRec(u,{} n,{} eq,{} parameters,{} values)} creates an expression that stands for \\spad{u}(\\spad{n}),{} where \\spad{u}(\\spad{n}) is given by the equation \\spad{eq}. The argument \\spad{parameters} has to contain all variables (or kernels) that appear eventually in the stream of values. The argument values specifies the initial values of the recurrence \\spad{u}(0),{} \\spad{u}(1),{} ... For the moment we don\\spad{'t} allow recursions that contain \\spad{u} inside of another operator.")))
+(("documentation" 0 5278) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 5272) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4905) ("modemaps" 0 1292) ("sourceFile" 0 1255)
+ ("constructorCategory" 0 836) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

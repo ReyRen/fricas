@@ -1,0 +1,36 @@
+1419                (|EvaluateCycleIndicators| F)
+|package|
+(((|EvaluateCycleIndicators| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |eval|
+    (|#1| (|Mapping| |#1| (|Integer|))
+     (|SymmetricPolynomial| (|Fraction| (|Integer|))))))
+  (|Algebra| (|Fraction| (|Integer|))))
+ (T |EvaluateCycleIndicators|))
+(CATEGORY |package|
+ (SIGNATURE |eval|
+  (|#1| (|Mapping| |#1| (|Integer|))
+   (|SymmetricPolynomial| (|Fraction| (|Integer|))))))
+"/git/fricas/src/algebra/EVALCYC.spad"
+((|eval| (*1 *2 *3 *4)
+         (AND (|isDomain| *3 (|Mapping| *2 (|Integer|)))
+              (|isDomain| *4 (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+              (|isDomain| *1 (|EvaluateCycleIndicators| *2))
+              (|ofCategory| *2 (|Algebra| (|Fraction| (|Integer|)))))))
+((|eval|
+  ((|#1| (|Mapping| |#1| (|Integer|))
+    (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+   24)))
+EVALCYC
+((|constructor|
+  (NIL
+   "This package is to be used in conjuction with \\indented{12}{the CycleIndicators package. It provides an evaluation} \\indented{12}{function for SymmetricPolynomials.}"))
+ (|eval|
+  ((|#1| (|Mapping| |#1| (|Integer|))
+    (|SymmetricPolynomial| (|Fraction| (|Integer|))))
+   "\\spad{eval(f,{} s)} evaluates the cycle index \\spad{s} by applying \\indented{1}{the function \\spad{f} to each integer in a monomial partition,{}} \\indented{1}{forms their product and sums the results over all monomials.}")))
+(("documentation" 0 886) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 878) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 768) ("modemaps" 0 476) ("sourceFile" 0 437)
+ ("constructorCategory" 0 306) ("constructorModemap" 0 60)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

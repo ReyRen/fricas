@@ -1,0 +1,56 @@
+2763                (|Aggregate&| S)
+|domain|
+(((|Aggregate&| |#1|)
+  (CATEGORY |domain| (SIGNATURE |sample| (|#1|))
+   (SIGNATURE |size?| ((|Boolean|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |more?| ((|Boolean|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |less?| ((|Boolean|) |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |empty?| ((|Boolean|) |#1|))
+   (SIGNATURE |eq?| ((|Boolean|) |#1| |#1|)))
+  (|Aggregate|))
+ (T |Aggregate&|))
+(CATEGORY |domain| (SIGNATURE |sample| (|#1|))
+ (SIGNATURE |size?| ((|Boolean|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |more?| ((|Boolean|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |less?| ((|Boolean|) |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |empty?| ((|Boolean|) |#1|))
+ (SIGNATURE |eq?| ((|Boolean|) |#1| |#1|)))
+"/git/fricas/src/algebra/AGG.spad"
+((|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 17)) (|sample| (($) 10))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 16))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 14))
+ (|eq?| (((|Boolean|) $ $) 8)) (|empty?| (((|Boolean|) $) 13)))
+((|HasCategory| |#1| '(|finiteAggregate|)))
+AGG-
+((|constructor|
+  (NIL
+   "The notion of aggregate serves to model any data structure aggregate,{} designating any collection of objects,{} with heterogeneous or homogeneous members,{} with a finite or infinite number of members,{} explicitly or implicitly represented. An aggregate can in principle represent everything from a string of characters to abstract sets such as \"the set of \\spad{x} satisfying relation {\\em r(x)}\". An attribute \\spadatt{finiteAggregate} is used to assert that a domain has a finite number of elements."))
+ (|#|
+  (((|NonNegativeInteger|) $)
+   "\\spad{\\#(u)} returns the number of elements in \\spad{u}."))
+ (|sample| (($) "\\spad{sample yields} a value of type \\%"))
+ (|size?|
+  (((|Boolean|) $ (|NonNegativeInteger|))
+   "\\spad{size?(u,{} n)} tests if \\spad{u} has exactly \\spad{n} elements."))
+ (|more?|
+  (((|Boolean|) $ (|NonNegativeInteger|))
+   "\\spad{more?(u,{} n)} tests if \\spad{u} has more than \\spad{n} elements."))
+ (|less?|
+  (((|Boolean|) $ (|NonNegativeInteger|))
+   "\\spad{less?(u,{} n)} tests if \\spad{u} has less than \\spad{n} elements."))
+ (|empty?|
+  (((|Boolean|) $) "\\spad{empty?(u)} tests if \\spad{u} has 0 elements."))
+ (|empty|
+  (($)
+   "\\spad{empty()}\\$\\spad{D} creates an aggregate of type \\spad{D} with 0 elements. Note: The {\\em \\$D} can be dropped if understood by context,{} \\spadignore{e.g.} \\spad{u: D := empty()}."))
+ (|copy|
+  (($ $)
+   "\\spad{copy(u)} returns a top-level (non-recursive) copy of \\spad{u}. Note: for collections,{} \\spad{copy(u) = [x for x in u]}."))
+ (|eq?|
+  (((|Boolean|) $ $)
+   "\\spad{eq?(u,{} v)} tests if \\spad{u} and \\spad{v} are same objects.")))
+(("documentation" 0 1091) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1086) ("predicates" 0 1042) ("superDomain" 0 NIL)
+ ("operationAlist" 0 793) ("modemaps" 0 NIL) ("sourceFile" 0 758)
+ ("constructorCategory" 0 437) ("constructorModemap" 0 46)
+ ("constructorKind" 0 37) ("constructorForm" 0 20))

@@ -1,0 +1,7 @@
+
+-- Input for page GroebnerFactorizationPackageXmpPage
+)clear all
+
+mfzn : SQMATRIX(6,DMP([x,y,z],Fraction INT)) := [[0,1,1,1,1,1], [1,0,1,8/3,x,8/3], [1,1,0,1,8/3,y], [1,8/3,1,0,1,8/3], [1,x,8/3,1,0,1], [1,8/3,y,8/3,1,0]]
+eq := determinant mfzn
+groebnerFactorize [eq, eval(eq, [x,y,z], [y,z,x]), eval(eq, [x,y,z], [z,x,y])]

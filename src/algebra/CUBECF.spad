@@ -1,0 +1,183 @@
+)abbrev package CUBECF CubicalComplexFactory
+++ Author: Martin Baker
+++ Date Created: Apr 2016
+++ Description:
+++  Provides functions to construct various Cubical complexes.
+++  For more information see:
+++  http://www.euclideanspace.com/prog/scratchpad/mycode/topology/cubical/factory/
+PI ==> PositiveInteger
+NNI==> NonNegativeInteger
+x<<y ==> hconcat(x::OutputForm, y::OutputForm)
+
+CubicalComplexFactory() : with
+  sphereSolid : (dim : NNI) -> FiniteCubicalComplex(Integer)
+    ++ Generate a cubical complex equivalent to a solid hyper-sphere. That
+    ++ is, a solid volume with no holes in it, so we use a single n-dimensional
+    ++ cube.
+  sphereSurface : (dim : NNI) -> FiniteCubicalComplex(Integer)
+    ++ Generate a cubical complex equivalent to the surface of a
+    ++ hyper-sphere. That is, the surface of a volume with no holes
+    ++ in it, so we use the faces of a single cube.
+  torusSurface : () -> FiniteCubicalComplex(Integer)
+    ++ generate a cubical complex of the surface of an 3-dimensional torus.
+  band : () -> FiniteCubicalComplex(Integer)
+    ++ Generate a cubical complex of the surface of a cylinder without ends
+  moebiusBand : () -> FiniteCubicalComplex(Integer)
+    ++ Generate a cubical complex of the surface of a Moebius band.
+    ++ A one sided surface with a single external boundary line.
+  projectiveSpace : (dim : NNI) -> FiniteCubicalComplex(Integer)
+    ++ Generate a cubical complex of the surface of a projective plane.
+    ++ A one sided surface which cannot be embedded in 3D space without
+    ++ intersecting itself. There are no external boundaries, every edge
+    ++ connects two faces.
+    ++ (A punctured projective plane is equivalent to a Moebius band)
+  kleinBottle : () -> FiniteCubicalComplex(Integer)
+    ++ generate a cubical complex of the surface of a Klein bottle.
+
+ == add
+
+  -- generate a cubical complex equivalent to a solid hyper-sphere. That
+  -- is, a solid volume with no holes in it, so we use a single
+  -- n-dimensional cube.
+  sphereSolid(dim : NNI) : FiniteCubicalComplex(Integer) ==
+      ASIMP := FiniteCubicalComplex(Integer)
+      v1 : List(List(List(Integer))) := [[[1, 2] for n in 1..dim]]
+      vs1 : List(Integer) := []
+      r := cubicalComplex(vs1, v1)$ASIMP
+      r
+
+  -- generate a cubical complex equivalent to the surface of a
+  -- hyper-sphere. That is, the surface of a volume with no holes in
+  -- it, so we use the faces of a single cube.
+  sphereSurface(dim : NNI) : FiniteCubicalComplex(Integer) ==
+      s := sphereSolid(dim)
+      r := boundary(s)
+      r
+
+  -- generate a cubical complex of the surface of an 3-dimensional torus.
+  torusSurface() : FiniteCubicalComplex(Integer) ==
+      a := sphereSurface(2)
+      b := sphereSurface(2)
+      product(a, b)
+
+  -- generate a cubical complex of the surface of a cylinder without ends
+  band() : FiniteCubicalComplex(Integer) ==
+      a := sphereSurface(2)
+      ASIMP := FiniteCubicalComplex(Integer)
+      v1:List(List(List(Integer))) := [[[1, 2]]]
+      vs1 : List(Integer) := []
+      b := cubicalComplex(vs1, [v1])$ASIMP
+      product(a, b)
+
+  -- generate a cubical complex of the surface of a projective plane.
+  -- (A punctured projective plane is equivalent to a Moebius band)
+  -- see [13] for details
+  projectiveSpace(dim : NNI) : FiniteCubicalComplex(Integer) ==
+      ASIMP := FiniteCubicalComplex(Integer)
+      if dim ~= 2 then
+          error "projectiveSpace only defined for plane"
+      -- TODO define for other dimensions
+      v1 : List(List(List(Integer))) := ([[[1, 2], [1, 1], [1, 1], [1, 2],
+          [1, 1]], [[1, 2], [1, 1], [1, 1], [1, 1], [1, 2]], _
+                    [[1, 1], [1, 2], [1, 2], [1, 1], [1, 1]], _
+                    [[1, 1], [1, 2], [1, 1], [1, 2], [1, 1]], _
+                    [[1, 1], [1, 1], [1, 2], [1, 1], [1, 2]], _
+                    [[1, 2], [1, 2], [2, 2], [1, 1], [1, 1]], _
+                    [[1, 2], [2, 2], [1, 2], [1, 1], [1, 1]], _
+                    [[2, 2], [1, 2], [1, 2], [1, 1], [1, 1]], _
+                    [[1, 2], [1, 2], [1, 1], [1, 1], [2, 2]], _
+                    [[1, 2], [2, 2], [1, 1], [1, 1], [1, 2]], _
+                    [[2, 2], [1, 2], [1, 1], [1, 1], [1, 2]], _
+                    [[1, 2], [1, 1], [1, 2], [2, 2], [1, 1]], _
+                    [[1, 2], [1, 1], [2, 2], [1, 2], [1, 1]], _
+                    [[2, 2], [1, 1], [1, 2], [1, 2], [1, 1]], _
+                    [[1, 1], [1, 2], [1, 1], [1, 2], [2, 2]], _
+                    [[1, 1], [1, 2], [1, 1], [2, 2], [1, 2]], _
+                    [[1, 1], [2, 2], [1, 1], [1, 2], [1, 2]], _
+                    [[1, 1], [1, 1], [1, 2], [1, 2], [2, 2]], _
+                    [[1, 1], [1, 1], [1, 2], [2, 2], [1, 2]], _
+                    [[1, 1], [1, 1], [2, 2], [1, 2], [1, 2]]])
+      vs1 : List(Integer) := []
+      r := cubicalComplex(vs1, v1)$ASIMP
+      --print("projectivePlane=" << r)
+      r
+
+--Copyright (c) 2016, Martin J Baker.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of Martin J Baker. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+)if false
+\eject
+\begin{thebibliography}{99}
+For more details see:
+[1] Mathematics++ Kantor, Matousek, Samal 2015  ISBN 978-1-4704-2261-5
+        Chapter 6 - Topology. Contains a relatively gentle introduction
+        to homology.
+
+[2] Graphs, Surfaces and Homology, Peter Giblin 2010 ISBN 987-0-521-15405-5
+        Builds up to homology groups via graphs and simplicial complexes.
+
+[3] Wikipedia
+\url{https://en.wikipedia.org/wiki/Simplicial_complex}
+
+[4] I have put a fuller explanation of this code here:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/}
+
+[5] Finite simplicial complexes in Sage
+\url{http://doc.sagemath.org/html/en/reference/homology/sage/homology/simplicial_complex.html}
+
+[6] Finite simplicial complexes in NPM
+\url{https://www.npmjs.com/package/simplicial-complex}
+
+[7] Simpcomp - a GAP package for working with simplicial complexes
+\url{https://code.google.com/p/simpcomp/}
+
+[8] A Macaulay2 package for working with simplicial complexes
+\url{http://www.math.uiuc.edu/Macaulay2/doc/Macaulay2-1.8.2/share/doc/Macaulay2/SimplicialComplexes/html}
+
+[9] Hatcher - Algebraic Topology - book also available free online.
+\url{https://www.math.cornell.edu/~hatcher/AT/AT.pdf}
+
+[10]Computational Geometry - Algorithms and Applications by
+    Mark de Berg, Otfried Cheong, Marc van Kreveld and Mark Overmars
+    This book looks at the algorithms from a computer science, rather
+    than pure mathematics, point-of-view. So homotopy or homology is
+    not mentioned but subjects like Voronoi Diagrams, Delauney
+    Triangulations, Convex Hulls and many similar topics are covered.
+[11] Computational Homology by Tomasz Kaczynski, Konstantin Mischaikow,
+           and Marian Mrozek, Springer-Verlag (2004).
+
+[12] Kenzo
+\url{https://www-fourier.ujf-grenoble.fr/~sergerar/Kenzo/}
+[13] Construction Techniques for Cubical Complexes
+\url{http://www.emis.de/journals/EM/expmath/volumes/13/13.4/Schwartz.pdf}
+\end{thebibliography}
+\end{document}
+)endif

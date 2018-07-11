@@ -1,0 +1,61 @@
+)abbrev package STREAM3 StreamFunctions3
+++ Authors: Burge, Watt; updated by Clifton J. Williamson
+++ Date Created: July 1986
+++ Keywords: stream, infinite list, infinite sequence
+StreamFunctions3(A, B, C) : Exports == Implementation where
+  ++ Functions defined on streams with entries in three sets.
+  A  : Type
+  B  : Type
+  C  : Type
+  ST ==> Stream
+
+  Exports ==> with
+    map : ((A, B) -> C, ST A, ST B) -> ST C
+      ++ map(f, st1, st2) returns the stream whose elements are the
+      ++ function f applied to the corresponding elements of st1 and st2.
+      ++ Note: \spad{map(f, [x0, x1, x2, ..], [y0, y1, y2, ..]) = [f(x0, y0), f(x1, y1), ..]}.
+
+  Implementation ==> add
+
+    mapp : ((A, B) -> C, ST A, ST B) -> ST C
+    mapp(g, x, y) == delay
+      empty? x or empty? y => empty()
+      concat(g(frst x, frst y), map(g, rst x, rst y))
+
+    map(g, x, y) ==
+      explicitlyEmpty? x => empty()
+      eq?(x, rst x) => map(z +-> g(frst x, z), y)$StreamFunctions2(B, C)
+      explicitlyEmpty? y => empty()
+      eq?(y, rst y) => map(z +-> g(z, frst y), x)$StreamFunctions2(A, C)
+      mapp(g, x, y)
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

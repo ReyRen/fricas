@@ -1,0 +1,1465 @@
+69698               (|SparseUnivariateLaurentSeries| |Coef| |var| |cen|)
+|domain|
+(((|SparseUnivariateLaurentSeries| |#1| |#2| |#3|)
+  (|Join|
+   (|UnivariateLaurentSeriesConstructorCategory| |#1|
+                                                 (|SparseUnivariateTaylorSeries|
+                                                  |#1| |#2| |#3|))
+   (CATEGORY |domain| (SIGNATURE |coerce| ($ (|Variable| |#2|)))
+    (SIGNATURE |differentiate| ($ $ (|Variable| |#2|)))
+    (IF (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))
+        (SIGNATURE |integrate| ($ $ (|Variable| |#2|)))
+        |noBranch|)))
+  (|Ring|) (|Symbol|) |#1|)
+ (T |SparseUnivariateLaurentSeries|))
+(|Join|
+ (|UnivariateLaurentSeriesConstructorCategory| |#1|
+                                               (|SparseUnivariateTaylorSeries|
+                                                |#1| |#2| |#3|))
+ (CATEGORY |domain| (SIGNATURE |coerce| ($ (|Variable| |#2|)))
+  (SIGNATURE |differentiate| ($ $ (|Variable| |#2|)))
+  (IF (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))
+      (SIGNATURE |integrate| ($ $ (|Variable| |#2|)))
+      |noBranch|)))
+"/git/fricas/src/algebra/SULS.spad"
+((|coerce| (*1 *1 *2)
+           (AND (|isDomain| *2 (|Variable| *4)) (|ofType| *4 (|Symbol|))
+                (|isDomain| *1 (|SparseUnivariateLaurentSeries| *3 *4 *5))
+                (|ofCategory| *3 (|Ring|)) (|ofType| *5 *3)))
+ (|differentiate| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|Variable| *4)) (|ofType| *4 (|Symbol|))
+       (|isDomain| *1 (|SparseUnivariateLaurentSeries| *3 *4 *5))
+       (|ofCategory| *3 (|Ring|)) (|ofType| *5 *3)))
+ (|integrate| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|Variable| *4)) (|ofType| *4 (|Symbol|))
+       (|isDomain| *1 (|SparseUnivariateLaurentSeries| *3 *4 *5))
+       (|ofCategory| *3 (|Algebra| (|Fraction| (|Integer|))))
+       (|ofCategory| *3 (|Ring|)) (|ofType| *5 *3))))
+((~= (((|Boolean|) $ $) NIL))
+ (|zero?|
+  (((|Boolean|) $) NIL
+   (OR (|has| $ (|AbelianMonoid|))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|CommutativeRing|)))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|IntegralDomain|)))
+       (|has| |#1| (|AbelianMonoid|))
+       (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+ (|wholePart|
+  (((|SparseUnivariateTaylorSeries| |#1| |#2| |#3|) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|EuclideanDomain|)))))
+ (|variable| (((|Symbol|) $) 11))
+ (|unitNormal|
+  (((|Record| (|:| |unit| $) (|:| |canonical| $) (|:| |associate| $)) $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|Field|)))))
+ (|unitCanonical|
+  (($ $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|Field|)))))
+ (|unit?|
+  (((|Boolean|) $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|Field|)))))
+ (|truncate| (($ $ (|Integer|)) NIL) (($ $ (|Integer|) (|Integer|)) 66))
+ (|terms| (((|Stream| (|Record| (|:| |k| (|Integer|)) (|:| |c| |#1|))) $) NIL))
+ (|taylorRep| (((|SparseUnivariateTaylorSeries| |#1| |#2| |#3|) $) 36))
+ (|taylorIfCan|
+  (((|Union| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|) "failed") $) 29))
+ (|taylor| (((|SparseUnivariateTaylorSeries| |#1| |#2| |#3|) $) 30))
+ (|tanh| (($ $) 107 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|tan| (($ $) 83 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) NIL
+   (OR (|has| $ (|AbelianGroup|))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|CommutativeRing|)))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|IntegralDomain|)))
+       (|has| |#1| (|CancellationAbelianMonoid|))
+       (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+ (|squareFreePolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|PolynomialFactorizationExplicit|)))))
+ (|squareFreePart| (($ $) NIL (|has| |#1| (|Field|))))
+ (|squareFree| (((|Factored| $) $) NIL (|has| |#1| (|Field|))))
+ (|sqrt| (($ $) NIL (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|solveLinearPolynomialEquation|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| $)) #1="failed")
+    (|List| (|SparseUnivariatePolynomial| $)) (|SparseUnivariatePolynomial| $))
+   NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|PolynomialFactorizationExplicit|)))))
+ (|smaller?|
+  (((|Boolean|) $ $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|Comparable|)))))
+ (|sizeLess?| (((|Boolean|) $ $) NIL (|has| |#1| (|Field|))))
+ (|sinh| (($ $) 103 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|sin| (($ $) 79 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|sign|
+  (((|Integer|) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|OrderedIntegralDomain|)))))
+ (|series|
+  (($ (|Stream| (|Record| (|:| |k| (|Integer|)) (|:| |c| |#1|)))) NIL))
+ (|sech| (($ $) 111 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|sec| (($ $) 87 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|sample|
+  (($) NIL
+   (OR (|has| $ (|AbelianMonoid|))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|CommutativeRing|)))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|IntegralDomain|)))
+       (|has| |#1| (|AbelianMonoid|))
+       (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))
+   CONST))
+ (|rightRecip|
+  (((|Union| $ #2="failed") $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|CommutativeRing|)))
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))
+    (|has| |#1| (|SemiRing|)))))
+ (|rightPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|CommutativeRing|)))
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))
+    (|has| |#1| (|SemiRing|)))))
+ (|retractIfCan|
+  (((|Union| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|) #3="failed") $)
+   31)
+  (((|Union| (|Integer|) #3#) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|RetractableTo| (|Integer|)))))
+  (((|Union| (|Fraction| (|Integer|)) #3#) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|RetractableTo| (|Integer|)))))
+  (((|Union| (|Symbol|) #3#) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|RetractableTo| (|Symbol|))))))
+ (|retract| (((|SparseUnivariateTaylorSeries| |#1| |#2| |#3|) $) 131)
+            (((|Integer|) $) NIL
+             (AND (|has| |#1| (|Field|))
+                  (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (|RetractableTo| (|Integer|)))))
+            (((|Fraction| (|Integer|)) $) NIL
+             (AND (|has| |#1| (|Field|))
+                  (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (|RetractableTo| (|Integer|)))))
+            (((|Symbol|) $) NIL
+             (AND (|has| |#1| (|Field|))
+                  (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (|RetractableTo| (|Symbol|))))))
+ (|removeZeroes| (($ $) 34) (($ (|Integer|) $) 35))
+ (|rem| (($ $ $) NIL (|has| |#1| (|Field|)))) (|reductum| (($ $) NIL))
+ (|reducedSystem|
+  (((|Matrix| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)) (|Matrix| $))
+   NIL (|has| |#1| (|Field|)))
+  (((|Record|
+     (|:| |mat| (|Matrix| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)))
+     (|:| |vec| (|Vector| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|))))
+    (|Matrix| $) (|Vector| $))
+   NIL (|has| |#1| (|Field|)))
+  (((|Record| (|:| |mat| (|Matrix| (|Integer|)))
+              (|:| |vec| (|Vector| (|Integer|))))
+    (|Matrix| $) (|Vector| $))
+   NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|LinearlyExplicitOver| (|Integer|)))))
+  (((|Matrix| (|Integer|)) (|Matrix| $)) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|LinearlyExplicitOver| (|Integer|))))))
+ (|recip|
+  (((|Union| $ #2#) $) 48
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|CommutativeRing|)))
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))
+    (|has| |#1| (|SemiRing|)))))
+ (|rationalFunction|
+  (((|Fraction| (|Polynomial| |#1|)) $ (|Integer|)) 65
+   (|has| |#1| (|IntegralDomain|)))
+  (((|Fraction| (|Polynomial| |#1|)) $ (|Integer|) (|Integer|)) 67
+   (|has| |#1| (|IntegralDomain|))))
+ (|quo| (($ $ $) NIL (|has| |#1| (|Field|))))
+ (|principalIdeal|
+  (((|Record| (|:| |coef| (|List| $)) (|:| |generator| $)) (|List| $)) NIL
+   (|has| |#1| (|Field|))))
+ (|prime?| (((|Boolean|) $) NIL (|has| |#1| (|Field|))))
+ (|positive?|
+  (((|Boolean|) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|OrderedIntegralDomain|)))))
+ (|pole?| (((|Boolean|) $) 25))
+ (|pi| (($) NIL (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|patternMatch|
+  (((|PatternMatchResult| (|Float|) $) $ (|Pattern| (|Float|))
+    (|PatternMatchResult| (|Float|) $))
+   NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|PatternMatchable| (|Float|)))))
+  (((|PatternMatchResult| (|Integer|) $) $ (|Pattern| (|Integer|))
+    (|PatternMatchResult| (|Integer|) $))
+   NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|PatternMatchable| (|Integer|))))))
+ (|order| (((|Integer|) $) NIL) (((|Integer|) $ (|Integer|)) 24))
+ (|opposite?|
+  (((|Boolean|) $ $) NIL
+   (OR (|has| $ (|AbelianMonoid|))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|CommutativeRing|)))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|IntegralDomain|)))
+       (|has| |#1| (|AbelianMonoid|))
+       (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+ (|one?|
+  (((|Boolean|) $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|CommutativeRing|)))
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))
+    (|has| |#1| (|SemiRing|)))))
+ (|numerator| (($ $) NIL (|has| |#1| (|Field|))))
+ (|numer|
+  (((|SparseUnivariateTaylorSeries| |#1| |#2| |#3|) $) 38
+   (|has| |#1| (|Field|))))
+ (|nthRoot|
+  (($ $ (|Integer|)) NIL (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|nextItem|
+  (((|Union| $ "failed") $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|StepThrough|)))))
+ (|negative?|
+  (((|Boolean|) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|OrderedIntegralDomain|)))))
+ (|multiplyExponents| (($ $ (|PositiveInteger|)) NIL))
+ (|multiplyCoefficients| (($ (|Mapping| |#1| (|Integer|)) $) NIL))
+ (|multiEuclidean|
+  (((|Union| (|List| $) #4="failed") (|List| $) $) NIL (|has| |#1| (|Field|))))
+ (|monomial?| (((|Boolean|) $) NIL)) (|monomial| (($ |#1| (|Integer|)) 18))
+ (|min|
+  (($ $ $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|OrderedSet|)))))
+ (|max|
+  (($ $ $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|OrderedSet|)))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) NIL)
+  (($
+    (|Mapping| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|))
+    $)
+   NIL (|has| |#1| (|Field|))))
+ (|log| (($ $) 72 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|leftRecip|
+  (((|Union| $ #2#) $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|CommutativeRing|)))
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))
+    (|has| |#1| (|SemiRing|)))))
+ (|leftPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|CommutativeRing|)))
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))
+    (|has| |#1| (|SemiRing|)))))
+ (|leadingMonomial| (($ $) NIL)) (|leadingCoefficient| ((|#1| $) NIL))
+ (|lcmCoef|
+  (((|Record| (|:| |llcm_res| $) (|:| |coeff1| $) (|:| |coeff2| $)) $ $) NIL
+   (|has| |#1| (|Field|))))
+ (|lcm| (($ (|List| $)) NIL (|has| |#1| (|Field|)))
+  (($ $ $) NIL (|has| |#1| (|Field|))))
+ (|laurent| (($ (|Integer|) (|Stream| |#1|)) NIL)
+  (($ (|Integer|) (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)) 33))
+ (|latex| (((|String|) $) NIL)) (|inv| (($ $) NIL (|has| |#1| (|Field|))))
+ (|integrate| (($ $) 70 (|has| |#1| (|Algebra| (|Fraction| (|Integer|)))))
+  (($ $ (|Symbol|)) NIL
+   (OR
+    (AND (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))
+         (|has| |#1| (|AlgebraicallyClosedFunctionSpace| (|Integer|)))
+         (|has| |#1| (|PrimitiveFunctionCategory|))
+         (|has| |#1| (|TranscendentalFunctionCategory|)))
+    (AND (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))
+         (|has| |#1| (SIGNATURE |integrate| (|#1| |#1| (|Symbol|))))
+         (|has| |#1| (SIGNATURE |variables| ((|List| (|Symbol|)) |#1|))))))
+  (($ $ (|Variable| |#2|)) 71
+   (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|init|
+  (($) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|StepThrough|)))
+   CONST))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|gcdPolynomial|
+  (((|SparseUnivariatePolynomial| $) (|SparseUnivariatePolynomial| $)
+    (|SparseUnivariatePolynomial| $))
+   NIL (|has| |#1| (|Field|))))
+ (|gcd| (($ (|List| $)) NIL (|has| |#1| (|Field|)))
+  (($ $ $) NIL (|has| |#1| (|Field|))))
+ (|fractionPart|
+  (($ $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|EuclideanDomain|)))))
+ (|floor|
+  (((|SparseUnivariateTaylorSeries| |#1| |#2| |#3|) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|IntegerNumberSystem|)))))
+ (|factorSquareFreePolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|PolynomialFactorizationExplicit|)))))
+ (|factorPolynomial|
+  (((|Factored| (|SparseUnivariatePolynomial| $))
+    (|SparseUnivariatePolynomial| $))
+   NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|PolynomialFactorizationExplicit|)))))
+ (|factor| (((|Factored| $) $) NIL (|has| |#1| (|Field|))))
+ (|extendedEuclidean|
+  (((|Union| (|Record| (|:| |coef1| $) (|:| |coef2| $)) #4#) $ $ $) NIL
+   (|has| |#1| (|Field|)))
+  (((|Record| (|:| |coef1| $) (|:| |coef2| $) (|:| |generator| $)) $ $) NIL
+   (|has| |#1| (|Field|))))
+ (|extend| (($ $ (|Integer|)) 145))
+ (|exquo|
+  (((|Union| $ "failed") $ $) 49
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|Field|)))))
+ (|expressIdealMember|
+  (((|Union| (|List| $) "failed") (|List| $) $) NIL (|has| |#1| (|Field|))))
+ (|exp| (($ $) 73 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|eval|
+  (((|Stream| |#1|) $ |#1|) NIL
+   (|has| |#1| (SIGNATURE ^ (|#1| |#1| (|Integer|)))))
+  (($ $ (|Symbol|) (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|InnerEvalable| (|Symbol|)
+                                (|SparseUnivariateTaylorSeries| |#1| |#2|
+                                                                |#3|)))))
+  (($ $ (|List| (|Symbol|))
+    (|List| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)))
+   NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|InnerEvalable| (|Symbol|)
+                                (|SparseUnivariateTaylorSeries| |#1| |#2|
+                                                                |#3|)))))
+  (($ $ (|List| (|Equation| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|))))
+   NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|Evalable| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)))))
+  (($ $ (|Equation| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|))) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|Evalable| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)))))
+  (($ $ (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+    (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|))
+   NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|Evalable| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)))))
+  (($ $ (|List| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|))
+    (|List| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)))
+   NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|Evalable| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|))))))
+ (|euclideanSize| (((|NonNegativeInteger|) $) NIL (|has| |#1| (|Field|))))
+ (|elt| ((|#1| $ (|Integer|)) NIL)
+  (($ $ $) 54 (|has| (|Integer|) (|SemiGroup|)))
+  (($ $ (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|Eltable| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                          (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|))))))
+ (|divide|
+  (((|Record| (|:| |quotient| $) (|:| |remainder| $)) $ $) NIL
+   (|has| |#1| (|Field|))))
+ (|differentiate|
+  (($ $
+    (|Mapping| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)))
+   NIL (|has| |#1| (|Field|)))
+  (($ $
+    (|Mapping| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|))
+    (|NonNegativeInteger|))
+   NIL (|has| |#1| (|Field|)))
+  (($ $ (|List| (|Symbol|)) (|List| (|NonNegativeInteger|))) NIL
+   (OR
+    (AND (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|PartialDifferentialRing| (|Symbol|))))
+    (AND (|has| |#1| (|PartialDifferentialRing| (|Symbol|)))
+         (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+  (($ $ (|Symbol|) (|NonNegativeInteger|)) NIL
+   (OR
+    (AND (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|PartialDifferentialRing| (|Symbol|))))
+    (AND (|has| |#1| (|PartialDifferentialRing| (|Symbol|)))
+         (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+  (($ $ (|List| (|Symbol|))) NIL
+   (OR
+    (AND (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|PartialDifferentialRing| (|Symbol|))))
+    (AND (|has| |#1| (|PartialDifferentialRing| (|Symbol|)))
+         (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+  (($ $ (|Symbol|)) NIL
+   (OR
+    (AND (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|PartialDifferentialRing| (|Symbol|))))
+    (AND (|has| |#1| (|PartialDifferentialRing| (|Symbol|)))
+         (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+  (($ $ (|NonNegativeInteger|)) NIL
+   (OR
+    (AND (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|DifferentialRing|)))
+    (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))))
+  (($ $) 50
+   (OR
+    (AND (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|DifferentialRing|)))
+    (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))))
+  (($ $ (|Variable| |#2|)) 51))
+ (|denominator| (($ $) NIL (|has| |#1| (|Field|))))
+ (|denom|
+  (((|SparseUnivariateTaylorSeries| |#1| |#2| |#3|) $) 41
+   (|has| |#1| (|Field|))))
+ (|degree| (((|Integer|) $) 37))
+ (|csch| (($ $) 113 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|csc| (($ $) 89 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|coth| (($ $) 109 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|cot| (($ $) 85 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|cosh| (($ $) 105 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|cos| (($ $) 81 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|convert|
+  (((|DoubleFloat|) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|RealConstant|))))
+  (((|Float|) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|RealConstant|))))
+  (((|InputForm|) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|ConvertibleTo| (|InputForm|)))))
+  (((|Pattern| (|Float|)) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|ConvertibleTo| (|Pattern| (|Float|))))))
+  (((|Pattern| (|Integer|)) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|ConvertibleTo| (|Pattern| (|Integer|)))))))
+ (|conditionP|
+  (((|Union| (|Vector| $) #1#) (|Matrix| $)) NIL
+   (AND (|has| $ (|CharacteristicNonZero|)) (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|PolynomialFactorizationExplicit|)))))
+ (|complete| (($ $) NIL))
+ (|commutator|
+  (($ $ $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|CommutativeRing|)))
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|Ring|)) (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+ (|coerce| (((|OutputForm|) $) 149)
+           (($ |#1|) NIL
+            (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+                 (|has| |#1| (|CommutativeRing|))))
+           (($ (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)) 27)
+           (($ (|Symbol|)) NIL
+            (AND (|has| |#1| (|Field|))
+                 (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                        (|RetractableTo| (|Symbol|)))))
+           (($ (|Fraction| (|Integer|))) NIL
+            (|has| |#1| (|Algebra| (|Fraction| (|Integer|)))))
+           (($ $) NIL
+            (OR
+             (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+                  (|has| |#1| (|CommutativeRing|)))
+             (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+                  (|has| |#1| (|IntegralDomain|)))
+             (|has| |#1| (|Field|))))
+           (($ (|Integer|)) NIL
+            (OR
+             (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+                  (|has| |#1| (|CommutativeRing|)))
+             (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+                  (|has| |#1| (|IntegralDomain|)))
+             (|has| |#1| (|Ring|))
+             (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))))
+           (($ (|Variable| |#2|)) 23))
+ (|coefficient| ((|#1| $ (|Integer|)) 68))
+ (|charthRoot|
+  (((|Union| $ "failed") $) NIL
+   (OR
+    (AND (|has| $ (|CharacteristicNonZero|)) (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|PolynomialFactorizationExplicit|)))
+    (|has| |#1| (|CharacteristicNonZero|))
+    (AND (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|CharacteristicNonZero|))))))
+ (|characteristic|
+  (((|NonNegativeInteger|)) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|CommutativeRing|)))
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|Ring|)) (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+ (|center| ((|#1| $) 12))
+ (|ceiling|
+  (((|SparseUnivariateTaylorSeries| |#1| |#2| |#3|) $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|IntegerNumberSystem|)))))
+ (|atanh| (($ $) 119 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|atan| (($ $) 95 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|associator|
+  (($ $ $ $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|CommutativeRing|)))
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|Ring|)) (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+ (|associates?|
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|Field|)))))
+ (|asinh| (($ $) 115 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|asin| (($ $) 91 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|asech| (($ $) 123 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|asec| (($ $) 99 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|approximate|
+  ((|#1| $ (|Integer|)) NIL
+   (AND (|has| |#1| (SIGNATURE ^ (|#1| |#1| (|Integer|))))
+        (|has| |#1| (SIGNATURE |coerce| (|#1| (|Symbol|)))))))
+ (|antiCommutator| (($ $ $) NIL))
+ (|annihilate?|
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|CommutativeRing|)))
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (|Ring|)) (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+ (|acsch| (($ $) 125 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|acsc| (($ $) 101 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|acoth| (($ $) 121 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|acot| (($ $) 97 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|acosh| (($ $) 117 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|acos| (($ $) 93 (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+ (|abs|
+  (($ $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|OrderedIntegralDomain|)))))
+ (^ (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|Integer|)) NIL (|has| |#1| (|Field|)))
+  (($ $ $) 74 (|has| |#1| (|Algebra| (|Fraction| (|Integer|)))))
+  (($ $ (|Fraction| (|Integer|))) 128
+   (|has| |#1| (|Algebra| (|Fraction| (|Integer|)))))
+  (($ $ (|NonNegativeInteger|)) 53
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|CommutativeRing|)))
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))
+    (|has| |#1| (|SemiRing|)))))
+ (|Zero|
+  (($) 20
+   (OR (|has| $ (|AbelianMonoid|))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|CommutativeRing|)))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|IntegralDomain|)))
+       (|has| |#1| (|AbelianMonoid|))
+       (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))
+   CONST))
+ (|One|
+  (($) 16
+   (OR
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|CommutativeRing|)))
+    (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+         (|has| |#1| (|IntegralDomain|)))
+    (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))
+    (|has| |#1| (|SemiRing|)))
+   CONST))
+ (D
+  (($ $
+    (|Mapping| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)))
+   NIL (|has| |#1| (|Field|)))
+  (($ $
+    (|Mapping| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|))
+    (|NonNegativeInteger|))
+   NIL (|has| |#1| (|Field|)))
+  (($ $ (|List| (|Symbol|)) (|List| (|NonNegativeInteger|))) NIL
+   (OR
+    (AND (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|PartialDifferentialRing| (|Symbol|))))
+    (AND (|has| |#1| (|PartialDifferentialRing| (|Symbol|)))
+         (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+  (($ $ (|Symbol|) (|NonNegativeInteger|)) NIL
+   (OR
+    (AND (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|PartialDifferentialRing| (|Symbol|))))
+    (AND (|has| |#1| (|PartialDifferentialRing| (|Symbol|)))
+         (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+  (($ $ (|List| (|Symbol|))) NIL
+   (OR
+    (AND (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|PartialDifferentialRing| (|Symbol|))))
+    (AND (|has| |#1| (|PartialDifferentialRing| (|Symbol|)))
+         (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+  (($ $ (|Symbol|)) NIL
+   (OR
+    (AND (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|PartialDifferentialRing| (|Symbol|))))
+    (AND (|has| |#1| (|PartialDifferentialRing| (|Symbol|)))
+         (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+  (($ $ (|NonNegativeInteger|)) NIL
+   (OR
+    (AND (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|DifferentialRing|)))
+    (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))))
+  (($ $) NIL
+   (OR
+    (AND (|has| |#1| (|Field|))
+         (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                (|DifferentialRing|)))
+    (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+ (>=
+  (((|Boolean|) $ $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|OrderedSet|)))))
+ (>
+  (((|Boolean|) $ $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|OrderedSet|)))))
+ (= (((|Boolean|) $ $) NIL))
+ (<=
+  (((|Boolean|) $ $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|OrderedSet|)))))
+ (<
+  (((|Boolean|) $ $) NIL
+   (AND (|has| |#1| (|Field|))
+        (|has| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+               (|OrderedSet|)))))
+ (/ (($ $ |#1|) NIL (|has| |#1| (|Field|))) (($ $ $) 44 (|has| |#1| (|Field|)))
+    (($ (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+      (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|))
+     45 (|has| |#1| (|Field|))))
+ (-
+  (($ $) NIL
+   (OR (|has| $ (|AbelianGroup|))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|CommutativeRing|)))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|IntegralDomain|)))
+       (|has| |#1| (|AbelianGroup|))
+       (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))))
+  (($ $ $) NIL
+   (OR (|has| $ (|AbelianGroup|))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|CommutativeRing|)))
+       (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+            (|has| |#1| (|IntegralDomain|)))
+       (|has| |#1| (|AbelianGroup|))
+       (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|))))))
+ (+ (($ $ $) 21))
+ (* (($ (|PositiveInteger|) $) NIL) (($ $ $) 32) (($ $ |#1|) NIL)
+    (($ |#1| $) NIL)
+    (($ $ (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)) 43
+     (|has| |#1| (|Field|)))
+    (($ (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|) $) 42
+     (|has| |#1| (|Field|)))
+    (($ (|Fraction| (|Integer|)) $) NIL
+     (|has| |#1| (|Algebra| (|Fraction| (|Integer|)))))
+    (($ $ (|Fraction| (|Integer|))) NIL
+     (|has| |#1| (|Algebra| (|Fraction| (|Integer|)))))
+    (($ (|NonNegativeInteger|) $) NIL
+     (OR (|has| $ (|AbelianMonoid|))
+         (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+              (|has| |#1| (|CommutativeRing|)))
+         (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+              (|has| |#1| (|IntegralDomain|)))
+         (|has| |#1| (|AbelianMonoid|))
+         (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))))
+    (($ (|Integer|) $) NIL
+     (OR (|has| $ (|AbelianGroup|))
+         (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+              (|has| |#1| (|CommutativeRing|)))
+         (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+              (|has| |#1| (|IntegralDomain|)))
+         (|has| |#1| (|AbelianGroup|))
+         (|has| |#1| (SIGNATURE * (|#1| (|Integer|) |#1|)))))))
+((|HasCategory| (|Integer|) '(|SemiGroup|)) (|HasCategory| |#1| '(|Field|))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     (LIST '|RetractableTo| '(|Symbol|))))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     (LIST '|ConvertibleTo| '(|InputForm|))))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     '(|RealConstant|)))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     '(|OrderedIntegralDomain|)))
+ (OR (|HasCategory| |#1| '(|CharacteristicZero|))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         '(|CharacteristicZero|)))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         '(|OrderedIntegralDomain|))))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     (LIST '|RetractableTo| '(|Integer|))))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     '(|StepThrough|)))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     (LIST '|InnerEvalable| '(|Symbol|)
+                           (LIST '|SparseUnivariateTaylorSeries|
+                                 (|devaluate| |#1|) (|devaluate| |#2|)
+                                 (|devaluate| |#3|)))))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     (LIST '|Evalable|
+                           (LIST '|SparseUnivariateTaylorSeries|
+                                 (|devaluate| |#1|) (|devaluate| |#2|)
+                                 (|devaluate| |#3|)))))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     (LIST '|Eltable|
+                           (LIST '|SparseUnivariateTaylorSeries|
+                                 (|devaluate| |#1|) (|devaluate| |#2|)
+                                 (|devaluate| |#3|))
+                           (LIST '|SparseUnivariateTaylorSeries|
+                                 (|devaluate| |#1|) (|devaluate| |#2|)
+                                 (|devaluate| |#3|)))))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     (LIST '|LinearlyExplicitOver| '(|Integer|))))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|)))))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Integer|)))))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     (LIST '|PatternMatchable| '(|Float|))))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     (LIST '|PatternMatchable| '(|Integer|))))
+ (|HasCategory| |#1| '(|CommutativeRing|))
+ (OR (|HasCategory| |#1| '(|CommutativeRing|)) (|HasCategory| |#1| '(|Field|)))
+ (|HasSignature| |#1|
+                 (LIST '^
+                       (LIST (|devaluate| |#1|) (|devaluate| |#1|)
+                             '(|Integer|))))
+ (AND
+  (|HasSignature| |#1|
+                  (LIST '^
+                        (LIST (|devaluate| |#1|) (|devaluate| |#1|)
+                              '(|Integer|))))
+  (|HasSignature| |#1| (LIST '|coerce| (LIST (|devaluate| |#1|) '(|Symbol|)))))
+ (|HasCategory| |#1| '(|IntegralDomain|))
+ (OR (|HasCategory| |#1| '(|CommutativeRing|)) (|HasCategory| |#1| '(|Field|))
+     (|HasCategory| |#1| '(|IntegralDomain|)))
+ (OR (|HasCategory| |#1| '(|Field|)) (|HasCategory| |#1| '(|IntegralDomain|)))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     '(|Comparable|)))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     '(|OrderedSet|)))
+ (OR
+  (AND (|HasCategory| |#1| '(|Field|))
+       (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                      '(|OrderedIntegralDomain|)))
+  (AND (|HasCategory| |#1| '(|Field|))
+       (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                      '(|OrderedSet|))))
+ (OR
+  (AND (|HasCategory| |#1| '(|Field|))
+       (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                      '(|Comparable|)))
+  (AND (|HasCategory| |#1| '(|Field|))
+       (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                      '(|OrderedIntegralDomain|)))
+  (AND (|HasCategory| |#1| '(|Field|))
+       (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                      '(|OrderedSet|))))
+ (|HasCategory| |#1| '(|CharacteristicNonZero|))
+ (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                '(|PolynomialFactorizationExplicit|))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     '(|PolynomialFactorizationExplicit|)))
+ (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                '(|CharacteristicNonZero|))
+ (OR (|HasCategory| |#1| '(|CharacteristicNonZero|))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         '(|CharacteristicNonZero|))))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     '(|IntegerNumberSystem|)))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     '(|EuclideanDomain|)))
+ (|HasCategory| |#1| '(|SemiRing|))
+ (|HasSignature| |#1|
+                 (LIST '*
+                       (LIST (|devaluate| |#1|) '(|Integer|)
+                             (|devaluate| |#1|))))
+ (OR (|HasCategory| |#1| '(|SemiRing|))
+     (|HasSignature| |#1|
+                     (LIST '*
+                           (LIST (|devaluate| |#1|) '(|Integer|)
+                                 (|devaluate| |#1|)))))
+ (OR
+  (AND (|HasCategory| |#1| (LIST '|PartialDifferentialRing| '(|Symbol|)))
+       (|HasSignature| |#1|
+                       (LIST '*
+                             (LIST (|devaluate| |#1|) '(|Integer|)
+                                   (|devaluate| |#1|)))))
+  (AND (|HasCategory| |#1| '(|Field|))
+       (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                      (LIST '|PartialDifferentialRing| '(|Symbol|)))))
+ (OR
+  (AND (|HasCategory| |#1| '(|Field|))
+       (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                      '(|DifferentialRing|)))
+  (|HasSignature| |#1|
+                  (LIST '*
+                        (LIST (|devaluate| |#1|) '(|Integer|)
+                              (|devaluate| |#1|)))))
+ (|HasCategory| |#1| '(|Ring|))
+ (OR (|HasCategory| |#1| '(|Ring|))
+     (|HasSignature| |#1|
+                     (LIST '*
+                           (LIST (|devaluate| |#1|) '(|Integer|)
+                                 (|devaluate| |#1|)))))
+ (|HasCategory| |#1| '(|AbelianMonoid|))
+ (|HasCategory| |#1| '(|CancellationAbelianMonoid|))
+ (|HasCategory| |#1| '(|AbelianGroup|))
+ (OR (|HasCategory| |#1| '(|AbelianGroup|))
+     (|HasCategory| |#1| '(|CancellationAbelianMonoid|))
+     (|HasSignature| |#1|
+                     (LIST '*
+                           (LIST (|devaluate| |#1|) '(|Integer|)
+                                 (|devaluate| |#1|)))))
+ (OR (|HasCategory| |#1| '(|AbelianGroup|))
+     (|HasSignature| |#1|
+                     (LIST '*
+                           (LIST (|devaluate| |#1|) '(|Integer|)
+                                 (|devaluate| |#1|)))))
+ (|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+ (OR (|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (LIST '|ConvertibleTo| (LIST '|Pattern| '(|Float|)))))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (LIST '|ConvertibleTo|
+                               (LIST '|Pattern| '(|Integer|)))))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (LIST '|ConvertibleTo| '(|InputForm|))))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (LIST '|Eltable|
+                               (LIST '|SparseUnivariateTaylorSeries|
+                                     (|devaluate| |#1|) (|devaluate| |#2|)
+                                     (|devaluate| |#3|))
+                               (LIST '|SparseUnivariateTaylorSeries|
+                                     (|devaluate| |#1|) (|devaluate| |#2|)
+                                     (|devaluate| |#3|)))))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (LIST '|Evalable|
+                               (LIST '|SparseUnivariateTaylorSeries|
+                                     (|devaluate| |#1|) (|devaluate| |#2|)
+                                     (|devaluate| |#3|)))))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (LIST '|InnerEvalable| '(|Symbol|)
+                               (LIST '|SparseUnivariateTaylorSeries|
+                                     (|devaluate| |#1|) (|devaluate| |#2|)
+                                     (|devaluate| |#3|)))))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (LIST '|LinearlyExplicitOver| '(|Integer|))))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (LIST '|PatternMatchable| '(|Float|))))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (LIST '|PatternMatchable| '(|Integer|))))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (LIST '|RetractableTo| '(|Integer|))))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         (LIST '|RetractableTo| '(|Symbol|))))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         '(|Comparable|)))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         '(|OrderedIntegralDomain|)))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         '(|OrderedSet|)))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         '(|PolynomialFactorizationExplicit|)))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         '(|RealConstant|)))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         '(|StepThrough|))))
+ (OR
+  (AND (|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+       (|HasCategory| (|Fraction| (|Integer|)) '(|AbelianMonoid|)))
+  (|HasCategory| |#1| '(|AbelianGroup|))
+  (|HasCategory| |#1| '(|AbelianMonoid|))
+  (|HasCategory| |#1| '(|CancellationAbelianMonoid|))
+  (|HasSignature| |#1|
+                  (LIST '*
+                        (LIST (|devaluate| |#1|) '(|Integer|)
+                              (|devaluate| |#1|)))))
+ (OR (|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+     (|HasCategory| |#1| '(|CharacteristicNonZero|))
+     (|HasCategory| |#1| '(|CharacteristicZero|))
+     (|HasCategory| |#1| '(|CommutativeRing|)) (|HasCategory| |#1| '(|Field|))
+     (|HasCategory| |#1| '(|IntegralDomain|)) (|HasCategory| |#1| '(|Ring|))
+     (|HasSignature| |#1|
+                     (LIST '*
+                           (LIST (|devaluate| |#1|) '(|Integer|)
+                                 (|devaluate| |#1|)))))
+ (OR
+  (AND (|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+       (|HasCategory| |#1|
+                      (LIST '|AlgebraicallyClosedFunctionSpace| '(|Integer|)))
+       (|HasCategory| |#1| '(|PrimitiveFunctionCategory|))
+       (|HasCategory| |#1| '(|TranscendentalFunctionCategory|)))
+  (AND (|HasCategory| |#1| (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+       (|HasSignature| |#1|
+                       (LIST '|integrate|
+                             (LIST (|devaluate| |#1|) (|devaluate| |#1|)
+                                   '(|Symbol|))))
+       (|HasSignature| |#1|
+                       (LIST '|variables|
+                             (LIST (LIST '|List| '(|Symbol|))
+                                   (|devaluate| |#1|))))))
+ (AND (|HasCategory| |#1| '(|CommutativeRing|))
+      (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))
+ (AND (|HasCategory| |#1| '(|Field|))
+      (|HasCategory| $ '(|CharacteristicNonZero|))
+      (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                     '(|PolynomialFactorizationExplicit|)))
+ (OR (|HasCategory| |#1| '(|CharacteristicNonZero|))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| $ '(|CharacteristicNonZero|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         '(|PolynomialFactorizationExplicit|)))
+     (AND (|HasCategory| |#1| '(|Field|))
+          (|HasCategory| (|SparseUnivariateTaylorSeries| |#1| |#2| |#3|)
+                         '(|CharacteristicNonZero|))))
+ (OR (|HasCategory| |#1| '(|Field|))
+     (AND (|HasCategory| |#1| '(|IntegralDomain|))
+          (|HasCategory| $ '(|VariablesCommuteWithCoefficients|))))
+ (OR
+  (AND (|HasCategory| |#1| '(|CommutativeRing|))
+       (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))
+  (|HasCategory| |#1| '(|Field|))
+  (AND (|HasCategory| |#1| '(|IntegralDomain|))
+       (|HasCategory| $ '(|VariablesCommuteWithCoefficients|))))
+ (OR
+  (AND (|HasCategory| |#1| '(|CommutativeRing|))
+       (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))
+  (AND (|HasCategory| |#1| '(|IntegralDomain|))
+       (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))
+  (|HasCategory| |#1| '(|SemiRing|))
+  (|HasSignature| |#1|
+                  (LIST '*
+                        (LIST (|devaluate| |#1|) '(|Integer|)
+                              (|devaluate| |#1|)))))
+ (OR
+  (AND (|HasCategory| |#1| '(|CommutativeRing|))
+       (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))
+  (AND (|HasCategory| |#1| '(|IntegralDomain|))
+       (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))
+  (|HasCategory| |#1| '(|Ring|))
+  (|HasSignature| |#1|
+                  (LIST '*
+                        (LIST (|devaluate| |#1|) '(|Integer|)
+                              (|devaluate| |#1|)))))
+ (OR (|HasCategory| |#1| '(|AbelianMonoid|))
+     (AND (|HasCategory| |#1| '(|CommutativeRing|))
+          (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))
+     (AND (|HasCategory| |#1| '(|IntegralDomain|))
+          (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))
+     (|HasCategory| $ '(|AbelianMonoid|))
+     (|HasSignature| |#1|
+                     (LIST '*
+                           (LIST (|devaluate| |#1|) '(|Integer|)
+                                 (|devaluate| |#1|)))))
+ (OR (|HasCategory| |#1| '(|CancellationAbelianMonoid|))
+     (AND (|HasCategory| |#1| '(|CommutativeRing|))
+          (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))
+     (AND (|HasCategory| |#1| '(|IntegralDomain|))
+          (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))
+     (|HasCategory| $ '(|AbelianGroup|))
+     (|HasSignature| |#1|
+                     (LIST '*
+                           (LIST (|devaluate| |#1|) '(|Integer|)
+                                 (|devaluate| |#1|)))))
+ (OR (|HasCategory| |#1| '(|AbelianGroup|))
+     (AND (|HasCategory| |#1| '(|CommutativeRing|))
+          (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))
+     (AND (|HasCategory| |#1| '(|IntegralDomain|))
+          (|HasCategory| $ '(|VariablesCommuteWithCoefficients|)))
+     (|HasCategory| $ '(|AbelianGroup|))
+     (|HasSignature| |#1|
+                     (LIST '*
+                           (LIST (|devaluate| |#1|) '(|Integer|)
+                                 (|devaluate| |#1|))))))
+SULS
+(((|UnivariateLaurentSeriesConstructorCategory| |#1|
+                                                (|SparseUnivariateTaylorSeries|
+                                                 |#1| |#2| |#3|))
+  . T))
+(((|AbelianGroup|) OR (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))))
+  (AND (|has| |t#1| (|CharacteristicZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| |t#1| (|CharacteristicNonZero|)) (|has| |t#1| (|Field|)))
+  (|has| |t#1| (|AbelianGroup|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|AbelianMonoid|) OR (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))))
+  (AND (|has| |t#1| (|CharacteristicZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| |t#1| (|CharacteristicNonZero|)) (|has| |t#1| (|Field|)))
+  (|has| |t#1| (|AbelianMonoid|))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|SemiRing|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|AbelianMonoidRing| |t#1| |t#2|) . T) ((|AbelianSemiGroup|) . T)
+ ((|Algebra| (|Fraction| (|Integer|))) |has| |t#1|
+  (|Algebra| (|Fraction| (|Integer|))))
+ ((|Algebra| $) OR (|has| |t#1| (|Field|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|Algebra| |t#1|) OR (|has| |t#1| (|Field|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|ArcHyperbolicFunctionCategory|) |has| |t#1|
+  (|Algebra| (|Fraction| (|Integer|))))
+ ((|ArcTrigonometricFunctionCategory|) |has| |t#1|
+  (|Algebra| (|Fraction| (|Integer|))))
+ ((|BasicType|) . T) ((|BiModule| |t#1| |t#1|) . T) ((|BiModule| $ $) . T)
+ ((|CancellationAbelianMonoid|) OR
+  (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))))
+  (AND (|has| |t#1| (|CharacteristicZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| |t#1| (|CharacteristicNonZero|)) (|has| |t#1| (|Field|)))
+  (|has| |t#1| (|CancellationAbelianMonoid|))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|SemiRing|)))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|Ring|)))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|Field|)))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|CharacteristicZero|)))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|CharacteristicNonZero|)))
+  (AND (|has| |t#1| (|AbelianGroup|))
+       (|has| |t#1| (|Algebra| (|Fraction| (|Integer|)))))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|CharacteristicNonZero|) |has| |t#1| (|CharacteristicNonZero|))
+ ((|CharacteristicZero|) OR
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (|has| |t#1| (|CharacteristicZero|)))
+ ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|CommutativeRing|) OR (|has| |t#1| (|Field|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|CommutativeStar|) OR (|has| |t#1| (|Field|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|Comparable|) OR (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (AND (|has| |t#1| (|Comparable|)) (|has| |t#1| (|Field|))))
+ ((|ConvertibleTo| (|InputForm|)) AND
+  (|has| |t#1| (|ConvertibleTo| (|InputForm|))) (|has| |t#1| (|Field|)))
+ ((|ConvertibleTo| (|Float|)) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|RealConstant|)))
+ ((|ConvertibleTo| (|DoubleFloat|)) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|RealConstant|)))
+ ((|ConvertibleTo| (|Pattern| (|Float|))) AND
+  (|has| |t#1| (|ConvertibleTo| (|Pattern| (|Float|))))
+  (|has| |t#1| (|Field|)))
+ ((|ConvertibleTo| (|Pattern| (|Integer|))) AND
+  (|has| |t#1| (|ConvertibleTo| (|Pattern| (|Integer|))))
+  (|has| |t#1| (|Field|)))
+ ((|DifferentialExtension| |t#1|) |has| |t#1| (|Field|))
+ ((|DifferentialRing|) OR (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|)))
+  (AND (|has| |t#1| (|DifferentialRing|)) (|has| |t#1| (|Field|))))
+ ((|DivisionRing|) |has| |t#1| (|Field|))
+ ((|ElementaryFunctionCategory|) |has| |t#1|
+  (|Algebra| (|Fraction| (|Integer|))))
+ ((|Eltable| |t#1| $) AND (|has| |t#1| (|Eltable| |t#1| |t#1|))
+  (|has| |t#1| (|Field|)))
+ ((|Eltable| $ $) |has| |t#2| (|SemiGroup|))
+ ((|EntireRing|) OR (|has| |t#1| (|Field|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|EuclideanDomain|) |has| |t#1| (|Field|))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|Field|)))
+ ((|Field|) |has| |t#1| (|Field|))
+ ((|FullyEvalableOver| |t#1|) |has| |t#1| (|Field|))
+ ((|FullyLinearlyExplicitOver| |t#1|) |has| |t#1| (|Field|))
+ ((|FullyPatternMatchable| |t#1|) |has| |t#1| (|Field|))
+ ((|GcdDomain|) |has| |t#1| (|Field|))
+ ((|HyperbolicFunctionCategory|) |has| |t#1|
+  (|Algebra| (|Fraction| (|Integer|))))
+ ((|InnerEvalable| (|Symbol|) |t#1|) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|InnerEvalable| (|Symbol|) |t#1|)))
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|Field|)))
+ ((|IntegralDomain|) OR (|has| |t#1| (|Field|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|LeftModule| |t#1|) . T) ((|LeftOreRing|) |has| |t#1| (|Field|))
+ ((|LinearlyExplicitOver| (|Integer|)) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))))
+ ((|LinearlyExplicitOver| |t#1|) |has| |t#1| (|Field|)) ((|Magma|) . T)
+ ((|MagmaWithUnit|) OR (|has| |t#1| (|SemiRing|))
+  (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))))
+  (AND (|has| |t#1| (|CharacteristicZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| |t#1| (|CharacteristicNonZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|Module| |t#1|) OR
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (|has| |t#1| (|Algebra| (|Fraction| (|Integer|))))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|Monoid|) OR (|has| |t#1| (|SemiRing|))
+  (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))))
+  (AND (|has| |t#1| (|CharacteristicZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| |t#1| (|CharacteristicNonZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|NonAssociativeRing|) OR (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|)))
+  (|has| |t#1| (|Ring|))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))))
+  (AND (|has| |t#1| (|CharacteristicZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| |t#1| (|CharacteristicNonZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|NonAssociativeRng|) OR (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|)))
+  (|has| |t#1| (|Ring|))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))))
+  (AND (|has| |t#1| (|CharacteristicZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| |t#1| (|CharacteristicNonZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|NonAssociativeSemiRing|) OR (|has| |t#1| (|SemiRing|))
+  (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))))
+  (AND (|has| |t#1| (|CharacteristicZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| |t#1| (|CharacteristicNonZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|NonAssociativeSemiRng|) . T)
+ ((|OrderedAbelianGroup|) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|OrderedIntegralDomain|)))
+ ((|OrderedAbelianMonoid|) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|OrderedIntegralDomain|)))
+ ((|OrderedAbelianSemiGroup|) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|OrderedIntegralDomain|)))
+ ((|OrderedCancellationAbelianMonoid|) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|OrderedIntegralDomain|)))
+ ((|OrderedIntegralDomain|) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|OrderedIntegralDomain|)))
+ ((|OrderedRing|) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|OrderedIntegralDomain|)))
+ ((|OrderedSet|) OR (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|))))
+ ((|PartialDifferentialRing| (|Symbol|)) OR
+  (AND (|has| |t#1| (|PartialDifferentialRing| (|Symbol|)))
+       (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|))))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PartialDifferentialRing| (|Symbol|)))))
+ ((|PartialOrder|) OR
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|))))
+ ((|PatternMatchable| (|Float|)) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|PatternMatchable| (|Float|))))
+ ((|PatternMatchable| (|Integer|)) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|PatternMatchable| (|Integer|))))
+ ((|Patternable| |t#1|) |has| |t#1| (|Field|))
+ ((|PolynomialFactorizationExplicit|) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+ ((|PowerSeriesCategory| |t#1| |t#2| (|SingletonAsOrderedSet|)) . T)
+ ((|PrincipalIdealDomain|) |has| |t#1| (|Field|))
+ ((|QuotientFieldCategory| |t#2|) |has| |t#1| (|Field|))
+ ((|RadicalCategory|) |has| |t#1| (|Algebra| (|Fraction| (|Integer|))))
+ ((|RealConstant|) AND (|has| |t#1| (|Field|)) (|has| |t#1| (|RealConstant|)))
+ ((|RetractableTo| (|Symbol|)) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|RetractableTo| (|Symbol|))))
+ ((|RetractableTo| (|Integer|)) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|RetractableTo| (|Integer|))))
+ ((|RetractableTo| (|Fraction| (|Integer|))) AND (|has| |t#1| (|Field|))
+  (|has| |t#1| (|RetractableTo| (|Integer|))))
+ ((|RetractableTo| |t#1|) |has| |t#1| (|Field|)) ((|RetractableTo| |t#2|) . T)
+ ((|RightModule| |t#2|) . T)
+ ((|Ring|) OR (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|)))
+  (|has| |t#1| (|Ring|))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))))
+  (AND (|has| |t#1| (|CharacteristicZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| |t#1| (|CharacteristicNonZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|Rng|) OR (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|)))
+  (|has| |t#1| (|Ring|))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))))
+  (AND (|has| |t#1| (|CharacteristicZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| |t#1| (|CharacteristicNonZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|SemiGroup|) . T)
+ ((|SemiRing|) OR (|has| |t#1| (|SemiRing|))
+  (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))))
+  (AND (|has| |t#1| (|CharacteristicZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| |t#1| (|CharacteristicNonZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|SemiRng|) . T) ((|SetCategory|) . T)
+ ((|StepThrough|) AND (|has| |t#1| (|Field|)) (|has| |t#1| (|StepThrough|)))
+ ((|TranscendentalFunctionCategory|) |has| |t#1|
+  (|Algebra| (|Fraction| (|Integer|))))
+ ((|TrigonometricFunctionCategory|) |has| |t#1|
+  (|Algebra| (|Fraction| (|Integer|))))
+ ((|TwoSidedRecip|) OR (|has| |t#1| (|Field|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|Type|) |has| |t#1| (|Field|))
+ ((|UniqueFactorizationDomain|) |has| |t#1| (|Field|))
+ ((|UnivariateLaurentSeriesCategory| |t#1|) . T)
+ ((|UnivariateLaurentSeriesConstructorCategory| |#1|
+                                                (|SparseUnivariateTaylorSeries|
+                                                 |#1| |#2| |#3|))
+  . T)
+ ((|UnivariatePowerSeriesCategory| |t#1| (|Integer|)) . T)
+ ((|VariablesCommuteWithCoefficients|) . T)
+ ((|canonicalUnitNormal|) |has| |t#1| (|Field|))
+ ((|canonicalsClosed|) |has| |t#1| (|Field|))
+ ((|noZeroDivisors|) OR (|has| |t#1| (|Field|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|unitsKnown|) OR (|has| |t#1| (SIGNATURE * (|t#1| |t#2| |t#1|)))
+  (|has| |t#1| (|Ring|))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|PolynomialFactorizationExplicit|)))
+  (AND (|has| |t#1| (|Field|)) (|has| |t#1| (|OrderedIntegralDomain|)))
+  (AND (|has| |t#1| (|Field|))
+       (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))))
+  (AND (|has| |t#1| (|CharacteristicZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| |t#1| (|CharacteristicNonZero|)) (|has| |t#1| (|Field|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|)))))
+((|constructor|
+  (NIL
+   "Sparse Laurent series in one variable \\indented{2}{\\spadtype{SparseUnivariateLaurentSeries} is a domain representing Laurent} \\indented{2}{series in one variable with coefficients in an arbitrary ring.\\space{2}The} \\indented{2}{parameters of the type specify the coefficient ring,{} the power series} \\indented{2}{variable,{} and the center of the power series expansion.\\space{2}For example,{}} \\indented{2}{\\spad{SparseUnivariateLaurentSeries(Integer,{} x,{} 3)} represents Laurent} \\indented{2}{series in \\spad{(x - 3)} with integer coefficients.}"))
+ (|integrate|
+  (($ $ (|Variable| |#2|))
+   "\\spad{integrate(f(x))} returns an anti-derivative of the power series \\spad{f(x)} with constant coefficient 0. We may integrate a series when we can divide coefficients by integers."))
+ (|differentiate|
+  (($ $ (|Variable| |#2|))
+   "\\spad{differentiate(f(x),{} x)} returns the derivative of \\spad{f(x)} with respect to \\spad{x}."))
+ (|coerce|
+  (($ (|Variable| |#2|))
+   "\\spad{coerce(var)} converts the series variable \\spad{var} into a Laurent series.")))
+(("documentation" 0 68595) ("ancestors" 0 51887) ("parents" 0 51680)
+ ("abbreviation" 0 51675) ("predicates" 0 34014) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1876) ("modemaps" 0 1155) ("sourceFile" 0 1119)
+ ("constructorCategory" 0 668) ("constructorModemap" 0 82)
+ ("constructorKind" 0 73) ("constructorForm" 0 20))

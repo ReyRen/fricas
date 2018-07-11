@@ -1,0 +1,50 @@
+2603                (|StreamFunctions2| A B)
+|package|
+(((|StreamFunctions2| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |map| ((|Stream| |#2|) (|Mapping| |#2| |#1|) (|Stream| |#1|)))
+   (SIGNATURE |scan|
+    ((|Stream| |#2|) |#2| (|Mapping| |#2| |#1| |#2|) (|Stream| |#1|)))
+   (SIGNATURE |reduce| (|#2| |#2| (|Mapping| |#2| |#1| |#2|) (|Stream| |#1|))))
+  (|Type|) (|Type|))
+ (T |StreamFunctions2|))
+(CATEGORY |package|
+ (SIGNATURE |map| ((|Stream| |#2|) (|Mapping| |#2| |#1|) (|Stream| |#1|)))
+ (SIGNATURE |scan|
+  ((|Stream| |#2|) |#2| (|Mapping| |#2| |#1| |#2|) (|Stream| |#1|)))
+ (SIGNATURE |reduce| (|#2| |#2| (|Mapping| |#2| |#1| |#2|) (|Stream| |#1|))))
+"/git/fricas/src/algebra/STREAM2.spad"
+((|reduce| (*1 *2 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *2 *5 *2)) (|isDomain| *4 (|Stream| *5))
+       (|ofCategory| *5 (|Type|)) (|ofCategory| *2 (|Type|))
+       (|isDomain| *1 (|StreamFunctions2| *5 *2))))
+ (|scan| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *4 (|Mapping| *3 *6 *3)) (|isDomain| *5 (|Stream| *6))
+       (|ofCategory| *6 (|Type|)) (|ofCategory| *3 (|Type|))
+       (|isDomain| *2 (|Stream| *3))
+       (|isDomain| *1 (|StreamFunctions2| *6 *3))))
+ (|map| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *6 *5)) (|isDomain| *4 (|Stream| *5))
+       (|ofCategory| *5 (|Type|)) (|ofCategory| *6 (|Type|))
+       (|isDomain| *2 (|Stream| *6))
+       (|isDomain| *1 (|StreamFunctions2| *5 *6)))))
+((|scan|
+  (((|Stream| |#2|) |#2| (|Mapping| |#2| |#1| |#2|) (|Stream| |#1|)) 25))
+ (|reduce| ((|#2| |#2| (|Mapping| |#2| |#1| |#2|) (|Stream| |#1|)) 26))
+ (|map| (((|Stream| |#2|) (|Mapping| |#2| |#1|) (|Stream| |#1|)) 16)))
+STREAM2
+((|constructor| (NIL "Functions defined on streams with entries in two sets."))
+ (|reduce|
+  ((|#2| |#2| (|Mapping| |#2| |#1| |#2|) (|Stream| |#1|))
+   "\\spad{reduce(b,{} f,{} u)},{} where \\spad{u} is a finite stream \\spad{[x0,{} x1,{} ...,{} xn]},{} returns the value \\spad{r(n)} computed as follows: \\spad{r0 = f(x0,{} b),{} r1 = f(x1,{} r0),{} ...,{} r(n) = f(xn,{} r(n-1))}."))
+ (|scan|
+  (((|Stream| |#2|) |#2| (|Mapping| |#2| |#1| |#2|) (|Stream| |#1|))
+   "\\spad{scan(b,{} h,{} [x0,{} x1,{} x2,{} ...])} returns \\spad{[y0,{} y1,{} y2,{} ...]},{} where \\spad{y0 = h(x0,{} b)},{} \\spad{y1 = h(x1,{} y0)},{} \\spad{...} \\spad{yn = h(xn,{} y(n-1))}."))
+ (|map|
+  (((|Stream| |#2|) (|Mapping| |#2| |#1|) (|Stream| |#1|))
+   "\\spad{map(f,{} s)} returns a stream whose elements are the function \\spad{f} applied to the corresponding elements of \\spad{s}. Note: \\spad{map(f,{} [x0,{} x1,{} x2,{} ...]) = [f(x0),{} f(x1),{} f(x2),{} ..]}.")))
+(("documentation" 0 1648) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1640) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1414) ("modemaps" 0 705) ("sourceFile" 0 666)
+ ("constructorCategory" 0 405) ("constructorModemap" 0 55)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

@@ -1,0 +1,98 @@
+4631                (|PushVariables| R E OV PPR)
+|package|
+(((|PushVariables| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |pushdown| (|#4| |#4| |#3|))
+   (SIGNATURE |pushdown| (|#4| |#4| (|List| |#3|)))
+   (SIGNATURE |pushup| (|#4| |#4| |#3|))
+   (SIGNATURE |pushup| (|#4| |#4| (|List| |#3|)))
+   (SIGNATURE |map| (|#4| (|Mapping| |#4| (|Polynomial| |#1|)) |#4|)))
+  (|Ring|) (|OrderedAbelianMonoidSup|)
+  (|Join| (|OrderedSet|)
+          (CATEGORY |domain| (SIGNATURE |convert| ((|Symbol|) $))
+           (SIGNATURE |variable| ((|Union| $ "failed") (|Symbol|)))))
+  (|PolynomialCategory| (|Polynomial| |#1|) |#2| |#3|))
+ (T |PushVariables|))
+(CATEGORY |package| (SIGNATURE |pushdown| (|#4| |#4| |#3|))
+ (SIGNATURE |pushdown| (|#4| |#4| (|List| |#3|)))
+ (SIGNATURE |pushup| (|#4| |#4| |#3|))
+ (SIGNATURE |pushup| (|#4| |#4| (|List| |#3|)))
+ (SIGNATURE |map| (|#4| (|Mapping| |#4| (|Polynomial| |#1|)) |#4|)))
+"/git/fricas/src/algebra/PUSHVAR.spad"
+((|map| (*1 *2 *3 *2)
+  (AND (|isDomain| *3 (|Mapping| *2 (|Polynomial| *4)))
+       (|ofCategory| *4 (|Ring|))
+       (|ofCategory| *2 (|PolynomialCategory| (|Polynomial| *4) *5 *6))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |convert| ((|Symbol|) $))
+                              (SIGNATURE |variable|
+                               ((|Union| $ #1="failed") (|Symbol|))))))
+       (|isDomain| *1 (|PushVariables| *4 *5 *6 *2))))
+ (|pushup| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|List| *6))
+       (|ofCategory| *6
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |convert| ((|Symbol|) $))
+                              (SIGNATURE |variable|
+                               ((|Union| $ #1#) (|Symbol|))))))
+       (|ofCategory| *4 (|Ring|)) (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *1 (|PushVariables| *4 *5 *6 *2))
+       (|ofCategory| *2 (|PolynomialCategory| (|Polynomial| *4) *5 *6))))
+ (|pushup| (*1 *2 *2 *3)
+  (AND (|ofCategory| *4 (|Ring|)) (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *3
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |convert| ((|Symbol|) $))
+                              (SIGNATURE |variable|
+                               ((|Union| $ #1#) (|Symbol|))))))
+       (|isDomain| *1 (|PushVariables| *4 *5 *3 *2))
+       (|ofCategory| *2 (|PolynomialCategory| (|Polynomial| *4) *5 *3))))
+ (|pushdown| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|List| *6))
+       (|ofCategory| *6
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |convert| ((|Symbol|) $))
+                              (SIGNATURE |variable|
+                               ((|Union| $ #1#) (|Symbol|))))))
+       (|ofCategory| *4 (|Ring|)) (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *1 (|PushVariables| *4 *5 *6 *2))
+       (|ofCategory| *2 (|PolynomialCategory| (|Polynomial| *4) *5 *6))))
+ (|pushdown| (*1 *2 *2 *3)
+  (AND (|ofCategory| *4 (|Ring|)) (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *3
+                     (|Join| (|OrderedSet|)
+                             (CATEGORY |domain|
+                              (SIGNATURE |convert| ((|Symbol|) $))
+                              (SIGNATURE |variable|
+                               ((|Union| $ #1#) (|Symbol|))))))
+       (|isDomain| *1 (|PushVariables| *4 *5 *3 *2))
+       (|ofCategory| *2 (|PolynomialCategory| (|Polynomial| *4) *5 *3)))))
+((|pushup| ((|#4| |#4| (|List| |#3|)) 55) ((|#4| |#4| |#3|) 54))
+ (|pushdown| ((|#4| |#4| (|List| |#3|)) 23) ((|#4| |#4| |#3|) 19))
+ (|map| ((|#4| (|Mapping| |#4| (|Polynomial| |#1|)) |#4|) 30)))
+PUSHVAR
+((|constructor| (NIL "This package \\undocumented{}"))
+ (|map|
+  ((|#4| (|Mapping| |#4| (|Polynomial| |#1|)) |#4|)
+   "\\spad{map(f,{} p)} \\undocumented{}"))
+ (|pushup|
+  ((|#4| |#4| (|List| |#3|)) "\\spad{pushup(p,{} lv)} \\undocumented{}")
+  ((|#4| |#4| |#3|) "\\spad{pushup(p,{} v)} \\undocumented{}"))
+ (|pushdown|
+  ((|#4| |#4| (|List| |#3|)) "\\spad{pushdown(p,{} lv)} \\undocumented{}")
+  ((|#4| |#4| |#3|) "\\spad{pushdown(p,{} v)} \\undocumented{}"))
+ (|variable|
+  (((|Union| $ "failed") (|Symbol|))
+   "\\spad{variable(s)} makes an element from symbol \\spad{s} or fails"))
+ (|convert|
+  (((|Symbol|) $) "\\spad{convert(x)} converts \\spad{x} to a symbol")))
+(("documentation" 0 3960) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3952) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3756) ("modemaps" 0 958) ("sourceFile" 0 919)
+ ("constructorCategory" 0 653) ("constructorModemap" 0 59)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

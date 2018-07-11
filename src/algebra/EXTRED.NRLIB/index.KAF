@@ -1,0 +1,45 @@
+2008                (|ExtendedPolynomialReduction| C E R)
+|package|
+(((|ExtendedPolynomialReduction| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |reduce|
+    ((|Record| (|:| |poly| |#3|) (|:| |repr| (|Vector| |#3|))
+               (|:| |mult| |#1|))
+     |#3| (|List| |#3|))))
+  (|GcdDomain|) (|OrderedAbelianMonoidSup|)
+  (|Join| (|FiniteAbelianMonoidRing| |#1| |#2|)
+          (|VariablesCommuteWithCoefficients|)))
+ (T |ExtendedPolynomialReduction|))
+(CATEGORY |package|
+ (SIGNATURE |reduce|
+  ((|Record| (|:| |poly| |#3|) (|:| |repr| (|Vector| |#3|)) (|:| |mult| |#1|))
+   |#3| (|List| |#3|))))
+"/git/fricas/src/algebra/EXTRED.spad"
+((|reduce| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|List| *3))
+       (|ofCategory| *3
+                     (|Join| (|FiniteAbelianMonoidRing| *5 *6)
+                             (|VariablesCommuteWithCoefficients|)))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|Record| (|:| |poly| *3) (|:| |repr| (|Vector| *3))
+                             (|:| |mult| *5)))
+       (|isDomain| *1 (|ExtendedPolynomialReduction| *5 *6 *3)))))
+((|reduce|
+  (((|Record| (|:| |poly| |#3|) (|:| |repr| (|Vector| |#3|)) (|:| |mult| |#1|))
+    |#3| (|List| |#3|))
+   43)))
+EXTRED
+((|constructor|
+  (NIL
+   "\\indented{1}{ExtendedPolynomialReduction(\\spad{C},{} \\spad{E},{} \\spad{R}) is a package that allows} denominatorFree reductions of a polynomial \\spad{r} from \\spad{R} \\spad{wrt} a list of polynomials from \\spad{R} (usually such a list is a Groebner basis \\spad{wrt} the order given via \\spad{E}). Additionally,{} the reduction steps are recorded and provided in the output."))
+ (|reduce|
+  (((|Record| (|:| |poly| |#3|) (|:| |repr| (|Vector| |#3|)) (|:| |mult| |#1|))
+    |#3| (|List| |#3|))
+   "\\spad{reduce(r,{} bas)} returns a triple (\\spad{p},{} \\spad{v},{} \\spad{m}) such that \\spad{m*r} = sum(bas.\\spad{i} * \\spad{v}.\\spad{i},{} \\spad{i=1}..\\#bas) + \\spad{p}")))
+(("documentation" 0 1291) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1284) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1160) ("modemaps" 0 645) ("sourceFile" 0 607)
+ ("constructorCategory" 0 462) ("constructorModemap" 0 68)
+ ("constructorKind" 0 58) ("constructorForm" 0 20))

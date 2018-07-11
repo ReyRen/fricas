@@ -1,0 +1,117 @@
+6051                (|InnerTrigonometricManipulations| R F FG)
+|package|
+(((|InnerTrigonometricManipulations| |#1| |#2| |#3|)
+  (CATEGORY |package| (SIGNATURE GF2FG (|#3| (|Complex| |#2|)))
+   (SIGNATURE FG2F (|#2| |#3|)) (SIGNATURE F2FG (|#3| |#2|))
+   (SIGNATURE |explogs2trigs| ((|Complex| |#2|) |#3|))
+   (SIGNATURE |trigs2explogs| (|#3| |#3| (|List| (|Kernel| |#3|))))
+   (SIGNATURE |do_liou|
+    ((|Complex| |#2|) (|BasicOperator|) (|List| (|Complex| |#2|)))))
+  (|Join| (|IntegralDomain|) (|Comparable|))
+  (|Join| (|FunctionSpace| |#1|) (|RadicalCategory|)
+          (|TranscendentalFunctionCategory|))
+  (|Join| (|FunctionSpace| (|Complex| |#1|)) (|RadicalCategory|)
+          (|TranscendentalFunctionCategory|)))
+ (T |InnerTrigonometricManipulations|))
+(CATEGORY |package| (SIGNATURE GF2FG (|#3| (|Complex| |#2|)))
+ (SIGNATURE FG2F (|#2| |#3|)) (SIGNATURE F2FG (|#3| |#2|))
+ (SIGNATURE |explogs2trigs| ((|Complex| |#2|) |#3|))
+ (SIGNATURE |trigs2explogs| (|#3| |#3| (|List| (|Kernel| |#3|))))
+ (SIGNATURE |do_liou|
+  ((|Complex| |#2|) (|BasicOperator|) (|List| (|Complex| |#2|)))))
+"/git/fricas/src/algebra/ITRIGMNP.spad"
+((|do_liou| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|BasicOperator|))
+       (|isDomain| *4 (|List| (|Complex| *6)))
+       (|ofCategory| *5 (|Join| (|IntegralDomain|) (|Comparable|)))
+       (|isDomain| *2 (|Complex| *6))
+       (|isDomain| *1 (|InnerTrigonometricManipulations| *5 *6 *7))
+       (|ofCategory| *6
+                     (|Join| (|FunctionSpace| *5) (|RadicalCategory|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *7
+                     (|Join| (|FunctionSpace| (|Complex| *5))
+                             (|RadicalCategory|)
+                             (|TranscendentalFunctionCategory|)))))
+ (|trigs2explogs| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Kernel| *2)))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| (|Complex| *4))
+                             (|RadicalCategory|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *4 (|Join| (|IntegralDomain|) (|Comparable|)))
+       (|isDomain| *1 (|InnerTrigonometricManipulations| *4 *5 *2))
+       (|ofCategory| *5
+                     (|Join| (|FunctionSpace| *4) (|RadicalCategory|)
+                             (|TranscendentalFunctionCategory|)))))
+ (|explogs2trigs| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|Join| (|IntegralDomain|) (|Comparable|)))
+       (|isDomain| *2 (|Complex| *5))
+       (|isDomain| *1 (|InnerTrigonometricManipulations| *4 *5 *3))
+       (|ofCategory| *5
+                     (|Join| (|FunctionSpace| *4) (|RadicalCategory|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *3
+                     (|Join| (|FunctionSpace| (|Complex| *4))
+                             (|RadicalCategory|)
+                             (|TranscendentalFunctionCategory|)))))
+ (F2FG (*1 *2 *3)
+  (AND (|ofCategory| *4 (|Join| (|IntegralDomain|) (|Comparable|)))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| (|Complex| *4))
+                             (|RadicalCategory|)
+                             (|TranscendentalFunctionCategory|)))
+       (|isDomain| *1 (|InnerTrigonometricManipulations| *4 *3 *2))
+       (|ofCategory| *3
+                     (|Join| (|FunctionSpace| *4) (|RadicalCategory|)
+                             (|TranscendentalFunctionCategory|)))))
+ (FG2F (*1 *2 *3)
+  (AND (|ofCategory| *4 (|Join| (|IntegralDomain|) (|Comparable|)))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| *4) (|RadicalCategory|)
+                             (|TranscendentalFunctionCategory|)))
+       (|isDomain| *1 (|InnerTrigonometricManipulations| *4 *2 *3))
+       (|ofCategory| *3
+                     (|Join| (|FunctionSpace| (|Complex| *4))
+                             (|RadicalCategory|)
+                             (|TranscendentalFunctionCategory|)))))
+ (GF2FG (*1 *2 *3)
+  (AND (|isDomain| *3 (|Complex| *5))
+       (|ofCategory| *5
+                     (|Join| (|FunctionSpace| *4) (|RadicalCategory|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *4 (|Join| (|IntegralDomain|) (|Comparable|)))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| (|Complex| *4))
+                             (|RadicalCategory|)
+                             (|TranscendentalFunctionCategory|)))
+       (|isDomain| *1 (|InnerTrigonometricManipulations| *4 *5 *2)))))
+((|trigs2explogs| ((|#3| |#3| (|List| (|Kernel| |#3|))) 66))
+ (|explogs2trigs| (((|Complex| |#2|) |#3|) 133))
+ (|do_liou|
+  (((|Complex| |#2|) (|BasicOperator|) (|List| (|Complex| |#2|))) 93))
+ (GF2FG ((|#3| (|Complex| |#2|)) 39)) (FG2F ((|#2| |#3|) 23))
+ (F2FG ((|#3| |#2|) 28)))
+ITRIGMNP
+((|constructor|
+  (NIL
+   "This package provides transformations from trigonometric functions to exponentials and logarithms,{} and back. \\spad{F} and \\spad{FG} should be the same type of function space."))
+ (|do_liou|
+  (((|Complex| |#2|) (|BasicOperator|) (|List| (|Complex| |#2|)))
+   "\\spad{do_liou(op,{} lf)} should be local but conditional."))
+ (|trigs2explogs|
+  ((|#3| |#3| (|List| (|Kernel| |#3|)))
+   "\\spad{trigs2explogs(f,{} [k1,{} ...,{} kn])} rewrites all the trigonometric functions appearing in \\spad{f} in terms of complex logarithms and exponentials. A kernel of the form \\spad{tan(u)} is expressed using \\spad{exp(u)^2} if it is one of the \\spad{\\spad{ki}'s},{} in terms of \\spad{exp(2*u)} otherwise."))
+ (|explogs2trigs|
+  (((|Complex| |#2|) |#3|)
+   "\\spad{explogs2trigs(f)} rewrites all the complex logs and exponentials appearing in \\spad{f} in terms of trigonometric functions."))
+ (F2FG ((|#3| |#2|) "\\spad{F2FG(a + sqrt(-1) b)} returns \\spad{a + i b}."))
+ (FG2F ((|#2| |#3|) "\\spad{FG2F(a + i b)} returns \\spad{a + sqrt(-1) b}."))
+ (GF2FG
+  ((|#3| (|Complex| |#2|))
+   "\\spad{GF2FG(a + i b)} returns \\spad{a + i b} viewed as a function with the \\spad{i} pushed down into the coefficient domain.")))
+(("documentation" 0 4807) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4798) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4517) ("modemaps" 0 1132) ("sourceFile" 0 1092)
+ ("constructorCategory" 0 763) ("constructorModemap" 0 73)
+ ("constructorKind" 0 63) ("constructorForm" 0 20))

@@ -1,0 +1,52 @@
+)abbrev domain FBICPO FiniteBiCPO
+++ Author: Martin Baker
+++ Description:
+++ Holds a complete set together with a structure to codify the partial order.
+++ For more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+++ Date Created: Aug 2015
+++ Basic Operations:
+++ Related packages: UserDefinedPartialOrdering in setorder.spad
+++ Related categories: PartialOrder in catdef.spad
+++ Related Domains: DirectedGraph in graph.spad
+++ Also See:
+++ AMS Classifications:
+++ Keywords: poset partial order
+++ Examples: power set structure
+++ References:
+++ Axiom: reflexivity forall(x): x<=x
+++ Axiom: antisymmetry forall(x, y): x<=y and y<=x iff x=y
+++ Axiom: transitivity forall(x, y, z): x<=y and y<=z implies x<=z
+
+FiniteBiCPO(S) : Exports == Impl where
+    S : SetCategory
+    PI ==> PositiveInteger
+    NNI ==> NonNegativeInteger
+    SINT ==> SingleInteger
+    OBJT ==> Record(value : S, posX : NNI, posY : NNI)
+    ARROW ==> Record(name : String, arrType : NNI, fromOb : NNI, toOb : NNI,
+                     xOffset : Integer, yOffset : Integer, map : List NNI)
+
+    Exports ==> BiCPO(S)
+
+    Impl ==> FinitePoset(S) add
+
+      -- returns the join of 'a' and 'b'
+      -- In this version of join nodes are represented as index values.
+      join(s : %, a : NNI, b : NNI) : NNI ==
+          res : Union(NNI, "failed") := joinIfCan(s, a, b)
+          if res = "failed" then error "This POSET does not have join"
+          res::NNI
+
+      -- returns the meet of 'a' and 'b'
+      -- In this version of meet nodes are represented as index values.
+      meet(s : %, a : NNI, b : NNI) : NNI ==
+          res : Union(NNI, "failed") := meetIfCan(s, a, b)
+          if res = "failed" then error "This POSET does not have meet"
+          res::NNI
+
+)if false
+\section{Lattice Structures}
+End of POSET structures and start of lattice structures
+)endif
+

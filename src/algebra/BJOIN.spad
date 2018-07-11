@@ -1,0 +1,20 @@
+)abbrev category BJOIN BoundedJoinSemilattice
+++ Author: Martin Baker
+++ Date Created: Aug 2015
+++ Basic Operations: Join
+++ Related Constructors: JoinSemilattice
+++  use BoundedJoinSemilattice if the semilattice has a 'bottom' which will be
+++  the case for all finite join semilattices since we can do a join of all
+++  values
+++ Keywords: Join Bottom
+++ Description: join semilattice with bottom
+++   Different from exterior Grassmann product operator as
+++   that anticommutes.
+++   need to check precedence when used as an infix operator
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+++ Axiom: unit forall x: x \/ _|_=x
+BoundedJoinSemilattice: Category == JoinSemilattice with
+      "__|__" : constant -> %
+        ++ bottom (false in logic).
+

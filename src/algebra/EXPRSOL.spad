@@ -1,0 +1,104 @@
+)abbrev package EXPRSOL ExpressionSolve
+ExpressionSolve(R, F, UTSF, UTSSMPF) : Exports == Implementation where
+    R : Join(Comparable, IntegralDomain, ConvertibleTo InputForm)
+    F : FunctionSpace R
+    UTSF : UnivariateTaylorSeriesCategory F
+    SMPF ==> SparseMultivariatePolynomialExpressions F
+    UTSSMPF : UnivariateTaylorSeriesCategory SMPF
+    OP   ==> BasicOperator
+    SY   ==> Symbol
+    NNI  ==> NonNegativeInteger
+    MKF ==> MakeBinaryCompiledFunction(F, UTSSMPF, UTSSMPF, UTSSMPF)
+
+    Exports == with
+
+        seriesSolve : (F, OP, SY, List F) -> UTSF
+        replaceDiffs : (F, OP, Symbol) -> F
+
+    Implementation == add
+
+)if false
+
+The general method is to transform the given expression into a form which can
+then be compiled. There is currently no other way in Axiom to transform an
+expression into a function.
+
+We need to replace the differentiation operator by the corresponding function
+in the power series category, and make composition explicit. Furthermore, we
+need to replace the variable by the corresponding variable in the power series.
+It turns out that the compiler doesn't find the right definition of
+[[monomial(1, 1)]]. Thus we introduce it as a second argument. In fact, maybe
+that's even cleaner. Also, we need to tell the compiler that kernels that are
+independent of the main variable should be coerced to elements of the
+coefficient ring, since it will complain otherwise.
+\begin{ToDo}
+  I cannot find an example for this behaviour right now. However, if I do use
+  the coerce, the following fails:
+  \begin{verbatim}
+     seriesSolve(h x -1-x*h x *h(q*x), h, x, [1])
+  \end{verbatim}
+\end{ToDo}
+
+)endif
+
+        opelt := operator('elt)$OP
+        opdiff := operator('D)$OP
+        opcoerce := operator('coerce)$OP
+
+--        replaceDiffs: (F, OP, Symbol) -> F
+        replaceDiffs (expr, op, sy) ==
+            lk := kernels expr
+            for k in lk repeat
+--                if freeOf?(coerce k, sy) then
+--                    expr := subst(expr, [k], [opcoerce [coerce k]])
+
+                if is?(k, op) then
+                    arg := first argument k
+                    if arg = sy::F
+                    then expr := subst(expr, [k], [(name op)::F])
+                    else expr := subst(expr, [k], [opelt [(name op)::F,
+                                                          replaceDiffs(arg, op,
+                                                          sy)]])
+--                    => "iterate"
+
+                if is?(k, '%diff) then
+                    args := argument k
+                    differentiand :=
+                        replaceDiffs(subst(args.1, args.2 = args.3), op, sy)
+                    expr := subst(expr, [k], [opdiff differentiand])
+--                    => "iterate"
+            expr
+
+
+        seriesSolve(expr, op, sy, l) ==
+            ex := replaceDiffs(expr, op, sy)
+            f := compiledFunction(ex, name op, sy)$MKF
+            seriesSolve(x +-> f(x, monomial(1, 1)$UTSSMPF),
+                        l)$TaylorSolve(F, UTSF, UTSSMPF)
+
+
+--Copyright (c) 2006-2007, Martin Rubey <Martin.Rubey@univie.ac.at>
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

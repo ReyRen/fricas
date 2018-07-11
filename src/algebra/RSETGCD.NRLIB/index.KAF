@@ -1,0 +1,247 @@
+12873               (|RegularTriangularSetGcdPackage| R E V P TS)
+|package|
+(((|RegularTriangularSetGcdPackage| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package|
+   (SIGNATURE |startTableGcd!| ((|Void|) (|String|) (|String|) (|String|)))
+   (SIGNATURE |stopTableGcd!| ((|Void|)))
+   (SIGNATURE |startTableInvSet!| ((|Void|) (|String|) (|String|) (|String|)))
+   (SIGNATURE |stopTableInvSet!| ((|Void|)))
+   (SIGNATURE |prepareSubResAlgo|
+    ((|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#4| |#4|
+     |#5|))
+   (SIGNATURE |internalLastSubResultant|
+    ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|
+     (|Boolean|) (|Boolean|)))
+   (SIGNATURE |internalLastSubResultant|
+    ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|)))
+     (|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#3|
+     (|Boolean|)))
+   (SIGNATURE |integralLastSubResultant|
+    ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|))
+   (SIGNATURE |toseLastSubResultant|
+    ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|))
+   (SIGNATURE |toseInvertible?| ((|Boolean|) |#4| |#5|))
+   (SIGNATURE |toseInvertible?|
+    ((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|))
+   (SIGNATURE |toseInvertibleSet| ((|List| |#5|) |#4| |#5|))
+   (SIGNATURE |toseSquareFreePart|
+    ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#5|)))
+  (|GcdDomain|) (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|RecursivePolynomialCategory| |#1| |#2| |#3|)
+  (|RegularTriangularSetCategory| |#1| |#2| |#3| |#4|))
+ (T |RegularTriangularSetGcdPackage|))
+(CATEGORY |package|
+ (SIGNATURE |startTableGcd!| ((|Void|) (|String|) (|String|) (|String|)))
+ (SIGNATURE |stopTableGcd!| ((|Void|)))
+ (SIGNATURE |startTableInvSet!| ((|Void|) (|String|) (|String|) (|String|)))
+ (SIGNATURE |stopTableInvSet!| ((|Void|)))
+ (SIGNATURE |prepareSubResAlgo|
+  ((|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#4| |#4|
+   |#5|))
+ (SIGNATURE |internalLastSubResultant|
+  ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|
+   (|Boolean|) (|Boolean|)))
+ (SIGNATURE |internalLastSubResultant|
+  ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|)))
+   (|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#3|
+   (|Boolean|)))
+ (SIGNATURE |integralLastSubResultant|
+  ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|))
+ (SIGNATURE |toseLastSubResultant|
+  ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|))
+ (SIGNATURE |toseInvertible?| ((|Boolean|) |#4| |#5|))
+ (SIGNATURE |toseInvertible?|
+  ((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|))
+ (SIGNATURE |toseInvertibleSet| ((|List| |#5|) |#4| |#5|))
+ (SIGNATURE |toseSquareFreePart|
+  ((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#5|)))
+"/git/fricas/src/algebra/RSETGCD.spad"
+((|toseSquareFreePart| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|List| (|Record| (|:| |val| *3) (|:| |tower| *4))))
+       (|isDomain| *1 (|RegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|toseInvertibleSet| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|List| *4))
+       (|isDomain| *1 (|RegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|toseInvertible?| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |val| (|Boolean|)) (|:| |tower| *4))))
+       (|isDomain| *1 (|RegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|toseInvertible?| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|RegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|toseLastSubResultant| (*1 *2 *3 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|List| (|Record| (|:| |val| *3) (|:| |tower| *4))))
+       (|isDomain| *1 (|RegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|integralLastSubResultant| (*1 *2 *3 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|List| (|Record| (|:| |val| *3) (|:| |tower| *4))))
+       (|isDomain| *1 (|RegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|internalLastSubResultant| (*1 *2 *3 *4 *5)
+  (AND
+   (|isDomain| *3 (|List| (|Record| (|:| |val| (|List| *8)) (|:| |tower| *9))))
+   (|isDomain| *5 (|Boolean|))
+   (|ofCategory| *8 (|RecursivePolynomialCategory| *6 *7 *4))
+   (|ofCategory| *9 (|RegularTriangularSetCategory| *6 *7 *4 *8))
+   (|ofCategory| *6 (|GcdDomain|))
+   (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *4 (|OrderedSet|))
+   (|isDomain| *2 (|List| (|Record| (|:| |val| *8) (|:| |tower| *9))))
+   (|isDomain| *1 (|RegularTriangularSetGcdPackage| *6 *7 *4 *8 *9))))
+ (|internalLastSubResultant| (*1 *2 *3 *3 *4 *5 *5)
+  (AND (|isDomain| *5 (|Boolean|)) (|ofCategory| *6 (|GcdDomain|))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *8 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *6 *7 *8))
+       (|isDomain| *2 (|List| (|Record| (|:| |val| *3) (|:| |tower| *4))))
+       (|isDomain| *1 (|RegularTriangularSetGcdPackage| *6 *7 *8 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *6 *7 *8 *3))))
+ (|prepareSubResAlgo| (*1 *2 *3 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |val| (|List| *3)) (|:| |tower| *4))))
+       (|isDomain| *1 (|RegularTriangularSetGcdPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|stopTableInvSet!| (*1 *2)
+  (AND (|ofCategory| *3 (|GcdDomain|))
+       (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|ofCategory| *6 (|RecursivePolynomialCategory| *3 *4 *5))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|RegularTriangularSetGcdPackage| *3 *4 *5 *6 *7))
+       (|ofCategory| *7 (|RegularTriangularSetCategory| *3 *4 *5 *6))))
+ (|startTableInvSet!| (*1 *2 *3 *3 *3)
+  (AND (|isDomain| *3 (|String|)) (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|))
+       (|ofCategory| *7 (|RecursivePolynomialCategory| *4 *5 *6))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|RegularTriangularSetGcdPackage| *4 *5 *6 *7 *8))
+       (|ofCategory| *8 (|RegularTriangularSetCategory| *4 *5 *6 *7))))
+ (|stopTableGcd!| (*1 *2)
+  (AND (|ofCategory| *3 (|GcdDomain|))
+       (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|ofCategory| *6 (|RecursivePolynomialCategory| *3 *4 *5))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|RegularTriangularSetGcdPackage| *3 *4 *5 *6 *7))
+       (|ofCategory| *7 (|RegularTriangularSetCategory| *3 *4 *5 *6))))
+ (|startTableGcd!| (*1 *2 *3 *3 *3)
+  (AND (|isDomain| *3 (|String|)) (|ofCategory| *4 (|GcdDomain|))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|))
+       (|ofCategory| *7 (|RecursivePolynomialCategory| *4 *5 *6))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|RegularTriangularSetGcdPackage| *4 *5 *6 *7 *8))
+       (|ofCategory| *8 (|RegularTriangularSetCategory| *4 *5 *6 *7)))))
+((|toseSquareFreePart|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#5|) 81))
+ (|toseLastSubResultant|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|)
+   111))
+ (|toseInvertibleSet| (((|List| |#5|) |#4| |#5|) 70))
+ (|toseInvertible?|
+  (((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|)
+   44)
+  (((|Boolean|) |#4| |#5|) 52))
+ (|stopTableInvSet!| (((|Void|)) 35)) (|stopTableGcd!| (((|Void|)) 25))
+ (|startTableInvSet!| (((|Void|) (|String|) (|String|) (|String|)) 31))
+ (|startTableGcd!| (((|Void|) (|String|) (|String|) (|String|)) 20))
+ (|prepareSubResAlgo|
+  (((|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#4| |#4|
+    |#5|)
+   94))
+ (|internalLastSubResultant|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|)))
+    (|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#3|
+    (|Boolean|))
+   105)
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|
+    (|Boolean|) (|Boolean|))
+   49))
+ (|integralLastSubResultant|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|)
+   100)))
+RSETGCD
+((|constructor|
+  (NIL
+   "An internal package for computing gcds and resultants of univariate polynomials with coefficients in a tower of simple extensions of a field.\\newline"))
+ (|toseSquareFreePart|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#5|)
+   "\\spad{toseSquareFreePart(p,{} ts)} has the same specifications as \\spadopFrom{squareFreePart}{RegularTriangularSetCategory}."))
+ (|toseInvertibleSet|
+  (((|List| |#5|) |#4| |#5|)
+   "\\spad{toseInvertibleSet(p1,{} p2,{} ts)} has the same specifications as \\spadopFrom{invertibleSet}{RegularTriangularSetCategory}."))
+ (|toseInvertible?|
+  (((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| |#5|))) |#4| |#5|)
+   "\\spad{toseInvertible?(p1,{} p2,{} ts)} has the same specifications as \\spadopFrom{invertible?}{RegularTriangularSetCategory}.")
+  (((|Boolean|) |#4| |#5|)
+   "\\spad{toseInvertible?(p1,{} p2,{} ts)} has the same specifications as \\spadopFrom{invertible?}{RegularTriangularSetCategory}."))
+ (|toseLastSubResultant|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|)
+   "\\spad{toseLastSubResultant(p1,{} p2,{} ts)} has the same specifications as \\spadopFrom{lastSubResultant}{RegularTriangularSetCategory}."))
+ (|integralLastSubResultant|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|)
+   "\\spad{integralLastSubResultant(p1,{} p2,{} ts)} is an internal subroutine,{} exported only for developement."))
+ (|internalLastSubResultant|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|)))
+    (|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#3|
+    (|Boolean|))
+   "\\spad{internalLastSubResultant(lpwt,{} v,{} flag)} is an internal subroutine,{} exported only for developement.")
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| |#5|))) |#4| |#4| |#5|
+    (|Boolean|) (|Boolean|))
+   "\\spad{internalLastSubResultant(p1,{} p2,{} ts,{} inv?,{} break?)} is an internal subroutine,{} exported only for developement."))
+ (|prepareSubResAlgo|
+  (((|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) |#4| |#4|
+    |#5|)
+   "\\spad{prepareSubResAlgo(p1,{} p2,{} ts)} is an internal subroutine,{} exported only for developement."))
+ (|stopTableInvSet!|
+  (((|Void|))
+   "\\spad{stopTableInvSet!()} is an internal subroutine,{} exported only for developement."))
+ (|startTableInvSet!|
+  (((|Void|) (|String|) (|String|) (|String|))
+   "\\spad{startTableInvSet!(s1,{} s2,{} s3)} is an internal subroutine,{} exported only for developement."))
+ (|stopTableGcd!|
+  (((|Void|))
+   "\\spad{stopTableGcd!()} is an internal subroutine,{} exported only for developement."))
+ (|startTableGcd!|
+  (((|Void|) (|String|) (|String|) (|String|))
+   "\\spad{startTableGcd!(s1,{} s2,{} s3)} is an internal subroutine,{} exported only for developement.")))
+(("documentation" 0 10046) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 10038) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 8891) ("modemaps" 0 2944) ("sourceFile" 0 2905)
+ ("constructorCategory" 0 1648) ("constructorModemap" 0 76)
+ ("constructorKind" 0 66) ("constructorForm" 0 20))

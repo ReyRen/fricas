@@ -1,0 +1,97 @@
+)abbrev domain HEAP Heap
+++ Author: Michael Monagan and Stephen Watt
+++ Date Created: June 86 and July 87
+++ Basic Operations:
+++ Related Domains:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+++ Description:
+
+++ Heap implemented in a flexible array to allow for insertions
+++ Complexity: O(log n) insertion, extraction and O(n) construction
+
+Heap(S : OrderedSet) : Exports == Implementation where
+  Exports == PriorityQueueAggregate S with
+    heap : List S -> %
+      ++ heap(ls) creates a heap of elements consisting of the
+      ++ elements of ls.
+  Implementation == IndexedFlexibleArray(S, 0) add
+    Rep := IndexedFlexibleArray(S, 0)
+    empty() == empty()$Rep
+    heap l == construct(l)
+    siftUp : (%, Integer, Integer) -> Void
+    siftUp(r, i, n) ==
+       -- assertion 0 <= i < n
+       t := r.i
+       while (j := 2*i+1) < n repeat
+          if (k := j+1) < n and r.j < r.k then j := k
+          if t < r.j then (r.i := r.j; r.j := t; i := j) else break
+
+    extract! r ==
+       -- extract the maximum from the heap O(log n)
+       n := #r :: Integer
+       n = 0 => error "empty heap"
+       t := r(0)
+       r(0) := r(n-1)
+       delete!(r, n-1)
+       n = 1 => t
+       siftUp(r, 0, n-1)
+       t
+
+    insert!(x, r) ==
+       -- Williams' insertion algorithm O(log n)
+       j := (#r) :: Integer
+       r := concat!(r, x)
+       while j > 0 repeat
+          i := (j-1) quo 2
+          if r(i) >= x then break
+          r(j) := r(i)
+          j := i
+       r(j) := x
+       r
+
+    max r == if #r = 0 then error "empty heap" else r.0
+    inspect r == max r
+
+    makeHeap(r : %) : % ==
+       -- Floyd's heap construction algorithm O(n)
+       n := #r
+       for k in n quo 2 -1 .. 0 by -1 repeat siftUp(r, k, n)
+       r
+    construct l == makeHeap construct(l)$Rep
+    merge(a, b) == makeHeap concat(a, b)
+    merge!(a, b) == makeHeap concat!(a, b)
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

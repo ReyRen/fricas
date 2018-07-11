@@ -1,0 +1,71 @@
+)abbrev package GUESSP1 GuessPolynomialFunctions
+++ Description:
+++ This package exports coercion and retraction from EXPR INT to
+++ polynomials
+GuessPolynomialFunctions(R : Ring):
+  Exports == Implementation where
+
+    EXPRR ==> Expression Integer
+
+    Exports == with
+
+      F2EXPRR : Fraction Polynomial R -> EXPRR
+      EXPRR2F : EXPRR -> Fraction Polynomial R
+
+      iim2 : R -> EXPRR
+      ++ should be local but conditional
+      iiretractVar : Kernel EXPRR -> Polynomial R
+      ++ should be local but conditional
+
+    Implementation == add
+
+      m1(var : Symbol) : EXPRR == coerce(var)$EXPRR@EXPRR
+
+      m3(var : Kernel EXPRR) : EXPRR == var::EXPRR
+
+      if EXPRR has RetractableTo R then
+          iim2(coeff : R) : EXPRR == coeff::EXPRR
+
+          iiretractVar(v : Kernel EXPRR) : Polynomial R ==
+              v2 := m3 v
+              (r := retractIfCan(v2)@Union(R, "failed")) case "failed" =>
+                  retract(v2)@Symbol::Polynomial(R)
+              r::R::Polynomial(R)
+
+      else
+          if R has ConvertibleTo Integer then
+              iim2(coeff : R) : EXPRR == (convert(coeff)@Integer)::EXPRR
+
+              iiretractVar(v : Kernel EXPRR) : Polynomial R ==
+                  v2 := m3 v
+                  (r := retractIfCan(v2)@Union(Integer, "failed")) case "failed" =>
+                      retract(v2)@Symbol::Polynomial(R)
+                  r::Integer::R::Polynomial(R)
+          else
+              error "retraction and coercion to EXPR INT is not implemented for this Ring"
+
+
+      PL1 ==> PolynomialCategoryLifting(IndexedExponents(Symbol), Symbol,
+                                        R, Polynomial(R), EXPRR)
+
+
+      S2EXPRR(p : Polynomial R) : EXPRR ==
+          map((var : Symbol) : EXPRR +-> m1 var,
+              (coeff : R) : EXPRR +-> iim2 coeff, p)$PL1
+
+      F2EXPRR(p : Fraction Polynomial R) : EXPRR ==
+          S2EXPRR(numer p) / S2EXPRR(denom p)
+
+      SMP ==> SparseMultivariatePolynomial(Integer, Kernel EXPRR)
+      PL2 ==> PolynomialCategoryLifting(IndexedExponents Kernel EXPRR,
+                                        Kernel EXPRR, Integer, SMP,
+                                        Polynomial R)
+
+      SMP2S(p : SMP) : Polynomial R ==
+          map((var : Kernel EXPRR) : Polynomial(R) +-> iiretractVar(var),
+              (coeff : Integer) : Polynomial(R) +-> coeff::R::Polynomial(R), p)$PL2
+
+      EXPRR2F(p : EXPRR) : Fraction Polynomial R ==
+          SMP2S(numer p)/SMP2S(denom p)
+
+

@@ -1,0 +1,18 @@
+)abbrev category DCPO Dcpo
+++ Author: Martin Baker
+++ Description:
+++ Directed-complete partial order, partial order that is guaranteed to
+++ have a join of any two elements.  For more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+++ Axiom: reflexivity forall(x): x<=x
+++ Axiom: transitivity forall(x, y, z): x<=y and y<=z implies x<=z
+++ Date Created: Oct 2015
+Dcpo(S) : Category == Definition where
+ S : SetCategory
+ NNI ==> NonNegativeInteger
+ Definition ==> Poset(S) with
+     join : (s : %, a : NNI, b : NNI) -> NNI
+       ++ returns the join of 'a' and 'b'
+       ++ In this version of join nodes are represented as index values.
+       ++ Not every poset will have a join but DCPO will.
+

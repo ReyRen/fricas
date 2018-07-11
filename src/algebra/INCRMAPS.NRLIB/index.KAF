@@ -1,0 +1,34 @@
+1483                (|IncrementingMaps| R)
+|package|
+(((|IncrementingMaps| |#1|)
+  (CATEGORY |package| (SIGNATURE |increment| ((|Mapping| |#1| |#1|)))
+   (SIGNATURE |incrementBy| ((|Mapping| |#1| |#1|) |#1|)))
+  (|Join| (|Monoid|) (|AbelianSemiGroup|)))
+ (T |IncrementingMaps|))
+(CATEGORY |package| (SIGNATURE |increment| ((|Mapping| |#1| |#1|)))
+ (SIGNATURE |incrementBy| ((|Mapping| |#1| |#1|) |#1|)))
+"/git/fricas/src/algebra/INCRMAPS.spad"
+((|incrementBy| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Mapping| *3 *3))
+       (|isDomain| *1 (|IncrementingMaps| *3))
+       (|ofCategory| *3 (|Join| (|Monoid|) (|AbelianSemiGroup|)))))
+ (|increment| (*1 *2)
+  (AND (|isDomain| *2 (|Mapping| *3 *3))
+       (|isDomain| *1 (|IncrementingMaps| *3))
+       (|ofCategory| *3 (|Join| (|Monoid|) (|AbelianSemiGroup|))))))
+((|incrementBy| (((|Mapping| |#1| |#1|) |#1|) 11))
+ (|increment| (((|Mapping| |#1| |#1|)) 10)))
+INCRMAPS
+((|constructor|
+  (NIL "This package provides operations to create incrementing functions."))
+ (|incrementBy|
+  (((|Mapping| |#1| |#1|) |#1|)
+   "\\spad{incrementBy(n)} produces a function which adds \\spad{n} to whatever argument it is given. For example,{} if {\\spad{f} \\spad{:=} increment(\\spad{n})} then \\spad{f x} is \\spad{x+n}."))
+ (|increment|
+  (((|Mapping| |#1| |#1|))
+   "\\spad{increment()} produces a function which adds \\spad{1} to whatever argument it is given. For example,{} if {\\spad{f} \\spad{:=} increment()} then \\spad{f x} is \\spad{x+1}.")))
+(("documentation" 0 911) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 902) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 806) ("modemaps" 0 444) ("sourceFile" 0 404)
+ ("constructorCategory" 0 279) ("constructorModemap" 0 53)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

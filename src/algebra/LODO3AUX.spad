@@ -1,0 +1,13 @@
+)abbrev domain LODO3AUX LinearOrdinaryDifferentialOperator3Aux
+++ Description: \spad{LinearOrdinaryDifferentialOperator3Aux} is
+++  a helper for \spad{LinearOrdinaryDifferentialOperator3}
+++  defining appropriate derivative.
+LinearOrdinaryDifferentialOperator3Aux(Coeff : Ring,
+      A : AbelianMonoidRing(Coeff, NonNegativeInteger),
+      R : Join(DifferentialRing, LeftModule(A))) : with
+    delta_deriv : R -> R
+      ++ delta_deriv(f) is x*f' where x is variable in A
+  == add
+    delta_deriv(x) ==
+        monomial(1$Coeff, 1$NonNegativeInteger)$A*differentiate(x)$R
+

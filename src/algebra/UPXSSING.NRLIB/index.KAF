@@ -1,0 +1,308 @@
+15006               (|UnivariatePuiseuxSeriesWithExponentialSingularity| R FE
+                                                                         |var|
+                                                                         |cen|)
+|domain|
+(((|UnivariatePuiseuxSeriesWithExponentialSingularity| |#1| |#2| |#3| |#4|)
+  (|Join|
+   (|FiniteAbelianMonoidRing| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+                              (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3|
+                                                                      |#4|))
+   (|IntegralDomain|)
+   (CATEGORY |domain|
+    (SIGNATURE |limitPlus| ((|Union| (|OrderedCompletion| |#2|) "failed") $))
+    (SIGNATURE |dominantTerm|
+     ((|Union|
+       (|Record|
+        (|:| |%term|
+             (|Record| (|:| |%coef| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|))
+                       (|:| |%expon|
+                            (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3|
+                                                                    |#4|))
+                       (|:| |%expTerms|
+                            (|List|
+                             (|Record| (|:| |k| (|Fraction| (|Integer|)))
+                                       (|:| |c| |#2|))))))
+        (|:| |%type| (|String|)))
+       "failed")
+      $))))
+  (|Join| (|Comparable|) (|RetractableTo| (|Integer|))
+          (|LinearlyExplicitOver| (|Integer|)) (|GcdDomain|))
+  (|Join| (|AlgebraicallyClosedField|) (|TranscendentalFunctionCategory|)
+          (|FunctionSpace| |#1|))
+  (|Symbol|) |#2|)
+ (T |UnivariatePuiseuxSeriesWithExponentialSingularity|))
+(|Join|
+ (|FiniteAbelianMonoidRing| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+                            (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3|
+                                                                    |#4|))
+ (|IntegralDomain|)
+ (CATEGORY |domain|
+  (SIGNATURE |limitPlus| ((|Union| (|OrderedCompletion| |#2|) "failed") $))
+  (SIGNATURE |dominantTerm|
+   ((|Union|
+     (|Record|
+      (|:| |%term|
+           (|Record| (|:| |%coef| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|))
+                     (|:| |%expon|
+                          (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3|
+                                                                  |#4|))
+                     (|:| |%expTerms|
+                          (|List|
+                           (|Record| (|:| |k| (|Fraction| (|Integer|)))
+                                     (|:| |c| |#2|))))))
+      (|:| |%type| (|String|)))
+     "failed")
+    $))))
+"/git/fricas/src/algebra/UPXSSING.spad"
+((|limitPlus| (*1 *2 *1)
+  (|partial| AND
+   (|ofCategory| *3
+                 (|Join| (|Comparable|) (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|)) (|GcdDomain|)))
+   (|isDomain| *2 (|OrderedCompletion| *4))
+   (|isDomain| *1
+               (|UnivariatePuiseuxSeriesWithExponentialSingularity| *3 *4 *5
+                                                                    *6))
+   (|ofCategory| *4
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| *3)))
+   (|ofType| *5 (|Symbol|)) (|ofType| *6 *4)))
+ (|dominantTerm| (*1 *2 *1)
+  (|partial| AND
+   (|ofCategory| *3
+                 (|Join| (|Comparable|) (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|)) (|GcdDomain|)))
+   (|isDomain| *2
+               (|Record|
+                (|:| |%term|
+                     (|Record|
+                      (|:| |%coef| (|UnivariatePuiseuxSeries| *4 *5 *6))
+                      (|:| |%expon|
+                           (|ExponentialOfUnivariatePuiseuxSeries| *4 *5 *6))
+                      (|:| |%expTerms|
+                           (|List|
+                            (|Record| (|:| |k| (|Fraction| (|Integer|)))
+                                      (|:| |c| *4))))))
+                (|:| |%type| (|String|))))
+   (|isDomain| *1
+               (|UnivariatePuiseuxSeriesWithExponentialSingularity| *3 *4 *5
+                                                                    *6))
+   (|ofCategory| *4
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| *3)))
+   (|ofType| *5 (|Symbol|)) (|ofType| *6 *4))))
+((~= (((|Boolean|) $ $) NIL)) (|zero?| (((|Boolean|) $) 32))
+ (|unitNormal|
+  (((|Record| (|:| |unit| $) (|:| |canonical| $) (|:| |associate| $)) $) NIL))
+ (|unitCanonical| (($ $) NIL)) (|unit?| (((|Boolean|) $) NIL))
+ (|subtractIfCan| (((|Union| $ "failed") $ $) NIL))
+ (|sample| (($) NIL T CONST)) (|rightRecip| (((|Union| $ #1="failed") $) NIL))
+ (|rightPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL))
+ (|retractIfCan|
+  (((|Union| (|Integer|) #2="failed") $) NIL
+   (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+          (|RetractableTo| (|Integer|))))
+  (((|Union| (|Fraction| (|Integer|)) #2#) $) NIL
+   (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+          (|RetractableTo| (|Fraction| (|Integer|)))))
+  (((|Union| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|) #2#) $) 20))
+ (|retract|
+  (((|Integer|) $) NIL
+   (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+          (|RetractableTo| (|Integer|))))
+  (((|Fraction| (|Integer|)) $) NIL
+   (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+          (|RetractableTo| (|Fraction| (|Integer|)))))
+  (((|UnivariatePuiseuxSeries| |#2| |#3| |#4|) $) NIL))
+ (|reductum| (($ $) 33)) (|recip| (((|Union| $ #1#) $) 25))
+ (|primitivePart|
+  (($ $) NIL (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|) (|GcdDomain|))))
+ (|pomopo!|
+  (($ $ (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+    (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3| |#4|) $)
+   NIL))
+ (|opposite?| (((|Boolean|) $ $) NIL)) (|one?| (((|Boolean|) $) NIL))
+ (|numberOfMonomials| (((|NonNegativeInteger|) $) 11))
+ (|monomial?| (((|Boolean|) $) NIL))
+ (|monomial|
+  (($ (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+    (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3| |#4|))
+   23))
+ (|minimumDegree|
+  (((|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3| |#4|) $) NIL))
+ (|mapExponents|
+  (($
+    (|Mapping| (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3| |#4|)
+               (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3| |#4|))
+    $)
+   NIL))
+ (|map|
+  (($
+    (|Mapping| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+               (|UnivariatePuiseuxSeries| |#2| |#3| |#4|))
+    $)
+   NIL))
+ (|limitPlus| (((|Union| (|OrderedCompletion| |#2|) "failed") $) 70))
+ (|leftRecip| (((|Union| $ #1#) $) NIL))
+ (|leftPower| (($ $ (|PositiveInteger|)) NIL)
+  (($ $ (|NonNegativeInteger|)) NIL))
+ (|leadingMonomial| (($ $) NIL))
+ (|leadingCoefficient| (((|UnivariatePuiseuxSeries| |#2| |#3| |#4|) $) 18))
+ (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|ground?| (((|Boolean|) $) NIL))
+ (|ground| (((|UnivariatePuiseuxSeries| |#2| |#3| |#4|) $) NIL))
+ (|fmecg|
+  (($ $ (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3| |#4|)
+    (|UnivariatePuiseuxSeries| |#2| |#3| |#4|) $)
+   NIL (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|) (|Ring|))))
+ (|exquo|
+  (((|Union| $ "failed") $ (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)) NIL
+   (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|) (|EntireRing|)))
+  (((|Union| $ "failed") $ $) NIL))
+ (|dominantTerm|
+  (((|Union|
+     (|Record|
+      (|:| |%term|
+           (|Record| (|:| |%coef| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|))
+                     (|:| |%expon|
+                          (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3|
+                                                                  |#4|))
+                     (|:| |%expTerms|
+                          (|List|
+                           (|Record| (|:| |k| (|Fraction| (|Integer|)))
+                                     (|:| |c| |#2|))))))
+      (|:| |%type| (|String|)))
+     "failed")
+    $)
+   56))
+ (|degree| (((|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3| |#4|) $) 14))
+ (|content|
+  (((|UnivariatePuiseuxSeries| |#2| |#3| |#4|) $) NIL
+   (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|) (|GcdDomain|))))
+ (|commutator| (($ $ $) NIL))
+ (|coerce| (((|OutputForm|) $) NIL)
+           (($ (|Fraction| (|Integer|))) NIL
+            (OR
+             (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+                    (|Algebra| (|Fraction| (|Integer|))))
+             (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+                    (|RetractableTo| (|Fraction| (|Integer|))))))
+           (($ (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)) NIL) (($ $) NIL)
+           (($ (|Integer|)) NIL))
+ (|coefficients| (((|List| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)) $) NIL))
+ (|coefficient|
+  (((|UnivariatePuiseuxSeries| |#2| |#3| |#4|) $
+    (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3| |#4|))
+   NIL))
+ (|charthRoot|
+  (((|Union| $ "failed") $) NIL
+   (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+          (|CharacteristicNonZero|))))
+ (|characteristic| (((|NonNegativeInteger|)) NIL))
+ (|binomThmExpt|
+  (($ $ $ (|NonNegativeInteger|)) NIL (|has| $ (|CommutativeRing|))))
+ (|associator| (($ $ $ $) NIL)) (|associates?| (((|Boolean|) $ $) NIL))
+ (|antiCommutator| (($ $ $) NIL)) (|annihilate?| (((|Boolean|) $ $) NIL))
+ (^ (($ $ (|PositiveInteger|)) NIL) (($ $ (|NonNegativeInteger|)) NIL))
+ (|Zero| (($) NIL T CONST)) (|One| (($) NIL T CONST))
+ (= (((|Boolean|) $ $) NIL))
+ (/
+  (($ $ (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)) NIL
+   (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|) (|Field|))))
+ (- (($ $) NIL) (($ $ $) NIL)) (+ (($ $ $) NIL))
+ (* (($ (|PositiveInteger|) $) NIL) (($ $ $) NIL)
+    (($ $ (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)) NIL)
+    (($ (|UnivariatePuiseuxSeries| |#2| |#3| |#4|) $) NIL)
+    (($ (|Fraction| (|Integer|)) $) NIL
+     (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+            (|Algebra| (|Fraction| (|Integer|)))))
+    (($ $ (|Fraction| (|Integer|))) NIL
+     (|has| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+            (|Algebra| (|Fraction| (|Integer|)))))
+    (($ (|NonNegativeInteger|) $) NIL) (($ (|Integer|) $) NIL)))
+((|HasCategory| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+                (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+ (|HasCategory| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+                '(|CharacteristicNonZero|))
+ (|HasCategory| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+                '(|CharacteristicZero|))
+ (|HasCategory| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+                (LIST '|RetractableTo| (LIST '|Fraction| '(|Integer|))))
+ (|HasCategory| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+                (LIST '|RetractableTo| '(|Integer|)))
+ (|HasCategory| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|) '(|Field|))
+ (OR
+  (|HasCategory| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+                 (LIST '|Algebra| (LIST '|Fraction| '(|Integer|))))
+  (|HasCategory| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+                 (LIST '|RetractableTo| (LIST '|Fraction| '(|Integer|)))))
+ (|HasCategory| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|) '(|Ring|))
+ (|HasCategory| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|) '(|EntireRing|))
+ (|HasCategory| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|) '(|GcdDomain|))
+ (|HasCategory| $ '(|CommutativeRing|)))
+UPXSSING
+(((|FiniteAbelianMonoidRing| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+                             (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3|
+                                                                     |#4|))
+  . T)
+ ((|IntegralDomain|) . T))
+(((|AbelianGroup|) . T) ((|AbelianMonoid|) . T)
+ ((|AbelianMonoidRing| |t#1| |t#2|) . T) ((|AbelianSemiGroup|) . T)
+ ((|Algebra| (|Fraction| (|Integer|))) |has| |t#1|
+  (|Algebra| (|Fraction| (|Integer|))))
+ ((|Algebra| $) . T)
+ ((|Algebra| |t#1|) AND (|has| $ (|VariablesCommuteWithCoefficients|))
+  (|has| |t#1| (|CommutativeRing|)))
+ ((|BasicType|) . T) ((|BiModule| |t#1| |t#1|) . T) ((|BiModule| $ $) . T)
+ ((|CancellationAbelianMonoid|) . T)
+ ((|CharacteristicNonZero|) |has| |t#1| (|CharacteristicNonZero|))
+ ((|CharacteristicZero|) |has| |t#1| (|CharacteristicZero|))
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|CommutativeRing|) . T)
+ ((|CommutativeStar|) . T) ((|EntireRing|) . T)
+ ((|FiniteAbelianMonoidRing| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|)
+                             (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3|
+                                                                     |#4|))
+  . T)
+ ((|FullyRetractableTo| |t#1|) . T) ((|IntegralDomain|) . T)
+ ((|LeftModule| |t#1|) . T) ((|Magma|) . T) ((|MagmaWithUnit|) . T)
+ ((|Module| |t#1|) . T) ((|Monoid|) . T) ((|NonAssociativeRing|) . T)
+ ((|NonAssociativeRng|) . T) ((|NonAssociativeSemiRing|) . T)
+ ((|NonAssociativeSemiRng|) . T)
+ ((|RetractableTo| (|Fraction| (|Integer|))) |has| |t#1|
+  (|RetractableTo| (|Fraction| (|Integer|))))
+ ((|RetractableTo| (|Integer|)) |has| |t#1| (|RetractableTo| (|Integer|)))
+ ((|RetractableTo| |t#1|) . T) ((|RightModule| |t#2|) . T) ((|Ring|) . T)
+ ((|Rng|) . T) ((|SemiGroup|) . T) ((|SemiRing|) . T) ((|SemiRng|) . T)
+ ((|SetCategory|) . T) ((|TwoSidedRecip|) . T) ((|noZeroDivisors|) . T)
+ ((|unitsKnown|) . T))
+((|constructor|
+  (NIL
+   "UnivariatePuiseuxSeriesWithExponentialSingularity is a domain used to represent functions with essential singularities. Objects in this domain are sums,{} where each term in the sum is a univariate Puiseux series times the exponential of a univariate Puiseux series. Thus,{} the elements of this domain are sums of expressions of the form \\spad{g(x) * exp(f(x))},{} where \\spad{g}(\\spad{x}) is a univariate Puiseux series and \\spad{f}(\\spad{x}) is a univariate Puiseux series with no terms of non-negative degree."))
+ (|dominantTerm|
+  (((|Union|
+     (|Record|
+      (|:| |%term|
+           (|Record| (|:| |%coef| (|UnivariatePuiseuxSeries| |#2| |#3| |#4|))
+                     (|:| |%expon|
+                          (|ExponentialOfUnivariatePuiseuxSeries| |#2| |#3|
+                                                                  |#4|))
+                     (|:| |%expTerms|
+                          (|List|
+                           (|Record| (|:| |k| (|Fraction| (|Integer|)))
+                                     (|:| |c| |#2|))))))
+      (|:| |%type| (|String|)))
+     "failed")
+    $)
+   "\\spad{dominantTerm(f(var))} returns the term that dominates the limiting behavior of \\spad{f(var)} as \\spad{var -> cen+} together with a \\spadtype{String} which briefly describes that behavior. The value of the \\spadtype{String} will be \\spad{\"zero\"} (resp. \\spad{\"infinity\"}) if the term tends to zero (resp. infinity) exponentially and will \\spad{\"series\"} if the term is a Puiseux series."))
+ (|limitPlus|
+  (((|Union| (|OrderedCompletion| |#2|) "failed") $)
+   "\\spad{limitPlus(f(var))} returns \\spad{limit(var -> cen+,{} f(var))}.")))
+(("documentation" 0 13316) ("ancestors" 0 11681) ("parents" 0 11420)
+ ("abbreviation" 0 11411) ("predicates" 0 10236) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4392) ("modemaps" 0 2594) ("sourceFile" 0 2554)
+ ("constructorCategory" 0 1611) ("constructorModemap" 0 246)
+ ("constructorKind" 0 237) ("constructorForm" 0 20))

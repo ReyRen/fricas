@@ -1,0 +1,478 @@
+24240               (|WeightedGraph| S W)
+|domain|
+(((|WeightedGraph| |#1| |#2|)
+  (|Join| (|FiniteGraph| |#1|)
+          (CATEGORY |domain| (SIGNATURE |weightedGraph| ($ (|List| |#1|)))
+           (SIGNATURE |weightedGraph|
+            ($
+             (|List|
+              (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+                        (|:| |posY| (|NonNegativeInteger|))
+                        (|:| |weight| |#2|)))))
+           (SIGNATURE |weightedGraph|
+            ($
+             (|List|
+              (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+                        (|:| |posY| (|NonNegativeInteger|))
+                        (|:| |weight| |#2|)))
+             (|List|
+              (|Record| (|:| |name| (|String|)) (|:| |weight| |#2|)
+                        (|:| |fromOb| (|NonNegativeInteger|))
+                        (|:| |toOb| (|NonNegativeInteger|))
+                        (|:| |xOffset| (|Integer|)) (|:| |yOffset| (|Integer|))
+                        (|:| |map| (|List| (|NonNegativeInteger|)))))))
+           (SIGNATURE |weightedGraph|
+            ($
+             (|List|
+              (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+                        (|:| |posY| (|NonNegativeInteger|))))
+             (|List|
+              (|Record| (|:| |name| (|String|))
+                        (|:| |arrType| (|NonNegativeInteger|))
+                        (|:| |fromOb| (|NonNegativeInteger|))
+                        (|:| |toOb| (|NonNegativeInteger|))
+                        (|:| |xOffset| (|Integer|)) (|:| |yOffset| (|Integer|))
+                        (|:| |map| (|List| (|NonNegativeInteger|)))))))
+           (SIGNATURE |weightedGraph|
+            ($ (|List| |#1|)
+             (|List|
+              (|Record| (|:| |fromOb| (|NonNegativeInteger|))
+                        (|:| |toOb| (|NonNegativeInteger|))))))
+           (SIGNATURE |weightedGraph| ($ (|FinitePoset| |#1|)))
+           (SIGNATURE |weightedGraph|
+            ($ (|List| |#1|) (|List| (|List| (|NonNegativeInteger|)))))
+           (SIGNATURE |addWArrow!|
+            ($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)
+             |#2|))
+           (SIGNATURE |distanceWeighted|
+            ((|Union| |#2| #1="disjoint") $ (|NonNegativeInteger|)
+             (|NonNegativeInteger|)))
+           (SIGNATURE |routeNodeWeight|
+            (|#2| $ (|List| (|NonNegativeInteger|))))
+           (SIGNATURE |routeArrowWeight|
+            (|#2| $ (|List| (|NonNegativeInteger|))))
+           (SIGNATURE * ((|WeightedGraph| (|Product| |#1| |#1|) |#2|) $ $))
+           (SIGNATURE |cartesian|
+            ((|WeightedGraph| (|Product| |#1| |#1|) |#2|) $ $))
+           (SIGNATURE |closedTensor| ($ $ $ (|Mapping| |#1| |#1| |#1|)))
+           (SIGNATURE |closedCartesian| ($ $ $ (|Mapping| |#1| |#1| |#1|)))
+           (SIGNATURE |weightedDistanceMatrix|
+            ((|TwoDimensionalArray| (|Union| |#2| #1#)) $))
+           (SIGNATURE |coerce| ($ (|FinitePoset| |#1|)))))
+  (|SetCategory|) (|OrderedAbelianMonoid|))
+ (T |WeightedGraph|))
+(|Join| (|FiniteGraph| |#1|)
+        (CATEGORY |domain| (SIGNATURE |weightedGraph| ($ (|List| |#1|)))
+         (SIGNATURE |weightedGraph|
+          ($
+           (|List|
+            (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+                      (|:| |posY| (|NonNegativeInteger|))
+                      (|:| |weight| |#2|)))))
+         (SIGNATURE |weightedGraph|
+          ($
+           (|List|
+            (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+                      (|:| |posY| (|NonNegativeInteger|)) (|:| |weight| |#2|)))
+           (|List|
+            (|Record| (|:| |name| (|String|)) (|:| |weight| |#2|)
+                      (|:| |fromOb| (|NonNegativeInteger|))
+                      (|:| |toOb| (|NonNegativeInteger|))
+                      (|:| |xOffset| (|Integer|)) (|:| |yOffset| (|Integer|))
+                      (|:| |map| (|List| (|NonNegativeInteger|)))))))
+         (SIGNATURE |weightedGraph|
+          ($
+           (|List|
+            (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+                      (|:| |posY| (|NonNegativeInteger|))))
+           (|List|
+            (|Record| (|:| |name| (|String|))
+                      (|:| |arrType| (|NonNegativeInteger|))
+                      (|:| |fromOb| (|NonNegativeInteger|))
+                      (|:| |toOb| (|NonNegativeInteger|))
+                      (|:| |xOffset| (|Integer|)) (|:| |yOffset| (|Integer|))
+                      (|:| |map| (|List| (|NonNegativeInteger|)))))))
+         (SIGNATURE |weightedGraph|
+          ($ (|List| |#1|)
+           (|List|
+            (|Record| (|:| |fromOb| (|NonNegativeInteger|))
+                      (|:| |toOb| (|NonNegativeInteger|))))))
+         (SIGNATURE |weightedGraph| ($ (|FinitePoset| |#1|)))
+         (SIGNATURE |weightedGraph|
+          ($ (|List| |#1|) (|List| (|List| (|NonNegativeInteger|)))))
+         (SIGNATURE |addWArrow!|
+          ($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|) |#2|))
+         (SIGNATURE |distanceWeighted|
+          ((|Union| |#2| #1="disjoint") $ (|NonNegativeInteger|)
+           (|NonNegativeInteger|)))
+         (SIGNATURE |routeNodeWeight| (|#2| $ (|List| (|NonNegativeInteger|))))
+         (SIGNATURE |routeArrowWeight|
+          (|#2| $ (|List| (|NonNegativeInteger|))))
+         (SIGNATURE * ((|WeightedGraph| (|Product| |#1| |#1|) |#2|) $ $))
+         (SIGNATURE |cartesian|
+          ((|WeightedGraph| (|Product| |#1| |#1|) |#2|) $ $))
+         (SIGNATURE |closedTensor| ($ $ $ (|Mapping| |#1| |#1| |#1|)))
+         (SIGNATURE |closedCartesian| ($ $ $ (|Mapping| |#1| |#1| |#1|)))
+         (SIGNATURE |weightedDistanceMatrix|
+          ((|TwoDimensionalArray| (|Union| |#2| #1#)) $))
+         (SIGNATURE |coerce| ($ (|FinitePoset| |#1|)))))
+"/git/fricas/src/algebra/WGRPH.spad"
+((|weightedGraph| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *1 (|WeightedGraph| *3 *4))
+       (|ofCategory| *4 (|OrderedAbelianMonoid|))))
+ (|weightedGraph| (*1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |value| *3) (|:| |posX| (|NonNegativeInteger|))
+                          (|:| |posY| (|NonNegativeInteger|))
+                          (|:| |weight| *4))))
+   (|ofCategory| *3 (|SetCategory|)) (|ofCategory| *4 (|OrderedAbelianMonoid|))
+   (|isDomain| *1 (|WeightedGraph| *3 *4))))
+ (|weightedGraph| (*1 *1 *2 *3)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |value| *4) (|:| |posX| (|NonNegativeInteger|))
+                          (|:| |posY| (|NonNegativeInteger|))
+                          (|:| |weight| *5))))
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |name| (|String|)) (|:| |weight| *5)
+                          (|:| |fromOb| (|NonNegativeInteger|))
+                          (|:| |toOb| (|NonNegativeInteger|))
+                          (|:| |xOffset| (|Integer|))
+                          (|:| |yOffset| (|Integer|))
+                          (|:| |map| (|List| (|NonNegativeInteger|))))))
+   (|ofCategory| *4 (|SetCategory|)) (|ofCategory| *5 (|OrderedAbelianMonoid|))
+   (|isDomain| *1 (|WeightedGraph| *4 *5))))
+ (|weightedGraph| (*1 *1 *2 *3)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |value| *4) (|:| |posX| (|NonNegativeInteger|))
+                          (|:| |posY| (|NonNegativeInteger|)))))
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |name| (|String|))
+                          (|:| |arrType| (|NonNegativeInteger|))
+                          (|:| |fromOb| (|NonNegativeInteger|))
+                          (|:| |toOb| (|NonNegativeInteger|))
+                          (|:| |xOffset| (|Integer|))
+                          (|:| |yOffset| (|Integer|))
+                          (|:| |map| (|List| (|NonNegativeInteger|))))))
+   (|ofCategory| *4 (|SetCategory|)) (|isDomain| *1 (|WeightedGraph| *4 *5))
+   (|ofCategory| *5 (|OrderedAbelianMonoid|))))
+ (|weightedGraph| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|List| *4))
+       (|isDomain| *3
+                   (|List|
+                    (|Record| (|:| |fromOb| (|NonNegativeInteger|))
+                              (|:| |toOb| (|NonNegativeInteger|)))))
+       (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|WeightedGraph| *4 *5))
+       (|ofCategory| *5 (|OrderedAbelianMonoid|))))
+ (|weightedGraph| (*1 *1 *2)
+  (AND (|isDomain| *2 (|FinitePoset| *3)) (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *1 (|WeightedGraph| *3 *4))
+       (|ofCategory| *4 (|OrderedAbelianMonoid|))))
+ (|weightedGraph| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|List| *4))
+       (|isDomain| *3 (|List| (|List| (|NonNegativeInteger|))))
+       (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|WeightedGraph| *4 *5))
+       (|ofCategory| *5 (|OrderedAbelianMonoid|))))
+ (|addWArrow!| (*1 *1 *1 *2 *3 *3 *4)
+  (AND (|isDomain| *2 (|String|)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *1 (|WeightedGraph| *5 *4))
+       (|ofCategory| *5 (|SetCategory|))
+       (|ofCategory| *4 (|OrderedAbelianMonoid|))))
+ (|distanceWeighted| (*1 *2 *1 *3 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *2 (|Union| *5 #1="disjoint"))
+       (|isDomain| *1 (|WeightedGraph| *4 *5))
+       (|ofCategory| *4 (|SetCategory|))
+       (|ofCategory| *5 (|OrderedAbelianMonoid|))))
+ (|routeNodeWeight| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|List| (|NonNegativeInteger|)))
+       (|ofCategory| *2 (|OrderedAbelianMonoid|))
+       (|isDomain| *1 (|WeightedGraph| *4 *2))
+       (|ofCategory| *4 (|SetCategory|))))
+ (|routeArrowWeight| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|List| (|NonNegativeInteger|)))
+       (|ofCategory| *2 (|OrderedAbelianMonoid|))
+       (|isDomain| *1 (|WeightedGraph| *4 *2))
+       (|ofCategory| *4 (|SetCategory|))))
+ (* (*1 *2 *1 *1)
+    (AND (|isDomain| *2 (|WeightedGraph| (|Product| *3 *3) *4))
+         (|isDomain| *1 (|WeightedGraph| *3 *4))
+         (|ofCategory| *3 (|SetCategory|))
+         (|ofCategory| *4 (|OrderedAbelianMonoid|))))
+ (|cartesian| (*1 *2 *1 *1)
+  (AND (|isDomain| *2 (|WeightedGraph| (|Product| *3 *3) *4))
+       (|isDomain| *1 (|WeightedGraph| *3 *4))
+       (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *4 (|OrderedAbelianMonoid|))))
+ (|closedTensor| (*1 *1 *1 *1 *2)
+  (AND (|isDomain| *2 (|Mapping| *3 *3 *3)) (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *1 (|WeightedGraph| *3 *4))
+       (|ofCategory| *4 (|OrderedAbelianMonoid|))))
+ (|closedCartesian| (*1 *1 *1 *1 *2)
+  (AND (|isDomain| *2 (|Mapping| *3 *3 *3)) (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *1 (|WeightedGraph| *3 *4))
+       (|ofCategory| *4 (|OrderedAbelianMonoid|))))
+ (|weightedDistanceMatrix| (*1 *2 *1)
+  (AND (|isDomain| *2 (|TwoDimensionalArray| (|Union| *4 #1#)))
+       (|isDomain| *1 (|WeightedGraph| *3 *4))
+       (|ofCategory| *3 (|SetCategory|))
+       (|ofCategory| *4 (|OrderedAbelianMonoid|))))
+ (|coerce| (*1 *1 *2)
+           (AND (|isDomain| *2 (|FinitePoset| *3))
+                (|ofCategory| *3 (|SetCategory|))
+                (|isDomain| *1 (|WeightedGraph| *3 *4))
+                (|ofCategory| *4 (|OrderedAbelianMonoid|)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|weightedGraph| (($ (|List| |#1|)) 11)
+  (($
+    (|List|
+     (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|)) (|:| |weight| |#2|))))
+   14)
+  (($
+    (|List|
+     (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|)) (|:| |weight| |#2|)))
+    (|List|
+     (|Record| (|:| |name| (|String|)) (|:| |weight| |#2|)
+               (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+               (|:| |yOffset| (|Integer|))
+               (|:| |map| (|List| (|NonNegativeInteger|))))))
+   17)
+  (($
+    (|List|
+     (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|))))
+    (|List|
+     (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+               (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+               (|:| |yOffset| (|Integer|))
+               (|:| |map| (|List| (|NonNegativeInteger|))))))
+   24)
+  (($ (|List| |#1|)
+    (|List|
+     (|Record| (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)))))
+   32)
+  (($ (|FinitePoset| |#1|)) 38)
+  (($ (|List| |#1|) (|List| (|List| (|NonNegativeInteger|)))) 46))
+ (|weightedDistanceMatrix|
+  (((|TwoDimensionalArray| (|Union| |#2| #1="disjoint")) $) 107))
+ (|unit| (($ (|List| |#1|) (|String|)) 62)) (|terminal| (($ |#1|) 58))
+ (|subdiagramSvg|
+  (((|Void|) (|Scene| (|SCartesian| 2)) $ (|Boolean|) (|Boolean|)) NIL))
+ (|spanningTreeNode| (((|Tree| (|Integer|)) $ (|NonNegativeInteger|)) NIL))
+ (|spanningTreeArrow| (((|Tree| (|Integer|)) $ (|NonNegativeInteger|)) NIL))
+ (|spanningForestNode| (((|List| (|Tree| (|Integer|))) $) NIL))
+ (|spanningForestArrow| (((|List| (|Tree| (|Integer|))) $) NIL))
+ (|routeNodes|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   98))
+ (|routeNodeWeight| ((|#2| $ (|List| (|NonNegativeInteger|))) 96))
+ (|routeArrows|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   101))
+ (|routeArrowWeight| ((|#2| $ (|List| (|NonNegativeInteger|))) 100))
+ (|outDegree| (((|NonNegativeInteger|) $ (|NonNegativeInteger|)) NIL))
+ (|nodeToNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|nodeToArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|nodeFromNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|nodeFromArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|min| (((|NonNegativeInteger|) $) NIL)
+  (((|NonNegativeInteger|) $ (|List| (|NonNegativeInteger|))) NIL))
+ (|merge| (($ $ $) 70))
+ (|max| (((|NonNegativeInteger|) $) NIL)
+  (((|NonNegativeInteger|) $ (|List| (|NonNegativeInteger|))) NIL))
+ (|mapContra|
+  (($ $ (|List| (|NonNegativeInteger|)) (|List| |#1|) (|Integer|) (|Integer|))
+   92))
+ (|map|
+  (($ $ (|List| (|NonNegativeInteger|)) (|List| |#1|) (|Integer|) (|Integer|))
+   91))
+ (|looseEquals| (((|Boolean|) $ $) NIL))
+ (|loopsNodes| (((|List| (|Loop|)) $) NIL))
+ (|loopsAtNode| (((|List| (|Loop|)) $ (|NonNegativeInteger|)) NIL))
+ (|loopsArrows| (((|List| (|Loop|)) $) NIL)) (|latex| (((|String|) $) NIL))
+ (|laplacianMatrix| (((|Matrix| (|Integer|)) $) NIL))
+ (|kgraph| (($ (|List| |#1|) (|String|)) 64))
+ (|isGreaterThan?|
+  (((|Boolean|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) NIL))
+ (|isFunctional?| (((|Boolean|) $) NIL))
+ (|isFixPoint?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|isDirected?| (((|Boolean|)) NIL))
+ (|isDirectSuccessor?|
+  (((|Boolean|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 78))
+ (|isAcyclic?| (((|Boolean|) $) NIL)) (|initial| (($) 57))
+ (|incidenceMatrix| (((|Matrix| (|Integer|)) $) NIL))
+ (|inDegree| (((|NonNegativeInteger|) $ (|NonNegativeInteger|)) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|getVertices|
+  (((|List|
+     (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|))))
+    $)
+   55))
+ (|getVertexIndex| (((|NonNegativeInteger|) $ |#1|) NIL))
+ (|getArrows|
+  (((|List|
+     (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+               (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+               (|:| |yOffset| (|Integer|))
+               (|:| |map| (|List| (|NonNegativeInteger|)))))
+    $)
+   56))
+ (|getArrowIndex|
+  (((|NonNegativeInteger|) $ (|NonNegativeInteger|) (|NonNegativeInteger|))
+   99))
+ (|flatten| (($ (|DirectedGraph| $)) NIL))
+ (|distanceWeighted|
+  (((|Union| |#2| #1#) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 103))
+ (|distanceMatrix| (((|Matrix| (|Integer|)) $) NIL))
+ (|distance|
+  (((|Integer|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) NIL))
+ (|diagramsSvg| (((|Void|) (|String|) (|List| $) (|Boolean|)) NIL))
+ (|diagramWidth| (((|NonNegativeInteger|) $) 71))
+ (|diagramSvg| (((|Void|) (|String|) $ (|Boolean|)) NIL))
+ (|diagramHeight| (((|NonNegativeInteger|) $) 72))
+ (|deepDiagramSvg| (((|Void|) (|String|) $ (|Boolean|)) NIL))
+ (|cycleOpen| (($ (|List| |#1|) (|String|)) 60))
+ (|cycleClosed| (($ (|List| |#1|) (|String|)) 61))
+ (|createY|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)) 27))
+ (|createX|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)) 26))
+ (|createWidth| (((|NonNegativeInteger|) (|NonNegativeInteger|)) NIL))
+ (|coerce| (((|OutputForm|) $) NIL) (($ (|FinitePoset| |#1|)) 108))
+ (|closedTensor| (($ $ $ (|Mapping| |#1| |#1| |#1|)) 87))
+ (|closedCartesian| (($ $ $ (|Mapping| |#1| |#1| |#1|)) 88))
+ (|cartesian| (((|WeightedGraph| (|Product| |#1| |#1|) |#2|) $ $) 85))
+ (|arrowsToNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|arrowsToArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|arrowsFromNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|arrowsFromArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|arrowName|
+  (((|String|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 79))
+ (|adjacencyMatrix| (((|Matrix| (|NonNegativeInteger|)) $) NIL))
+ (|addWArrow!|
+  (($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|) |#2|) 52))
+ (|addObject!| (($ $ |#1|) 49)
+  (($ $
+    (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+              (|:| |posY| (|NonNegativeInteger|))))
+   50))
+ (|addArrow!|
+  (($ $
+    (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+              (|:| |fromOb| (|NonNegativeInteger|))
+              (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+              (|:| |yOffset| (|Integer|))
+              (|:| |map| (|List| (|NonNegativeInteger|)))))
+   53)
+  (($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)) 54)
+  (($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|List| (|NonNegativeInteger|)))
+   NIL)
+  (($ $ (|String|) |#1| |#1|) NIL))
+ (= (((|Boolean|) $ $) NIL)) (+ (($ $ $) 67))
+ (* (((|WeightedGraph| (|Product| |#1| |#1|) |#2|) $ $) 84)))
+WGRPH
+(((|FiniteGraph| |#1|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|FiniteGraph| |#1|) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "allows us to model weighted graphs This graph assigns a weight to each arrow. This is used when calculating say,{} lowest 'cost' routes. An arrow with a higher weight is more 'costly' in some way and therefore we try to choose the minimum weight. For arrows in series the overall weight is the sum of the individual weights. For arrows in parallel the overall weight is the minimum of the individual weights. \\spad{I} may change this in future to allow different cost metrics to be plugged in. \\blankline"))
+ (|coerce| (($ (|FinitePoset| |#1|)) "\\spad{coerce FinitePoset} to graph"))
+ (|weightedDistanceMatrix|
+  (((|TwoDimensionalArray| (|Union| |#2| #1="disjoint")) $)
+   "The elements of the returned array will represent the distance weights between vertices. if there is no connection between the vertices then the element will be set to \"disjoint\""))
+ (|closedCartesian|
+  (($ $ $ (|Mapping| |#1| |#1| |#1|)) "as Cartesian product but returns \\%."))
+ (|closedTensor|
+  (($ $ $ (|Mapping| |#1| |#1| |#1|)) "as tensor product but returns \\%."))
+ (|cartesian|
+  (((|WeightedGraph| (|Product| |#1| |#1|) |#2|) $ $)
+   "Cartesian product: the vertex set of \\spad{G} \\spad{o} \\spad{H} is the Cartesian product \\spad{V}(\\spad{G}) \\times \\spad{V}(\\spad{H}) and any two vertices (\\spad{u},{} u') and (\\spad{v},{} \\spad{v'}) \\indented{1}{are adjacent in \\spad{G} \\spad{o} \\spad{H} if and only if either} \\spad{u} = \\spad{v} and u' is adjacent with \\spad{v'} in \\spad{H},{} or u' = \\spad{v'} and \\spad{u} is adjacent with \\spad{v} in \\spad{G}."))
+ (*
+  (((|WeightedGraph| (|Product| |#1| |#1|) |#2|) $ $)
+   "tensor product : the tensor product \\spad{G*H} of graphs \\spad{G} and \\spad{H} is a graph such that the vertex set of \\spad{G*H} is the Cartesian product \\spad{V}(\\spad{G}) \\times \\spad{V}(\\spad{H}); and any two vertices (\\spad{u},{} u') and (\\spad{v},{} \\spad{v'}) are adjacent in \\spad{G} \\times \\spad{H} if and only if u' is adjacent with \\spad{v'} and \\spad{u} is adjacent with \\spad{v}."))
+ (|routeArrowWeight|
+  ((|#2| $ (|List| (|NonNegativeInteger|)))
+   "the cumulative weight of a given route. The route is given in terms of a sequence of arrow indexes."))
+ (|routeNodeWeight|
+  ((|#2| $ (|List| (|NonNegativeInteger|)))
+   "the cumulative weight of a given route. The route is given in terms of a sequence of node indexes."))
+ (|distanceWeighted|
+  (((|Union| |#2| #1#) $ (|NonNegativeInteger|) (|NonNegativeInteger|))
+   "the shortest distance between 'a' and \\spad{'b'} in terms of weight."))
+ (|addWArrow!|
+  (($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|) |#2|)
+   "\\spad{addWArrow!(s,{} name,{} n1,{} n2,{} w)} adds a weighted arrow to the graph \\spad{s},{} where \\spad{name} is \\spad{name} of the arrow,{} \\spad{w} is weight of the arrow,{} \\spad{n1} is starting point of the arrow,{} \\spad{n2} is endpoint of the arrow."))
+ (|weightedGraph|
+  (($ (|List| |#1|) (|List| (|List| (|NonNegativeInteger|))))
+   "constructor for graph with given objects and adjacency matrix.")
+  (($ (|FinitePoset| |#1|))
+   "\\spad{weightedGraph(poset)} constructs graph from a partially ordered set. This will be a graph with,{} at most,{} one arrow between any two nodes.")
+  (($ (|List| |#1|)
+    (|List|
+     (|Record| (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)))))
+   "\\spad{weightedGraph(obs,{} ars)} constructs graph with objects \\spad{obs} and arrows ars. This constructor just has pure abstract graph information without decoration information.")
+  (($
+    (|List|
+     (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|))))
+    (|List|
+     (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+               (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+               (|:| |yOffset| (|Integer|))
+               (|:| |map| (|List| (|NonNegativeInteger|))))))
+   "constructor for graph with given objects and arrows more objects and arrows can be added later if required.")
+  (($
+    (|List|
+     (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|)) (|:| |weight| |#2|)))
+    (|List|
+     (|Record| (|:| |name| (|String|)) (|:| |weight| |#2|)
+               (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+               (|:| |yOffset| (|Integer|))
+               (|:| |map| (|List| (|NonNegativeInteger|))))))
+   "\\spad{weightedGraph(ob,{} ar)} constructs graph with objects on and arrows ar. More objects and arrows can be added later if required.")
+  (($
+    (|List|
+     (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|)) (|:| |weight| |#2|))))
+   "constructor for graph with given objects more objects and arrows can be added later if required.")
+  (($ (|List| |#1|))
+   "constructor for graph with given list of object names. Use this version of the constructor if you don\\spad{'t} intend to create diagrams and therefore don\\spad{'t} care about \\spad{x},{} \\spad{y} coordinates. more objects and arrows can be added later if required.")))
+(("documentation" 0 18882) ("ancestors" 0 18773) ("parents" 0 18744)
+ ("abbreviation" 0 18738) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 11353) ("modemaps" 0 5927) ("sourceFile" 0 5890)
+ ("constructorCategory" 0 3098) ("constructorModemap" 0 51)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

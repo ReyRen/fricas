@@ -1,0 +1,1211 @@
+\begin{patch}{ugGeneralFortranPagePatch1}
+\begin{paste}{ugGeneralFortranPageFull1}{ugGeneralFortranPageEmpty1}
+\pastebutton{ugGeneralFortranPageFull1}{\hidepaste}
+\tab{5}\spadcommand{)set fortran precision}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty1}
+\begin{paste}{ugGeneralFortranPageEmpty1}{ugGeneralFortranPagePatch1}
+\pastebutton{ugGeneralFortranPageEmpty1}{\showpaste}
+\tab{5}\spadcommand{)set fortran precision}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch2}
+\begin{paste}{ugGeneralFortranPageFull2}{ugGeneralFortranPageEmpty2}
+\pastebutton{ugGeneralFortranPageFull2}{\hidepaste}
+\tab{5}\spadcommand{m := matrix [[1,2,3],[4,5,6]]\bound{m }}
+\indentrel{3}\begin{verbatim}
+        +1  2  3+
+   (1)  |       |
+        +4  5  6+
+                                  Type: Matrix(Integer)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty2}
+\begin{paste}{ugGeneralFortranPageEmpty2}{ugGeneralFortranPagePatch2}
+\pastebutton{ugGeneralFortranPageEmpty2}{\showpaste}
+\tab{5}\spadcommand{m := matrix [[1,2,3],[4,5,6]]\bound{m }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch3}
+\begin{paste}{ugGeneralFortranPageFull3}{ugGeneralFortranPageEmpty3}
+\pastebutton{ugGeneralFortranPageFull3}{\hidepaste}
+\tab{5}\spadcommand{fortranLiteralLine(concat ["C      The Matrix has ", nrows(m)::String, " rows and ", ncols(m)::String, " columns"] )$FortranTemplate\free{m }}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty3}
+\begin{paste}{ugGeneralFortranPageEmpty3}{ugGeneralFortranPagePatch3}
+\pastebutton{ugGeneralFortranPageEmpty3}{\showpaste}
+\tab{5}\spadcommand{fortranLiteralLine(concat ["C      The Matrix has ", nrows(m)::String, " rows and ", ncols(m)::String, " columns"] )$FortranTemplate\free{m }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch4}
+\begin{paste}{ugGeneralFortranPageFull4}{ugGeneralFortranPageEmpty4}
+\pastebutton{ugGeneralFortranPageFull4}{\hidepaste}
+\tab{5}\spadcommand{fortranLiteral("C      The Matrix has ")$FortranTemplate}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty4}
+\begin{paste}{ugGeneralFortranPageEmpty4}{ugGeneralFortranPagePatch4}
+\pastebutton{ugGeneralFortranPageEmpty4}{\showpaste}
+\tab{5}\spadcommand{fortranLiteral("C      The Matrix has ")$FortranTemplate}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch5}
+\begin{paste}{ugGeneralFortranPageFull5}{ugGeneralFortranPageEmpty5}
+\pastebutton{ugGeneralFortranPageFull5}{\hidepaste}
+\tab{5}\spadcommand{fortranLiteral(nrows(m)::String)$FortranTemplate}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty5}
+\begin{paste}{ugGeneralFortranPageEmpty5}{ugGeneralFortranPagePatch5}
+\pastebutton{ugGeneralFortranPageEmpty5}{\showpaste}
+\tab{5}\spadcommand{fortranLiteral(nrows(m)::String)$FortranTemplate}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch6}
+\begin{paste}{ugGeneralFortranPageFull6}{ugGeneralFortranPageEmpty6}
+\pastebutton{ugGeneralFortranPageFull6}{\hidepaste}
+\tab{5}\spadcommand{fortranLiteral(" rows and ")$FortranTemplate}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty6}
+\begin{paste}{ugGeneralFortranPageEmpty6}{ugGeneralFortranPagePatch6}
+\pastebutton{ugGeneralFortranPageEmpty6}{\showpaste}
+\tab{5}\spadcommand{fortranLiteral(" rows and ")$FortranTemplate}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch7}
+\begin{paste}{ugGeneralFortranPageFull7}{ugGeneralFortranPageEmpty7}
+\pastebutton{ugGeneralFortranPageFull7}{\hidepaste}
+\tab{5}\spadcommand{fortranLiteral(ncols(m)::String)$FortranTemplate\free{m }}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty7}
+\begin{paste}{ugGeneralFortranPageEmpty7}{ugGeneralFortranPagePatch7}
+\pastebutton{ugGeneralFortranPageEmpty7}{\showpaste}
+\tab{5}\spadcommand{fortranLiteral(ncols(m)::String)$FortranTemplate\free{m }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch8}
+\begin{paste}{ugGeneralFortranPageFull8}{ugGeneralFortranPageEmpty8}
+\pastebutton{ugGeneralFortranPageFull8}{\hidepaste}
+\tab{5}\spadcommand{fortranLiteral(" columns")$FortranTemplate}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty8}
+\begin{paste}{ugGeneralFortranPageEmpty8}{ugGeneralFortranPagePatch8}
+\pastebutton{ugGeneralFortranPageEmpty8}{\showpaste}
+\tab{5}\spadcommand{fortranLiteral(" columns")$FortranTemplate}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch9}
+\begin{paste}{ugGeneralFortranPageFull9}{ugGeneralFortranPageEmpty9}
+\pastebutton{ugGeneralFortranPageFull9}{\hidepaste}
+\tab{5}\spadcommand{fortranCarriageReturn()$FortranTemplate}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty9}
+\begin{paste}{ugGeneralFortranPageEmpty9}{ugGeneralFortranPagePatch9}
+\pastebutton{ugGeneralFortranPageEmpty9}{\showpaste}
+\tab{5}\spadcommand{fortranCarriageReturn()$FortranTemplate}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch10}
+\begin{paste}{ugGeneralFortranPageFull10}{ugGeneralFortranPageEmpty10}
+\pastebutton{ugGeneralFortranPageFull10}{\hidepaste}
+\tab{5}\spadcommand{topFortranOutputStack()$FortranOutputStackPackage}
+\indentrel{3}\begin{verbatim}
+   (9)  "CONSOLE"
+                                           Type: String
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty10}
+\begin{paste}{ugGeneralFortranPageEmpty10}{ugGeneralFortranPagePatch10}
+\pastebutton{ugGeneralFortranPageEmpty10}{\showpaste}
+\tab{5}\spadcommand{topFortranOutputStack()$FortranOutputStackPackage}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch11}
+\begin{paste}{ugGeneralFortranPageFull11}{ugGeneralFortranPageEmpty11}
+\pastebutton{ugGeneralFortranPageFull11}{\hidepaste}
+\tab{5}\spadcommand{type:=construct(real,[i,10],false)$FortranType}
+\indentrel{3}\begin{verbatim}
+   (10)  REAL
+             (i, 10)
+                                      Type: FortranType
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty11}
+\begin{paste}{ugGeneralFortranPageEmpty11}{ugGeneralFortranPagePatch11}
+\pastebutton{ugGeneralFortranPageEmpty11}{\showpaste}
+\tab{5}\spadcommand{type:=construct(real,[i,10],false)$FortranType}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch12}
+\begin{paste}{ugGeneralFortranPageFull12}{ugGeneralFortranPageEmpty12}
+\pastebutton{ugGeneralFortranPageFull12}{\hidepaste}
+\tab{5}\spadcommand{type:=[real,[i,10],false]$FortranType\bound{type }}
+\indentrel{3}\begin{verbatim}
+   (11)  REAL
+             (i, 10)
+                                      Type: FortranType
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty12}
+\begin{paste}{ugGeneralFortranPageEmpty12}{ugGeneralFortranPagePatch12}
+\pastebutton{ugGeneralFortranPageEmpty12}{\showpaste}
+\tab{5}\spadcommand{type:=[real,[i,10],false]$FortranType\bound{type }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch13}
+\begin{paste}{ugGeneralFortranPageFull13}{ugGeneralFortranPageEmpty13}
+\pastebutton{ugGeneralFortranPageFull13}{\hidepaste}
+\tab{5}\spadcommand{scalarTypeOf type\free{type }}
+\indentrel{3}\begin{verbatim}
+   (12)  REAL
+                Type: Union(fst: FortranScalarType,...)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty13}
+\begin{paste}{ugGeneralFortranPageEmpty13}{ugGeneralFortranPagePatch13}
+\pastebutton{ugGeneralFortranPageEmpty13}{\showpaste}
+\tab{5}\spadcommand{scalarTypeOf type\free{type }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch14}
+\begin{paste}{ugGeneralFortranPageFull14}{ugGeneralFortranPageEmpty14}
+\pastebutton{ugGeneralFortranPageFull14}{\hidepaste}
+\tab{5}\spadcommand{dimensionsOf type\free{type }}
+\indentrel{3}\begin{verbatim}
+   (13)  [i, 10]
+                        Type: List(Polynomial(Integer))
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty14}
+\begin{paste}{ugGeneralFortranPageEmpty14}{ugGeneralFortranPagePatch14}
+\pastebutton{ugGeneralFortranPageEmpty14}{\showpaste}
+\tab{5}\spadcommand{dimensionsOf type\free{type }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch15}
+\begin{paste}{ugGeneralFortranPageFull15}{ugGeneralFortranPageEmpty15}
+\pastebutton{ugGeneralFortranPageFull15}{\hidepaste}
+\tab{5}\spadcommand{external? type\free{type }}
+\indentrel{3}\begin{verbatim}
+   (14)  false
+                                          Type: Boolean
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty15}
+\begin{paste}{ugGeneralFortranPageEmpty15}{ugGeneralFortranPagePatch15}
+\pastebutton{ugGeneralFortranPageEmpty15}{\showpaste}
+\tab{5}\spadcommand{external? type\free{type }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch16}
+\begin{paste}{ugGeneralFortranPageFull16}{ugGeneralFortranPageEmpty16}
+\pastebutton{ugGeneralFortranPageFull16}{\hidepaste}
+\tab{5}\spadcommand{fortranLogical()$FortranType}
+\indentrel{3}\begin{verbatim}
+   (15)  LOGICAL
+                                      Type: FortranType
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty16}
+\begin{paste}{ugGeneralFortranPageEmpty16}{ugGeneralFortranPagePatch16}
+\pastebutton{ugGeneralFortranPageEmpty16}{\showpaste}
+\tab{5}\spadcommand{fortranLogical()$FortranType}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch17}
+\begin{paste}{ugGeneralFortranPageFull17}{ugGeneralFortranPageEmpty17}
+\pastebutton{ugGeneralFortranPageFull17}{\hidepaste}
+\tab{5}\spadcommand{construct(integer,[],true)$FortranType}
+\indentrel{3}\begin{verbatim}
+   (16)  EXTERNAL INTEGER
+                                      Type: FortranType
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty17}
+\begin{paste}{ugGeneralFortranPageEmpty17}{ugGeneralFortranPagePatch17}
+\pastebutton{ugGeneralFortranPageEmpty17}{\showpaste}
+\tab{5}\spadcommand{construct(integer,[],true)$FortranType}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch18}
+\begin{paste}{ugGeneralFortranPageFull18}{ugGeneralFortranPageEmpty18}
+\pastebutton{ugGeneralFortranPageFull18}{\hidepaste}
+\tab{5}\spadcommand{symbols := empty()$SymbolTable\bound{symbols }}
+\indentrel{3}\begin{verbatim}
+   (17)  table()
+                                      Type: SymbolTable
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty18}
+\begin{paste}{ugGeneralFortranPageEmpty18}{ugGeneralFortranPagePatch18}
+\pastebutton{ugGeneralFortranPageEmpty18}{\showpaste}
+\tab{5}\spadcommand{symbols := empty()$SymbolTable\bound{symbols }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch19}
+\begin{paste}{ugGeneralFortranPageFull19}{ugGeneralFortranPageEmpty19}
+\pastebutton{ugGeneralFortranPageFull19}{\hidepaste}
+\tab{5}\spadcommand{declare!(X, fortranReal()$FortranType, symbols)\free{symbols }}
+\indentrel{3}\begin{verbatim}
+   (18)  REAL
+                                      Type: FortranType
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty19}
+\begin{paste}{ugGeneralFortranPageEmpty19}{ugGeneralFortranPagePatch19}
+\pastebutton{ugGeneralFortranPageEmpty19}{\showpaste}
+\tab{5}\spadcommand{declare!(X, fortranReal()$FortranType, symbols)\free{symbols }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch20}
+\begin{paste}{ugGeneralFortranPageFull20}{ugGeneralFortranPageEmpty20}
+\pastebutton{ugGeneralFortranPageFull20}{\hidepaste}
+\tab{5}\spadcommand{declare!(M,construct(real,[i,j],false)$FortranType,symbols)\free{symbols }}
+\indentrel{3}\begin{verbatim}
+   (19)  REAL
+             (i, j)
+                                      Type: FortranType
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty20}
+\begin{paste}{ugGeneralFortranPageEmpty20}{ugGeneralFortranPagePatch20}
+\pastebutton{ugGeneralFortranPageEmpty20}{\showpaste}
+\tab{5}\spadcommand{declare!(M,construct(real,[i,j],false)$FortranType,symbols)\free{symbols }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch21}
+\begin{paste}{ugGeneralFortranPageFull21}{ugGeneralFortranPageEmpty21}
+\pastebutton{ugGeneralFortranPageFull21}{\hidepaste}
+\tab{5}\spadcommand{declare!([i,j], fortranInteger()$FortranType, symbols)\free{symbols }\bound{i j }}
+\indentrel{3}\begin{verbatim}
+   (20)  INTEGER
+                                      Type: FortranType
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty21}
+\begin{paste}{ugGeneralFortranPageEmpty21}{ugGeneralFortranPagePatch21}
+\pastebutton{ugGeneralFortranPageEmpty21}{\showpaste}
+\tab{5}\spadcommand{declare!([i,j], fortranInteger()$FortranType, symbols)\free{symbols }\bound{i j }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch22}
+\begin{paste}{ugGeneralFortranPageFull22}{ugGeneralFortranPageEmpty22}
+\pastebutton{ugGeneralFortranPageFull22}{\hidepaste}
+\tab{5}\spadcommand{symbols\free{symbols }}
+\indentrel{3}\begin{verbatim}
+   (21)
+   table(j = INTEGER,i = INTEGER,M = REAL      ,X = REAL)
+                                         (i, j)
+                                      Type: SymbolTable
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty22}
+\begin{paste}{ugGeneralFortranPageEmpty22}{ugGeneralFortranPagePatch22}
+\pastebutton{ugGeneralFortranPageEmpty22}{\showpaste}
+\tab{5}\spadcommand{symbols\free{symbols }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch23}
+\begin{paste}{ugGeneralFortranPageFull23}{ugGeneralFortranPageEmpty23}
+\pastebutton{ugGeneralFortranPageFull23}{\hidepaste}
+\tab{5}\spadcommand{fortranTypeOf(i,symbols)\free{symbols i }}
+\indentrel{3}\begin{verbatim}
+   (22)  INTEGER
+                                      Type: FortranType
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty23}
+\begin{paste}{ugGeneralFortranPageEmpty23}{ugGeneralFortranPagePatch23}
+\pastebutton{ugGeneralFortranPageEmpty23}{\showpaste}
+\tab{5}\spadcommand{fortranTypeOf(i,symbols)\free{symbols i }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch24}
+\begin{paste}{ugGeneralFortranPageFull24}{ugGeneralFortranPageEmpty24}
+\pastebutton{ugGeneralFortranPageFull24}{\hidepaste}
+\tab{5}\spadcommand{typeList(real,symbols)\free{symbols }}
+\indentrel{3}\begin{verbatim}
+   (23)  [X, [M, i, j]]
+Type: List(Union(name: Symbol,bounds: List(Union(S: Symbol,P: Polynomial(Integer)))))
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty24}
+\begin{paste}{ugGeneralFortranPageEmpty24}{ugGeneralFortranPagePatch24}
+\pastebutton{ugGeneralFortranPageEmpty24}{\showpaste}
+\tab{5}\spadcommand{typeList(real,symbols)\free{symbols }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch25}
+\begin{paste}{ugGeneralFortranPageFull25}{ugGeneralFortranPageEmpty25}
+\pastebutton{ugGeneralFortranPageFull25}{\hidepaste}
+\tab{5}\spadcommand{printTypes symbols\free{symbols }}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty25}
+\begin{paste}{ugGeneralFortranPageEmpty25}{ugGeneralFortranPagePatch25}
+\pastebutton{ugGeneralFortranPageEmpty25}{\showpaste}
+\tab{5}\spadcommand{printTypes symbols\free{symbols }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch26}
+\begin{paste}{ugGeneralFortranPageFull26}{ugGeneralFortranPageEmpty26}
+\pastebutton{ugGeneralFortranPageFull26}{\hidepaste}
+\tab{5}\spadcommand{newSubProgram(F)$TheSymbolTable}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty26}
+\begin{paste}{ugGeneralFortranPageEmpty26}{ugGeneralFortranPagePatch26}
+\pastebutton{ugGeneralFortranPageEmpty26}{\showpaste}
+\tab{5}\spadcommand{newSubProgram(F)$TheSymbolTable}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch27}
+\begin{paste}{ugGeneralFortranPageFull27}{ugGeneralFortranPageEmpty27}
+\pastebutton{ugGeneralFortranPageFull27}{\hidepaste}
+\tab{5}\spadcommand{endSubProgram()$TheSymbolTable}
+\indentrel{3}\begin{verbatim}
+   (26)  MAIN
+                                           Type: Symbol
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty27}
+\begin{paste}{ugGeneralFortranPageEmpty27}{ugGeneralFortranPagePatch27}
+\pastebutton{ugGeneralFortranPageEmpty27}{\showpaste}
+\tab{5}\spadcommand{endSubProgram()$TheSymbolTable}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch28}
+\begin{paste}{ugGeneralFortranPageFull28}{ugGeneralFortranPageEmpty28}
+\pastebutton{ugGeneralFortranPageFull28}{\hidepaste}
+\tab{5}\spadcommand{newSubProgram(F)$TheSymbolTable\bound{forPleasure }}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty28}
+\begin{paste}{ugGeneralFortranPageEmpty28}{ugGeneralFortranPagePatch28}
+\pastebutton{ugGeneralFortranPageEmpty28}{\showpaste}
+\tab{5}\spadcommand{newSubProgram(F)$TheSymbolTable\bound{forPleasure }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch29}
+\begin{paste}{ugGeneralFortranPageFull29}{ugGeneralFortranPageEmpty29}
+\pastebutton{ugGeneralFortranPageFull29}{\hidepaste}
+\tab{5}\spadcommand{argumentList!(F, [X])$TheSymbolTable\free{forPleasure }}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty29}
+\begin{paste}{ugGeneralFortranPageEmpty29}{ugGeneralFortranPagePatch29}
+\pastebutton{ugGeneralFortranPageEmpty29}{\showpaste}
+\tab{5}\spadcommand{argumentList!(F, [X])$TheSymbolTable\free{forPleasure }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch30}
+\begin{paste}{ugGeneralFortranPageFull30}{ugGeneralFortranPageEmpty30}
+\pastebutton{ugGeneralFortranPageFull30}{\hidepaste}
+\tab{5}\spadcommand{returnType!(F,real)$TheSymbolTable\free{forPleasure }}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty30}
+\begin{paste}{ugGeneralFortranPageEmpty30}{ugGeneralFortranPagePatch30}
+\pastebutton{ugGeneralFortranPageEmpty30}{\showpaste}
+\tab{5}\spadcommand{returnType!(F,real)$TheSymbolTable\free{forPleasure }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch31}
+\begin{paste}{ugGeneralFortranPageFull31}{ugGeneralFortranPageEmpty31}
+\pastebutton{ugGeneralFortranPageFull31}{\hidepaste}
+\tab{5}\spadcommand{declare!(X,fortranReal(),F)$TheSymbolTable\free{forPleasure }}
+\indentrel{3}\begin{verbatim}
+   (30)  REAL
+                                      Type: FortranType
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty31}
+\begin{paste}{ugGeneralFortranPageEmpty31}{ugGeneralFortranPagePatch31}
+\pastebutton{ugGeneralFortranPageEmpty31}{\showpaste}
+\tab{5}\spadcommand{declare!(X,fortranReal(),F)$TheSymbolTable\free{forPleasure }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch32}
+\begin{paste}{ugGeneralFortranPageFull32}{ugGeneralFortranPageEmpty32}
+\pastebutton{ugGeneralFortranPageFull32}{\hidepaste}
+\tab{5}\spadcommand{printHeader(F)$TheSymbolTable\free{forPleasure }}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty32}
+\begin{paste}{ugGeneralFortranPageEmpty32}{ugGeneralFortranPagePatch32}
+\pastebutton{ugGeneralFortranPageEmpty32}{\showpaste}
+\tab{5}\spadcommand{printHeader(F)$TheSymbolTable\free{forPleasure }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch33}
+\begin{paste}{ugGeneralFortranPageFull33}{ugGeneralFortranPageEmpty33}
+\pastebutton{ugGeneralFortranPageFull33}{\hidepaste}
+\tab{5}\spadcommand{LT(x,y)$Switch}
+\indentrel{3}\begin{verbatim}
+   (32)  x < y
+                                           Type: Switch
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty33}
+\begin{paste}{ugGeneralFortranPageEmpty33}{ugGeneralFortranPagePatch33}
+\pastebutton{ugGeneralFortranPageEmpty33}{\showpaste}
+\tab{5}\spadcommand{LT(x,y)$Switch}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch34}
+\begin{paste}{ugGeneralFortranPageFull34}{ugGeneralFortranPageEmpty34}
+\pastebutton{ugGeneralFortranPageFull34}{\hidepaste}
+\tab{5}\spadcommand{c := cond(LT(X,Y),assign(F,X),cond(GT(Y,Z),assign(F,Y), assign(F,Z))$FortranCode)$FortranCode\bound{c }}
+\indentrel{3}\begin{verbatim}
+   (33)  "conditional"
+                                      Type: FortranCode
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty34}
+\begin{paste}{ugGeneralFortranPageEmpty34}{ugGeneralFortranPagePatch34}
+\pastebutton{ugGeneralFortranPageEmpty34}{\showpaste}
+\tab{5}\spadcommand{c := cond(LT(X,Y),assign(F,X),cond(GT(Y,Z),assign(F,Y), assign(F,Z))$FortranCode)$FortranCode\bound{c }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch35}
+\begin{paste}{ugGeneralFortranPageFull35}{ugGeneralFortranPageEmpty35}
+\pastebutton{ugGeneralFortranPageFull35}{\hidepaste}
+\tab{5}\spadcommand{printCode c\free{c }}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty35}
+\begin{paste}{ugGeneralFortranPageEmpty35}{ugGeneralFortranPagePatch35}
+\pastebutton{ugGeneralFortranPageEmpty35}{\showpaste}
+\tab{5}\spadcommand{printCode c\free{c }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch36}
+\begin{paste}{ugGeneralFortranPageFull36}{ugGeneralFortranPageEmpty36}
+\pastebutton{ugGeneralFortranPageFull36}{\hidepaste}
+\tab{5}\spadcommand{symbols := empty()$SymbolTable\bound{symbols }}
+\indentrel{3}\begin{verbatim}
+   (35)  table()
+                                      Type: SymbolTable
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty36}
+\begin{paste}{ugGeneralFortranPageEmpty36}{ugGeneralFortranPagePatch36}
+\pastebutton{ugGeneralFortranPageEmpty36}{\showpaste}
+\tab{5}\spadcommand{symbols := empty()$SymbolTable\bound{symbols }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch37}
+\begin{paste}{ugGeneralFortranPageFull37}{ugGeneralFortranPageEmpty37}
+\pastebutton{ugGeneralFortranPageFull37}{\hidepaste}
+\tab{5}\spadcommand{declare!([X,Y],fortranReal()$FortranType,symbols)\free{symbols }}
+\indentrel{3}\begin{verbatim}
+   (36)  REAL
+                                      Type: FortranType
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty37}
+\begin{paste}{ugGeneralFortranPageEmpty37}{ugGeneralFortranPagePatch37}
+\pastebutton{ugGeneralFortranPageEmpty37}{\showpaste}
+\tab{5}\spadcommand{declare!([X,Y],fortranReal()$FortranType,symbols)\free{symbols }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch38}
+\begin{paste}{ugGeneralFortranPageFull38}{ugGeneralFortranPageEmpty38}
+\pastebutton{ugGeneralFortranPageFull38}{\hidepaste}
+\tab{5}\spadcommand{FP := FortranProgram(F,real,[X,Y],symbols)\free{symbols }\bound{FP }}
+\indentrel{3}\begin{verbatim}
+   (37)
+   FortranProgram(F,REAL,[X,Y],table(Y=REAL,X=REAL))
+                                             Type: Type
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty38}
+\begin{paste}{ugGeneralFortranPageEmpty38}{ugGeneralFortranPagePatch38}
+\pastebutton{ugGeneralFortranPageEmpty38}{\showpaste}
+\tab{5}\spadcommand{FP := FortranProgram(F,real,[X,Y],symbols)\free{symbols }\bound{FP }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch39}
+\begin{paste}{ugGeneralFortranPageFull39}{ugGeneralFortranPageEmpty39}
+\pastebutton{ugGeneralFortranPageFull39}{\hidepaste}
+\tab{5}\spadcommand{asp := X*sin(Y)\bound{asp }}
+\indentrel{3}\begin{verbatim}
+   (38)  X sin(Y)
+                              Type: Expression(Integer)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty39}
+\begin{paste}{ugGeneralFortranPageEmpty39}{ugGeneralFortranPagePatch39}
+\pastebutton{ugGeneralFortranPageEmpty39}{\showpaste}
+\tab{5}\spadcommand{asp := X*sin(Y)\bound{asp }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch40}
+\begin{paste}{ugGeneralFortranPageFull40}{ugGeneralFortranPageEmpty40}
+\pastebutton{ugGeneralFortranPageFull40}{\hidepaste}
+\tab{5}\spadcommand{outputAsFortran(asp::FP)\free{FP asp }}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty40}
+\begin{paste}{ugGeneralFortranPageEmpty40}{ugGeneralFortranPagePatch40}
+\pastebutton{ugGeneralFortranPageEmpty40}{\showpaste}
+\tab{5}\spadcommand{outputAsFortran(asp::FP)\free{FP asp }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch41}
+\begin{paste}{ugGeneralFortranPageFull41}{ugGeneralFortranPageEmpty41}
+\pastebutton{ugGeneralFortranPageFull41}{\hidepaste}
+\tab{5}\spadcommand{declare!(Z,fortranReal()$FortranType,symbols)\free{symbols }\bound{Z }}
+\indentrel{3}\begin{verbatim}
+   (40)  REAL
+                                      Type: FortranType
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty41}
+\begin{paste}{ugGeneralFortranPageEmpty41}{ugGeneralFortranPagePatch41}
+\pastebutton{ugGeneralFortranPageEmpty41}{\showpaste}
+\tab{5}\spadcommand{declare!(Z,fortranReal()$FortranType,symbols)\free{symbols }\bound{Z }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPagePatch42}
+\begin{paste}{ugGeneralFortranPageFull42}{ugGeneralFortranPageEmpty42}
+\pastebutton{ugGeneralFortranPageFull42}{\hidepaste}
+\tab{5}\spadcommand{outputAsFortran([c,returns()$FortranCode]::FP)\free{FP c Z }}
+\indentrel{3}\begin{verbatim}
+                                             Type: Void
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugGeneralFortranPageEmpty42}
+\begin{paste}{ugGeneralFortranPageEmpty42}{ugGeneralFortranPagePatch42}
+\pastebutton{ugGeneralFortranPageEmpty42}{\showpaste}
+\tab{5}\spadcommand{outputAsFortran([c,returns()$FortranCode]::FP)\free{FP c Z }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutTeXPagePatch1}
+\begin{paste}{ugInOutTeXPageFull1}{ugInOutTeXPageEmpty1}
+\pastebutton{ugInOutTeXPageFull1}{\hidepaste}
+\tab{5}\spadcommand{)set output tex on\bound{texon }}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutTeXPageEmpty1}
+\begin{paste}{ugInOutTeXPageEmpty1}{ugInOutTeXPagePatch1}
+\pastebutton{ugInOutTeXPageEmpty1}{\showpaste}
+\tab{5}\spadcommand{)set output tex on\bound{texon }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutOutPagePatch1}
+\begin{paste}{ugInOutOutPageFull1}{ugInOutOutPageEmpty1}
+\pastebutton{ugInOutOutPageFull1}{\hidepaste}
+\tab{5}\spadcommand{)set output fortran linalg}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutOutPageEmpty1}
+\begin{paste}{ugInOutOutPageEmpty1}{ugInOutOutPagePatch1}
+\pastebutton{ugInOutOutPageEmpty1}{\showpaste}
+\tab{5}\spadcommand{)set output fortran linalg}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutOutPagePatch2}
+\begin{paste}{ugInOutOutPageFull2}{ugInOutOutPageEmpty2}
+\pastebutton{ugInOutOutPageFull2}{\hidepaste}
+\tab{5}\spadcommand{)set output fortran on}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutOutPageEmpty2}
+\begin{paste}{ugInOutOutPageEmpty2}{ugInOutOutPagePatch2}
+\pastebutton{ugInOutOutPageEmpty2}{\showpaste}
+\tab{5}\spadcommand{)set output fortran on}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutOutPagePatch3}
+\begin{paste}{ugInOutOutPageFull3}{ugInOutOutPageEmpty3}
+\pastebutton{ugInOutOutPageFull3}{\hidepaste}
+\tab{5}\spadcommand{)set output fortran console}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutOutPageEmpty3}
+\begin{paste}{ugInOutOutPageEmpty3}{ugInOutOutPagePatch3}
+\pastebutton{ugInOutOutPageEmpty3}{\showpaste}
+\tab{5}\spadcommand{)set output fortran console}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutOutPagePatch4}
+\begin{paste}{ugInOutOutPageFull4}{ugInOutOutPageEmpty4}
+\pastebutton{ugInOutOutPageFull4}{\hidepaste}
+\tab{5}\spadcommand{)set output fortran off}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutOutPageEmpty4}
+\begin{paste}{ugInOutOutPageEmpty4}{ugInOutOutPagePatch4}
+\pastebutton{ugInOutOutPageEmpty4}{\showpaste}
+\tab{5}\spadcommand{)set output fortran off}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutOutPagePatch5}
+\begin{paste}{ugInOutOutPageFull5}{ugInOutOutPageEmpty5}
+\pastebutton{ugInOutOutPageFull5}{\hidepaste}
+\tab{5}\spadcommand{)system rm linalg.sfort}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutOutPageEmpty5}
+\begin{paste}{ugInOutOutPageEmpty5}{ugInOutOutPagePatch5}
+\pastebutton{ugInOutOutPageEmpty5}{\showpaste}
+\tab{5}\spadcommand{)system rm linalg.sfort}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutMathMLPagePatch1}
+\begin{paste}{ugInOutMathMLPageFull1}{ugInOutMathMLPageEmpty1}
+\pastebutton{ugInOutMathMLPageFull1}{\hidepaste}
+\tab{5}\spadcommand{)set output mathml on}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutMathMLPageEmpty1}
+\begin{paste}{ugInOutMathMLPageEmpty1}{ugInOutMathMLPagePatch1}
+\pastebutton{ugInOutMathMLPageEmpty1}{\showpaste}
+\tab{5}\spadcommand{)set output mathml on}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutMathMLPagePatch2}
+\begin{paste}{ugInOutMathMLPageFull2}{ugInOutMathMLPageEmpty2}
+\pastebutton{ugInOutMathMLPageFull2}{\hidepaste}
+\tab{5}\spadcommand{)set output mathml off}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutMathMLPageEmpty2}
+\begin{paste}{ugInOutMathMLPageEmpty2}{ugInOutMathMLPagePatch2}
+\pastebutton{ugInOutMathMLPageEmpty2}{\showpaste}
+\tab{5}\spadcommand{)set output mathml off}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutScriptPagePatch1}
+\begin{paste}{ugInOutScriptPageFull1}{ugInOutScriptPageEmpty1}
+\pastebutton{ugInOutScriptPageFull1}{\hidepaste}
+\tab{5}\spadcommand{)set output script on}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutScriptPageEmpty1}
+\begin{paste}{ugInOutScriptPageEmpty1}{ugInOutScriptPagePatch1}
+\pastebutton{ugInOutScriptPageEmpty1}{\showpaste}
+\tab{5}\spadcommand{)set output script on}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutScriptPagePatch2}
+\begin{paste}{ugInOutScriptPageFull2}{ugInOutScriptPageEmpty2}
+\pastebutton{ugInOutScriptPageFull2}{\hidepaste}
+\tab{5}\spadcommand{)set output script off}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutScriptPageEmpty2}
+\begin{paste}{ugInOutScriptPageEmpty2}{ugInOutScriptPagePatch2}
+\pastebutton{ugInOutScriptPageEmpty2}{\showpaste}
+\tab{5}\spadcommand{)set output script off}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutAlgebraPagePatch1}
+\begin{paste}{ugInOutAlgebraPageFull1}{ugInOutAlgebraPageEmpty1}
+\pastebutton{ugInOutAlgebraPageFull1}{\hidepaste}
+\tab{5}\spadcommand{)set output algebra on\bound{algon }}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutAlgebraPageEmpty1}
+\begin{paste}{ugInOutAlgebraPageEmpty1}{ugInOutAlgebraPagePatch1}
+\pastebutton{ugInOutAlgebraPageEmpty1}{\showpaste}
+\tab{5}\spadcommand{)set output algebra on\bound{algon }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutAlgebraPagePatch2}
+\begin{paste}{ugInOutAlgebraPageFull2}{ugInOutAlgebraPageEmpty2}
+\pastebutton{ugInOutAlgebraPageFull2}{\hidepaste}
+\tab{5}\spadcommand{)set output tex off\bound{texoff }}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutAlgebraPageEmpty2}
+\begin{paste}{ugInOutAlgebraPageEmpty2}{ugInOutAlgebraPagePatch2}
+\pastebutton{ugInOutAlgebraPageEmpty2}{\showpaste}
+\tab{5}\spadcommand{)set output tex off\bound{texoff }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutAlgebraPagePatch3}
+\begin{paste}{ugInOutAlgebraPageFull3}{ugInOutAlgebraPageEmpty3}
+\pastebutton{ugInOutAlgebraPageFull3}{\hidepaste}
+\tab{5}\spadcommand{matrix [[i*x^i + j*\%i*y^j for i in 1..2] for j in 3..4]\free{algon texoff }}
+\indentrel{3}\begin{verbatim}
+        +      3            3      2+
+        |3 %i y  + x  3 %i y  + 2 x |
+   (1)  |                           |
+        |      4            4      2|
+        +4 %i y  + x  4 %i y  + 2 x +
+             Type: Matrix(Polynomial(Complex(Integer)))
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutAlgebraPageEmpty3}
+\begin{paste}{ugInOutAlgebraPageEmpty3}{ugInOutAlgebraPagePatch3}
+\pastebutton{ugInOutAlgebraPageEmpty3}{\showpaste}
+\tab{5}\spadcommand{matrix [[i*x^i + j*\%i*y^j for i in 1..2] for j in 3..4]\free{algon texoff }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutAlgebraPagePatch4}
+\begin{paste}{ugInOutAlgebraPageFull4}{ugInOutAlgebraPageEmpty4}
+\pastebutton{ugInOutAlgebraPageFull4}{\hidepaste}
+\tab{5}\spadcommand{)set output algebra off}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutAlgebraPageEmpty4}
+\begin{paste}{ugInOutAlgebraPageEmpty4}{ugInOutAlgebraPagePatch4}
+\pastebutton{ugInOutAlgebraPageEmpty4}{\showpaste}
+\tab{5}\spadcommand{)set output algebra off}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutAlgebraPagePatch5}
+\begin{paste}{ugInOutAlgebraPageFull5}{ugInOutAlgebraPageEmpty5}
+\pastebutton{ugInOutAlgebraPageFull5}{\hidepaste}
+\tab{5}\spadcommand{)set output tex on}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutAlgebraPageEmpty5}
+\begin{paste}{ugInOutAlgebraPageEmpty5}{ugInOutAlgebraPagePatch5}
+\pastebutton{ugInOutAlgebraPageEmpty5}{\showpaste}
+\tab{5}\spadcommand{)set output tex on}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutTexmacsPagePatch1}
+\begin{paste}{ugInOutTexmacsPageFull1}{ugInOutTexmacsPageEmpty1}
+\pastebutton{ugInOutTexmacsPageFull1}{\hidepaste}
+\tab{5}\spadcommand{)set output texmacs on}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutTexmacsPageEmpty1}
+\begin{paste}{ugInOutTexmacsPageEmpty1}{ugInOutTexmacsPagePatch1}
+\pastebutton{ugInOutTexmacsPageEmpty1}{\showpaste}
+\tab{5}\spadcommand{)set output texmacs on}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutTexmacsPagePatch2}
+\begin{paste}{ugInOutTexmacsPageFull2}{ugInOutTexmacsPageEmpty2}
+\pastebutton{ugInOutTexmacsPageFull2}{\hidepaste}
+\tab{5}\spadcommand{)set output texmacs off}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutTexmacsPageEmpty2}
+\begin{paste}{ugInOutTexmacsPageEmpty2}{ugInOutTexmacsPagePatch2}
+\pastebutton{ugInOutTexmacsPageEmpty2}{\showpaste}
+\tab{5}\spadcommand{)set output texmacs off}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch1}
+\begin{paste}{ugInOutFortranPageFull1}{ugInOutFortranPageEmpty1}
+\pastebutton{ugInOutFortranPageFull1}{\hidepaste}
+\tab{5}\spadcommand{)set output fortran on\bound{forton }}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty1}
+\begin{paste}{ugInOutFortranPageEmpty1}{ugInOutFortranPagePatch1}
+\pastebutton{ugInOutFortranPageEmpty1}{\showpaste}
+\tab{5}\spadcommand{)set output fortran on\bound{forton }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch2}
+\begin{paste}{ugInOutFortranPageFull2}{ugInOutFortranPageEmpty2}
+\pastebutton{ugInOutFortranPageFull2}{\hidepaste}
+\tab{5}\spadcommand{)set fortran optlevel 0\bound{opt0 }\free{forton }}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty2}
+\begin{paste}{ugInOutFortranPageEmpty2}{ugInOutFortranPagePatch2}
+\pastebutton{ugInOutFortranPageEmpty2}{\showpaste}
+\tab{5}\spadcommand{)set fortran optlevel 0\bound{opt0 }\free{forton }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch3}
+\begin{paste}{ugInOutFortranPageFull3}{ugInOutFortranPageEmpty3}
+\pastebutton{ugInOutFortranPageFull3}{\hidepaste}
+\tab{5}\spadcommand{)set fortran fortlength 60}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty3}
+\begin{paste}{ugInOutFortranPageEmpty3}{ugInOutFortranPagePatch3}
+\pastebutton{ugInOutFortranPageEmpty3}{\showpaste}
+\tab{5}\spadcommand{)set fortran fortlength 60}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch4}
+\begin{paste}{ugInOutFortranPageFull4}{ugInOutFortranPageEmpty4}
+\pastebutton{ugInOutFortranPageFull4}{\hidepaste}
+\tab{5}\spadcommand{(x+y)^3\free{opt0 }}
+\indentrel{3}\begin{verbatim}
+         3        2      2     3
+   (1)  y  + 3 x y  + 3 x y + x
+                              Type: Polynomial(Integer)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty4}
+\begin{paste}{ugInOutFortranPageEmpty4}{ugInOutFortranPagePatch4}
+\pastebutton{ugInOutFortranPageEmpty4}{\showpaste}
+\tab{5}\spadcommand{(x+y)^3\free{opt0 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch5}
+\begin{paste}{ugInOutFortranPageFull5}{ugInOutFortranPageEmpty5}
+\pastebutton{ugInOutFortranPageFull5}{\hidepaste}
+\tab{5}\spadcommand{(x+y+z)^3\free{opt0 }}
+\indentrel{3}\begin{verbatim}
+   (2)
+      3               2       2              2      3
+     z  + (3 y + 3 x)z  + (3 y  + 6 x y + 3 x )z + y
+   + 
+          2      2     3
+     3 x y  + 3 x y + x
+                              Type: Polynomial(Integer)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty5}
+\begin{paste}{ugInOutFortranPageEmpty5}{ugInOutFortranPagePatch5}
+\pastebutton{ugInOutFortranPageEmpty5}{\showpaste}
+\tab{5}\spadcommand{(x+y+z)^3\free{opt0 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch6}
+\begin{paste}{ugInOutFortranPageFull6}{ugInOutFortranPageEmpty6}
+\pastebutton{ugInOutFortranPageFull6}{\hidepaste}
+\tab{5}\spadcommand{sin(x)\free{opt1 }}
+\indentrel{3}\begin{verbatim}
+   (3)  sin(x)
+                              Type: Expression(Integer)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty6}
+\begin{paste}{ugInOutFortranPageEmpty6}{ugInOutFortranPagePatch6}
+\pastebutton{ugInOutFortranPageEmpty6}{\showpaste}
+\tab{5}\spadcommand{sin(x)\free{opt1 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch7}
+\begin{paste}{ugInOutFortranPageFull7}{ugInOutFortranPageEmpty7}
+\pastebutton{ugInOutFortranPageFull7}{\hidepaste}
+\tab{5}\spadcommand{)set fortran optlevel 1\bound{opt1 }\free{forton }}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty7}
+\begin{paste}{ugInOutFortranPageEmpty7}{ugInOutFortranPagePatch7}
+\pastebutton{ugInOutFortranPageEmpty7}{\showpaste}
+\tab{5}\spadcommand{)set fortran optlevel 1\bound{opt1 }\free{forton }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch8}
+\begin{paste}{ugInOutFortranPageFull8}{ugInOutFortranPageEmpty8}
+\pastebutton{ugInOutFortranPageFull8}{\hidepaste}
+\tab{5}\spadcommand{(x+y+z)^3\free{opt1 }}
+\indentrel{3}\begin{verbatim}
+   (4)
+      3               2       2              2      3
+     z  + (3 y + 3 x)z  + (3 y  + 6 x y + 3 x )z + y
+   + 
+          2      2     3
+     3 x y  + 3 x y + x
+                              Type: Polynomial(Integer)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty8}
+\begin{paste}{ugInOutFortranPageEmpty8}{ugInOutFortranPagePatch8}
+\pastebutton{ugInOutFortranPageEmpty8}{\showpaste}
+\tab{5}\spadcommand{(x+y+z)^3\free{opt1 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch9}
+\begin{paste}{ugInOutFortranPageFull9}{ugInOutFortranPageEmpty9}
+\pastebutton{ugInOutFortranPageFull9}{\hidepaste}
+\tab{5}\spadcommand{)set fortran precision double\free{opt1 }\bound{double1 }}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty9}
+\begin{paste}{ugInOutFortranPageEmpty9}{ugInOutFortranPagePatch9}
+\pastebutton{ugInOutFortranPageEmpty9}{\showpaste}
+\tab{5}\spadcommand{)set fortran precision double\free{opt1 }\bound{double1 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch10}
+\begin{paste}{ugInOutFortranPageFull10}{ugInOutFortranPageEmpty10}
+\pastebutton{ugInOutFortranPageFull10}{\hidepaste}
+\tab{5}\spadcommand{2.3 + 5.6*\%i\free{double1 }}
+\indentrel{3}\begin{verbatim}
+   (5)  2.3 + 5.6 %i
+                                   Type: Complex(Float)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty10}
+\begin{paste}{ugInOutFortranPageEmpty10}{ugInOutFortranPagePatch10}
+\pastebutton{ugInOutFortranPageEmpty10}{\showpaste}
+\tab{5}\spadcommand{2.3 + 5.6*\%i\free{double1 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch11}
+\begin{paste}{ugInOutFortranPageFull11}{ugInOutFortranPageEmpty11}
+\pastebutton{ugInOutFortranPageFull11}{\hidepaste}
+\tab{5}\spadcommand{sin \%e\free{double1 }}
+\indentrel{3}\begin{verbatim}
+   (6)  sin(%e)
+                              Type: Expression(Integer)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty11}
+\begin{paste}{ugInOutFortranPageEmpty11}{ugInOutFortranPagePatch11}
+\pastebutton{ugInOutFortranPageEmpty11}{\showpaste}
+\tab{5}\spadcommand{sin \%e\free{double1 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch12}
+\begin{paste}{ugInOutFortranPageFull12}{ugInOutFortranPageEmpty12}
+\pastebutton{ugInOutFortranPageFull12}{\hidepaste}
+\tab{5}\spadcommand{)set fortran precision single\free{opt1 }\bound{single1 }}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty12}
+\begin{paste}{ugInOutFortranPageEmpty12}{ugInOutFortranPagePatch12}
+\pastebutton{ugInOutFortranPageEmpty12}{\showpaste}
+\tab{5}\spadcommand{)set fortran precision single\free{opt1 }\bound{single1 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch13}
+\begin{paste}{ugInOutFortranPageFull13}{ugInOutFortranPageEmpty13}
+\pastebutton{ugInOutFortranPageFull13}{\hidepaste}
+\tab{5}\spadcommand{2.3 + 5.6*\%i\free{single1 }}
+\indentrel{3}\begin{verbatim}
+   (7)  2.3 + 5.6 %i
+                                   Type: Complex(Float)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty13}
+\begin{paste}{ugInOutFortranPageEmpty13}{ugInOutFortranPagePatch13}
+\pastebutton{ugInOutFortranPageEmpty13}{\showpaste}
+\tab{5}\spadcommand{2.3 + 5.6*\%i\free{single1 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch14}
+\begin{paste}{ugInOutFortranPageFull14}{ugInOutFortranPageEmpty14}
+\pastebutton{ugInOutFortranPageFull14}{\hidepaste}
+\tab{5}\spadcommand{sin \%e\free{single1 }}
+\indentrel{3}\begin{verbatim}
+   (8)  sin(%e)
+                              Type: Expression(Integer)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty14}
+\begin{paste}{ugInOutFortranPageEmpty14}{ugInOutFortranPagePatch14}
+\pastebutton{ugInOutFortranPageEmpty14}{\showpaste}
+\tab{5}\spadcommand{sin \%e\free{single1 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch15}
+\begin{paste}{ugInOutFortranPageFull15}{ugInOutFortranPageEmpty15}
+\pastebutton{ugInOutFortranPageFull15}{\hidepaste}
+\tab{5}\spadcommand{[x+1,y+1,z+1]\free{opt1 }}
+\indentrel{3}\begin{verbatim}
+   (9)  [x + 1, y + 1, z + 1]
+                        Type: List(Polynomial(Integer))
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty15}
+\begin{paste}{ugInOutFortranPageEmpty15}{ugInOutFortranPagePatch15}
+\pastebutton{ugInOutFortranPageEmpty15}{\showpaste}
+\tab{5}\spadcommand{[x+1,y+1,z+1]\free{opt1 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch16}
+\begin{paste}{ugInOutFortranPageFull16}{ugInOutFortranPageEmpty16}
+\pastebutton{ugInOutFortranPageFull16}{\hidepaste}
+\tab{5}\spadcommand{set[2,3,4,3,5]\free{opt1 }}
+\indentrel{3}\begin{verbatim}
+   (10)  {2, 3, 4, 5}
+                             Type: Set(PositiveInteger)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty16}
+\begin{paste}{ugInOutFortranPageEmpty16}{ugInOutFortranPagePatch16}
+\pastebutton{ugInOutFortranPageEmpty16}{\showpaste}
+\tab{5}\spadcommand{set[2,3,4,3,5]\free{opt1 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch17}
+\begin{paste}{ugInOutFortranPageFull17}{ugInOutFortranPageEmpty17}
+\pastebutton{ugInOutFortranPageFull17}{\hidepaste}
+\tab{5}\spadcommand{matrix [[2.3,9.7],[0.0,18.778]]\free{opt1 }}
+\indentrel{3}\begin{verbatim}
+         +2.3   9.7  +
+   (11)  |           |
+         +0.0  18.778+
+                                    Type: Matrix(Float)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty17}
+\begin{paste}{ugInOutFortranPageEmpty17}{ugInOutFortranPagePatch17}
+\pastebutton{ugInOutFortranPageEmpty17}{\showpaste}
+\tab{5}\spadcommand{matrix [[2.3,9.7],[0.0,18.778]]\free{opt1 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch18}
+\begin{paste}{ugInOutFortranPageFull18}{ugInOutFortranPageEmpty18}
+\pastebutton{ugInOutFortranPageFull18}{\hidepaste}
+\tab{5}\spadcommand{)set fortran startindex 1\free{opt1 }\bound{start1 }}
+\indentrel{3}\begin{verbatim}
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty18}
+\begin{paste}{ugInOutFortranPageEmpty18}{ugInOutFortranPagePatch18}
+\pastebutton{ugInOutFortranPageEmpty18}{\showpaste}
+\tab{5}\spadcommand{)set fortran startindex 1\free{opt1 }\bound{start1 }}
+\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPagePatch19}
+\begin{paste}{ugInOutFortranPageFull19}{ugInOutFortranPageEmpty19}
+\pastebutton{ugInOutFortranPageFull19}{\hidepaste}
+\tab{5}\spadcommand{matrix [[2.3,9.7],[0.0,18.778]]\free{start1 }}
+\indentrel{3}\begin{verbatim}
+         +2.3   9.7  +
+   (12)  |           |
+         +0.0  18.778+
+                                    Type: Matrix(Float)
+\end{verbatim}
+\indentrel{-3}\end{paste}\end{patch}
+
+\begin{patch}{ugInOutFortranPageEmpty19}
+\begin{paste}{ugInOutFortranPageEmpty19}{ugInOutFortranPagePatch19}
+\pastebutton{ugInOutFortranPageEmpty19}{\showpaste}
+\tab{5}\spadcommand{matrix [[2.3,9.7],[0.0,18.778]]\free{start1 }}
+\end{paste}\end{patch}
+

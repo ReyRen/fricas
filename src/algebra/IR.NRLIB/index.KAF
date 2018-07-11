@@ -1,0 +1,201 @@
+9873                (|IntegrationResult| F)
+|domain|
+(((|IntegrationResult| |#1|)
+  (|Join| (|Module| (|Fraction| (|Integer|))) (|RetractableTo| |#1|)
+          (CATEGORY |domain|
+           (SIGNATURE |mkAnswer|
+            ($ |#1|
+             (|List|
+              (|Record| (|:| |scalar| (|Fraction| (|Integer|)))
+                        (|:| |coeff| (|SparseUnivariatePolynomial| |#1|))
+                        (|:| |logand| (|SparseUnivariatePolynomial| |#1|))))
+             (|List| (|Record| (|:| |integrand| |#1|) (|:| |intvar| |#1|)))))
+           (SIGNATURE |ratpart| (|#1| $))
+           (SIGNATURE |logpart|
+            ((|List|
+              (|Record| (|:| |scalar| (|Fraction| (|Integer|)))
+                        (|:| |coeff| (|SparseUnivariatePolynomial| |#1|))
+                        (|:| |logand| (|SparseUnivariatePolynomial| |#1|))))
+             $))
+           (SIGNATURE |notelem|
+            ((|List| (|Record| (|:| |integrand| |#1|) (|:| |intvar| |#1|))) $))
+           (SIGNATURE |elem?| ((|Boolean|) $))
+           (SIGNATURE |integral| ($ |#1| |#1|))
+           (SIGNATURE |differentiate| (|#1| $ (|Mapping| |#1| |#1|)))
+           (IF (|has| |#1| (|PartialDifferentialRing| (|Symbol|)))
+               (SIGNATURE |differentiate| (|#1| $ (|Symbol|)))
+               |noBranch|)
+           (IF (|has| |#1| (|RetractableTo| (|Symbol|)))
+               (SIGNATURE |integral| ($ |#1| (|Symbol|)))
+               |noBranch|)))
+  (|Field|))
+ (T |IntegrationResult|))
+(|Join| (|Module| (|Fraction| (|Integer|))) (|RetractableTo| |#1|)
+        (CATEGORY |domain|
+         (SIGNATURE |mkAnswer|
+          ($ |#1|
+           (|List|
+            (|Record| (|:| |scalar| (|Fraction| (|Integer|)))
+                      (|:| |coeff| (|SparseUnivariatePolynomial| |#1|))
+                      (|:| |logand| (|SparseUnivariatePolynomial| |#1|))))
+           (|List| (|Record| (|:| |integrand| |#1|) (|:| |intvar| |#1|)))))
+         (SIGNATURE |ratpart| (|#1| $))
+         (SIGNATURE |logpart|
+          ((|List|
+            (|Record| (|:| |scalar| (|Fraction| (|Integer|)))
+                      (|:| |coeff| (|SparseUnivariatePolynomial| |#1|))
+                      (|:| |logand| (|SparseUnivariatePolynomial| |#1|))))
+           $))
+         (SIGNATURE |notelem|
+          ((|List| (|Record| (|:| |integrand| |#1|) (|:| |intvar| |#1|))) $))
+         (SIGNATURE |elem?| ((|Boolean|) $))
+         (SIGNATURE |integral| ($ |#1| |#1|))
+         (SIGNATURE |differentiate| (|#1| $ (|Mapping| |#1| |#1|)))
+         (IF (|has| |#1| (|PartialDifferentialRing| (|Symbol|)))
+             (SIGNATURE |differentiate| (|#1| $ (|Symbol|)))
+             |noBranch|)
+         (IF (|has| |#1| (|RetractableTo| (|Symbol|)))
+             (SIGNATURE |integral| ($ |#1| (|Symbol|)))
+             |noBranch|)))
+"/git/fricas/src/algebra/IR.spad"
+((|mkAnswer| (*1 *1 *2 *3 *4)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |scalar| (|Fraction| (|Integer|)))
+                          (|:| |coeff| (|SparseUnivariatePolynomial| *2))
+                          (|:| |logand| (|SparseUnivariatePolynomial| *2)))))
+   (|isDomain| *4 (|List| (|Record| (|:| |integrand| *2) (|:| |intvar| *2))))
+   (|ofCategory| *2 (|Field|)) (|isDomain| *1 (|IntegrationResult| *2))))
+ (|ratpart| (*1 *2 *1)
+  (AND (|isDomain| *1 (|IntegrationResult| *2)) (|ofCategory| *2 (|Field|))))
+ (|logpart| (*1 *2 *1)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |scalar| (|Fraction| (|Integer|)))
+                          (|:| |coeff| (|SparseUnivariatePolynomial| *3))
+                          (|:| |logand| (|SparseUnivariatePolynomial| *3)))))
+   (|isDomain| *1 (|IntegrationResult| *3)) (|ofCategory| *3 (|Field|))))
+ (|notelem| (*1 *2 *1)
+  (AND
+   (|isDomain| *2 (|List| (|Record| (|:| |integrand| *3) (|:| |intvar| *3))))
+   (|isDomain| *1 (|IntegrationResult| *3)) (|ofCategory| *3 (|Field|))))
+ (|elem?| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|IntegrationResult| *3))
+       (|ofCategory| *3 (|Field|))))
+ (|integral| (*1 *1 *2 *2)
+  (AND (|isDomain| *1 (|IntegrationResult| *2)) (|ofCategory| *2 (|Field|))))
+ (|differentiate| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|Mapping| *2 *2))
+       (|isDomain| *1 (|IntegrationResult| *2)) (|ofCategory| *2 (|Field|))))
+ (|differentiate| (*1 *2 *1 *3)
+  (AND (|ofCategory| *2 (|Field|))
+       (|ofCategory| *2 (|PartialDifferentialRing| *3))
+       (|isDomain| *1 (|IntegrationResult| *2)) (|isDomain| *3 (|Symbol|))))
+ (|integral| (*1 *1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *1 (|IntegrationResult| *2))
+       (|ofCategory| *2 (|RetractableTo| *3)) (|ofCategory| *2 (|Field|)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|zero?|
+  (((|Boolean|) $) NIL (|has| (|Fraction| (|Integer|)) (|AbelianMonoid|))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) NIL
+   (|has| (|Fraction| (|Integer|)) (|AbelianGroup|))))
+ (|sample| (($) NIL (|has| (|Fraction| (|Integer|)) (|AbelianMonoid|)) CONST))
+ (|retractIfCan| (((|Union| |#1| "failed") $) 67)) (|retract| ((|#1| $) NIL))
+ (|ratpart| ((|#1| $) 24))
+ (|opposite?|
+  (((|Boolean|) $ $) NIL (|has| (|Fraction| (|Integer|)) (|AbelianMonoid|))))
+ (|notelem|
+  (((|List| (|Record| (|:| |integrand| |#1|) (|:| |intvar| |#1|))) $) 26))
+ (|mkAnswer|
+  (($ |#1|
+    (|List|
+     (|Record| (|:| |scalar| (|Fraction| (|Integer|)))
+               (|:| |coeff| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |logand| (|SparseUnivariatePolynomial| |#1|))))
+    (|List| (|Record| (|:| |integrand| |#1|) (|:| |intvar| |#1|))))
+   22))
+ (|logpart|
+  (((|List|
+     (|Record| (|:| |scalar| (|Fraction| (|Integer|)))
+               (|:| |coeff| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |logand| (|SparseUnivariatePolynomial| |#1|))))
+    $)
+   25))
+ (|latex| (((|String|) $) NIL))
+ (|integral| (($ |#1| |#1|) 32)
+  (($ |#1| (|Symbol|)) 43 (|has| |#1| (|RetractableTo| (|Symbol|)))))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|elem?| (((|Boolean|) $) 28))
+ (|differentiate| ((|#1| $ (|Mapping| |#1| |#1|)) 79)
+  ((|#1| $ (|Symbol|)) 80 (|has| |#1| (|PartialDifferentialRing| (|Symbol|)))))
+ (|coerce| (((|OutputForm|) $) 95) (($ |#1|) 23))
+ (|Zero| (($) 16 (|has| (|Fraction| (|Integer|)) (|AbelianMonoid|)) CONST))
+ (= (((|Boolean|) $ $) NIL))
+ (- (($ $) 15 (|has| (|Fraction| (|Integer|)) (|AbelianGroup|)))
+    (($ $ $) NIL (|has| (|Fraction| (|Integer|)) (|AbelianGroup|))))
+ (+ (($ $ $) 76))
+ (* (($ (|PositiveInteger|) $) NIL) (($ (|Fraction| (|Integer|)) $) 35)
+    (($ (|NonNegativeInteger|) $) NIL
+     (|has| (|Fraction| (|Integer|)) (|AbelianMonoid|)))
+    (($ (|Integer|) $) 14 (|has| (|Fraction| (|Integer|)) (|AbelianGroup|)))
+    (($ $ (|Fraction| (|Integer|))) NIL)))
+((|HasCategory| (|Fraction| (|Integer|)) '(|AbelianGroup|))
+ (|HasCategory| (|Fraction| (|Integer|)) '(|AbelianMonoid|))
+ (OR (|HasCategory| (|Fraction| (|Integer|)) '(|AbelianGroup|))
+     (|HasCategory| (|Fraction| (|Integer|)) '(|AbelianMonoid|)))
+ (|HasCategory| |#1| (LIST '|PartialDifferentialRing| '(|Symbol|)))
+ (|HasCategory| |#1| (LIST '|RetractableTo| '(|Symbol|))))
+IR
+(((|Module| (|Fraction| (|Integer|))) . T) ((|RetractableTo| |#1|) . T))
+(((|AbelianGroup|) |has| |t#1| (|AbelianGroup|))
+ ((|AbelianMonoid|) |has| |t#1| (|AbelianMonoid|)) ((|AbelianSemiGroup|) . T)
+ ((|BasicType|) . T) ((|BiModule| |t#1| |t#1|) . T)
+ ((|CancellationAbelianMonoid|) |has| |t#1| (|AbelianGroup|))
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|LeftModule| |t#1|) . T)
+ ((|Module| (|Fraction| (|Integer|))) . T) ((|RetractableTo| |#1|) . T)
+ ((|RightModule| |t#2|) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "If a function \\spad{f} has an elementary integral \\spad{g},{} then \\spad{g} can be written in the form \\spad{g = h + c1 log(u1) + c2 log(u2) + ... + cn log(un)} where \\spad{h},{} which is in the same field as \\spad{f},{} is called the rational part of the integral,{} and \\spad{c1 log(u1) + ... cn log(un)} is called the logarithmic part of the integral. This domain manipulates integrals represented in that form,{} by keeping both parts separately. The logs are not explicitly computed."))
+ (|differentiate|
+  ((|#1| $ (|Symbol|))
+   "\\spad{differentiate(ir,{} x)} differentiates \\spad{ir} with respect to \\spad{x}")
+  ((|#1| $ (|Mapping| |#1| |#1|))
+   "\\spad{differentiate(ir,{} D)} differentiates \\spad{ir} with respect to the derivation \\spad{D}."))
+ (|integral|
+  (($ |#1| (|Symbol|))
+   "\\spad{integral(f,{} x)} returns the formal integral of \\spad{f} with respect to \\spad{x}")
+  (($ |#1| |#1|)
+   "\\spad{integral(f,{} x)} returns the formal integral of \\spad{f} with respect to \\spad{x}"))
+ (|elem?|
+  (((|Boolean|) $)
+   "\\spad{elem?(ir)} tests if an integration result is elementary over \\spad{F?}"))
+ (|notelem|
+  (((|List| (|Record| (|:| |integrand| |#1|) (|:| |intvar| |#1|))) $)
+   "\\spad{notelem(ir)} returns the non-elementary part of an integration result"))
+ (|logpart|
+  (((|List|
+     (|Record| (|:| |scalar| (|Fraction| (|Integer|)))
+               (|:| |coeff| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |logand| (|SparseUnivariatePolynomial| |#1|))))
+    $)
+   "\\spad{logpart(ir)} returns the logarithmic part of an integration result"))
+ (|ratpart|
+  ((|#1| $)
+   "\\spad{ratpart(ir)} returns the rational part of an integration result"))
+ (|mkAnswer|
+  (($ |#1|
+    (|List|
+     (|Record| (|:| |scalar| (|Fraction| (|Integer|)))
+               (|:| |coeff| (|SparseUnivariatePolynomial| |#1|))
+               (|:| |logand| (|SparseUnivariatePolynomial| |#1|))))
+    (|List| (|Record| (|:| |integrand| |#1|) (|:| |intvar| |#1|))))
+   "\\spad{mkAnswer(r,{} l,{} ne)} creates an integration result from a rational part \\spad{r},{} a logarithmic part \\spad{l},{} and a non-elementary part ne.")))
+(("documentation" 0 7687) ("ancestors" 0 7257) ("parents" 0 7184)
+ ("abbreviation" 0 7181) ("predicates" 0 6803) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4704) ("modemaps" 0 2841) ("sourceFile" 0 2807)
+ ("constructorCategory" 0 1491) ("constructorModemap" 0 53)
+ ("constructorKind" 0 44) ("constructorForm" 0 20))

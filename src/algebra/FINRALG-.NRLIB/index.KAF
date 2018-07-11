@@ -1,0 +1,68 @@
+3651                (|FiniteRankAlgebra&| S R UP)
+|domain|
+(((|FiniteRankAlgebra&| |#1| |#2| |#3|)
+  (CATEGORY |domain|
+   (SIGNATURE |traceMatrix| ((|Matrix| |#2|) (|Vector| |#1|)))
+   (SIGNATURE |discriminant| (|#2| (|Vector| |#1|)))
+   (SIGNATURE |represents| (|#1| (|Vector| |#2|) (|Vector| |#1|)))
+   (SIGNATURE |coordinates| ((|Matrix| |#2|) (|Vector| |#1|) (|Vector| |#1|)))
+   (SIGNATURE |coordinates| ((|Vector| |#2|) |#1| (|Vector| |#1|)))
+   (SIGNATURE |regularRepresentation| ((|Matrix| |#2|) |#1| (|Vector| |#1|))))
+  (|FiniteRankAlgebra| |#2| |#3|) (|CommutativeRing|)
+  (|UnivariatePolynomialCategory| |#2|))
+ (T |FiniteRankAlgebra&|))
+(CATEGORY |domain| (SIGNATURE |traceMatrix| ((|Matrix| |#2|) (|Vector| |#1|)))
+ (SIGNATURE |discriminant| (|#2| (|Vector| |#1|)))
+ (SIGNATURE |represents| (|#1| (|Vector| |#2|) (|Vector| |#1|)))
+ (SIGNATURE |coordinates| ((|Matrix| |#2|) (|Vector| |#1|) (|Vector| |#1|)))
+ (SIGNATURE |coordinates| ((|Vector| |#2|) |#1| (|Vector| |#1|)))
+ (SIGNATURE |regularRepresentation| ((|Matrix| |#2|) |#1| (|Vector| |#1|))))
+"/git/fricas/src/algebra/FINRALG.spad"
+((|traceMatrix| (((|Matrix| |#2|) (|Vector| $)) 35))
+ (|represents| (($ (|Vector| |#2|) (|Vector| $)) 30))
+ (|regularRepresentation| (((|Matrix| |#2|) $ (|Vector| $)) 39))
+ (|discriminant| ((|#2| (|Vector| $)) 13))
+ (|coordinates| (((|Vector| |#2|) $ (|Vector| $)) NIL)
+  (((|Matrix| |#2|) (|Vector| $) (|Vector| $)) 21)))
+((|HasCategory| |#2| '(|CharacteristicNonZero|))
+ (|HasCategory| |#2| '(|CharacteristicZero|)) (|HasCategory| |#2| '(|Field|)))
+FINRALG-
+((|constructor|
+  (NIL
+   "A FiniteRankAlgebra is an algebra over a commutative ring \\spad{R} which is a free \\spad{R}-module of finite rank."))
+ (|minimalPolynomial|
+  ((|#3| $)
+   "\\spad{minimalPolynomial(a)} returns the minimal polynomial of \\spad{a}."))
+ (|characteristicPolynomial|
+  ((|#3| $)
+   "\\spad{characteristicPolynomial(a)} returns the characteristic polynomial of the regular representation of \\spad{a} with respect to any basis."))
+ (|traceMatrix|
+  (((|Matrix| |#2|) (|Vector| $))
+   "\\spad{traceMatrix([v1,{} ..,{} vn])} is the \\spad{n}-by-\\spad{n} matrix ( \\spad{Tr}(\\spad{vi} * \\spad{vj}) )"))
+ (|discriminant|
+  ((|#2| (|Vector| $))
+   "\\spad{discriminant([v1,{} ..,{} vn])} returns \\spad{determinant(traceMatrix([v1,{} ..,{} vn]))}."))
+ (|represents|
+  (($ (|Vector| |#2|) (|Vector| $))
+   "\\spad{represents([a1,{} ..,{} an],{} [v1,{} ..,{} vn])} returns \\spad{a1*v1 + ... + an*vn}."))
+ (|coordinates|
+  (((|Matrix| |#2|) (|Vector| $) (|Vector| $))
+   "\\spad{coordinates([v1,{} ...,{} vm],{} basis)} returns the coordinates of the \\spad{vi}\\spad{'s} with to the basis \\spad{basis}. The coordinates of \\spad{vi} are contained in the \\spad{i}th row of the matrix returned by this function.")
+  (((|Vector| |#2|) $ (|Vector| $))
+   "\\spad{coordinates(a,{} basis)} returns the coordinates of \\spad{a} with respect to the basis \\spad{basis}."))
+ (|norm|
+  ((|#2| $)
+   "\\spad{norm(a)} returns the determinant of the regular representation of \\spad{a} with respect to any basis."))
+ (|trace|
+  ((|#2| $)
+   "\\spad{trace(a)} returns the trace of the regular representation of \\spad{a} with respect to any basis."))
+ (|regularRepresentation|
+  (((|Matrix| |#2|) $ (|Vector| $))
+   "\\spad{regularRepresentation(a,{} basis)} returns the matrix \\spad{m} of the linear map defined by left multiplication by \\spad{a} with respect to the basis \\spad{basis}. That is for all \\spad{x} we have \\spad{coordinates(a*x,{} basis) = m*coordinates(x,{} basis)}."))
+ (|rank|
+  (((|PositiveInteger|)) "\\spad{rank()} returns the rank of the algebra.")))
+(("documentation" 0 1565) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1556) ("predicates" 0 1428) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1105) ("modemaps" 0 NIL) ("sourceFile" 0 1066)
+ ("constructorCategory" 0 651) ("constructorModemap" 0 59)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

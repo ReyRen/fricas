@@ -1,0 +1,88 @@
+)abbrev domain CELL Cell
+
+Cell(TheField) : PUB == PRIV where
+  TheField : RealClosedField
+
+  ThePols ==> Polynomial(TheField)
+
+  O           ==> OutputForm
+  B           ==> Boolean
+  Z           ==> Integer
+  N           ==> NonNegativeInteger
+  BUP         ==> SparseUnivariatePolynomial(TheField)
+  SCELL       ==> SimpleCell(TheField, BUP)
+
+  PUB == CoercibleTo(O) with
+
+     samplePoint : % -> List(TheField)
+       ++ samplePoint(c) returns the sample point of c
+     dimension : % -> N
+       ++ dimension(c) returns dimension of c
+     hasDimension? :  (%, Symbol) -> B
+       ++ hasDimension?(c) returns true if c is of positive dimension.
+       ++ Otherwise hasDimension?(c) returns false.
+     makeCell : List(SCELL) -> %
+       ++ makeCell(lc) creates a cell from list of simple cells lc
+     makeCell : (SCELL, %) -> %
+       ++ makeCell(c, sc) creates a cell which consists of sc in
+       ++ main variable and which has projection c
+     mainVariableOf : % -> Symbol
+       ++ mainVariableOf(c) returns main variable of c
+     variablesOf : % -> List Symbol
+       ++ variablesOf(c) returns list of variables of c
+     projection : % -> Union(%, "failed")
+       ++ projection(c) projects c with respect to main variable
+     simpleCells : % -> List(SCELL)
+       ++ simpleCells(c) returns lists of simple cells determining
+       ++ c.  That is c = makeCell(simpleCells(c))
+
+
+  PRIV == add
+
+    RepT ==> List(SCELL)
+
+    simpleCells(c) == c pretend RepT
+
+    Rep := RepT
+
+    coerce(c:%):O ==
+        paren [sc::O for sc in c]
+
+    projection(cell) ==
+        empty?(cell) => error "projection: should not appear"
+        r := rest(cell)
+        empty?(r) => "failed"
+        r
+
+    makeCell(l : List(SCELL)) == l
+
+    makeCell(scell, toAdd) == cons(scell, toAdd)
+
+    mainVariableOf(cell) ==
+        empty?(cell) =>
+            error "Should not appear"
+        variableOf(first(cell))
+
+    variablesOf(cell) ==
+        empty?(cell) => []
+        cons(mainVariableOf(cell), variablesOf(rest(cell)::%))
+
+    dimension(cell) ==
+        empty?(cell) => 0
+        hasDimension?(first(cell)) => 1 + dimension(rest(cell))
+        dimension(rest(cell))
+
+    hasDimension?(cell, var) ==
+        empty?(cell) =>
+            error "Should not appear"
+        sc : SCELL := first(cell)
+        v := variableOf(sc)
+        v = var => hasDimension?(sc)
+        v < var => false
+        v > var => true
+        error "impossible"
+
+    samplePoint(cell) ==
+        empty?(cell) => []
+        cons(samplePoint(first(cell)), samplePoint(rest(cell)))
+

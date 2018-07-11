@@ -1,0 +1,292 @@
+13406               (|LiePolynomial| |VarSet| R)
+|domain|
+(((|LiePolynomial| |#1| |#2|)
+  (|Join| (|FreeLieAlgebra| |#1| |#2|)
+          (|FreeModuleCategory| |#2| (|LyndonWord| |#1|))
+          (CATEGORY |domain|
+           (SIGNATURE |LiePolyIfCan|
+            ((|Union| $ "failed") (|XDistributedPolynomial| |#1| |#2|)))
+           (SIGNATURE |construct| ($ (|LyndonWord| |#1|) (|LyndonWord| |#1|)))
+           (SIGNATURE |construct| ($ (|LyndonWord| |#1|) $))
+           (SIGNATURE |construct| ($ $ (|LyndonWord| |#1|)))))
+  (|OrderedSet|) (|CommutativeRing|))
+ (T |LiePolynomial|))
+(|Join| (|FreeLieAlgebra| |#1| |#2|)
+        (|FreeModuleCategory| |#2| (|LyndonWord| |#1|))
+        (CATEGORY |domain|
+         (SIGNATURE |LiePolyIfCan|
+          ((|Union| $ "failed") (|XDistributedPolynomial| |#1| |#2|)))
+         (SIGNATURE |construct| ($ (|LyndonWord| |#1|) (|LyndonWord| |#1|)))
+         (SIGNATURE |construct| ($ (|LyndonWord| |#1|) $))
+         (SIGNATURE |construct| ($ $ (|LyndonWord| |#1|)))))
+"/git/fricas/src/algebra/LPOLY.spad"
+((|LiePolyIfCan| (*1 *1 *2)
+  (|partial| AND (|isDomain| *2 (|XDistributedPolynomial| *3 *4))
+   (|ofCategory| *3 (|OrderedSet|)) (|ofCategory| *4 (|CommutativeRing|))
+   (|isDomain| *1 (|LiePolynomial| *3 *4))))
+ (|construct| (*1 *1 *2 *2)
+              (AND (|isDomain| *2 (|LyndonWord| *3))
+                   (|ofCategory| *3 (|OrderedSet|))
+                   (|isDomain| *1 (|LiePolynomial| *3 *4))
+                   (|ofCategory| *4 (|CommutativeRing|))))
+ (|construct| (*1 *1 *2 *1)
+              (AND (|isDomain| *2 (|LyndonWord| *3))
+                   (|ofCategory| *3 (|OrderedSet|))
+                   (|isDomain| *1 (|LiePolynomial| *3 *4))
+                   (|ofCategory| *4 (|CommutativeRing|))))
+ (|construct| (*1 *1 *1 *2)
+              (AND (|isDomain| *2 (|LyndonWord| *3))
+                   (|ofCategory| *3 (|OrderedSet|))
+                   (|isDomain| *1 (|LiePolynomial| *3 *4))
+                   (|ofCategory| *4 (|CommutativeRing|)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|zero?|
+  (((|Boolean|) $) NIL
+   (OR (|has| |#2| (|AbelianMonoid|))
+       (AND (|has| |#2| (|OrderedAbelianMonoid|))
+            (|has| (|LyndonWord| |#1|) (|OrderedSet|)))
+       (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+            (|has| (|LyndonWord| |#1|) (|OrderedSet|))))))
+ (|varList| (((|List| |#1|) $) 82)) (|trunc| (($ $ (|NonNegativeInteger|)) 91))
+ (|support| (((|List| (|LyndonWord| |#1|)) $) NIL))
+ (|sup|
+  (($ $ $) NIL
+   (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+        (|has| (|LyndonWord| |#1|) (|OrderedSet|)))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) NIL
+   (OR (|has| |#2| (|AbelianGroup|)) (|has| |#2| (|CancellationAbelianMonoid|))
+       (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+            (|has| (|LyndonWord| |#1|) (|OrderedSet|))))))
+ (|smaller?|
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|Comparable|))
+         (|has| (|LyndonWord| |#1|) (|Comparable|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|))))))
+ (|sample|
+  (($) NIL
+   (OR (|has| |#2| (|AbelianMonoid|))
+       (AND (|has| |#2| (|OrderedAbelianMonoid|))
+            (|has| (|LyndonWord| |#1|) (|OrderedSet|)))
+       (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+            (|has| (|LyndonWord| |#1|) (|OrderedSet|))))
+   CONST))
+ (|rquo|
+  (((|XRecursivePolynomial| |#1| |#2|) (|XRecursivePolynomial| |#1| |#2|) $)
+   48))
+ (|retractIfCan|
+  (((|Union| (|LyndonWord| |#1|) "failed") $) NIL (|has| |#2| (|SemiRing|))))
+ (|retract| (((|LyndonWord| |#1|) $) NIL (|has| |#2| (|SemiRing|))))
+ (|reductum| (($ $) 90 (|has| (|LyndonWord| |#1|) (|Comparable|))))
+ (|opposite?|
+  (((|Boolean|) $ $) NIL
+   (OR (|has| |#2| (|AbelianMonoid|))
+       (AND (|has| |#2| (|OrderedAbelianMonoid|))
+            (|has| (|LyndonWord| |#1|) (|OrderedSet|)))
+       (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+            (|has| (|LyndonWord| |#1|) (|OrderedSet|))))))
+ (|numberOfMonomials| (((|NonNegativeInteger|) $) NIL))
+ (|monomials| (((|List| $) $) NIL)) (|monomial?| (((|Boolean|) $) NIL))
+ (|monomial| (($ |#2| (|LyndonWord| |#1|)) 68)) (|mirror| (($ $) 86))
+ (|min|
+  (($ $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|))))))
+ (|max|
+  (($ $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|))))))
+ (|map| (($ (|Mapping| |#2| |#2|) $) NIL))
+ (|lquo|
+  (((|XRecursivePolynomial| |#1| |#2|) (|XRecursivePolynomial| |#1| |#2|) $)
+   47))
+ (|listOfTerms|
+  (((|List| (|Record| (|:| |k| (|LyndonWord| |#1|)) (|:| |c| |#2|))) $) NIL))
+ (|linearExtend|
+  ((|#2| (|Mapping| |#2| (|LyndonWord| |#1|)) $) NIL
+   (|has| |#2| (|CommutativeRing|))))
+ (|leadingTerm|
+  (((|Record| (|:| |k| (|LyndonWord| |#1|)) (|:| |c| |#2|)) $) NIL
+   (|has| (|LyndonWord| |#1|) (|Comparable|))))
+ (|leadingSupport|
+  (((|LyndonWord| |#1|) $) NIL (|has| (|LyndonWord| |#1|) (|Comparable|))))
+ (|leadingMonomial| (($ $) NIL (|has| (|LyndonWord| |#1|) (|Comparable|))))
+ (|leadingCoefficient|
+  ((|#2| $) NIL (|has| (|LyndonWord| |#1|) (|Comparable|))))
+ (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|eval| (($ $ |#1| $) 30) (($ $ (|List| |#1|) (|List| $)) 32))
+ (|degree| (((|NonNegativeInteger|) $) 88))
+ (|constructOrdered|
+  (($ (|List| (|Record| (|:| |k| (|LyndonWord| |#1|)) (|:| |c| |#2|)))) NIL
+   (|has| (|LyndonWord| |#1|) (|Comparable|))))
+ (|construct| (($ $ $) 20)
+              (($
+                (|List|
+                 (|Record| (|:| |k| (|LyndonWord| |#1|)) (|:| |c| |#2|))))
+               NIL)
+              (($ (|LyndonWord| |#1|) (|LyndonWord| |#1|)) 77)
+              (($ (|LyndonWord| |#1|) $) 75) (($ $ (|LyndonWord| |#1|)) 76))
+ (|coerce| (((|OutputForm|) $) 101) (($ |#1|) 74)
+           (((|XDistributedPolynomial| |#1| |#2|) $) 58)
+           (((|XRecursivePolynomial| |#1| |#2|) $) 41)
+           (($ (|LyndonWord| |#1|)) 25 (|has| |#2| (|SemiRing|))))
+ (|coefficients| (((|List| |#2|) $) NIL))
+ (|coefficient| ((|#2| $ (|LyndonWord| |#1|)) NIL))
+ (|coef| ((|#2| (|XRecursivePolynomial| |#1| |#2|) $) 43))
+ (|Zero|
+  (($) 23
+   (OR (|has| |#2| (|AbelianMonoid|))
+       (AND (|has| |#2| (|OrderedAbelianMonoid|))
+            (|has| (|LyndonWord| |#1|) (|OrderedSet|)))
+       (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+            (|has| (|LyndonWord| |#1|) (|OrderedSet|))))
+   CONST))
+ (|LiePolyIfCan|
+  (((|Union| $ "failed") (|XDistributedPolynomial| |#1| |#2|)) 60))
+ (|LiePoly| (($ (|LyndonWord| |#1|)) 14))
+ (>=
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|))))))
+ (>
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|))))))
+ (= (((|Boolean|) $ $) 44))
+ (<=
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|))))))
+ (<
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|LyndonWord| |#1|) (|OrderedSet|))))))
+ (/ (($ $ |#2|) NIL (|has| |#2| (|Field|))))
+ (- (($ $) 66 (|has| |#2| (|AbelianGroup|)))
+    (($ $ $) NIL (|has| |#2| (|AbelianGroup|))))
+ (+ (($ $ $) 29))
+ (* (($ (|PositiveInteger|) $) NIL) (($ |#2| $) 28) (($ $ |#2|) NIL)
+    (($ (|NonNegativeInteger|) $) NIL
+     (OR (|has| |#2| (|AbelianMonoid|))
+         (AND (|has| |#2| (|OrderedAbelianMonoid|))
+              (|has| (|LyndonWord| |#1|) (|OrderedSet|)))
+         (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+              (|has| (|LyndonWord| |#1|) (|OrderedSet|)))))
+    (($ (|Integer|) $) NIL (|has| |#2| (|AbelianGroup|)))
+    (($ (|LyndonWord| |#1|) |#2|) NIL) (($ |#2| (|LyndonWord| |#1|)) NIL)))
+((|HasCategory| |#2| '(|AbelianGroup|)) (|HasCategory| |#2| '(|SemiRing|))
+ (AND (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))
+      (|HasCategory| (|LyndonWord| |#1|) '(|OrderedSet|)))
+ (OR
+  (AND (|HasCategory| |#2| '(|OrderedAbelianMonoid|))
+       (|HasCategory| (|LyndonWord| |#1|) '(|OrderedSet|)))
+  (AND (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))
+       (|HasCategory| (|LyndonWord| |#1|) '(|OrderedSet|))))
+ (OR (|HasCategory| |#2| '(|AbelianGroup|))
+     (|HasCategory| |#2| '(|AbelianMonoid|))
+     (|HasCategory| |#2| '(|CancellationAbelianMonoid|)))
+ (OR (|HasCategory| |#2| '(|AbelianGroup|))
+     (|HasCategory| |#2| '(|CancellationAbelianMonoid|)))
+ (|HasCategory| |#2| '(|Field|))
+ (OR (|HasCategory| |#2| '(|AbelianMonoid|))
+     (AND (|HasCategory| |#2| '(|OrderedAbelianMonoid|))
+          (|HasCategory| (|LyndonWord| |#1|) '(|OrderedSet|)))
+     (AND (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))
+          (|HasCategory| (|LyndonWord| |#1|) '(|OrderedSet|))))
+ (OR (|HasCategory| |#2| '(|AbelianGroup|))
+     (|HasCategory| |#2| '(|CancellationAbelianMonoid|))
+     (AND (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))
+          (|HasCategory| (|LyndonWord| |#1|) '(|OrderedSet|))))
+ (|HasCategory| |#2| '(|CommutativeRing|))
+ (|HasCategory| (|LyndonWord| |#1|) '(|Comparable|))
+ (OR
+  (AND (|HasCategory| |#2| '(|Comparable|))
+       (|HasCategory| (|LyndonWord| |#1|) '(|Comparable|)))
+  (AND (|HasCategory| |#2| '(|OrderedAbelianMonoid|))
+       (|HasCategory| (|LyndonWord| |#1|) '(|OrderedSet|)))
+  (AND (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))
+       (|HasCategory| (|LyndonWord| |#1|) '(|OrderedSet|)))))
+LPOLY
+(((|FreeLieAlgebra| |#1| |#2|) . T)
+ ((|FreeModuleCategory| |#2| (|LyndonWord| |#1|)) . T))
+(((|AbelianGroup|) |has| |t#1| (|AbelianGroup|))
+ ((|AbelianMonoid|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|)))
+  (|has| |t#1| (|AbelianMonoid|))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|CommutativeRing|))))
+ ((|AbelianProductCategory| |t#1|) . T) ((|AbelianSemiGroup|) . T)
+ ((|BasicType|) . T) ((|BiModule| |t#1| |t#1|) . T)
+ ((|CancellationAbelianMonoid|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (|has| |t#1| (|CancellationAbelianMonoid|))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|CommutativeRing|))))
+ ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|Comparable|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|Comparable|)) (|has| |t#2| (|Comparable|))))
+ ((|FreeLieAlgebra| |#1| |#2|) . T)
+ ((|FreeModuleCategory| |#2| (|LyndonWord| |#1|)) . T)
+ ((|IndexedDirectProductCategory| |t#1| |t#2|) . T) ((|LeftModule| |t#1|) . T)
+ ((|LieAlgebra| |t#2|) . T) ((|Module| |t#1|) . T)
+ ((|OrderedAbelianMonoid|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|OrderedAbelianMonoidSup|) AND (|has| |t#1| (|OrderedAbelianMonoidSup|))
+  (|has| |t#2| (|OrderedSet|)))
+ ((|OrderedAbelianSemiGroup|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|OrderedCancellationAbelianMonoid|) AND
+  (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+ ((|OrderedSet|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|PartialOrder|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|RetractableTo| |t#2|) |has| |t#1| (|SemiRing|)) ((|RightModule| |t#2|) . T)
+ ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "This type supports Lie polynomials in Lyndon basis see Free Lie Algebras by \\spad{C}. Reutenauer (Oxford science publications). \\newline Author: Michel Petitot (petitot@lifl.\\spad{fr})."))
+ (|construct|
+  (($ $ (|LyndonWord| |#1|))
+   "\\spad{construct(x,{} y)} returns the Lie bracket \\spad{[x,{} y]}.")
+  (($ (|LyndonWord| |#1|) $)
+   "\\spad{construct(x,{} y)} returns the Lie bracket \\spad{[x,{} y]}.")
+  (($ (|LyndonWord| |#1|) (|LyndonWord| |#1|))
+   "\\spad{construct(x,{} y)} returns the Lie bracket \\spad{[x,{} y]}."))
+ (|LiePolyIfCan|
+  (((|Union| $ "failed") (|XDistributedPolynomial| |#1| |#2|))
+   "\\spad{LiePolyIfCan(p)} returns \\spad{p} in Lyndon basis if \\spad{p} is a Lie polynomial,{} otherwise \\spad{\"failed\"} is returned.")))
+(("documentation" 0 12621) ("ancestors" 0 10374) ("parents" 0 10282)
+ ("abbreviation" 0 10276) ("predicates" 0 8615) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2014) ("modemaps" 0 1047) ("sourceFile" 0 1010)
+ ("constructorCategory" 0 587) ("constructorModemap" 0 58)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

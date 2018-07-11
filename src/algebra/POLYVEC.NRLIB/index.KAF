@@ -1,0 +1,321 @@
+16861               (MAKEPROP '|U32VectorPolynomialOperations| 'NILADIC T)
+(|U32VectorPolynomialOperations|)
+|package|
+(((|U32VectorPolynomialOperations|)
+  (CATEGORY |package|
+   (SIGNATURE |copy_first| ((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|)))
+   (SIGNATURE |copy_slice|
+    ((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|)))
+   (SIGNATURE |eval_at|
+    ((|Integer|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |vector_add_mul|
+    ((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|)
+     (|Integer|)))
+   (SIGNATURE |mul_by_binomial|
+    ((|Void|) (|U32Vector|) (|Integer|) (|Integer|)))
+   (SIGNATURE |mul_by_binomial|
+    ((|Void|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |mul_by_scalar|
+    ((|Void|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |mul| ((|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|)))
+   (SIGNATURE |truncated_multiplication|
+    ((|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|)))
+   (SIGNATURE |truncated_mul_add|
+    ((|Void|) (|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|)
+     (|Integer|)))
+   (SIGNATURE |pow|
+    ((|U32Vector|) (|U32Vector|) (|PositiveInteger|) (|NonNegativeInteger|)
+     (|Integer|)))
+   (SIGNATURE |differentiate| ((|U32Vector|) (|U32Vector|) (|Integer|)))
+   (SIGNATURE |differentiate|
+    ((|U32Vector|) (|U32Vector|) (|NonNegativeInteger|) (|Integer|)))
+   (SIGNATURE |divide!|
+    ((|Void|) (|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|)))
+   (SIGNATURE |remainder!| ((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|)))
+   (SIGNATURE |vector_combination|
+    ((|Void|) (|U32Vector|) (|Integer|) (|U32Vector|) (|Integer|) (|Integer|)
+     (|Integer|) (|Integer|)))
+   (SIGNATURE |to_mod_pa|
+    ((|U32Vector|) (|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+   (SIGNATURE |pa_to_sup|
+    ((|SparseUnivariatePolynomial| (|Integer|)) (|U32Vector|)))
+   (SIGNATURE |gcd| ((|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|)))
+   (SIGNATURE |gcd|
+    ((|U32Vector|) (|PrimitiveArray| (|U32Vector|)) (|Integer|) (|Integer|)
+     (|Integer|)))
+   (SIGNATURE |lcm|
+    ((|U32Vector|) (|PrimitiveArray| (|U32Vector|)) (|Integer|) (|Integer|)
+     (|Integer|)))
+   (SIGNATURE |degree| ((|Integer|) (|U32Vector|)))
+   (SIGNATURE |extended_gcd|
+    ((|List| (|U32Vector|)) (|U32Vector|) (|U32Vector|) (|Integer|)))
+   (SIGNATURE |resultant|
+    ((|Integer|) (|U32Vector|) (|U32Vector|) (|Integer|)))))
+ (T |U32VectorPolynomialOperations|))
+(CATEGORY |package|
+ (SIGNATURE |copy_first| ((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|)))
+ (SIGNATURE |copy_slice|
+  ((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|)))
+ (SIGNATURE |eval_at|
+  ((|Integer|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |vector_add_mul|
+  ((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|)
+   (|Integer|)))
+ (SIGNATURE |mul_by_binomial| ((|Void|) (|U32Vector|) (|Integer|) (|Integer|)))
+ (SIGNATURE |mul_by_binomial|
+  ((|Void|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |mul_by_scalar|
+  ((|Void|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |mul| ((|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|)))
+ (SIGNATURE |truncated_multiplication|
+  ((|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|)))
+ (SIGNATURE |truncated_mul_add|
+  ((|Void|) (|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|)))
+ (SIGNATURE |pow|
+  ((|U32Vector|) (|U32Vector|) (|PositiveInteger|) (|NonNegativeInteger|)
+   (|Integer|)))
+ (SIGNATURE |differentiate| ((|U32Vector|) (|U32Vector|) (|Integer|)))
+ (SIGNATURE |differentiate|
+  ((|U32Vector|) (|U32Vector|) (|NonNegativeInteger|) (|Integer|)))
+ (SIGNATURE |divide!|
+  ((|Void|) (|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|)))
+ (SIGNATURE |remainder!| ((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|)))
+ (SIGNATURE |vector_combination|
+  ((|Void|) (|U32Vector|) (|Integer|) (|U32Vector|) (|Integer|) (|Integer|)
+   (|Integer|) (|Integer|)))
+ (SIGNATURE |to_mod_pa|
+  ((|U32Vector|) (|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+ (SIGNATURE |pa_to_sup|
+  ((|SparseUnivariatePolynomial| (|Integer|)) (|U32Vector|)))
+ (SIGNATURE |gcd| ((|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|)))
+ (SIGNATURE |gcd|
+  ((|U32Vector|) (|PrimitiveArray| (|U32Vector|)) (|Integer|) (|Integer|)
+   (|Integer|)))
+ (SIGNATURE |lcm|
+  ((|U32Vector|) (|PrimitiveArray| (|U32Vector|)) (|Integer|) (|Integer|)
+   (|Integer|)))
+ (SIGNATURE |degree| ((|Integer|) (|U32Vector|)))
+ (SIGNATURE |extended_gcd|
+  ((|List| (|U32Vector|)) (|U32Vector|) (|U32Vector|) (|Integer|)))
+ (SIGNATURE |resultant| ((|Integer|) (|U32Vector|) (|U32Vector|) (|Integer|))))
+"/git/fricas/src/algebra/POLYVEC.spad"
+((|resultant| (*1 *2 *3 *3 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *3 (|U32Vector|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|extended_gcd| (*1 *2 *3 *3 *4)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|List| (|U32Vector|)))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|degree| (*1 *2 *3)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|lcm| (*1 *2 *3 *4 *4 *4)
+  (AND (|isDomain| *3 (|PrimitiveArray| (|U32Vector|)))
+       (|isDomain| *4 (|Integer|)) (|isDomain| *2 (|U32Vector|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|gcd| (*1 *2 *3 *4 *4 *4)
+  (AND (|isDomain| *3 (|PrimitiveArray| (|U32Vector|)))
+       (|isDomain| *4 (|Integer|)) (|isDomain| *2 (|U32Vector|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|gcd| (*1 *2 *2 *2 *3)
+  (AND (|isDomain| *2 (|U32Vector|)) (|isDomain| *3 (|Integer|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|pa_to_sup| (*1 *2 *3)
+  (AND (|isDomain| *3 (|U32Vector|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| (|Integer|)))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|to_mod_pa| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| (|Integer|)))
+       (|isDomain| *4 (|Integer|)) (|isDomain| *2 (|U32Vector|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|vector_combination| (*1 *2 *3 *4 *3 *4 *4 *4 *4)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|remainder!| (*1 *2 *3 *3 *4)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|divide!| (*1 *2 *3 *3 *3 *4)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|differentiate| (*1 *2 *2 *3 *4)
+  (AND (|isDomain| *2 (|U32Vector|)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *4 (|Integer|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|differentiate| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|U32Vector|)) (|isDomain| *3 (|Integer|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|pow| (*1 *2 *2 *3 *4 *5)
+  (AND (|isDomain| *2 (|U32Vector|)) (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *4 (|NonNegativeInteger|)) (|isDomain| *5 (|Integer|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|truncated_mul_add| (*1 *2 *3 *3 *3 *4 *4)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|truncated_multiplication| (*1 *2 *2 *2 *3 *3)
+  (AND (|isDomain| *2 (|U32Vector|)) (|isDomain| *3 (|Integer|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|mul| (*1 *2 *2 *2 *3)
+  (AND (|isDomain| *2 (|U32Vector|)) (|isDomain| *3 (|Integer|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|mul_by_scalar| (*1 *2 *3 *4 *4 *4)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|mul_by_binomial| (*1 *2 *3 *4 *4 *4)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|mul_by_binomial| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|vector_add_mul| (*1 *2 *3 *3 *4 *4 *4 *4)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|eval_at| (*1 *2 *3 *2 *2 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *3 (|U32Vector|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|copy_slice| (*1 *2 *3 *3 *4 *4)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|))))
+ (|copy_first| (*1 *2 *3 *3 *4)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|U32VectorPolynomialOperations|)))))
+((|vector_combination|
+  (((|Void|) (|U32Vector|) (|Integer|) (|U32Vector|) (|Integer|) (|Integer|)
+    (|Integer|) (|Integer|))
+   31))
+ (|vector_add_mul|
+  (((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|)
+    (|Integer|))
+   26))
+ (|truncated_multiplication|
+  (((|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|)) 46))
+ (|truncated_mul_add|
+  (((|Void|) (|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|))
+   45))
+ (|to_mod_pa|
+  (((|U32Vector|) (|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)) 21))
+ (|resultant| (((|Integer|) (|U32Vector|) (|U32Vector|) (|Integer|)) 54))
+ (|remainder!| (((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|)) 34))
+ (|pow|
+  (((|U32Vector|) (|U32Vector|) (|PositiveInteger|) (|NonNegativeInteger|)
+    (|Integer|))
+   48))
+ (|pa_to_sup| (((|SparseUnivariatePolynomial| (|Integer|)) (|U32Vector|)) 25))
+ (|mul_by_scalar|
+  (((|Void|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|)) 29))
+ (|mul_by_binomial|
+  (((|Void|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|)) 27)
+  (((|Void|) (|U32Vector|) (|Integer|) (|Integer|)) 28))
+ (|mul| (((|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|)) 40))
+ (|lcm|
+  (((|U32Vector|) (|PrimitiveArray| (|U32Vector|)) (|Integer|) (|Integer|)
+    (|Integer|))
+   41))
+ (|gcd|
+  (((|U32Vector|) (|PrimitiveArray| (|U32Vector|)) (|Integer|) (|Integer|)
+    (|Integer|))
+   39)
+  (((|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|)) 37))
+ (|extended_gcd|
+  (((|List| (|U32Vector|)) (|U32Vector|) (|U32Vector|) (|Integer|)) 53))
+ (|eval_at|
+  (((|Integer|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|)) 11))
+ (|divide!|
+  (((|Void|) (|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|)) 33))
+ (|differentiate|
+  (((|U32Vector|) (|U32Vector|) (|NonNegativeInteger|) (|Integer|)) 50)
+  (((|U32Vector|) (|U32Vector|) (|Integer|)) 49))
+ (|degree| (((|Integer|) (|U32Vector|)) 30))
+ (|copy_slice|
+  (((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|)) 10))
+ (|copy_first| (((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|)) 9)))
+POLYVEC
+((|constructor|
+  (NIL
+   "This is a low-level package which implements operations \\indented{1}{on vectors treated as univariate modular polynomials.\\space{2}Most} \\indented{1}{operations takes modulus as parameter.\\space{2}Modulus is machine} \\indented{1}{sized prime which should be small enough to avoid overflow} \\indented{1}{in intermediate calculations.}"))
+ (|resultant|
+  (((|Integer|) (|U32Vector|) (|U32Vector|) (|Integer|))
+   "\\spad{resultant(v1,{} v2,{} p)} computes resultant of \\spad{v1} and \\spad{v2} modulo \\spad{p}."))
+ (|extended_gcd|
+  (((|List| (|U32Vector|)) (|U32Vector|) (|U32Vector|) (|Integer|))
+   "\\spad{extended_gcd(v1,{} v2,{} p)} gives [\\spad{g},{} \\spad{c1},{} \\spad{c2}] such that \\spad{g} is \\spad{gcd(v1,{} v2,{} p)},{} \\spad{g = c1*v1 + c2*v2} and degree(\\spad{c1}) < max(degree(\\spad{v2}) - degree(\\spad{g}),{} 0) and degree(\\spad{c2}) < max(degree(\\spad{v1}) - degree(\\spad{g}),{} 1)"))
+ (|degree|
+  (((|Integer|) (|U32Vector|))
+   "\\spad{degree(v)} is degree of \\spad{v} treated as polynomial"))
+ (|lcm|
+  (((|U32Vector|) (|PrimitiveArray| (|U32Vector|)) (|Integer|) (|Integer|)
+    (|Integer|))
+   "\\spad{lcm(a,{} lo,{} \\spad{hi},{} p)} computes \\spad{lcm} of elements a(\\spad{lo}),{} a(\\spad{lo+1}),{} ...,{} a(\\spad{hi})."))
+ (|gcd|
+  (((|U32Vector|) (|PrimitiveArray| (|U32Vector|)) (|Integer|) (|Integer|)
+    (|Integer|))
+   "\\spad{gcd(a,{} lo,{} \\spad{hi},{} p)} computes \\spad{gcd} of elements a(\\spad{lo}),{} a(\\spad{lo+1}),{} ...,{} a(\\spad{hi}).")
+  (((|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|))
+   "\\spad{gcd(v1,{} v2,{} p)} computes monic \\spad{gcd} of \\spad{v1} and \\spad{v2} modulo \\spad{p}."))
+ (|pa_to_sup|
+  (((|SparseUnivariatePolynomial| (|Integer|)) (|U32Vector|))
+   "\\spad{pa_to_sup(v)} converts vector of coefficients to a polynomial"))
+ (|to_mod_pa|
+  (((|U32Vector|) (|SparseUnivariatePolynomial| (|Integer|)) (|Integer|))
+   "\\spad{to_mod_pa(s,{} p)} reduces coefficients of polynomial \\spad{s} modulo prime \\spad{p} and converts the result to vector"))
+ (|vector_combination|
+  (((|Void|) (|U32Vector|) (|Integer|) (|U32Vector|) (|Integer|) (|Integer|)
+    (|Integer|) (|Integer|))
+   "\\spad{vector_combination(v1,{} c1,{} v2,{} c2,{} n,{} delta,{} p)} replaces first \\spad{n} + 1 entires of \\spad{v1} by corresponding entries of \\spad{c1*v1+c2*x^delta*v2} mod \\spad{p}."))
+ (|remainder!|
+  (((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|)) "Polynomial remainder"))
+ (|divide!|
+  (((|Void|) (|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|))
+   "Polynomial division."))
+ (|differentiate|
+  (((|U32Vector|) (|U32Vector|) (|NonNegativeInteger|) (|Integer|))
+   "Polynomial differentiation.")
+  (((|U32Vector|) (|U32Vector|) (|Integer|)) "Polynomial differentiation."))
+ (|pow|
+  (((|U32Vector|) (|U32Vector|) (|PositiveInteger|) (|NonNegativeInteger|)
+    (|Integer|))
+   "\\spad{pow(u,{} n,{} d,{} p)} returns u^n truncated after degree \\spad{d},{} except if \\spad{n=1},{} in which case \\spad{u} itself is returned"))
+ (|truncated_mul_add|
+  (((|Void|) (|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|))
+   "\\spad{truncated_mul_add(x,{} y,{} z,{} d,{} p)} adds to \\spad{z} the produce x*y truncated after degree \\spad{d}"))
+ (|truncated_multiplication|
+  (((|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|))
+   "\\spad{truncated_multiplication(x,{} y,{} d,{} p)} computes x*y truncated after degree \\spad{d}"))
+ (|mul|
+  (((|U32Vector|) (|U32Vector|) (|U32Vector|) (|Integer|))
+   "Polynomial multiplication."))
+ (|mul_by_scalar|
+  (((|Void|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{mul_by_scalar(v,{} deg,{} c,{} p)} treats \\spad{v} as coefficients of polynomial of degree \\spad{deg} and multiplies in place this polynomial by scalar \\spad{c}"))
+ (|mul_by_binomial|
+  (((|Void|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{mul_by_binomial(v,{} deg,{} pt,{} p)} treats \\spad{v} as coefficients of polynomial of degree \\spad{deg} and multiplies in place this polynomial by binomial (\\spad{x} + \\spad{pt}). Highest coefficient of product is ignored.")
+  (((|Void|) (|U32Vector|) (|Integer|) (|Integer|))
+   "\\spad{mul_by_binomial(v,{} pt,{} p)} treats \\spad{v} a polynomial and multiplies in place this polynomial by binomial (\\spad{x} + \\spad{pt}). Highest coefficient of product is ignored."))
+ (|vector_add_mul|
+  (((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|)
+    (|Integer|))
+   "\\spad{vector_add_mul(v1,{} v2,{} m,{} n,{} c,{} p)} sets \\spad{v1}(\\spad{m}),{} ...,{} \\spad{v1}(\\spad{n}) to corresponding extries in \\spad{v1} + \\spad{c*v2} modulo \\spad{p}."))
+ (|eval_at|
+  (((|Integer|) (|U32Vector|) (|Integer|) (|Integer|) (|Integer|))
+   "\\spad{eval_at(v,{} deg,{} pt,{} p)} treats \\spad{v} as coefficients of polynomial of degree \\spad{deg} and evaluates the polynomial at point \\spad{pt} modulo \\spad{p}"))
+ (|copy_slice|
+  (((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|) (|Integer|))
+   "\\spad{copy_slice(v1,{} v2,{} m,{} n)} copies the slice of \\spad{v2} starting at \\spad{m} elements and having \\spad{n} elements into corresponding positions in \\spad{v1}."))
+ (|copy_first|
+  (((|Void|) (|U32Vector|) (|U32Vector|) (|Integer|))
+   "\\spad{copy_first(v1,{} v2,{} n)} copies first \\spad{n} elements of \\spad{v2} into \\spad{n} first positions in \\spad{v1}.")))
+(("documentation" 0 11415) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 11407) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 9325) ("modemaps" 0 4828) ("sourceFile" 0 4789)
+ ("constructorCategory" 0 2544) ("constructorModemap" 0 119)
+ ("constructorKind" 0 109) ("constructorForm" 0 75) ("NILADIC" 0 20))

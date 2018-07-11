@@ -1,0 +1,17 @@
+
+-- Input for page FileXmpPage
+)clear all
+
+ifile:File List Integer:=open("/tmp/jazz1","output")
+write!(ifile, [-1,2,3])
+write!(ifile, [10,-10,0,111])
+write!(ifile, [7])
+reopen!(ifile, "input")
+read! ifile
+read! ifile
+readIfCan! ifile
+readIfCan! ifile
+iomode ifile
+name ifile
+close! ifile
+)system rm /tmp/jazz1

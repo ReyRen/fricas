@@ -1,0 +1,27 @@
+1147                (|ApplyUnivariateSkewPolynomial| R M P)
+|package|
+(((|ApplyUnivariateSkewPolynomial| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |apply| (|#2| |#3| (|Mapping| |#2| |#2|) |#2|)))
+  (|Ring|) (|LeftModule| |#1|) (|UnivariateSkewPolynomialCategory| |#1|))
+ (T |ApplyUnivariateSkewPolynomial|))
+(CATEGORY |package| (SIGNATURE |apply| (|#2| |#3| (|Mapping| |#2| |#2|) |#2|)))
+"/git/fricas/src/algebra/APPLYORE.spad"
+((|apply| (*1 *2 *3 *4 *2)
+  (AND (|isDomain| *4 (|Mapping| *2 *2)) (|ofCategory| *2 (|LeftModule| *5))
+       (|ofCategory| *5 (|Ring|))
+       (|isDomain| *1 (|ApplyUnivariateSkewPolynomial| *5 *2 *3))
+       (|ofCategory| *3 (|UnivariateSkewPolynomialCategory| *5)))))
+((|apply| ((|#2| |#3| (|Mapping| |#2| |#2|) |#2|) 16)))
+APPLYORE
+((|constructor|
+  (NIL
+   "\\spad{ApplyUnivariateSkewPolynomial} (internal) allows univariate skew polynomials to be applied to appropriate modules."))
+ (|apply|
+  ((|#2| |#3| (|Mapping| |#2| |#2|) |#2|)
+   "\\spad{apply(p,{} f,{} m)} returns \\spad{p(m)} where the action is given by \\spad{x m = f(m)}. \\spad{f} must be an \\spad{R}-pseudo linear map on \\spad{M}.")))
+(("documentation" 0 775) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 766) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 710) ("modemaps" 0 438) ("sourceFile" 0 398)
+ ("constructorCategory" 0 318) ("constructorModemap" 0 70)
+ ("constructorKind" 0 60) ("constructorForm" 0 20))

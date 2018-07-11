@@ -1,0 +1,89 @@
+)abbrev category DISTCAT DistributionCategory
+++ Author: Franz Lehner lehner@math.tugraz.at, Waldek Hebisch
+++ Date Created: 2009
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   Category of distributions formally given by moments.
+DistributionCategory(R : CommutativeRing) : Category == Exports where
+  NNI ==> NonNegativeInteger
+  PI ==> PositiveInteger
+  STRREC ==> Record(puiseux : Fraction Integer, laurent : Fraction Integer,
+                    coef : Sequence R)
+  SUPR ==> SparseUnivariatePolynomial R
+  SUPFR ==> SparseUnivariatePolynomial Fraction R
+  Exports ==> SetCategory with
+    0 : constant -> %
+      ++ \spad{0} is the Dirac distribution
+    moment : (%, NNI) -> R
+      ++ \spad{moment(x, n)} returns the n-th moment
+      ++ of the distribution \spad{x}
+    classicalCumulant : (%, PI) -> R
+      ++ \spad{classicalCumulant(x, n)} returns the n-th classical cumulant
+      ++ of the distribution \spad{x}
+    freeCumulant : (%, PI) -> R
+      ++ \spad{freeCumulant(x, n)} returns the n-th free cumulant
+      ++ of the distribution \spad{x}
+    booleanCumulant : (%, PI) -> R
+      ++ \spad{booleanCumulant(x, n)} returns the n-th boolean cumulant
+      ++ of the distribution \spad{x}
+    moments : % -> Sequence R
+      ++ \spad{moments(x)} returns the sequence of moments
+      ++ of the distribution \spad{x}
+    classicalCumulants : % -> Sequence R
+      ++ \spad{classicalCumulants(x)} returns sequence of classical cumulants
+      ++ of the distribution \spad{x}
+    freeCumulants : % -> Sequence R
+      ++ \spad{freeCumulants(x)} returns the sequence of free cumulants
+      ++ of the distribution \spad{x}.
+    booleanCumulants : % -> Sequence R
+      ++ \spad{booleanCumulants(x)} returns the sequence of boolean cumulants
+      ++ of the distribution \spad{x}.
+    hankelDeterminants : % -> Stream R
+      ++ \spad{hankelDeterminants(x)} returns the stream of hankel
+      ++ determinants of the distribution \spad{x}.
+    if R has Algebra Fraction Integer then
+--      monotoneCumulant : (%, PI) -> R
+--        ++ \spad{monotoneCumulant(x, n)} returns the n-th monotone cumulant
+--        ++ of the distribution \spad{x}
+        monotoneCumulants : % -> Sequence R
+          ++ \spad{monotoneCumulants(x)} returns the sequence of monotone
+          ++ cumulants of the distribution \spad{x}.
+    if R has Field then
+        jacobiParameters : % -> Record(an : Stream R, bn : Stream R)
+          ++ \spad{jacobiParameters(x)} returns the pair of streams
+          ++ of Jacobi parameters of the distribution \spad{x}.
+        orthogonalPolynomials : % -> Stream SUPR
+          ++ \spad{orthogonalPolynomials(x)} returns the stream of
+          ++ orthogonal polynomials.
+      else if R has IntegralDomain then
+        jacobiParameters : % -> Record(an : Stream Fraction R,
+                                       bn : Stream Fraction R)
+          ++ \spad{jacobiParameters(x)} returns the pair of streams
+          ++ of Jacobi parameters of the distribution \spad{x}.
+        orthogonalPolynomials : % -> Stream SUPFR
+          ++ \spad{orthogonalPolynomials(x)} returns the stream of
+          ++ orthogonal polynomials.
+    -- operations
+    classicalConvolution : (%, %) -> %
+      ++ \spad{classicalConvolution(x, y)} returns the classical convolution
+      ++ of the distributions \spad{x} and \spad{y}
+    freeConvolution : (%, %) -> %
+      ++ \spad{freeConvolution(x, y)} returns the free convolution
+      ++ of the distributions \spad{x} and \spad{y}
+    booleanConvolution : (%, %) -> %
+      ++ \spad{booleanConvolution(x, y)} returns the boolean convolution
+      ++ of the distributions \spad{x} and \spad{y}
+    monotoneConvolution : (%, %) -> %
+      ++ \spad{monotoneConvolution(x, y)} returns the monotone convolution
+      ++ of the distributions \spad{x} and \spad{y}
+    _^: (%, PositiveInteger) -> %
+      ++ \spad{x^k} constructs the distribution of the \spad{k}th power
+      ++ of the random variable with distribution \spad{X}
+      ++ by picking every k-th moment.
+
+

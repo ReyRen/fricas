@@ -1,0 +1,128 @@
+6065                (|QueueAggregate| S)
+|category|
+(((|QueueAggregate| |#1|) (|Category|) (|Type|)) (T |QueueAggregate|))
+(|Join| (|BagAggregate| |t#1|) (|finiteAggregate|)
+        (CATEGORY |domain| (SIGNATURE |enqueue!| (|t#1| |t#1| $))
+         (SIGNATURE |dequeue!| (|t#1| $)) (SIGNATURE |rotate!| ($ $))
+         (SIGNATURE |front| (|t#1| $)) (SIGNATURE |back| (|t#1| $))))
+"/git/fricas/src/algebra/QUAGG.spad"
+((|enqueue!| (*1 *2 *2 *1)
+  (AND (|ofCategory| *1 (|QueueAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|dequeue!| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|QueueAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|rotate!| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|QueueAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|front| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|QueueAggregate| *2)) (|ofCategory| *2 (|Type|))))
+ (|back| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|QueueAggregate| *2)) (|ofCategory| *2 (|Type|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|sample| (($) 6 T CONST)) (|rotate!| (($ $) 6))
+ (|removeDuplicates|
+  (($ $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove| (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+           (($ |#1| $) 6
+            (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|latex| (((|String|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|inspect| ((|#1| $) 6)) (|insert!| (($ |#1| $) 6))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|front| ((|#1| $) 6))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) 6))
+ (|extract!| ((|#1| $) 6))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|enqueue!| ((|#1| |#1| $) 6))
+ (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6)) (|dequeue!| ((|#1| $) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|convert| (((|InputForm|) $) 6 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 6))
+ (|coerce| (((|OutputForm|) $) 6 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|back| ((|#1| $) 6))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+QUAGG
+(((|BagAggregate| |#1|) . T) ((|finiteAggregate|) . T))
+(((|Aggregate|) . T) ((|BagAggregate| |#1|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Collection| |t#1|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|SetCategory|) |has| |t#1| (|SetCategory|)) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "A queue is a bag where the first item inserted is the first item extracted."))
+ (|back|
+  ((|#1| $)
+   "\\spad{back(q)} returns the element at the back of the queue. The queue \\spad{q} is unchanged by this operation. Error: if \\spad{q} is empty."))
+ (|front|
+  ((|#1| $)
+   "\\spad{front(q)} returns the element at the front of the queue. The queue \\spad{q} is unchanged by this operation. Error: if \\spad{q} is empty."))
+ (|rotate!|
+  (($ $)
+   "\\spad{rotate!(q)} rotates queue \\spad{q} so that the element at the front of the queue goes to the back of the queue. Note: rotate!(\\spad{q}) is equivalent to enqueue!(dequeue!(\\spad{q}))."))
+ (|dequeue!|
+  ((|#1| $)
+   "\\spad{dequeue!(q)} destructively extracts the first (top) element from queue \\spad{q}. The element previously second in the queue becomes the first element. Error: if \\spad{q} is empty."))
+ (|enqueue!|
+  ((|#1| |#1| $)
+   "\\spad{enqueue!(x,{} q)} inserts \\spad{x} into the queue \\spad{q} at the back end.")))
+(("documentation" 0 5047) ("ancestors" 0 4350) ("parents" 0 4294)
+ ("abbreviation" 0 4288) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 913) ("modemaps" 0 417) ("sourceFile" 0 380)
+ ("constructorCategory" 0 123) ("constructorModemap" 0 52)
+ ("constructorKind" 0 41) ("constructorForm" 0 20))

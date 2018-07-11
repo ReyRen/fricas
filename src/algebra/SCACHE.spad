@@ -1,0 +1,169 @@
+)abbrev package SCACHE SortedCache
+++ Cache of elements in a set
+++ Author: Manuel Bronstein
+++ Date Created: 31 Oct 1988
+++ Description:
+++   A sorted cache of a cachable set S is a dynamic structure that
+++   keeps the elements of S sorted and assigns an integer to each
+++   element of S once it is in the cache. This way, equality and ordering
+++   on S are tested directly on the integers associated with the elements
+++   of S, once they have been entered in the cache.
+SortedCache(S : CachableSet) : Exports == Implementation where
+  N    ==> NonNegativeInteger
+  DIFF ==> 1024
+
+  Exports ==> with
+    clearCache  : () -> Void
+      ++ clearCache() empties the cache.
+    enterInCache : (S, S -> Boolean) -> S
+      ++ enterInCache(x, f) enters x in the cache, calling \spad{f(y)} to
+      ++ determine whether x is equal to y. It returns x with an integer
+      ++ associated with it.
+    linearSearch : (S, S -> Boolean) -> Union(S, "failed")
+      ++ linearSearch(x, f) searches x in the cache, calling \spad{f(y)}
+      ++ to determine whether x is equal to y.  It returns y from cache
+      ++ such that f(y) or failed is no such y exists.
+    enterInCache : (S, (S, S) -> Integer) -> S
+      ++ enterInCache(x, f) enters x in the cache, calling \spad{f(x, y)} to
+      ++ determine whether \spad{x < y (f(x, y) < 0), x = y (f(x, y) = 0)}, or
+      ++ \spad{x > y (f(x, y) > 0)}.
+      ++ It returns x with an integer associated with it.
+
+  Implementation ==> add
+    shiftCache   : (N, N) -> Void
+    insertInCache : (N, S, N) -> S
+    expandCache : (S) -> Void
+    insertBefore : (N, S) -> Void
+
+    cache : PrimitiveArray S := empty()$(PrimitiveArray S)
+    cache_size : N := 0
+    cache_use : N := 0
+
+    expandCache(x) ==
+        if cache_size = cache_use then
+            ocache := cache
+            cache_size := 2*cache_size + 10
+            cache := new(cache_size, x)$(PrimitiveArray S)
+            for k in 0..(cache_use - 1) repeat
+                cache(k) := ocache(k)
+        void
+
+    insertBefore(l, x) ==
+        k : Integer
+        expandCache(x)
+        vscan := cache
+        for k in 0..(cache_use - l - 1) repeat
+            vscan(cache_use - k) := vscan(cache_use - k - 1)
+        vscan(l) := x
+        cache_use := cache_use + 1
+        void
+
+    shiftCache(l, n) ==
+        k : Integer
+        vscan := cache
+        for k in l..(cache_use - 1) repeat
+            x := vscan(k)
+            setPosition(x, n + position x)
+        void
+
+    clearCache() ==
+        k : Integer
+        vscan := cache
+        for k in 0..(cache_use - 1) repeat
+            x := vscan(k)
+            setPosition(x, 0)
+        cache := empty()$(PrimitiveArray S)
+        cache_size := 0
+        cache_use := 0
+        void
+
+    insertAtEnd(x : S) : Void ==
+        expandCache(x)
+        cache(cache_use) := x
+        cache_use := cache_use + 1
+        void
+
+    linearSearch(x : S, equal? : S -> Boolean) ==
+        k : Integer := 0
+        -- Can not use for loop because equal? can insert new elements
+        -- and change cache_use
+        while k < cache_use repeat
+            vscan := cache
+            y := vscan(k)
+            equal?(y) =>
+                setPosition(x, position y)
+                return y
+            vscan := cache
+            -- skip over elements possibly inserted by equal?
+            while not(EQ(y, vscan(k))$Lisp) repeat k := k + 1
+            k := k + 1
+        return "failed"
+
+    enterInCache(x : S, equal? : S -> Boolean) ==
+        (res := linearSearch(x, equal?)) case S =>
+            res::S
+        setPosition(x, 1 + cache_use)
+        insertAtEnd(x)
+        x
+
+    enterInCache(x : S, triage : (S, S) -> Integer) ==
+        vscan := cache
+        l : Integer := -1
+        m : Integer := cache_use
+        m0 := m
+        zero?(cache_use) =>
+            setPosition(x, DIFF)
+            insertAtEnd(x)
+            return x
+        while (l + 1) < m repeat
+            vl : S
+            vm : S
+            m0 := cache_use
+            if not(l < 0) then
+                vl := qelt(vscan, l)
+            has_vm := false
+            if m < m0 then
+                vm := qelt(vscan, m)
+                has_vm := true
+            i := shift(l + m, -1)
+            cp := triage(x, y := qelt(vscan, i))
+            zero?(cp) =>
+                setPosition(x, position y)
+                return y
+            vscan := cache
+            if not(l < 0) then
+                if not(EQ(vl, qelt(vscan, l))$Lisp) then
+                    l0 := l
+                    while not(EQ(vl, qelt(vscan, l))$Lisp) repeat
+                        l := l + 1
+                    i := i + l - l0
+                    m := m + l - l0
+            if not(EQ(y, qelt(vscan, i))$Lisp) then
+                i0 := i
+                while not(EQ(y, qelt(vscan, i))$Lisp) repeat
+                    i := i + 1
+                m := m + i - i0
+            if has_vm then
+                if not(EQ(vm, qelt(vscan, m))$Lisp) then
+                    while not(EQ(vm, qelt(vscan, m))$Lisp) repeat
+                        m := m + 1
+            if cp < 0 then
+                m := i
+            else
+                l := i
+        m = cache_use =>
+            setPosition(x, (position qelt(vscan, m - 1)) + DIFF)
+            insertAtEnd(x)
+            return x
+        pos : N :=
+                l < 0 => 0
+                position qelt(vscan, l)
+        insertInCache((l+1)::N, x, pos)
+
+    insertInCache(before, x, pos) ==
+        y := cache(before)
+        if ((pos+1) = position y) then shiftCache(before, DIFF)
+        setPosition(x, pos + (((position y) - pos)::N quo 2))
+        insertBefore(before, x)
+        x
+

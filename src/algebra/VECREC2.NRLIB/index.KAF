@@ -1,0 +1,117 @@
+5204                (MAKEPROP '|VectorIntegerReconstructor| 'NILADIC T)
+(|VectorIntegerReconstructor|)
+|domain|
+(((|VectorIntegerReconstructor|)
+  (CATEGORY |domain| (SIGNATURE |empty| ($ (|Integer|)))
+   (SIGNATURE |chinese_update| ((|Void|) (|U32Vector|) (|Integer|) $))
+   (SIGNATURE |hensel_update| ((|Void|) (|U32Vector|) (|Integer|) $))
+   (SIGNATURE |rational_reconstruction|
+    ((|Union| (|Record| (|:| |num| (|Integer|)) (|:| |den| (|Integer|)))
+              "failed")
+     (|Integer|) (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |rational_reconstruction|
+    ((|Union|
+      (|Record| (|:| |numers| (|PrimitiveArray| (|Integer|)))
+                (|:| |denoms| (|PrimitiveArray| (|Integer|))))
+      "failed")
+     $))
+   (SIGNATURE |remove_denoms|
+    ((|PrimitiveArray| (|Integer|)) (|Vector| (|Integer|))
+     (|PrimitiveArray| (|Integer|)) (|PrimitiveArray| (|Integer|))))
+   (SIGNATURE |reconstruct|
+    ((|Union| (|PrimitiveArray| (|Integer|)) "failed") $
+     (|Vector| (|Integer|))))))
+ (T |VectorIntegerReconstructor|))
+(CATEGORY |domain| (SIGNATURE |empty| ($ (|Integer|)))
+ (SIGNATURE |chinese_update| ((|Void|) (|U32Vector|) (|Integer|) $))
+ (SIGNATURE |hensel_update| ((|Void|) (|U32Vector|) (|Integer|) $))
+ (SIGNATURE |rational_reconstruction|
+  ((|Union| (|Record| (|:| |num| (|Integer|)) (|:| |den| (|Integer|)))
+            "failed")
+   (|Integer|) (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |rational_reconstruction|
+  ((|Union|
+    (|Record| (|:| |numers| (|PrimitiveArray| (|Integer|)))
+              (|:| |denoms| (|PrimitiveArray| (|Integer|))))
+    "failed")
+   $))
+ (SIGNATURE |remove_denoms|
+  ((|PrimitiveArray| (|Integer|)) (|Vector| (|Integer|))
+   (|PrimitiveArray| (|Integer|)) (|PrimitiveArray| (|Integer|))))
+ (SIGNATURE |reconstruct|
+  ((|Union| (|PrimitiveArray| (|Integer|)) "failed") $ (|Vector| (|Integer|)))))
+"/git/fricas/src/algebra/VECREC2.spad"
+((|reconstruct| (*1 *2 *1 *3)
+  (|partial| AND (|isDomain| *3 (|Vector| (|Integer|)))
+   (|isDomain| *2 (|PrimitiveArray| (|Integer|)))
+   (|isDomain| *1 (|VectorIntegerReconstructor|))))
+ (|remove_denoms| (*1 *2 *3 *2 *2)
+  (AND (|isDomain| *2 (|PrimitiveArray| (|Integer|)))
+       (|isDomain| *3 (|Vector| (|Integer|)))
+       (|isDomain| *1 (|VectorIntegerReconstructor|))))
+ (|rational_reconstruction| (*1 *2 *1)
+  (|partial| AND
+   (|isDomain| *2
+               (|Record| (|:| |numers| (|PrimitiveArray| (|Integer|)))
+                         (|:| |denoms| (|PrimitiveArray| (|Integer|)))))
+   (|isDomain| *1 (|VectorIntegerReconstructor|))))
+ (|rational_reconstruction| (*1 *2 *3 *3 *3 *3)
+  (|partial| AND (|isDomain| *3 (|Integer|))
+   (|isDomain| *2 (|Record| (|:| |num| (|Integer|)) (|:| |den| (|Integer|))))
+   (|isDomain| *1 (|VectorIntegerReconstructor|))))
+ (|hensel_update| (*1 *2 *3 *4 *1)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|VectorIntegerReconstructor|))))
+ (|chinese_update| (*1 *2 *3 *4 *1)
+  (AND (|isDomain| *3 (|U32Vector|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|VectorIntegerReconstructor|))))
+ (|empty| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|VectorIntegerReconstructor|)))))
+((|remove_denoms|
+  (((|PrimitiveArray| (|Integer|)) (|Vector| (|Integer|))
+    (|PrimitiveArray| (|Integer|)) (|PrimitiveArray| (|Integer|)))
+   37))
+ (|reconstruct|
+  (((|Union| (|PrimitiveArray| (|Integer|)) "failed") $ (|Vector| (|Integer|)))
+   39))
+ (|rational_reconstruction|
+  (((|Union|
+     (|Record| (|:| |numers| (|PrimitiveArray| (|Integer|)))
+               (|:| |denoms| (|PrimitiveArray| (|Integer|))))
+     "failed")
+    $)
+   33)
+  (((|Union| (|Record| (|:| |num| (|Integer|)) (|:| |den| (|Integer|)))
+             "failed")
+    (|Integer|) (|Integer|) (|Integer|) (|Integer|))
+   24))
+ (|hensel_update| (((|Void|) (|U32Vector|) (|Integer|) $) 19))
+ (|empty| (($ (|Integer|)) 11))
+ (|chinese_update| (((|Void|) (|U32Vector|) (|Integer|) $) 18)))
+VECREC2
+((|constructor|
+  (NIL
+   "This domain supports modular methods based on \\indented{1}{evaluation and rational reconstruction.\\space{2}Each evaluation} \\indented{1}{is done modulo machine sized prime \\spad{p}.\\space{2}Both Chinese} \\indented{1}{remaindering and (linear) Hensel lift are supported.} \\indented{1}{Once enough evaluations are known rational reconstruction} \\indented{1}{produces vector of rational numbers or integers.}"))
+ (|reconstruct|
+  (((|Union| (|PrimitiveArray| (|Integer|)) "failed") $ (|Vector| (|Integer|)))
+   "combines rational reconstruction with removal of common denominators in blocks."))
+ (|remove_denoms|
+  (((|PrimitiveArray| (|Integer|)) (|Vector| (|Integer|))
+    (|PrimitiveArray| (|Integer|)) (|PrimitiveArray| (|Integer|)))
+   "remove common denominators in blocks"))
+ (|hensel_update|
+  (((|Void|) (|U32Vector|) (|Integer|) $) "one step of Hensel lifting"))
+ (|chinese_update|
+  (((|Void|) (|U32Vector|) (|Integer|) $)
+   "\\spad{chinese_update(v,{} p,{} r)} informs \\spad{r} about evaluation at \\spad{p}"))
+ (|empty|
+  (($ (|Integer|))
+   "\\spad{empty(n)} produces reconstructor with \\spad{n} slots")))
+(("documentation" 0 4049) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4041) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3277) ("modemaps" 0 1915) ("sourceFile" 0 1876)
+ ("constructorCategory" 0 1049) ("constructorModemap" 0 112)
+ ("constructorKind" 0 103) ("constructorForm" 0 72) ("NILADIC" 0 20))

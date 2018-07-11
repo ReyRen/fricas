@@ -1,0 +1,53 @@
+2887                (|EltableAggregate| |Dom| |Im|)
+|category|
+(((|EltableAggregate| |#1| |#2|) (|Category|) (|Type|) (|Type|))
+ (T |EltableAggregate|))
+(|Join| (|Eltable| |t#1| |t#2|)
+        (CATEGORY |domain| (SIGNATURE |elt| (|t#2| $ |t#1| |t#2|))
+         (SIGNATURE |qelt| (|t#2| $ |t#1|))
+         (IF (|has| $ (|shallowlyMutable|))
+             (PROGN
+              (SIGNATURE |setelt!| (|t#2| $ |t#1| |t#2|))
+              (SIGNATURE |qsetelt!| (|t#2| $ |t#1| |t#2|)))
+             |noBranch|)))
+"/git/fricas/src/algebra/ELTAGG.spad"
+((|elt| (*1 *2 *1 *3 *2)
+  (AND (|ofCategory| *1 (|EltableAggregate| *3 *2)) (|ofCategory| *3 (|Type|))
+       (|ofCategory| *2 (|Type|))))
+ (|qelt| (*1 *2 *1 *3)
+  (AND (|ofCategory| *1 (|EltableAggregate| *3 *2)) (|ofCategory| *3 (|Type|))
+       (|ofCategory| *2 (|Type|))))
+ (|setelt!| (*1 *2 *1 *3 *2)
+  (AND (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|EltableAggregate| *3 *2)) (|ofCategory| *3 (|Type|))
+       (|ofCategory| *2 (|Type|))))
+ (|qsetelt!| (*1 *2 *1 *3 *2)
+  (AND (|ofCategory| *1 (|shallowlyMutable|))
+       (|ofCategory| *1 (|EltableAggregate| *3 *2)) (|ofCategory| *3 (|Type|))
+       (|ofCategory| *2 (|Type|)))))
+((|setelt!| ((|#2| $ |#1| |#2|) 6 (|has| $ (|shallowlyMutable|))))
+ (|qsetelt!| ((|#2| $ |#1| |#2|) 6 (|has| $ (|shallowlyMutable|))))
+ (|qelt| ((|#2| $ |#1|) 6)) (|elt| ((|#2| $ |#1|) 6) ((|#2| $ |#1| |#2|) 6)))
+ELTAGG
+(((|Eltable| |#1| |#2|) . T))
+(((|Eltable| |#1| |#2|) . T))
+((|constructor|
+  (NIL
+   "An eltable aggregate is one which can be viewed as a function. For example,{} the list \\spad{[1,{} 7,{} 4]} can be applied to 1,{} 2,{} and 3 respectively and will return the integers 1,{} 7,{} and 4; thus this list may be viewed as mapping 1 to 1,{} 2 to 7 and 3 to 4. In general,{} an aggregate can map members of a domain {\\em Dom} to an image domain {\\em Im}."))
+ (|qsetelt!|
+  ((|#2| $ |#1| |#2|)
+   "\\spad{qsetelt!(u,{} x,{} y)} sets the image of \\spad{x} to be \\spad{y} under \\spad{u},{} without checking that \\spad{x} is in the domain of \\spad{u}. If such a check is required use the function \\spad{setelt!}."))
+ (|setelt!|
+  ((|#2| $ |#1| |#2|)
+   "\\spad{setelt!(u,{} x,{} y)} sets the image of \\spad{x} to be \\spad{y} under \\spad{u},{} if \\spad{x} is in the domain of \\spad{u}. Error: if \\spad{x} is not in the domain of \\spad{u}."))
+ (|qelt|
+  ((|#2| $ |#1|)
+   "\\spad{qelt(u,{} x)} applies \\spad{u} to \\spad{x} without checking whether \\spad{x} is in the domain of \\spad{u}. If \\spad{x} is not in the domain of \\spad{u} a memory-access violation may occur. If a check on whether \\spad{x} is in the domain of \\spad{u} is required,{} use the function \\spad{elt}."))
+ (|elt|
+  ((|#2| $ |#1| |#2|)
+   "\\spad{elt(u,{} x,{} y)} applies \\spad{u} to \\spad{x} if \\spad{x} is in the domain of \\spad{u},{} and returns \\spad{y} otherwise.")))
+(("documentation" 0 1483) ("ancestors" 0 1453) ("parents" 0 1423)
+ ("abbreviation" 0 1416) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1203) ("modemaps" 0 543) ("sourceFile" 0 505)
+ ("constructorCategory" 0 153) ("constructorModemap" 0 63)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

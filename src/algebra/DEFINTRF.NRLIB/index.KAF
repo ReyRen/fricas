@@ -1,0 +1,187 @@
+10274               (|RationalFunctionDefiniteIntegration| R)
+|package|
+(((|RationalFunctionDefiniteIntegration| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |integrate|
+    ((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+              (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+              (|:| |fail| #1="failed") (|:| |pole| #2="potentialPole"))
+     (|Fraction| (|Polynomial| |#1|))
+     (|SegmentBinding| (|OrderedCompletion| (|Expression| |#1|)))))
+   (SIGNATURE |integrate|
+    ((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+              (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+              (|:| |fail| #1#) (|:| |pole| #2#))
+     (|Fraction| (|Polynomial| |#1|))
+     (|SegmentBinding| (|OrderedCompletion| (|Expression| |#1|))) (|String|)))
+   (SIGNATURE |integrate|
+    ((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+              (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+              (|:| |fail| #1#) (|:| |pole| #2#))
+     (|Fraction| (|Polynomial| |#1|))
+     (|SegmentBinding|
+      (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|))))))
+   (SIGNATURE |integrate|
+    ((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+              (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+              (|:| |fail| #1#) (|:| |pole| #2#))
+     (|Fraction| (|Polynomial| |#1|))
+     (|SegmentBinding| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|))))
+     (|String|))))
+  (|Join| (|EuclideanDomain|) (|Comparable|) (|CharacteristicZero|)
+          (|RetractableTo| (|Integer|)) (|LinearlyExplicitOver| (|Integer|))))
+ (T |RationalFunctionDefiniteIntegration|))
+(CATEGORY |package|
+ (SIGNATURE |integrate|
+  ((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+            (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+            (|:| |fail| #1="failed") (|:| |pole| #2="potentialPole"))
+   (|Fraction| (|Polynomial| |#1|))
+   (|SegmentBinding| (|OrderedCompletion| (|Expression| |#1|)))))
+ (SIGNATURE |integrate|
+  ((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+            (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+            (|:| |fail| #1#) (|:| |pole| #2#))
+   (|Fraction| (|Polynomial| |#1|))
+   (|SegmentBinding| (|OrderedCompletion| (|Expression| |#1|))) (|String|)))
+ (SIGNATURE |integrate|
+  ((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+            (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+            (|:| |fail| #1#) (|:| |pole| #2#))
+   (|Fraction| (|Polynomial| |#1|))
+   (|SegmentBinding| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|))))))
+ (SIGNATURE |integrate|
+  ((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+            (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+            (|:| |fail| #1#) (|:| |pole| #2#))
+   (|Fraction| (|Polynomial| |#1|))
+   (|SegmentBinding| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|))))
+   (|String|))))
+"/git/fricas/src/algebra/DEFINTRF.spad"
+((|integrate| (*1 *2 *3 *4 *5)
+  (AND
+   (|isDomain| *4
+               (|SegmentBinding|
+                (|OrderedCompletion| (|Fraction| (|Polynomial| *6)))))
+   (|isDomain| *5 (|String|)) (|isDomain| *3 (|Fraction| (|Polynomial| *6)))
+   (|ofCategory| *6
+                 (|Join| (|EuclideanDomain|) (|Comparable|)
+                         (|CharacteristicZero|) (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *2
+               (|Union| (|:| |f1| (|OrderedCompletion| (|Expression| *6)))
+                        (|:| |f2|
+                             (|List| (|OrderedCompletion| (|Expression| *6))))
+                        (|:| |fail| #1="failed")
+                        (|:| |pole| #2="potentialPole")))
+   (|isDomain| *1 (|RationalFunctionDefiniteIntegration| *6))))
+ (|integrate| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *4
+               (|SegmentBinding|
+                (|OrderedCompletion| (|Fraction| (|Polynomial| *5)))))
+   (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+   (|ofCategory| *5
+                 (|Join| (|EuclideanDomain|) (|Comparable|)
+                         (|CharacteristicZero|) (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *2
+               (|Union| (|:| |f1| (|OrderedCompletion| (|Expression| *5)))
+                        (|:| |f2|
+                             (|List| (|OrderedCompletion| (|Expression| *5))))
+                        (|:| |fail| #1#) (|:| |pole| #2#)))
+   (|isDomain| *1 (|RationalFunctionDefiniteIntegration| *5))))
+ (|integrate| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| *6)))
+       (|isDomain| *4
+                   (|SegmentBinding| (|OrderedCompletion| (|Expression| *6))))
+       (|isDomain| *5 (|String|))
+       (|ofCategory| *6
+                     (|Join| (|EuclideanDomain|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Union| (|:| |f1| (|OrderedCompletion| (|Expression| *6)))
+                            (|:| |f2|
+                                 (|List|
+                                  (|OrderedCompletion| (|Expression| *6))))
+                            (|:| |fail| #1#) (|:| |pole| #2#)))
+       (|isDomain| *1 (|RationalFunctionDefiniteIntegration| *6))))
+ (|integrate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+       (|isDomain| *4
+                   (|SegmentBinding| (|OrderedCompletion| (|Expression| *5))))
+       (|ofCategory| *5
+                     (|Join| (|EuclideanDomain|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Union| (|:| |f1| (|OrderedCompletion| (|Expression| *5)))
+                            (|:| |f2|
+                                 (|List|
+                                  (|OrderedCompletion| (|Expression| *5))))
+                            (|:| |fail| #1#) (|:| |pole| #2#)))
+       (|isDomain| *1 (|RationalFunctionDefiniteIntegration| *5)))))
+((|integrate|
+  (((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+             (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+             (|:| |fail| #1="failed") (|:| |pole| #2="potentialPole"))
+    (|Fraction| (|Polynomial| |#1|))
+    (|SegmentBinding| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|))))
+    (|String|))
+   44)
+  (((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+             (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+             (|:| |fail| #1#) (|:| |pole| #2#))
+    (|Fraction| (|Polynomial| |#1|))
+    (|SegmentBinding| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))))
+   41)
+  (((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+             (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+             (|:| |fail| #1#) (|:| |pole| #2#))
+    (|Fraction| (|Polynomial| |#1|))
+    (|SegmentBinding| (|OrderedCompletion| (|Expression| |#1|))) (|String|))
+   45)
+  (((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+             (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+             (|:| |fail| #1#) (|:| |pole| #2#))
+    (|Fraction| (|Polynomial| |#1|))
+    (|SegmentBinding| (|OrderedCompletion| (|Expression| |#1|))))
+   17)))
+DEFINTRF
+((|constructor|
+  (NIL
+   "\\spadtype{RationalFunctionDefiniteIntegration} provides functions to compute definite integrals of rational functions."))
+ (|integrate|
+  (((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+             (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+             (|:| |fail| #1="failed") (|:| |pole| #2="potentialPole"))
+    (|Fraction| (|Polynomial| |#1|))
+    (|SegmentBinding| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|))))
+    (|String|))
+   "\\spad{integrate(f,{} x = a..b,{} \"noPole\")} returns the integral of \\spad{f(x)dx} from a to \\spad{b}. If it is not possible to check whether \\spad{f} has a pole for \\spad{x} between a and \\spad{b} (because of parameters),{} then this function will assume that \\spad{f} has no such pole. Error: if \\spad{f} has a pole for \\spad{x} between a and \\spad{b} or if the last argument is not \"noPole\".")
+  (((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+             (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+             (|:| |fail| #1#) (|:| |pole| #2#))
+    (|Fraction| (|Polynomial| |#1|))
+    (|SegmentBinding| (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))))
+   "\\spad{integrate(f,{} x = a..b)} returns the integral of \\spad{f(x)dx} from a to \\spad{b}. Error: if \\spad{f} has a pole for \\spad{x} between a and \\spad{b}.")
+  (((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+             (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+             (|:| |fail| #1#) (|:| |pole| #2#))
+    (|Fraction| (|Polynomial| |#1|))
+    (|SegmentBinding| (|OrderedCompletion| (|Expression| |#1|))) (|String|))
+   "\\spad{integrate(f,{} x = a..b,{} \"noPole\")} returns the integral of \\spad{f(x)dx} from a to \\spad{b}. If it is not possible to check whether \\spad{f} has a pole for \\spad{x} between a and \\spad{b} (because of parameters),{} then this function will assume that \\spad{f} has no such pole. Error: if \\spad{f} has a pole for \\spad{x} between a and \\spad{b} or if the last argument is not \"noPole\".")
+  (((|Union| (|:| |f1| (|OrderedCompletion| (|Expression| |#1|)))
+             (|:| |f2| (|List| (|OrderedCompletion| (|Expression| |#1|))))
+             (|:| |fail| #1#) (|:| |pole| #2#))
+    (|Fraction| (|Polynomial| |#1|))
+    (|SegmentBinding| (|OrderedCompletion| (|Expression| |#1|))))
+   "\\spad{integrate(f,{} x = a..b)} returns the integral of \\spad{f(x)dx} from a to \\spad{b}. Error: if \\spad{f} has a pole for \\spad{x} between a and \\spad{b}.")))
+(("documentation" 0 7699) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 7690) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 6403) ("modemaps" 0 3094) ("sourceFile" 0 3054)
+ ("constructorCategory" 0 1711) ("constructorModemap" 0 72)
+ ("constructorKind" 0 62) ("constructorForm" 0 20))

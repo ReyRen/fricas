@@ -1,0 +1,360 @@
+)abbrev package NBLM NaiveBeckermannLabahnModular
+++ Description: This package solves (multipoint) Hermite-Pade
+++  interpolation problem over $Z_p$, where $p$ is machine
+++  sized prime.  We use quadratic algorithm from 94
+++  Beckermann and Labahn paper (with modification to handle
+++  multipoint case).
+
+K ==> Integer
+VUP ==> Vector SparseUnivariatePolynomial K
+-- PA ==> PrimitiveArray K
+PA ==> U32Vector
+VPA ==> Vector PA
+MPA ==> TwoDimensionalArray PA
+VI ==> Vector Integer
+NBR ==> Record(basis : MPA, defects : VI, cinds : VI)
+
+NaiveBeckermannLabahnModular : with
+  naiveBeckermannLabahn : (VPA, VI, NonNegativeInteger, Integer) _
+                         -> List Any
+    ++ naiveBeckermannLabahn(f, degs, sigma, p) solves modulo $p$
+    ++ Hermite-Pade interpolation problem of order $sigma$.  $degs$
+    ++ specifies degree bounds for solution.  The first element of
+    ++ result contains sigma-basis.  The second gives defects
+    ++ of elements of sigma-basis.  The third one contains residuals
+    ++ -- we stop updating solution if this would violate degree
+    ++ bounds, so residual is zero for elements of sigma-basis
+    ++ which are within bounds, but non-zero otherwise.
+
+  naiveBeckermannLabahn : (VUP, VI, NonNegativeInteger, Integer) _
+                         -> List Any
+    ++ naiveBeckermannLabahn(f, degs, sigma, p) solves modulo $p$
+    ++ Hermite-Pade interpolation problem of order $sigma$.  $degs$
+    ++ specifies degree bounds for solution.  The first element of
+    ++ result contains sigma-basis.  The second gives defects
+    ++ of elements of sigma-basis.  The third one contains residuals
+    ++ -- we stop updating solution if this would violate degree
+    ++ bounds, so residual is zero for elements of sigma-basis
+    ++ which are within bounds, but non-zero otherwise.
+
+  naiveBeckermannLabahnMultipoint : (VPA, VI, PA, Integer) _
+                         -> List Any
+    ++ naiveBeckermannLabahnMultipoint(f, degs, sigma, p) solves modulo $p$
+    ++ multipoint Hermite-Pade interpolation problem of order $sigma$.
+    ++ $degs$ specifies degree bounds for solution.  The first element of
+    ++ result contains sigma-basis.  The second gives defects
+    ++ of elements of sigma-basis.  The third one contains residuals
+    ++ -- we stop updating solution if this would violate degree
+    ++ bounds, so residual is zero for elements of sigma-basis
+    ++ which are within bounds, but non-zero otherwise.
+
+  naiveBeckermannLabahnMultipoint : (VUP, VI, PA, Integer) _
+                         -> List Any
+    ++ naiveBeckermannLabahnMultipoint(f, degs, sigma, p) solves modulo $p$
+    ++ multipoint Hermite-Pade interpolation problem of order $sigma$.
+    ++ $degs$ specifies degree bounds for solution.  The first element of
+    ++ result contains sigma-basis.  The second gives defects
+    ++ of elements of sigma-basis.  The third one contains residuals
+    ++ -- we stop updating solution if this would violate degree
+    ++ bounds, so residual is zero for elements of sigma-basis
+    ++ which are within bounds, but non-zero otherwise.
+
+  naiveBeckermannLabahn1 : (VUP, VI, NonNegativeInteger, _
+                            Integer, Integer -> K, _
+                            (PA, K, Integer) -> Void, _
+                            (PA, K, Integer) -> Void) -> List Any
+
+  naiveBeckermannLabahn1 : (VPA, VI, NonNegativeInteger, _
+                            Integer, Integer -> K, _
+                            (PA, K, Integer) -> Void, _
+                            (PA, K, Integer) -> Void) -> List Any
+
+  naiveBeckermannLabahn0 : (VPA, VPA, VI, NonNegativeInteger, _
+                            Integer, Integer -> K, _
+                            (PA, K, Integer) -> Void, _
+                            (PA, K, Integer) -> Void) -> Void
+    ++ main solver routine
+
+  reduceBasis0 : (MPA, VI, VI, Integer) -> NBR
+
+  reduceBasis : (VPA, VI, VI, Integer) -> NBR
+    ++ Skips elements of sigma basis which does not satisfy degree
+    ++ bounds and puts sigma-basis into canonical form.
+
+ == add
+
+  import from U32VectorPolynomialOperations
+
+  muladdmod ==> QSMULADDMOD64_32$Lisp
+  mulmod ==> QSMULMOD32$Lisp
+
+  vector_shift : PA -> Void
+
+  mul_by_binomial_pointwise : (PA, K, PA, Integer) -> Void
+
+  naiveBeckermannLabahn(vp : VUP, vn : Vector Integer, _
+                        sigma : NonNegativeInteger, prime : Integer) ==
+      naiveBeckermannLabahn1(vp, vn, sigma, prime, _
+                             x +-> 0,
+                             (x, pt, p) +-> vector_shift(x),
+                             (x, pt, p) +-> vector_shift(x))
+
+  naiveBeckermannLabahn(vp : VPA, vn : Vector Integer, _
+                        sigma : NonNegativeInteger, prime : Integer) ==
+      naiveBeckermannLabahn1(vp, vn, sigma, prime, _
+                             x +-> 0,
+                             (x, pt, p) +-> vector_shift(x),
+                             (x, pt, p) +-> vector_shift(x))
+
+  naiveBeckermannLabahnMultipoint(vp : VUP, vn : Vector Integer, pts : PA, _
+                                  prime : Integer) ==
+      #pts > prime =>
+          error "naiveBeckermannLabahnMultipoint: number of points > prime"
+      naiveBeckermannLabahn1(vp, vn, #pts, prime, _
+                             x +-> sub_SI(prime, pts(x))$Lisp,
+                             (x, pt, p) +-> _
+                                mul_by_binomial_pointwise(x, pt, pts, p), _
+                             mul_by_binomial)
+
+  naiveBeckermannLabahnMultipoint(vp : VPA, vn : Vector Integer, pts : PA, _
+                                  prime : Integer) ==
+      #pts > prime =>
+          error "naiveBeckermannLabahnMultipoint: number of points > prime"
+      naiveBeckermannLabahn1(vp, vn, #pts, prime, _
+                             x +-> sub_SI(prime, pts(x))$Lisp,
+                             (x, pt, p) +-> _
+                                mul_by_binomial_pointwise(x, pt, pts, p), _
+                             mul_by_binomial)
+
+  naiveBeckermannLabahn1(vp : VUP, vn : Vector Integer, _
+                         sigma : NonNegativeInteger, prime : Integer, _
+                         pts : Integer-> K, _
+                         up_residual : (PA, K, Integer) -> Void, _
+                         up_poly : (PA, K, Integer) -> Void) : List Any ==
+    import from PA
+    k : NonNegativeInteger
+    m : NonNegativeInteger
+    (m := #vp) ~= #vn =>
+          error "Number of polynomials and number of degrees do not agree"
+    vpa : VPA := vector([new(sigma, 0$K)$PA for k in 1..m])
+    for k in 1..m repeat
+        p := vp(k)
+        vk := vpa(k)
+        while not(zero? p) repeat
+            l : NonNegativeInteger := degree(p)
+            if l < sigma then
+                vk(l) := leadingCoefficient(p)
+            p := reductum p
+    naiveBeckermannLabahn1(vpa, vn, sigma, prime, pts, up_residual, _
+                           up_poly)
+
+  naiveBeckermannLabahn1(vpa : VPA, vn : Vector Integer, _
+                         sigma : NonNegativeInteger, prime : Integer, _
+                         pts : Integer-> K, _
+                         up_residual : (PA, K, Integer) -> Void, _
+                         up_poly : (PA, K, Integer) -> Void) : List Any ==
+    k : NonNegativeInteger
+    m : NonNegativeInteger
+    (m := #vpa) ~= #vn =>
+          error "Number of polynomials and number of degrees do not agree"
+
+    m1 : Integer := 0
+    for k in 1..m repeat
+        m1 := m1 + vn(k) + 1
+    mp := new(m, empty()$PA)$VPA
+    m2 : Integer := 0
+    for k in 1..m repeat
+        mp(k) := new(qcoerce(m1)@NonNegativeInteger, 0)$PA
+        vk := mp(k)
+        vk(m2) := 1
+        m2 := m2 + vn(k) + 1
+    vd : Vector Integer := vector([vn(k) for k in 1..m])
+    naiveBeckermannLabahn0(mp, vpa, vd, sigma, prime, pts, up_residual, _
+                           up_poly)
+    [coerce(mp)$AnyFunctions1(VPA), _
+     coerce(vpa)$AnyFunctions1(VPA), _
+     coerce(vd)$AnyFunctions1(Vector Integer)]
+
+  vector_shift(v : PA) : Void ==
+    n := qconvert(#v)@SingleInteger
+    i : SingleInteger := (n - 1)
+    while 0 < i repeat
+        v(i) := v(i - 1)
+        i := i - 1
+    v(0) := 0
+
+  mul_by_binomial_pointwise(v : PA, pt : K, pts : PA, _
+       p : Integer) : Void ==
+    n := qconvert(#v)@SingleInteger
+    for i in 0..(n - 1) repeat
+        pp : Integer := addmod_SI(pts(i), pt, p)$Lisp
+        v(i) := mulmod(v(i), pp, p)
+
+  naiveBeckermannLabahn0(mp : VPA, vp : VPA, vd : Vector Integer, _
+                       sigma : NonNegativeInteger, p : Integer,
+                       pts : Integer-> K, _
+                       up_residual : (PA, K, Integer) -> Void, _
+                       up_poly : (PA, K, Integer) -> Void) : Void ==
+    m := #vd
+    vc := new(m, 0)$(Vector K)
+    maxd : Integer
+    pi : Integer
+    m1 := #mp(1) - 1
+    s1 := sigma-1
+    for l in 0..(qcoerce(s1)@NonNegativeInteger) repeat
+        pt := pts(l)
+        maxd := -1
+        pi := 0
+        for k in 1..m repeat
+            vc(k) := vp(k)(l)
+            if vc(k) ~= 0 and maxd < vd(k) then
+                pi := k
+                cpi := vc(k)
+                maxd := vd(k)
+        pi = 0 =>
+             "iterate"
+        vcinv : Integer := mulmod(p-1, invmod(vc(pi),
+                                  qconvert(p)@SingleInteger), p)
+        for k in 1..m repeat
+            if vc(k) ~= 0 and vd(k) >= 0 and k ~= pi then
+                vckinv : Integer := mulmod(vcinv, vc(k), p)
+                vector_add_mul(vp(k), vp(pi), l, s1, vckinv, p)
+                vector_add_mul(qelt(mp, k), qelt(mp, pi), 0, m1, vckinv, p)
+        vd(pi) := vd(pi) - 1
+        if vd(pi) >= 0 then
+            up_residual(vp(pi), pt, p)
+            up_poly(qelt(mp, pi), pt, p)
+
+  critical_index(m : MPA, i : Integer, d : Integer, _
+                  vn : Vector Integer) : Integer ==
+      nc := #vn
+      for j in 1..nc repeat
+          nj := vn(j) - d
+          nj < 0 => "iterate"
+          pa := qelt(m, i, j)
+          pa(nj) ~= 0 => return j
+      error "Incorrect defect"
+
+  swap_rows(m : MPA, i : Integer, j : Integer) : Void ==
+      i = j => "nothing"::Void
+      kmax := ncols(m)
+      for k in 1..kmax repeat
+          t1 := qelt(m, i, k)
+          t2 := qelt(m, j, k)
+          qsetelt!(m, i, k, t2)
+          qsetelt!(m, j, k, t1)
+
+  mult_vector(v : PA, c : K, p : Integer) : Void ==
+      n := #v
+      for i in 0..(n - 1) repeat
+          v(i) := mulmod(c, v(i), p)
+
+  mult_row(m : MPA, i : Integer, c : K, p : Integer) : Void ==
+      jmax := ncols(m)
+      for j in 1..jmax repeat mult_vector(qelt(m, i, j), c, p)
+
+  add_vector(v1 : PA, v2 : PA, c : K, k : Integer, p : Integer) : Void ==
+      n := #v1
+      for i in k..(n - 1) repeat
+          v1(i) := muladdmod(c, v2(i - k), v1(i), p)
+
+  add_row(m : MPA, j1 : Integer, j2 : Integer, _
+           c : K, k : Integer, p : Integer) : Void ==
+      imax := ncols(m)
+      for i in 1..imax repeat
+          add_vector(qelt(m, j1, i), qelt(m, j2, i), c, k, p)
+
+  reduce_row_by_row1(m : MPA, j : Integer, i : Integer, _
+                        ci : Integer, cdeg : Integer, vdiff : Integer, _
+                        p : Integer) : Void ==
+      rj0 := qelt(m, j, ci)
+      vdiff < 0 =>
+          error "Internal error : vdiff < 0 in reduce_row_by_row1"
+      k := vdiff + cdeg
+      c := rj0(k)
+      c ~= 0 =>
+          add_row(m, j, i, (p - c)::K, vdiff, p)
+
+  top_reduce_by_row(m : MPA, i : Integer, ci : Integer, _
+                  vn : Vector Integer, vd : Vector Integer, _
+                  p : Integer) : Void ==
+      nr := #vd
+      mdeg := vn(ci)
+      cdeg := mdeg - vd(i)
+      mcoeff := qelt(m, i, ci)(cdeg)
+      minv := invmod(mcoeff, p)::K
+      mult_row(m, i, minv, p)
+      for j in (i + 1)..nr repeat
+          reduce_row_by_row1(m, j, i, ci, cdeg, vd(i) - vd(j), p)
+
+  final_reduce(m : MPA, civ : VI, vn : VI, vd : VI, p : Integer) : Void ==
+      ns := #vd
+      mvd := vd(1)
+      for j in 1..ns repeat
+          vdj := vd(j)
+          for d in 0..(mvd - vdj) repeat
+              for i in 1..ns repeat
+                  i = j => "iterate"
+                  vdi := vd(i)
+                  vdi < vdj + d => break
+                  ci := civ(i)
+                  reduce_row_by_row1(m, j, i, ci, vn(ci) - vdi, d, p)
+
+  reduceBasis0(m : MPA, vn : Vector Integer, vd : Vector Integer, _
+              p : Integer) : NBR ==
+      nc := #vn
+      ns := #vd
+      civ := new(ns, 0)$Vector(Integer)
+      ci : Integer
+      for i in 1..ns repeat
+          maxd : Integer := -1
+          maxj : Integer
+          for j in i..ns repeat
+              cd := vd(j)
+              cd > maxd =>
+                  maxd := cd
+                  ci := critical_index(m, j, maxd, vn)
+                  maxj := j
+              cd = maxd =>
+                  nci := critical_index(m, j, maxd, vn)
+                  nci < ci =>
+                      ci := nci
+                      maxj := j
+          swap_rows(m, i, maxj)
+          tmp := vd(i)
+          vd(i) := vd(maxj)
+          vd(maxj) := tmp
+          civ(i) := ci
+          top_reduce_by_row(m, i, ci, vn, vd, p)
+      final_reduce(m, civ, vn, vd, p)
+      [m, vd, civ]
+
+  reduceBasis(m : VPA, vn : Vector Integer, vd : Vector Integer, _
+              p : Integer) : NBR ==
+      nr := #vd
+      nc := #vn
+      ns := 0
+      for i in 1..nr repeat
+          if vd(i) >= 0 then
+              ns := ns + 1
+      res := new(ns, nc, empty()$PA)$MPA
+      nvd := new(ns, 0)$Vector(Integer)
+      j := 1
+      for i in 1..nr repeat
+          mi := m(i)
+          m2 : SingleInteger := 0
+          if vd(i) >= 0 then
+              nvd(j) := vd(i)
+              for k in 1..nc repeat
+                  vnk1 := qconvert(vn(k) + 1)@SingleInteger
+                  resjk := new(qcoerce(vnk1)@NonNegativeInteger, 0)$PA
+                  for i1 in 0..(vnk1 - 1) repeat
+                      resjk(i1) := mi(m2 + i1)
+                  m2 := m2 + vnk1
+                  qsetelt!(res, j, k, resjk)
+              j := j + 1
+      reduceBasis0(res, vn, nvd, p)
+
+
+
+

@@ -1,0 +1,51 @@
+2675                (|FractionFreeFastGaussianFractions| D V VF)
+|package|
+(((|FractionFreeFastGaussianFractions| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |generalInterpolation|
+    ((|Matrix| (|SparseUnivariatePolynomial| |#1|)) (|List| |#1|)
+     (|Mapping| |#1| (|NonNegativeInteger|) (|NonNegativeInteger|) |#2|)
+     (|Vector| |#3|) (|List| (|NonNegativeInteger|)))))
+  (|Join| (|IntegralDomain|) (|GcdDomain|))
+  (|FiniteAbelianMonoidRing| |#1| (|NonNegativeInteger|))
+  (|FiniteAbelianMonoidRing| (|Fraction| |#1|) (|NonNegativeInteger|)))
+ (T |FractionFreeFastGaussianFractions|))
+(CATEGORY |package|
+ (SIGNATURE |generalInterpolation|
+  ((|Matrix| (|SparseUnivariatePolynomial| |#1|)) (|List| |#1|)
+   (|Mapping| |#1| (|NonNegativeInteger|) (|NonNegativeInteger|) |#2|)
+   (|Vector| |#3|) (|List| (|NonNegativeInteger|)))))
+"/git/fricas/src/algebra/FFFGF.spad"
+((|generalInterpolation| (*1 *2 *3 *4 *5 *6)
+  (AND (|isDomain| *3 (|List| *7))
+       (|isDomain| *4
+                   (|Mapping| *7 (|NonNegativeInteger|) (|NonNegativeInteger|)
+                              *8))
+       (|isDomain| *5 (|Vector| *9))
+       (|isDomain| *6 (|List| (|NonNegativeInteger|)))
+       (|ofCategory| *7 (|Join| (|IntegralDomain|) (|GcdDomain|)))
+       (|ofCategory| *8 (|FiniteAbelianMonoidRing| *7 (|NonNegativeInteger|)))
+       (|ofCategory| *9
+                     (|FiniteAbelianMonoidRing| (|Fraction| *7)
+                                                (|NonNegativeInteger|)))
+       (|isDomain| *2 (|Matrix| (|SparseUnivariatePolynomial| *7)))
+       (|isDomain| *1 (|FractionFreeFastGaussianFractions| *7 *8 *9)))))
+((|generalInterpolation|
+  (((|Matrix| (|SparseUnivariatePolynomial| |#1|)) (|List| |#1|)
+    (|Mapping| |#1| (|NonNegativeInteger|) (|NonNegativeInteger|) |#2|)
+    (|Vector| |#3|) (|List| (|NonNegativeInteger|)))
+   39)))
+FFFGF
+((|constructor|
+  (NIL
+   "This package lifts the interpolation functions from \\spadtype{FractionFreeFastGaussian} to fractions."))
+ (|generalInterpolation|
+  (((|Matrix| (|SparseUnivariatePolynomial| |#1|)) (|List| |#1|)
+    (|Mapping| |#1| (|NonNegativeInteger|) (|NonNegativeInteger|) |#2|)
+    (|Vector| |#3|) (|List| (|NonNegativeInteger|)))
+   "\\spad{generalInterpolation(l,{} CA,{} f,{} eta)} performs Hermite-Pade approximation using the given action \\spad{CA} of polynomials on the elements of \\spad{f}. The result is guaranteed to be correct up to order |eta|-1. Given that eta is a \"normal\" point,{} the degrees on the diagonal are given by eta. The degrees of column \\spad{i} are in this case eta + \\spad{e}.\\spad{i} - [1,{} 1,{} ...,{} 1],{} where the degree of zero is \\spad{-1}.")))
+(("documentation" 0 1867) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1861) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1637) ("modemaps" 0 881) ("sourceFile" 0 844)
+ ("constructorCategory" 0 600) ("constructorModemap" 0 75)
+ ("constructorKind" 0 65) ("constructorForm" 0 20))

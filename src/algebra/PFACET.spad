@@ -1,0 +1,142 @@
+)abbrev domain PFACET ProductFacet
+++ Author: Martin Baker
+++ Description:
+++   Holds the product of two simplexes
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/topology/simplex/product/
+++ Date Created: April 2016
+++ Basic Operations:
+++ Related packages:
+++ Related categories: FacetCategory
+++ Related Domains:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+
+ProductFacet() : Exports == Impl where
+  NNI==> NonNegativeInteger
+  x<<y ==> hconcat(x::OutputForm, y::OutputForm)
+
+  Exports ==> FacetCategory with
+    productFacet : (mul : Integer,
+                    ind1 : List(Record(left : NNI, right : NNI))) -> %
+      ++ Constructor for product facet
+    productFacet : (mul : Integer, other : ProductFacet) -> %
+      ++ Copy constructor to allow change of sign
+    getIndexs : (orf : %) -> List(Record(left : NNI, right : NNI))
+      ++ returns left indexes
+    getMaxLeft : (orf : %) -> NNI
+      ++ returns maximum left index
+    getMaxRight : (orf : %) -> NNI
+      ++ returns maximum right index
+    setMult! : (orf : %, m : Integer) -> %
+      ++ sets multiplier of face
+    addVertex2 : (sa : %, v : Record(left : NNI, right : NNI))-> %
+      ++ used by cone. Adds a vertex to face.
+
+  Impl ==> add
+
+   -- A facet is a list of indexes (ordered)
+   -- 'mul' encodes the orientation. When we are interpreting this as
+   -- a geometric object it is usually 1 or -1 (to reverse direction).
+   -- When we are interpreting this as a linear algebra object then we
+   -- treat it as an integer.
+   Rep := Record(mul : Integer, ind : List(Record(left : NNI, right : NNI)))
+
+   -- Constructor for product facet
+   productFacet(mul1 : Integer, ind1 : List(Record(left : NNI, right : NNI))
+               ) : % ==
+       [mul1, ind1]
+
+   -- Copy constructor to allow change of sign
+   productFacet(mul1 : Integer, other : ProductFacet) : % ==
+       [mul1, getIndexs(other)]
+
+   -- returns left and right indexes
+   getIndexs(orf : %) : List(Record(left : NNI, right : NNI)) ==
+       orf.ind
+
+   -- returns maximum left index
+   getMaxLeft(orf : %) : NNI ==
+       m : NNI := 0
+       indexes : List(Record(left : NNI, right : NNI)) := getIndexs(orf)
+       for index in indexes repeat
+           if index.left > m then m := index.left
+       m
+
+   -- returns maximum right index
+   getMaxRight(orf : %) : NNI ==
+       m : NNI := 0
+       indexes : List(Record(left : NNI, right : NNI)) := getIndexs(orf)
+       for index in indexes repeat
+           if index.right > m then m := index.right
+       m
+
+   -- number of vertices
+   order(f : %) : NNI ==
+       #getIndexs(f)
+
+   -- returns multiplier of face
+   getMult(orf : %) : Integer ==
+       orf.mul
+
+   -- sets multiplier of face
+   setMult!(orf : %, m : Integer) : % ==
+       orf.mul := m
+       orf
+
+   -- used by cone. Adds a vertex to face.
+   addVertex2(sa : %, v : Record(left : NNI, right : NNI)) : % ==
+       f : List(Record(left : NNI, right : NNI)) := getIndexs(sa)
+       f := concat(f, v)
+       productFacet(1, f)
+
+   -- Returns true if x equals y.
+   -- Assumes indexes are in order as this is forced by constructor.
+   _=(a : %, b : %) : Boolean ==
+       if a.mul ~= b.mul then return false
+       indas : List(Record(left : NNI, right : NNI)) := getIndexs(a)
+       indbs : List(Record(left : NNI, right : NNI)) := getIndexs(b)
+       if #indas ~= #indbs then return false
+       for inda in indas for indb in indbs repeat
+           if inda.left ~= indb.left then return false
+           if inda.right ~= indb.right then return false
+       true
+
+   -- output
+   coerce(s : %) : OutputForm ==
+       prefix := message("")
+       m : Integer := s.mul
+       if abs(m) ~= 1 then
+           prefix := hconcat(m::OutputForm, message("*"))
+       if m = -1 then prefix := message("-")
+       elements := []$List(OutputForm)
+       for x in s.ind repeat
+           l : NNI := x.left
+           r : NNI := x.right
+           element := bracket([l::OutputForm, r::OutputForm])
+           elements := concat(elements, element)
+       --print("orientedFacet coerce elements=" << _
+       --   elements << " m=" << m)
+       body : OutputForm := paren(elements)
+       hconcat(prefix, body)
+
+)if false
+\section{Cubical Facet}
+As an alternative to simplicial complexes we can base our topology on
+squares rather than triangles.
+
+For more information see:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/cubical/}
+
+However we need to implement this in a different way, if we specified
+a square by its vertices then we could not be sure that the vertices
+were all in the same plane and we could not be sure that the squares
+aligned.
+
+We therefore have separate indexes for each dimension and we specify
+these as an interval.
+)endif
+

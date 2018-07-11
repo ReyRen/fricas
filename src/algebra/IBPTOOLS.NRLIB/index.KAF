@@ -1,0 +1,115 @@
+5710                (|IntegralBasisPolynomialTools| K R UP L)
+|package|
+(((|IntegralBasisPolynomialTools| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |mapUnivariate|
+    (|#2| (|Mapping| |#1| |#4|) (|SparseUnivariatePolynomial| |#4|)))
+   (SIGNATURE |mapUnivariate|
+    ((|SparseUnivariatePolynomial| |#4|) (|Mapping| |#4| |#1|) |#2|))
+   (SIGNATURE |mapUnivariateIfCan|
+    ((|Union| |#2| "failed") (|Mapping| (|Union| |#1| "failed") |#4|)
+     (|SparseUnivariatePolynomial| |#4|)))
+   (SIGNATURE |mapMatrixIfCan|
+    ((|Union| (|Matrix| |#2|) "failed")
+     (|Mapping| (|Union| |#1| "failed") |#4|)
+     (|Matrix| (|SparseUnivariatePolynomial| |#4|))))
+   (SIGNATURE |mapBivariate|
+    ((|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#4|))
+     (|Mapping| |#4| |#1|) |#3|)))
+  (|Ring|) (|UnivariatePolynomialCategory| |#1|)
+  (|UnivariatePolynomialCategory| |#2|) (|Ring|))
+ (T |IntegralBasisPolynomialTools|))
+(CATEGORY |package|
+ (SIGNATURE |mapUnivariate|
+  (|#2| (|Mapping| |#1| |#4|) (|SparseUnivariatePolynomial| |#4|)))
+ (SIGNATURE |mapUnivariate|
+  ((|SparseUnivariatePolynomial| |#4|) (|Mapping| |#4| |#1|) |#2|))
+ (SIGNATURE |mapUnivariateIfCan|
+  ((|Union| |#2| "failed") (|Mapping| (|Union| |#1| "failed") |#4|)
+   (|SparseUnivariatePolynomial| |#4|)))
+ (SIGNATURE |mapMatrixIfCan|
+  ((|Union| (|Matrix| |#2|) "failed") (|Mapping| (|Union| |#1| "failed") |#4|)
+   (|Matrix| (|SparseUnivariatePolynomial| |#4|))))
+ (SIGNATURE |mapBivariate|
+  ((|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#4|))
+   (|Mapping| |#4| |#1|) |#3|)))
+"/git/fricas/src/algebra/IBPTOOLS.spad"
+((|mapBivariate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *7 *5)) (|ofCategory| *5 (|Ring|))
+       (|ofCategory| *7 (|Ring|))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|isDomain| *2
+                   (|SparseUnivariatePolynomial|
+                    (|SparseUnivariatePolynomial| *7)))
+       (|isDomain| *1 (|IntegralBasisPolynomialTools| *5 *6 *4 *7))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *6))))
+ (|mapMatrixIfCan| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Mapping| (|Union| *5 "failed") *8))
+   (|isDomain| *4 (|Matrix| (|SparseUnivariatePolynomial| *8)))
+   (|ofCategory| *5 (|Ring|)) (|ofCategory| *8 (|Ring|))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+   (|isDomain| *2 (|Matrix| *6))
+   (|isDomain| *1 (|IntegralBasisPolynomialTools| *5 *6 *7 *8))
+   (|ofCategory| *7 (|UnivariatePolynomialCategory| *6))))
+ (|mapUnivariateIfCan| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|Mapping| (|Union| *5 "failed") *7))
+   (|isDomain| *4 (|SparseUnivariatePolynomial| *7)) (|ofCategory| *5 (|Ring|))
+   (|ofCategory| *7 (|Ring|))
+   (|ofCategory| *2 (|UnivariatePolynomialCategory| *5))
+   (|isDomain| *1 (|IntegralBasisPolynomialTools| *5 *2 *6 *7))
+   (|ofCategory| *6 (|UnivariatePolynomialCategory| *2))))
+ (|mapUnivariate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *7 *5)) (|ofCategory| *5 (|Ring|))
+       (|ofCategory| *7 (|Ring|))
+       (|ofCategory| *4 (|UnivariatePolynomialCategory| *5))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *7))
+       (|isDomain| *1 (|IntegralBasisPolynomialTools| *5 *4 *6 *7))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *4))))
+ (|mapUnivariate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *5 *7))
+       (|isDomain| *4 (|SparseUnivariatePolynomial| *7))
+       (|ofCategory| *5 (|Ring|)) (|ofCategory| *7 (|Ring|))
+       (|ofCategory| *2 (|UnivariatePolynomialCategory| *5))
+       (|isDomain| *1 (|IntegralBasisPolynomialTools| *5 *2 *6 *7))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *2)))))
+((|mapUnivariateIfCan|
+  (((|Union| |#2| "failed") (|Mapping| (|Union| |#1| "failed") |#4|)
+    (|SparseUnivariatePolynomial| |#4|))
+   34))
+ (|mapUnivariate|
+  (((|SparseUnivariatePolynomial| |#4|) (|Mapping| |#4| |#1|) |#2|) 30)
+  ((|#2| (|Mapping| |#1| |#4|) (|SparseUnivariatePolynomial| |#4|)) 21))
+ (|mapMatrixIfCan|
+  (((|Union| (|Matrix| |#2|) "failed") (|Mapping| (|Union| |#1| "failed") |#4|)
+    (|Matrix| (|SparseUnivariatePolynomial| |#4|)))
+   38))
+ (|mapBivariate|
+  (((|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#4|))
+    (|Mapping| |#4| |#1|) |#3|)
+   47)))
+IBPTOOLS
+((|constructor|
+  (NIL
+   "IntegralBasisPolynomialTools provides functions for \\indented{1}{mapping functions on the coefficients of univariate and bivariate} \\indented{1}{polynomials.}"))
+ (|mapBivariate|
+  (((|SparseUnivariatePolynomial| (|SparseUnivariatePolynomial| |#4|))
+    (|Mapping| |#4| |#1|) |#3|)
+   "\\spad{mapBivariate(f,{} p(x,{} y))} applies the function \\spad{f} to the coefficients of \\spad{p(x,{} y)}."))
+ (|mapMatrixIfCan|
+  (((|Union| (|Matrix| |#2|) "failed") (|Mapping| (|Union| |#1| "failed") |#4|)
+    (|Matrix| (|SparseUnivariatePolynomial| |#4|)))
+   "\\spad{mapMatrixIfCan(f,{} mat)} applies the function \\spad{f} to the coefficients of the entries of \\spad{mat} if possible,{} and returns \\spad{\"failed\"} otherwise."))
+ (|mapUnivariateIfCan|
+  (((|Union| |#2| "failed") (|Mapping| (|Union| |#1| "failed") |#4|)
+    (|SparseUnivariatePolynomial| |#4|))
+   "\\spad{mapUnivariateIfCan(f,{} p(x))} applies the function \\spad{f} to the coefficients of \\spad{p(x)},{} if possible,{} and returns \\spad{\"failed\"} otherwise."))
+ (|mapUnivariate|
+  (((|SparseUnivariatePolynomial| |#4|) (|Mapping| |#4| |#1|) |#2|)
+   "\\spad{mapUnivariate(f,{} p(x))} applies the function \\spad{f} to the coefficients of \\spad{p(x)}.")
+  ((|#2| (|Mapping| |#1| |#4|) (|SparseUnivariatePolynomial| |#4|))
+   "\\spad{mapUnivariate(f,{} p(x))} applies the function \\spad{f} to the coefficients of \\spad{p(x)}.")))
+(("documentation" 0 4278) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4269) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3677) ("modemaps" 0 1624) ("sourceFile" 0 1584)
+ ("constructorCategory" 0 940) ("constructorModemap" 0 72)
+ ("constructorKind" 0 62) ("constructorForm" 0 20))

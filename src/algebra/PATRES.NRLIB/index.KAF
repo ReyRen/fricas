@@ -1,0 +1,135 @@
+7461                (|PatternMatchResult| R S)
+|domain|
+(((|PatternMatchResult| |#1| |#2|)
+  (|Join| (|SetCategory|)
+          (CATEGORY |domain| (SIGNATURE |failed?| ((|Boolean|) $))
+           (SIGNATURE |failed| ($)) (SIGNATURE |new| ($))
+           (SIGNATURE |union| ($ $ $))
+           (SIGNATURE |getMatch| ((|Union| |#2| "failed") (|Pattern| |#1|) $))
+           (SIGNATURE |addMatch| ($ (|Pattern| |#1|) |#2| $))
+           (SIGNATURE |insertMatch| ($ (|Pattern| |#1|) |#2| $))
+           (SIGNATURE |addMatchRestricted| ($ (|Pattern| |#1|) |#2| $ |#2|))
+           (SIGNATURE |destruct|
+            ((|List| (|Record| (|:| |key| (|Symbol|)) (|:| |entry| |#2|))) $))
+           (SIGNATURE |construct|
+            ($ (|List| (|Record| (|:| |key| (|Symbol|)) (|:| |entry| |#2|)))))
+           (SIGNATURE |satisfy?|
+            ((|Union| (|Boolean|) "failed") $ (|Pattern| |#1|)))))
+  (|SetCategory|) (|SetCategory|))
+ (T |PatternMatchResult|))
+(|Join| (|SetCategory|)
+        (CATEGORY |domain| (SIGNATURE |failed?| ((|Boolean|) $))
+         (SIGNATURE |failed| ($)) (SIGNATURE |new| ($))
+         (SIGNATURE |union| ($ $ $))
+         (SIGNATURE |getMatch| ((|Union| |#2| "failed") (|Pattern| |#1|) $))
+         (SIGNATURE |addMatch| ($ (|Pattern| |#1|) |#2| $))
+         (SIGNATURE |insertMatch| ($ (|Pattern| |#1|) |#2| $))
+         (SIGNATURE |addMatchRestricted| ($ (|Pattern| |#1|) |#2| $ |#2|))
+         (SIGNATURE |destruct|
+          ((|List| (|Record| (|:| |key| (|Symbol|)) (|:| |entry| |#2|))) $))
+         (SIGNATURE |construct|
+          ($ (|List| (|Record| (|:| |key| (|Symbol|)) (|:| |entry| |#2|)))))
+         (SIGNATURE |satisfy?|
+          ((|Union| (|Boolean|) "failed") $ (|Pattern| |#1|)))))
+"/git/fricas/src/algebra/PATRES.spad"
+((|failed?| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|PatternMatchResult| *3 *4))
+       (|ofCategory| *3 (|SetCategory|)) (|ofCategory| *4 (|SetCategory|))))
+ (|failed| (*1 *1)
+  (AND (|isDomain| *1 (|PatternMatchResult| *2 *3))
+       (|ofCategory| *2 (|SetCategory|)) (|ofCategory| *3 (|SetCategory|))))
+ (|new| (*1 *1)
+  (AND (|isDomain| *1 (|PatternMatchResult| *2 *3))
+       (|ofCategory| *2 (|SetCategory|)) (|ofCategory| *3 (|SetCategory|))))
+ (|union| (*1 *1 *1 *1)
+          (AND (|isDomain| *1 (|PatternMatchResult| *2 *3))
+               (|ofCategory| *2 (|SetCategory|))
+               (|ofCategory| *3 (|SetCategory|))))
+ (|getMatch| (*1 *2 *3 *1)
+  (|partial| AND (|isDomain| *3 (|Pattern| *4))
+   (|ofCategory| *4 (|SetCategory|)) (|ofCategory| *2 (|SetCategory|))
+   (|isDomain| *1 (|PatternMatchResult| *4 *2))))
+ (|addMatch| (*1 *1 *2 *3 *1)
+  (AND (|isDomain| *2 (|Pattern| *4)) (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|PatternMatchResult| *4 *3))
+       (|ofCategory| *3 (|SetCategory|))))
+ (|insertMatch| (*1 *1 *2 *3 *1)
+  (AND (|isDomain| *2 (|Pattern| *4)) (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|PatternMatchResult| *4 *3))
+       (|ofCategory| *3 (|SetCategory|))))
+ (|addMatchRestricted| (*1 *1 *2 *3 *1 *3)
+  (AND (|isDomain| *2 (|Pattern| *4)) (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|PatternMatchResult| *4 *3))
+       (|ofCategory| *3 (|SetCategory|))))
+ (|destruct| (*1 *2 *1)
+  (AND
+   (|isDomain| *2 (|List| (|Record| (|:| |key| (|Symbol|)) (|:| |entry| *4))))
+   (|isDomain| *1 (|PatternMatchResult| *3 *4))
+   (|ofCategory| *3 (|SetCategory|)) (|ofCategory| *4 (|SetCategory|))))
+ (|construct| (*1 *1 *2)
+              (AND
+               (|isDomain| *2
+                           (|List|
+                            (|Record| (|:| |key| (|Symbol|))
+                                      (|:| |entry| *4))))
+               (|ofCategory| *4 (|SetCategory|))
+               (|isDomain| *1 (|PatternMatchResult| *3 *4))
+               (|ofCategory| *3 (|SetCategory|))))
+ (|satisfy?| (*1 *2 *1 *3)
+  (|partial| AND (|isDomain| *3 (|Pattern| *4))
+   (|ofCategory| *4 (|SetCategory|)) (|isDomain| *2 (|Boolean|))
+   (|isDomain| *1 (|PatternMatchResult| *4 *5))
+   (|ofCategory| *5 (|SetCategory|)))))
+((~= (((|Boolean|) $ $) NIL)) (|union| (($ $ $) 37))
+ (|satisfy?| (((|Union| (|Boolean|) "failed") $ (|Pattern| |#1|)) 34))
+ (|new| (($) 11)) (|latex| (((|String|) $) NIL))
+ (|insertMatch| (($ (|Pattern| |#1|) |#2| $) 20))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|getMatch| (((|Union| |#2| "failed") (|Pattern| |#1|) $) 50))
+ (|failed?| (((|Boolean|) $) 14)) (|failed| (($) 12))
+ (|destruct|
+  (((|List| (|Record| (|:| |key| (|Symbol|)) (|:| |entry| |#2|))) $) 25))
+ (|construct|
+  (($ (|List| (|Record| (|:| |key| (|Symbol|)) (|:| |entry| |#2|)))) 23))
+ (|coerce| (((|OutputForm|) $) 44))
+ (|addMatchRestricted| (($ (|Pattern| |#1|) |#2| $ |#2|) 48))
+ (|addMatch| (($ (|Pattern| |#1|) |#2| $) 47)) (= (((|Boolean|) $ $) 39)))
+PATRES
+(((|SetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "A PatternMatchResult is an object internally returned by the pattern matcher; It is either a failed match,{} or a list of matches of the form (var,{} expr) meaning that the variable var matches the expression expr."))
+ (|satisfy?|
+  (((|Union| (|Boolean|) "failed") $ (|Pattern| |#1|))
+   "\\spad{satisfy?(r,{} p)} returns \\spad{true} if the matches satisfy the top-level predicate of \\spad{p},{} \\spad{false} if they don\\spad{'t},{} and \"failed\" if not enough variables of \\spad{p} are matched in \\spad{r} to decide."))
+ (|construct|
+  (($ (|List| (|Record| (|:| |key| (|Symbol|)) (|:| |entry| |#2|))))
+   "\\spad{construct([v1,{} e1],{} ...,{} [vn,{} en])} returns the match result containing the matches (\\spad{v1},{} \\spad{e1}),{} ...,{} (\\spad{vn},{} en)."))
+ (|destruct|
+  (((|List| (|Record| (|:| |key| (|Symbol|)) (|:| |entry| |#2|))) $)
+   "\\spad{destruct(r)} returns the list of matches (var,{} expr) in \\spad{r}. Error: if \\spad{r} is a failed match."))
+ (|addMatchRestricted|
+  (($ (|Pattern| |#1|) |#2| $ |#2|)
+   "\\spad{addMatchRestricted(var,{} expr,{} r,{} val)} adds the match (\\spad{var},{} \\spad{expr}) in \\spad{r},{} provided that \\spad{expr} satisfies the predicates attached to \\spad{var},{} that \\spad{var} is not matched to another expression already,{} and that either \\spad{var} is an optional pattern variable or that \\spad{expr} is not equal to val (usually an identity)."))
+ (|insertMatch|
+  (($ (|Pattern| |#1|) |#2| $)
+   "\\spad{insertMatch(var,{} expr,{} r)} adds the match (\\spad{var},{} \\spad{expr}) in \\spad{r},{} without checking predicates or previous matches for \\spad{var}."))
+ (|addMatch|
+  (($ (|Pattern| |#1|) |#2| $)
+   "\\spad{addMatch(var,{} expr,{} r)} adds the match (\\spad{var},{} \\spad{expr}) in \\spad{r},{} provided that \\spad{expr} satisfies the predicates attached to \\spad{var},{} and that \\spad{var} is not matched to another expression already."))
+ (|getMatch|
+  (((|Union| |#2| "failed") (|Pattern| |#1|) $)
+   "\\spad{getMatch(var,{} r)} returns the expression that \\spad{var} matches in the result \\spad{r},{} and \"failed\" if \\spad{var} is not matched in \\spad{r}."))
+ (|union|
+  (($ $ $) "\\spad{union(a,{} b)} makes the set-union of two match results."))
+ (|new| (($) "\\spad{new()} returns a new empty match result."))
+ (|failed| (($) "\\spad{failed()} returns a failed match."))
+ (|failed?|
+  (((|Boolean|) $) "\\spad{failed?(r)} tests if \\spad{r} is a failed match.")))
+(("documentation" 0 4960) ("ancestors" 0 4879) ("parents" 0 4855)
+ ("abbreviation" 0 4848) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4066) ("modemaps" 0 1759) ("sourceFile" 0 1721)
+ ("constructorCategory" 0 951) ("constructorModemap" 0 56)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

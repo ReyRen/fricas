@@ -1,0 +1,117 @@
+5100                (|PolToPol| |lv| R)
+|package|
+(((|PolToPol| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |dmpToHdmp|
+    ((|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|)
+     (|DistributedMultivariatePolynomial| |#1| |#2|)))
+   (SIGNATURE |hdmpToDmp|
+    ((|DistributedMultivariatePolynomial| |#1| |#2|)
+     (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|)))
+   (SIGNATURE |pToHdmp|
+    ((|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|)
+     (|Polynomial| |#2|)))
+   (SIGNATURE |hdmpToP|
+    ((|Polynomial| |#2|)
+     (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|)))
+   (SIGNATURE |dmpToP|
+    ((|Polynomial| |#2|) (|DistributedMultivariatePolynomial| |#1| |#2|)))
+   (SIGNATURE |pToDmp|
+    ((|DistributedMultivariatePolynomial| |#1| |#2|) (|Polynomial| |#2|))))
+  (|List| (|Symbol|)) (|Ring|))
+ (T |PolToPol|))
+(CATEGORY |package|
+ (SIGNATURE |dmpToHdmp|
+  ((|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|)
+   (|DistributedMultivariatePolynomial| |#1| |#2|)))
+ (SIGNATURE |hdmpToDmp|
+  ((|DistributedMultivariatePolynomial| |#1| |#2|)
+   (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|)))
+ (SIGNATURE |pToHdmp|
+  ((|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|)
+   (|Polynomial| |#2|)))
+ (SIGNATURE |hdmpToP|
+  ((|Polynomial| |#2|)
+   (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|)))
+ (SIGNATURE |dmpToP|
+  ((|Polynomial| |#2|) (|DistributedMultivariatePolynomial| |#1| |#2|)))
+ (SIGNATURE |pToDmp|
+  ((|DistributedMultivariatePolynomial| |#1| |#2|) (|Polynomial| |#2|))))
+"/git/fricas/src/algebra/POLTOPOL.spad"
+((|pToDmp| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Polynomial| *5)) (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|DistributedMultivariatePolynomial| *4 *5))
+       (|isDomain| *1 (|PolToPol| *4 *5)) (|ofType| *4 (|List| (|Symbol|)))))
+ (|dmpToP| (*1 *2 *3)
+  (AND (|isDomain| *3 (|DistributedMultivariatePolynomial| *4 *5))
+       (|ofType| *4 (|List| (|Symbol|))) (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|Polynomial| *5)) (|isDomain| *1 (|PolToPol| *4 *5))))
+ (|hdmpToP| (*1 *2 *3)
+  (AND (|isDomain| *3 (|HomogeneousDistributedMultivariatePolynomial| *4 *5))
+       (|ofType| *4 (|List| (|Symbol|))) (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|Polynomial| *5)) (|isDomain| *1 (|PolToPol| *4 *5))))
+ (|pToHdmp| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Polynomial| *5)) (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|HomogeneousDistributedMultivariatePolynomial| *4 *5))
+       (|isDomain| *1 (|PolToPol| *4 *5)) (|ofType| *4 (|List| (|Symbol|)))))
+ (|hdmpToDmp| (*1 *2 *3)
+  (AND (|isDomain| *3 (|HomogeneousDistributedMultivariatePolynomial| *4 *5))
+       (|ofType| *4 (|List| (|Symbol|))) (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|DistributedMultivariatePolynomial| *4 *5))
+       (|isDomain| *1 (|PolToPol| *4 *5))))
+ (|dmpToHdmp| (*1 *2 *3)
+  (AND (|isDomain| *3 (|DistributedMultivariatePolynomial| *4 *5))
+       (|ofType| *4 (|List| (|Symbol|))) (|ofCategory| *5 (|Ring|))
+       (|isDomain| *2 (|HomogeneousDistributedMultivariatePolynomial| *4 *5))
+       (|isDomain| *1 (|PolToPol| *4 *5)))))
+((|pToHdmp|
+  (((|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|)
+    (|Polynomial| |#2|))
+   17))
+ (|pToDmp|
+  (((|DistributedMultivariatePolynomial| |#1| |#2|) (|Polynomial| |#2|)) 29))
+ (|hdmpToP|
+  (((|Polynomial| |#2|)
+    (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|))
+   22))
+ (|hdmpToDmp|
+  (((|DistributedMultivariatePolynomial| |#1| |#2|)
+    (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|))
+   53))
+ (|dmpToP|
+  (((|Polynomial| |#2|) (|DistributedMultivariatePolynomial| |#1| |#2|)) 26))
+ (|dmpToHdmp|
+  (((|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|)
+    (|DistributedMultivariatePolynomial| |#1| |#2|))
+   44)))
+POLTOPOL
+((|constructor|
+  (NIL
+   "Package with the conversion functions among different kind of polynomials"))
+ (|pToDmp|
+  (((|DistributedMultivariatePolynomial| |#1| |#2|) (|Polynomial| |#2|))
+   "\\spad{pToDmp(p)} converts \\spad{p} from a \\spadtype{POLY} to a \\spadtype{DMP}."))
+ (|dmpToP|
+  (((|Polynomial| |#2|) (|DistributedMultivariatePolynomial| |#1| |#2|))
+   "\\spad{dmpToP(p)} converts \\spad{p} from a \\spadtype{DMP} to a \\spadtype{POLY}."))
+ (|hdmpToP|
+  (((|Polynomial| |#2|)
+    (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|))
+   "\\spad{hdmpToP(p)} converts \\spad{p} from a \\spadtype{HDMP} to a \\spadtype{POLY}."))
+ (|pToHdmp|
+  (((|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|)
+    (|Polynomial| |#2|))
+   "\\spad{pToHdmp(p)} converts \\spad{p} from a \\spadtype{POLY} to a \\spadtype{HDMP}."))
+ (|hdmpToDmp|
+  (((|DistributedMultivariatePolynomial| |#1| |#2|)
+    (|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|))
+   "\\spad{hdmpToDmp(p)} converts \\spad{p} from a \\spadtype{HDMP} to a \\spadtype{DMP}."))
+ (|dmpToHdmp|
+  (((|HomogeneousDistributedMultivariatePolynomial| |#1| |#2|)
+    (|DistributedMultivariatePolynomial| |#1| |#2|))
+   "\\spad{dmpToHdmp(p)} converts \\spad{p} from a \\spadtype{DMP} to a \\spadtype{HDMP}.")))
+(("documentation" 0 3817) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3808) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3137) ("modemaps" 0 1608) ("sourceFile" 0 1568)
+ ("constructorCategory" 0 863) ("constructorModemap" 0 50)
+ ("constructorKind" 0 40) ("constructorForm" 0 20))

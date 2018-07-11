@@ -1,0 +1,37 @@
+)abbrev category JBBFC JetBundleBaseFunctionCategory
+++ Description:
+++ \spadtype{JetBundleBaseFunctionCategory} defines the category of functions
+++ (local sections) of the base space of a jet bundle, i.e. functions
+++ depending only on the independent variables. Such a category is needed
+++ e.g. for the representation of solutions.
+
+JetBundleBaseFunctionCategory(JB : JBC) : Category == Def where
+
+  PI   ==> PositiveInteger
+  NNI  ==> NonNegativeInteger
+  B    ==> Boolean
+  L    ==> List
+  JBC  ==> JetBundleCategory
+  JBFC ==> JetBundleFunctionCategory JB
+  SEM  ==> SparseEchelonMatrix(JB, %)
+
+  SIMPREC ==> Record(Sys : L %, JM : SEM, Depend : Union("failed", L L NNI))
+  LDREC   ==> Record(LD : JB, Fake? : B, Dep : L NNI, Fun : %)
+
+  errmsg ==> "Only functions of independent variables allowed"
+
+  Def ==> JBFC add
+
+    U(i : PI) : % == error errmsg
+
+    U() : % == error errmsg
+
+    P(i : PI, l : L NNI) : % == error errmsg
+
+    P(l : L NNI) : % == error errmsg
+
+    P(i : PI, l : NNI) : % == error errmsg
+
+    P(i : NNI) : % == error errmsg
+
+

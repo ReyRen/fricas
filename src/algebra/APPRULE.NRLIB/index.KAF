@@ -1,0 +1,55 @@
+2637                (|ApplyRules| |Base| R F)
+|package|
+(((|ApplyRules| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |applyRules| (|#3| (|List| (|RewriteRule| |#1| |#2| |#3|)) |#3|))
+   (SIGNATURE |applyRules|
+    (|#3| (|List| (|RewriteRule| |#1| |#2| |#3|)) |#3| (|PositiveInteger|))))
+  (|SetCategory|)
+  (|Join| (|Ring|) (|PatternMatchable| |#1|) (|Comparable|)
+          (|ConvertibleTo| (|Pattern| |#1|)))
+  (|Join| (|FunctionSpace| |#2|) (|PatternMatchable| |#1|)
+          (|ConvertibleTo| (|Pattern| |#1|))))
+ (T |ApplyRules|))
+(CATEGORY |package|
+ (SIGNATURE |applyRules| (|#3| (|List| (|RewriteRule| |#1| |#2| |#3|)) |#3|))
+ (SIGNATURE |applyRules|
+  (|#3| (|List| (|RewriteRule| |#1| |#2| |#3|)) |#3| (|PositiveInteger|))))
+"/git/fricas/src/algebra/APPRULE.spad"
+((|applyRules| (*1 *2 *3 *2 *4)
+  (AND (|isDomain| *3 (|List| (|RewriteRule| *5 *6 *2)))
+       (|isDomain| *4 (|PositiveInteger|)) (|ofCategory| *5 (|SetCategory|))
+       (|ofCategory| *6
+                     (|Join| (|Ring|) (|PatternMatchable| *5) (|Comparable|)
+                             (|ConvertibleTo| (|Pattern| *5))))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| *6) (|PatternMatchable| *5)
+                             (|ConvertibleTo| (|Pattern| *5))))
+       (|isDomain| *1 (|ApplyRules| *5 *6 *2))))
+ (|applyRules| (*1 *2 *3 *2)
+  (AND (|isDomain| *3 (|List| (|RewriteRule| *4 *5 *2)))
+       (|ofCategory| *4 (|SetCategory|))
+       (|ofCategory| *5
+                     (|Join| (|Ring|) (|PatternMatchable| *4) (|Comparable|)
+                             (|ConvertibleTo| (|Pattern| *4))))
+       (|ofCategory| *2
+                     (|Join| (|FunctionSpace| *5) (|PatternMatchable| *4)
+                             (|ConvertibleTo| (|Pattern| *4))))
+       (|isDomain| *1 (|ApplyRules| *4 *5 *2)))))
+((|applyRules|
+  ((|#3| (|List| (|RewriteRule| |#1| |#2| |#3|)) |#3| (|PositiveInteger|)) 22)
+  ((|#3| (|List| (|RewriteRule| |#1| |#2| |#3|)) |#3|) 20)))
+APPRULE
+((|constructor|
+  (NIL
+   "This package apply rewrite rules to expressions,{} calling the pattern matcher."))
+ (|applyRules|
+  ((|#3| (|List| (|RewriteRule| |#1| |#2| |#3|)) |#3| (|PositiveInteger|))
+   "\\spad{applyRules([r1,{} ...,{} rn],{} expr,{} n)} applies the rules \\spad{r1},{} ...,{} \\spad{rn} to \\spad{f} a most \\spad{n} times.")
+  ((|#3| (|List| (|RewriteRule| |#1| |#2| |#3|)) |#3|)
+   "\\spad{applyRules([r1,{} ...,{} rn],{} expr)} applies the rules \\spad{r1},{} ...,{} \\spad{rn} to \\spad{f} an unlimited number of times,{} \\spadignore{i.e.} until none of \\spad{r1},{} ...,{} \\spad{rn} is applicable to the expression.")))
+(("documentation" 0 1991) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1983) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1828) ("modemaps" 0 782) ("sourceFile" 0 743)
+ ("constructorCategory" 0 544) ("constructorModemap" 0 56)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))

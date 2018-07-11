@@ -1,0 +1,108 @@
+)abbrev domain FINLAT FiniteLattice
+++ Author: Martin Baker
+++ Description: This is the algebration of poset. A big difference between
+++    this lattice domain and the poset domain is that, in this domain, the
+++    REP holds a single node whereas in poset REP holds the whole poset.
+++ Date Created: Aug 2015
+FiniteLattice(S : SetCategory, p : FiniteBiCPO(S)) : Exports == Impl where
+    NNI ==> NonNegativeInteger
+    Exports ==> Join(Lattice, Finite) with
+      finiteLattice : (index : NNI) -> %
+        ++ construct finite lattice element from index
+      finiteLattice : (obj : S) -> %
+        ++ construct finite lattice element from object
+
+    Impl ==> add
+
+      -- representation of element of lattice
+      Rep := NNI
+
+      -- construct finite lattice element from index
+      finiteLattice(index : NNI) : % ==
+          index
+
+      index(n : PositiveInteger) : % ==
+          finiteLattice(qcoerce(n - 1)@NNI)
+
+      lookup(el : %) : PositiveInteger ==
+          qcoerce((el::Rep) + 1)
+
+      size() : NNI == #getVert(p)
+
+      -- construct finite lattice element from object
+      finiteLattice(obj : S) : % ==
+          objectToIndex(p, obj)$FiniteBiCPO(S)
+
+      -- returns the logical 'meet', e.g. 'and'.
+      _/_\(a : %, b : %) : % ==
+          meet(p, a pretend NNI, b pretend NNI)$FiniteBiCPO(S)
+
+      -- returns the logical 'join', e.g. 'or'.
+      _\_/(a : %, b : %) : % ==
+          join(p, a pretend NNI, b pretend NNI)$FiniteBiCPO(S)
+
+      -- start of SetCategory definitions --
+
+      hash(s : %) : SingleInteger == 0$SingleInteger
+
+      -- returns true if x equals y
+      -- this is equality and not isomorphism
+      -- that is it returns true only if exact index values and names are used
+      -- in addition to the structure(arrows) being the same.
+      _=(x : %, y : %) : Boolean ==
+          (x pretend NNI) = (y pretend NNI)
+
+      -- returns true if x is not equal to y
+      _~_=(x : %, y : %) : Boolean == not(x = y)
+
+      -- output
+      coerce(s : %) : OutputForm ==
+          index : NNI := s pretend NNI
+          --if index=0 then return outputForm("error")
+          obj : S := indexToObject(p, index)
+          coerce(obj)$S
+
+)if false
+\section{Subset Lattice}
+This lattice domain implements a subset structure (powerset).
+The poset equivalent would be a 'containment order'.
+
+One reason for implementing this domain is to investigate the
+(pseudo)complement.
+
+Here is an test session to show how it works:
+\begin{verbatim}
+-- first setup some variables
+SL := SubsetLattice(NNI, [1, 2, 3])
+
+   (1)  SubsetLattice(NonNegativeInteger, [1, 2, 3])
+                                                             Type: Type
+a := subsetLattice([1])$SL
+
+   (2)  [1]
+                         Type: SubsetLattice(NonNegativeInteger, [1, 2, 3])
+b := subsetLattice([2])$SL
+
+   (3)  [2]
+                         Type: SubsetLattice(NonNegativeInteger, [1, 2, 3])
+-- test meet and join
+a/\b
+
+   (4)  [1, 2]
+                         Type: SubsetLattice(NonNegativeInteger, [1, 2, 3])
+a\/b
+
+   (5)  []
+                         Type: SubsetLattice(NonNegativeInteger, [1, 2, 3])
+-- test complement
+complement(a)
+
+   (6)  [2, 3]
+                         Type: SubsetLattice(NonNegativeInteger, [1, 2, 3])
+complement(a)\/complement(b)
+
+   (7)  [3]
+                         Type: SubsetLattice(NonNegativeInteger, [1, 2, 3])
+\end{verbatim}
+)endif
+

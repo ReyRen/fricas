@@ -1,0 +1,36 @@
+1391                (|UnivariatePolynomialDivisionPackage| R UP)
+|package|
+(((|UnivariatePolynomialDivisionPackage| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |divideIfCan|
+    ((|Union| (|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) "failed")
+     |#2| |#2|)))
+  (|IntegralDomain|) (|UnivariatePolynomialCategory| |#1|))
+ (T |UnivariatePolynomialDivisionPackage|))
+(CATEGORY |package|
+ (SIGNATURE |divideIfCan|
+  ((|Union| (|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) "failed")
+   |#2| |#2|)))
+"/git/fricas/src/algebra/UPDIVP.spad"
+((|divideIfCan| (*1 *2 *3 *3)
+  (|partial| AND (|ofCategory| *4 (|IntegralDomain|))
+   (|isDomain| *2 (|Record| (|:| |quotient| *3) (|:| |remainder| *3)))
+   (|isDomain| *1 (|UnivariatePolynomialDivisionPackage| *4 *3))
+   (|ofCategory| *3 (|UnivariatePolynomialCategory| *4)))))
+((|divideIfCan|
+  (((|Union| (|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) "failed")
+    |#2| |#2|)
+   31)))
+UPDIVP
+((|constructor|
+  (NIL
+   "UnivariatePolynomialDivisionPackage provides a division for non monic univarite polynomials with coefficients in an \\spad{IntegralDomain}."))
+ (|divideIfCan|
+  (((|Union| (|Record| (|:| |quotient| |#2|) (|:| |remainder| |#2|)) "failed")
+    |#2| |#2|)
+   "\\spad{divideIfCan(f,{} g)} returns quotient and remainder of the division of \\spad{f} by \\spad{g} or \"failed\" if it has not succeeded.")))
+(("documentation" 0 963) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 956) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 837) ("modemaps" 0 557) ("sourceFile" 0 519)
+ ("constructorCategory" 0 379) ("constructorModemap" 0 75)
+ ("constructorKind" 0 65) ("constructorForm" 0 20))

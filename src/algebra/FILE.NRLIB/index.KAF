@@ -1,0 +1,40 @@
+1623                (|File| S)
+|domain|
+(((|File| |#1|)
+  (|Join| (|FileCategory| (|FileName|) |#1|)
+          (CATEGORY |domain|
+           (SIGNATURE |readIfCan!| ((|Union| |#1| "failed") $))))
+  (|SetCategory|))
+ (T |File|))
+(|Join| (|FileCategory| (|FileName|) |#1|)
+        (CATEGORY |domain|
+         (SIGNATURE |readIfCan!| ((|Union| |#1| "failed") $))))
+"/git/fricas/src/algebra/FILE.spad"
+((|readIfCan!| (*1 *2 *1)
+  (|partial| AND (|isDomain| *1 (|File| *2))
+   (|ofCategory| *2 (|SetCategory|)))))
+((~= (((|Boolean|) $ $) NIL)) (|write!| ((|#1| $ |#1|) 32))
+ (|reopen!| (($ $ (|String|)) 24))
+ (|readIfCan!| (((|Union| |#1| "failed") $) 31)) (|read!| ((|#1| $) 29))
+ (|open| (($ (|FileName|)) 21) (($ (|FileName|) (|String|)) 20))
+ (|name| (((|FileName|) $) 26)) (|latex| (((|String|) $) NIL))
+ (|iomode| (((|String|) $) 27))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|flush| (((|Void|) $) 23))
+ (|coerce| (((|OutputForm|) $) 19)) (|close!| (($ $) 25))
+ (= (((|Boolean|) $ $) 18)))
+FILE
+(((|FileCategory| (|FileName|) |#1|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|FileCategory| (|FileName|) |#1|) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "This domain provides a basic model of files to save arbitrary values. The operations provide sequential access to the contents."))
+ (|readIfCan!|
+  (((|Union| |#1| "failed") $)
+   "\\spad{readIfCan!(f)} returns a value from the file \\spad{f},{} if possible. If \\spad{f} is not open for reading,{} or if \\spad{f} is at the end of file then \\spad{\"failed\"} is the result.")))
+(("documentation" 0 1216) ("ancestors" 0 1093) ("parents" 0 1050)
+ ("abbreviation" 0 1045) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 509) ("modemaps" 0 398) ("sourceFile" 0 362)
+ ("constructorCategory" 0 228) ("constructorModemap" 0 40)
+ ("constructorKind" 0 31) ("constructorForm" 0 20))

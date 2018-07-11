@@ -1,0 +1,127 @@
+7753                (MAKEPROP '|PolynomialNumberTheoryFunctions| 'NILADIC T)
+(|PolynomialNumberTheoryFunctions|)
+|package|
+(((|PolynomialNumberTheoryFunctions|)
+  (CATEGORY |package|
+   (SIGNATURE |bernoulli|
+    ((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+   (SIGNATURE |chebyshevT|
+    ((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+   (SIGNATURE |chebyshevU|
+    ((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+   (SIGNATURE |cyclotomic|
+    ((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+   (SIGNATURE |euler|
+    ((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+   (SIGNATURE |fixedDivisor|
+    ((|Integer|) (|SparseUnivariatePolynomial| (|Integer|))))
+   (SIGNATURE |hermite|
+    ((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+   (SIGNATURE |laguerre|
+    ((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+   (SIGNATURE |legendre|
+    ((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) (|Integer|)))))
+ (T |PolynomialNumberTheoryFunctions|))
+(CATEGORY |package|
+ (SIGNATURE |bernoulli|
+  ((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+ (SIGNATURE |chebyshevT|
+  ((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+ (SIGNATURE |chebyshevU|
+  ((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+ (SIGNATURE |cyclotomic|
+  ((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+ (SIGNATURE |euler|
+  ((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) (|Integer|)))
+ (SIGNATURE |fixedDivisor|
+  ((|Integer|) (|SparseUnivariatePolynomial| (|Integer|))))
+ (SIGNATURE |hermite| ((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+ (SIGNATURE |laguerre|
+  ((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+ (SIGNATURE |legendre|
+  ((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) (|Integer|))))
+"/git/fricas/src/algebra/PNTHEORY.spad"
+((|legendre| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|PolynomialNumberTheoryFunctions|))))
+ (|laguerre| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| (|Integer|)))
+       (|isDomain| *1 (|PolynomialNumberTheoryFunctions|))))
+ (|hermite| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| (|Integer|)))
+       (|isDomain| *1 (|PolynomialNumberTheoryFunctions|))))
+ (|fixedDivisor| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| (|Integer|)))
+       (|isDomain| *2 (|Integer|))
+       (|isDomain| *1 (|PolynomialNumberTheoryFunctions|))))
+ (|euler| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|PolynomialNumberTheoryFunctions|))))
+ (|cyclotomic| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| (|Integer|)))
+       (|isDomain| *1 (|PolynomialNumberTheoryFunctions|))))
+ (|chebyshevU| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| (|Integer|)))
+       (|isDomain| *1 (|PolynomialNumberTheoryFunctions|))))
+ (|chebyshevT| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| (|Integer|)))
+       (|isDomain| *1 (|PolynomialNumberTheoryFunctions|))))
+ (|bernoulli| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|PolynomialNumberTheoryFunctions|)))))
+((|legendre|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) (|Integer|)) 63))
+ (|laguerre| (((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)) 66))
+ (|hermite| (((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)) 60))
+ (|fixedDivisor| (((|Integer|) (|SparseUnivariatePolynomial| (|Integer|))) 55))
+ (|euler|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) (|Integer|)) 49))
+ (|cyclotomic| (((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)) 38))
+ (|chebyshevU| (((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)) 68))
+ (|chebyshevT| (((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)) 67))
+ (|bernoulli|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) (|Integer|)) 51)))
+PNTHEORY
+((|constructor|
+  (NIL
+   "This package provides various polynomial number theoretic functions over the integers."))
+ (|legendre|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) (|Integer|))
+   "\\spad{legendre(n)} returns the \\spad{n}th Legendre polynomial \\spad{P[n](x)}. Note: Legendre polynomials,{} denoted \\spad{P[n](x)},{} are computed from the two term recurrence. The generating function is: \\spad{1/sqrt(1-2*t*x+t^2) = sum(P[n](x)*t^n,{} n=0..infinity)}."))
+ (|laguerre|
+  (((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|))
+   "\\spad{laguerre(n)} returns the \\spad{n}th Laguerre polynomial \\spad{L[n](x)}. Note: Laguerre polynomials,{} denoted \\spad{L[n](x)},{} are computed from the two term recurrence. The generating function is: \\spad{exp(x*t/(t-1))/(1-t) = sum(L[n](x)*t^n/n!,{} n=0..infinity)}."))
+ (|hermite|
+  (((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|))
+   "\\spad{hermite(n)} returns the \\spad{n}th Hermite polynomial \\spad{H[n](x)}. Note: Hermite polynomials,{} denoted \\spad{H[n](x)},{} are computed from the two term recurrence. The generating function is: \\spad{exp(2*t*x-t^2) = sum(H[n](x)*t^n/n!,{} n=0..infinity)}."))
+ (|fixedDivisor|
+  (((|Integer|) (|SparseUnivariatePolynomial| (|Integer|)))
+   "\\spad{fixedDivisor(a)} for \\spad{a(x)} in \\spad{Z[x]} is the largest integer \\spad{f} such that \\spad{f} divides \\spad{a(x=k)} for all integers \\spad{k}. Note: fixed divisor of \\spad{a} is \\spad{reduce(gcd,{} [a(x=k) for k in 0..degree(a)])}."))
+ (|euler|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) (|Integer|))
+   "\\spad{euler(n)} returns the \\spad{n}th Euler polynomial \\spad{E[n](x)}. Note: Euler polynomials denoted \\spad{E(n,{} x)} are computed by solving the differential equation \\spad{differentiate(E(n,{} x),{} x) = n E(n-1,{} x)} where \\spad{E(0,{} x) = 1} and initial condition comes from \\spad{E(n) = 2^n E(n,{} 1/2)}."))
+ (|cyclotomic|
+  (((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|))
+   "\\spad{cyclotomic(n)} returns the \\spad{n}th cyclotomic polynomial \\spad{phi[n](x)}. Note: \\spad{phi[n](x)} is the factor of \\spad{x^n - 1} whose roots are the primitive \\spad{n}th roots of unity."))
+ (|chebyshevU|
+  (((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|))
+   "\\spad{chebyshevU(n)} returns the \\spad{n}th Chebyshev polynomial \\spad{U[n](x)}. Note: Chebyshev polynomials of the second kind,{} denoted \\spad{U[n](x)},{} computed from the two term recurrence. The generating function \\spad{1/(1-2*t*x+t^2) = sum(T[n](x)*t^n,{} n=0..infinity)}."))
+ (|chebyshevT|
+  (((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|))
+   "\\spad{chebyshevT(n)} returns the \\spad{n}th Chebyshev polynomial \\spad{T[n](x)}. Note: Chebyshev polynomials of the first kind,{} denoted \\spad{T[n](x)},{} computed from the two term recurrence. The generating function \\spad{(1-t*x)/(1-2*t*x+t^2) = sum(T[n](x)*t^n,{} n=0..infinity)}."))
+ (|bernoulli|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) (|Integer|))
+   "\\spad{bernoulli(n)} returns the \\spad{n}th Bernoulli polynomial \\spad{B[n](x)}. Note: Bernoulli polynomials denoted \\spad{B(n,{} x)} computed by solving the differential equation \\spad{differentiate(B(n,{} x),{} x) = n B(n-1,{} x)} where \\spad{B(0,{} x) = 1} and initial condition comes from \\spad{B(n) = B(n,{} 0)}.")))
+(("documentation" 0 4373) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4364) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3627) ("modemaps" 0 1906) ("sourceFile" 0 1866)
+ ("constructorCategory" 0 1054) ("constructorModemap" 0 123)
+ ("constructorKind" 0 113) ("constructorForm" 0 77) ("NILADIC" 0 20))

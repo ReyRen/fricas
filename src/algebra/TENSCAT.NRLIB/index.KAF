@@ -1,0 +1,61 @@
+2394                (|TensorProductCategory| R M N)
+|category|
+(((|TensorProductCategory| |#1| |#2| |#3|) (|Category|) (|CommutativeRing|)
+  (|Module| |t#1|) (|Module| |t#1|))
+ (T |TensorProductCategory|))
+(|Join| (|Module| |t#1|)
+        (CATEGORY |domain| (SIGNATURE |tensor| ($ |t#2| |t#3|))))
+"/git/fricas/src/algebra/TENSCAT.spad"
+((|tensor| (*1 *1 *2 *3)
+  (AND (|ofCategory| *4 (|CommutativeRing|))
+       (|ofCategory| *1 (|TensorProductCategory| *4 *2 *3))
+       (|ofCategory| *2 (|Module| *4)) (|ofCategory| *3 (|Module| *4)))))
+((~= (((|Boolean|) $ $) 6))
+ (|zero?|
+  (((|Boolean|) $) 6
+   (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))))
+ (|tensor| (($ |#2| |#3|) 6))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) 6
+   (OR (|has| |#1| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|)))))
+ (|sample|
+  (($) 6 (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))
+   CONST))
+ (|opposite?|
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))))
+ (|latex| (((|String|) $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (|Zero|
+  (($) 6 (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))
+   CONST))
+ (= (((|Boolean|) $ $) 6))
+ (- (($ $) 6 (OR (|has| |#1| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|))))
+    (($ $ $) 6
+     (OR (|has| |#1| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|)))))
+ (+ (($ $ $) 6))
+ (* (($ (|PositiveInteger|) $) 6) (($ |#1| $) 6)
+    (($ (|NonNegativeInteger|) $) 6
+     (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|))))
+    (($ (|Integer|) $) 6
+     (OR (|has| |#1| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|))))
+    (($ $ |#1|) 6)))
+TENSCAT
+(((|Module| |#1|) . T))
+(((|AbelianGroup|) |has| |t#1| (|AbelianGroup|))
+ ((|AbelianMonoid|) |has| |t#1| (|AbelianMonoid|)) ((|AbelianSemiGroup|) . T)
+ ((|BasicType|) . T) ((|BiModule| |t#1| |t#1|) . T)
+ ((|CancellationAbelianMonoid|) |has| |t#1| (|AbelianGroup|))
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|LeftModule| |t#1|) . T)
+ ((|Module| |#1|) . T) ((|RightModule| |t#2|) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL "Category of tensor products of modules over commutative rings."))
+ (|tensor|
+  (($ |#2| |#3|)
+   "\\spad{tensor(x,{} y)} constructs the tensor product of the elements \\spad{x} and \\spad{y}.")))
+(("documentation" 0 2174) ("ancestors" 0 1794) ("parents" 0 1770)
+ ("abbreviation" 0 1762) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 540) ("modemaps" 0 336) ("sourceFile" 0 297)
+ ("constructorCategory" 0 206) ("constructorModemap" 0 63)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

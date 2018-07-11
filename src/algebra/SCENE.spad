@@ -1,0 +1,2803 @@
+)abbrev domain SCENE Scene
+++ Author: Martin Baker
+++ Date Created: September 2010
+++ Basic Operations: spnt, sipnt, svec, sivec, screenCoords
+++ Related Constructors: SCarteasian, SConformal, SArgand, STransform
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/graph/
+
+Scene(PT) : Exports == Implementation where
+ PT : SPointCategory
+
+ x<<y ==> hconcat(x::OutputForm,y::OutputForm)
+ TR ==> STransform PT
+ I ==> Integer
+ C ==> Complex DoubleFloat
+ NNI==> NonNegativeInteger
+ PI==> PositiveInteger
+ DF==> DoubleFloat
+ SEG ==> Segment DF
+ PPC ==> ParametricPlaneCurve(DF -> DF) -- created with curve(f1, f2)
+ FCV ==> C -> C -- function of a complex variable
+ PSC ==> ParametricSpaceCurve(DF -> DF) -- created with curve(f1, f2, f3)
+ PSF ==> ParametricSurface((DF, DF) -> DF) -- created with surface(f1, f2, f3)
+ PSFUN ==> (DF, DF) -> PT
+ PCFUN ==> DF -> PT
+ LINE ==> Record(st : PT, en : PT) -- specifies a straight line by its start and
+                        -- end point
+
+ -- each node contains PARAMS in Rep definition, which is a union of
+ -- the following, each node type will have different content.
+ IFS ==> Record(inx : List List NNI, pts : List PT)
+   ++ indexed face set
+ TEXT ==> Record(txt : String, siz : NNI, pos : PT, np : List String)
+   ++ information for text node
+   ++ txt = text to be displayed
+   ++ siz = font size
+   ++ pos = absolute position
+   ++ np = named points
+ MATERIAL ==> Record(lineWidth : DF, lineCol : String, fillCol : String, matOpacity : DF)
+   ++ a set of attributes which governs the appearance of nodes
+   ++ lineWidth: width of line or border
+   ++ lineCol: colour of line or border
+   ++ fillCol: colour of inside fill
+   ++ matOpacity: 1.0 = fully opaque, 0.0 = fully transparent
+ LINES ==> List List PT
+   ++ holds multiple lines, each line is a list of points.
+ ARROWS ==> Record(ln : List List PT, mode : Symbol, size : DF)
+   ++ holds multiple arrows, each arrow is defined by a list
+   ++ of points.
+   ++ 'mode' and 'size' parameters determine the size of the arrowhead.
+   ++ mode can have the following values:
+   ++   "fixed"::Symbol -- fixed size line width given by 'size' parameter
+   ++   "proportional"::Symbol -- size as a proportion of the overall bounds
+   ++   "variable"::Symbol -- size as a proportion of the arrow length
+   ++ So "proportional" would typically be used when drawing a graph
+   ++ (in graph theory) where it looks better if each arrow head is the
+   ++ same. "variable" would typically be used when drawing a force field
+   ++ where a bigger arrow head might indicate a stronger force.
+ ARROW ==> Record(st : String, en : String, offset : PT, mode : Symbol, size : DF)
+   ++ holds an arrow, represented by a start points and end point from
+   ++ named points together with an offset.
+   ++ 'mode' and 'size' parameters determine the size of the arrowhead.
+   ++ mode can have the following values:
+   ++   "fixed"::Symbol -- fixed size line width given by 'size' parameter
+   ++   "proportional"::Symbol -- size as a proportion of the overall bounds
+   ++   "variable"::Symbol -- size as a proportion of the arrow length
+   ++ So "proportional" would typically be used when drawing a graph
+   ++ (in graph theory) where it looks better if each arrow head is the
+   ++ same. "variable" would typically be used when drawing a force field
+   ++ where a bigger arrow head might indicate a stronger force.
+ SHAPE ==> Record(shptype : Symbol, centre : PT, size : PT, fill : Boolean)
+   ++ A shape is something like a rectangle or an ellipse in 2 dimensions
+   ++ or a sphere or box in 3 dimensions.
+   ++ Its main purpose here, especially in 2 dimensions, is to provide a
+   ++ way to graphically show sets. That is, the shape could be drawn around
+   ++ other elements to show that they are a set. For example we could
+   ++ draw Venn diagrams or show how one set of elements maps to another
+   ++ set of elements.
+   ++ shptype may have the following values:
+   ++   "rect"::Symbol
+   ++   "ellipse"::Symbol
+   ++   "box"::Symbol
+   ++   "sphere"::Symbol
+   ++ centre determines where the shape is drawn.
+   ++ size determines the extent of the shape (which may be different in each
+   ++   dimension).
+   ++ fill, if set to true, will fill the shape with the current fill colour.
+   ++   otherwise, if set to false, the inside of the shape is transparent.
+ NODENAME ==> Record(nme : String, node : %)
+   ++ This associates a node with a name.
+   ++ It is used by the def/use mechanism, that is,
+   ++ def: (short for definition) gives a name to a place in the
+   ++      scenegraph.
+   ++ use: uses a part of the scenegraph previously defined.
+ TRANS ==> TR
+   ++ holds transform parameters
+ BOUNDS ==> Record(mins : PT, maxs : PT)
+   ++ deprecated: this has been superseded by SBoundary(PT)
+   ++ do not use, may be removed in the future.
+   ++ holds a boundary, in 2D this is a rectangle in higher
+   ++ dimensions it is a cuboid
+   ++ the two points define opposite corners of boundary.
+ PARAMS ==> Union(points : LINES, material : MATERIAL, text : TEXT, _
+                 boundbox : SBoundary(PT), trans : TRANS, ifs : IFS, _
+                 arrws : ARROWS, arrw : ARROW, shpe : SHAPE, _
+                 nodename : NODENAME, _
+                 np:SceneNamedPoints PT,empty:"empty")
+   ++ these are the parameters that can be set for nodes of
+   ++ various types
+
+ Exports == with
+  createSceneRoot : () -> %
+    ++ createSceneRoot() constructs the root node, all other nodes
+    ++ are contained in a tree structure under this node
+  createSceneRoot : (bb : SBoundary(PT)) -> %
+    ++ createSceneRoot(bb) constructs the root node, all other
+    ++ nodes are contained in a tree structure under this node
+  createSceneRoot : (bb : BOUNDS) -> %
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  createSceneRoot : (minx : I, miny : I, maxx : I, maxy : I) -> %
+    ++ createSceneRoot(minx, miny, maxx, maxy) constructs
+    ++ the root node, all other nodes are contained in
+    ++ a tree structure under this node
+  createSceneGroup : () -> %
+    ++ createSceneGroup() constructs a group node, this node
+    ++ does not do anything itself but contains other nodes
+  addSceneGroup : (n : %) -> %
+    ++ addSceneGroup(n) is a convenience function which combines
+    ++ createSceneGroup with addChild!
+  createSceneLine : (line : List PT) -> %
+    ++ createSceneLine(line) constructs a line node, this contains
+    ++ a line (represented by a list of points) in n-dimensional
+    ++ space. The space is implicit in the PT and TR parameters
+    ++ supplied when this Scene was created.
+  addSceneLine : (n : %, line : List PT) -> %
+    ++ addSceneLine(n, line) is a convenience function which
+    ++ combines createSceneLine with addChild!
+  createSceneLine : (st : %, en : %, fontScale : DF) -> %
+    ++ createSceneLine(st, en, fontScale) constructs a line node, that
+    ++ contains a line, in n-dimensions, from st to en.
+    ++ 'st' and 'en' are nodes in the scene and the line will be drawn
+    ++ upto their boundary.
+    ++ st is the node at the start of the line
+    ++ en is the node at the end of the line
+    ++ fontScale should be set to the full width of the diagram (not
+    ++ just the width of this node). If this is not known then choose
+    ++ an approximate value. This only affects text nodes, if st or en,
+    ++ or its subnodes, do not contain a text node then its
+    ++ value is not significant.
+  addSceneLine : (n : %, st : %, en : %, fontScale : DF) -> %
+    ++ addSceneLine(n, st, en, fontScale) is a convenience function which
+    ++ combines createSceneLine with addChild!
+  createSceneLine : (st : %, en : %, fontScale : DF,
+                     shortenLine : Boolean) -> %
+    ++ createSceneLine(st, en, fontScale, shortenLine) constructs a line node,
+    ++ that contains a line, in n-dimensions, from st to en.
+    ++ 'st' and 'en' are nodes in the scene and the line will be drawn
+    ++ upto their boundary.
+    ++ st is the node at the start of the line
+    ++ en is the node at the end of the line
+    ++ fontScale should be set to the full width of the diagram (not
+    ++ just the width of this node). If this is not known then choose
+    ++ an approximate value. This only affects text nodes, if st or en,
+    ++ or its subnodes, do not contain a text node then its
+    ++ value is not significant.
+    ++ shortenLine if true line drawn upto boundary rather than
+    ++             centre of destination.
+  addSceneLine : (n : %, st : %, en : %, fontScale : DF,
+                  shortenLine : Boolean) -> %
+    ++ addSceneLine(n, st, en, fontScale) is a convenience function which
+    ++ combines createSceneLine with addChild!
+  createSceneLines : (line : LINES) -> %
+    ++ createSceneLines(line) constructs a line node, this contains lines
+    ++ (represented by a list of points) in n-dimensional space.
+    ++ The space is implicit in the PT and TR parameters supplied
+    ++ when this Scene was created.
+  addSceneLines : (n : %, line : LINES) -> %
+    ++ addSceneLines(n, line) is a convenience function which combines
+    ++ createSceneLines with addChild!
+  createSceneShape : (shape : SHAPE) -> %
+    ++ createSceneShape(shape) constructs a shape node, this contains
+    ++ a shape such as a rectangle or an ellipse.
+  addSceneShape : (n : %, shape : SHAPE) -> %
+    ++ addSceneShape(n, shape) is a convenience function which combines
+    ++ createSceneShape with addChild!
+  createSceneShape : (shape : SBoundary(PT)) -> %
+    ++ createSceneShape(shape) constructs a shape node from a boundary,
+    ++ this contains a shape such as a rectangle or an ellipse.
+  addSceneShape : (n : %, shape : SBoundary(PT)) -> %
+    ++ addSceneShape(n, shape) is a convenience function which combines
+    ++ createSceneShape with addChild!
+  createSceneDef : (nam : String, nde : %) -> %
+    ++ createSceneDef(nam, nde) defines a point in the scenegraph
+    ++ so that it can be used elsewhere.
+  addSceneDef : (n : %, nam : String, nde : %) -> %
+    ++ addSceneDef(n, nam, nde) is a convenience function which
+    ++ combines createSceneDef with addChild!
+  createSceneUse : (nam : String) -> %
+    ++ createSceneUse(nam) uses another point in the scenegraph.
+  addSceneUse : (n : %, nam : String) -> %
+    ++ addSceneUse(n, nam) is a convenience function which
+    ++ combines createSceneUse with addChild!
+  createSceneArrows : (line : List List PT, mode : Symbol, size : DF) -> %
+    ++ createSceneArrows(line, mode, size) constructs an arrow node,
+    ++ this contains arrows (represented by a
+    ++ list of points) in n-dimensional space. The space is implicit
+    ++ in the PT and TR parameters supplied when this Scene was
+    ++ created.
+    ++ 'mode' and 'size' parameters determine the size of the arrowhead.
+    ++ mode can have the following values:
+    ++   "fixed"::Symbol -- fixed size line width given by 'size' parameter
+    ++   "proportional"::Symbol -- size as a proportion of the overall bounds
+    ++   "variable"::Symbol -- size as a proportion of the arrow length
+    ++ So "proportional" would typically be used when drawing a graph
+    ++ (in graph theory) where it looks better if each arrow head is the
+    ++ same. "variable" would typically be used when drawing a force field
+    ++ where a bigger arrow head might indicate a stronger force.
+  addSceneArrows : (n : %, line : List List PT, mode : Symbol, size : DF) -> %
+    ++ addSceneArrows(n, line, mode, size) is a convenience function which
+    ++ combines createSceneArrows with addChild!
+  createSceneArrow : (st : String, en : String, offset : PT, mode : Symbol, size : DF) -> %
+    ++ createSceneArrow(st, en, offset, mode, size) constructs an arrow node,
+    ++ in n-dimensional space, going from st to en.
+    ++ 'st' and 'en' are determined from a list of points from named points
+    ++ node.
+    ++ st is the start of the arrow
+    ++ en is the end of the arrow
+    ++ 'mode' and 'size' parameters determine the size of the arrowhead.
+    ++ mode can have the following values:
+    ++   "fixed"::Symbol -- fixed size line width given by 'size' parameter
+    ++   "proportional"::Symbol -- size as a proportion of the overall bounds
+    ++   "variable"::Symbol -- size as a proportion of the arrow length
+    ++ So "proportional" would typically be used when drawing a graph
+    ++ (in graph theory) where it looks better if each arrow head is the
+    ++ same. "variable" would typically be used when drawing a force field
+    ++ where a bigger arrow head might indicate a stronger force.
+  addSceneArrow : (n : %, st : String, en : String, offset : PT, mode : Symbol, size : DF) -> %
+    ++ addSceneArrow(n, st, en, offset, mode, size) is a convenience function
+    ++ which combines createSceneArrow with addChild!
+  createSceneArrow : (st : %, en : %, offset : PT, mode : Symbol, size : DF, fontScale : DF) -> %
+    ++ createSceneArrow(st, en, offset, mode, size, fontScale) constructs an arrow node,
+    ++ in n-dimensional space, going from st to en.
+    ++ 'st' and 'en' are nodes in the scene and the arrows will be drawn
+    ++ upto their boundary.
+    ++ st is the node at the start of the arrow
+    ++ en is the node at the end of the arrow
+    ++ 'mode' and 'size' parameters determine the size of the arrowhead.
+    ++ mode can have the following values:
+    ++   "fixed"::Symbol -- fixed size line width given by 'size' parameter
+    ++   "proportional"::Symbol -- size as a proportion of the overall bounds
+    ++   "variable"::Symbol -- size as a proportion of the arrow length
+    ++ So "proportional" would typically be used when drawing a graph
+    ++ (in graph theory) where it looks better if each arrow head is the
+    ++ same. "variable" would typically be used when drawing a force field
+    ++ where a bigger arrow head might indicate a stronger force.
+    ++ fontScale should be set to the full width of the diagram (not
+    ++ just the width of this node). If this is not known then choose
+    ++ an approximate value. This only affects text nodes, if st or en,
+    ++ or its subnodes, do not contain a text node then its
+    ++ value is not significant.
+  addSceneArrow : (n : %, st : %, en : %, offset : PT, mode : Symbol, size : DF, fontScale : DF) -> %
+    ++ addSceneArrow(n, st, en, offset, mode, size, fontScale) is a convenience function
+    ++ which combines createSceneArrow with addChild!
+  createSceneNamedPoints : (np : SceneNamedPoints PT) -> %
+    ++ createSceneNamedPoints(np) constructs a named points node, this
+    ++ allows us to define a set of points which can be used multiple
+    ++ times in the scenegraph.
+  addSceneNamedPoints : (n : %, np : SceneNamedPoints PT) -> %
+    ++ addSceneNamedPoints(n, np) is a convenience function which
+    ++ combines createSceneNamedPoints with addChild!
+  createSceneIFS : (inx : List List NNI, pts : List PT) -> %
+    ++ createSceneIFS(inx, pts) constructs an indexed face set node, this
+    ++ defines a surface represented by a set of polygons in n-dimensional
+    ++ space.
+  addSceneIFS : (n : %, inx : List List NNI, pts : List PT) -> %
+    ++ addSceneIFS(n, inx, pts) is a convenience function which combines
+    ++ createSceneIFS with addChild!
+  createSceneIFS : (in1 : SceneIFS(PT)) -> %
+    ++ createSceneIFS(in1) constructs an indexed face set node, this
+    ++ defines a surface represented by a set of polygons in n-dimensional
+    ++ space.
+  addSceneIFS : (n : %, in1 : SceneIFS(PT)) -> %
+    ++ addSceneIFS(n, in1) is a convenience function which combines
+    ++ createSceneIFS with addChild!
+  createSceneBox : (size : DF) -> %
+    ++ createSceneBox(size) constructs an indexed face set node
+    ++ which is a 3D box of a given size
+  addSceneBox : (n : %, size : DF) -> %
+    ++ addSceneBox(n, size) is a convenience function which
+    ++ combines createSceneBox with addChild!
+  createSceneText : (text : TEXT) -> %
+    ++ createSceneText(text) constructs a text node, text can
+    ++ be used for labelling anything such as graphs, axes and so on.
+  addSceneText : (n : %, text : TEXT) -> %
+    ++ addSceneText(n, text) is a convenience function which combines
+    ++ createSceneText with addChild!
+  createSceneText : (str : String, sz : NNI, pz : PT) -> %
+    ++ createSceneText(str, sz, pz) constructs a text node, text can be
+    ++ used for labelling anything such as graphs, axes and so on.
+  addSceneText : (n : %, str : String, sz : NNI, pz : PT) -> %
+    ++ addSceneText(n, str, sz, pz) is a convenience function which combines
+    ++ createSceneText with addChild!
+  createSceneText : (str : List String, sz : NNI, pz : PT) -> %
+    ++ createSceneText(str, sz, pz) constructs a text node using
+    ++ information from named points node.
+  addSceneText : (n : %, str : List String, sz : NNI, pz : PT) -> %
+    ++ addSceneText(n, str, sz, pz) is a convenience function which
+    ++ combines createSceneText with addChild!
+  createSceneClip : (bb : SBoundary(PT)) -> %
+    ++ createSceneClip(bb) constructs a clip node, clips its sub
+    ++ nodes in the coordinate system in force at the clip node.
+  addSceneClip : (n : %, bb : SBoundary(PT)) -> %
+    ++ addSceneClip(n, bb) is a convenience function which combines
+    ++ createSceneClip with addChild!
+  createSceneClip : (bb : BOUNDS) -> %
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  addSceneClip : (n : %, bb : BOUNDS) -> %
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  createSceneGrid : (stepSize : DF, bb : SBoundary(PT)) -> %
+    ++ createSceneGrid(stepSize, bb) constructs a grid, consists of a
+    ++ group, under which are vertical and horizontal lines. The
+    ++ spacing between lines is given by step.
+  addSceneGrid : (n : %, stepSize : DF, bb : SBoundary(PT)) -> %
+    ++ addSceneGrid(n, stepSize, bb) is a convenience
+    ++ function which combines createSceneGrid with addChild!
+  createSceneGrid : (stepSize : DF, bb : BOUNDS) -> %
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  addSceneGrid : (n : %, stepSize : DF, bb : BOUNDS) -> %
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  createSceneGrid : (bb : SBoundary(PT)) -> %
+    ++ createSceneGrid(bb) constructs a grid with
+    ++ narrow blue lines every 20 units
+    ++ wide blue lines every 100 units
+    ++ wide red lines every 200 units
+  addSceneGrid : (n : %, bb : SBoundary(PT)) -> %
+    ++ addSceneGrid(n, bb) is a convenience function which
+    ++ combines createSceneGrid with addChild!
+  createSceneGrid : (bb : BOUNDS) -> %
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  addSceneGrid : (n : %, bb : BOUNDS) -> %
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  createScenePattern : (ptype : Symbol, step : NNI, bb : SBoundary(PT)) -> %
+    ++ createScenePattern(ptype, step, bb) creates a test pattern
+    ++ suitable for showing the effect of
+    ++ transforms. The pattern depends on ptype parameter as follows:
+    ++ ptype="GRID"::Symbol : construct a set of horizontal and vertical
+    ++ lines in the current
+    ++ clip boundary and current material with a spacing between
+    ++ lines given by the step parameter.
+    ++ ptype="SIERPINSKI"::Symbol: constructs a Sierpinski fractal.
+    ++ step parameter gives the level of subdivision.
+    ++ ptype="HOUSE"::Symbol: constructs a house shape.
+  addScenePattern : (n : %, ptype : Symbol, step : NNI, bb : SBoundary(PT)) -> %
+    ++ addScenePattern(n, ptype, step, bb) is a convenience function
+    ++ which combines createScenePattern with addChild!
+  createScenePattern : (ptype : Symbol, step : NNI, bb : BOUNDS) -> %
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  addScenePattern : (n : %, ptype : Symbol, step : NNI, bb : BOUNDS) -> %
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  createSceneRuler : (ptype : Symbol, offset : PT, bb : SBoundary(PT)) -> %
+    ++ createSceneRuler(ptype, offset, bb) creates a scale that can
+    ++ be used to provide numeric values for an axis:
+    ++ ptype= "HORIZONTAL"::Symbol : horizontal axis.
+    ++ ptype= "VERTICAL"::Symbol: vertical axis.
+    ++ ptype= "DEBTH"::Symbol: depth axis.
+  addSceneRuler : (n : %, ptype : Symbol, offset : PT, bb : SBoundary(PT)) -> %
+    ++ addSceneRuler(n, ptype, offset, bb) is a convenience function
+    ++ which combines createSceneRuler with addChild!
+  createSceneRuler : (ptype : Symbol, offset : PT, bb : BOUNDS) -> %
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  addSceneRuler : (n : %, ptype : Symbol, offset : PT, bb : BOUNDS) -> %
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  createSceneGraph : (g : DirectedGraph(String), x : NNI, y : NNI, dispArrowName : Boolean) -> %
+    ++ createSceneGraph(g, x, y, dispArrowName) creates a graph theory
+    ++ diagram
+  addSceneGraph : (n : %, g : DirectedGraph(String), x : NNI, y : NNI, dispArrowName : Boolean) -> %
+    ++ addSceneGraph(n, g, x, y, dispArrowName) is a convenience function
+    ++ which combines createSceneGraph with addChild!
+  createSceneMaterial : (mat : MATERIAL) -> %
+    ++ createSceneMaterial(mat) constructs a material node
+    ++ This sets the lineWidth, lineCol and fillCol for all nodes under
+    ++ this, unless overridden by another material node.
+    ++ That is the material parameters that apply to a given node are
+    ++ those of the closest material node above it in the hierarchy
+    ++ line width is expressed relative to the width of current boundary
+  addSceneMaterial : (n : %, mat : MATERIAL) -> %
+    ++ addSceneMaterial(n, mat) is a convenience function which combines
+    ++ createSceneMaterial with addChild!
+  createSceneMaterial : (lineW : DF, lineC : String, fillC : String) -> %
+    ++ createSceneMaterial(lineW, lineC, fillC) constructs a material node
+    ++ This sets the lineWidth, lineCol and fillCol for all nodes under
+    ++ this, unless overridden by another material node.
+    ++ That is the material parameters that apply to a given node are
+    ++ those of the closest material node above it in the hierarchy
+  addSceneMaterial : (n : %, lineW : DF, lineC : String, fillC : String) -> %
+    ++ addSceneMaterial(n, lineW, lineC, fillC) is a convenience function
+    ++ which combines createSceneMaterial with addChild!
+  createSceneTransform : (tran : TR) -> %
+    ++ createSceneTransform(tran) constructs a transform node
+    ++ This transforms the points and vectors below this node
+    ++ If a given node has more than one transform node above
+    ++ it in the hierarchy then the transforms are compound
+  addSceneTransform : (n : %, tran : TR) -> %
+    ++ addSceneTransform(n, tran) is a convenience function
+    ++ which combines createSceneTransform with addChild!
+  createPlot1Din2D : (f : DF -> PT, tRange : SEG, numPts : NNI) -> %
+    ++ createPlot1Din2D(f, tRange, numPts) creates a two dimensional
+    ++ function plot draws the graph from a mapping of float to point
+    ++ as x ranges from min(a, b) to max(a, b).
+    ++ tRange is a..b
+  addPlot1Din2D : (n : %, f : DF -> PT, tRange : SEG, numPts : NNI) -> %
+    ++ addPlot1Din2D(n, f, tRange, numPts) is a convenience function
+    ++ which combines createPlot1Din2D with addChild!
+  createPlot1Din2D : (f : DF -> DF, tRange : SEG, numPts : NNI) -> %
+    ++ createPlot1Din2D(f, tRange, numPts) creates two
+    ++ dimensional function plot. Draws the graph of y = f(x) as x
+    ++ ranges from min(a, b) to max(a, b).
+    ++ tRange is a..b
+  addPlot1Din2D : (n : %, f : DF -> DF, tRange : SEG, numPts : NNI) -> %
+    ++ addPlot1Din2D(n, f, tRange, numPts) is a convenience function
+    ++ which combines createPlot1Din2D with addChild!
+  createPlot1Din2Dparametric : (PPC, tRange : SEG, numPts : NNI) -> %
+    ++ createPlot1Din2Dparametric(ppc, tRange, numPts) creates a node
+    ++ from plot using Parametric Plane Curve. This represents 1
+    ++ dimension (line - possibly curved) in 2 dimensions (plane)
+    ++ In theory a line has no width but in that case we would not see it
+    ++ so we give it a width given by the material node that is
+    ++ applicable in this part of the scene graph
+    ++ PPC is ParametricPlaneCurve(DF -> DF) which is created with
+    ++ curve(f1, f2)
+    ++ where f1 and f2 are functions of type ComponentFunction, in this
+    ++ case DF -> DF
+  addPlot1Din2Dparametric : (n : %, PPC, tRange : SEG, numPts : NNI) -> %
+    ++ addPlot1Din2Dparametric(n, ppc, tRange, numPts) is a convenience
+    ++ function which combines createPlot1Din2Dparametric with addChild!
+  createPlot1Din3Dparametric : (PSC, tRange : SEG, numPts : NNI) -> %
+    ++ createPlot1Din3Dparametric(psc, tRange, numPts) create a line
+    ++ (1D subspace) in 3D space. This represents 1 dimension
+    ++ (line - possibly curved) in 3 dimensions
+    ++ In theory a line has no width but in that case we would not see it
+    ++ so we give it a width given by the material node that is
+    ++ applicable in this part of the scene graph
+    ++ PSC ParametricSpaceCurve(DF -> DF) is created with curve(f1, f2, f3)
+    ++ where f1, f2 and f3 are functions of type ComponentFunction, in this
+    ++ case DF -> DF
+  addPlot1Din3Dparametric : (n : %, PSC, tRange : SEG, numPts : NNI) -> %
+    ++ addPlot1Din3Dparametric(n, psc, tRange, numPts) is a convenience
+    ++ function which combines createPlot1Din3Dparametric with addChild!
+  createPlot1Din3Dparametric : (PCFUN, tRange : SEG, numPts : NNI) -> %
+    ++ createPlot1Din3Dparametric(pcfun, tRange, numPts) create a line
+    ++ (1D subspace) in 3D space.
+    ++ This represents 1 dimension (line - possibly curved) in 3 dimensions
+    ++ In theory a line has no width but in that case we would not see it
+    ++ so we give it a width given by the material node that is
+    ++ applicable in this part of the scene graph
+    ++ PCFUN is a function from float to point: DF -> PT
+  addPlot1Din3Dparametric : (n : %, PCFUN, tRange : SEG, numPts : NNI) -> %
+    ++ addPlot1Din3Dparametric(n, pcfun, tRange, numPts) is a
+    ++ convenience function which combines createPlot1Din3Dparametric
+    ++ with addChild!
+  createPlot2Din3D : (ptFun : PSFUN, uSeg : SEG, vSeg : SEG, numPts : NNI) -> %
+    ++ createPlot2Din3D(ptFun, uSeg, vSeg, numPts) create a surface
+    ++ (2D subspace) in 3D space.
+    ++ The surface is approximated by polygons which are
+    ++ represented by in indexed face set (IFS) node
+  createPlot2Din3D : ((DF, DF) -> DF, uSeg : SEG, vSeg : SEG, numPts : NNI) -> %
+    ++ createPlot2Din3D(f, a..b, c..d) returns a scene node
+    ++ which contains the graph of z = f(x, y)
+    ++ as x ranges from min(a, b) to max(a, b) and y ranges from
+    ++ min(c, d) to max(c, d).
+    ++ create a surface (2D subspace) in 3D space
+    ++ The surface is approximated by polygons which are
+    ++ represented by in indexed face set (IFS) node
+  addPlot2Din3D : (n : %, (DF, DF) -> DF, uSeg : SEG, vSeg : SEG, numPts : NNI) -> %
+    ++ addPlot2Din3D(n, f, uSeg, vSeg, numPts) is a convenience
+    ++ function which combines createPlot2Din3D with addChild!
+  createPlot2Din3Dparametric : (PSFUN, uSeg : SEG, vSeg : SEG, numPts : NNI) -> %
+    ++ createPlot2Din3Dparametric(f, a..b, c..d, l) returns a scene node
+    ++ which contains the graph of the parametric surface f(u, v)
+    ++ as u ranges from min(a, b) to
+    ++ max(a, b) and v ranges from min(c, d) to max(c, d).
+    ++ This creates a surface (2D subspace) in 3D space
+    ++ The surface is approximated by polygons which are
+    ++ represented by in indexed face set (IFS) node
+  addPlot2Din3Dparametric : (n : %, PSFUN, uSeg : SEG, vSeg : SEG, numPts : NNI) -> %
+    ++ addPlot2Din3Dparametric(n, f, uSeg, vSeg, numPts) is
+    ++ a convenience function which combines createPlot2Din3Dparametric with
+    ++ addChild!
+  createPlot2Din3Dparametric : (PSF, uSeg : SEG, vSeg : SEG, numPts : NNI) -> %
+    ++ createPlot2Din3Dparametric(surface(f, g, h), a..b, c..d, l) returns a
+    ++ scene node which contains the
+    ++ graph of the parametric surface x = f(u, v), y = g(u, v),
+    ++ z = h(u, v) as u ranges from min(a, b) to
+    ++ max(a, b) and v ranges from min(c, d) to max(c, d).
+    ++ This creates a surface (2D subspace) in 3D space
+    ++ The surface is approximated by polygons which are
+    ++ represented by in indexed face set (IFS) node
+  addPlot2Din3Dparametric : (n : %, PSF, uSeg : SEG, vSeg : SEG, numPts : NNI) -> %
+    ++ addPlot2Din3Dparametric(n, f, uSeg, vSeg, numPts) is a convenience
+    ++ function which combines createPlot2Din3Dparametric with addChild!
+  createArrows2Din2D : (ptFun : PT -> PT, uSeg : SEG, vSeg : SEG, numPts : NNI) -> %
+    ++ createArrows2Din2D(ptFun, uSeg, vSeg, numPts) creates arrows to
+    ++ represent output for each input point
+    ++ in other words this represents a two dimensional force
+    ++ field with the arrows showing the direction of the field
+  addArrows2Din2D : (n : %, ptFun : PT -> PT, uSeg : SEG, vSeg : SEG, numPts : NNI) -> %
+    ++ addArrows2Din2D(n, ptFun, uSeg, vSeg, numPts) is a convenience function
+    ++ which combines createArrows2Din2D with addChild!
+  boundary : (n : %, fontScale : DF) -> SBoundary(PT)
+    ++ boundary(n, fontScale) returns the boundary of a given node, so if this
+    ++ is called on the root node, it will return the boundary of the
+    ++ whole scene.
+    ++ There is a difficulty involving text nodes, that is they have
+    ++ a fixed font size. But we want to calculate the boundary in local
+    ++ coordinates, to do this conversion we need to know the total
+    ++ boundary size but that is what we are trying to calculate! To get
+    ++ round this contradiction the parameter fontScale is required since
+    ++ fonts are rendered at a fixed size we need a scaling factor so
+    ++ that we can give the boundary in our coordinate system.
+    ++ fontScale should be set to the full width of the diagram (not
+    ++ just the width of this node). If this is not known then choose
+    ++ an approximate value. This only affects text nodes, if this
+    ++ node, or its subnodes, do not contain a text node then its
+    ++ value is not significant.
+  addChild! : (n : %, c : %) -> Void
+    ++ addChild!(n, c) adds the specified child node 'c' below node 'n'
+  removeChild! : (n : %, c : %) -> Void
+    ++ removeChild!(n, c) removes the specified child node 'c'
+    ++ below node 'n'
+  setTransform! : (n : %, tran : TR) -> Void
+    ++ setTransform!(n, tran) changes the transform without altering
+    ++ the scene hierarchy
+  toSVG : (n : %, mat : MATERIAL, tran : TR, bb : SBoundary(PT), _
+         scale : DF, clipEn : Boolean, _
+         useInteger : Boolean, npt : SceneNamedPoints PT) -> XmlElement
+    ++ toSVG(n, mat, tran, bb, scale, clipEn, useInteger, npt) creates an
+    ++ XmlElement containing a 'SVG' representation of node
+    ++ 'n' and the nodes below it.
+    ++ n is the scene to be output to XML elements
+    ++ mat is the default material which may be overridden by subnodes
+    ++ tran is the default transform which may be overridden by subnodes
+    ++ bb is the default boundary which may be overridden by subnodes
+    ++ scale is the scale used to scale into canvas, it would be better
+    ++       to merge this into trans.
+    ++ clipEn if true this clips the output to the boundary
+    ++ useInteger if true truncate to integer values.
+    ++ npt names points can be provided. If not required then set
+    ++     to namedBranch([], [])
+  toSVG : (n : %, mat : MATERIAL, tran : TR, bb : BOUNDS, scale : DF, _
+         clipEn : Boolean, _
+         useInteger : Boolean, npt : SceneNamedPoints PT) -> XmlElement
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  toX3D : (n : %, mat : MATERIAL, tran : TR, bb : SBoundary(PT)) -> XmlElement
+    ++ toX3D(n, mat, tran, bb) creates an XmlElement containing a
+    ++ 'X3D' representation of node 'n' and the nodes below it.
+    ++ n is the scene to be output to XML elements
+    ++ mat is the default material which may be overridden by subnodes
+    ++ tran is the default transform which may be overridden by subnodes
+    ++ bb is the default boundary which may be overridden by subnodes
+  toX3D : (n : %, mat : MATERIAL, tran : TR, bb : BOUNDS) -> XmlElement
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  toObj : (n : %, ptLst : Reference List PT, _
+         indexLst : Reference List List NNI, _
+         indexNxt : Reference NNI, tran : TR, bb : SBoundary(PT)) -> Void
+    ++ toObj(n, ptLst, indexLst, indexNxt, tran, bb) creates an .OBJ
+    ++ (Wavefront) file from scenegraph tree structure
+    ++ called recursively for each node, so when called on root node
+    ++ in scenegraph all other nodes in the scenegraph will get called.
+    ++ n is the scene to be output to ptLst and indexLst
+    ++ ptLst is the points. This will be set to ref([]) at the start
+    ++       and will be built up as this function is called recursively
+    ++ indexLst is list of faces, where faces are list of points indexed
+    ++          by ptLst This will be set to ref([]) at the start
+    ++       and will be built up as this function is called recursively
+    ++ tran is the default transform which may be overridden by subnodes
+    ++ bb is the default boundary which may be overridden by subnodes
+  toObj : (n : %, ptLst : Reference List PT, _
+         indexLst : Reference List List NNI, _
+         indexNxt : Reference NNI, tran : TR, bb : BOUNDS) -> Void
+    ++ deprecated: this has been superseded by version with
+    ++ SBoundary(PT) do not use, may be removed in the future.
+  writeSvg : (n : %, filename : String) -> Void
+    ++ writeSvg(n, filename) writes an 'SVG' representation of node
+    ++ 'n' to the filename supplied.
+  writeSvgQuantised : (n : %, filename : String) -> Void
+    ++ writeSvgQuantised(n, filename) writes an 'SVG' representation
+    ++ of node 'n' to the filename supplied.
+  writeX3d : (n : %, filename : String) -> Void
+    ++ writeX3d: (n, filename) writes an 'X3D' representation of
+    ++ node 'n' to the filename supplied.
+  writeVRML : (n : %, filename : String) -> Void
+    ++ writeVRML(n, filename) writes an 'VRML' representation of
+    ++ node 'n' to the filename supplied.
+  writeObj : (n : %, filename : String) -> Void
+    ++ writeObj(n, filename) writes an 'OBJ' (Wavefront) representation
+    ++ of node 'n' to the filename supplied.
+  coerce : (n : %) -> OutputForm
+    ++ output
+    ++ a full scenegraph could contain a lot of data and so we have
+    ++ to be careful to restrict the output to what is reasonable on
+    ++ the command line. Therefore we do not display all subnodes or
+    ++ the full information from nodes such as IFS.
+
+ Implementation == add
+
+  Rep := Record(type : Symbol, children : List %, parameters : PARAMS)
+    ++ this represents a tree structure where each node in the
+    ++ tree can have:
+    ++ * a type
+    ++ * children
+    ++ * some parameters
+    ++ valid types are:
+    ++ type = "ROOT"::Symbol -- root node
+    ++ type = "GROUP"::Symbol -- group node
+    ++ type = "LINE"::Symbol -- line node
+    ++ type = "SHAPE"::Symbol -- shape node
+    ++ type = "MATERIAL"::Symbol -- material node
+    ++ type = "TEXT"::Symbol -- text node
+    ++ type = "TRANSFORM"::Symbol -- transform node
+    ++ type = "CLIP"::Symbol -- clip node
+    ++ type = "IFS"::Symbol -- Indexed Face Set
+    ++ type = "ARROWS"::Symbol -- arrows node
+    ++ type = "ARROW"::Symbol -- single arrow node
+    ++ type = "NAMEDPOINTS"::Symbol -- named points node
+    ++ type = "DEF"::Symbol -- def node
+    ++ type = "USE"::Symbol -- use node
+
+  math_to_string ==> mathObject2String$Lisp
+
+  -- Constructs the root node, all other nodes are contained in
+  -- a tree structure under this node
+  createSceneRoot(bb : SBoundary(PT)) : % == ["ROOT"::Symbol,[],[bb]]
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  createSceneRoot(bb : BOUNDS) : % ==
+    createSceneRoot(boxBoundary(bb.mins, bb.maxs))
+
+  -- Constructs the root node, all other nodes are contained in
+  -- a tree structure under this node
+  createSceneRoot(minx : I, miny : I, maxx : I, maxy : I) : % ==
+    bb : SBoundary(PT) := boxBoundary(sipnt(minx, miny)$PT, sipnt(maxx, maxy)$PT)
+    ["ROOT"::Symbol,[],[bb]]
+
+  -- Constructs the root node, all other nodes are contained in
+  -- a tree structure under this node
+  createSceneRoot() : % ==
+    ["ROOT"::Symbol,[],[nullBoundary()]]
+
+  -- Constructs a group node, this node does not do anything itself
+  -- but contains other nodes
+  createSceneGroup() : % == ["GROUP"::Symbol,[],["empty"]]
+
+  -- a convenience function which combines createSceneGroup with addChild!
+  addSceneGroup(n : %) : % ==
+    c := createSceneGroup()
+    addChild!(n, c)
+    c
+
+  -- Constructs a line node, this contains a line (represented by a
+  -- list of points) in n-dimensional space. The space is implicit
+  -- in the PT and TR parameters supplied when this Scene was
+  -- created.
+  createSceneLine(line : List PT) : % == ["LINE"::Symbol,[],[[line]]]
+
+  -- a convenience function which combines createSceneLine with addChild!
+  addSceneLine(n : %, line : List PT) : % ==
+    c := createSceneLine(line)
+    addChild!(n, c)
+    c
+
+  -- createSceneLine(st, en) constructs a line node, this contains
+  -- a line, in n-dimensions, from st to en.
+  -- 'st' and 'en' are nodes in the scene and the line will be drawn
+  -- upto their boundary.
+  -- st is the node at the start of the arrow
+  -- en is the node at the end of the arrow
+  createSceneLine(st : %, en : %, fontScale : DF) : % ==
+    createSceneLine(st, en, fontScale, true)
+
+  -- addSceneLine(n, st, en) is a convenience function which
+  -- combines createSceneLine with addChild!
+  addSceneLine(n : %, st : %, en : %, fontScale : DF) : % ==
+    addSceneLine(n , st, en, fontScale, true)
+
+  -- createSceneLine(st, en) constructs a line node, this contains
+  -- a line, in n-dimensions, from st to en.
+  -- 'st' and 'en' are start and end nodes of the line in the scene.
+  -- st is the node at the start of the arrow.
+  -- en is the node at the end of the arrow.
+  -- fontScale allows the boundary of text to be calculated, it should be
+  -- set to the full width of the diagram.
+  -- shortenLine if true line drawn upto boundary rather than
+  --             centre of destination.
+  createSceneLine(st : %, en : %, fontScale : DF, shortenLine:Boolean) : % ==
+    stBoundary : SBoundary(PT) := boundary(st, fontScale)
+    enBoundary : SBoundary(PT) := boundary(en, fontScale)
+    stPoint := getCentre(stBoundary)
+    enPoint := getCentre(enBoundary)
+    if shortenLine then
+      stPoint := lineIntersect(enBoundary, stPoint)
+      enPoint := lineIntersect(stBoundary, enPoint)
+    --print("createSceneLine2 start="::OutputForm << stPoint << _
+    --      " end="::OutputForm << enPoint)
+    ["LINE"::Symbol,[],[[[stPoint,enPoint]]]]
+
+  -- addSceneLine(n, st, en) is a convenience function which
+  -- combines createSceneLine with addChild!
+  addSceneLine(n : %, st : %, en : %, fontScale : DF,
+               shortenLine : Boolean) : % ==
+      c := createSceneLine(st, en, fontScale, shortenLine)
+      addChild!(n, c)
+      c
+
+  -- Constructs a line node, this contains lines (represented by a
+  -- list of points) in n-dimensional space. The space is implicit
+  -- in the PT and TR parameters supplied when this Scene was
+  -- created.
+  createSceneLines(lines : LINES) : % == ["LINE"::Symbol,[],[lines]]
+
+  -- a convenience function which combines createSceneLines with addChild!
+  addSceneLines(n : %, lines : LINES) : % ==
+    c := createSceneLines(lines)
+    addChild!(n, c)
+    c
+
+  -- Constructs a shape node, this contains a shape such as a rectangle
+  -- or an ellipse.
+  -- SHAPE ==> Record(shptype: Symbol, centre: PT, size: PT, fill: Boolean)
+  createSceneShape(shape : SHAPE) : % ==
+    ["SHAPE"::Symbol,[],[shape]]
+
+  -- a convenience function which combines createSceneShape with addChild!
+  addSceneShape(n : %, shape : SHAPE) : % ==
+    c := createSceneShape(shape)
+    addChild!(n, c)
+    c
+
+  -- Constructs a shape node from a boundary, this contains a shape
+  -- such as a rectangle or an ellipse.
+  createSceneShape(shape : SBoundary(PT)) : % ==
+    mx : PT := getMax(shape)
+    mn : PT := getMin(shape)
+    sh:SHAPE := ["rect"::Symbol,mn,mx-mn,false]
+    --if isEllipse?(shape) then
+    --  sh := ["rect"::Symbol,mn,mx,false]
+    --t:% := ["SHAPE"::Symbol,[],[sh]]
+    --print(hconcat(["createSceneShape shape="::OutputForm,_
+    --       shape::OutputForm, _
+    --       " getMin(shape)="::OutputForm,mn::OutputForm,_
+    --       " getMax(shape)="::OutputForm,mx::OutputForm,_
+    --       " t="::OutputForm,t::OutputForm]))
+    ["SHAPE"::Symbol,[],[sh]]
+
+  -- a convenience function which combines createSceneShape with addChild!
+  addSceneShape(n : %, shape : SBoundary(PT)) : % ==
+    c := createSceneShape(shape)
+    addChild!(n, c)
+    c
+
+  -- Defines a point in the scenegraph so that it can be used elsewhere.
+  createSceneDef(nam : String, nde : %) : % ==
+    nn : NODENAME := [nam, nde]
+    ["DEF"::Symbol,[],[nn]]
+
+  -- a convenience function which combines createSceneDef with addChild!
+  addSceneDef(n : %, nam : String, nde : %) : % ==
+    c := createSceneDef(nam, nde)
+    addChild!(n, c)
+    c
+
+  -- Uses another point in the scenegraph.
+  createSceneUse(nam : String) : % ==
+    nn:NODENAME := [nam,["GROUP"::Symbol,[],["empty"]]]
+    ["USE"::Symbol,[],[nn]]
+
+  -- a convenience function which combines createSceneUse with addChild!
+  addSceneUse(n : %, nam : String) : % ==
+    c := createSceneUse(nam)
+    addChild!(n, c)
+    c
+
+  -- Constructs an arrow node, this contains arrows (represented by a
+  -- list of points) in n-dimensional space. The space is implicit
+  -- in the PT and TR parameters supplied when this Scene was
+  -- created.
+  -- 'mode' and 'size' parameters determine the size of the arrowhead.
+  -- 'mode' can have the following values:
+  --   "fixed"::Symbol -- fixed size line width given by 'size' parameter
+  --   "proportional"::Symbol -- size as a proportion of the overall bounds
+  --   "variable"::Symbol -- size as a proportion of the arrow length
+  -- So "proportional" would typically be used when drawing a graph
+  -- (in graph theory) where it looks better if each arrow head is the
+  -- same. "variable" would typically be used when drawing a force field
+  -- where a bigger arrow head might indicate a stronger force.
+  createSceneArrows(lines : List List PT, mode : Symbol, size : DF) : % ==
+    ar : ARROWS := [lines, mode, size]
+    ["ARROWS"::Symbol,[],[ar]]
+
+  -- a convenience function which combines createSceneArrows with addChild!
+  addSceneArrows(n : %, lines : List List PT, mode : Symbol, size : DF) : % ==
+    c := createSceneArrows(lines, mode, size)
+    addChild!(n, c)
+    c
+
+  -- Constructs an arrow node, this contains arrows (represented by a
+  -- list of points from named points node.) in n-dimensional space.
+  -- 'st' and 'en' are nodes in the scene and the arrows will be drawn
+  -- upto their boundary.
+  -- st is the start of the arrow
+  -- en is the end of the arrow
+   -- 'mode' and 'size' parameters determine the size of the arrowhead.
+  -- 'mode' can have the following values:
+  --   "fixed"::Symbol -- fixed size line width given by 'size' parameter
+  --   "proportional"::Symbol -- size as a proportion of the overall bounds
+  --   "variable"::Symbol -- size as a proportion of the arrow length
+  -- So "proportional" would typically be used when drawing a graph
+  -- (in graph theory) where it looks better if each arrow head is the
+  -- same. "variable" would typically be used when drawing a force field
+  -- where a bigger arrow head might indicate a stronger force.
+  createSceneArrow(st : String, en : String, offset : PT, mode : Symbol, size : DF) : % ==
+    ar : ARROW := [st, en, offset, mode, size]
+    ["ARROW"::Symbol,[],[ar]]
+
+  -- a convenience function which combines createSceneArrows with addChild!
+  addSceneArrow(n : %, st : String, en : String, offset : PT, mode : Symbol, size : DF) : % ==
+    c := createSceneArrow(st, en, offset, mode, size)
+    addChild!(n, c)
+    c
+
+  -- createSceneArrow(st, en, offset, mode, size) constructs an arrow node,
+  -- in n-dimensional space, going from st to en.
+  -- 'st' and 'en' are nodes in the scene and the arrows will be drawn
+  -- upto their boundary.
+  -- st is the start of the arrow
+  -- en is the end of the arrow
+  -- 'mode' and 'size' parameters determine the size of the arrowhead.
+  -- mode can have the following values:
+  --   "fixed"::Symbol -- fixed size line width given by 'size' parameter
+  --   "proportional"::Symbol -- size as a proportion of the overall bounds
+  --   "variable"::Symbol -- size as a proportion of the arrow length
+  -- So "proportional" would typically be used when drawing a graph
+  -- (in graph theory) where it looks better if each arrow head is the
+  -- same. "variable" would typically be used when drawing a force field
+  -- where a bigger arrow head might indicate a stronger force.
+  createSceneArrow(st : %, en : %, offset : PT, mode : Symbol, size : DF, fontScale : DF) ==
+    stBoundary : SBoundary(PT) := boundary(st, fontScale)
+    enBoundary : SBoundary(PT) := boundary(en, fontScale)
+    stPoint := lineIntersect(stBoundary, getCentre(enBoundary))
+    enPoint := lineIntersect(enBoundary, getCentre(stBoundary))
+    --print(hconcat(["scene createSceneArrow stBoundary="::OutputForm,stBoundary::OutputForm,_
+    -- " enBoundary="::OutputForm,enBoundary::OutputForm,_
+    -- " stPoint="::OutputForm,stPoint::OutputForm,_
+    -- " enPoint="::OutputForm,enPoint::OutputForm]))$OutputForm
+    ar : ARROWS := [[[stPoint, enPoint]], mode, size]
+    ["ARROWS"::Symbol,[],[ar]]
+
+  -- addSceneArrow(n, st, en, offset, mode, size) is a convenience function
+  -- which combines createSceneArrow with addChild!
+  addSceneArrow(n : %, st : %, en : %, offset : PT, mode : Symbol, size : DF, fontScale : DF) ==
+    c := createSceneArrow(st, en, offset, mode, size, fontScale)
+    addChild!(n, c)
+    c
+
+  -- Constructs a named points node, this allows us to define a
+  -- set of points which can be used multiple times in the
+  -- scenegraph.
+  createSceneNamedPoints(np : SceneNamedPoints PT) : % ==
+    ["NAMEDPOINTS"::Symbol,[],[np]]
+
+  -- a convenience function which combines createSceneNamedPoints
+  -- with addChild!
+  addSceneNamedPoints(n : %, np : SceneNamedPoints PT) : % ==
+    c := createSceneNamedPoints(np)
+    addChild!(n, c)
+    c
+
+  -- Constructs an indexed face set node, this defines a surface
+  -- represented by a set of polygons in n-dimensional space.
+  createSceneIFS(inx1 : List List NNI, pts1 : List PT) : % ==
+    ["IFS"::Symbol,[],[[inx1,pts1]]]
+
+  -- a convenience function which combines createSceneIFS with addChild!
+  addSceneIFS(n : %, inx1 : List List NNI, pts1 : List PT) : % ==
+    c := createSceneIFS(inx1, pts1)
+    addChild!(n, c)
+    c
+
+  -- Constructs an indexed face set node, this defines a surface
+  -- represented by a set of polygons in n-dimensional space.
+  createSceneIFS(in1 : SceneIFS(PT)) : % ==
+    inx1 : List List NNI := indexes(in1)
+    pts1 : List PT := pointList(in1)
+    ["IFS"::Symbol,[],[[inx1,pts1]]]
+
+  -- a convenience function which combines createSceneIFS with addChild!
+  addSceneIFS(n : %, in1 : SceneIFS(PT)) : % ==
+    c := createSceneIFS(in1)
+    addChild!(n, c)
+    c
+
+  -- Constructs an indexed face set node which is a 3D box of a
+  -- given size
+  createSceneBox(size : DF) : % ==
+    pts : List PT := [_
+      spnt(size, -size, size)$PT, _
+      spnt(size, size, size)$PT, _
+      spnt(-size, size, size)$PT, _
+      spnt(-size, -size, size)$PT, _
+      spnt(-size, -size, -size)$PT, _
+      spnt(-size, size, -size)$PT, _
+      spnt(size, size, -size)$PT, _
+      spnt(size, -size, -size)$PT_
+      ]
+    inx : List List NNI := [_
+      [0::NNI, 1::NNI, 2::NNI, 3::NNI], _
+      [4::NNI, 5::NNI, 6::NNI, 7::NNI], _
+      [7::NNI, 6::NNI, 1::NNI, 0::NNI], _
+      [3::NNI, 2::NNI, 5::NNI, 4::NNI], _
+      [1::NNI, 6::NNI, 5::NNI, 2::NNI], _
+      [3::NNI, 4::NNI, 7::NNI, 0::NNI]]
+    createSceneIFS(inx, pts)
+
+  -- a convenience function which combines createSceneBox with addChild!
+  addSceneBox(n : %, size : DF) : % ==
+    c := createSceneBox(size)
+    addChild!(n, c)
+    c
+
+  -- Constructs a text node, text can be used for labelling anything
+  -- such as graphs, axes and so on.
+  createSceneText(text : TEXT) : % == ["TEXT"::Symbol,[],[text]]
+
+  -- a convenience function which combines createSceneText with addChild!
+  addSceneText(n : %, text : TEXT) : % ==
+    c := createSceneText(text)
+    addChild!(n, c)
+    c
+
+  -- Constructs a text node, text can be used for labelling anything
+  -- such as graphs, axes and so on.
+  createSceneText(str : String, sz : NNI, pz : PT) : % ==
+    text : TEXT := [str, sz, pz, []]
+    ["TEXT"::Symbol,[],[text]]
+
+  -- a convenience function which combines createSceneText with addChild!
+  addSceneText(n : %, str : String, sz : NNI, pz : PT) : % ==
+    c := createSceneText(str, sz, pz)
+    addChild!(n, c)
+    c
+
+  -- Constructs a text node using information from named
+  -- points node.
+  createSceneText(str : List String, sz : NNI, pz : PT) : % ==
+    text : TEXT := [first str, sz, pz, str]
+    ["TEXT"::Symbol,[],[text]]
+
+  -- a convenience function which combines createSceneText with addChild!
+  addSceneText(n : %, str : List String, sz : NNI, pz : PT) : % ==
+    c := createSceneText(str, sz, pz)
+    addChild!(n, c)
+    c
+
+  -- Constructs a clip node, clips its sub nodes in the coordinate
+  -- system in force at the clip node.
+  createSceneClip(bb : SBoundary(PT)) : % ==
+    ["CLIP"::Symbol,[],[bb]]
+
+  -- a convenience function which combines createSceneClip with addChild!
+  addSceneClip(n : %, bb : SBoundary(PT)) : % ==
+    c := createSceneClip(bb)
+    addChild!(n, c)
+    c
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  createSceneClip(bb : BOUNDS) : % ==
+    createSceneClip(boxBoundary(bb.mins, bb.maxs))
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  addSceneClip(n : %, bb : BOUNDS) : % ==
+    c := createSceneClip(bb)
+    addChild!(n, c)
+    c
+
+  -- construct a grid in the current clip boundary and current material
+  -- with a spacing between lines given by the step parameter
+  createSceneGrid(stepSize : DF, bb : SBoundary(PT)) : % ==
+    minx : DF := screenCoordX(getMin(bb))
+    miny : DF := screenCoordY(getMin(bb))
+    maxx : DF := screenCoordX(getMax(bb))
+    maxy : DF := screenCoordY(getMax(bb))
+    stepsx : NNI := wholePart((maxx - minx)/stepSize)::NNI
+    stepsy : NNI := wholePart((maxy - miny)/stepSize)::NNI
+    gp := createSceneGroup()
+    -- vertical lines
+    for i in 1..stepsx repeat
+      ln := addSceneLine(gp, [spnt(minx+(i::DF)*stepSize, miny), _
+            spnt(minx+(i::DF)*stepSize, maxy)])
+    -- horizontal lines
+    for i in 1..stepsy repeat
+      ln := addSceneLine(gp, [spnt(minx, miny+(i::DF)*stepSize), _
+            spnt(maxx, miny+(i::DF)*stepSize)])
+    gp
+
+  -- a convenience function which combines createSceneGrid with addChild!
+  addSceneGrid(n : %, stepSize : DF, bb : SBoundary(PT)) : % ==
+    c := createSceneGrid(stepSize, bb)
+    addChild!(n, c)
+    c
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  createSceneGrid(stepSize : DF, bb : BOUNDS) : % ==
+    createSceneGrid(stepSize, boxBoundary(bb.mins, bb.maxs))
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  addSceneGrid(n : %, stepSize : DF, bb : BOUNDS) : % ==
+    c := createSceneGrid(stepSize, bb)
+    addChild!(n, c)
+    c
+
+  -- construct a grid with
+  -- narrow blue lines every 20 units
+  -- wide blue lines every 100 units
+  -- wide red lines every 200 units
+  createSceneGrid(bb : SBoundary(PT)) : % ==
+    minx : DF := screenCoordX(getMin(bb))
+    maxx : DF := screenCoordX(getMax(bb))
+    stepSize : DF := (maxx-minx)/100
+    gp := createSceneGroup()
+    mt1 := addSceneMaterial(gp,[1::DF,"blue","blue",0.5::DF])
+    gd1 := addSceneGrid(mt1, stepSize, bb)
+    mt2 := addSceneMaterial(gp,[2::DF,"blue","blue",0.5::DF])
+    gd2 := addSceneGrid(mt2, stepSize*5::DF, bb)
+    mt3 := addSceneMaterial(gp,[2::DF,"red","red",0.5::DF])
+    gd3 := addSceneGrid(mt3, stepSize*10::DF, bb)
+    gp
+
+  -- a convenience function which combines createSceneGrid with addChild!
+  addSceneGrid(n : %, bb : SBoundary(PT)) : % ==
+    c := createSceneGrid(bb)
+    addChild!(n, c)
+    c
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  createSceneGrid(bb : BOUNDS) : % ==
+    createSceneGrid(boxBoundary(bb.mins, bb.maxs))
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  addSceneGrid(n : %, bb : BOUNDS) : % ==
+    c := createSceneGrid(bb)
+    addChild!(n, c)
+    c
+
+  -- local function used by createScenePattern to
+  -- construct a grid in the current clip boundary and current material
+  -- with a spacing between lines given by the step parameter
+  createScenePattern1(step : NNI, bb : SBoundary(PT)) : % ==
+    minx : DF := screenCoordX(getMin(bb))
+    miny : DF := screenCoordY(getMin(bb))
+    maxx : DF := screenCoordX(getMax(bb))
+    maxy : DF := screenCoordY(getMax(bb))
+    stepSize : DF := (maxx - minx)/1200
+    gp := createSceneGroup()
+    mt1 := addSceneMaterial(gp,[2::DF,"blue","blue",0.5::DF])
+    --addChild!(gp, mt1)
+    for i in 1..1200 by step repeat
+      pts : List PT := [spnt(minx+(i::DF)*stepSize, miny+(j::DF)*stepSize)_
+                       for j in 1..1200 by step]
+      ln := addSceneLine(mt1, pts)
+      --addChild!(mt1, ln)
+    mt2 := addSceneMaterial(gp,[2::DF,"red","red",0.5::DF])
+    --addChild!(gp, mt2)
+    for i in 1..1000 by step repeat
+      pts : List PT := [spnt(minx+(j::DF)*stepSize, miny+(i::DF)*stepSize)_
+                       for j in 1..1200 by step]
+      ln := addSceneLine(mt2, pts)
+      --addChild!(mt2, ln)
+    gp
+
+  -- local function used by createScenePattern to
+  -- construct a Sierpinski fractal.
+  createScenePattern2(level : NNI, bb : SBoundary(PT)) : % ==
+    minx : DF := screenCoordX(getMin(bb))
+    miny : DF := screenCoordY(getMin(bb))
+    maxx : DF := screenCoordX(getMax(bb))
+    maxy : DF := screenCoordY(getMax(bb))
+    midx : DF := (minx+maxx)::DF * 0.5::DF
+    face1 : List PT := [spnt(midx, miny), _
+                      spnt(minx, maxy), _
+                      spnt(maxx, maxy)]
+    ifs : SceneIFS(PT) := singleFace(face1)
+    ifs2 : SceneIFS(PT) := sierpinskiDivide(ifs, level)
+    createSceneIFS(indexes(ifs2), pointList(ifs2))
+
+  subdivideLine(level : NNI, inLine : List PT) : List PT ==
+    level = 0 => inLine
+    res : List PT := []
+    lastPt : PT
+    for x in 1..#inLine repeat
+      if x ~= 1 then
+        midpt : PT := 0.5::DF * (lastPt+inLine.x)::PT
+        res := concat(res, midpt)
+      lastPt := inLine.x
+      res := concat(res, inLine.x)
+    subdivideLine((level-1)::NNI, res)
+
+  -- local function used by createScenePattern to
+  -- construct a house shape.
+  createScenePattern3(level : NNI, bb : SBoundary(PT)) : % ==
+    minx : DF := screenCoordX(getMin(bb))
+    miny : DF := screenCoordY(getMin(bb))
+    maxx : DF := screenCoordX(getMax(bb))
+    maxy : DF := screenCoordY(getMax(bb))
+    scale : DF := (maxx - minx)/1000
+    xcoords : List List NNI := [[0, 0, 500, 1000, 1000, 0], _
+                [150, 350, 350, 150, 150], _
+                [100, 400, 400, 100, 100], _
+                [600, 900, 900, 600, 600], _
+                [600, 900, 900, 600, 600]]
+    ycoords : List List NNI := [[0, 800, 1000, 800, 0, 0], _
+                [0, 0, 300, 300, 0], _
+                [500, 500, 700, 700, 500], _
+                [500, 500, 700, 700, 500], _
+                [100, 100, 300, 300, 100]]
+    pts : List List PT := [[_
+      spnt(minx+((((xcoords.i).j)::DF))*scale, _
+           miny+((((ycoords.i).j)::DF))*scale)$PT_
+             for j in 1..(#(xcoords.i))] for i in 1..(#xcoords)]
+    pts2 : List List PT := []
+    lev2 : NNI := level
+    for l2 in pts repeat
+      pts2 := concat(pts2, subdivideLine(lev2, l2))
+      if lev2 = level then lev2 := 2
+    ln := createSceneLines(pts2)
+
+  -- creates a test pattern suitable for showing the effect of
+  -- transforms. The pattern depends on ptype parameter as follows:
+  -- ptype="GRID"::Symbol : construct a set of horizontal and vertical
+  -- lines in the current
+  -- clip boundary and current material with a spacing between
+  -- lines given by the step parameter.
+  -- ptype="SIERPINSKI"::Symbol: constructs a Sierpinski fractal.
+  -- step parameter gives the level of subdivision.
+  -- ptype="HOUSE"::Symbol: constructs a house shape.
+  createScenePattern(ptype : Symbol, step : NNI, bb : SBoundary(PT)) : % ==
+    if ptype = "GRID"::Symbol then return createScenePattern1(step,bb)
+    if ptype = "SIERPINSKI"::Symbol then return createScenePattern2(step,bb)
+    createScenePattern3(step, bb)
+
+  -- a convenience function which combines createScenePattern with addChild!
+  addScenePattern(n : %, ptype : Symbol, step : NNI, bb : SBoundary(PT)) : % ==
+    c := createScenePattern(ptype, step, bb)
+    addChild!(n, c)
+    c
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  createScenePattern(ptype : Symbol, step : NNI, bb : BOUNDS) : % ==
+    createScenePattern(ptype, step, boxBoundary(bb.mins, bb.maxs))
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  addScenePattern(n : %, ptype : Symbol, step : NNI, bb : BOUNDS) : % ==
+    c := createScenePattern(ptype, step, bb)
+    addChild!(n, c)
+    c
+
+  -- creates a scale that can be used to provide numeric values
+  -- for an axis:
+  -- ptype= "HORIZONTAL"::Symbol : horizontal axis.
+  -- ptype= "VERTICAL"::Symbol: vertical axis.
+  -- ptype= "DEBTH"::Symbol: depth axis.
+  createSceneRuler(ptype : Symbol, offset : PT, bb : SBoundary(PT)) : % ==
+    minPrimary : DF := screenCoordX(getMin(bb))
+    minSecondary : DF := screenCoordY(getMin(bb))
+    maxPrimary : DF := screenCoordX(getMax(bb))
+    maxSecondary : DF := screenCoordY(getMax(bb))
+    if ptype = "VERTICAL"::Symbol then
+      minPrimary := screenCoordY(getMin(bb))
+      minSecondary := screenCoordX(getMin(bb))
+      maxPrimary := screenCoordY(getMax(bb))
+      maxSecondary := screenCoordX(getMax(bb))
+    stepSize : DF := maxPrimary - minPrimary
+    expStep : Integer := wholePart(log10(stepSize+1)) - 1
+    divn : DF := (10::DF) ^expStep
+    minPrimaryNorm : DF := minPrimary/divn
+    -- should now be scaled between 1 and 10
+    maxPrimaryNorm : DF := maxPrimary/divn
+    suffix:String := ""
+    zeroes : Integer := expStep
+    if zeroes > 2 then -- kilo
+      zeroes := zeroes - 3
+      suffix := "K"
+      if zeroes > 2 then -- mega
+        zeroes := zeroes - 3
+        suffix := "M"
+        if zeroes > 2 then -- giga
+          zeroes := zeroes - 3
+          suffix := "G"
+          if zeroes > 2 then -- tera
+            zeroes := zeroes - 3
+            suffix := "T"
+    if zeroes < 0 then -- mili
+      zeroes := zeroes + 3
+      suffix := "m"
+      if zeroes < 0 then -- micro
+        zeroes := zeroes + 3
+        suffix := "u"
+        if zeroes < 0 then -- nano
+          zeroes := zeroes + 3
+          suffix := "n"
+          if zeroes < 0 then -- pico
+            zeroes := zeroes + 3
+            suffix := "p"
+    if zeroes > 0 then
+      suffix := concat("0",suffix)
+    if zeroes > 1 then
+      suffix := concat("0",suffix)
+    gp := createSceneGroup()
+    stepI:Integer := if ptype = "HORIZONTAL"::Symbol then 2 else 1
+    for x in wholePart(minPrimaryNorm)..wholePart(maxPrimaryNorm) by stepI repeat
+      str : String := (math_to_string x)@String
+      pz : PT := spnt((x::DF)*divn, 0$DF)$PT + offset
+      if ptype = "VERTICAL"::Symbol then
+        pz := spnt(0$DF, (x::DF)*divn)$PT + offset
+      if expStep = -1 then
+        if x>0 and x<10 then str := concat("0.",str)
+        if x = 10 then str := "1"
+        if x>10 then
+          d := divide(x, 10)
+          str := concat([string(d.quotient),".",string(d.remainder)])
+        if x<0 and x>-10 then str := concat(["-0.",(math_to_string (-x))@String])$String
+        if x=-10 then str := "-1"
+        if x< -10 then
+          d := divide(-x, 10)
+          str := concat(["-",string(d.quotient),".",string(d.remainder)])
+      else if x ~= 0 then str := concat(str, suffix)
+      addSceneText(gp, str, 10, pz)
+    gp
+
+  -- a convenience function which combines createSceneRuler with
+  -- addChild!
+  addSceneRuler(n : %, ptype : Symbol, offset : PT, bb : SBoundary(PT)) : % ==
+    c := createSceneRuler(ptype, offset, bb)
+    addChild!(n, c)
+    c
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  createSceneRuler(ptype : Symbol, offset : PT, bb : BOUNDS) : % ==
+    createSceneRuler(ptype, offset, boxBoundary(bb.mins, bb.maxs))
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  addSceneRuler(n : %, ptype : Symbol, offset : PT, bb : BOUNDS) : % ==
+    c := createSceneRuler(ptype, offset, bb)
+    addChild!(n, c)
+    c
+
+  -- createSceneGraph(g, x, y, dispArrowName) creates a graph theory
+  -- diagram
+  createSceneGraph(g : DirectedGraph(String), x : NNI, y : NNI, dispArrowName : Boolean) : % ==
+    tr := createSceneTransform(_
+        stranslate(x::DF, y::DF, 0::DF, 0.25::DF, 0.25::DF, 0.25::DF))$Scene(SCartesian 2)
+    --print(hconcat(["scene createSceneGraph g="::OutputForm,g::OutputForm,_
+    --  " x="::OutputForm,x::OutputForm," y="::OutputForm,y::OutputForm,_
+    --  " dispArrowName="::OutputForm,dispArrowName::OutputForm]))$OutputForm
+    subdiagramSvg(tr, g, dispArrowName, false)$DirectedGraph(String)
+    tr pretend %
+
+  -- createSceneGraph(n, g, x, y, dispArrowName) is a convenience function
+  -- which combines createSceneGraph with addChild!
+  addSceneGraph(n : %, g : DirectedGraph(String), x : NNI, y : NNI, dispArrowName : Boolean) : % ==
+    c := createSceneGraph(g, x, y, dispArrowName)
+    addChild!(n, c)
+    c
+
+  -- Constructs a material node
+  -- This sets the lineWidth, lineCol and fillCol for all nodes under
+  -- this, unless overridden by another material node.
+  -- That is the material parameters that apply to a given node are
+  -- those of the closest material node above it in the hierarchy
+  createSceneMaterial(mat : MATERIAL) : % ==
+    ["MATERIAL"::Symbol,[],[mat]]
+
+  -- a convenience function which combines createSceneMaterial with
+  -- addChild!
+  addSceneMaterial(n : %, mat : MATERIAL) : % ==
+    c := createSceneMaterial(mat)
+    addChild!(n, c)
+    c
+
+  -- Constructs a material node
+  -- This sets the lineWidth, lineCol and fillCol for all nodes under
+  -- this, unless overridden by another material node.
+  -- That is the material parameters that apply to a given node are
+  -- those of the closest material node above it in the hierarchy
+  createSceneMaterial(lineW : DF, lineC : String, fillC : String) : % ==
+    mat : MATERIAL := [lineW, lineC, fillC, 1::DF]
+    ["MATERIAL"::Symbol,[],[mat]]
+
+  -- a convenience function which combines createSceneMaterial with
+  -- addChild!
+  addSceneMaterial(n : %, lineW : DF, lineC : String, fillC : String) : % ==
+    c := createSceneMaterial(lineW, lineC, fillC)
+    addChild!(n, c)
+    c
+
+  -- Constructs a transform node
+  -- This transforms the points and vectors below this node
+  -- If a given node has more than one transform node above
+  -- it in the hierarchy then the transforms are compounded
+  createSceneTransform(tran : TR) : % ==
+    ["TRANSFORM"::Symbol,[],[tran]]
+
+  -- a convenience function which combines createSceneTransform with
+  -- addChild!
+  addSceneTransform(n : %, tran : TR) : % ==
+    c := createSceneTransform(tran)
+    addChild!(n, c)
+    c
+
+  -- creates arrows to represent output for each input point
+  -- in other words this represents a two dimensional force
+  -- field with the arrows showing the direction of the field
+  createArrows2Din2D(ptFun : PT -> PT, uSeg : SEG, vSeg : SEG, numPts : NNI) : % ==
+    arrows : List List PT := []
+    ustep := (low(uSeg) - high(uSeg))/numPts
+    vstep := (low(vSeg) - high(vSeg))/numPts
+    someV := high(vSeg)
+    for iv in numPts..0 by -1 repeat
+      if zero? iv then someV := low(vSeg)
+      -- hack: get last number in segment within segment
+      lp : List PT := []
+      someU := high(uSeg)
+      for iu in numPts..0 by -1 repeat
+        if zero? iu then someU := low(uSeg)
+        -- hack: get last number in segment within segment
+        inPt := spnt(someU, someV)$PT
+        outpt := ptFun(inPt)
+        --here we need to check for NaN (not a number)
+        --numberCheck pt
+        lp := [inPt, outpt]
+        someU := someU + ustep
+        arrows := concat(lp, arrows)
+      someV := someV + vstep
+    createSceneArrows(arrows,"variable"::Symbol,0.5::DF)
+
+  -- a convenience function which combines createArrows2Din2D with addChild!
+  addArrows2Din2D(n : %, ptFun : PT -> PT, uSeg : SEG, vSeg : SEG, numPts : NNI) : % ==
+    c := createArrows2Din2D(ptFun, uSeg, vSeg, numPts)
+    addChild!(n, c)
+    c
+
+  -- add the specified child node 'c' below node 'n'
+  addChild!(n : %, c : %) : Void ==
+    n.children := concat(n.children, c)
+
+  -- remove the specified child node 'c' below node 'n'
+  -- I can't get this to compile
+  removeChild!(n : %, c : %) : Void ==
+    --n.children := remove(c, n.children)$List %
+    error "removeChild! not yet implemented"
+
+  -- changes the transform without altering the scene hierarchy
+  setTransform!(n : %, tran : TR) : Void ==
+    n.type ~= "TRANSFORM"::Symbol => error "use setTransform! on transform only"
+    n.parameters := [tran]
+
+  -- the following functions: pathString, lineArrow, faceString, toSVG
+  -- and writeSvg are used to write to a SVG file.
+
+  -- this returns a string to represent a path in a SVG file
+  pathString(pts : LINES, tran : TR, bb : SBoundary(PT), sc : DF, clipEn : Boolean, _
+             useInteger : Boolean) : String ==
+    ptStr:String := "" -- string to hold result
+    pntNum : NNI -- hold current position in parameters
+    lastValid : Boolean := true -- used to detect first valid entry
+    -- pts: LINES is type List List PT where PT
+    -- is SPointCategory(DoubleFloat)
+    for line in pts repeat
+      pntNum := 0::NNI
+      for param in line repeat
+        -- convert to SVG (always positive) coordinates
+        -- param is type SPointCategory(DoubleFloat)
+        -- which is what applyTrans requires
+        param2 := xform(tran, param pretend PT)$TR
+        -- check if original 'global' coordinates (before being converted
+        -- to svg - always positive coordinates) are in bounds.
+        valid := (not clipEn) or containsPoint?(bb, param)
+        if valid then -- add to string
+          pntNum := pntNum + 1
+          if ptStr ~= "" then ptStr := concat(ptStr," ")
+          if lastValid then
+            if pntNum = 1 then ptStr := concat(ptStr,"M")
+            if pntNum = 2 then ptStr := concat(ptStr,"L")
+          if not lastValid then ptStr := concat(ptStr,"M")
+          -- add coordinates, separated by comma, to string. Note that
+          -- in svg y coordinate starts from top and positive direction
+          -- is down so we need to negate that to conform with common
+          -- mathematical usage.
+          minusy : DF := -screenCoordY(param2)*sc
+          if useInteger then
+            thisStr : String := concat([_
+             string(wholePart(screenCoordX(param2)*sc)),",",_
+             string(wholePart(minusy))])$String
+          else
+            thisStr : String := concat([_
+             (math_to_string (screenCoordX(param2)*sc))@String,",",_
+             (math_to_string minusy)@String])$String
+          ptStr := concat(ptStr, thisStr)
+        lastValid := valid
+    ptStr
+
+  -- local function called by lineArrow to shorten the length of an arrow
+  -- typically this is needed when drawing a graph (as in graph theory)
+  -- so that the arrow stops just short of the vertex and so doesn't go
+  -- through the vertex label.
+  shorternArrow(pts : LINE, bb : SBoundary(PT)) : LINE ==
+    totalwidth : DF := screenCoordX(getMax(bb) - getMin(bb))
+    startpt := pts.st
+    endpt := pts.en
+    arrLength : DF := distance(startpt, endpt)
+    -- next prevent divide by zero error in cases where arrow is
+    -- zero length
+    if arrLength < 0.1::DF then
+      return pts
+    reductionFactor : DF := totalwidth/((40.0::DF)*arrLength)
+    -- next if reduction factor is too large then it probably means
+    -- the arrow is short compared to the size of the boundary so
+    -- the best thing here is probably to not reduce it at all.
+    if reductionFactor > 0.4::DF then return pts
+    relpt :=  endpt - startpt
+    newstart := startpt + (_*(reductionFactor, relpt))
+    newend := startpt + (_*(1.0::DF - reductionFactor, relpt))
+    [newstart, newend]
+
+  -- local function called by toSVG
+  -- this returns an list of XML elements, each of which represents an arrow
+  -- 'mode' and 'size' parameters determine the size of the arrowhead.
+  -- 'mode' can have the following values:
+  -- "fixed"::Symbol -- fixed size line width given by 'size' parameter
+  -- "proportional"::Symbol -- size as a proportion of the overall bounds
+  -- "variable"::Symbol -- size as a proportion of the arrow length
+  -- So "proportional" would typically be used when drawing a graph
+  -- (in graph theory) where it looks better if each arrow head is the
+  -- same. "variable" would typically be used when drawing a force field
+  -- where a bigger arrow head might indicate a stronger force.
+  lineArrow(pts : LINES, tran : TR, bb : SBoundary(PT), mat : MATERIAL, sc : DF, clipEn : Boolean, _
+            mode : Symbol, size : DF) : List XmlElement ==
+    nodeEles : List XmlElement := []
+    pntNum : NNI -- hold current position in parameters
+    -- pts: LINES is type List List PT where PT
+    -- is SPointCategory(DoubleFloat)
+    for line in pts repeat
+      pntNum := 0::NNI
+      ptStr:String := "" -- string to hold result
+      startPoint : PT := sipnt(0, 0)
+      endPoint : PT := sipnt(0, 0)
+      for param in line repeat
+        -- convert to SVG (always positive) coordinates
+        -- param is type SPointCategory(DoubleFloat)
+        -- which is what applyTrans requires
+        param2 := xform(tran, param pretend PT)$TR
+        --print(hconcat(["scene lineArrow pntNum="::OutputForm,pntNum::OutputForm,_
+        -- " param="::OutputForm,param::OutputForm,_
+        -- " paramXfmd="::OutputForm,param2::OutputForm,_
+        -- " mode="::OutputForm,mode::OutputForm]))$OutputForm
+        -- check if original 'global' coordinates (before being converted
+        -- to svg - always positive coordinates) are in bounds.
+        valid := (not clipEn) or containsPoint?(bb, param)
+        if valid then -- add to string
+          pntNum := pntNum + 1
+          if ptStr ~= "" then ptStr := concat(ptStr," ")
+          if pntNum = 1 then
+            ptStr := concat(ptStr,"M")
+            startPoint := param2
+          if pntNum = 2 then
+            endPoint := param2
+            aline : LINE := [startPoint, endPoint]
+            if mode = "proportional"::Symbol then
+              aline : LINE := shorternArrow([startPoint, endPoint], bb)
+            -- add coordinates, separated by comma, to string. Note that
+            -- in svg y coordinate starts from top and positive direction
+            -- is down so we need to negate that to conform with common
+            -- mathematical usage.
+            minusStarty : DF := -screenCoordY(aline.st)*sc
+            minusEndy : DF := -screenCoordY(aline.en)*sc
+            thisStr : String := concat([_
+              (math_to_string (screenCoordX(aline.st)*sc))@String,",",_
+              (math_to_string minusStarty),"L",_
+              (math_to_string (screenCoordX(aline.en)*sc))@String,",",_
+              (math_to_string minusEndy)@String])$String
+            ptStr := concat(ptStr, thisStr)
+          if pntNum > 2 then
+            endPoint := param2
+            minusEndy : DF := -screenCoordY(endPoint)*sc
+            thisStr : String := concat([_
+              "L",(math_to_string (screenCoordX(endPoint)*sc))@String,",",_
+              (math_to_string minusEndy)@String])$String
+            ptStr := concat(ptStr, thisStr)
+      if ptStr ~= "" then -- add a new arrow element
+        -- first check if arrow starts and ends at the same place and if so draw a loop
+        if distance(startPoint, endPoint) < 0.01::DF then
+          -- draw loop
+          -- c x1, y1 x2, y2 x, y+ draws a cubic Bezier curve (relative)
+          -- Draws a cubic Bezier curve from the current point to (x, y) using
+          -- (x1, y1) as the control point at the beginning of the curve and
+          -- (x2, y2) as the control point at the end of the curve.
+          ptStr := concat(["M ",_
+            math_to_string (screenCoordX(startPoint)*sc),",",_
+            math_to_string (-screenCoordY(startPoint)*sc), _
+            "c -50,25 -50,-50 0,-25"])$String
+        linWidth : DF := 2::DF
+        if mode = "proportional"::Symbol then
+          linWidth : DF := screenCoordX(getMax(bb) - getMin(bb))*size
+        if mode = "variable"::Symbol then
+          linWidth : DF := distance(startPoint, endPoint)*size
+        nodeAtts : List XmlAttribute := [_
+          xmlAttribute("d",ptStr),_
+          xmlAttribute("fill","none"),_
+          xmlAttribute("stroke",mat.lineCol),_
+          xmlAttribute("stroke-width",_
+          (math_to_string linWidth)@String), _
+          xmlAttribute("style","marker-end:url(#Arrow)")_
+            ]
+        --  xmlAttribute("sodipodi:nodetypes","cc"),
+        x : XmlElement := xmlElement("path",[],nodeAtts)
+        nodeEles := concat(nodeEles, x)
+    nodeEles
+
+  -- this returns a string to represent a face in a SVG file
+  faceString(faces : IFS, tran : TR, bb : SBoundary(PT), sc : DF, clipEn : Boolean) : String ==
+    ptStr:String := "" -- string to hold result
+    pntNum : NNI -- hold current position in parameters
+    lastValid : Boolean := true -- used to detect first valid entry
+    for ln in faces.inx repeat
+      pntNum := 0::NNI
+      for i in ln repeat
+        param := (faces.pts).(i+1)
+        param2 := xform(tran, param pretend PT)$TR
+        -- check if original 'global' coordinates (before being converted
+        -- to svg - always positive coordinates) are in bounds.
+        valid := (not clipEn) or containsPoint?(bb, param)
+        if valid then -- add to string
+          pntNum := pntNum + 1
+          if ptStr ~= "" then ptStr := concat(ptStr," ")
+          if lastValid then
+            if pntNum = 1 then ptStr := concat(ptStr,"M")
+            if pntNum = 2 then ptStr := concat(ptStr,"L")
+          if not lastValid then ptStr := concat(ptStr,"M")
+          -- add coordinates, separated by comma, to string. Note that
+          -- in svg y coordinate starts from top and positive direction
+          -- is down so we need to negate that to conform with common
+          -- mathematical usage.
+          minusy : DF := -screenCoordY(param2)*sc
+          thisStr : String := concat([_
+             (math_to_string (screenCoordX(param2)*sc))@String,",",_
+             (math_to_string minusy)@String])$String
+          ptStr := concat(ptStr, thisStr)
+        lastValid := valid
+      ptStr := concat(ptStr,"z") -- make closed
+    ptStr
+
+  -- creates an XML tree structure (for SVG) from scenegraph tree
+  -- structure
+  -- called recursively for each node, so when called on root node
+  -- in scenegraph all other nodes in the scenegraph will get called.
+  -- svg file
+  -- alternative ways to draw line:
+  -- polyline:
+  -- <polyline points="x1,y1 x2,y2"/>
+  -- paths:
+  -- <path d="*"/>
+  -- where *:
+  -- M0, 0 = move to 0, 0 (absolute)
+  -- m0, 0 = move to 0, 0 (relative)
+  -- L100, 0z = line to 100, 0 (absolute)
+  -- l100, 0z = line to 100, 0 (relative)
+  -- z after last point in line indicates closed shape
+  -- C x1, y1 x2, y2 x, y+ draws a cubic Bezier curve (absolute)
+  -- c x1, y1 x2, y2 x, y+ draws a cubic Bezier curve (relative)
+  -- Draws a cubic Bezier curve from the current point to (x, y) using
+  -- (x1, y1) as the control point at the beginning of the curve and
+  -- (x2, y2) as the control point at the end of the curve.
+  toSVG(n : %, mat : MATERIAL, tran : TR, bb : SBoundary(PT), scale : DF, clipEn : Boolean, _
+        useInteger : Boolean, npt : SceneNamedPoints PT) : XmlElement ==
+    -- I'm not sure if it is safe to modify parameters that have been
+    -- passed to this function, so just to be sure, take copies of them:
+    bb2 := bb ; tran2 := tran ; mat2 := mat ; np2 := npt
+    clipEn2 := clipEn ; scale2 := scale
+    -- XML elements and attributes to be constructed in
+    -- this function
+    nodeEles : List XmlElement := []
+    nodeAtts : List XmlAttribute := []
+    -- SVG nodename
+    nodeName:String := ""
+    --print("scene toSvg type=" << n.type << " parameters=" << _
+    --    n.parameters << " bb=" << bb << " scale=" << scale)
+    if n.type = "ROOT"::Symbol then -- root node
+      nodeName := "svg" -- root node
+      -- define arrow shape
+      pthAtts := [_
+        xmlAttribute("d",_
+        "M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "),_
+        xmlAttribute("style",_
+        "fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"),_
+        xmlAttribute("transform","scale(0.4) rotate(180) translate(10,0)")_
+          ]
+      pth := xmlElement("path",[],pthAtts)
+      mkrAtts := [_
+        xmlAttribute("orient","auto"),_
+        xmlAttribute("refY","0.0"),_
+        xmlAttribute("refX","0.0"),_
+        xmlAttribute("id","Arrow"),_
+        xmlAttribute("style","overflow:visible")_
+          ]
+      mkr := xmlElement("marker",[pth],mkrAtts)
+      nodeEles := [xmlElement("defs",[mkr],[])]
+      if not (n.parameters case boundbox) then
+        error "toSVG parameter type not valid for root node"
+      -- setup default transform. This makes sure view bounds are always
+      -- positive and thy the 'y' direction is from down to up.
+      bb2 := n.parameters.boundbox
+      if isNull?(bb2) then bb2 := boundary(n, 1$DF)
+      if isNull?(bb2) then error "scene contains no drawable elements"
+      minx : DF := screenCoordX(getMin(bb2))
+      miny : DF := screenCoordY(getMin(bb2))
+      maxx : DF := screenCoordX(getMax(bb2))
+      maxy : DF := screenCoordY(getMax(bb2))
+      scale2 : DF := (1000::DF)/(maxx-minx)
+      offsetx : DF := -minx
+      offsety : DF := -maxy
+      tran2 := stranslate(offsetx, offsety, 0::DF, 1::DF, 1::DF, 1::DF)$TR
+      if useInteger then
+        viewBoxStr : String := concat([_
+          "0 0 ",_
+          (math_to_string (wholePart((maxx-minx)*scale2)))@String, _
+          " ",_
+          (math_to_string (wholePart((maxy-miny)*scale2)))@String])
+      else
+        viewBoxStr : String := concat([_
+          "0.0 0.0 ",_
+          (math_to_string ((maxx-minx)*scale2))@String, _
+          " ",_
+          (math_to_string ((maxy-miny)*scale2))@String])
+      nodeAtts := [xmlAttribute("xmlns","http://www.w3.org/2000/svg"),_
+        xmlAttribute("width","12cm"),_
+        xmlAttribute("height","8cm"),_
+        xmlAttribute("viewBox",viewBoxStr)_
+         ]
+    if n.type = "GROUP"::Symbol then nodeName := "g" -- group node
+    if n.type = "LINE"::Symbol then -- line node
+      if not (n.parameters case points) then
+        error "toSVG parameter type not valid for line node"
+      nodeName := "path" -- line node
+      nodeAtts := [_
+        xmlAttribute("d",pathString(n.parameters.points,tran2,bb2,scale2,clipEn2,useInteger)),_
+        xmlAttribute("fill","none"),_
+        xmlAttribute("stroke",mat2.lineCol),_
+        xmlAttribute("stroke-width",(math_to_string mat2.lineWidth)@String),_
+        xmlAttribute("stroke-linecap","butt"),_
+        xmlAttribute("stroke-linejoin","miter")_
+          ]
+      -- print("scene toSVC LINE nodeName="::Symbol << nodeName <<_
+      --     " points="::Symbol << (n.parameters.points))
+      if mat2.matOpacity < 0.95::DF then
+        nodeAtts := concat(nodeAtts,xmlAttribute("stroke-opacity",_
+          (math_to_string mat2.matOpacity)@String))
+    if n.type = "SHAPE"::Symbol then -- shape node
+      if not (n.parameters case shpe) then
+        error "toSVG parameter type not valid for shape node"
+      param2 := xform(tran, n.parameters.shpe.centre)$TR
+      -- dont transform radius like this:
+      -- r2 := xform(tran, n.parameters.shpe.size)$TR
+      -- because that would translate and we only want to scale
+      r2 := n.parameters.shpe.size
+      --print("scene toSVC SHAPE nodeName="::Symbol << nodeName <<_
+      --     " tran="::Symbol << tran << _
+      --     " centre="::Symbol << (n.parameters.shpe.centre) << _
+      --     " size="::Symbol << (n.parameters.shpe.size) << _
+      --     " param2="::Symbol << param2 << _
+      --     " r2="::Symbol << r2)
+      rx : DF := screenCoordX(r2)*scale2
+      ry : DF := screenCoordY(r2)*scale2
+      nodeName := "ellipse"
+      sx:String := "x"; sy:String := "y"; sw:String := "width"; sh:String := "height"
+      if n.parameters.shpe.shptype = "rect"::Symbol then
+        nodeName := "rect"
+        sx := "x"; sy := "y"; sw := "width"; sh := "height"
+        -- in all cases param2 is the centre of the shape, so no
+        -- need to offset it
+        --param2 := param2 + spnt(0::DF, screenCoordY(r2))$PT
+      if n.parameters.shpe.shptype = "ellipse"::Symbol then
+        nodeName := "ellipse"
+        sx := "cx"; sy := "cy"; sw := "rx"; sh := "ry"
+      if n.parameters.shpe.shptype = "box"::Symbol then
+        nodeName := "rect"
+        sx := "x"; sy := "y"; sw := "width"; sh := "height"
+        --param2 := param2 + spnt(0::DF, screenCoordY(r2))$PT
+      if n.parameters.shpe.shptype = "sphere"::Symbol then
+        nodeName := "ellipse"
+        sx := "cx"; sy := "cy"; sw := "rx"; sh := "ry"
+      --print("toSVC nodeName="::Symbol << nodeName::OutputForm << _
+      --     " sx="::Symbol << sx << (screenCoordX(param2)*scale2) << _
+      --     " sy="::Symbol << sy << (-screenCoordY(param2)*scale2) << _
+      --     " sw="::Symbol << sw << abs(rx) << _
+      --     " sh="::Symbol << sh << abs(ry))
+      nodeAtts := [_
+        xmlAttribute("stroke",mat2.lineCol),_
+        xmlAttribute("stroke-width",(math_to_string mat2.lineWidth)@String),_
+        xmlAttribute(sx, (math_to_string (screenCoordX(param2)*scale2))@String), _
+        xmlAttribute(sy, (math_to_string (-screenCoordY(param2)*scale2))@String), _
+        xmlAttribute(sw, math_to_string(abs(rx))), _
+        xmlAttribute(sh, math_to_string(abs(ry)))_
+          ]
+      if not n.parameters.shpe.fill
+       then
+        nodeAtts := concat(nodeAtts,xmlAttribute("fill","none"))
+       else
+        nodeAtts := concat(nodeAtts,xmlAttribute("fill",(math_to_string mat2.fillCol)@String))
+      if mat2.matOpacity < 0.95::DF then
+        nodeAtts := concat(nodeAtts,xmlAttribute("opacity",_
+          (math_to_string mat2.matOpacity)@String))
+    if n.type = "MATERIAL"::Symbol then -- set material
+      nodeName := "g" -- material node
+      if not (n.parameters case material) then
+        error "toSVG parameter type not valid for material node"
+      mat2 := n.parameters.material
+    if n.type = "TEXT"::Symbol then -- text node
+      nodeName := "text" -- text node
+      if not (n.parameters case text) then
+        error "toSVG parameter type not valid for text node"
+      if n.parameters.text.np ~= [] then
+        -- use named points
+        for nam in n.parameters.text.np repeat
+          param2 := xform(tran, findPoint(np2, nam)+n.parameters.text.pos)$TR
+          nodeAttsTxt := [xmlAttribute("font-size", _
+            string(n.parameters.text.siz)), _
+            xmlAttribute("transform",_
+            concat(["scale(", math_to_string(scale2/(2::DF))@String, ",", _
+                      math_to_string(scale2/(2::DF))@String, ")"])@String), _
+            xmlAttribute("x",_
+            (math_to_string (screenCoordX(param2)*(2::DF)))@String), _
+            xmlAttribute("y",_
+            (math_to_string (-screenCoordY(param2)*(2::DF)))@String), _
+            xmlAttribute("style",concat("fill:",mat2.fillCol))_
+              ]
+          xch : XmlElement := xmlElement(nodeName, nam, nodeAttsTxt)
+          if not empty?(xch) then
+            nodeEles := concat(nodeEles, xch)
+        return xmlElement("g",nodeEles,nodeAtts)
+      param2 : PT := xform(tran, n.parameters.text.pos)$TR
+      --print("scene toSvg font-size=" << n.parameters.text.siz <<
+      --      " scale2=" << math_to_string(scale2)@String)
+      -- scale text but if screen is very small then limit text epansion
+      -- so text does not fill too large a proportion of the screen
+      textScale : DF := scale2/(2::DF)
+      x : DF := screenCoordX(param2)*(2::DF)
+      y : DF := -screenCoordY(param2)*(2::DF)
+      if textScale > 2::DF then
+          x := x * textScale / (2::DF)
+          y := y * textScale / (2::DF)
+          textScale := 2::DF
+      nodeAtts := [xmlAttribute("font-size", string(n.parameters.text.siz)),_
+        xmlAttribute("transform",_
+          concat(["scale(", math_to_string(textScale)@String, ",", _
+                   math_to_string(textScale)@String,")"])@String), _
+        xmlAttribute("x", math_to_string(x)@String), _
+        xmlAttribute("y", math_to_string(y)@String), _
+        xmlAttribute("style", concat("fill:", mat2.fillCol))_
+          ]
+      return xmlElement(nodeName, n.parameters.text.txt, nodeAtts)
+    if n.type = "TRANSFORM"::Symbol then -- set transform
+      nodeName := "g" -- transform node
+      if not (n.parameters case trans) then
+        error "toSVG parameter type not valid for trans node"
+      --print("scene toSVC TRANSFORM nodeName="::Symbol << nodeName <<_
+      --     " trans="::Symbol << n.parameters.trans)
+      tran2 := compound(n.parameters.trans, tran)
+    if n.type = "CLIP"::Symbol then -- set default clip bounding box
+      nodeName := "g" -- clip node
+      clipEn2 := true
+      if not (n.parameters case boundbox) then
+        error "toSVG parameter type not valid for clip node"
+      bb2 := n.parameters.boundbox
+    if n.type = "IFS"::Symbol then -- indexed face set node
+      -- indexed face set is normally associated with 3 (or more)
+      -- dimensions so to output to SVG which displays in 2D then we
+      -- need to flatten
+      nodeName := "path" -- Indexed Face Set
+      if not (n.parameters case ifs) then
+        error "toSVG parameter type not valid for ifs node"
+      nodeAtts := [_
+        xmlAttribute("d",faceString(n.parameters.ifs,_
+                     tran2, bb2, scale2, clipEn2)), _
+        xmlAttribute("fill",mat2.fillCol),_
+        xmlAttribute("stroke",mat2.lineCol),_
+        xmlAttribute("stroke-width",_
+        (math_to_string (mat2.lineWidth))@String)_
+          ]
+      return xmlElement(nodeName, [], nodeAtts)
+    if n.type = "ARROWS"::Symbol then -- arrow node
+      nodeName := "g" -- Arrows
+      if not (n.parameters case arrws) then
+        error "toSVG parameter type not valid for arrws node"
+      nodeEles := lineArrow(n.parameters.arrws.ln, tran2, bb2, mat2, _
+                            scale2, clipEn2, n.parameters.arrws.mode, _
+                            n.parameters.arrws.size)
+    if n.type = "ARROW"::Symbol then -- arrow from named points node
+      if not (n.parameters case arrw) then
+        error "toSVG parameter type not valid for arrw node"
+      startPoint : PT := _
+        xform(tran, findPoint(np2, n.parameters.arrw.st)+_
+              n.parameters.arrw.offset)$TR
+      endPoint : PT := _
+        xform(tran, findPoint(np2, n.parameters.arrw.en)+_
+              n.parameters.arrw.offset)$TR
+      startPointM : DF := -(screenCoordY(startPoint)*scale)
+      endPointM : DF := -(screenCoordY(endPoint)*scale)
+      --print("scene toSVG start="::Symbol << (n.parameters.arrw.st) << _
+      --  " end="::Symbol << (n.parameters.arrw.en) << _
+      --  " startXfmd="::Symbol << startPoint << _
+      --  " endXfmd="::Symbol << endPoint)
+      -- first check if arrow starts and ends at the same place and
+      -- if so draw a loop
+      if n.parameters.arrw.st = n.parameters.arrw.en
+       then -- draw loop
+        ptStr : String := concat([_
+         "M",_
+         (math_to_string (screenCoordX(startPoint)*scale))@String,",",_
+         (math_to_string startPointM)@String, _
+         "c -50,25 -50,-50 0,-25"])$String
+       else -- draw arrow
+        ptStr : String := concat([_
+         "M",_
+         (math_to_string (screenCoordX(startPoint)*scale))@String,",",_
+         (math_to_string startPointM)@String, _
+         "L",_
+         (math_to_string (screenCoordX(endPoint)*scale))@String,",",_
+         (math_to_string endPointM)@String])$String
+      linWidth : DF := n.parameters.arrw.size
+      if n.parameters.arrw.mode = "proportional"::Symbol then
+        linWidth : DF := _
+          screenCoordX(getMax(bb2) - getMin(bb2))*n.parameters.arrw.size
+      if n.parameters.arrw.mode = "variable"::Symbol then
+        linWidth : DF := _
+          distance(startPoint, endPoint)*n.parameters.arrw.size
+      nodeAtts : List XmlAttribute := [_
+          xmlAttribute("d",ptStr),_
+          xmlAttribute("fill","none"),_
+          xmlAttribute("stroke",mat.lineCol),_
+          xmlAttribute("stroke-width",_
+          (math_to_string linWidth)@String), _
+          xmlAttribute("style","marker-end:url(#Arrow)")_
+            ]
+      nodeEles := [xmlElement("path",[],nodeAtts)]
+      nodeName := "g" -- Arrows
+    if n.type = "NAMEDPOINTS"::Symbol then -- named points node
+      if not (n.parameters case np) then
+        error "toSVG parameter type not valid for np node"
+      --np2 := n.parameters.np
+      addPoints!(np2,"points",n.parameters.np)
+      nodeName := "g"
+    if n.type = "DEF"::Symbol then -- names this point in scene
+              -- so that it can be used again
+      if not (n.parameters case nodename) then
+        error "toSVG parameter type not valid for def node"
+      nn : NODENAME := n.parameters.nodename
+      name : String := nn.nme
+      nde : % := nn.node
+      nodeName := "g"
+      addNode!(np2, name, nde pretend Scene(PT))
+      --print(np2::OutputForm)
+      xch := toSVG(nde, mat2, tran2, bb2, scale2, clipEn2, useInteger, np2)
+      if not empty?(xch) then
+        nodeEles := concat(nodeEles, xch)
+    if n.type = "USE"::Symbol then -- use corresponding def node
+      if not (n.parameters case nodename) then
+        error "toSVG parameter type not valid for use node"
+      nn : NODENAME := n.parameters.nodename
+      name : String := nn.nme
+      nde : % := findNode(np2, name) pretend %
+      nodeName := "g"
+      --print (np2::OutputForm)
+      xch := toSVG(nde, mat2, tran2, bb2, scale2, clipEn2, useInteger, np2)
+      if not empty?(xch) then
+        nodeEles := concat(nodeEles, xch)
+    -- if no children return empty element
+    #(n.children) < 1 =>
+      xmlElement(nodeName, nodeEles, nodeAtts)
+    -- not empty so return group node
+    for ch in n.children repeat
+      xch := toSVG(ch, mat2, tran2, bb2, scale2, clipEn2, useInteger, np2)
+      if not empty?(xch) then
+        nodeEles := concat(nodeEles, xch)
+    xmlElement(nodeName, nodeEles, nodeAtts)
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  toSVG(n : %, mat : MATERIAL, tran : TR, bb : BOUNDS, scale : DF, clipEn : Boolean, _
+        useInteger : Boolean, npt : SceneNamedPoints PT) : XmlElement ==
+    toSVG(n, mat, tran, boxBoundary(bb.mins, bb.maxs), scale, clipEn, _
+          useInteger, npt)
+
+  -- Write an 'SVG' representation of node 'n' to the filename supplied.
+  writeSvg(n : %, filename : String) : Void ==
+    defaultMaterial:MATERIAL := [2::DF,"black","black",1::DF]
+    defaultTransform : TR := identity()$TR
+    defaultBounds : SBoundary(PT) := nullBoundary()
+    writeXml(toSVG(n, defaultMaterial, defaultTransform, defaultBounds, 1$DF, _
+           false, false, namedBranch([], [])), filename)$ExportXml
+
+  -- Write an 'SVG' repesentation of node 'n' to the filename supplied.
+  writeSvgQuantised(n : %, filename : String) : Void ==
+    defaultMaterial:MATERIAL := [2::DF,"black","black",1::DF]
+    defaultTransform : TR := identity()$TR
+    defaultBounds : SBoundary(PT) := nullBoundary()
+    writeXml(toSVG(n, defaultMaterial, defaultTransform, defaultBounds, 1$DF, _
+           false, true, namedBranch([], [])), filename)$ExportXml
+
+  -- returns the boundary of a given node, so if this is called
+  -- on the root node, it will return the boundary of the whole
+  -- scene.
+  -- n is node whose boundary is to be returned
+  -- fontScale is required since fonts are rendered at a fixed size we
+  -- need a scaling factor so that we can give the boundary in our
+  -- coordinate system.
+  boundary1(n : %, tran : TR, scale : DF, _
+        useInteger : Boolean, npt : SceneNamedPoints PT, _
+        fontScale : DF) : SBoundary(PT) ==
+    res : SBoundary(PT) := nullBoundary()
+    fontScale2 := fontScale
+    tran2 := tran
+    if n.type = "ROOT"::Symbol then -- returns boundary of whole scene
+      bb2 := n.parameters.boundbox
+      if not isNull?(bb2) then
+        minx : DF := screenCoordX(getMin(bb2))
+        maxx : DF := screenCoordX(getMax(bb2))
+        fontScale2 := (maxx-minx) / (1000::DF)
+        --print(hconcat(["scene boundary1 bb2="::OutputForm,bb2::OutputForm,_
+        --     " minx="::OutputForm,minx::OutputForm,_
+        --     " maxx="::OutputForm,maxx::OutputForm,_
+        --     " fontScale2="::OutputForm,fontScale2::OutputForm,_
+        --     " res="::OutputForm,res::OutputForm]))$OutputForm
+      res := nullBoundary()
+    if n.type = "GROUP"::Symbol then -- group node
+      res := nullBoundary()
+    if n.type = "LINE"::Symbol then -- line node
+      pts : List List PT := n.parameters.points
+      for lp in pts repeat
+        for p in lp repeat
+          res := extendToPoint(res, xform(tran, p))
+    if n.type = "SHAPE"::Symbol then -- shape node
+      pt1 : PT := n.parameters.shpe.centre
+      pt2 : PT := n.parameters.shpe.size
+      if n.parameters.shpe.shptype = "ellipse"::Symbol then
+        return ellipseBoundary(xform(tran, pt1), pt2)
+      res := extendToPoint(res, xform(tran, pt1))
+      res := extendToPoint(res, xform(tran, pt1+pt2))
+      --print(hconcat(["boundary1 pt1="::OutputForm,pt1::OutputForm,_
+      --     " pt2="::OutputForm,pt2::OutputForm,_
+      --     " pt1+pt2="::OutputForm,(pt1+pt2)::OutputForm,_
+      --     " pt1-pt2="::OutputForm,(pt1-pt2)::OutputForm,_
+      --     " res="::OutputForm,res::OutputForm]))$OutputForm
+    if n.type = "MATERIAL"::Symbol then -- set material
+      res := nullBoundary()
+    if n.type = "TEXT"::Symbol then -- text node
+      h : DF := fontScale * (n.parameters.text.siz)::DF
+      w : DF := 0.5::DF * h *(#(n.parameters.text.txt))::DF
+      pt1 : PT := n.parameters.text.pos
+      res := extendToPoint(res, xform(tran, pt1))
+      pt2 : PT := pt1 + spnt(w, h)$PT
+      res := extendToPoint(res, xform(tran, pt2))
+    if n.type = "TRANSFORM"::Symbol then -- set transform
+      tran2 := compound(n.parameters.trans, tran)
+    if n.type = "CLIP"::Symbol then -- set default clip bounding box
+      res := nullBoundary()
+    if n.type = "IFS"::Symbol then -- indexed face set node
+      pts2 : List PT := n.parameters.ifs.pts
+      for p in pts2 repeat
+        res := extendToPoint(res, xform(tran, p))
+    if n.type = "ARROWS"::Symbol then -- arrow node
+      pts2 : List List PT := n.parameters.arrws.ln
+      for lp in pts2 repeat
+        for p in lp repeat
+          res := extendToPoint(res, xform(tran, p))
+    if n.type = "ARROW"::Symbol then -- arrow from named points node
+      res := nullBoundary()
+    if n.type = "NAMEDPOINTS"::Symbol then -- named points node
+      res := nullBoundary()
+    if n.type = "DEF"::Symbol then -- shape node
+      res := nullBoundary()
+    if n.type = "USE"::Symbol then -- shape node
+      res := nullBoundary()
+    for ch in n.children repeat
+      res2 : SBoundary(PT) := boundary1(ch, tran2, scale, useInteger, _
+                             npt, fontScale2)
+      res := sunion(res, res2)
+    res
+
+  -- returns the boundary of a given node, so if this is called
+  -- on the root node, it will return the boundary of the whole
+  -- scene.
+  -- There is a difficulty involving text nodes, that is they have
+  -- a fixed font size. But we want to calculate the boundary in local
+  -- coordinates, to do this conversion we need to know the total
+  -- boundary size but that is what we are trying to calculate! To get
+  -- round this contradiction the parameter fontScale is required since
+  -- fonts are rendered at a fixed size we need a scaling factor so
+  -- that we can give the boundary in our coordinate system.
+  -- fontScale should be set to the full width of the diagram (not
+  -- just the width of this node). If this is not known then choose
+  -- an approximate value. This only affects text nodes, if this
+  -- node, or its subnodes, do not contain a text node then its
+  -- value is not significant.
+  boundary(n : %, fontScale : DF) : SBoundary(PT) ==
+    defaultTransform : TR := identity()$TR
+    boundary1(n, defaultTransform, 1$DF, false, namedBranch([], []), _
+      fontScale/1000::DF)
+
+  -- this returns a string to represent a sequence of points in a X3D file
+  pointString(pts : List PT, tran : TR, bb : SBoundary(PT)) : List String ==
+    ptStr : List String := [] -- list to hold result
+    pntNum : NNI -- hold current position in parameters
+    lastValid : Boolean := true -- used to detect first valid entry
+    for param in pts repeat
+      -- convert to SVG (always positive) coordinates
+      -- param is type SPointCategory(DoubleFloat)
+      -- which is what applyTrans requires
+        param2 := xform(tran, param pretend PT)$TR
+        thisStr : String := concat([_
+             (math_to_string screenCoordX(param2))@String," ",_
+             (math_to_string screenCoordY(param2))@String," ",_
+             (math_to_string screenCoordZ(param2))@String])$String
+        ptStr := concat(ptStr, thisStr)
+    ptStr
+
+  -- this returns a string to represent a sequence of points in a X3D file
+  pointIndexString(pts : List List NNI, tran : TR, bb : SBoundary(PT)) : List String ==
+    ptStr : List String := [] -- string to hold result
+    pntNum : NNI -- hold current position in parameters
+    for line in pts repeat
+      for param in line repeat
+        ptStr := concat(ptStr, (math_to_string param)@String)
+      -- '-1' is used as a separator between faces
+      ptStr := concat(ptStr,"-1")
+    ptStr
+
+  -- the following functions: setX3DNodeName, toX3D
+  -- and writeX3D are used to write to a X3D file.
+
+  setX3DNodeName(typ : Symbol) : String ==
+    nodeName:String := ""
+    if typ = "ROOT"::Symbol then nodeName := "X3D" -- root node
+    if typ = "GROUP"::Symbol then nodeName := "Group" -- group node
+    if typ = "LINE"::Symbol then nodeName := "IndexedFaceSet" -- line node
+    if typ = "SHAPE"::Symbol then nodeName := "Sphere" -- shape node
+    if typ = "MATERIAL"::Symbol then nodeName := "Group" -- material node
+    if typ = "TEXT"::Symbol then nodeName := "Text" -- text node
+    if typ = "TRANSFORM"::Symbol then nodeName := "Transform" -- transform node
+    if typ = "CLIP"::Symbol then nodeName := "Group" -- clip node
+    if typ = "IFS"::Symbol then nodeName := "IndexedFaceSet" -- Indexed Face Set
+    if typ = "ARROWS"::Symbol then nodeName := "IndexedFaceSet" -- arrows node
+    if typ = "DEF"::Symbol then nodeName := "Group" -- def node
+    if typ = "USE"::Symbol then nodeName := "Group" -- use node
+    nodeName
+
+  -- creates an XML tree structure (for X3D) from scenegraph tree
+  -- structure
+  -- called recursively for each node, so when called on root node
+  -- in scenegraph all other nodes in the scenegraph will get called.
+  --<Scene>
+  -- <Shape>
+  --  <Appearance>
+  --   <Material diffuseColor="0.82 0.78 0.74"/>
+  --  </Appearance>
+  --  <IndexedFaceSet coordIndex="0 1 5 4">
+  --   <Coordinate point="0.0 0.0 0.0 2.0 5 -2.7"/>
+  --  </IndexedFaceSet>
+  -- </Shape>
+  --</Scene>
+  toX3D(n : %, mat : MATERIAL, tran : TR, bb : SBoundary(PT)) : XmlElement ==
+    nodeName : String := setX3DNodeName(n.type)
+    bb2 := bb
+    tran2 := tran
+    mat2 := mat
+    nodeAtts : List XmlAttribute := []
+    if n.type = "ROOT"::Symbol then -- root node - set clip bounds to back to
+                       -- local coordinates
+      if not (n.parameters case boundbox) then
+        error "toX3D parameter type not valid for root node"
+      bb2 := n.parameters.boundbox
+      if isNull?(bb2) then bb2 := boundary(n, 1$DF)
+      if isNull?(bb2) then error "scene contains no drawable elements"
+      nodeEles : List XmlElement := []
+      for ch in n.children repeat
+        xch := toX3D(ch, mat2, tran2, bb2)
+        if not empty?(xch) then
+          nodeEles := concat(nodeEles, xch)
+      inner := xmlElement("Scene",nodeEles,nodeAtts)
+      return xmlElement(nodeName, [inner], nodeAtts)
+    if n.type = "MATERIAL"::Symbol then -- set material
+      mat2 := n.parameters.material
+    if n.type = "TRANSFORM"::Symbol then -- set transform
+      if not (n.parameters case trans) then
+        error "toX3D parameter type not valid for trans node"
+      tran2 := compound(n.parameters.trans, tran)
+    if n.type = "CLIP"::Symbol then -- set default clip bounding box
+      if not (n.parameters case boundbox) then
+        error "toX3D parameter type not valid for clip node"
+      -- at the moment boundBox is in global coordinates
+      -- to use local coordinates at this node we would need to transform:
+      bb2 := n.parameters.boundbox
+    if n.type = "TEXT"::Symbol then -- text node
+      if not (n.parameters case text) then
+        error "toX3D parameter type not valid for text node"
+      nodeAtts := [xmlAttribute("string",n.parameters.text.txt)]
+    if n.type = "LINE"::Symbol then -- line node
+      -- its difficult to draw a line in 3D. it needs to have
+      -- some finite width so that we can see it.
+      -- We therefore draw it as a thin tube.
+      if not (n.parameters case points) then
+        error "toX3D parameter type not valid for line node"
+      meshR : List List PT := _
+        curveLoops(first n.parameters.points, 0.25::DF, 8)$SceneIFS(PT)
+      ifsR : SceneIFS(PT) := smesh(meshR, false)$SceneIFS(PT)
+      nodeAtts := [xmlAttribute("coordIndex",_
+            pointIndexString(indexes(ifsR), tran, bb))]
+      coord := xmlElement("Coordinate",[],_
+             [xmlAttribute("point",pointString(pointList(ifsR),tran,bb))])
+      ifset := xmlElement(nodeName, [coord], nodeAtts)
+      return xmlElement("Shape",[ifset],[])
+    if n.type = "SHAPE"::Symbol then -- shape node
+      if not (n.parameters case shpe) then
+        error "toX3D parameter type not valid for text node"
+--      nodeAtts := [xmlAttribute("string",n.parameters.text.txt)]
+    if n.type = "ARROWS"::Symbol then -- arrows node
+      -- its difficult to draw an arrow in 3D. it needs to have
+      -- some finite width so that we can see it.
+      -- We therefore draw it as a thin tube.
+      if not (n.parameters case arrws) then
+        error "toX3D parameter type not valid for arrws node"
+      meshR : List List PT := _
+        curveLoops(first n.parameters.arrws.ln, 0.25::DF, 8)$SceneIFS(PT)
+      ifsR : SceneIFS(PT) := smesh(meshR, false)$SceneIFS(PT)
+      nodeAtts := [xmlAttribute("coordIndex",_
+        pointIndexString(indexes(ifsR), tran, bb))]
+      coord := xmlElement("Coordinate",[],_
+             [xmlAttribute("point",pointString(pointList(ifsR),tran,bb))])
+      ifset := xmlElement(nodeName, [coord], nodeAtts)
+      return xmlElement("Shape",[ifset],[])
+    if n.type = "IFS"::Symbol then -- indexed face set node
+      if not (n.parameters case ifs) then
+        error "toX3D parameter type not valid for ifs node"
+      nodeAtts := [xmlAttribute("coordIndex",_
+        pointIndexString(n.parameters.ifs.inx, tran, bb))]
+      coord := xmlElement("Coordinate",[],_
+             [xmlAttribute("point",_
+              pointString(n.parameters.ifs.pts, tran2, bb2))])
+      ifset := xmlElement(nodeName, [coord], nodeAtts)
+      return xmlElement("Shape",[ifset],[])
+    if n.type = "DEF"::Symbol then -- shape node
+      if not (n.parameters case nodename) then
+        error "toSVG parameter type not valid for def node"
+    if n.type = "USE"::Symbol then -- shape node
+      if not (n.parameters case nodename) then
+        error "toSVG parameter type not valid for use node"
+    -- if no children return empty element
+    #(n.children) < 1 =>
+      xmlElement(nodeName, [], nodeAtts)
+    -- not empty so return children
+    nodeEles : List XmlElement := []
+    for ch in n.children repeat
+      xch := toX3D(ch, mat2, tran2, bb2)
+      if not empty?(xch) then
+        nodeEles := concat(nodeEles, xch)
+    xmlElement(nodeName, nodeEles, nodeAtts)
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  toX3D(n : %, mat : MATERIAL, tran : TR, bb : BOUNDS) : XmlElement ==
+    toX3D(n, mat, tran, boxBoundary(bb.mins, bb.maxs))
+
+  -- Write an 'X3D' repesentation of node 'n' to the filename supplied.
+  writeX3d(n : %, filename : String) : Void ==
+    defaultMaterial:MATERIAL := [2::DoubleFloat,"black","black",1::DF]
+    defaultTransform : TR := identity()$TR
+    defaultBounds : SBoundary(PT) := nullBoundary()
+    writeXml(toX3D(n, defaultMaterial, defaultTransform, defaultBounds), _
+                   filename)$ExportXml
+
+  -- creates an .OBJ (Wavefront) file from scenegraph tree
+  -- structure
+  -- called recursively for each node, so when called on root node
+  -- in scenegraph all other nodes in the scenegraph will get called.
+  toObj(n : %, ptLst : Reference List PT, indexLst : Reference List List NNI, _
+                   indexNxt : Reference NNI, tran : TR, bb : SBoundary(PT)) : Void ==
+    nodeName : String := setX3DNodeName(n.type)
+    bb2 := bb
+    tran2 := tran
+    if n.type = "ROOT"::Symbol then
+      -- root node - make sure view bounds are always positive
+      if not (n.parameters case boundbox) then
+        error "toObj parameter type not valid for root node"
+      bb2 := n.parameters.boundbox
+      if isNull?(bb2) then bb2 := boundary(n, 1$DF)
+      if isNull?(bb2) then error "scene contains no drawable elements"
+      minx : DF := screenCoordX(getMin(bb2))
+      miny : DF := screenCoordY(getMin(bb2))
+      offsetx : DF := 0::DF
+      offsety : DF := 0::DF
+      offsetRequired := false
+      if minx < 0 then
+        offsetRequired := true
+        offsetx := -minx
+      if miny < 0 then
+        offsetRequired := true
+        offsety := -miny
+      if offsetRequired then
+        mn := spnt(screenCoordX(getMin(bb2))+offsetx, screenCoordY(getMin(bb2))+_
+                   offsety)$PT
+        mx := spnt(screenCoordX(getMax(bb2))+offsetx, screenCoordY(getMax(bb2))+_
+                   offsety)$PT
+        bb2 := boxBoundary(mn, mx)
+        tran2 := stranslate(offsetx, offsety, 0::DF, 1::DF, 1::DF, 1::DF)$TR
+      for ch in n.children repeat
+        toObj(ch, ptLst, indexLst, indexNxt, tran2, bb2)
+      return Void
+    if n.type = "TRANSFORM"::Symbol then -- set transform
+      if not (n.parameters case trans) then
+        error "toObj parameter type not valid for trans node"
+      tran2 := compound(n.parameters.trans, tran)
+    if n.type = "CLIP"::Symbol then -- set default clip bounding box
+      if not (n.parameters case boundbox) then
+        error "toObj parameter type not valid for clip node"
+      -- at the moment boundBox is in global coordinates
+      -- to use local coordinates at this node we would need to transform:
+      bb2 := n.parameters.boundbox
+      return Void
+    if n.type = "LINE"::Symbol then -- line node
+      if not (n.parameters case points) then
+        error "toObj parameter type not valid for line node"
+      meshR : List List PT := _
+        curveLoops(first n.parameters.points, 0.25::DF, 8)$SceneIFS(PT)
+      ifsR : SceneIFS(PT) := smesh(meshR, false)$SceneIFS(PT)
+      i1 : List List NNI := indexes(ifsR)
+      p1 : List PT := pointList(ifsR)
+      i2 : List List NNI := [[j + elt(indexNxt) for j in k] for k in i1]
+      setelt!(ptLst, concat(elt(ptLst), p1))
+      setelt!(indexLst, concat(elt(indexLst), i2))
+      setelt!(indexNxt, elt(indexNxt) + #p1)
+      return Void
+    if n.type = "SHAPE"::Symbol then -- shape node
+      if not (n.parameters case shpe) then
+        error "toObj parameter type not valid for shape node"
+    if n.type = "ARROWS"::Symbol then -- arrow node
+      if not (n.parameters case points) then
+        error "toObj parameter type not valid for arrows node"
+      meshR : List List PT := _
+        curveLoops(first n.parameters.points, 0.25::DF, 8)$SceneIFS(PT)
+      ifsR : SceneIFS(PT) := smesh(meshR, false)$SceneIFS(PT)
+      i1 : List List NNI := indexes(ifsR)
+      p1 : List PT := pointList(ifsR)
+      i2 : List List NNI := [[j + elt(indexNxt) for j in k] for k in i1]
+      setelt!(ptLst, concat(elt(ptLst), p1))
+      setelt!(indexLst, concat(elt(indexLst), i2))
+      setelt!(indexNxt, elt(indexNxt) + #p1)
+      return Void
+    if n.type = "IFS"::Symbol then -- indexed face set node
+      if not (n.parameters case ifs) then
+        error "toObj parameter type not valid for ifs node"
+      i1 : List List NNI := n.parameters.ifs.inx
+      p1 : List PT := n.parameters.ifs.pts
+      i2 : List List NNI := [[j + elt(indexNxt) for j in k] for k in i1]
+      setelt!(ptLst, concat(elt(ptLst), p1))
+      setelt!(indexLst, concat(elt(indexLst), i2))
+      setelt!(indexNxt, elt(indexNxt) + #p1)
+      return Void
+    if n.type = "DEF"::Symbol then -- shape node
+      if not (n.parameters case nodename) then
+        error "toSVG parameter type not valid for def node"
+    if n.type = "USE"::Symbol then -- shape node
+      if not (n.parameters case nodename) then
+        error "toSVG parameter type not valid for use node"
+    -- if no children return empty element
+    #(n.children) < 1 =>
+      Void
+    -- not empty so return children
+    for ch in n.children repeat
+      toObj(ch, ptLst, indexLst, indexNxt, tran2, bb2)
+    Void
+
+  -- deprecated: this has been superseded by version with
+  -- SBoundary(PT) do not use, may be removed in the future.
+  toObj(n : %, ptLst : Reference List PT, indexLst : Reference List List NNI, _
+                   indexNxt : Reference NNI, tran : TR, bb : BOUNDS) : Void ==
+    toObj(n, ptLst, indexLst, indexNxt, tran, boxBoundary(bb.mins, bb.maxs))
+
+
+  -- Write an 'OBJ' (Wavefront) representation of node 'n' to the filename
+  -- supplied.
+  writeObj(n : %, filename : String) : Void ==
+    ptLst : Reference List PT := ref([])
+    indexLst : Reference List List NNI := ref([])
+    indexNxt : Reference NNI := ref(0::NNI)
+    defaultTransform : TR := identity()$TR
+    defaultBounds : SBoundary(PT) := nullBoundary()
+    toObj(n, ptLst, indexLst, indexNxt, defaultTransform, defaultBounds)
+    f1:TextFile := open(filename::FileName,"output")
+    writeLine!(f1,"# mesh generated by axiom")
+    for v in elt(ptLst) repeat
+      writeLine!(f1,concat(["v ",_
+                (math_to_string screenCoordX(v))@String," ",_
+                (math_to_string screenCoordY(v))@String," ",_
+                (math_to_string screenCoordZ(v))@String])$String)
+    s:String := ""
+    for row in elt(indexLst) repeat
+      s := "f"
+      for i in row repeat
+        s := concat([s," ",string(i+1)])$String
+      writeLine!(f1, s)
+    close! f1
+    Void
+
+  -- Write an 'VRML' representation of node 'n' to the filename supplied.
+  writeVRML(n : %, filename : String) : Void ==
+    defaultMaterial:MATERIAL := [2::DoubleFloat,"black","black",1::DF]
+    defaultTransform : TR := identity()$TR
+    defaultBounds : SBoundary(PT) := nullBoundary()
+    writeVRML(toX3D(n, defaultMaterial, defaultTransform, defaultBounds), _
+                    filename)$ExportXml
+
+  -- Test for NaN (Not a Number)
+  -- That is have we divided by zero or taken sqrt of negative number at
+  -- some stage?
+  -- Common Lisp does not support NaN ? So we need some sort of test for
+  -- invalid numbers
+  -- If not equal to itself then we assume that its not a valid number
+  Fnan?(x : DF) : Boolean == x ~= x
+
+  -- apply function of one variable and trap any errors
+  -- this is taken from draw.spad. I don't have any documentation for Lisp
+  -- function 'trapNumericErrors' but I assume it detects errors like
+  -- division by zero?
+  applyfxTrap(ff : DF-> DF, f : DF) : DF ==
+    s := trapNumericErrors(ff(f))$Lisp :: Union(DF, "failed")
+    s case "failed" => 0
+    r := s::DF
+    r > max()$DF => max()$DF
+    r < min()$DF => min()$DF
+    r
+
+  -- apply function of two variables and trap any errors
+  -- this is taken from draw.spad. I don't have any documentation for Lisp
+  -- function 'trapNumericErrors' but I assume it detects errors like
+  -- division by zero?
+  applyfxyTrap(ff : (DF, DF) -> DF, u : DF, v : DF) : DF ==
+      s := trapNumericErrors(ff(u, v))$Lisp :: Union(DF, "failed")
+      s case "failed" => 0
+      r : DF := s::DF
+      r >max()$DF => max()$DF
+      r < min()$DF => min()$DF
+      r
+
+  -- Make sure the Segment goes from a low number to a high number
+  -- this is taken from draw.spad
+  normalize(seg : SEG) : Segment DF ==
+    -- normalize [a, b]:
+    -- error if a = b, returns [a, b] if a < b, returns [b, a] if b > a
+    a := convert(low(seg))@DF; b := convert(high(seg))@DF
+    a = b => error "The range specified is too small"
+    a < b => segment(a, b)
+    segment(b, a)
+
+  -- checks that left-hand endpoint is less than right-hand endpoint
+  checkRange(r : SEG) : SEG ==
+    (low(r) > high(r) => error "ranges cannot be negative"; r)
+
+  -- generates a plot from a mapping 'f' of
+  -- scalar values to points
+  -- mostly from plot.spad
+  -- this is taken mostly from drawPlot in draw.spad but instead
+  -- of outputting to TwoDimensionalViewport we output to a
+  -- scenegraph node.
+  -- The input is a Plot defined in plot.spad
+  createPlot1Din2D(f : DF -> PT, tRange : SEG, numPts : NNI) : % ==
+    checkRange tRange
+    l := low(tRange)
+    h := high(tRange)
+    t : List DF := list l
+    p0 : List PT := list f l
+    s := (h-l)/(numPts-1)::DF
+    for i in 2..numPts-1 repeat
+      l := l+s
+      t := concat(l, t)
+      p0 := concat(f l, p0)
+    t := reverse! concat(h, t)
+    p0 := reverse! concat(f h, p0)
+    branches : List List PT := []
+    newl : List PT := []
+    for p in p0 repeat
+      if not Pnan? p then newl := cons(p, newl)
+      else if not empty? newl then
+            branches := concat(newl := reverse! newl, branches)
+            newl := []
+    if not empty? newl then branches := concat(newl := reverse! newl, branches)
+    createSceneLines(branches)
+
+  -- a convenience function which combines createPlot1Din2D with addChild!
+  addPlot1Din2D(n : %, f : DF -> PT, tRange : SEG, numPts : NNI) : % ==
+    c := createPlot1Din2D(f, tRange, numPts)
+    addChild!(n, c)
+    c
+
+  -- mostly from draw.spad
+  createPlot1Din2D(f : DF -> DF, seg : SEG, numPts : NNI) ==
+    -- create function DF -> PT
+    ff : List(DF -> PT) := [x +-> spnt(x, applyfxTrap(f, x))$PT]
+    -- create PLOT
+    createPlot1Din2D(first ff, normalize seg, numPts)
+
+  -- a convenience function which combines createPlot1Din2D with addChild!
+  addPlot1Din2D(n : %, f : DF -> DF, seg : SEG, numPts : NNI) ==
+    c := createPlot1Din2D(f, seg, numPts)
+    addChild!(n, c)
+    c
+
+  -- create a node from plot using Parametric Plane Curve
+  -- This represents 1 dimension (line - possibly curved) in 2 dimensions
+  -- (plane) In theory a line has no width but in that case we would not see
+  -- it so we give it a width given by the material node that is
+  -- applicable in this part of the scene graph
+  -- PPC is ParametricPlaneCurve(DF -> DF) which is created with curve(f1, f2)
+  -- where f1 and f2 are functions of type ComponentFunction, in this case
+  -- DF -> DF
+  createPlot1Din2Dparametric(ppc : PPC, seg : SEG, numPts : NNI) ==
+    -- create function DF -> Point DF
+    f := coordinate(ppc, 1); g := coordinate(ppc, 2)
+    -- create an anonymous function of type DF->PT
+    fcn : List(DF -> PT) := [x +-> spnt(applyfxTrap(f, x), _
+                             applyfxTrap(g, x))$PT]
+    -- create PLOT
+    createPlot1Din2D(first fcn, normalize seg, numPts)
+
+  -- a convenience function which combines createPlot1Din2Dparametric with
+  -- addChild!
+  addPlot1Din2Dparametric(n : %, ppc : PPC, seg : SEG, numPts : NNI) ==
+    c := createPlot1Din2Dparametric(ppc, seg, numPts)
+    addChild!(n, c)
+    c
+
+  -- create a line (1D subspace) in 3D space
+  -- This represents 1 dimension (line - possibly curved) in 3 dimensions
+  -- In theory a line has no width but in that case we would not see it
+  -- so we give it a width given by the material node that is
+  -- applicable in this part of the scene graph
+  -- PSC ParametricSpaceCurve(DF -> DF) is created with curve(f1, f2, f3)
+  -- where f1, f2 and f3 are functions of type ComponentFunction, in this case
+  -- DF -> DF
+  createPlot1Din3Dparametric(psc : PSC, seg : SEG, numPts : NNI) : % ==
+      f := coordinate(psc, 1); g := coordinate(psc, 2); h := coordinate(psc, 3)
+      -- create an anonymous function of type DF->PT
+      fcn : DF -> PT := x +-> spnt(applyfxTrap(f, x), applyfxTrap(g, x), _
+                            applyfxTrap(h, x))$PT
+      createPlot1Din3Dparametric(fcn, seg, numPts)
+
+  -- a convenience function which combines createPlot1Din3Dparametric with
+  -- addChild!
+  addPlot1Din3Dparametric(n : %, psc : PSC, seg : SEG, numPts : NNI) : % ==
+    c := createPlot1Din3Dparametric(psc, seg, numPts)
+    addChild!(n, c)
+    c
+
+  -- create a line (1D subspace) in 3D space
+  -- This represents 1 dimension (line - possibly curved) in 3 dimensions
+  -- In theory a line has no width but in that case we would not see it
+  -- so we give it a width given by the material node that is
+  -- applicable in this part of the scene graph
+  -- PCFUN is a function from float to point: DF -> PT
+  createPlot1Din3Dparametric(psc : PCFUN, seg : SEG, numPts : NNI) : % ==
+    f := psc
+    tRange := normalize seg
+    checkRange tRange; l := low(tRange); h := high(tRange)
+    t : List DF := list l; p : List PT := list f l
+    s := (h-l)/(numPts-1)::DF
+    for i in 2..numPts-1 repeat
+      l := l+s; t := concat(l, t)
+      p := concat(f l, p)
+    t := reverse! concat(h, t)
+    p := reverse! concat(f h, p)
+    createSceneLine(p)
+
+  -- a convenience function which combines createPlot1Din3Dparametric with
+  -- addChild!
+  addPlot1Din3Dparametric(n : %, psc : PCFUN, seg : SEG, numPts : NNI) : % ==
+    c := createPlot1Din3Dparametric(psc, seg, numPts)
+    addChild!(n, c)
+    c
+
+  -- parameterized equations of two variables
+  -- from mesh.spad
+  -- PSFUN is (DF, DF) -> PT
+  createPlot2Din3D(ptFun : PSFUN, uSeg : SEG, vSeg : SEG, numPts : NNI) : % ==
+    llp : List List PT := []
+    ustep := (low(uSeg) - high(uSeg))/numPts
+    vstep := (low(vSeg) - high(vSeg))/numPts
+    someV := high(vSeg)
+    for iv in numPts..0 by -1 repeat
+      if zero? iv then someV := low(vSeg)
+      -- hack: get last number in segment within segment
+      lp : List PT := []
+      someU := high(uSeg)
+      for iu in numPts..0 by -1 repeat
+        if zero? iu then someU := low(uSeg)
+        -- hack: get last number in segment within segment
+        pt := ptFun(someU, someV)
+        --here we need to check for NaN (not a number)
+        --numberCheck pt
+        lp := concat(pt, lp)
+        someU := someU + ustep
+      llp := concat(lp, llp)
+      someV := someV + vstep
+    -- now llp contains a list of lists of points
+    -- for a surface that is a result of a function of 2 variables,
+    -- the main component is open and each sub-list is open as well
+    createSceneIFS(smesh(llp, false))
+
+  -- createPlot2Din3D(f, a..b, c..d) returns a scene node
+  -- which contains the graph of z = f(x, y)
+  -- as x ranges from min(a, b) to max(a, b) and y ranges from
+  -- min(c, d) to max(c, d).
+  createPlot2Din3D(f : (DF, DF) -> DF, xSeg : SEG, ySeg : SEG, numPts : NNI) : % ==
+    --sp := space l
+    -- process color function of two variables
+    --col2 : List((DF, DF) -> DF) := [xCoord] -- dummy color function
+    --pointsColored? : Boolean := false
+    --if not (c2 := option(l, 'colorFunction2)) case "failed" then
+    -- pointsColored? := true
+    -- col2 := [retract(c2 :: Any)$ANY1((DF, DF) -> DF)]
+    fcn : List((DF, DF) -> PT) :=
+      [(x, y) +-> spnt(applyfxyTrap(f, x, y), x, y)$PT]
+    createPlot2Din3D(first fcn, normalize xSeg, normalize ySeg, numPts)
+
+  -- a convenience function which combines createPlot2Din3D with addChild!
+  addPlot2Din3D(n : %, f : (DF, DF) -> DF, xSeg : SEG, ySeg : SEG, numPts : NNI) : % ==
+    c := createPlot2Din3D(f, xSeg, ySeg, numPts)
+    addChild!(n, c)
+    c
+
+  -- createPlot2Din3Dparametric(surface(f, g, h), a..b, c..d, l) returns a
+  -- scene node which contains the
+  -- graph of the parametric surface x = f(u, v), y = g(u, v),
+  -- z = h(u, v) as u ranges from min(a, b) to
+  -- max(a, b) and v ranges from min(c, d) to max(c, d).
+  -- PSF: ParametricSurface((DF, DF) -> DF) -- created with surface(f1, f2, f3)
+  createPlot2Din3Dparametric(s : PSF, uSeg : SEG, vSeg : SEG, numPts : NNI) : % ==
+    --sp := space l
+    -- create functions from expressions
+    f : List((DF, DF) -> DF) := [coordinate(s, 1)]
+    g : List((DF, DF) -> DF) := [coordinate(s, 2)]
+    h : List((DF, DF) -> DF) := [coordinate(s, 3)]
+    fcn : List((DF, DF) -> PT) := _
+      [(x, y) +-> spnt(applyfxyTrap((first f), x, y), _
+       applyfxyTrap((first g), x, y), _
+       applyfxyTrap((first h), x, y))$PT]
+    createPlot2Din3D(first fcn, normalize uSeg, normalize vSeg, numPts)
+
+  -- a convenience function which combines createPlot2Din3Dparametric with
+  -- addChild!
+  addPlot2Din3Dparametric(n : %, s : PSF, uSeg : SEG, vSeg : SEG, numPts : NNI) : % ==
+    c := createPlot2Din3Dparametric(s, uSeg, vSeg, numPts)
+    addChild!(n, c)
+    c
+
+  -- createPlot2Din3Dparametric(f, a..b, c..d, l) returns a
+  -- scene node which contains the
+  -- graph of the parametric surface \spad{f(u, v)}
+  -- as u ranges from min(a, b) to
+  -- max(a, b) and v ranges from min(c, d) to max(c, d).
+  -- PSFUN is (DF, DF) -> PT
+  createPlot2Din3Dparametric(s : PSFUN, uSeg : SEG, vSeg : SEG, numPts : NNI) : % ==
+    fcn : List((DF, DF) -> PT) := [s]
+    createPlot2Din3D(first fcn, normalize uSeg, normalize vSeg, numPts)
+
+  -- a convenience function which combines createPlot2Din3Dparametric with
+  -- addChild!
+  addPlot2Din3Dparametric(n : %, s : PSFUN, uSeg : SEG, vSeg : SEG, numPts : NNI) : % ==
+    c := createPlot2Din3Dparametric(s, uSeg, vSeg, numPts)
+    addChild!(n, c)
+    c
+
+  -- outputLPoints(ps) is a local function used by coerce(n): OutputForm
+  -- the reason for this function is to avoid displaying a long list of
+  -- points on the command line as this would take a lot of space
+  -- and not be very helpful since scene is intended for graphical
+  -- output. Therefore we only output the first two values.
+  outputLPoints(ps : List PT) : OutputForm ==
+    if #ps < 4 then return ps::OutputForm
+    bracket([(first ps)::OutputForm, (second ps)::OutputForm, _
+             message("....")])
+
+  -- outputLLPoints(ps) is a local function used by coerce(n): OutputForm
+  -- the reason for this function is to avoid displaying a long list of
+  -- points on the command line as this would take a lot of space
+  -- and not be very helpful since scene is intended for graphical
+  -- output. Therefore we only output the first two values.
+  outputLLPoints(ps : List List PT) : OutputForm ==
+    if #ps < 4 then
+      return bracket([outputLPoints(x) for x in ps])
+    bracket([outputLPoints(first ps), outputLPoints(second ps), _
+             message("....")])
+
+  -- outputLIndexes(ps) is a local function used by coerce(n): OutputForm
+  -- the reason for this function is to avoid displaying a long list of
+  -- indexes on the command line as this would take a lot of space
+  -- and not be very helpful since scene is intended for graphical
+  -- output. Therefore we only output the first two values.
+  outputLIndexes(ps : List NNI) : OutputForm ==
+    if #ps < 4 then return ps::OutputForm
+    bracket([(first ps)::OutputForm, (second ps)::OutputForm, _
+             message("....")])
+
+  -- outputLLIndexes(ps) is a local function used by coerce(n): OutputForm
+  -- the reason for this function is to avoid displaying a long list of
+  -- indexes on the command line as this would take a lot of space
+  -- and not be very helpful since scene is intended for graphical
+  -- output. Therefore we only output the first two values.
+  outputLLIndexes(ps : List List NNI) : OutputForm ==
+    if #ps < 4 then
+      return bracket([outputLIndexes(x) for x in ps])
+    bracket([outputLIndexes(first ps), outputLIndexes(second ps), _
+             message("....")])
+
+  -- output
+  -- a full scenegraph could contain a lot of data and so we have
+  -- to be careful to restrict the output to what is reasonable on
+  -- the command line. Therefore we do not display all subnodes or
+  -- the full information from nodes such as IFS.
+  coerce(n : %) : OutputForm ==
+    s:OutputForm := message("scene ")
+    if n.type = "ROOT"::Symbol then
+      s := hconcat([s, message("root "),_
+             (n.parameters.boundbox)::OutputForm])
+    if n.type = "GROUP"::Symbol then
+      s := hconcat(s, message("group"))
+    if n.type = "LINE"::Symbol then
+      s := hconcat([s, message("line "),_
+        outputLLPoints(n.parameters.points)])
+    if n.type = "SHAPE"::Symbol then
+      tp := n.parameters.shpe.shptype
+      pt1 : PT := n.parameters.shpe.centre
+      pt2 : PT := n.parameters.shpe.size
+      s := hconcat([s, message("shape"), _
+             message(" type="), tp::OutputForm,_
+             message(" pt1="), pt1::OutputForm,_
+             message(" pt2="), pt2::OutputForm])
+    if n.type = "MATERIAL"::Symbol then
+      lw : DF := n.parameters.material.lineWidth
+      lc : String := n.parameters.material.lineCol
+      fc : String := n.parameters.material.fillCol
+      mo : DF := n.parameters.material.matOpacity
+      s := hconcat([s, message("material"), _
+             message(" lw="), lw::OutputForm,_
+             message(" lc="), lc::OutputForm,_
+             message(" fc="), fc::OutputForm,_
+             message(" mo="), mo::OutputForm])
+    if n.type = "TEXT"::Symbol then
+      t : String := n.parameters.text.txt
+      sz1 : NNI := n.parameters.text.siz
+      p : PT := n.parameters.text.pos
+      npt : List String := n.parameters.text.np
+      s := hconcat([s, message("text="), _
+        t::OutputForm, _
+        message(" sz="), sz1::OutputForm,_
+        message(" p="), p::OutputForm,_
+        message(" npt="), npt::OutputForm])
+    if n.type = "TRANSFORM"::Symbol then
+      tr := n.parameters.trans
+      s := hconcat([s,message("transform"),_
+           message(" tr="), tr::OutputForm])
+    if n.type = "CLIP"::Symbol then
+      s := hconcat([s, message("clip "), _
+             (n.parameters.boundbox)::OutputForm])
+    if n.type = "IFS"::Symbol then
+      ix : List List NNI := n.parameters.ifs.inx
+      pt : List PT := n.parameters.ifs.pts
+      s := hconcat([s, message("ifs"),_
+             message(" ix="), outputLLIndexes(ix),_
+             message(" pt="), outputLPoints(pt)])
+    if n.type = "ARROWS"::Symbol then
+      pts : List List PT := n.parameters.arrws.ln
+      m : Symbol := n.parameters.arrws.mode
+      sz : DF := n.parameters.arrws.size
+      s := hconcat([s, message("arrows"), _
+          message(" pts="), outputLLPoints(pts),_
+          message(" m="), m::OutputForm,_
+          message(" sz="), sz::OutputForm])
+    if n.type = "ARROW"::Symbol then
+      str : String := n.parameters.arrw.st
+      ena : String := n.parameters.arrw.en
+      ofs : PT := n.parameters.arrw.offset
+      md : Symbol := n.parameters.arrw.mode
+      sz : DF := n.parameters.arrw.size
+      s := hconcat([s, message("arrows"), _
+          message(" str="), str::OutputForm,_
+          message(" ena="), ena::OutputForm,_
+          message(" ofs="), ofs::OutputForm,_
+          message(" md="), md::OutputForm,_
+          message(" sz="), sz::OutputForm])
+    if n.type = "DEF"::Symbol then
+      nn : String := n.parameters.nodename.nme
+      s := hconcat([s, message("def"), _
+          message(" nn="), nn::OutputForm])
+    if n.type = "USE"::Symbol then
+      nn : String := n.parameters.nodename.nme
+      s := hconcat([s, message("use"), _
+          message(" nn="), nn::OutputForm])
+    if n.type = "NAMEDPOINTS"::Symbol then
+      nam : SceneNamedPoints PT := n.parameters.np
+      s := hconcat([s, message("namedpoints"), _
+          message(" n="), nam::OutputForm])
+    s := hconcat([s, message(" #ch="), (#(n.children))::OutputForm])
+    s
+
+
+--Copyright (c) 2010-2016, Martin J Baker.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+-- - Redistributions of source code must retain the above copyright
+-- notice, this list of conditions and the following disclaimer.
+--
+-- - Redistributions in binary form must reproduce the above copyright
+-- notice, this list of conditions and the following disclaimer in
+-- the documentation and/or other materials provided with the
+-- distribution.
+--
+-- - Neither the name of Martin J Baker. nor the
+-- names of its contributors may be used to endorse or promote products
+-- derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+)if false
+\eject
+\begin{thebibliography}{99}
+[1] Dorst, Fontijne & Mann, 2007 , Geometric Algebra for Computer Science
+ISBN 0123694655
+This book gives practical information about using Clifford/Grassmann
+algebra to represent graphical information.
+[2] Doran & Lasenby, 2003 , Geometric Algebra for Physicists,
+ISBN 0521480221
+[3] User Tutorial:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/graph/tutorial/}
+[4] User Reference:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/graph/userref/}
+[5] Programmers Reference:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/graph/progref/}
+[6] Examples of scenegraph structure:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/graph/examples/}
+[7] X3D & Related Specifications
+\url{http://www.web3d.org/x3d/
+[8] SVG & Related Specifications
+\url{http://www.w3.org/Graphics/SVG/}
+\end{thebibliography}
+\end{document}
+)endif

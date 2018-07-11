@@ -1,0 +1,34 @@
+1405                (MAKEPROP '|IntegerBits| 'NILADIC T)
+(|IntegerBits|)
+|package|
+(((|IntegerBits|)
+  (CATEGORY |package|
+   (SIGNATURE |bitCoef| ((|Integer|) (|Integer|) (|NonNegativeInteger|)))
+   (SIGNATURE |bitTruth| ((|Boolean|) (|Integer|) (|NonNegativeInteger|)))))
+ (T |IntegerBits|))
+(CATEGORY |package|
+ (SIGNATURE |bitCoef| ((|Integer|) (|Integer|) (|NonNegativeInteger|)))
+ (SIGNATURE |bitTruth| ((|Boolean|) (|Integer|) (|NonNegativeInteger|))))
+"/git/fricas/src/algebra/INTBIT.spad"
+((|bitTruth| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Integer|)) (|isDomain| *4 (|NonNegativeInteger|))
+       (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|IntegerBits|))))
+ (|bitCoef| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *1 (|IntegerBits|)))))
+((|bitTruth| (((|Boolean|) (|Integer|) (|NonNegativeInteger|)) 9))
+ (|bitCoef| (((|Integer|) (|Integer|) (|NonNegativeInteger|)) 10)))
+INTBIT
+((|constructor|
+  (NIL "This package provides functions to lookup bits in integers."))
+ (|bitTruth|
+  (((|Boolean|) (|Integer|) (|NonNegativeInteger|))
+   "\\spad{bitTruth(n,{} m)} returns \\spad{true} if coefficient of 2^m in two complement representation of \\spad{n} is 1."))
+ (|bitCoef|
+  (((|Integer|) (|Integer|) (|NonNegativeInteger|))
+   "\\spad{bitCoef(n,{} m)} returns the coefficient of 2^m in two complement representation of \\spad{n}.")))
+(("documentation" 0 952) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 945) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 810) ("modemaps" 0 498) ("sourceFile" 0 460)
+ ("constructorCategory" 0 294) ("constructorModemap" 0 83)
+ ("constructorKind" 0 73) ("constructorForm" 0 57) ("NILADIC" 0 20))

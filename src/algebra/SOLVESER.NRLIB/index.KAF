@@ -1,0 +1,74 @@
+3974                (|TransSolvePackageService| R)
+|package|
+(((|TransSolvePackageService| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |decomposeFunc|
+    ((|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+     (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+     (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+     (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))))
+   (SIGNATURE |unvectorise|
+    ((|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+     (|Vector| (|Expression| |#1|))
+     (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+     (|Integer|))))
+  (|Join| (|Comparable|) (|IntegralDomain|)))
+ (T |TransSolvePackageService|))
+(CATEGORY |package|
+ (SIGNATURE |decomposeFunc|
+  ((|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+   (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+   (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+   (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))))
+ (SIGNATURE |unvectorise|
+  ((|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+   (|Vector| (|Expression| |#1|))
+   (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+   (|Integer|))))
+"/git/fricas/src/algebra/SOLVESER.spad"
+((|unvectorise| (*1 *2 *3 *2 *4)
+  (AND
+   (|isDomain| *2
+               (|Fraction| (|SparseUnivariatePolynomial| (|Expression| *5))))
+   (|isDomain| *3 (|Vector| (|Expression| *5))) (|isDomain| *4 (|Integer|))
+   (|ofCategory| *5 (|Join| (|Comparable|) (|IntegralDomain|)))
+   (|isDomain| *1 (|TransSolvePackageService| *5))))
+ (|decomposeFunc| (*1 *2 *2 *2 *2)
+  (AND
+   (|isDomain| *2
+               (|Fraction| (|SparseUnivariatePolynomial| (|Expression| *3))))
+   (|ofCategory| *3 (|Join| (|Comparable|) (|IntegralDomain|)))
+   (|isDomain| *1 (|TransSolvePackageService| *3)))))
+((|unvectorise|
+  (((|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+    (|Vector| (|Expression| |#1|))
+    (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+    (|Integer|))
+   26))
+ (|decomposeFunc|
+  (((|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+    (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+    (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+    (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|))))
+   38)))
+SOLVESER
+((|constructor|
+  (NIL
+   "This package finds the function \\spad{func3} where \\spad{func1} and \\spad{func2} \\indented{1}{are given and\\space{2}\\spad{func1} = \\spad{func3}(\\spad{func2}) .\\space{2}If there is no solution then} \\indented{1}{function \\spad{func1} will be returned.} \\indented{1}{An example would be\\space{2}\\spad{func1 := 8*X^3+32*X^2-14*X ::EXPR INT} and} \\indented{1}{\\spad{func2 := 2*X ::EXPR INT} convert them via univariate} \\indented{1}{to FRAC SUP EXPR INT and then the solution is \\spad{func3 := X^3+X^2-X}} \\indented{1}{of type FRAC SUP EXPR INT}"))
+ (|unvectorise|
+  (((|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+    (|Vector| (|Expression| |#1|))
+    (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+    (|Integer|))
+   "\\spad{unvectorise(vect,{} var,{} n)} returns \\spad{vect(1) + vect(2)*var + ... + vect(n+1)*var^(n)} where \\spad{vect} is the vector of the coefficients of the polynomial,{} \\spad{var} the new variable and \\spad{n} the degree."))
+ (|decomposeFunc|
+  (((|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+    (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+    (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|)))
+    (|Fraction| (|SparseUnivariatePolynomial| (|Expression| |#1|))))
+   "\\spad{decomposeFunc(func1,{} func2,{} newvar)} returns a function \\spad{func3} where \\spad{func1} = \\spad{func3}(\\spad{func2}) and expresses it in the new variable newvar. If there is no solution then \\spad{func1} will be returned.")))
+(("documentation" 0 2404) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2395) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1883) ("modemaps" 0 1298) ("sourceFile" 0 1258)
+ ("constructorCategory" 0 728) ("constructorModemap" 0 61)
+ ("constructorKind" 0 51) ("constructorForm" 0 20))

@@ -1,0 +1,51 @@
+2005                (|FullyEvalableOver| R)
+|category|
+(((|FullyEvalableOver| |#1|) (|Category|) (|SetCategory|))
+ (T |FullyEvalableOver|))
+(|Join|
+ (CATEGORY |domain| (SIGNATURE |map| ($ (|Mapping| |t#1| |t#1|) $))
+  (IF (|has| |t#1| (|Eltable| |t#1| |t#1|))
+      (ATTRIBUTE (|Eltable| |t#1| $))
+      |noBranch|)
+  (IF (|has| |t#1| (|Evalable| |t#1|))
+      (ATTRIBUTE (|Evalable| |t#1|))
+      |noBranch|)
+  (IF (|has| |t#1| (|InnerEvalable| (|Symbol|) |t#1|))
+      (ATTRIBUTE (|InnerEvalable| (|Symbol|) |t#1|))
+      |noBranch|)))
+"/git/fricas/src/algebra/FEVALAB.spad"
+((|map| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|Mapping| *3 *3))
+       (|ofCategory| *1 (|FullyEvalableOver| *3))
+       (|ofCategory| *3 (|SetCategory|)))))
+((|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|eval|
+  (($ $ (|Symbol|) |#1|) 6 (|has| |#1| (|InnerEvalable| (|Symbol|) |#1|)))
+  (($ $ (|List| (|Symbol|)) (|List| |#1|)) 6
+   (|has| |#1| (|InnerEvalable| (|Symbol|) |#1|)))
+  (($ $ (|List| (|Equation| |#1|))) 6 (|has| |#1| (|Evalable| |#1|)))
+  (($ $ (|Equation| |#1|)) 6 (|has| |#1| (|Evalable| |#1|)))
+  (($ $ |#1| |#1|) 6 (|has| |#1| (|Evalable| |#1|)))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6 (|has| |#1| (|Evalable| |#1|))))
+ (|elt| (($ $ |#1|) 6 (|has| |#1| (|Eltable| |#1| |#1|)))))
+FEVALAB
+(((|Eltable| |#1| $) |has| |#1| (|Eltable| |#1| |#1|))
+ ((|Evalable| |#1|) |has| |#1| (|Evalable| |#1|))
+ ((|InnerEvalable| (|Symbol|) |#1|) |has| |#1|
+  (|InnerEvalable| (|Symbol|) |#1|)))
+(((|Eltable| |#1| $) |has| |#1| (|Eltable| |#1| |#1|))
+ ((|Evalable| |#1|) |has| |#1| (|Evalable| |#1|))
+ ((|InnerEvalable| (|Symbol|) |#1|) |has| |#1|
+  (|InnerEvalable| (|Symbol|) |#1|))
+ ((|InnerEvalable| |t#1| |t#1|) |has| |#1| (|Evalable| |#1|)))
+((|constructor|
+  (NIL
+   "This category provides a selection of evaluation operations depending on what the argument type \\spad{R} provides."))
+ (|map|
+  (($ (|Mapping| |#1| |#1|) $)
+   "\\spad{map(f,{} ex)} evaluates ex,{} applying \\spad{f} to values of type \\spad{R} in ex.")))
+(("documentation" 0 1721) ("ancestors" 0 1469) ("parents" 0 1279)
+ ("abbreviation" 0 1271) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 734) ("modemaps" 0 577) ("sourceFile" 0 538)
+ ("constructorCategory" 0 140) ("constructorModemap" 0 55)
+ ("constructorKind" 0 44) ("constructorForm" 0 20))

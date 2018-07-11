@@ -1,0 +1,755 @@
+)abbrev category JBFC JetBundleFunctionCategory
+++ Description:
+++ \spadtype{JetBundleFunctionCategory} defines the category of functions
+++ (local sections) over a jet bundle. The formal derivative is defined
+++ already here. It uses the Jacobi matrix of the functions. The columns
+++ of the matrices are enumerated by jet variables. Thus they are
+++ represented as a \spadtype{Record} of the matrix and a list of the jet
+++ variables. Several simplification routines are implemented already here.
+
+JetBundleFunctionCategory(JB : JBC) : Category == Def where
+
+  Sy   ==> Symbol
+  PI   ==> PositiveInteger
+  NNI  ==> NonNegativeInteger
+  I    ==> Integer
+  B    ==> Boolean
+  L    ==> List
+  OUT  ==> OutputForm
+  JBC  ==> JetBundleCategory
+  SEM  ==> SparseEchelonMatrix(JB, %)
+
+  SIMPREC ==> Record(Sys : L %, JM : SEM, Depend : Union("failed", L L NNI))
+  LDREC   ==> Record(LD : JB, Fake? : B, Dep : L NNI, Fun : %)
+
+  errmsg ==> "cannot simplify"
+
+
+  Def ==> Join(PartialDifferentialRing Sy, _
+               GcdDomain, _
+               RetractableTo JB) with
+
+      -- The following procedures are copied from JetBundleCategory for
+      -- easier use.
+      X : PI -> %
+      U : PI -> %
+      P : (PI, L NNI) -> %
+      X : () -> %
+      U : () -> %
+      P : L NNI -> %
+      P : (PI, NNI) -> %
+      P : NNI -> %
+
+      setNotation : Sy -> Void
+      getNotation : () -> Sy
+
+      numIndVar : () -> PI
+      numDepVar : () -> PI
+
+      coerce : JB -> %
+        ++ \spad{coerce(jv)} coerces the jet variable \spad{jv}
+        ++ into a local section.
+
+      jetVariables : % -> L JB
+        ++ \spad{jetVariables(f)} yields all jet variables effectively
+        ++ occurring in \spad{f} in an ordered list.
+
+      const? : % -> B
+        ++ \spad{const?(f)} checks whether \spad{f} depends of jet variables.
+
+      order : % -> NNI
+        ++ \spad{order(f)} gives highest order of the jet variables
+        ++ effectively occurring in \spad{f}.
+
+      class : % -> NNI
+        ++ \spad{class(f)} is defined as the highest class of the
+        ++ jet variables effectively occurring in \spad{f}.
+
+      numerator : % -> %
+        ++ \spad{numerator(f)} yields the numerator of \spad{f}.
+
+      denominator : % -> %
+        ++ \spad{denominator(f)} yields the denominator of \spad{f}.
+
+      jacobiMatrix : L % -> SEM
+        ++ \spad{jacobiMatrix(sys)} constructs the Jacobi matrix
+        ++ of the family \spad{sys} of functions.
+
+      jacobiMatrix : (L %, L L JB) -> SEM
+        ++ \spad{jacobiMatrix(sys, jvars)} constructs the Jacobi matrix
+        ++ of the family \spad{sys} of functions. \spad{jvars} contains
+        ++ for each function the effectively occurring jet variables.
+        ++ The columns of the matrix are ordered.
+
+      extractSymbol : SEM -> SEM
+        ++ \spad{extractSymbol(jm)} extracts the highest order part of the
+        ++ Jacobi matrix.
+
+      symbol : L % -> SEM
+        ++ \spad{symbol(sys)} computes directly the symbol of the family
+        ++ \spad{sys} of functions.
+
+      differentiate : (%, JB) -> %
+        ++ \spad{differentiate(f, jv)} differentiates the function
+        ++ \spad{f} wrt the jet variable \spad{jv}.
+
+      formalDiff : (%, PI) -> %
+        ++ \spad{formalDiff(f, i)} formally (totally) differentiates
+        ++ \spad{f} wrt the \spad{i}-th independent variable.
+
+      formalDiff : (%, L NNI) -> %
+        ++ \spad{formalDiff(f, mu)} formally differentiates \spad{f} as
+        ++ indicated by the multi-index \spad{mu}.
+
+      formalDiff : (L %, PI) -> L %
+        ++ \spad{formalDiff(sys, i)} formally differentiates a family
+        ++ \spad{sys} of functions wrt the \spad{i}-th independent
+        ++ variable.
+
+      formalDiff2 : (%, PI, SEM) -> Record(DPhi : %, JVars : L JB)
+        ++ \spad{formalDiff2(f, i, jm)} formally differentiates the
+        ++ function \spad{f} with the Jacobi matrix \spad{jm} wrt
+        ++ the \spad{i}-th independent variable. \spad{JVars} is
+        ++ a list of the jet variables effectively in the
+        ++ result \spad{DPhi} (might be too large).
+
+      formalDiff2 : (L %, PI, SEM) -> Record(DSys : L %, JVars : L L JB)
+        ++ \spad{formalDiff2(sys, i, jm)} is like the other
+        ++ \spadfun{formalDiff2} but for systems.
+
+      dimension : (L %, SEM, NNI) -> NNI
+        ++ \spad{dimension(sys, jm, q)} computes the dimension of the manifold
+        ++ described by the system \spad{sys} with Jacobi matrix \spad{jm}
+        ++ in the jet bundle of order \spad{q}.
+
+      orderDim : (L %, SEM, NNI) -> NNI
+        ++ \spad{orderDim(sys, jm, q)} computes the dimension of the manifold
+        ++ described by the system \spad{sys} with Jacobi matrix \spad{jm}
+        ++ in the jet bundle of order \spad{q} over the jet bundle of
+        ++ order \spad{q-1}.
+
+      freeOf? : (%, JB) -> B
+        ++ \spad{freeOf?(fun, jv)} checks whether \spad{fun} contains the
+        ++ jet variable \spad{jv}.
+
+      subst : (%, JB, %) -> %
+        ++ \spad{subst(f, jv, exp)} substitutes \spad{exp} for the jet
+        ++ variable \spad{jv} in the function \spad{f}.
+
+      leadingDer : % -> JB
+        ++ \spad{leadingDer(fun)} yields the leading derivative of \spad{fun}.
+        ++ If \spad{fun} contains no derivatives \spad{1} is returned.
+
+      sortLD : L % -> L %
+        ++ \spad{sortLD(sys)} sorts the functions in \spad{sys} according
+        ++ to their leading derivatives.
+
+      solveFor : (%, JB) -> Union(%, "failed")
+        ++ \spad{solveFor(fun, jv)} tries to solve \spad{fun} for the jet
+        ++ variable \spad{jv}.
+
+      dSubst : (%, JB, %) -> %
+        ++ \spad{dSubst(f, jv, exp)} is like \spad{subst(f, jv, exp)}. But
+        ++ additionally for all derivatives of \spad{jv} the corresponding
+        ++ substitutions are performed.
+
+      simplify : (L %, SEM) -> SIMPREC
+        ++ \spad{simplify(sys, jm)} simplifies a system with given Jacobi
+        ++ matrix. The Jacobi matrix of the simplified system is returned, too.
+        ++ \spad{Depend} contains for each equation of the simplified system
+        ++ the numbers of the equations of the original system out of which it
+        ++ is build, if it is possible to obtain this information. If one can
+        ++ generate equations of lower order by purely algebraic operations,
+        ++ then \spad{simplify} should do this.
+
+      simpOne : % -> %
+        ++ \spad{simpOne(f)} removes unnecessary coefficients and
+        ++ exponents, denominators etc.
+
+      simpMod : (L %, L %) -> L %
+        ++ \spad{simpMod(sys1, sys2)} simplifies the system \spad{sys1}
+        ++ modulo the system \spad{sys2}.
+
+      simpMod : (L %, SEM, L %) -> SIMPREC
+        ++ \spad{simpMod(sys1, sys2)} simplifies the system \spad{sys1}
+        ++ modulo the system \spad{sys2}. Returns the same information as
+        ++ \spad{simplify}.
+
+      reduceMod : (L %, L %) -> L %
+        ++ \spad{reduceMod(sys1, sys2)} reduces the system \spad{sys1} modulo
+        ++ the system \spad{sys2}.
+
+      autoReduce : L % -> L %
+        ++ \spad{autoReduce(sys)} tries to simplify a system by solving each
+        ++ equation for its leading term and substituting it into the other
+        ++ equations.
+
+    add
+
+      -- Default section.
+      -- The following functions are already implemented here:
+      --   const?, order, class, leadingDer, gcd, retractIfCan
+      --   dSubst, simpOne, simpMod, reduceMod, autoReduce
+      --   jacobiMatrix, extractSymbol
+      --   formalDiff, formalDiff2
+      -- The following procedures must be implemented in the domain
+      --   coerce
+      --   basic arithmetics, differentiate
+      --   jetVariables, subst, solveFor
+      -- The default version of simplify can treat only simple systems and
+      -- should be overwritten by a domain specific implementation. The
+      -- default implementation of gcd always returns 1!
+
+      import from List(%)
+      import from List(JB)
+      import from List(List(JB))
+
+      -- --------- --
+      -- JBC Stuff --
+      -- --------- --
+
+      nn : PI := numIndVar()$JB
+        -- global constant
+
+      X(i : PI) : % == X(i)$JB ::%
+      U(i : PI) : % == U(i)$JB ::%
+      P(i : PI, l : L NNI) : % == P(i, l)$JB ::%
+      X() : % == X()$JB ::%
+      U() : % == U()$JB ::%
+      P(l : L NNI) : % == P(l)$JB ::%
+      P(i : PI, l : NNI) : % == P(i, l)$JB ::%
+      P(i : NNI) : % == P(i)$JB ::%
+
+      setNotation(s : Sy) : Void == setNotation(s)$JB
+      getNotation() : Sy == getNotation()$JB
+
+      numIndVar() : PI == numIndVar()$JB
+      numDepVar() : PI == numDepVar()$JB
+
+      -- ---------------- --
+      -- Simple Functions --
+      -- ---------------- --
+
+      gcd(f1 : %, f2 : %) : % == 1
+
+      retractIfCan(f : %) : Union(JB, "failed") ==
+          JV := jetVariables f
+          one?(#JV) =>
+              jv := first JV
+              one? differentiate(f, jv) => jv
+              "failed"
+          "failed"
+
+      const?(Phi : %) : B ==
+          JV := jetVariables Phi
+          empty? JV => true
+          #JV > 1 => false
+          first(JV) = 1
+
+      order(Phi : %) : NNI == order leadingDer Phi
+
+      class(Phi : %) : NNI == class leadingDer Phi
+
+      leadingDer(fun : %) : JB ==
+          JV := jetVariables fun
+          empty? JV => 1
+          first JV
+
+      freeOf?(fun : %, jv : JB) : B == not member?(jv, jetVariables fun)
+
+      characteristic() : NNI == 0
+
+      dSubst(f : %, jv : JB, exp : %) : % ==
+          -- Performs for every derivative of jv the corresponding
+          -- substitution using subst.
+          of : % := 0
+          nf : % := f
+          while nf ~= of repeat
+              of := nf
+              JVar : L JB := jetVariables of
+              for jvar in JVar  until jvar < jv repeat
+                  d := derivativeOf?(jvar, jv)
+                  if not empty? d then
+                      dexp := formalDiff(exp, d)
+                      nf := subst(nf, jvar, dexp)
+          nf
+
+      -- --------- --
+      -- Dimension --
+      -- --------- --
+
+      -- The default implementation assumes that sys is simplified and
+      -- that simplified systems contain only functionally independent
+      -- equations. There are no checks whether the equations are of
+      -- correct order in orderDim.
+
+      dimension(sys : L %, jm : SEM, q : NNI) : NNI ==
+          (dimJ(q)$JB - #sys)::NNI
+
+      orderDim(sys : L %, jm : SEM, q : NNI) : NNI ==
+          (dimS(q)$JB - #sys)::NNI
+
+      -- --------------- --
+      -- Jacobi Matrices --
+      -- --------------- --
+
+      noChecks? : B := (% has lazyRepresentation)
+          -- Global constant. Attribute must be set by domain implementation.
+
+      jacobiMatrix(funs : L %) : SEM ==
+          jacobiMatrix(funs, [jetVariables(fun) for fun in funs])
+
+      jacobiMatrix(funs : L %, varlist : L L JB) : SEM  ==
+          -- Computes Jacobi matrix wrt the jet variables in varlist.
+          -- Each element of varlist contains the variables for one function.
+          -- It is assumed that these lists are sorted.
+          -- Returns matrix with sorted columns.
+          JvList := first varlist
+          for vars in rest varlist repeat
+              JvList := removeDuplicates! merge(">", JvList, vars)
+          JM : SEM := new(JvList, #funs)
+          for f in funs  for vars in varlist  for i in 1.. repeat
+              ents : L % := empty
+              inds : L JB := empty
+              for jv in vars repeat
+                  df := differentiate(f, jv)
+                  if noChecks? or not zero? df then
+                      ents := cons(df, ents)
+                      inds := cons(jv, inds)
+              setRow!(JM, i, reverse! inds, reverse! ents)
+          JM
+
+      symbol(funs : L %) : SEM ==
+          JVL : L L JB := [jetVariables fun  for fun in funs]
+          ol : L NNI := [order(first jl)$JB  for jl in JVL]
+          ord := reduce(max, ol, 0)
+          oJV : L L JB := empty
+          allJV : L JB := empty
+          for jl in JVL repeat
+              ojl : L JB := empty
+              while not(empty?(jl) or order(first jl)$JB < ord) repeat
+                  ojl := cons(first jl, ojl)
+                  jl := rest jl
+              ojl := reverse! ojl
+              oJV := cons(ojl, oJV)
+              allJV := removeDuplicates! merge(">", allJV, ojl)
+          oJV := reverse! oJV
+
+          symb : SEM := new(allJV, #funs)
+          for f in funs  for ojl in oJV  for i in 1.. repeat
+              ents : L % := empty
+              inds : L JB := empty
+              for jv in ojl repeat
+                  df := differentiate(f, jv)
+                  if noChecks? or not zero? df then
+                      ents := cons(df, ents)
+                      inds := cons(jv, inds)
+              setRow!(symb, i, reverse! inds, reverse! ents)
+          symb
+
+      extractSymbol(jm : SEM) : SEM ==
+          inds := allIndices jm
+          o := order first inds
+          inds := rest inds
+          while not(empty? inds) and (order(first inds) = o) repeat
+              inds := rest inds
+          empty? inds => jm
+          horizSplit(jm, first inds).Left
+
+      -- ---------------------- --
+      -- Formal Differentiation --
+      -- ---------------------- --
+
+      formalDiff(Sys : L %, i : PI) : L % ==
+          JM := jacobiMatrix Sys
+          formalDiff2(Sys, i, JM).DSys
+
+      formalDiff(Eq : %, i : PI) : % ==
+          first formalDiff([Eq], i)
+
+      formalDiff(f : %, mu : L NNI) : % ==
+          JV : L JB := jetVariables f
+          df := f
+          for i in 1..nn  for j in mu repeat
+              for k in 1..j repeat
+                  jm := jacobiMatrix([df], [JV])
+                  tmp := formalDiff2(df, i::PI, jm)
+                  df := tmp.DPhi
+                  JV := tmp.JVars
+          df
+
+      formalDiff2(Sys : L %, i : PI, JM : SEM
+                         ) : Record(DSys : L %, JVars : L L JB) ==
+          -- Formal differentiation with given Jacobi matrix.
+          -- Returns list of effectively occurring jet variables for
+          -- each function.
+          inds := allIndices JM
+          empty? inds => [[0 for eq in Sys], [empty for eq in Sys]]
+          LRes : L % := empty
+          LJV : L L JB := empty
+
+          -- compute formal derivative for each function
+          for l in 1..nrows(JM) repeat
+              r := row(JM, l)
+              res : % := 0
+              JV : L JB := empty
+              for df in reverse r.Entries  for jv in reverse r.Indices repeat
+                  if noChecks? or not zero? df then
+                      djv := differentiate(jv, i)
+                      if djv case "0" then
+                         JV := cons(jv, JV)
+                      else if djv = 1 then
+                          res := res + df
+                          JV := cons(jv, JV)
+                      else
+                          res := res + df*(djv::JB::%)
+                          JV := cons(djv, cons(jv, JV))
+              LRes := cons(res, LRes)
+              JV := sort!(">", removeDuplicates! JV)
+              LJV := cons(JV, LJV)
+
+          [reverse! LRes, reverse! LJV]
+
+      formalDiff2(Eq : %, i : PI, JM : SEM) : Record(DPhi : %, JVars : L JB) ==
+          tmp := formalDiff2([Eq], i, JM)
+          [first tmp.DSys, first tmp.JVars]
+
+      -- -------------- --
+      -- Simplification --
+      -- -------------- --
+
+      -- The simplification routines can be divided into two classes:
+      -- The first one contains reduceMod and autoReduce. They use dSubst
+      -- and hence try to reduce the order of the equations. The second
+      -- class contains simplify, simpOne and simpMod. They do not use dSubst.
+      -- Thus they can also be applied in a geometric framework, where
+      -- derivatives are considered as independent variables.
+
+      greater(r1 : LDREC, r2 : LDREC) : B == (r1.LD > r2.LD)
+          -- local function for sorting purposes
+
+      sortLD(sys : L %) : L % ==
+          sl : L LDREC := [[leadingDer(f), false, [1], f]  for f in sys]
+          sl := sort!(greater, sl)
+          [l.Fun  for l in sl]
+
+      simpLD(l : L LDREC) : L LDREC ==
+          -- assumes l is sorted using greater
+          #l < 2 => l
+          cur := first l
+          l := rest l
+          cur.LD ~= first(l).LD => cons(cur, simpLD l)
+          eqLD : L LDREC := [cur]
+          while not(empty? l) and (cur.LD = (fl : LDREC := first l).LD) repeat
+              fl.Fake? => error errmsg
+              eqLD := cons(fl, eqLD)
+              l := rest l
+
+          -- try to solve one equation and substitute in the other ones
+          solvable? : B := false
+          for eq in eqLD  until solvable? repeat
+              s := solveFor(eq.Fun, cur.LD)
+              solvable? := (s case %)
+              seq := eq
+          newL : L LDREC := empty
+          if solvable? then
+              for eq in eqLD | eq ~= seq repeat
+                  neweq := simpOne subst(eq.Fun, cur.LD, s::%)
+                  if not zero? neweq then
+                      newld := leadingDer neweq
+                      newL := merge(greater, newL, _
+                        [[newld, false, append(eq.Dep, seq.Dep), neweq]$LDREC])
+
+          else
+          -- try to analyse jet variables
+              seq := first eqLD
+              sj := jetVariables(seq.Fun)
+              minlen := #sj
+              lJV : L L JB := [sj]
+              for eq in rest eqLD repeat
+                  JV := jetVariables(eq.Fun)
+                  len := #JV
+                  lJV := cons(JV, lJV)
+                  if len < minlen then
+                      seq := eq
+                      sj := JV
+                      minlen := len
+              lJV := reverse! lJV
+              if one? minlen then
+                  for eq in eqLD  for JV in lJV  | eq ~= seq repeat
+                      one?(#JV) => error errmsg
+                      newL := merge(greater, newL, _
+                                    [[second(JV), true, eq.Dep, eq.Fun]$LDREC])
+              else
+                  sjv := second sj
+                  for eq in eqLD  for JV in lJV  | eq ~= seq repeat
+                      newld := max(second(JV), sjv)
+                      newL := merge(greater, newL,
+                                    [[newld, true, eq.Dep, eq.Fun]$LDREC])
+
+          cons(seq, simpLD merge(greater, l, newL))
+
+      simplify(sys : L %, jm : SEM) : SIMPREC ==
+          -- Tries to get as far as possible by analysing leading derivatives
+          -- Will give an error if there are dependent equations in sys
+          newSys : L % := empty
+          for eq in sys  for i in 1.. repeat
+              neq := simpOne eq
+              if neq ~= eq then
+                  jmi := jacobiMatrix([neq])
+                  setRow!(jm, i, row(jmi, 1))
+              newSys := cons(neq, newSys)
+          newSys := reverse! newSys
+          sl : L LDREC := [[first(row(jm, i).Indices), false, [i::NNI], f] _
+                              for f in newSys  for i in 1..]
+          sl := simpLD sort!(greater, sl)
+          resSys := [l.Fun  for l in sl]
+          resDep := [l.Dep  for l in sl]
+
+          -- adjust Jacobi matrix
+          inds := allIndices jm
+          resJM : SEM := new(inds, #sl)
+          for eq in resSys  for dep in resDep  for i in 1.. repeat
+              if one?(#dep) then
+                  r := row(jm, first(dep))
+              else
+                  tmp := jacobiMatrix([eq], [inds])
+                  r := row(tmp, 1)
+              setRow!(resJM, i, r)
+
+          [resSys, resJM, resDep]
+
+      simpOne(f : %) : % == numerator f
+
+      -- The default implementations of simpMod and reduceMod are almost
+      -- identical. The only difference lies in the use of subst and dSubst,
+      -- respectively.
+
+      simpMod(sys1 : L %, sys2 : L %) : L % ==
+          -- Default implementation uses only the equation of sys2 which can be
+          -- solved for their leading derivatives. It further assumes that sys2
+          -- is already simplified and reduced.
+          empty?(sys1) or empty?(sys2) => sys1
+          LD : L JB := empty
+          LS : L % := empty
+
+          for eq2 in sys2 repeat
+              ld := leadingDer eq2
+              ls := solveFor(eq2, ld)
+              if ls case % then
+                  i : NNI := 1
+                  for jv in LD while jv > ld repeat
+                      i := i + 1
+                  LD := insert(ld, LD, i)
+                  LS := insert(ls::%, LS, i)
+
+          newSys : L % := map(simpOne@(% -> %), sys1)$L(%)
+          empty? LD => newSys
+          res : L % := empty
+          for eq1 in newSys repeat
+              neq := eq1
+              LD1 : L JB := LD
+              LS1 : L % := LS
+              until empty? LD1 repeat
+                  ld := leadingDer neq
+                  while not empty? LD1 and first(LD1) > ld repeat
+                      LD1 := rest LD1
+                      LS1 := rest LS1
+                  if not empty? LD1 then
+                      neq := subst(neq, first LD1, first LS1)
+                      LD1 := rest LD1
+                      LS1 := rest LS1
+              if neq ~= eq1 then
+                  neq := simpOne neq
+              if not zero? neq then
+                  res := cons(neq, res)
+
+          sortLD reverse! res
+
+      simpMod(sys1 : L %, jm : SEM, sys2 : L %) : SIMPREC ==
+          -- Default implementation uses only the equation of sys2 which
+          -- can be solved for their leading derivatives.  It further
+          -- assumes that sys2 is already simplified and reduced.
+          empty?(sys1) or empty?(sys2) =>
+              [sys1, jm, [[i::NNI] for i in 1..#sys1]]
+          --print("simpMod")$OUT
+          osys := sys1
+          LD : L JB := empty
+          LS : L % := empty
+
+          for eq2 in sys2 repeat
+              ld := leadingDer eq2
+              ls := solveFor(eq2, ld)
+              if ls case % then
+                  i : NNI := 1
+                  for jv in LD while jv > ld repeat
+                      i := i + 1
+                  LD := insert(ld, LD, i)
+                  LS := insert(ls::%, LS, i)
+
+          newSys : L % := map(simpOne, sys1)
+          res : L % := empty
+          for eq1 in newSys repeat
+              neq := eq1
+              LD1 : L JB := LD
+              LS1 : L % := LS
+              until empty? LD1 repeat
+                  ld := leadingDer neq
+                  while not empty? LD1 and first(LD1) > ld repeat
+                      LD1 := rest LD1
+                      LS1 := rest LS1
+                  if not empty? LD1 then
+                      neq := subst(neq, first LD1, first LS1)
+                      LD1 := rest LD1
+                      LS1 := rest LS1
+              if neq ~= eq1 then
+                  neq := simpOne neq
+              res := cons(neq, res)
+
+          resSys : L % := empty
+          resJM := jm
+          for neq in res  for oeq in reverse! osys  for i in #res..1 by -1 repeat
+              if neq ~= oeq then
+                  njm := jacobiMatrix([neq])
+                  setRow!(resJM, i, row(njm, 1))
+              resSys := cons(neq, resSys)
+          --print("END simpMod")$OUT
+          [resSys, resJM, [[i::NNI] for i in 1..#resSys]]
+
+      reduceMod(sys1 : L %, sys2 : L %) : L % ==
+          -- Default implementation uses only the equation of sys2 which can
+          -- be solved for their leading derivatives. It further assumes that
+          -- sys2 is already simplified and reduced.
+          empty?(sys1) or empty?(sys2) => sys1
+          --print("reduceMod")$OUT
+          LD : L JB := empty
+          LS : L % := empty
+
+          for eq2 in sys2 repeat
+              ld := leadingDer eq2
+              ls := solveFor(eq2, ld)
+              if ls case % then
+                  i : NNI := 1
+                  for jv in LD while jv > ld repeat
+                      i := i + 1
+                  LD := insert(ld, LD, i)
+                  LS := insert(ls::%, LS, i)
+
+          newSys := map(simpOne, sys1)
+          empty? LD => newSys
+          res : L % := empty
+          for eq1 in newSys repeat
+              eq := eq1
+              oeq : % := 0
+              neq : % := eq1
+
+              while neq ~= oeq repeat
+                  oeq := neq
+                  LD1 : L JB := LD
+                  LS1 : L % := LS
+                  until empty? LD1 repeat
+                      ld := leadingDer neq
+                      while not(empty? LD1) and first(LD1) > ld repeat
+                          LD1 := rest LD1
+                          LS1 := rest LS1
+                      if not empty? LD1 then
+                          neq := dSubst(neq, first LD1, first LS1)
+                          LD1 := rest LD1
+                          LS1 := rest LS1
+              if not zero? neq then
+                  if neq = eq then
+                      res := cons(neq, res)
+                  else
+                      res := cons(simpOne neq, res)
+
+          --print("END reduceMod")$OUT
+          sortLD reverse! res
+
+      autoReduce(sys : L %) : L % ==
+          -- Equations which can not be solved for their leading derivatives
+          -- are kept in a special list. May be they become solvable after
+          -- some other simplifications ...
+          empty? sys => empty
+          one?(#sys) => sys
+          --print("autoReduce")$OUT
+
+          nl : L % := map(simpOne, sys)   -- new equations
+          nsl : L % := empty               -- unsolved equations
+          sl : L LDREC := empty          -- solved equations
+          osl := sl                            -- old value of sl
+
+          while not empty? nl repeat
+
+              -- try to solve new equations
+              for eq in nl repeat
+                  ld := leadingDer eq
+                  su := solveFor(eq, ld)
+                  if su case "failed" then
+                      nsl := cons(eq, nsl)
+                  else
+                      sl := merge!(greater, sl, [[ld, true, empty, su::%]])
+              nl := empty
+
+              -- reduce solved equations
+              osl := empty
+              sl := reverse! sl          -- now ordered smallest ld first
+              while not empty? sl repeat
+                  sub := first sl
+                  osl := cons(sub, osl)
+                  sl := rest sl
+
+                  -- check for integrability conditions
+                  while not(empty? sl) repeat
+                      rec := first sl
+                      rec.LD > sub.LD => break
+                      sl := rest sl
+                      ic := simpOne(rec.Fun - sub.Fun)
+                      if not zero? ic then
+                          nl := cons(ic, nl)
+
+                  tmp : L LDREC := empty
+                  for rec in sl repeat
+                      d := derivativeOf?(rec.LD , sub.LD)
+                      if empty? d then
+                          seq := dSubst(rec.Fun, sub.LD, sub.Fun)
+                          tmp := cons([rec.LD, true, empty, seq], tmp)
+                      else
+                          ic := dSubst(formalDiff(sub.Fun, d) - _
+                                       rec.Fun, sub.LD, sub.Fun)
+                          ic := simpOne ic
+                          if not zero? ic then
+                              nl := cons(ic, nl)
+                  sl := reverse! tmp
+              sl := osl                      -- now ordered largest first
+
+              -- reduce unsolved equations
+              ol : L % := empty
+              for eq in nsl repeat
+                  seq := eq
+                  for sub in sl repeat
+                      seq := dSubst(seq, sub.LD, sub.Fun)
+                  if seq = eq then
+                      ol := cons(eq, ol)
+                  else
+                      if not zero? seq then
+                          nl := cons(simpOne seq, nl)
+              nsl := ol
+
+              -- reduce new equations
+              ol : L % := empty
+              for eq in nl repeat
+                  seq := eq
+                  for sub in sl repeat
+                      seq := dSubst(seq, sub.LD, sub.Fun)
+                  if not zero? seq then
+                      ol := cons(simpOne seq, ol)
+              nl := ol
+
+          -- recombine lists
+          tmp1 := [[leadingDer(eq), true, empty, eq]  for eq in nsl]
+          tmp2 := [[rec.LD, true, empty, simpOne(rec.LD::% - rec.Fun)] _
+                        for rec in sl]
+          tmp1 := sort!(greater, concat!(tmp1, tmp2))
+          --print("END autoReduce")$OUT
+          [rec.Fun  for rec in tmp1]
+

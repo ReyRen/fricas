@@ -1,0 +1,677 @@
+)abbrev package IMODHP InnerModularHermitePade
+++ Description: This package solves Hermite-Pade interpolation problem
+++  over ring of integer polynomials.  We use reduction modulo primes
+++  and modular reconstruction to reduce problem to polynomials modulo
+++  $Z_p$.  Then we use evaluation and Lagrange interpolation to
+++  reduce problem to solving over $Z_p$.
+
+VI ==> Vector Integer
+PA ==> U32Vector
+PPA ==> PrimitiveArray PA
+VPA ==> Vector PA
+MP ==> Polynomial Integer
+FrP ==> Record(numer : MP, denom : MP)
+PMP1 ==> PrimitiveArray FrP
+PMP ==> PrimitiveArray Fraction MP
+PAI ==> PrimitiveArray Integer
+MPA ==> TwoDimensionalArray PA
+NBR ==> Record(basis : MPA, defects : VI, cinds : VI)
+
+PBR ==> Record(defects : VI, cinds : VI, _
+               rowlen : Integer, offsetdata : VI, _
+               expdata : SortedExponentVector, _
+               coeffdata : PA)
+
+PBRI ==> Record(defects : VI, cinds : VI, _
+               rowlen : Integer, offsetdata : VI, _
+               expdata : SortedExponentVector, _
+               coeffdata : PAI)
+
+PDR ==> Record(nvars : Integer, offsetdata : VI, _
+               expdata : SortedExponentVector, _
+               coeffdata : PA)
+
+-- part of solver state shared between recursion levels
+PSS1 ==> Record(prime : Integer, eval1coeffbuf : PA,
+                 eval1expbuf : SortedExponentVector)
+PSS ==> Record(degree_bounds : VI, pss_sigma : NonNegativeInteger, _
+               points : PA, pss_qvar : Symbol, pss_qval : Integer, _
+               pss_kind : Symbol,  oldva : VI, oldciv : VI,
+               pss_m : Integer, sol_cnt : Integer, pss1 : PSS1)
+
+GEN ==> (List(U32Vector), Integer, Integer) -> Vector(U32Vector)
+
+InnerModularHermitePade : with
+    do_modular_solve : (VPA, Vector Integer, NonNegativeInteger, _
+                          PA, Integer, Symbol) -> Union(NBR, "no_solution")
+
+    do_poly_integer : (List(Symbol), List(PMP), Vector(Integer), _
+                         NonNegativeInteger, PA, Symbol, Symbol, GEN) _
+                 -> Union(PBRI, "no_solution")
+
+    merge_exponents : (Integer, VI, SortedExponentVector, VI, _
+                        SortedExponentVector) -> List List Integer
+
+    merge2 : (Integer, List Integer, List Integer, VI, _
+              SortedExponentVector, VI, SortedExponentVector) _
+              -> Record(offsetdata : VI, expdata : SortedExponentVector)
+
+ == add
+
+    MS ==> NaiveBeckermannLabahnModular
+    VMR ==> VectorModularReconstructor
+    VIR ==> VectorIntegerReconstructor
+    PEVALUT ==> PolynomialEvaluationUtilities
+
+    Qmul ==> QSMULMOD32$Lisp
+    Qmuladd ==> QSMULADDMOD64_32$Lisp
+
+    import from U32VectorPolynomialOperations
+    import from OutputForm
+
+    eval1s(gvl : List(PMP1), pt : Integer, var : Symbol, _
+           pss : PSS1) : Union(List(PA), "failed") ==
+        p := pss.prime
+        resl := empty()$List(PA)
+        for gv0 in gvl repeat
+            n := #gv0
+            ress := new(n , 0)$PA
+            for j in 0..(n - 1) repeat
+                nlcq := gv0(j)
+                nm := eval1a(nlcq.numer, pt, pss)$PEVALUT
+                dm := eval1a(nlcq.denom, pt, pss)$PEVALUT
+                dm = 0 => return "failed"
+                dms := qconvert(dm)@SingleInteger
+                nlc : Integer :=
+                    Qmul(nm, invmod(dms, qconvert(p)@SingleInteger), p)
+                ress(j) := nlc
+            resl := cons(ress, resl)
+        reverse!(resl)
+
+    eval2s(gvl : List(PMP1), pt : Integer, var : Symbol, _
+           pss : PSS1) : Union(List(PMP1), "failed") ==
+        resl := empty()$List(PMP1)
+        for gv0 in gvl repeat
+            n := #gv0
+            ress := new(n , [0, 1]$FrP)$PMP1
+            for j in 0..(n - 1) repeat
+                nlcq := gv0(j)
+                res1 := eval1(nlcq, var, pt, pss)$PEVALUT
+                res1 case "failed" => return "failed"
+                ress(j) := res1::FrP
+            resl := cons(ress, resl)
+        reverse!(resl)
+
+    eval3s(gvl : List(PMP), p : Integer) : Union(List(PMP1), "failed") ==
+        resl := empty()$List(PMP1)
+        for gv0 in gvl repeat
+            n := #gv0
+            ress := new(n, [0, 1]$FrP)$PMP1
+            for j in 0..(n - 1) repeat
+                nlcq := gv0(j)
+                res1 := modpreduction(nlcq, p)$PEVALUT
+                res1 case "failed" => return "failed"
+                ress(j) := res1::FrP
+            resl := cons(ress, resl)
+        reverse!(resl)
+
+    do_modular_solve0(gv : VPA, ve : Vector Integer, _
+                       sigma : NonNegativeInteger, _
+                       pts : PA, _
+                       prime : Integer, kind : Symbol) : List Any ==
+        kind = 'diffHP or kind = 'qdiffHP =>
+            naiveBeckermannLabahn(gv, ve, sigma, prime)$MS
+        kind = 'shiftHP or kind = 'qshiftHP or kind = 'qmixed =>
+            naiveBeckermannLabahnMultipoint(gv, ve, pts, prime)$MS
+        error "kind must be diffHP, qdiffHP, shiftHP, qshiftHP or qmixed"
+
+    do_modular_solve(gv : VPA, ve : Vector Integer, _
+                       sigma : NonNegativeInteger, _
+                       pts : PA, _
+                       prime : Integer, kind : Symbol) _
+                       : Union(NBR, "no_solution") ==
+        m0 := #ve
+        m1 : NonNegativeInteger := 0
+        for i in 1..m0 repeat
+            if ve(i) >= 0 then
+                m1 := m1 + 1
+        if m1 < m0 then
+            ngv := new(m1, empty()$PA)$VPA
+            nve := new(m1, 0)$VI
+            j : Integer := 1
+            for i in 1..m0 repeat
+                if ve(i) >= 0 then
+                    ngv(j) := gv(i)
+                    nve(j) := ve(i)
+                    j := j + 1
+        else
+            ngv := gv
+            nve := ve
+        blr := do_modular_solve0(ngv, nve, sigma, pts, prime, kind)
+        dva := blr(3)
+        va := retract(dva)$AnyFunctions1(Vector Integer)
+        ok := false
+        m2 := #va
+        for i in 1..m2 repeat
+            ok := ok or va(i) >= 0
+        not(ok) => return "no_solution"
+        dbm := blr(1)
+        bm := retract(dbm)$AnyFunctions1(Vector PA)
+        res := reduceBasis(bm, nve, va, prime)$MS
+        if m1 < m0 then
+            bas := res.basis
+            nr := nrows(bas)
+            nbas := new(nr, m0, empty()$PA)$MPA
+            j := 1
+            for i in 1..m0 repeat
+                if ve(i) >= 0 then
+                    for k in 1..nr repeat
+                        qsetelt!(nbas, k, i, qelt(bas, k, j))
+                    j := j + 1
+            res.basis := nbas
+            for k in 1..nr repeat
+                cindk := (res.cinds)(k)
+                j := 1
+                for i in 1..m0 repeat
+                    if ve(i) >= 0 then
+                        if j = cindk then
+                            (res.cinds)(k) := i
+                            break
+                        j := j + 1
+        res
+
+    compute_blocks(offsets : VI, rowlen : Integer, nsols : Integer) : VI ==
+        block_offsets := new(qcoerce(nsols)@NonNegativeInteger, 0)$VI
+        for i in 1..nsols repeat
+            block_offsets(i) := offsets((i - 1)*rowlen + 1)
+        block_offsets
+
+    merge_exponents(nvars : Integer, offsets : VI, _
+                     exps : SortedExponentVector, noffsets : VI, _
+                     nexps : SortedExponentVector) : _
+              List List Integer ==
+        n := #exps quo nvars
+        m := #nexps quo nvars
+        oc := #offsets
+        -- i0 and j0 count exponents in exps and nexps respectively
+        i0 : Integer := 0
+        j0 : Integer := 0
+        -- ci counts exponents in merged exponent vector
+        ci : Integer := 0
+        -- i = nvars*i0, j = nvars*j
+        i : Integer := 0
+        j : Integer := 0
+        -- limits of polynomials
+        li : Integer := 0
+        lj : Integer := 0
+        -- result lists
+        il : List Integer := []
+        jl : List Integer := []
+        -- kk counts trough polynomials
+        kk : Integer := 1
+        nn := nvars - 1
+        repeat
+            i0i : Integer := 1
+            j0i : Integer := 1
+            ii : Integer := nvars
+            ji : Integer := nvars
+            i0 = li or j0 = lj =>
+                kk := kk + 1
+                if i0 < li then
+                    for jj in i0..(li - 1) repeat
+                        jl := cons(ci, jl)
+                        ci := ci + 1
+                if j0 < lj then
+                    for jj in j0..(lj - 1) repeat
+                        il := cons(ci, il)
+                        ci := ci + 1
+                li = n =>
+                    return [reverse! il, reverse! jl]
+                i0 := li
+                j0 := lj
+                i := i0*nvars
+                j := j0*nvars
+                kk <= oc =>
+                    li := offsets(kk)
+                    lj := noffsets(kk)
+                li := n
+                lj := m
+            for k in 0..nn repeat
+                exps(i + k) ~= nexps(j + k) =>
+                    exps(i + k) > nexps(j + k) =>
+                        il := cons(ci, il)
+                        ii := 0
+                        i0i := 0
+                        break
+                    jl := cons(ci, jl)
+                    ji := 0
+                    j0i := 0
+                    break
+            ci := ci + 1
+            i := i + ii
+            j := j + ji
+            i0 := i0 + i0i
+            j0 := j0 + j0i
+
+    merge2(nvars : Integer, odl : List Integer, ndl : List Integer, _
+           ov1 : VI, exps1 : SortedExponentVector, ov2 : VI, _
+           exps2 : SortedExponentVector) : _
+           Record(offsetdata : VI, expdata : SortedExponentVector) ==
+        n0 := #exps1
+        nn := #odl
+        n1 := (n0 quo nvars) + nn
+        nn1 := n1*nvars
+        nexps := new(nn1 :: NonNegativeInteger, 0)$SortedExponentVector
+        m := #ov2
+        noffsets := new(m, 0)$VI
+        nv1 := nvars - 1
+        i0 : Integer := 0
+        j0 : Integer := 0
+        ci0 : Integer := 0
+        i : Integer := 0
+        j : Integer := 0
+        ci : Integer := 0
+        j00 : Integer :=
+            empty?(ndl) => n1
+            first(ndl)
+        i00 := first(odl)
+        li := ov1(1)
+        lj := ov2(1)
+        kk : Integer := 1
+        for ci0 in 0..(n1 - 1) repeat
+            while i0 = li and j0 = lj repeat
+                noffsets(kk) := ci0
+                kk := kk + 1
+                if kk <= m then
+                    li := ov1(kk)
+                    lj := ov2(kk)
+                else
+                    li := n1
+                    lj := n1
+            if ci0 = j00 then
+                for k in 0..nv1 repeat
+                    nexps(ci + k) := exps1(i + k)
+                ndl := rest ndl
+                j00 :=
+                    empty?(ndl) => n1
+                    first(ndl)
+            else
+                for k in 0..nv1 repeat
+                    nexps(ci + k) := exps2(j + k)
+                j := j + nvars
+                j0 := j0 + 1
+            if ci0 ~= i00 then
+                i := i + nvars
+                i0 := i0 + 1
+            else
+                odl := rest odl
+                i00 :=
+                    empty?(odl) => n1
+                    first(odl)
+            ci := ci + nvars
+        for i in kk..m repeat
+            noffsets(i) := n1
+        [noffsets, nexps]
+
+    check_defects(va : VI, civ : VI, pss : PSS) : _
+         Union("OK", "failed", "all_bad") ==
+        -- Check for bad reduction
+        nsols := pss.sol_cnt
+        is_bad : Boolean := #va > nsols
+        all_bad : Boolean := #va < nsols
+        if #va = nsols then
+            ova  := pss.oldva
+            ociv := pss.oldciv
+            for i in 1..nsols repeat
+                va(i) < ova(i) =>
+                    all_bad := true
+                    break
+                va(i) > ova(i) =>
+                    is_bad := true
+                    break
+                civ(i) < ociv(i) =>
+                    all_bad := true
+                    break
+                civ(i) > ociv(i) =>
+                    is_bad := true
+                    break
+        is_bad => return "failed"
+        all_bad => return "all_bad"
+        return "OK"
+
+    do_poly_modular : (List(Symbol), List(PMP1), PSS, GEN) _
+                 -> Union(PBR, "failed", "no_solution")
+
+    eval_and_solve(pt : Integer, vars : List(Symbol), gvl : List(PMP1),
+                     pss : PSS, gen : GEN) _
+                  : Union(PBR, "failed", "no_solution") ==
+        pss1 := pss.pss1
+        p := pss1.prime
+        nvars := #vars
+        nvars = 1 =>
+            ngv10p := eval1s(gvl, pt, first vars, pss1)
+            ngv10p case "failed" => return "failed"
+            ngv10 := ngv10p::List(PA)
+            ngv2 := gen(ngv10, p, pss.pss_qval)
+            ve := pss.degree_bounds
+            blr := do_modular_solve(ngv2, ve, pss.pss_sigma,
+                                      pss.points, p, pss.pss_kind)
+            blr case "no_solution" => return "no_solution"
+            rblr := blr::NBR
+            bm := rblr.basis
+            va := rblr.defects
+            civ := rblr.cinds
+            nsols := #va
+            r_cnt : Integer := 0
+            m := #ve
+            for j in 1..m repeat r_cnt := r_cnt + ve(j) + 1
+            r_cnt := r_cnt*nsols
+            cv := new(r_cnt :: NonNegativeInteger, 0)$PA
+            ev := new(r_cnt :: NonNegativeInteger, 0)$SortedExponentVector
+            ov := new(nsols*m, 0)$VI
+            k : Integer := 0
+            k1 : Integer := 1
+            for i in 1..nsols repeat
+                for j in 1..m repeat
+                    ov(k1) := k
+                    k1 := k1 + 1
+                    mm := ve(j)
+                    cp := bm(i, j)
+                    for l in 0..mm repeat
+                        cpl := cp(l)
+                        if cpl ~= 0 then
+                            cv(k) := cpl
+                            ev(k) := l
+                            k := k + 1
+            ncv := new(k ::NonNegativeInteger, 0)$PA
+            nev := new(k ::NonNegativeInteger, 0)$SortedExponentVector
+            for i in 0..(k - 1) repeat
+                ncv(i) := cv(i)
+                nev(i) := ev(i)
+            return [va, civ, m, ov, nev, ncv]
+        ngv0p := eval2s(gvl, pt, first vars, pss1)
+        ngv0p case "failed" => return "failed"
+        ngvl := ngv0p::List(PMP1)
+        return do_poly_modular(rest vars, ngvl, pss, gen)
+
+    do_poly_modular(vars : List(Symbol), gvl : List(PMP1), pss : PSS,
+                      gen : GEN) : Union(PBR, "failed", "no_solution") ==
+        lpt : List Integer := []
+        bad_cnt : Integer := 0
+        good_cnt : Integer := 0
+        rstate : VMR
+        exps := empty()$SortedExponentVector
+        offsets := empty()$VI
+        all_bad := true
+        update_points :=
+             pss.pss_kind = 'qshiftHP and pss.pss_qvar = first vars
+        update_qval :=
+             (pss.pss_kind = 'qshiftHP or pss.pss_kind = 'qdiffHP or _
+              pss.pss_kind = 'qmixed) and pss.pss_qvar = first vars
+        p := pss.pss1.prime
+        m := pss.pss_m
+        nvars := #vars
+        nsols : Integer := m + 1
+        repeat
+            -- choose point
+            ok := false
+            for k in 1..100 while not(ok) repeat
+                pt := random(p)
+                member?(pt, lpt) => "iterate"
+                lpt := cons(pt, lpt)
+                ok := true
+            if positiveRemainder((npt := #lpt), 100) = 0 then
+                print(message("Number of evaluation points"))
+                print(npt::OutputForm)
+            not(ok) => error "Run out of evaluation points"
+
+            if update_points then
+                pts := pss.points
+                qn : Integer := 1
+                for k in 0..(pss.pss_sigma - 1) repeat
+                    pts(k) := qn
+                    qn := positiveRemainder(pt*qn, p)
+            if update_qval then
+                pss.pss_qval := pt
+
+            -- eval and solve reduced system
+            pprp := eval_and_solve(pt, vars, gvl, pss, gen)
+            pprp case "no_solution" => return "no_solution"
+            pprp case "failed" =>
+                bad_cnt := bad_cnt + 1
+                bad_cnt > good_cnt + 2 => return "failed"
+                "iterate"
+            ppr := pprp::PBR
+
+            -- check for bad reduction and other loosage
+            va := ppr.defects
+            civ := ppr.cinds
+            nexps := ppr.expdata
+            noffsets := ppr.offsetdata
+            coeffs := ppr.coeffdata
+            chk_ress := check_defects(va, civ, pss)
+            chk_ress case "failed" =>
+                bad_cnt := bad_cnt + 1
+                bad_cnt > good_cnt + 2 => return "failed"
+                "iterate"
+            if chk_ress case "all_bad" then
+                all_bad := true
+            if all_bad then
+                nsols := #va
+                pss.sol_cnt := nsols
+                pss.oldva := va
+                pss.oldciv := civ
+                exps := nexps
+                offsets := noffsets
+                rstate := empty(#coeffs, p)$VMR
+            all_bad := false
+
+            good_cnt := good_cnt + 1
+
+            -- merge exponents
+            dl := merge_exponents(nvars, offsets, exps, noffsets, nexps)
+            odl := dl(1)
+            ndl := dl(2)
+            if odl ~= [] then
+                oer := merge2(nvars, odl, ndl, offsets, exps, _
+                              noffsets, nexps)
+                offsets := oer.offsetdata
+                exps := oer.expdata
+                -- add_slots is wrong in case of change of leading exponent
+                -- add_slots(odl, rstate)
+                ncc := #exps quo nvars
+                rstate := empty(ncc::NonNegativeInteger, p)$VMR
+
+            if ndl ~= [] then
+                -- expand coeffs
+                n0 := #coeffs
+                nn := #ndl
+                n1 := n0 + nn
+                ncoeffs := new(n1, 0)$PA
+                i : Integer := 0
+                jl := first ndl
+                for j in 0..(n1 - 1) repeat
+                    j = jl =>
+                        ncoeffs(j) := 0
+                        ndl := rest ndl
+                        jl :=
+                            empty?(ndl) => n1
+                            first ndl
+                    ncoeffs(j) := coeffs(i)
+                    i := i + 1
+                coeffs := ncoeffs
+
+            -- normalize
+            block_offsets := compute_blocks(offsets, m, nsols)
+            n1 := #coeffs
+            ok := true
+            for i in 1..nsols repeat
+                cnum := civ(i)
+                ofin := m*(i - 1) + cnum
+                ofi := offsets(ofin)
+                nofi :=
+                    i < nsols or cnum < m => offsets(ofin + 1)
+                    n1
+                nofi := nofi - 1
+                nofi < ofi =>
+                    print(civ::OutputForm)
+                    print(offsets::OutputForm)
+                    error "Internal error: corrupted offsets 1"
+                coeffs(nofi) = 0 =>
+                    ok := false
+                    break
+                invc := invmod(coeffs(nofi), p)
+                lo := block_offsets(i)
+                hi :=
+                    i < nsols => block_offsets(i + 1)
+                    n1
+                for j in lo..(hi - 1) repeat
+                    coeffs(j) := Qmul(coeffs(j), invc, p)
+            not(ok) => "iterate"
+            chinese_update(coeffs, pt, rstate)$VMR
+
+            -- try reconstruction
+            pp := reconstruct(rstate, nvars, block_offsets, _
+                              offsets, exps)$VMR
+            pp case "failed" => "iterate"
+            -- if succesful return
+            rr := pp::PDR
+            return [va, civ, m, rr.offsetdata, _
+                    rr.expdata, rr.coeffdata]
+
+    do_poly_integer0(vars : List(Symbol), gvl : List(PMP), pss : PSS,
+                       gen : GEN)  : Union(PBRI, "no_solution") ==
+        lp : List Integer := []
+        rstate : VIR
+        exps := empty()$SortedExponentVector
+        offsets := empty()$VI
+        all_bad := true
+        pss1 := pss.pss1
+        p : Integer := 16
+        m := pss.pss_m
+        nvars := #vars
+        nsols : Integer := m + 1
+        repeat
+            -- choose point
+            ok := false
+            for k in 1..100 while not(ok) repeat
+                p := nextPrime(random(200000) + 200000 _
+                              )$IntegerPrimesPackage(Integer)
+                member?(p, lp) => "iterate"
+                lp := cons(p, lp)
+                ok := true
+            not(ok) => error "Run out of primes"
+            -- print("Using prime"::OutputForm)
+            -- print(p::OutputForm)
+            pss1.prime := p
+
+            -- eval and solve reduced system
+            ngv0p := eval3s(gvl, p)
+            ngv0p case "failed" => "iterate"
+            ngvl := ngv0p::List(PMP1)
+            pprp := do_poly_modular(vars, ngvl, pss, gen)
+
+            pprp case "no_solution" => return "no_solution"
+            pprp case "failed" => "iterate"
+            ppr := pprp::PBR
+
+            -- check for bad reduction and other loosage
+            va := ppr.defects
+            civ := ppr.cinds
+            nexps := ppr.expdata
+            noffsets := ppr.offsetdata
+            coeffs := ppr.coeffdata
+            chk_ress := check_defects(va, civ, pss)
+            chk_ress case "failed" => "iterate"
+            if chk_ress case "all_bad" then
+                all_bad := true
+            if all_bad then
+                nsols := #va
+                pss.sol_cnt := nsols
+                pss.oldva := va
+                pss.oldciv := civ
+                exps := nexps
+                offsets := noffsets
+                rstate := empty(#coeffs)$VIR
+            all_bad := false
+
+            -- merge exponents
+            dl := merge_exponents(nvars + 1, offsets, exps, noffsets, nexps)
+            odl := dl(1)
+            ndl := dl(2)
+            if odl ~= [] then
+                oer := merge2(nvars + 1, odl, ndl, offsets, exps, _
+                              noffsets, nexps)
+                offsets := oer.offsetdata
+                exps := oer.expdata
+                -- add_slots is wrong in case of change of leading exponent
+                -- add_slots(odl, rstate)
+                ncc := #exps quo (nvars + 1)
+                -- print("resetting rstate"::OutputForm)
+                rstate := empty(ncc::NonNegativeInteger)$VIR
+
+            if ndl ~= [] then
+                -- expand coeffs
+                n0 := #coeffs
+                nn := #ndl
+                n1 := n0 + nn
+                ncoeffs := new(n1, 0)$PA
+                i : Integer := 0
+                jl := first ndl
+                for j in 0..(n1 - 1) repeat
+                    j = jl =>
+                        ncoeffs(j) := 0
+                        ndl := rest ndl
+                        jl :=
+                            empty?(ndl) => n1
+                            first ndl
+                    ncoeffs(j) := coeffs(i)
+                    i := i + 1
+                coeffs := ncoeffs
+
+            -- normalize
+            block_offsets := compute_blocks(offsets, m, nsols)
+            n1 := #coeffs
+            ok := true
+            for i in 1..nsols repeat
+                cnum := civ(i)
+                ofin := m*(i - 1) + cnum
+                ofi := offsets(ofin)
+                nofi :=
+                    i < nsols or cnum < m => offsets(ofin + 1)
+                    n1
+                nofi := nofi - 1
+                nofi < ofi =>
+                    print(civ::OutputForm)
+                    print(offsets::OutputForm)
+                    error "Internal error: corrupted offsets"
+                coeffs(nofi) = 0 =>
+                    ok := false
+                    break
+                invc := invmod(coeffs(nofi), p)
+                lo := block_offsets(i)
+                hi :=
+                    i < nsols => block_offsets(i + 1)
+                    n1
+                for j in lo..(hi - 1) repeat
+                    coeffs(j) := Qmul(coeffs(j), invc, p)
+            not(ok) => "iterate"
+            chinese_update(coeffs, p, rstate)$VIR
+
+            -- try reconstruction
+            pp := reconstruct(rstate, block_offsets)$VIR
+            pp case "failed" => "iterate"
+            -- if succesful return
+            return [va, civ, m, offsets, _
+                    exps, pp::PAI]
+
+    do_poly_integer(vars : List Symbol, gvl : List(PMP),
+                      ve : Vector Integer,
+                      sigma : NonNegativeInteger, pts : PA, kind : Symbol,
+                      qvar : Symbol, gen : GEN) : Union(PBRI, "no_solution") ==
+        pss1 := [0, new(10, 0)$PA, new(10, 0)$SortedExponentVector]$PSS1
+        pss := [ve, sigma, pts, qvar, 0, kind, empty()$VI, _
+                empty()$VI, #ve, #ve + 1, pss1]$PSS
+        return do_poly_integer0(vars, gvl, pss, gen)
+
+

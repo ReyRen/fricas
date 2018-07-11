@@ -1,0 +1,73 @@
+3870                (|StreamExponentialSeriesOperations| |Coef|)
+|package|
+(((|StreamExponentialSeriesOperations| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE * ((|Stream| |#1|) (|Stream| |#1|) (|Stream| |#1|)))
+   (SIGNATURE |deriv| ((|Stream| |#1|) (|Stream| |#1|)))
+   (SIGNATURE |integrate| ((|Stream| |#1|) |#1| (|Stream| |#1|)))
+   (SIGNATURE |lazyIntegrate|
+    ((|Stream| |#1|) |#1| (|Mapping| (|Stream| |#1|))))
+   (SIGNATURE |exp0| ((|Stream| |#1|) (|Stream| |#1|)))
+   (SIGNATURE |log1| ((|Stream| |#1|) (|Stream| |#1|))))
+  (|CommutativeRing|))
+ (T |StreamExponentialSeriesOperations|))
+(CATEGORY |package|
+ (SIGNATURE * ((|Stream| |#1|) (|Stream| |#1|) (|Stream| |#1|)))
+ (SIGNATURE |deriv| ((|Stream| |#1|) (|Stream| |#1|)))
+ (SIGNATURE |integrate| ((|Stream| |#1|) |#1| (|Stream| |#1|)))
+ (SIGNATURE |lazyIntegrate| ((|Stream| |#1|) |#1| (|Mapping| (|Stream| |#1|))))
+ (SIGNATURE |exp0| ((|Stream| |#1|) (|Stream| |#1|)))
+ (SIGNATURE |log1| ((|Stream| |#1|) (|Stream| |#1|))))
+"/git/fricas/src/algebra/STEXPS.spad"
+((|log1| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Stream| *3)) (|ofCategory| *3 (|CommutativeRing|))
+       (|isDomain| *1 (|StreamExponentialSeriesOperations| *3))))
+ (|exp0| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Stream| *3)) (|ofCategory| *3 (|CommutativeRing|))
+       (|isDomain| *1 (|StreamExponentialSeriesOperations| *3))))
+ (|lazyIntegrate| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Mapping| (|Stream| *3))) (|isDomain| *2 (|Stream| *3))
+       (|isDomain| *1 (|StreamExponentialSeriesOperations| *3))
+       (|ofCategory| *3 (|CommutativeRing|))))
+ (|integrate| (*1 *2 *3 *2)
+  (AND (|isDomain| *2 (|Stream| *3)) (|ofCategory| *3 (|CommutativeRing|))
+       (|isDomain| *1 (|StreamExponentialSeriesOperations| *3))))
+ (|deriv| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Stream| *3)) (|ofCategory| *3 (|CommutativeRing|))
+       (|isDomain| *1 (|StreamExponentialSeriesOperations| *3))))
+ (* (*1 *2 *2 *2)
+    (AND (|isDomain| *2 (|Stream| *3)) (|ofCategory| *3 (|CommutativeRing|))
+         (|isDomain| *1 (|StreamExponentialSeriesOperations| *3)))))
+((|log1| (((|Stream| |#1|) (|Stream| |#1|)) 51))
+ (|lazyIntegrate| (((|Stream| |#1|) |#1| (|Mapping| (|Stream| |#1|))) 43))
+ (|integrate| (((|Stream| |#1|) |#1| (|Stream| |#1|)) 41))
+ (|exp0| (((|Stream| |#1|) (|Stream| |#1|)) 48))
+ (|deriv| (((|Stream| |#1|) (|Stream| |#1|)) 40))
+ (* (((|Stream| |#1|) (|Stream| |#1|) (|Stream| |#1|)) 39)))
+STEXPS
+((|constructor|
+  (NIL
+   "StreamExponentialSeriesOperations implements arithmetic of exponential power series,{} where a power series is represented by a stream of its coefficients."))
+ (|log1|
+  (((|Stream| |#1|) (|Stream| |#1|))
+   "\\spad{log1(f)} returns the logarithm of the power series represented by cons(1,{} \\spad{f}),{} \\spadignore{i.e.} assuming that the constant term is 1 and therefore transcendentality is not involved."))
+ (|exp0|
+  (((|Stream| |#1|) (|Stream| |#1|))
+   "\\spad{exp0(f)} returns the exponential of the power series represented by cons(0,{} \\spad{f}),{} \\spadignore{i.e.} assuming zero constant term and therefore transcendentality is not involved."))
+ (|lazyIntegrate|
+  (((|Stream| |#1|) |#1| (|Mapping| (|Stream| |#1|)))
+   "\\spad{lazyIntegrate(c,{} f)} integrates with constant term \\spad{c},{} this is simply the right shift"))
+ (|integrate|
+  (((|Stream| |#1|) |#1| (|Stream| |#1|))
+   "\\spad{integrate(c,{} f)} integrates with constant term \\spad{c},{} this is simply the right shift"))
+ (|deriv|
+  (((|Stream| |#1|) (|Stream| |#1|))
+   "\\spad{deriv(f)} is the derivative,{} which simply coincides with left shift"))
+ (*
+  (((|Stream| |#1|) (|Stream| |#1|) (|Stream| |#1|))
+   "\\spad{a * b} returns the power series (Cauchy) product of \\spad{a} and \\spad{b:} \\spad{[a0,{} a1,{} ...] * [b0,{} b1,{} ...] = [c0,{} c1,{} ...]} where \\spad{ck = sum(i + j = k,{} binomial(k,{} i) * \\spad{ai} * bj)}.")))
+(("documentation" 0 2416) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2409) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2066) ("modemaps" 0 1027) ("sourceFile" 0 989)
+ ("constructorCategory" 0 596) ("constructorModemap" 0 75)
+ ("constructorKind" 0 65) ("constructorForm" 0 20))

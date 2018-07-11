@@ -1,0 +1,33 @@
+)abbrev package TENSPO2 TensorPowerFunctions2
+++ Author: Franz Lehner lehner@finanz.math.tugraz.at
+++ Date Created: 2009
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   linear extensions of maps on the basis
+TensorPowerFunctions2(n : NonNegativeInteger, R : CommutativeRing,
+                      B : OrderedSet, M1 : FreeModuleCategory(R, B),
+                      M2 : Module(R)) : public == private where
+    TERM1 ==> Record(k : S, c : R)
+    M1xM1 ==> TensorPower(n, R, B, M1)
+    public ==> with
+        linearExtend : (List B->M2, M1xM1)->M2
+        ++ \spad{linearExtend: (f, x)} returns the linear extension
+        ++ of a multilinear map defined on the basis of M2 applied
+        ++ to a linear combination
+
+    private ==> add
+        f : List B->M2
+        x : M1xM1
+        t : TERM1
+        linearExtend(f, x) ==
+            res : M2 := 0
+            for t in listOfTerms x repeat
+                res := res + (t c)*f(parts t k)
+            res
+
+

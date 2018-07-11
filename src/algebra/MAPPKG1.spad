@@ -1,0 +1,50 @@
+)abbrev package MAPPKG1 MappingPackage1
+++ Author: S.M.Watt and W.H.Burge
+++ Date Created: Jan 87
+++ Basic Operations:
+++ Related Domains:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+++ Description: various Currying operations.
+MappingPackage1(A : SetCategory) : MPcat == MPdef where
+    NNI   ==>  NonNegativeInteger
+
+    MPcat ==  with
+        nullary : A           -> (()->A)
+          ++\spad{nullary A} changes its argument into a
+          ++ nullary function.
+        coerce :  A           -> (()->A)
+          ++\spad{coerce A} changes its argument into a
+          ++ nullary function.
+
+        id :    A -> A
+          ++\spad{id x} is \spad{x}.
+        "^":  (A->A, NNI)  -> (A->A)
+          ++\spad{f^n} is the  function which is the n-fold application
+          ++ of \spad{f}.
+
+        recur : ((NNI, A)->A) -> ((NNI, A)->A)
+          ++\spad{recur(g)} is the function \spad{h} such that
+          ++ \spad{h(n, x)= g(n, g(n-1, ..g(1, x)..))}.
+
+
+    MPdef == add
+
+        import from MappingPackageInternalHacks1(A)
+
+        a : A
+        faa :  A -> A
+        f0a :  ()-> A
+
+        nullary a   == a
+        coerce  a   == nullary a
+
+        -- Composition and recursion.
+        id a        == a
+        g^n        == (a1 : A) : A +-> iter(g, n, a1)
+
+        recur fnaa  == (n1 : NNI, a2 : A) : A +-> recur(fnaa, n1, a2)
+

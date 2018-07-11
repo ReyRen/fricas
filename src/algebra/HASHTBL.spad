@@ -1,0 +1,58 @@
+)abbrev domain HASHTBL HashTable
+++ Author: Stephen M. Watt
+++ Date Created: 1985
+++ Basic Operations:
+++ Related Domains: Table, EqTable, StringTable
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Examples:
+++ References:
+++ Description:
+++   This domain provides access to the underlying Lisp hash tables.
+++   By varying the hashfn parameter, tables suited for different
+++   purposes can be obtained.
+
+HashTable(Key, Entry, hashfn) : Exports == Implementation where
+    Key : SetCategory
+    Entry : Type
+    hashfn : String --  Union("EQ", "UEQUAL", "CVEC", "ID")
+
+    Exports ==> Join(TableAggregate(Key, Entry), finiteAggregate)
+
+    Implementation ==> add
+        Pair ==> Record(key : Key, entry : Entry)
+        Ex   ==> OutputForm
+        failMsg : None := GENSYM()$Lisp
+
+)if false
+
+Originally we were implementing equality here via
+
+\begin{verbatim}
+        t1 = t2              == EQ(t1, t2)$Lisp
+\end{verbatim}
+but this is wrong : we do not want that the internal order of the keys matters.
+Not implementing equality here means that equality comes from
+[[TableAggregate]], which is fine.
+
+)endif
+
+        keys t               == HKEYS(t)$Lisp
+        # t                  == HCOUNT(t)$Lisp
+        setelt!(t, k, e)     == HPUT(t, k, e)$Lisp
+        remove!(k : Key, t : %) ==
+          r : None := HGET2(t, k, failMsg)$Lisp
+          not EQ(r, failMsg)$Lisp =>
+            HREM(t, k)$Lisp
+            r pretend Entry
+          "failed"
+
+        empty() ==
+            MAKE_HASHTABLE(INTERN(hashfn)$Lisp)$Lisp
+
+        search(k : Key, t : %)  ==
+            r : None := HGET2(t, k, failMsg)$Lisp
+            not EQ(r, failMsg)$Lisp => r pretend Entry
+            "failed"
+

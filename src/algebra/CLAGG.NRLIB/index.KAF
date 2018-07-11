@@ -1,0 +1,174 @@
+9864                (|Collection| S)
+|category|
+(((|Collection| |#1|) (|Category|) (|Type|)) (T |Collection|))
+(|Join| (|HomogeneousAggregate| |t#1|)
+        (CATEGORY |domain| (SIGNATURE |construct| ($ (|List| |t#1|)))
+         (SIGNATURE |find|
+          ((|Union| |t#1| "failed") (|Mapping| (|Boolean|) |t#1|) $))
+         (IF (|has| $ (|finiteAggregate|))
+             (PROGN
+              (SIGNATURE |reduce| (|t#1| (|Mapping| |t#1| |t#1| |t#1|) $))
+              (SIGNATURE |reduce|
+               (|t#1| (|Mapping| |t#1| |t#1| |t#1|) $ |t#1|))
+              (SIGNATURE |remove| ($ (|Mapping| (|Boolean|) |t#1|) $))
+              (SIGNATURE |select| ($ (|Mapping| (|Boolean|) |t#1|) $))
+              (IF (|has| |t#1| (|BasicType|))
+                  (PROGN
+                   (SIGNATURE |reduce|
+                    (|t#1| (|Mapping| |t#1| |t#1| |t#1|) $ |t#1| |t#1|))
+                   (SIGNATURE |remove| ($ |t#1| $))
+                   (SIGNATURE |removeDuplicates| ($ $)))
+                  |noBranch|))
+             |noBranch|)
+         (IF (|has| |t#1| (|ConvertibleTo| (|InputForm|)))
+             (ATTRIBUTE (|ConvertibleTo| (|InputForm|)))
+             |noBranch|)))
+"/git/fricas/src/algebra/CLAGG.spad"
+((|construct| (*1 *1 *2)
+              (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|Type|))
+                   (|ofCategory| *1 (|Collection| *3))))
+ (|find| (*1 *2 *3 *1)
+  (|partial| AND (|isDomain| *3 (|Mapping| (|Boolean|) *2))
+   (|ofCategory| *1 (|Collection| *2)) (|ofCategory| *2 (|Type|))))
+ (|reduce| (*1 *2 *3 *1)
+  (AND (|isDomain| *3 (|Mapping| *2 *2 *2))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|Collection| *2)) (|ofCategory| *2 (|Type|))))
+ (|reduce| (*1 *2 *3 *1 *2)
+  (AND (|isDomain| *3 (|Mapping| *2 *2 *2))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|Collection| *2)) (|ofCategory| *2 (|Type|))))
+ (|remove| (*1 *1 *2 *1)
+           (AND (|isDomain| *2 (|Mapping| (|Boolean|) *3))
+                (|ofCategory| *1 (|finiteAggregate|))
+                (|ofCategory| *1 (|Collection| *3))
+                (|ofCategory| *3 (|Type|))))
+ (|select| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|Mapping| (|Boolean|) *3))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|Collection| *3)) (|ofCategory| *3 (|Type|))))
+ (|reduce| (*1 *2 *3 *1 *2 *2)
+  (AND (|isDomain| *3 (|Mapping| *2 *2 *2)) (|ofCategory| *2 (|BasicType|))
+       (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|Collection| *2)) (|ofCategory| *2 (|Type|))))
+ (|remove| (*1 *1 *2 *1)
+           (AND (|ofCategory| *1 (|finiteAggregate|))
+                (|ofCategory| *1 (|Collection| *2)) (|ofCategory| *2 (|Type|))
+                (|ofCategory| *2 (|BasicType|))))
+ (|removeDuplicates| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|finiteAggregate|))
+       (|ofCategory| *1 (|Collection| *2)) (|ofCategory| *2 (|Type|))
+       (|ofCategory| *2 (|BasicType|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|sample| (($) 6 T CONST))
+ (|removeDuplicates|
+  (($ $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove| (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+           (($ |#1| $) 6
+            (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|latex| (((|String|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) 6))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|convert| (((|InputForm|) $) 6 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 6))
+ (|coerce| (((|OutputForm|) $) 6 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+CLAGG
+(((|HomogeneousAggregate| |#1|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |#1| (|ConvertibleTo| (|InputForm|))))
+(((|Aggregate|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|ConvertibleTo| (|InputForm|)) |has| |#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|SetCategory|) |has| |t#1| (|SetCategory|)) ((|Type|) . T))
+((|constructor|
+  (NIL
+   "A collection is a homogeneous aggregate which can be built from a list of members. The operation used to build the aggregate is generically named \\spadfun{construct}. However,{} each collection provides its own special function with the same name as the data type,{} except with an initial lower case letter,{} \\spadignore{e.g.} \\spadfun{list} for \\spadtype{List},{} \\spadfun{flexibleArray} for \\spadtype{FlexibleArray},{} and so on."))
+ (|removeDuplicates|
+  (($ $)
+   "\\spad{removeDuplicates(u)} returns a copy of \\spad{u} with all duplicates removed."))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $)
+   "\\spad{select(p,{} u)} returns a copy of \\spad{u} containing only those elements such \\spad{p(x)} is \\spad{true}. Note: \\spad{select(p,{} u) = [x for x in u | p(x)]}."))
+ (|remove|
+  (($ |#1| $)
+   "\\spad{remove(x,{} u)} returns a copy of \\spad{u} with all elements equal to \\spad{x} removed. Note: \\spad{remove(x,{} u) = [y for y in u | y ~= x]}.")
+  (($ (|Mapping| (|Boolean|) |#1|) $)
+   "\\spad{remove(p,{} u)} returns a copy of \\spad{u} removing all elements \\spad{x} such that \\spad{p(x)} is \\spad{true}. Note: \\spad{remove(p,{} u) = [x for x in u | not p(x)]}."))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|)
+   "\\spad{reduce(f,{} u,{} x,{} z)} reduces the binary operation \\spad{f} across \\spad{u},{} stopping when an \"absorbing element\" \\spad{z} is encountered. As for \\spad{reduce(f,{} u,{} x)},{} \\spad{x} is the identity element of \\spad{f}. Same as \\spad{reduce(f,{} u,{} x)} when \\spad{u} contains no element \\spad{z}. Thus the third argument \\spad{x} is returned when \\spad{u} is empty.")
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|)
+   "\\spad{reduce(f,{} u,{} x)} reduces the binary operation \\spad{f} across \\spad{u},{} where \\spad{x} is the identity operation of \\spad{f}. Same as \\spad{reduce(f,{} u)} if \\spad{u} has 2 or more elements. Returns \\spad{f(y,{} x)} if \\spad{u} has one element \\spad{y}. Returns \\spad{x} if \\spad{u} is empty. For example,{} \\spad{reduce(+,{} u,{} 0)} returns the sum of the elements of \\spad{u}.")
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $)
+   "\\spad{reduce(f,{} u)} reduces the binary operation \\spad{f} across \\spad{u}. For example,{} if \\spad{u} is \\spad{[x,{} y,{} ...,{} z]} then \\spad{reduce(f,{} u)} returns \\spad{f(..f(f(x,{} y),{} ...),{} z)}. Note: if \\spad{u} has one element \\spad{x},{} \\spad{reduce(f,{} u)} returns \\spad{x}. Error: if \\spad{u} is empty."))
+ (|find|
+  (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $)
+   "\\spad{find(p,{} u)} returns the first \\spad{x} in \\spad{u} such that \\spad{p(x)} is \\spad{true},{} and \"failed\" otherwise."))
+ (|construct|
+  (($ (|List| |#1|))
+   "\\spad{construct([x,{} y,{} ...,{} z])} returns the collection of elements \\spad{x,{} y,{} ...,{} z} ordered as given. Equivalently written as \\spad{[x,{} y,{} ...,{} z]\\$D},{} where \\spad{D} is the domain. \\spad{D} may be omitted for those of type List.")))
+(("documentation" 0 6826) ("ancestors" 0 6241) ("parents" 0 6125)
+ ("abbreviation" 0 6119) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2951) ("modemaps" 0 1221) ("sourceFile" 0 1184)
+ ("constructorCategory" 0 111) ("constructorModemap" 0 48)
+ ("constructorKind" 0 37) ("constructorForm" 0 20))

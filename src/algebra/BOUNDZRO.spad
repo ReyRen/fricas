@@ -1,0 +1,31 @@
+)abbrev package BOUNDZRO BoundIntegerRoots
+++ Author: Manuel Bronstein
+++ Date Created: 11 March 1991
+++ Description:
+++   \spadtype{BoundIntegerRoots} provides functions to
+++   find lower bounds on the integer roots of a polynomial.
+BoundIntegerRoots(F, UP) : Exports == Implementation where
+  F  : Join(Field, RetractableTo Fraction Integer)
+  UP : UnivariatePolynomialCategory F
+
+  Z   ==> Integer
+  Q   ==> Fraction Z
+  K   ==> Kernel F
+  UPQ ==> SparseUnivariatePolynomial Q
+
+  Exports ==> with
+    integerBound : UP -> Z
+      ++ integerBound(p) returns a lower bound on the negative integer
+      ++ roots of p, and 0 if p has no negative integer roots.
+
+  Implementation ==> add
+
+      if F has LinearlyExplicitOver Integer then
+
+          integerBound(p) ==
+              integerBound(p)$PolynomialRationalRoots(F, UP)
+
+      else
+
+          integerBound(p) == error "integerBound: unimplemented"
+

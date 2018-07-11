@@ -1,0 +1,51 @@
+2332                (|PathArrayPackage| R)
+|package|
+(((|PathArrayPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |motzkinPathArray|
+    ((|Stream| (|List| |#1|)) (|Stream| |#1|) (|Stream| |#1|) (|Stream| |#1|)))
+   (SIGNATURE |jacobiPathArray|
+    ((|Stream| (|List| |#1|)) (|Stream| |#1|) (|Stream| |#1|)))
+   (SIGNATURE |bottom| ((|Stream| |#1|) (|Stream| (|List| |#1|)))))
+  (|Ring|))
+ (T |PathArrayPackage|))
+(CATEGORY |package|
+ (SIGNATURE |motzkinPathArray|
+  ((|Stream| (|List| |#1|)) (|Stream| |#1|) (|Stream| |#1|) (|Stream| |#1|)))
+ (SIGNATURE |jacobiPathArray|
+  ((|Stream| (|List| |#1|)) (|Stream| |#1|) (|Stream| |#1|)))
+ (SIGNATURE |bottom| ((|Stream| |#1|) (|Stream| (|List| |#1|)))))
+"/git/fricas/src/algebra/PARRPKG.spad"
+((|bottom| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Stream| (|List| *4))) (|ofCategory| *4 (|Ring|))
+       (|isDomain| *2 (|Stream| *4)) (|isDomain| *1 (|PathArrayPackage| *4))))
+ (|jacobiPathArray| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|Stream| *4)) (|ofCategory| *4 (|Ring|))
+       (|isDomain| *2 (|Stream| (|List| *4)))
+       (|isDomain| *1 (|PathArrayPackage| *4))))
+ (|motzkinPathArray| (*1 *2 *3 *3 *3)
+  (AND (|isDomain| *3 (|Stream| *4)) (|ofCategory| *4 (|Ring|))
+       (|isDomain| *2 (|Stream| (|List| *4)))
+       (|isDomain| *1 (|PathArrayPackage| *4)))))
+((|motzkinPathArray|
+  (((|Stream| (|List| |#1|)) (|Stream| |#1|) (|Stream| |#1|) (|Stream| |#1|))
+   19))
+ (|jacobiPathArray|
+  (((|Stream| (|List| |#1|)) (|Stream| |#1|) (|Stream| |#1|)) 20))
+ (|bottom| (((|Stream| |#1|) (|Stream| (|List| |#1|))) 25)))
+PARRPKG
+((|constructor| (NIL "A package for weighted Motzkin paths over a ring."))
+ (|bottom|
+  (((|Stream| |#1|) (|Stream| (|List| |#1|)))
+   "\\spad{bottom(x)} returns the bottom entry of each column."))
+ (|jacobiPathArray|
+  (((|Stream| (|List| |#1|)) (|Stream| |#1|) (|Stream| |#1|))
+   "\\spad{jacobiPathArray([b0,{} b1,{} ...],{} [c1,{} c2,{} ...])} computes Flajolet\\spad{'s} Motzkin path array from the sequences [1,{} 1,{} ...],{} \\spad{bi},{} \\spad{ci}."))
+ (|motzkinPathArray|
+  (((|Stream| (|List| |#1|)) (|Stream| |#1|) (|Stream| |#1|) (|Stream| |#1|))
+   "\\spad{motzkinPathArray([a0,{} a1,{} ...],{} [b0,{} b1,{} ...],{} [c1,{} c2,{} ...])} computes Flajolet\\spad{'s} Motzkin path array from the sequences \\spad{ai},{} \\spad{bi},{} \\spad{ci}.")))
+(("documentation" 0 1571) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1563) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1308) ("modemaps" 0 743) ("sourceFile" 0 704)
+ ("constructorCategory" 0 417) ("constructorModemap" 0 53)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

@@ -1,0 +1,45 @@
+1911                (|SegmentFunctions2| R S)
+|package|
+(((|SegmentFunctions2| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |map| ((|Segment| |#2|) (|Mapping| |#2| |#1|) (|Segment| |#1|)))
+   (IF (|has| |#1| (|OrderedRing|))
+       (SIGNATURE |map| ((|List| |#2|) (|Mapping| |#2| |#1|) (|Segment| |#1|)))
+       |noBranch|))
+  (|Type|) (|Type|))
+ (T |SegmentFunctions2|))
+(CATEGORY |package|
+ (SIGNATURE |map| ((|Segment| |#2|) (|Mapping| |#2| |#1|) (|Segment| |#1|)))
+ (IF (|has| |#1| (|OrderedRing|))
+     (SIGNATURE |map| ((|List| |#2|) (|Mapping| |#2| |#1|) (|Segment| |#1|)))
+     |noBranch|))
+"/git/fricas/src/algebra/SEG2.spad"
+((|map| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *6 *5)) (|isDomain| *4 (|Segment| *5))
+       (|ofCategory| *5 (|OrderedRing|)) (|ofCategory| *5 (|Type|))
+       (|ofCategory| *6 (|Type|)) (|isDomain| *2 (|List| *6))
+       (|isDomain| *1 (|SegmentFunctions2| *5 *6))))
+ (|map| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *6 *5)) (|isDomain| *4 (|Segment| *5))
+       (|ofCategory| *5 (|Type|)) (|ofCategory| *6 (|Type|))
+       (|isDomain| *2 (|Segment| *6))
+       (|isDomain| *1 (|SegmentFunctions2| *5 *6)))))
+((|map|
+  (((|List| |#2|) (|Mapping| |#2| |#1|) (|Segment| |#1|)) 25
+   (|has| |#1| (|OrderedRing|)))
+  (((|Segment| |#2|) (|Mapping| |#2| |#1|) (|Segment| |#1|)) 14)))
+((|HasCategory| |#1| '(|OrderedRing|)))
+SEG2
+((|constructor|
+  (NIL
+   "This package provides operations for mapping functions onto segments."))
+ (|map|
+  (((|List| |#2|) (|Mapping| |#2| |#1|) (|Segment| |#1|))
+   "\\spad{map(f,{} s)} expands the segment \\spad{s},{} applying \\spad{f} to each value. For example,{} if \\spad{s = l..h by k},{} then the list \\spad{[f(l),{} f(l+k),{} ...,{} f(lN)]} is computed,{} where \\spad{lN <= h < lN+k}.")
+  (((|Segment| |#2|) (|Mapping| |#2| |#1|) (|Segment| |#1|))
+   "\\spad{map(f,{} l..h)} returns a new segment \\spad{f(l)..f(h)}.")))
+(("documentation" 0 1375) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1370) ("predicates" 0 1330) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1161) ("modemaps" 0 637) ("sourceFile" 0 601)
+ ("constructorCategory" 0 374) ("constructorModemap" 0 56)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))

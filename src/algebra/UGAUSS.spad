@@ -1,0 +1,102 @@
+)abbrev package UGAUSS UnitGaussianElimination
+++ References:
+++   J-G. Dumas, F. Heckenbach, D. Sauders, V. Welker:
+++   Computing simplicial homology based on efficient Smith
+++   normal form algorithms.
+++ Descrition: Gaussion elimination using only 1 or -1 as pivots
+++
+
+UnitGaussianElimination : with
+    pre_gauss : Matrix(Integer) -> Matrix(Integer)
+      ++ pre_gauss(m) performs Gaussian eliminaton on rows of m
+      ++ using only 1 and -1 as pivots.
+      ++ Note:  m is modified in place
+    pre_smith : Matrix(Integer) -> Matrix(Integer)
+      ++ pre_smith(m) first performs pre_gauss(m) and then
+      ++ drops all rows and colums of m contaning pivots.
+    pre_lr : (Matrix(Integer), Vector(Integer), Vector(Integer)
+             ) -> Matrix(Integer)
+      ++ pre_lr(m, pi, pj) is like pre_gauss, but records positions
+      ++ of pivots in pi and pj and returns transformation matrix.
+      ++ m, pi, pj are modified in place
+  == add
+
+    M ==> Matrix(Integer)
+    V ==> Vector(Integer)
+    NNI ==> NonNegativeInteger
+
+    -- Gaussion elimination using only 1 or -1 as pivots
+    -- m is input matrix,
+    -- pivotsj is position of pivot within row, 0 if none
+    -- pivotsk is position of pivot within column, 0 if none
+    -- pivotsj and pivotsk are 0 on entry and filled with
+    -- approproate values on exit
+    pre_lr0(m, pivotsj, pivotsk, adjust) ==>
+        j := nrows(m)
+        k := ncols(m)
+        for i in 1..j repeat
+            -- choose pivot in row i
+            for l in 1..k repeat
+                pivotsk(l) ~= 0 => "iterate"
+                pv := qelt(m, i, l)
+                if pv = 1 or pv = -1 then
+                     pivotsj(i) := l
+                     pivotsk(l) := i
+                     break
+            pivotsj(i) = 0 => "iterate"
+            l0 := pivotsj(i)
+            ml := qelt(m, i, l0)
+            -- zero out column l0, do not bother with rows containing pivots
+            for n in 1..j repeat
+                if qelt(pivotsj, n) = 0 and qelt(m, n, l0) ~= 0 then
+                    pp := -ml*qelt(m, n, l0)
+                    for l in 1..k repeat
+                        qsetelt!(m, n, l, qelt(m, n, l) + pp*qelt(m, i, l))
+                    adjust
+
+    pre_gauss0(m : M, pivotsj : V, pivotsk : V) : Void ==
+        pre_lr0(m, pivotsj, pivotsk, 0)
+
+    pre_lr(m : M, pivotsj : V, pivotsk : V) : M ==
+        m2 := scalarMatrix(nrows(m), 1)$M
+        adjust ==>
+            for l in 1..j repeat
+                qsetelt!(m2, n, l, qelt(m2, n, l) + pp*qelt(m2, i, l))
+        pre_lr0(m, pivotsj, pivotsk, adjust)
+        m2
+
+    pre_gauss(m : M) : M ==
+        j := nrows(m)
+        k := ncols(m)
+        pivotsj := zero(j)$V
+        pivotsk := zero(k)$V
+        pre_gauss0(m, pivotsj, pivotsk)
+        m
+
+    pre_smith(m : M) : M ==
+        j := nrows(m)
+        k := ncols(m)
+        pivotsj := zero(j)$V
+        pivotsk := zero(k)$V
+        pre_gauss0(m, pivotsj, pivotsk)
+
+        -- count rows containing pivots
+        count := 0
+        for i in 1..j repeat
+            if pivotsj(i) ~= 0 then
+                count := count + 1
+        count = 0 => m
+        -- skip rows and columns containing pivots
+        ress := zero((j - count)::NNI, (k - count)::NNI)$M
+        i0 := 0
+        for i in 1..j repeat
+            if pivotsj(i) = 0 then
+                i0 := i0 + 1
+                l0 := 0
+                for l in 1..k repeat
+                    if qelt(pivotsk, l) = 0 then
+                        l0 := l0 + 1
+                        qsetelt!(ress, i0, l0, qelt(m, i, l))
+        ress
+
+

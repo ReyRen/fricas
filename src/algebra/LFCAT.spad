@@ -1,0 +1,39 @@
+)abbrev category LFCAT LiouvillianFunctionCategory
+++ Category for the transcendental Liouvillian functions
+++ Author: Manuel Bronstein
+++ Description: Category for the transcendental Liouvillian functions;
+LiouvillianFunctionCategory() : Category ==
+  Join(PrimitiveFunctionCategory, TranscendentalFunctionCategory) with
+    Ei      : %  -> %
+      ++ Ei(x) returns the exponential integral of x, i.e.
+      ++ the integral of \spad{exp(x)/x dx}.
+    Si      : %  -> %
+      ++ Si(x) returns the sine integral of x, i.e.
+      ++ the integral of \spad{sin(x) / x dx}.
+    Ci      : %  -> %
+      ++ Ci(x) returns the cosine integral of x, i.e.
+      ++ the integral of \spad{cos(x) / x dx}.
+    Shi      : %  -> %
+      ++ Shi(x) returns the hyperbolic sine integral of x, i.e.
+      ++ the integral of \spad{sinh(x) / x dx}.
+    Chi      : %  -> %
+      ++ Chi(x) returns the hyperbolic cosine integral of x, i.e.
+      ++ the integral of \spad{cosh(x) / x dx}.
+    li      : %  -> %
+      ++ li(x) returns the logarithmic integral of x, i.e.
+      ++ the integral of \spad{dx / log(x)}.
+    dilog   : %  -> %
+      ++ dilog(x) returns the dilogarithm of x, i.e.
+      ++ the integral of \spad{log(x) / (1 - x) dx}.
+    erf     : %  -> %
+      ++ erf(x) returns the error function of x, i.e.
+      ++ \spad{2 / sqrt(%pi)} times the integral of \spad{exp(-x^2) dx}.
+    erfi    : %  -> %
+      ++ erfi(x) denotes \spad{-%i*erf(%i*x)}
+    fresnelS : % -> %
+      ++ fresnelS is the Fresnel integral \spad{S}, defined by
+      ++ \spad{S(x) = integrate(sin(%pi*t^2/2), t=0..x)}
+    fresnelC : % -> %
+      ++ fresnelC is the Fresnel integral \spad{C}, defined by
+      ++ \spad{C(x) = integrate(cos(%pi*t^2/2), t=0..x)}
+

@@ -1,0 +1,71 @@
+3581                (|ElementaryFunctionSign| R F)
+|package|
+(((|ElementaryFunctionSign| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |sign| ((|Union| (|Integer|) #1="failed") |#2|))
+   (SIGNATURE |sign|
+    ((|Union| (|Integer|) #1#) |#2| (|Symbol|) (|OrderedCompletion| |#2|)))
+   (SIGNATURE |sign|
+    ((|Union| (|Integer|) #1#) |#2| (|Symbol|) |#2| (|String|))))
+  (|Join| (|IntegralDomain|) (|Comparable|) (|RetractableTo| (|Integer|))
+          (|LinearlyExplicitOver| (|Integer|)) (|GcdDomain|))
+  (|Join| (|AlgebraicallyClosedField|) (|TranscendentalFunctionCategory|)
+          (|FunctionSpace| |#1|)))
+ (T |ElementaryFunctionSign|))
+(CATEGORY |package| (SIGNATURE |sign| ((|Union| (|Integer|) #1="failed") |#2|))
+ (SIGNATURE |sign|
+  ((|Union| (|Integer|) #1#) |#2| (|Symbol|) (|OrderedCompletion| |#2|)))
+ (SIGNATURE |sign| ((|Union| (|Integer|) #1#) |#2| (|Symbol|) |#2| (|String|))))
+"/git/fricas/src/algebra/SIGNEF.spad"
+((|sign| (*1 *2 *3 *4 *3 *5)
+  (|partial| AND (|isDomain| *4 (|Symbol|)) (|isDomain| *5 (|String|))
+   (|ofCategory| *6
+                 (|Join| (|IntegralDomain|) (|Comparable|) (|RetractableTo| *2)
+                         (|LinearlyExplicitOver| *2) (|GcdDomain|)))
+   (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|ElementaryFunctionSign| *6 *3))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| *6)))))
+ (|sign| (*1 *2 *3 *4 *5)
+  (|partial| AND (|isDomain| *4 (|Symbol|))
+   (|isDomain| *5 (|OrderedCompletion| *3))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| *6)))
+   (|ofCategory| *6
+                 (|Join| (|IntegralDomain|) (|Comparable|) (|RetractableTo| *2)
+                         (|LinearlyExplicitOver| *2) (|GcdDomain|)))
+   (|isDomain| *2 (|Integer|))
+   (|isDomain| *1 (|ElementaryFunctionSign| *6 *3))))
+ (|sign| (*1 *2 *3)
+  (|partial| AND
+   (|ofCategory| *4
+                 (|Join| (|IntegralDomain|) (|Comparable|) (|RetractableTo| *2)
+                         (|LinearlyExplicitOver| *2) (|GcdDomain|)))
+   (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|ElementaryFunctionSign| *4 *3))
+   (|ofCategory| *3
+                 (|Join| (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)
+                         (|FunctionSpace| *4))))))
+((|sign|
+  (((|Union| (|Integer|) #1="failed") |#2| (|Symbol|) |#2| (|String|)) 16)
+  (((|Union| (|Integer|) #1#) |#2| (|Symbol|) (|OrderedCompletion| |#2|)) 14)
+  (((|Union| (|Integer|) #1#) |#2|) 46)))
+SIGNEF
+((|constructor|
+  (NIL
+   "This package provides functions to determine the sign of an elementary function around a point or infinity."))
+ (|sign|
+  (((|Union| (|Integer|) #1="failed") |#2| (|Symbol|) |#2| (|String|))
+   "\\spad{sign(f,{} x,{} a,{} s)} returns the sign of \\spad{f} as \\spad{x} nears \\spad{a} from below if \\spad{s} is \"left\",{} or above if \\spad{s} is \"right\".")
+  (((|Union| (|Integer|) #1#) |#2| (|Symbol|) (|OrderedCompletion| |#2|))
+   "\\spad{sign(f,{} x,{} a)} returns the sign of \\spad{f} as \\spad{x} nears \\spad{a},{} from both sides if \\spad{a} is finite.")
+  (((|Union| (|Integer|) #1#) |#2|)
+   "\\spad{sign(f)} returns 1 if \\spad{f} is always non-negative; returns \\spad{-1} is \\spad{f} is always non-positive; returns 0 if \\spad{f} is always 0; returns \"failed\" if the sign of \\spad{f} varies or can\\spad{'t} be determined.")))
+(("documentation" 0 2702) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2695) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2491) ("modemaps" 0 937) ("sourceFile" 0 899)
+ ("constructorCategory" 0 645) ("constructorModemap" 0 61)
+ ("constructorKind" 0 51) ("constructorForm" 0 20))

@@ -1,0 +1,447 @@
+19897               (|Product| A B)
+|domain|
+(((|Product| |#1| |#2|)
+  (|Join| (|SetCategory|)
+          (CATEGORY |domain|
+           (IF (|has| |#1| (|Finite|))
+               (IF (|has| |#2| (|Finite|))
+                   (ATTRIBUTE (|Finite|))
+                   |noBranch|)
+               |noBranch|)
+           (IF (|has| |#1| (|Monoid|))
+               (IF (|has| |#2| (|Monoid|))
+                   (ATTRIBUTE (|Monoid|))
+                   |noBranch|)
+               |noBranch|)
+           (IF (|has| |#1| (|AbelianMonoid|))
+               (IF (|has| |#2| (|AbelianMonoid|))
+                   (ATTRIBUTE (|AbelianMonoid|))
+                   |noBranch|)
+               |noBranch|)
+           (IF (|has| |#1| (|CancellationAbelianMonoid|))
+               (IF (|has| |#2| (|CancellationAbelianMonoid|))
+                   (ATTRIBUTE (|CancellationAbelianMonoid|))
+                   |noBranch|)
+               |noBranch|)
+           (IF (|has| |#1| (|Group|))
+               (IF (|has| |#2| (|Group|))
+                   (ATTRIBUTE (|Group|))
+                   |noBranch|)
+               |noBranch|)
+           (IF (|has| |#1| (|AbelianGroup|))
+               (IF (|has| |#2| (|AbelianGroup|))
+                   (ATTRIBUTE (|AbelianGroup|))
+                   |noBranch|)
+               |noBranch|)
+           (IF (|has| |#1| (|OrderedAbelianMonoidSup|))
+               (IF (|has| |#2| (|OrderedAbelianMonoidSup|))
+                   (ATTRIBUTE (|OrderedAbelianMonoidSup|))
+                   |noBranch|)
+               |noBranch|)
+           (IF (|has| |#1| (|OrderedSet|))
+               (IF (|has| |#2| (|OrderedSet|))
+                   (ATTRIBUTE (|OrderedSet|))
+                   |noBranch|)
+               |noBranch|)
+           (IF (|has| |#1| (|Comparable|))
+               (IF (|has| |#2| (|Comparable|))
+                   (ATTRIBUTE (|Comparable|))
+                   |noBranch|)
+               |noBranch|)
+           (SIGNATURE |construct| ($ |#1| |#2|)) (SIGNATURE |first| (|#1| $))
+           (SIGNATURE |second| (|#2| $))))
+  (|SetCategory|) (|SetCategory|))
+ (T |Product|))
+(|Join| (|SetCategory|)
+        (CATEGORY |domain|
+         (IF (|has| |#1| (|Finite|))
+             (IF (|has| |#2| (|Finite|))
+                 (ATTRIBUTE (|Finite|))
+                 |noBranch|)
+             |noBranch|)
+         (IF (|has| |#1| (|Monoid|))
+             (IF (|has| |#2| (|Monoid|))
+                 (ATTRIBUTE (|Monoid|))
+                 |noBranch|)
+             |noBranch|)
+         (IF (|has| |#1| (|AbelianMonoid|))
+             (IF (|has| |#2| (|AbelianMonoid|))
+                 (ATTRIBUTE (|AbelianMonoid|))
+                 |noBranch|)
+             |noBranch|)
+         (IF (|has| |#1| (|CancellationAbelianMonoid|))
+             (IF (|has| |#2| (|CancellationAbelianMonoid|))
+                 (ATTRIBUTE (|CancellationAbelianMonoid|))
+                 |noBranch|)
+             |noBranch|)
+         (IF (|has| |#1| (|Group|))
+             (IF (|has| |#2| (|Group|))
+                 (ATTRIBUTE (|Group|))
+                 |noBranch|)
+             |noBranch|)
+         (IF (|has| |#1| (|AbelianGroup|))
+             (IF (|has| |#2| (|AbelianGroup|))
+                 (ATTRIBUTE (|AbelianGroup|))
+                 |noBranch|)
+             |noBranch|)
+         (IF (|has| |#1| (|OrderedAbelianMonoidSup|))
+             (IF (|has| |#2| (|OrderedAbelianMonoidSup|))
+                 (ATTRIBUTE (|OrderedAbelianMonoidSup|))
+                 |noBranch|)
+             |noBranch|)
+         (IF (|has| |#1| (|OrderedSet|))
+             (IF (|has| |#2| (|OrderedSet|))
+                 (ATTRIBUTE (|OrderedSet|))
+                 |noBranch|)
+             |noBranch|)
+         (IF (|has| |#1| (|Comparable|))
+             (IF (|has| |#2| (|Comparable|))
+                 (ATTRIBUTE (|Comparable|))
+                 |noBranch|)
+             |noBranch|)
+         (SIGNATURE |construct| ($ |#1| |#2|)) (SIGNATURE |first| (|#1| $))
+         (SIGNATURE |second| (|#2| $))))
+"/git/fricas/src/algebra/PRODUCT.spad"
+((|construct| (*1 *1 *2 *3)
+              (AND (|isDomain| *1 (|Product| *2 *3))
+                   (|ofCategory| *2 (|SetCategory|))
+                   (|ofCategory| *3 (|SetCategory|))))
+ (|first| (*1 *2 *1)
+  (AND (|ofCategory| *2 (|SetCategory|)) (|isDomain| *1 (|Product| *2 *3))
+       (|ofCategory| *3 (|SetCategory|))))
+ (|second| (*1 *2 *1)
+  (AND (|ofCategory| *2 (|SetCategory|)) (|isDomain| *1 (|Product| *3 *2))
+       (|ofCategory| *3 (|SetCategory|)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|zero?|
+  (((|Boolean|) $) NIL
+   (OR (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|)))
+       (AND (|has| |#1| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|)))
+       (AND (|has| |#1| (|CancellationAbelianMonoid|))
+            (|has| |#2| (|CancellationAbelianMonoid|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedAbelianMonoidSup|))))))
+ (|sup|
+  (($ $ $) 77
+   (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+        (|has| |#2| (|OrderedAbelianMonoidSup|)))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) 64
+   (OR (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|)))
+       (AND (|has| |#1| (|CancellationAbelianMonoid|))
+            (|has| |#2| (|CancellationAbelianMonoid|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedAbelianMonoidSup|))))))
+ (|smaller?|
+  (((|Boolean|) $ $) 83
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|)))
+       (AND (|has| |#1| (|Finite|)) (|has| |#2| (|Finite|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedAbelianMonoidSup|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| |#2| (|OrderedSet|))))))
+ (|size|
+  (((|NonNegativeInteger|)) 34
+   (AND (|has| |#1| (|Finite|)) (|has| |#2| (|Finite|)))))
+ (|second| ((|#2| $) 21))
+ (|sample|
+  (($) NIL
+   (OR (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|)))
+       (AND (|has| |#1| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|)))
+       (AND (|has| |#1| (|CancellationAbelianMonoid|))
+            (|has| |#2| (|CancellationAbelianMonoid|)))
+       (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+       (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedAbelianMonoidSup|))))
+   CONST))
+ (|rightRecip|
+  (((|Union| $ #1="failed") $) NIL
+   (OR (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+       (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|))))))
+ (|rightPower|
+  (($ $ (|PositiveInteger|)) NIL
+   (OR (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+       (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|)))))
+  (($ $ (|NonNegativeInteger|)) NIL
+   (OR (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+       (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|))))))
+ (|recip|
+  (((|Union| $ #1#) $) NIL
+   (OR (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+       (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|))))))
+ (|random| (($) 41 (AND (|has| |#1| (|Finite|)) (|has| |#2| (|Finite|)))))
+ (|opposite?|
+  (((|Boolean|) $ $) NIL
+   (OR (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|)))
+       (AND (|has| |#1| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|)))
+       (AND (|has| |#1| (|CancellationAbelianMonoid|))
+            (|has| |#2| (|CancellationAbelianMonoid|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedAbelianMonoidSup|))))))
+ (|one?|
+  (((|Boolean|) $) NIL
+   (OR (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+       (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|))))))
+ (|min|
+  (($ $ $) NIL
+   (OR
+    (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+         (|has| |#2| (|OrderedAbelianMonoidSup|)))
+    (AND (|has| |#1| (|OrderedSet|)) (|has| |#2| (|OrderedSet|))))))
+ (|max|
+  (($ $ $) NIL
+   (OR
+    (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+         (|has| |#2| (|OrderedAbelianMonoidSup|)))
+    (AND (|has| |#1| (|OrderedSet|)) (|has| |#2| (|OrderedSet|))))))
+ (|lookup|
+  (((|PositiveInteger|) $) 44
+   (AND (|has| |#1| (|Finite|)) (|has| |#2| (|Finite|)))))
+ (|leftRecip|
+  (((|Union| $ #1#) $) NIL
+   (OR (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+       (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|))))))
+ (|leftPower|
+  (($ $ (|PositiveInteger|)) NIL
+   (OR (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+       (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|)))))
+  (($ $ (|NonNegativeInteger|)) NIL
+   (OR (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+       (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|))))))
+ (|latex| (((|String|) $) NIL))
+ (|inv| (($ $) 51 (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))))
+ (|index|
+  (($ (|PositiveInteger|)) 38
+   (AND (|has| |#1| (|Finite|)) (|has| |#2| (|Finite|)))))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 48))
+ (|hash| (((|SingleInteger|) $) NIL)) (|first| ((|#1| $) 20))
+ (|enumerate|
+  (((|List| $)) NIL (AND (|has| |#1| (|Finite|)) (|has| |#2| (|Finite|)))))
+ (|convert|
+  (((|InputForm|) $) NIL
+   (AND (|has| |#1| (|Finite|)) (|has| |#2| (|Finite|)))))
+ (|construct| (($ |#1| |#2|) 19))
+ (|conjugate|
+  (($ $ $) NIL (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))))
+ (|commutator|
+  (($ $ $) NIL (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))))
+ (|coerce| (((|OutputForm|) $) 14))
+ (^
+  (($ $ (|PositiveInteger|)) NIL
+   (OR (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+       (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|)))))
+  (($ $ (|NonNegativeInteger|)) 31
+   (OR (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+       (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|)))))
+  (($ $ (|Integer|)) NIL (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))))
+ (|Zero|
+  (($) 54
+   (OR (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|)))
+       (AND (|has| |#1| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|)))
+       (AND (|has| |#1| (|CancellationAbelianMonoid|))
+            (|has| |#2| (|CancellationAbelianMonoid|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedAbelianMonoidSup|))))
+   CONST))
+ (|One|
+  (($) 24
+   (OR (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+       (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|))))
+   CONST))
+ (>=
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+         (|has| |#2| (|OrderedAbelianMonoidSup|)))
+    (AND (|has| |#1| (|OrderedSet|)) (|has| |#2| (|OrderedSet|))))))
+ (>
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+         (|has| |#2| (|OrderedAbelianMonoidSup|)))
+    (AND (|has| |#1| (|OrderedSet|)) (|has| |#2| (|OrderedSet|))))))
+ (= (((|Boolean|) $ $) 18))
+ (<=
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+         (|has| |#2| (|OrderedAbelianMonoidSup|)))
+    (AND (|has| |#1| (|OrderedSet|)) (|has| |#2| (|OrderedSet|))))))
+ (<
+  (((|Boolean|) $ $) 80
+   (OR
+    (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+         (|has| |#2| (|OrderedAbelianMonoidSup|)))
+    (AND (|has| |#1| (|OrderedSet|)) (|has| |#2| (|OrderedSet|))))))
+ (/ (($ $ $) NIL (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))))
+ (-
+  (($ $) 67 (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|))))
+  (($ $ $) 70
+   (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|)))))
+ (+
+  (($ $ $) 57
+   (OR (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|)))
+       (AND (|has| |#1| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|)))
+       (AND (|has| |#1| (|CancellationAbelianMonoid|))
+            (|has| |#2| (|CancellationAbelianMonoid|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedAbelianMonoidSup|))))))
+ (*
+  (($ $ $) 27
+   (OR (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+       (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|)))))
+  (($ (|PositiveInteger|) $) NIL
+   (OR (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|)))
+       (AND (|has| |#1| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|)))
+       (AND (|has| |#1| (|CancellationAbelianMonoid|))
+            (|has| |#2| (|CancellationAbelianMonoid|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedAbelianMonoidSup|)))))
+  (($ (|NonNegativeInteger|) $) 60
+   (OR (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|)))
+       (AND (|has| |#1| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|)))
+       (AND (|has| |#1| (|CancellationAbelianMonoid|))
+            (|has| |#2| (|CancellationAbelianMonoid|)))
+       (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+            (|has| |#2| (|OrderedAbelianMonoidSup|)))))
+  (($ (|Integer|) $) 74
+   (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|))))))
+((AND (|HasCategory| |#1| '(|OrderedAbelianMonoidSup|))
+      (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|)))
+ (OR
+  (AND (|HasCategory| |#1| '(|OrderedAbelianMonoidSup|))
+       (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|)))
+  (AND (|HasCategory| |#1| '(|OrderedSet|))
+       (|HasCategory| |#2| '(|OrderedSet|))))
+ (AND (|HasCategory| |#1| '(|AbelianGroup|))
+      (|HasCategory| |#2| '(|AbelianGroup|)))
+ (OR
+  (AND (|HasCategory| |#1| '(|AbelianGroup|))
+       (|HasCategory| |#2| '(|AbelianGroup|)))
+  (AND (|HasCategory| |#1| '(|CancellationAbelianMonoid|))
+       (|HasCategory| |#2| '(|CancellationAbelianMonoid|)))
+  (AND (|HasCategory| |#1| '(|OrderedAbelianMonoidSup|))
+       (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))))
+ (OR
+  (AND (|HasCategory| |#1| '(|AbelianGroup|))
+       (|HasCategory| |#2| '(|AbelianGroup|)))
+  (AND (|HasCategory| |#1| '(|AbelianMonoid|))
+       (|HasCategory| |#2| '(|AbelianMonoid|)))
+  (AND (|HasCategory| |#1| '(|CancellationAbelianMonoid|))
+       (|HasCategory| |#2| '(|CancellationAbelianMonoid|)))
+  (AND (|HasCategory| |#1| '(|OrderedAbelianMonoidSup|))
+       (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))))
+ (AND (|HasCategory| |#1| '(|Group|)) (|HasCategory| |#2| '(|Group|)))
+ (OR (AND (|HasCategory| |#1| '(|Group|)) (|HasCategory| |#2| '(|Group|)))
+     (AND (|HasCategory| |#1| '(|Monoid|)) (|HasCategory| |#2| '(|Monoid|))))
+ (AND (|HasCategory| |#1| '(|Finite|)) (|HasCategory| |#2| '(|Finite|)))
+ (OR
+  (AND (|HasCategory| |#1| '(|Comparable|))
+       (|HasCategory| |#2| '(|Comparable|)))
+  (AND (|HasCategory| |#1| '(|Finite|)) (|HasCategory| |#2| '(|Finite|)))
+  (AND (|HasCategory| |#1| '(|OrderedAbelianMonoidSup|))
+       (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|)))
+  (AND (|HasCategory| |#1| '(|OrderedSet|))
+       (|HasCategory| |#2| '(|OrderedSet|))))
+ (OR
+  (AND (|HasCategory| |#1| '(|AbelianGroup|))
+       (|HasCategory| |#2| '(|AbelianGroup|)))
+  (AND (|HasCategory| |#1| '(|AbelianMonoid|))
+       (|HasCategory| |#2| '(|AbelianMonoid|)))
+  (AND (|HasCategory| |#1| '(|CancellationAbelianMonoid|))
+       (|HasCategory| |#2| '(|CancellationAbelianMonoid|)))
+  (AND (|HasCategory| |#1| '(|Group|)) (|HasCategory| |#2| '(|Group|)))
+  (AND (|HasCategory| |#1| '(|Monoid|)) (|HasCategory| |#2| '(|Monoid|)))
+  (AND (|HasCategory| |#1| '(|OrderedAbelianMonoidSup|))
+       (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|)))))
+PRODUCT
+(((|SetCategory|) . T)
+ ((|Finite|) AND (|has| |#1| (|Finite|)) (|has| |#2| (|Finite|)))
+ ((|Monoid|) AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|)))
+ ((|AbelianMonoid|) AND (|has| |#1| (|AbelianMonoid|))
+  (|has| |#2| (|AbelianMonoid|)))
+ ((|CancellationAbelianMonoid|) AND (|has| |#1| (|CancellationAbelianMonoid|))
+  (|has| |#2| (|CancellationAbelianMonoid|)))
+ ((|Group|) AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+ ((|AbelianGroup|) AND (|has| |#1| (|AbelianGroup|))
+  (|has| |#2| (|AbelianGroup|)))
+ ((|OrderedAbelianMonoidSup|) AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+  (|has| |#2| (|OrderedAbelianMonoidSup|)))
+ ((|OrderedSet|) AND (|has| |#1| (|OrderedSet|)) (|has| |#2| (|OrderedSet|)))
+ ((|Comparable|) AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|))))
+(((|AbelianGroup|) AND (|has| |#1| (|AbelianGroup|))
+  (|has| |#2| (|AbelianGroup|)))
+ ((|AbelianMonoid|) OR
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+       (|has| |#2| (|OrderedAbelianMonoidSup|)))
+  (AND (|has| |#1| (|CancellationAbelianMonoid|))
+       (|has| |#2| (|CancellationAbelianMonoid|)))
+  (AND (|has| |#1| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|)))
+  (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|))))
+ ((|AbelianSemiGroup|) OR
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+       (|has| |#2| (|OrderedAbelianMonoidSup|)))
+  (AND (|has| |#1| (|CancellationAbelianMonoid|))
+       (|has| |#2| (|CancellationAbelianMonoid|)))
+  (AND (|has| |#1| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|)))
+  (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|))))
+ ((|BasicType|) . T)
+ ((|CancellationAbelianMonoid|) OR
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+       (|has| |#2| (|OrderedAbelianMonoidSup|)))
+  (AND (|has| |#1| (|CancellationAbelianMonoid|))
+       (|has| |#2| (|CancellationAbelianMonoid|)))
+  (AND (|has| |#1| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|))))
+ ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|Comparable|) OR
+  (AND (|has| |#1| (|OrderedSet|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+       (|has| |#2| (|OrderedAbelianMonoidSup|)))
+  (AND (|has| |#1| (|Finite|)) (|has| |#2| (|Finite|)))
+  (AND (|has| |#1| (|Comparable|)) (|has| |#2| (|Comparable|))))
+ ((|ConvertibleTo| (|InputForm|)) AND (|has| |#1| (|Finite|))
+  (|has| |#2| (|Finite|)))
+ ((|Finite|) AND (|has| |#1| (|Finite|)) (|has| |#2| (|Finite|)))
+ ((|Group|) AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+ ((|Magma|) OR (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|)))
+  (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|))))
+ ((|MagmaWithUnit|) OR (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|)))
+  (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|))))
+ ((|Monoid|) OR (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|)))
+  (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|))))
+ ((|OrderedAbelianMonoid|) AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+  (|has| |#2| (|OrderedAbelianMonoidSup|)))
+ ((|OrderedAbelianMonoidSup|) AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+  (|has| |#2| (|OrderedAbelianMonoidSup|)))
+ ((|OrderedAbelianSemiGroup|) AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+  (|has| |#2| (|OrderedAbelianMonoidSup|)))
+ ((|OrderedCancellationAbelianMonoid|) AND
+  (|has| |#1| (|OrderedAbelianMonoidSup|))
+  (|has| |#2| (|OrderedAbelianMonoidSup|)))
+ ((|OrderedSet|) OR
+  (AND (|has| |#1| (|OrderedSet|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+       (|has| |#2| (|OrderedAbelianMonoidSup|))))
+ ((|PartialOrder|) OR
+  (AND (|has| |#1| (|OrderedSet|)) (|has| |#2| (|OrderedSet|)))
+  (AND (|has| |#1| (|OrderedAbelianMonoidSup|))
+       (|has| |#2| (|OrderedAbelianMonoidSup|))))
+ ((|SemiGroup|) OR (AND (|has| |#1| (|Monoid|)) (|has| |#2| (|Monoid|)))
+  (AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|))))
+ ((|SetCategory|) . T)
+ ((|TwoSidedRecip|) AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|)))
+ ((|unitsKnown|) AND (|has| |#1| (|Group|)) (|has| |#2| (|Group|))))
+((|constructor|
+  (NIL
+   "This domain implements cartesian product. If the underlying domains are both Finite then the resulting Product is also Finite and can be enumerated via size(),{} index(),{} location(),{} etc. The index of the second component (\\spad{B}) varies most quickly."))
+ (|second|
+  ((|#2| $) "\\spad{second(x)} selects second component of the product"))
+ (|first| ((|#1| $) "\\spad{first(x)} selects first component of the product"))
+ (|construct|
+  (($ |#1| |#2|)
+   "\\spad{construct(a,{} b)} creates element of the product with components a and \\spad{b}.")))
+(("documentation" 0 19314) ("ancestors" 0 16102) ("parents" 0 15308)
+ ("abbreviation" 0 15300) ("predicates" 0 12880) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4494) ("modemaps" 0 4025) ("sourceFile" 0 3986)
+ ("constructorCategory" 0 2102) ("constructorModemap" 0 45)
+ ("constructorKind" 0 36) ("constructorForm" 0 20))

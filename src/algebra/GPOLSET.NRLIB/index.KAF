@@ -1,0 +1,144 @@
+6808                (|GeneralPolynomialSet| R E |VarSet| P)
+|domain|
+(((|GeneralPolynomialSet| |#1| |#2| |#3| |#4|)
+  (|Join| (|PolynomialSetCategory| |#1| |#2| |#3| |#4|) (|finiteAggregate|)
+          (|shallowlyMutable|)
+          (CATEGORY |domain| (SIGNATURE |convert| ($ (|List| |#4|)))))
+  (|Ring|) (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|RecursivePolynomialCategory| |#1| |#2| |#3|))
+ (T |GeneralPolynomialSet|))
+(|Join| (|PolynomialSetCategory| |#1| |#2| |#3| |#4|) (|finiteAggregate|)
+        (|shallowlyMutable|)
+        (CATEGORY |domain| (SIGNATURE |convert| ($ (|List| |#4|)))))
+"/git/fricas/src/algebra/GPOLSET.spad"
+((|convert| (*1 *1 *2)
+            (AND (|isDomain| *2 (|List| *6))
+                 (|ofCategory| *6 (|RecursivePolynomialCategory| *3 *4 *5))
+                 (|ofCategory| *3 (|Ring|))
+                 (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+                 (|ofCategory| *5 (|OrderedSet|))
+                 (|isDomain| *1 (|GeneralPolynomialSet| *3 *4 *5 *6)))))
+((~= (((|Boolean|) $ $) NIL)) (|variables| (((|List| |#3|) $) 41))
+ (|trivialIdeal?| (((|Boolean|) $) NIL))
+ (|triangular?| (((|Boolean|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|sort|
+  (((|Record| (|:| |under| $) (|:| |floor| $) (|:| |upper| $)) $ |#3|) NIL))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#4|) $) NIL (|has| $ (|finiteAggregate|))))
+ (|sample| (($) NIL T CONST))
+ (|roughUnitIdeal?| (((|Boolean|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|roughSubIdeal?| (((|Boolean|) $ $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|roughEqualIdeals?| (((|Boolean|) $ $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|roughBase?| (((|Boolean|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|rewriteIdealWithRemainder|
+  (((|List| |#4|) (|List| |#4|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|rewriteIdealWithHeadRemainder|
+  (((|List| |#4|) (|List| |#4|) $) NIL (|has| |#1| (|IntegralDomain|))))
+ (|retractIfCan| (((|Union| $ "failed") (|List| |#4|)) 47))
+ (|retract| (($ (|List| |#4|)) NIL))
+ (|removeDuplicates|
+  (($ $) NIL (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|)))))
+ (|remove|
+  (($ |#4| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|))))
+  (($ (|Mapping| (|Boolean|) |#4|) $) NIL (|has| $ (|finiteAggregate|))))
+ (|remainder|
+  (((|Record| (|:| |rnum| |#1|) (|:| |polnum| |#4|) (|:| |den| |#1|)) |#4| $)
+   NIL (|has| |#1| (|IntegralDomain|))))
+ (|reduce|
+  ((|#4| (|Mapping| |#4| |#4| |#4|) $ |#4| |#4|) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|))))
+  ((|#4| (|Mapping| |#4| |#4| |#4|) $ |#4|) NIL (|has| $ (|finiteAggregate|)))
+  ((|#4| (|Mapping| |#4| |#4| |#4|) $) NIL (|has| $ (|finiteAggregate|))))
+ (|parts| (((|List| |#4|) $) 18 (|has| $ (|finiteAggregate|))))
+ (|mvar| ((|#3| $) 45)) (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|min|
+  ((|#4| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|OrderedSet|)))))
+ (|members| (((|List| |#4|) $) 14 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#4| $) 26
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|)))))
+ (|max|
+  ((|#4| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|OrderedSet|))))
+  ((|#4| (|Mapping| (|Boolean|) |#4| |#4|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|map!| (($ (|Mapping| |#4| |#4|) $) 23 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#4| |#4|) $) 21))
+ (|mainVariables| (((|List| |#3|) $) NIL))
+ (|mainVariable?| (((|Boolean|) |#3| $) NIL))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|latex| (((|String|) $) NIL))
+ (|iexactQuo| ((|#1| |#1| |#1|) NIL (|has| |#1| (|IntegralDomain|))))
+ (|headRemainder|
+  (((|Record| (|:| |num| |#4|) (|:| |den| |#1|)) |#4| $) NIL
+   (|has| |#1| (|IntegralDomain|))))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|find| (((|Union| |#4| "failed") (|Mapping| (|Boolean|) |#4|) $) NIL))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#4|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| |#4|) (|List| |#4|)) NIL
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|))))
+  (($ $ |#4| |#4|) NIL
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|))))
+  (($ $ (|Equation| |#4|)) NIL
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|))))
+  (($ $ (|List| (|Equation| |#4|))) NIL
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) NIL)) (|empty?| (((|Boolean|) $) 39))
+ (|empty| (($) 17))
+ (|count|
+  (((|NonNegativeInteger|) |#4| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#4| (|BasicType|))))
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#4|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|copy| (($ $) 16))
+ (|convert|
+  (((|InputForm|) $) NIL (|has| |#4| (|ConvertibleTo| (|InputForm|))))
+  (($ (|List| |#4|)) 49))
+ (|construct| (($ (|List| |#4|)) 13)) (|collectUpper| (($ $ |#3|) NIL))
+ (|collectUnder| (($ $ |#3|) NIL)) (|collect| (($ $ |#3|) NIL))
+ (|coerce| (((|OutputForm|) $) 38) (((|List| |#4|) $) 48))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#4|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (= (((|Boolean|) $ $) 30))
+ (|#| (((|NonNegativeInteger|) $) NIL (|has| $ (|finiteAggregate|)))))
+((AND (|HasCategory| |#4| (LIST '|Evalable| (|devaluate| |#4|)))
+      (|HasCategory| |#4| '(|SetCategory|)))
+ (|HasCategory| |#4| (LIST '|ConvertibleTo| '(|InputForm|)))
+ (|HasCategory| |#4| '(|BasicType|)) (|HasCategory| |#4| '(|OrderedSet|))
+ (|HasCategory| |#1| '(|IntegralDomain|))
+ (|HasCategory| $ '(|shallowlyMutable|)) (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| |#4| '(|BasicType|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (AND (|HasCategory| |#4| '(|OrderedSet|))
+      (|HasCategory| $ '(|finiteAggregate|))))
+GPOLSET
+(((|PolynomialSetCategory| |#1| |#2| |#3| |#4|) . T) ((|finiteAggregate|) . T)
+ ((|shallowlyMutable|) . T))
+(((|Aggregate|) . T) ((|BasicType|) . T) ((|CoercibleTo| (|List| |t#4|)) . T)
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|Collection| |t#4|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|PolynomialSetCategory| |#1| |#2| |#3| |#4|) . T)
+ ((|RetractableFrom| (|List| |t#4|)) . T) ((|SetCategory|) . T) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor| (NIL "A domain for polynomial sets."))
+ (|convert|
+  (($ (|List| |#4|))
+   "\\spad{convert(lp)} returns the polynomial set whose members are the polynomials of \\spad{lp}.")))
+(("documentation" 0 6616) ("ancestors" 0 5976) ("parents" 0 5868)
+ ("abbreviation" 0 5860) ("predicates" 0 5315) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1012) ("modemaps" 0 638) ("sourceFile" 0 599)
+ ("constructorCategory" 0 427) ("constructorModemap" 0 69)
+ ("constructorKind" 0 60) ("constructorForm" 0 20))

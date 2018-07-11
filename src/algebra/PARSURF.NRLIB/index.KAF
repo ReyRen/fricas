@@ -1,0 +1,32 @@
+1329                (|ParametricSurface| |ComponentFunction|)
+|domain|
+(((|ParametricSurface| |#1|)
+  (CATEGORY |domain| (SIGNATURE |surface| ($ |#1| |#1| |#1|))
+   (SIGNATURE |coordinate| (|#1| $ (|NonNegativeInteger|))))
+  (|Type|))
+ (T |ParametricSurface|))
+(CATEGORY |domain| (SIGNATURE |surface| ($ |#1| |#1| |#1|))
+ (SIGNATURE |coordinate| (|#1| $ (|NonNegativeInteger|))))
+"/git/fricas/src/algebra/PARSURF.spad"
+((|coordinate| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *1 (|ParametricSurface| *2)) (|ofCategory| *2 (|Type|))))
+ (|surface| (*1 *1 *2 *2 *2)
+  (AND (|isDomain| *1 (|ParametricSurface| *2)) (|ofCategory| *2 (|Type|)))))
+((|surface| (($ |#1| |#1| |#1|) 8))
+ (|coordinate| ((|#1| $ (|NonNegativeInteger|)) 10)))
+PARSURF
+((|constructor|
+  (NIL
+   "ParametricSurface is used for plotting parametric surfaces in affine 3-space."))
+ (|coordinate|
+  ((|#1| $ (|NonNegativeInteger|))
+   "\\spad{coordinate(s,{} i)} returns a coordinate function of \\spad{s} using 1-based indexing according to \\spad{i}. This indicates what the function for the coordinate component,{} \\spad{i},{} of the surface is."))
+ (|surface|
+  (($ |#1| |#1| |#1|)
+   "\\spad{surface(c1,{} c2,{} c3)} creates a surface from 3 parametric component functions \\spad{c1},{} \\spad{c2},{} and \\spad{c3}.")))
+(("documentation" 0 776) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 768) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 678) ("modemaps" 0 419) ("sourceFile" 0 380)
+ ("constructorCategory" 0 261) ("constructorModemap" 0 71)
+ ("constructorKind" 0 62) ("constructorForm" 0 20))

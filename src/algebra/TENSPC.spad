@@ -1,0 +1,35 @@
+)abbrev category TENSPC TensorPowerCategory
+++ Author: Franz Lehner lehner@finanz.math.tugraz.at, Waldek Hebisch
+++ Date Created: 2009
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   Category of tensor powers of modules over commutative rings.
+TensorPowerCategory(n : NonNegativeInteger, R : CommutativeRing,
+                    M : Module(R)) : Category == Module(R) with
+        tensor : (List M) -> %
+          ++ \spad{tensor([x1, x2, ..., xn])} constructs the tensor
+          ++ product of \spad{x1, x2, ..., xn}.
+        if M has Algebra(R) then Algebra(R)
+-- knownInfo cannot the following commented
+--    if n is 2 then TensorProductCategory(R, M, M)
+-- workaround
+        TensorProductCategory(R, M, M)
+    add
+--    if n is 2 then
+        tensor(a : M, b : M) : % ==
+            --workaround knownInfo bug
+            not n = 2 => error "not of order 2!"
+            tensor [a, b]
+
+)if false
+\section{domain TENSPOW TensorPower}
+We rely on the fact that Vector OrderedSet is an OrderedSet
+with deglex order;
+[[DirectProduct(n, B)]] does \emph{not} have OrderedSet.
+)endif
+

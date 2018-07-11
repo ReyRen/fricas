@@ -1,0 +1,89 @@
+)abbrev package DELTCF DeltaComplexFactory
+++ Author: Martin Baker, Waldek Hebisch
+++ Date Created: Sept 2016
+++ Description:
+++  Provides functions to construct various minimal delta complexes which
+++  can be smaller than if constructed from SimplicialComplexes.
+PI ==> PositiveInteger
+NNI==> NonNegativeInteger
+x<<y ==> hconcat(x::OutputForm, y::OutputForm)
+
+DeltaComplexFactory(VS : AbelianGroup) : with
+  circle : () -> DeltaComplex(VS)
+    ++ Generate a minimal circle from an edge from vertex A to A.
+  dunceHat : () -> DeltaComplex(VS)
+    ++ generate a minimal dunceHat from 3 edges.
+  torusSurface : () -> DeltaComplex(VS)
+    ++ generate a minimal 3-dimensional torus surface.
+  projectiveSpace : (n : Integer) -> DeltaComplex(VS)
+    ++ Generate a minimal projective space.
+  kleinBottle : () -> DeltaComplex(VS)
+    ++ generate a minimal Klein bottle.
+
+ == add
+
+  DC ==> DeltaComplex(VS)
+
+  -- Generate a minimal circle from an edge from vertex A to A.
+  circle() : DC ==
+      vs1 : List(VS) := []
+      deltaComplex(vs1,1, [[[1, -1]]])$DC
+
+  -- generate a minimal dunceHat from 3 edges.
+  dunceHat() : DC ==
+      vs1 : List(VS) := []
+      deltaComplex(vs1,1, [[[1, 1, -1]],[[1, -1]]])$DC
+
+  -- generate a minimal torus.
+  torusSurface() : DC ==
+      vs1 : List(VS) := []
+      deltaComplex(vs1,1, [[[1, 2, -1, -2]],[[1, -1], [1, -1]]])$DC
+
+  projectiveSpace(n : Integer) : DC ==
+      vs1 : List(VS) := []
+      cl : List(List(List(Integer))) := []
+      for i in 1..n repeat
+          cl := cons([[1, (odd?(i) => -1; 1)]], cl)
+      deltaComplex(vs1,1,cl)$DC
+
+  -- generate a minimal surface of a Klein bottle.
+  kleinBottle() : DC ==
+      vs1 : List(VS) := []
+      deltaComplex(vs1,1, [[[1, 2, 1, -2]],[[1, -1], [1, -1]]])$DC
+
+)if false
+\section{Cubical Complex Factory}
+Provides functions to construct various Cubical complexes.
+For more information see:
+\url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/cubical/factory/}
+
+\begin{itemize}
+\item sphereSolid - in any dimension 'dim'
+A cubical complex equivalent to a solid hyper-sphere. That is, a solid
+volume with no holes in it, so we use a single n-dimensional cube.
+\item sphereSurface - in any dimension 'dim'
+A cubical complex equivalent to the surface of a hyper-sphere.
+That is, the surface of a volume with no holes in it, so we use the faces
+of a single cube.
+\item torusSurface - A cubical complex of the surface of a
+3-dimensional torus.
+\item band - A cubical complex of the surface of a cylinder without
+ends
+\item projectivePlane - A cubical complex of the surface of a
+projective plane.
+A one sided surface which cannot be embedded in 3D space without
+intersecting itself. There are no external boundaries, every edge
+connects two faces.
+(A punctured projective plane is equivalent to a Moebius band)
+\end{itemize}
+
+I would also like to add:
+\begin{itemize}
+\item moebiusBand - a cubical complex of the surface of a Moebius band.
+A one sided surface with a single external boundary line.
+\item kleinBottle -  a cubical complex of the surface of a Klein bottle.
+\end{itemize}
+but I have not yet worked out if, or how, this can be done for a cubical
+complex.
+)endif
+

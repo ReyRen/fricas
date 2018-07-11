@@ -1,0 +1,355 @@
+17370               (|RegularSetDecompositionPackage| R E V P TS)
+|package|
+(((|RegularSetDecompositionPackage| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package|
+   (SIGNATURE |KrullNumber|
+    ((|NonNegativeInteger|) (|List| |#4|) (|List| |#5|)))
+   (SIGNATURE |numberOfVariables|
+    ((|NonNegativeInteger|) (|List| |#4|) (|List| |#5|)))
+   (SIGNATURE |algebraicDecompose|
+    ((|Record| (|:| |done| (|List| |#5|))
+               (|:| |todo|
+                    (|List|
+                     (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+     |#4| |#5| (|Boolean|)))
+   (SIGNATURE |transcendentalDecompose|
+    ((|Record| (|:| |done| (|List| |#5|))
+               (|:| |todo|
+                    (|List|
+                     (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+     |#4| |#5| (|NonNegativeInteger|)))
+   (SIGNATURE |transcendentalDecompose|
+    ((|Record| (|:| |done| (|List| |#5|))
+               (|:| |todo|
+                    (|List|
+                     (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+     |#4| |#5|))
+   (SIGNATURE |internalDecompose|
+    ((|Record| (|:| |done| (|List| |#5|))
+               (|:| |todo|
+                    (|List|
+                     (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+     |#4| |#5| (|NonNegativeInteger|) (|Boolean|)))
+   (SIGNATURE |internalDecompose|
+    ((|Record| (|:| |done| (|List| |#5|))
+               (|:| |todo|
+                    (|List|
+                     (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+     |#4| |#5| (|NonNegativeInteger|)))
+   (SIGNATURE |internalDecompose|
+    ((|Record| (|:| |done| (|List| |#5|))
+               (|:| |todo|
+                    (|List|
+                     (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+     |#4| |#5|))
+   (SIGNATURE |decompose|
+    ((|List| |#5|) (|List| |#4|) (|List| |#5|) (|Boolean|) (|Boolean|)))
+   (SIGNATURE |decompose|
+    ((|List| |#5|) (|List| |#4|) (|List| |#5|) (|Boolean|) (|Boolean|)
+     (|Boolean|) (|Boolean|) (|Boolean|)))
+   (SIGNATURE |upDateBranches|
+    ((|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))
+     (|List| |#4|) (|List| |#5|)
+     (|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))
+     (|Record| (|:| |done| (|List| |#5|))
+               (|:| |todo|
+                    (|List|
+                     (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+     (|NonNegativeInteger|)))
+   (SIGNATURE |convert|
+    ((|String|) (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))))
+   (SIGNATURE |printInfo|
+    ((|Void|) (|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))
+     (|NonNegativeInteger|))))
+  (|GcdDomain|) (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|RecursivePolynomialCategory| |#1| |#2| |#3|)
+  (|RegularTriangularSetCategory| |#1| |#2| |#3| |#4|))
+ (T |RegularSetDecompositionPackage|))
+(CATEGORY |package|
+ (SIGNATURE |KrullNumber| ((|NonNegativeInteger|) (|List| |#4|) (|List| |#5|)))
+ (SIGNATURE |numberOfVariables|
+  ((|NonNegativeInteger|) (|List| |#4|) (|List| |#5|)))
+ (SIGNATURE |algebraicDecompose|
+  ((|Record| (|:| |done| (|List| |#5|))
+             (|:| |todo|
+                  (|List|
+                   (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+   |#4| |#5| (|Boolean|)))
+ (SIGNATURE |transcendentalDecompose|
+  ((|Record| (|:| |done| (|List| |#5|))
+             (|:| |todo|
+                  (|List|
+                   (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+   |#4| |#5| (|NonNegativeInteger|)))
+ (SIGNATURE |transcendentalDecompose|
+  ((|Record| (|:| |done| (|List| |#5|))
+             (|:| |todo|
+                  (|List|
+                   (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+   |#4| |#5|))
+ (SIGNATURE |internalDecompose|
+  ((|Record| (|:| |done| (|List| |#5|))
+             (|:| |todo|
+                  (|List|
+                   (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+   |#4| |#5| (|NonNegativeInteger|) (|Boolean|)))
+ (SIGNATURE |internalDecompose|
+  ((|Record| (|:| |done| (|List| |#5|))
+             (|:| |todo|
+                  (|List|
+                   (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+   |#4| |#5| (|NonNegativeInteger|)))
+ (SIGNATURE |internalDecompose|
+  ((|Record| (|:| |done| (|List| |#5|))
+             (|:| |todo|
+                  (|List|
+                   (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+   |#4| |#5|))
+ (SIGNATURE |decompose|
+  ((|List| |#5|) (|List| |#4|) (|List| |#5|) (|Boolean|) (|Boolean|)))
+ (SIGNATURE |decompose|
+  ((|List| |#5|) (|List| |#4|) (|List| |#5|) (|Boolean|) (|Boolean|)
+   (|Boolean|) (|Boolean|) (|Boolean|)))
+ (SIGNATURE |upDateBranches|
+  ((|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))
+   (|List| |#4|) (|List| |#5|)
+   (|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))
+   (|Record| (|:| |done| (|List| |#5|))
+             (|:| |todo|
+                  (|List|
+                   (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+   (|NonNegativeInteger|)))
+ (SIGNATURE |convert|
+  ((|String|) (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))))
+ (SIGNATURE |printInfo|
+  ((|Void|) (|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))
+   (|NonNegativeInteger|))))
+"/git/fricas/src/algebra/RSDCMPK.spad"
+((|printInfo| (*1 *2 *3 *4)
+              (AND
+               (|isDomain| *3
+                           (|List|
+                            (|Record| (|:| |val| (|List| *8))
+                                      (|:| |tower| *9))))
+               (|isDomain| *4 (|NonNegativeInteger|))
+               (|ofCategory| *8 (|RecursivePolynomialCategory| *5 *6 *7))
+               (|ofCategory| *9 (|RegularTriangularSetCategory| *5 *6 *7 *8))
+               (|ofCategory| *5 (|GcdDomain|))
+               (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+               (|ofCategory| *7 (|OrderedSet|)) (|isDomain| *2 (|Void|))
+               (|isDomain| *1
+                           (|RegularSetDecompositionPackage| *5 *6 *7 *8 *9))))
+ (|convert| (*1 *2 *3)
+            (AND
+             (|isDomain| *3
+                         (|Record| (|:| |val| (|List| *7)) (|:| |tower| *8)))
+             (|ofCategory| *7 (|RecursivePolynomialCategory| *4 *5 *6))
+             (|ofCategory| *8 (|RegularTriangularSetCategory| *4 *5 *6 *7))
+             (|ofCategory| *4 (|GcdDomain|))
+             (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+             (|ofCategory| *6 (|OrderedSet|)) (|isDomain| *2 (|String|))
+             (|isDomain| *1
+                         (|RegularSetDecompositionPackage| *4 *5 *6 *7 *8))))
+ (|upDateBranches| (*1 *2 *3 *4 *2 *5 *6)
+  (AND
+   (|isDomain| *2
+               (|List| (|Record| (|:| |val| (|List| *10)) (|:| |tower| *11))))
+   (|isDomain| *5
+               (|Record| (|:| |done| (|List| *11))
+                         (|:| |todo|
+                              (|List|
+                               (|Record| (|:| |val| (|List| *10))
+                                         (|:| |tower| *11))))))
+   (|isDomain| *6 (|NonNegativeInteger|))
+   (|ofCategory| *10 (|RecursivePolynomialCategory| *7 *8 *9))
+   (|ofCategory| *11 (|RegularTriangularSetCategory| *7 *8 *9 *10))
+   (|isDomain| *3 (|List| *10)) (|isDomain| *4 (|List| *11))
+   (|ofCategory| *7 (|GcdDomain|))
+   (|ofCategory| *8 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *9 (|OrderedSet|))
+   (|isDomain| *1 (|RegularSetDecompositionPackage| *7 *8 *9 *10 *11))))
+ (|decompose| (*1 *2 *3 *2 *4 *4 *4 *4 *4)
+  (AND (|isDomain| *2 (|List| *9)) (|isDomain| *3 (|List| *8))
+       (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *8 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|ofCategory| *9 (|RegularTriangularSetCategory| *5 *6 *7 *8))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|isDomain| *1 (|RegularSetDecompositionPackage| *5 *6 *7 *8 *9))))
+ (|decompose| (*1 *2 *3 *2 *4 *4)
+  (AND (|isDomain| *2 (|List| *9)) (|isDomain| *3 (|List| *8))
+       (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *8 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|ofCategory| *9 (|RegularTriangularSetCategory| *5 *6 *7 *8))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|isDomain| *1 (|RegularSetDecompositionPackage| *5 *6 *7 *8 *9))))
+ (|internalDecompose| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2
+                   (|Record| (|:| |done| (|List| *4))
+                             (|:| |todo|
+                                  (|List|
+                                   (|Record| (|:| |val| (|List| *3))
+                                             (|:| |tower| *4))))))
+       (|isDomain| *1 (|RegularSetDecompositionPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|internalDecompose| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *5 (|NonNegativeInteger|)) (|ofCategory| *6 (|GcdDomain|))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *8 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *6 *7 *8))
+       (|isDomain| *2
+                   (|Record| (|:| |done| (|List| *4))
+                             (|:| |todo|
+                                  (|List|
+                                   (|Record| (|:| |val| (|List| *3))
+                                             (|:| |tower| *4))))))
+       (|isDomain| *1 (|RegularSetDecompositionPackage| *6 *7 *8 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *6 *7 *8 *3))))
+ (|internalDecompose| (*1 *2 *3 *4 *5 *6)
+  (AND (|isDomain| *5 (|NonNegativeInteger|)) (|isDomain| *6 (|Boolean|))
+       (|ofCategory| *7 (|GcdDomain|))
+       (|ofCategory| *8 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *9 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *7 *8 *9))
+       (|isDomain| *2
+                   (|Record| (|:| |done| (|List| *4))
+                             (|:| |todo|
+                                  (|List|
+                                   (|Record| (|:| |val| (|List| *3))
+                                             (|:| |tower| *4))))))
+       (|isDomain| *1 (|RegularSetDecompositionPackage| *7 *8 *9 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *7 *8 *9 *3))))
+ (|transcendentalDecompose| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2
+                   (|Record| (|:| |done| (|List| *4))
+                             (|:| |todo|
+                                  (|List|
+                                   (|Record| (|:| |val| (|List| *3))
+                                             (|:| |tower| *4))))))
+       (|isDomain| *1 (|RegularSetDecompositionPackage| *5 *6 *7 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *5 *6 *7 *3))))
+ (|transcendentalDecompose| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *5 (|NonNegativeInteger|)) (|ofCategory| *6 (|GcdDomain|))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *8 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *6 *7 *8))
+       (|isDomain| *2
+                   (|Record| (|:| |done| (|List| *4))
+                             (|:| |todo|
+                                  (|List|
+                                   (|Record| (|:| |val| (|List| *3))
+                                             (|:| |tower| *4))))))
+       (|isDomain| *1 (|RegularSetDecompositionPackage| *6 *7 *8 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *6 *7 *8 *3))))
+ (|algebraicDecompose| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *5 (|Boolean|)) (|ofCategory| *6 (|GcdDomain|))
+       (|ofCategory| *7 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *8 (|OrderedSet|))
+       (|ofCategory| *3 (|RecursivePolynomialCategory| *6 *7 *8))
+       (|isDomain| *2
+                   (|Record| (|:| |done| (|List| *4))
+                             (|:| |todo|
+                                  (|List|
+                                   (|Record| (|:| |val| (|List| *3))
+                                             (|:| |tower| *4))))))
+       (|isDomain| *1 (|RegularSetDecompositionPackage| *6 *7 *8 *3 *4))
+       (|ofCategory| *4 (|RegularTriangularSetCategory| *6 *7 *8 *3))))
+ (|numberOfVariables| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *8)) (|isDomain| *4 (|List| *9))
+       (|ofCategory| *8 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|ofCategory| *9 (|RegularTriangularSetCategory| *5 *6 *7 *8))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|)) (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|RegularSetDecompositionPackage| *5 *6 *7 *8 *9))))
+ (|KrullNumber| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *8)) (|isDomain| *4 (|List| *9))
+       (|ofCategory| *8 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|ofCategory| *9 (|RegularTriangularSetCategory| *5 *6 *7 *8))
+       (|ofCategory| *5 (|GcdDomain|))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|)) (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|RegularSetDecompositionPackage| *5 *6 *7 *8 *9)))))
+((|upDateBranches|
+  (((|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))
+    (|List| |#4|) (|List| |#5|)
+    (|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))
+    (|Record| (|:| |done| (|List| |#5|))
+              (|:| |todo|
+                   (|List|
+                    (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+    (|NonNegativeInteger|))
+   95))
+ (|transcendentalDecompose|
+  (((|Record| (|:| |done| (|List| |#5|))
+              (|:| |todo|
+                   (|List|
+                    (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+    |#4| |#5|)
+   56)
+  (((|Record| (|:| |done| (|List| |#5|))
+              (|:| |todo|
+                   (|List|
+                    (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+    |#4| |#5| (|NonNegativeInteger|))
+   55))
+ (|printInfo|
+  (((|Void|) (|List| (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))
+    (|NonNegativeInteger|))
+   87))
+ (|numberOfVariables|
+  (((|NonNegativeInteger|) (|List| |#4|) (|List| |#5|)) 27))
+ (|internalDecompose|
+  (((|Record| (|:| |done| (|List| |#5|))
+              (|:| |todo|
+                   (|List|
+                    (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+    |#4| |#5|)
+   58)
+  (((|Record| (|:| |done| (|List| |#5|))
+              (|:| |todo|
+                   (|List|
+                    (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+    |#4| |#5| (|NonNegativeInteger|))
+   57)
+  (((|Record| (|:| |done| (|List| |#5|))
+              (|:| |todo|
+                   (|List|
+                    (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+    |#4| |#5| (|NonNegativeInteger|) (|Boolean|))
+   59))
+ (|decompose|
+  (((|List| |#5|) (|List| |#4|) (|List| |#5|) (|Boolean|) (|Boolean|)
+    (|Boolean|) (|Boolean|) (|Boolean|))
+   78)
+  (((|List| |#5|) (|List| |#4|) (|List| |#5|) (|Boolean|) (|Boolean|)) 79))
+ (|convert|
+  (((|String|) (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|))) 82))
+ (|algebraicDecompose|
+  (((|Record| (|:| |done| (|List| |#5|))
+              (|:| |todo|
+                   (|List|
+                    (|Record| (|:| |val| (|List| |#4|)) (|:| |tower| |#5|)))))
+    |#4| |#5| (|Boolean|))
+   54))
+ (|KrullNumber| (((|NonNegativeInteger|) (|List| |#4|) (|List| |#5|)) 19)))
+RSDCMPK
+((|constructor|
+  (NIL
+   "A package providing a new algorithm for solving polynomial systems by means of regular chains. Two ways of solving are proposed: in the sense of Zariski closure (like in Kalkbrener\\spad{'s} algorithm) or in the sense of the regular zeros (like in Wu,{} Wang or Lazard methods). This algorithm is valid for nay type of regular set. It does not care about the way a polynomial is added in an regular set,{} or how two quasi-components are compared (by an inclusion-test),{} or how the invertibility test is made in the tower of simple extensions associated with a regular set. These operations are realized respectively by the domain \\spad{TS} and the packages \\spadtype{QCMPACK}(\\spad{R},{} \\spad{E},{} \\spad{V},{} \\spad{P},{} \\spad{TS}) and \\spadtype{RSETGCD}(\\spad{R},{} \\spad{E},{} \\spad{V},{} \\spad{P},{} \\spad{TS}). The same way it does not care about the way univariate polynomial \\spad{gcd} (with coefficients in the tower of simple extensions associated with a regular set) are computed. The only requirement is that these \\spad{gcd} need to have invertible initials (normalized or not). WARNING. There is no need for a user to call diectly any operation of this package since they can be accessed by the domain \\spad{TS}. Thus,{} the operations of this package are not documented.\\newline")))
+(("documentation" 0 16024) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 16016) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 13695) ("modemaps" 0 5374) ("sourceFile" 0 5335)
+ ("constructorCategory" 0 2899) ("constructorModemap" 0 76)
+ ("constructorKind" 0 66) ("constructorForm" 0 20))

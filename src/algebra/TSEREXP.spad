@@ -1,0 +1,28 @@
+)abbrev category TSEREXP TaylorSeriesExpansion
+TaylorSeriesExpansion(Coef : Algebra(Fraction(Integer)),
+        Expon : OrderedAbelianMonoid, Var : OrderedSet,
+        PS : PowerSeriesCategory(Coef, Expon, Var),
+        UTS : UnivariateTaylorSeriesCategory(Coef)) : Category == with
+    taylor_via_deriv : (Coef, List PS, List (Coef -> Coef)) -> PS
+      ++ taylor_via_deriv(f, [x1, ..., xn], [D1, ..., Dn])
+      ++ expands f into Taylor series at (x1, ..., xn) using
+      ++ D1, ..., Dn as partial derivatives
+    taylor_via_deriv : (PS, List PS, List (Coef -> Coef)) -> PS
+      ++ taylor_via_deriv(f, [x1, ..., xn], [D1, ..., Dn])
+      ++ expands f into Taylor series at (x1, ..., xn) using
+      ++ D1, ..., Dn as partial derivatives
+    taylor_via_lode : (List UTS, PS, List Coef) -> PS
+      ++ taylor_via_lode([a0, ..., ak], z, [c0, ..., ck]) expands into
+      ++ Taylor series solution of the linear ordinary differential
+      ++ equation
+    applyTaylor : ((UTS -> UTS), PS) -> PS
+      ++ applyTaylor(g, f) applies g to f
+    apply_taylor : (UTS, PS) -> PS
+      ++ apply_taylor(g, f) applies g to f
+  add
+    taylor_via_deriv(f : Coef, lx : List PS,
+                         ld : List (Coef -> Coef)) : PS ==
+            taylor_via_deriv(monomial(f, 0$Expon)$PS, lx, ld)
+
+
+

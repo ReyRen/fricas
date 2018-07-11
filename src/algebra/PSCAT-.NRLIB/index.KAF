@@ -1,0 +1,52 @@
+2254                (|PowerSeriesCategory&| S |Coef| |Expon| |Var|)
+|domain|
+(((|PowerSeriesCategory&| |#1| |#2| |#3| |#4|)
+  (CATEGORY |domain| (SIGNATURE * (|#1| (|NonNegativeInteger|) |#1|))
+   (SIGNATURE - (|#1| |#1|)) (SIGNATURE - (|#1| |#1| |#1|))
+   (SIGNATURE * (|#1| (|Integer|) |#1|))
+   (SIGNATURE * (|#1| |#1| (|Fraction| (|Integer|))))
+   (SIGNATURE * (|#1| (|Fraction| (|Integer|)) |#1|))
+   (SIGNATURE / (|#1| |#1| |#2|)) (SIGNATURE * (|#1| |#2| |#1|))
+   (SIGNATURE * (|#1| |#1| |#2|)) (SIGNATURE * (|#1| |#1| |#1|))
+   (SIGNATURE * (|#1| (|PositiveInteger|) |#1|)))
+  (|PowerSeriesCategory| |#2| |#3| |#4|) (|Ring|) (|OrderedAbelianMonoid|)
+  (|OrderedSet|))
+ (T |PowerSeriesCategory&|))
+(CATEGORY |domain| (SIGNATURE * (|#1| (|NonNegativeInteger|) |#1|))
+ (SIGNATURE - (|#1| |#1|)) (SIGNATURE - (|#1| |#1| |#1|))
+ (SIGNATURE * (|#1| (|Integer|) |#1|))
+ (SIGNATURE * (|#1| |#1| (|Fraction| (|Integer|))))
+ (SIGNATURE * (|#1| (|Fraction| (|Integer|)) |#1|))
+ (SIGNATURE / (|#1| |#1| |#2|)) (SIGNATURE * (|#1| |#2| |#1|))
+ (SIGNATURE * (|#1| |#1| |#2|)) (SIGNATURE * (|#1| |#1| |#1|))
+ (SIGNATURE * (|#1| (|PositiveInteger|) |#1|)))
+"/git/fricas/src/algebra/PSCAT.spad"
+((/ (($ $ |#2|) 30)) (- (($ $ $) NIL) (($ $) 22))
+ (* (($ (|PositiveInteger|) $) NIL) (($ $ $) NIL) (($ $ |#2|) 20)
+    (($ |#2| $) 19) (($ (|Fraction| (|Integer|)) $) 26)
+    (($ $ (|Fraction| (|Integer|))) 28) (($ (|Integer|) $) 15)
+    (($ (|NonNegativeInteger|) $) NIL)))
+PSCAT-
+((|constructor|
+  (NIL
+   "\\spadtype{PowerSeriesCategory} is the most general power series category with exponents in an ordered abelian monoid."))
+ (|complete|
+  (($ $)
+   "\\spad{complete(f)} causes all terms of \\spad{f} to be computed. Note: this results in an infinite loop if \\spad{f} has infinitely many terms."))
+ (|pole?|
+  (((|Boolean|) $)
+   "\\spad{pole?(f)} determines if the power series \\spad{f} has a pole."))
+ (|degree|
+  ((|#3| $)
+   "\\spad{degree(f)} returns the exponent of the lowest order term of \\spad{f}."))
+ (|leadingCoefficient|
+  ((|#2| $)
+   "\\spad{leadingCoefficient(f)} returns the coefficient of the lowest order term of \\spad{f}"))
+ (|leadingMonomial|
+  (($ $)
+   "\\spad{leadingMonomial(f)} returns the monomial of \\spad{f} of lowest order.")))
+(("documentation" 0 1468) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1461) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1185) ("modemaps" 0 NIL) ("sourceFile" 0 1148)
+ ("constructorCategory" 0 705) ("constructorModemap" 0 77)
+ ("constructorKind" 0 68) ("constructorForm" 0 20))

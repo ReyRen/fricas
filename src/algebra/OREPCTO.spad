@@ -1,0 +1,134 @@
+)abbrev package OREPCTO UnivariateSkewPolynomialCategoryOps
+++ Author: Manuel Bronstein
+++ Date Created: 1 February 1994
+++ Description:
+++   \spad{UnivariateSkewPolynomialCategoryOps} provides products and
+++    divisions of univariate skew polynomials.
+-- Putting those operations here rather than defaults in OREPCAT allows
+-- OREPCAT to be defined independently of sigma and delta.
+-- MB 2/94
+UnivariateSkewPolynomialCategoryOps(R, C) : Exports == Implementation where
+    R : Ring
+    C : UnivariateSkewPolynomialCategory R
+
+    N   ==> NonNegativeInteger
+    MOR ==> Automorphism R
+    QUOREM ==> Record(quotient : C, remainder : C)
+
+    Exports ==> with
+        times : (C, C, MOR, R -> R) -> C
+           ++ times(p, q, sigma, delta) returns \spad{p * q}.
+           ++ \spad{\sigma} and \spad{\delta} are the maps to use.
+        apply : (C, R, R, MOR, R -> R) -> R
+          ++ apply(p, c, m, sigma, delta) returns \spad{p(m)} where the action
+          ++ is given by \spad{x m = c sigma(m) + delta(m)}.
+        if R has IntegralDomain then
+            monicLeftDivide : (C, C, MOR) -> QUOREM
+                ++ monicLeftDivide(a, b, sigma) returns the pair \spad{[q, r]}
+                ++ such that \spad{a = b*q + r} and the degree of \spad{r} is
+                ++ less than the degree of \spad{b}.
+                ++ \spad{b} must be monic.
+                ++ This process is called ``left division''.
+                ++ \spad{\sigma} is the morphism to use.
+            monicRightDivide : (C, C, MOR) -> QUOREM
+                ++ monicRightDivide(a, b, sigma) returns the pair \spad{[q, r]}
+                ++ such that \spad{a = q*b + r} and the degree of \spad{r} is
+                ++ less than the degree of \spad{b}.
+                ++ \spad{b} must be monic.
+                ++ This process is called ``right division''.
+                ++ \spad{\sigma} is the morphism to use.
+        if R has Field then
+            leftDivide : (C, C, MOR) -> QUOREM
+                ++ leftDivide(a, b, sigma) returns the pair \spad{[q, r]} such
+                ++ that \spad{a = b*q + r} and the degree of \spad{r} is
+                ++ less than the degree of \spad{b}.
+                ++ This process is called ``left division''.
+                ++ \spad{\sigma} is the morphism to use.
+            rightDivide : (C, C, MOR) -> QUOREM
+                ++ rightDivide(a, b, sigma) returns the pair \spad{[q, r]} such
+                ++ that \spad{a = q*b + r} and the degree of \spad{r} is
+                ++ less than the degree of \spad{b}.
+                ++ This process is called ``right division''.
+                ++ \spad{\sigma} is the morphism to use.
+
+    Implementation ==> add
+
+        localLeftDivide : (C, C, MOR, R) -> QUOREM
+        localRightDivide : (C, C, MOR, R) -> QUOREM
+
+        times2 : (N, C, C, MOR, R -> R) -> Record(prod : C, yton : C)
+
+        times(x, y, sigma, delta) ==
+          zero? y => 0
+          times2(degree x, x, y, sigma, delta).prod
+
+        times2(n, x, y, sigma, delta) ==
+            (u := subtractIfCan(n, 1)) case "failed" =>
+                zero? x => [0, y]
+                [leadingCoefficient(x)*y, y]
+            n1 := u::N
+            x1 :=
+                n = degree x => reductum x
+                x
+            pp := times2(n1, x1, y, sigma, delta)
+            y1 := pp.yton
+            z : C := 0
+            while y1 ~= 0 repeat
+                m := degree y1
+                b := leadingCoefficient y1
+                z := z + monomial(sigma b, m + 1) + monomial(delta b, m)
+                y1 := reductum y1
+            n = degree x => [leadingCoefficient(x)*z + pp.prod, z]
+            [pp.prod, z]
+
+        apply(p, c, x, sigma, delta) ==
+          w : R  := 0
+          xn : R := x
+          for i in 0..degree p repeat
+            w  := w + coefficient(p, i) * xn
+            xn := c * sigma xn + delta xn
+          w
+
+        -- localLeftDivide(a, b) returns [q, r] such that a = q b + r
+        -- b1 is the inverse of the leadingCoefficient of b
+        localLeftDivide(a, b, sigma, b1) ==
+            zero? b => error "leftDivide: division by 0"
+            zero? a or
+             (n := subtractIfCan(degree(a),(m := degree b))) case "failed" =>
+                    [0, a]
+            q  := monomial((sigma^(-m))(b1 * leadingCoefficient a), n::N)
+            a1 := reductum(a) - reductum(b * q)
+            qr := localLeftDivide(a1, b, sigma, b1)
+            [q + qr.quotient, qr.remainder]
+
+        -- localRightDivide(a, b) returns [q, r] such that a = q b + r
+        -- b1 is the inverse of the leadingCoefficient of b
+        localRightDivide(a, b, sigma, b1) ==
+            zero? b => error "rightDivide: division by 0"
+            zero? a or
+              (n := subtractIfCan(degree(a),(m := degree b))) case "failed" =>
+                    [0, a]
+            q := monomial(leadingCoefficient(a) * (sigma^n) b1, n::N)
+            a1 := reductum(a) - reductum(q * b)
+            qr := localRightDivide(a1, b, sigma, b1)
+            [q + qr.quotient, qr.remainder]
+
+        if R has IntegralDomain then
+            monicLeftDivide(a, b, sigma) ==
+                unit?(u := leadingCoefficient b) =>
+                    localLeftDivide(a, b, sigma, recip(u)::R)
+                error "monicLeftDivide: divisor is not monic"
+
+            monicRightDivide(a, b, sigma) ==
+                unit?(u := leadingCoefficient b) =>
+                    localRightDivide(a, b, sigma, recip(u)::R)
+                error "monicRightDivide: divisor is not monic"
+
+        if R has Field then
+            leftDivide(a, b, sigma) ==
+                localLeftDivide(a, b, sigma, inv leadingCoefficient b)
+
+            rightDivide(a, b, sigma) ==
+                localRightDivide(a, b, sigma, inv leadingCoefficient b)
+
+

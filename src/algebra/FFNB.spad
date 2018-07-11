@@ -1,0 +1,76 @@
+)abbrev domain FFNB FiniteFieldNormalBasis
+++ Authors: J.Grabmeier, A.Scheerhorn
+++ Date Created: 26.03.1991
+++ Basic Operations:
+++ Related Constructors: FiniteFieldNormalBasisExtensionByPolynomial,
+++  FiniteFieldPolynomialPackage
+++ Also See: FiniteField, FiniteFieldCyclicGroup
+++ AMS Classifications:
+++ Keywords: finite field, normal basis
+++ References:
+++  R.Lidl, H.Niederreiter: Finite Field, Encyclopedia of Mathematics and
+++  Its Applications, Vol. 20, Cambridge Univ. Press, 1983, ISBN 0 521 30240 4
+++  J. Grabmeier, A. Scheerhorn: Finite Fields in AXIOM.
+++   AXIOM Technical Report Series, ATR/5 NP2522.
+++ Description:
+++  FiniteFieldNormalBasis(p, n) implements a
+++  finite extension field of degree n over the prime field with p elements.
+++  The elements are represented by coordinate vectors with respect to
+++  a normal basis,
+++  i.e. a basis consisting of the conjugates (q-powers) of an element, in
+++  this case called normal element.
+++  This is chosen as a root of the extension polynomial
+++  created by \spadfunFrom{createNormalPoly}{FiniteFieldPolynomialPackage}.
+FiniteFieldNormalBasis(p, extdeg) : _
+  Exports == Implementation where
+  p : PositiveInteger
+  extdeg : PositiveInteger                    -- the extension degree
+  NNI     ==> NonNegativeInteger
+  FFF  ==> FiniteFieldFunctions(PrimeField(p))
+  TERM    ==> Record(value : PrimeField(p), index : SingleInteger)
+  Exports ==> FiniteAlgebraicExtensionField(PrimeField(p))  with
+    getMultiplicationTable : ()   -> Vector List TERM
+      ++ getMultiplicationTable() returns the multiplication
+      ++ table for the normal basis of the field.
+      ++ This table is used to perform multiplications between field elements.
+    getMultiplicationMatrix : ()  -> Matrix PrimeField(p)
+      ++ getMultiplicationMatrix() returns the multiplication table in
+      ++ form of a matrix.
+    sizeMultiplication : ()   -> NNI
+      ++ sizeMultiplication() returns the number of entries in the
+      ++ multiplication table of the field. Note: The time of multiplication
+      ++ of field elements depends on this size.
+
+  Implementation ==> FiniteFieldNormalBasisExtensionByPolynomial(PrimeField(p), _
+                    createLowComplexityNormalBasis(extdeg)$FFF)
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

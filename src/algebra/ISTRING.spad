@@ -1,0 +1,171 @@
+)abbrev domain ISTRING IndexedString
+++ Authors: Stephen Watt, Michael Monagan, Manuel Bronstein 1986 .. 1991
+++ Description:
+++ This domain implements low-level strings
+
+IndexedString(mn : Integer) : Export == Implementation where
+  B ==> Boolean
+  C ==> Character
+  I ==> Integer
+  N ==> NonNegativeInteger
+  U ==> UniversalSegment Integer
+
+  Export ==> StringAggregate()
+
+  Implementation ==> add
+    -- These assume Character's Rep is Small I
+    Qelt    ==> STR_ELT$Lisp
+    Qequal  ==> EQUAL$Lisp
+    Qsetelt ==> STR_SETELT$Lisp
+    Qsize   ==> QCSIZE$Lisp
+    Cheq    ==> eql_SI$Lisp
+    Chlt    ==> less_SI$Lisp
+    Chgt    ==> greater_SI$Lisp
+
+    c :  Character
+    cc : CharacterClass
+
+    new(n, c)              == make_full_CVEC(n, c)$Lisp
+    empty()                == make_full_CVEC(0$Lisp)$Lisp
+    empty?(s)              == Qsize(s) = 0
+    #s                     == Qsize(s)
+    s = t                  == Qequal(s, t)
+    s < t                  == CGREATERP(t, s)$Lisp
+    concat(s : %, t : %)        == STRCONC(s, t)$Lisp
+    copy s                 == COPY_-SEQ(s)$Lisp
+    insert(s : %, t : %, i : I)  == concat(concat(s(mn..i-1), t), s(i..))
+    coerce(s : %) : OutputForm == outputForm(s pretend String)
+    minIndex s             == mn
+    upperCase! s          == map!(upperCase, s)
+    lowerCase! s          == map!(lowerCase, s)
+
+    latex s                == concat("\mbox{``", concat(s pretend String, "''}"))
+
+    replace(s, sg, t) ==
+        l := low(sg) - mn
+        m := #s
+        n := #t
+        h : I := if hasHi sg then high(sg) - mn else maxIndex s - mn
+        l < 0 or h >= m or h < l-1 => error "index out of range"
+        r := new((m-(h-l+1)+n)::N, space$C)
+        for k in 0.. for i in 0..l-1 repeat Qsetelt(r, k, Qelt(s, i))
+        for k in k.. for i in 0..n-1 repeat Qsetelt(r, k, Qelt(t, i))
+        for k in k.. for i in h+1..m-1 repeat Qsetelt(r, k, Qelt(s, i))
+        r
+
+    qsetelt!(s : %, i : I, c : C) == Qsetelt(s, i - mn, c)
+
+    setelt!(s : %, i : I, c : C) ==
+        i < mn or i > maxIndex(s) => error "index out of range"
+        Qsetelt(s, i - mn, c)
+
+    substring?(part, whole, startpos) ==
+        np : I := Qsize part
+        nw : I := Qsize whole
+        (startpos := startpos - mn) < 0 => error "index out of bounds"
+        np > nw - startpos => false
+        for ip in 0..np-1 for iw in startpos.. repeat
+            not Cheq(Qelt(part, ip), Qelt(whole, iw)) => return false
+        true
+
+    position(s : %, t : %, startpos : I) ==
+        (startpos := startpos - mn) < 0 => error "index out of bounds"
+        startpos >= Qsize t => mn - 1
+        r : I := STRPOS(s, t, startpos, NIL$Lisp)$Lisp
+        EQ(r, NIL$Lisp)$Lisp => mn - 1
+        r + mn
+    position(c : Character, t : %, startpos : I) ==
+        (startpos := startpos - mn) < 0 => error "index out of bounds"
+        startpos >= Qsize t => mn - 1
+        for r in startpos..Qsize t - 1 repeat
+            if Cheq(Qelt(t, r), c) then return r + mn
+        mn - 1
+    position(cc : CharacterClass, t : %, startpos : I) ==
+        (startpos := startpos - mn) < 0 => error "index out of bounds"
+        startpos >= Qsize t => mn - 1
+        for r in startpos..Qsize t - 1 repeat
+            if member?(Qelt(t, r), cc) then return r + mn
+        mn - 1
+
+    suffix?(s, t) ==
+        (m := maxIndex s) > (n := maxIndex t) => false
+        substring?(s, t, mn + n - m)
+
+    split(s, c) ==
+        n := maxIndex s
+        for i in mn..n while s.i = c repeat 0
+        l := empty()$List(%)
+        j : Integer -- j is conditionally intialized
+        while i <= n and (j := position(c, s, i)) >= mn repeat
+            l := concat(s(i..j-1), l)
+            for i in j..n while s.i = c repeat 0
+        if i <= n then l := concat(s(i..n), l)
+        reverse! l
+    split(s, cc) ==
+        n := maxIndex s
+        for i in mn..n while member?(s.i, cc) repeat 0
+        l := empty()$List(%)
+        j : Integer -- j is conditionally intialized
+        while i <= n and (j := position(cc, s, i)) >= mn repeat
+            l := concat(s(i..j-1), l)
+            for i in j..n while member?(s.i, cc) repeat 0
+        if i <= n then l := concat(s(i..n), l)
+        reverse! l
+
+    leftTrim(s, cc) ==
+        n := maxIndex s
+        for i in mn .. n while member?(s.i, cc) repeat 0
+        s(i..n)
+
+    rightTrim(s, cc) ==
+        for j in maxIndex s .. mn by -1 while member?(s.j, cc) repeat 0
+        s(minIndex(s)..j)
+
+    concat l ==
+        t := new(+/[#s for s in l], space$C)
+        i := mn
+        for s in l repeat
+            copyInto!(t, s, i)
+            i := i + #s
+        t
+
+    copyInto!(y, x, s) ==
+        m := #x
+        n := #y
+        s := s - mn
+        s < 0 or s+m > n => error "index out of range"
+        RPLACSTR(y, s, m, x, 0, m)$Lisp
+        y
+
+    qelt(s : %, i : I) == Qelt(s, i - mn)
+
+    elt(s : %, i : I) ==
+        i < mn or i > maxIndex(s) => error "index out of range"
+        Qelt(s, i - mn)
+
+    elt(s : %, sg : U) ==
+        l := low(sg) - mn
+        h := if hasHi sg then high(sg) - mn else maxIndex s - mn
+        l < 0 or h >= #s => error "index out of bounds"
+        SUBSTRING(s, l, max(0, h-l+1))$Lisp
+
+    hashUpdate!(hs, s) == update!(hs, SXHASH(s)$Lisp)$HashState
+
+    match?(pattern, target, dontcare) ==
+        n := maxIndex pattern
+        p := position(dontcare, pattern, m := minIndex pattern)::N
+        p = m-1 => pattern = target
+        (p ~= m) and not prefix?(pattern(m..p-1), target) => false
+        i := p  -- index into target
+        q := position(dontcare, pattern, p + 1)::N
+        while q ~= m-1 repeat
+           s := pattern(p+1..q-1)
+           i := position(s, target, i)::N
+           i = m-1 => return false
+           i := i + #s
+           p := q
+           q := position(dontcare, pattern, q + 1)::N
+        (p ~= n) and not suffix?(pattern(p+1..n), target) => false
+        true
+
+

@@ -1,0 +1,149 @@
+8941                (|PolynomialSetCategory&| S R E |VarSet| P)
+|domain|
+(((|PolynomialSetCategory&| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |domain| (SIGNATURE |iexactQuo| (|#2| |#2| |#2|))
+   (SIGNATURE |triangular?| ((|Boolean|) |#1|))
+   (SIGNATURE |rewriteIdealWithRemainder| ((|List| |#5|) (|List| |#5|) |#1|))
+   (SIGNATURE |rewriteIdealWithHeadRemainder|
+    ((|List| |#5|) (|List| |#5|) |#1|))
+   (SIGNATURE |remainder|
+    ((|Record| (|:| |rnum| |#2|) (|:| |polnum| |#5|) (|:| |den| |#2|)) |#5|
+     |#1|))
+   (SIGNATURE |headRemainder|
+    ((|Record| (|:| |num| |#5|) (|:| |den| |#2|)) |#5| |#1|))
+   (SIGNATURE |roughUnitIdeal?| ((|Boolean|) |#1|))
+   (SIGNATURE |roughEqualIdeals?| ((|Boolean|) |#1| |#1|))
+   (SIGNATURE |roughSubIdeal?| ((|Boolean|) |#1| |#1|))
+   (SIGNATURE |roughBase?| ((|Boolean|) |#1|))
+   (SIGNATURE |trivialIdeal?| ((|Boolean|) |#1|))
+   (SIGNATURE |sort|
+    ((|Record| (|:| |under| |#1|) (|:| |floor| |#1|) (|:| |upper| |#1|)) |#1|
+     |#4|))
+   (SIGNATURE |collectUpper| (|#1| |#1| |#4|))
+   (SIGNATURE |collect| (|#1| |#1| |#4|))
+   (SIGNATURE |collectUnder| (|#1| |#1| |#4|))
+   (SIGNATURE |mainVariable?| ((|Boolean|) |#4| |#1|))
+   (SIGNATURE |mainVariables| ((|List| |#4|) |#1|))
+   (SIGNATURE |variables| ((|List| |#4|) |#1|))
+   (SIGNATURE = ((|Boolean|) |#1| |#1|)))
+  (|PolynomialSetCategory| |#2| |#3| |#4| |#5|) (|Ring|)
+  (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|RecursivePolynomialCategory| |#2| |#3| |#4|))
+ (T |PolynomialSetCategory&|))
+(CATEGORY |domain| (SIGNATURE |iexactQuo| (|#2| |#2| |#2|))
+ (SIGNATURE |triangular?| ((|Boolean|) |#1|))
+ (SIGNATURE |rewriteIdealWithRemainder| ((|List| |#5|) (|List| |#5|) |#1|))
+ (SIGNATURE |rewriteIdealWithHeadRemainder| ((|List| |#5|) (|List| |#5|) |#1|))
+ (SIGNATURE |remainder|
+  ((|Record| (|:| |rnum| |#2|) (|:| |polnum| |#5|) (|:| |den| |#2|)) |#5|
+   |#1|))
+ (SIGNATURE |headRemainder|
+  ((|Record| (|:| |num| |#5|) (|:| |den| |#2|)) |#5| |#1|))
+ (SIGNATURE |roughUnitIdeal?| ((|Boolean|) |#1|))
+ (SIGNATURE |roughEqualIdeals?| ((|Boolean|) |#1| |#1|))
+ (SIGNATURE |roughSubIdeal?| ((|Boolean|) |#1| |#1|))
+ (SIGNATURE |roughBase?| ((|Boolean|) |#1|))
+ (SIGNATURE |trivialIdeal?| ((|Boolean|) |#1|))
+ (SIGNATURE |sort|
+  ((|Record| (|:| |under| |#1|) (|:| |floor| |#1|) (|:| |upper| |#1|)) |#1|
+   |#4|))
+ (SIGNATURE |collectUpper| (|#1| |#1| |#4|))
+ (SIGNATURE |collect| (|#1| |#1| |#4|))
+ (SIGNATURE |collectUnder| (|#1| |#1| |#4|))
+ (SIGNATURE |mainVariable?| ((|Boolean|) |#4| |#1|))
+ (SIGNATURE |mainVariables| ((|List| |#4|) |#1|))
+ (SIGNATURE |variables| ((|List| |#4|) |#1|))
+ (SIGNATURE = ((|Boolean|) |#1| |#1|)))
+"/git/fricas/src/algebra/PSETCAT.spad"
+((|iexactQuo| (*1 *2 *2 *2)
+  (AND (|ofCategory| *2 (|Ring|)) (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|ofCategory| *6 (|RecursivePolynomialCategory| *2 *4 *5))
+       (|isDomain| *1 (|PolynomialSetCategory&| *3 *2 *4 *5 *6))
+       (|ofCategory| *3 (|PolynomialSetCategory| *2 *4 *5 *6)))))
+((|variables| (((|List| |#4|) $) 23)) (|trivialIdeal?| (((|Boolean|) $) 48))
+ (|triangular?| (((|Boolean|) $) 47))
+ (|sort|
+  (((|Record| (|:| |under| $) (|:| |floor| $) (|:| |upper| $)) $ |#4|) 36))
+ (|roughUnitIdeal?| (((|Boolean|) $) 49))
+ (|roughSubIdeal?| (((|Boolean|) $ $) 55))
+ (|roughEqualIdeals?| (((|Boolean|) $ $) 58))
+ (|roughBase?| (((|Boolean|) $) 53))
+ (|rewriteIdealWithRemainder| (((|List| |#5|) (|List| |#5|) $) 92))
+ (|rewriteIdealWithHeadRemainder| (((|List| |#5|) (|List| |#5|) $) 89))
+ (|remainder|
+  (((|Record| (|:| |rnum| |#2|) (|:| |polnum| |#5|) (|:| |den| |#2|)) |#5| $)
+   83))
+ (|mainVariables| (((|List| |#4|) $) 27))
+ (|mainVariable?| (((|Boolean|) |#4| $) 29))
+ (|iexactQuo| ((|#2| |#2| |#2|) 60))
+ (|headRemainder| (((|Record| (|:| |num| |#5|) (|:| |den| |#2|)) |#5| $) 75))
+ (|collectUpper| (($ $ |#4|) 33)) (|collectUnder| (($ $ |#4|) 32))
+ (|collect| (($ $ |#4|) 34)) (= (((|Boolean|) $ $) 40)))
+((|HasCategory| |#2| '(|IntegralDomain|)))
+PSETCAT-
+((|constructor|
+  (NIL
+   "A category for finite subsets of a polynomial ring. Such a set is only regarded as a set of polynomials and not identified to the ideal it generates. So two distinct sets may generate the same the ideal. Furthermore,{} for \\spad{R} being an integral domain,{} a set of polynomials may be viewed as a representation of the ideal it generates in the polynomial ring \\spad{(R)^(-1) P},{} or the set of its zeros (described for instance by the radical of the previous ideal,{} or a split of the associated affine variety) and so on. So this category provides operations about those different notions."))
+ (|iexactQuo|
+  ((|#2| |#2| |#2|)
+   "\\spad{iexactQuo(x,{} y)} should be local but conditional"))
+ (|triangular?|
+  (((|Boolean|) $)
+   "\\spad{triangular?(ps)} returns \\spad{true} iff \\spad{ps} is a triangular set,{} \\spadignore{i.e.} two distinct polynomials have distinct main variables and no constant lies in \\spad{ps}."))
+ (|rewriteIdealWithRemainder|
+  (((|List| |#5|) (|List| |#5|) $)
+   "\\spad{rewriteIdealWithRemainder(lp,{} cs)} returns \\spad{lr} such that every polynomial in \\spad{lr} is fully reduced in the sense of Groebner bases \\spad{w}.\\spad{r}.\\spad{t}. \\spad{cs} and \\spad{(lp,{} cs)} and \\spad{(lr,{} cs)} generate the same ideal in \\spad{(R)^(-1) P}."))
+ (|rewriteIdealWithHeadRemainder|
+  (((|List| |#5|) (|List| |#5|) $)
+   "\\spad{rewriteIdealWithHeadRemainder(lp,{} cs)} returns \\spad{lr} such that the leading monomial of every polynomial in \\spad{lr} is reduced in the sense of Groebner bases \\spad{w}.\\spad{r}.\\spad{t}. \\spad{cs} and \\spad{(lp,{} cs)} and \\spad{(lr,{} cs)} generate the same ideal in \\spad{(R)^(-1) P}."))
+ (|remainder|
+  (((|Record| (|:| |rnum| |#2|) (|:| |polnum| |#5|) (|:| |den| |#2|)) |#5| $)
+   "\\spad{remainder(a,{} ps)} returns \\spad{[c,{} b,{} r]} such that \\spad{b} is fully reduced in the sense of Groebner bases \\spad{w}.\\spad{r}.\\spad{t}. \\spad{ps},{} \\spad{r*a - c*b} lies in the ideal generated by \\spad{ps}. Furthermore,{} if \\spad{R} is a \\spad{gcd}-domain,{} \\spad{b} is primitive."))
+ (|headRemainder|
+  (((|Record| (|:| |num| |#5|) (|:| |den| |#2|)) |#5| $)
+   "\\spad{headRemainder(a,{} ps)} returns \\spad{[b,{} r]} such that the leading monomial of \\spad{b} is reduced in the sense of Groebner bases \\spad{w}.\\spad{r}.\\spad{t}. \\spad{ps} and \\spad{r*a - b} lies in the ideal generated by \\spad{ps}."))
+ (|roughUnitIdeal?|
+  (((|Boolean|) $)
+   "\\spad{roughUnitIdeal?(ps)} returns \\spad{true} iff \\spad{ps} contains some non null element lying in the base ring \\spad{R}."))
+ (|roughEqualIdeals?|
+  (((|Boolean|) $ $)
+   "\\spad{roughEqualIdeals?(ps1,{} ps2)} returns \\spad{true} iff it can proved that \\spad{ps1} and \\spad{ps2} generate the same ideal in \\spad{(R)^(-1) P} without computing Groebner bases."))
+ (|roughSubIdeal?|
+  (((|Boolean|) $ $)
+   "\\spad{roughSubIdeal?(ps1,{} ps2)} returns \\spad{true} iff it can proved that all polynomials in \\spad{ps1} lie in the ideal generated by \\spad{ps2} in \\spad{\\spad{(R)^(-1) P}} without computing Groebner bases."))
+ (|roughBase?|
+  (((|Boolean|) $)
+   "\\spad{roughBase?(ps)} returns \\spad{true} iff for every pair \\spad{{p,{} q}} of polynomials in \\spad{ps} their leading monomials are relatively prime."))
+ (|trivialIdeal?|
+  (((|Boolean|) $)
+   "\\spad{trivialIdeal?(ps)} returns \\spad{true} iff \\spad{ps} does not contain non-zero elements."))
+ (|sort|
+  (((|Record| (|:| |under| $) (|:| |floor| $) (|:| |upper| $)) $ |#4|)
+   "\\spad{sort(v,{} ps)} returns \\spad{us,{} vs,{} ws} such that \\spad{us} is \\spad{collectUnder(ps,{} v)},{} \\spad{vs} is \\spad{collect(ps,{} v)} and \\spad{ws} is \\spad{collectUpper(ps,{} v)}."))
+ (|collectUpper|
+  (($ $ |#4|)
+   "\\spad{collectUpper(ps,{} v)} returns the set consisting of the polynomials of \\spad{ps} with main variable greater than \\spad{v}."))
+ (|collect|
+  (($ $ |#4|)
+   "\\spad{collect(ps,{} v)} returns the set consisting of the polynomials of \\spad{ps} with \\spad{v} as main variable."))
+ (|collectUnder|
+  (($ $ |#4|)
+   "\\spad{collectUnder(ps,{} v)} returns the set consisting of the polynomials of \\spad{ps} with main variable less than \\spad{v}."))
+ (|mainVariable?|
+  (((|Boolean|) |#4| $)
+   "\\spad{mainVariable?(v,{} ps)} returns \\spad{true} iff \\spad{v} is the main variable of some polynomial in \\spad{ps}."))
+ (|mainVariables|
+  (((|List| |#4|) $)
+   "\\spad{mainVariables(ps)} returns the decreasingly sorted list of the variables which are main variables of some polynomial in \\spad{ps}."))
+ (|variables|
+  (((|List| |#4|) $)
+   "\\spad{variables(ps)} returns the decreasingly sorted list of the variables which are variables of some polynomial in \\spad{ps}."))
+ (|mvar|
+  ((|#4| $)
+   "\\spad{mvar(ps)} returns the main variable of the non constant polynomial with the greatest main variable,{} if any,{} else an error is returned.")))
+(("documentation" 0 4004) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3995) ("predicates" 0 3952) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3018) ("modemaps" 0 2673) ("sourceFile" 0 2634)
+ ("constructorCategory" 0 1498) ("constructorModemap" 0 73)
+ ("constructorKind" 0 64) ("constructorForm" 0 20))

@@ -1,0 +1,339 @@
+16882               (|UndirectedGraph| S)
+|domain|
+(((|UndirectedGraph| |#1|)
+  (|Join| (|FiniteGraph| |#1|)
+          (CATEGORY |domain| (SIGNATURE |undirectedGraph| ($ (|List| |#1|)))
+           (SIGNATURE |undirectedGraph|
+            ($
+             (|List|
+              (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+                        (|:| |posY| (|NonNegativeInteger|))))))
+           (SIGNATURE |undirectedGraph|
+            ($
+             (|List|
+              (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+                        (|:| |posY| (|NonNegativeInteger|))))
+             (|List|
+              (|Record| (|:| |name| (|String|))
+                        (|:| |arrType| (|NonNegativeInteger|))
+                        (|:| |fromOb| (|NonNegativeInteger|))
+                        (|:| |toOb| (|NonNegativeInteger|))
+                        (|:| |xOffset| (|Integer|)) (|:| |yOffset| (|Integer|))
+                        (|:| |map| (|List| (|NonNegativeInteger|)))))))
+           (SIGNATURE |undirectedGraph|
+            ($ (|List| |#1|)
+             (|List|
+              (|Record| (|:| |fromOb| (|NonNegativeInteger|))
+                        (|:| |toOb| (|NonNegativeInteger|))))))
+           (SIGNATURE |undirectedGraph| ($ (|FinitePoset| |#1|)))
+           (SIGNATURE |undirectedGraph|
+            ($ (|List| |#1|) (|List| (|List| (|NonNegativeInteger|)))))
+           (SIGNATURE * ((|UndirectedGraph| (|Product| |#1| |#1|)) $ $))
+           (SIGNATURE |cartesian|
+            ((|UndirectedGraph| (|Product| |#1| |#1|)) $ $))
+           (SIGNATURE |closedTensor| ($ $ $ (|Mapping| |#1| |#1| |#1|)))
+           (SIGNATURE |closedCartesian| ($ $ $ (|Mapping| |#1| |#1| |#1|)))
+           (SIGNATURE |diagramSvg2| ((|Void|) (|String|) $ (|Boolean|)))
+           (SIGNATURE |coerce| ($ (|FinitePoset| |#1|)))))
+  (|SetCategory|))
+ (T |UndirectedGraph|))
+(|Join| (|FiniteGraph| |#1|)
+        (CATEGORY |domain| (SIGNATURE |undirectedGraph| ($ (|List| |#1|)))
+         (SIGNATURE |undirectedGraph|
+          ($
+           (|List|
+            (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+                      (|:| |posY| (|NonNegativeInteger|))))))
+         (SIGNATURE |undirectedGraph|
+          ($
+           (|List|
+            (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+                      (|:| |posY| (|NonNegativeInteger|))))
+           (|List|
+            (|Record| (|:| |name| (|String|))
+                      (|:| |arrType| (|NonNegativeInteger|))
+                      (|:| |fromOb| (|NonNegativeInteger|))
+                      (|:| |toOb| (|NonNegativeInteger|))
+                      (|:| |xOffset| (|Integer|)) (|:| |yOffset| (|Integer|))
+                      (|:| |map| (|List| (|NonNegativeInteger|)))))))
+         (SIGNATURE |undirectedGraph|
+          ($ (|List| |#1|)
+           (|List|
+            (|Record| (|:| |fromOb| (|NonNegativeInteger|))
+                      (|:| |toOb| (|NonNegativeInteger|))))))
+         (SIGNATURE |undirectedGraph| ($ (|FinitePoset| |#1|)))
+         (SIGNATURE |undirectedGraph|
+          ($ (|List| |#1|) (|List| (|List| (|NonNegativeInteger|)))))
+         (SIGNATURE * ((|UndirectedGraph| (|Product| |#1| |#1|)) $ $))
+         (SIGNATURE |cartesian|
+          ((|UndirectedGraph| (|Product| |#1| |#1|)) $ $))
+         (SIGNATURE |closedTensor| ($ $ $ (|Mapping| |#1| |#1| |#1|)))
+         (SIGNATURE |closedCartesian| ($ $ $ (|Mapping| |#1| |#1| |#1|)))
+         (SIGNATURE |diagramSvg2| ((|Void|) (|String|) $ (|Boolean|)))
+         (SIGNATURE |coerce| ($ (|FinitePoset| |#1|)))))
+"/git/fricas/src/algebra/UDGRPH.spad"
+((|undirectedGraph| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *1 (|UndirectedGraph| *3))))
+ (|undirectedGraph| (*1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |value| *3) (|:| |posX| (|NonNegativeInteger|))
+                          (|:| |posY| (|NonNegativeInteger|)))))
+   (|ofCategory| *3 (|SetCategory|)) (|isDomain| *1 (|UndirectedGraph| *3))))
+ (|undirectedGraph| (*1 *1 *2 *3)
+  (AND
+   (|isDomain| *2
+               (|List|
+                (|Record| (|:| |value| *4) (|:| |posX| (|NonNegativeInteger|))
+                          (|:| |posY| (|NonNegativeInteger|)))))
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |name| (|String|))
+                          (|:| |arrType| (|NonNegativeInteger|))
+                          (|:| |fromOb| (|NonNegativeInteger|))
+                          (|:| |toOb| (|NonNegativeInteger|))
+                          (|:| |xOffset| (|Integer|))
+                          (|:| |yOffset| (|Integer|))
+                          (|:| |map| (|List| (|NonNegativeInteger|))))))
+   (|ofCategory| *4 (|SetCategory|)) (|isDomain| *1 (|UndirectedGraph| *4))))
+ (|undirectedGraph| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|List| *4))
+       (|isDomain| *3
+                   (|List|
+                    (|Record| (|:| |fromOb| (|NonNegativeInteger|))
+                              (|:| |toOb| (|NonNegativeInteger|)))))
+       (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|UndirectedGraph| *4))))
+ (|undirectedGraph| (*1 *1 *2)
+  (AND (|isDomain| *2 (|FinitePoset| *3)) (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *1 (|UndirectedGraph| *3))))
+ (|undirectedGraph| (*1 *1 *2 *3)
+  (AND (|isDomain| *2 (|List| *4))
+       (|isDomain| *3 (|List| (|List| (|NonNegativeInteger|))))
+       (|ofCategory| *4 (|SetCategory|))
+       (|isDomain| *1 (|UndirectedGraph| *4))))
+ (* (*1 *2 *1 *1)
+    (AND (|isDomain| *2 (|UndirectedGraph| (|Product| *3 *3)))
+         (|isDomain| *1 (|UndirectedGraph| *3))
+         (|ofCategory| *3 (|SetCategory|))))
+ (|cartesian| (*1 *2 *1 *1)
+  (AND (|isDomain| *2 (|UndirectedGraph| (|Product| *3 *3)))
+       (|isDomain| *1 (|UndirectedGraph| *3))
+       (|ofCategory| *3 (|SetCategory|))))
+ (|closedTensor| (*1 *1 *1 *1 *2)
+  (AND (|isDomain| *2 (|Mapping| *3 *3 *3)) (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *1 (|UndirectedGraph| *3))))
+ (|closedCartesian| (*1 *1 *1 *1 *2)
+  (AND (|isDomain| *2 (|Mapping| *3 *3 *3)) (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *1 (|UndirectedGraph| *3))))
+ (|diagramSvg2| (*1 *2 *3 *1 *4)
+  (AND (|isDomain| *3 (|String|)) (|isDomain| *4 (|Boolean|))
+       (|isDomain| *2 (|Void|)) (|isDomain| *1 (|UndirectedGraph| *5))
+       (|ofCategory| *5 (|SetCategory|))))
+ (|coerce| (*1 *1 *2)
+           (AND (|isDomain| *2 (|FinitePoset| *3))
+                (|ofCategory| *3 (|SetCategory|))
+                (|isDomain| *1 (|UndirectedGraph| *3)))))
+((~= (((|Boolean|) $ $) NIL)) (|unit| (($ (|List| |#1|) (|String|)) 54))
+ (|undirectedGraph| (($ (|List| |#1|)) 11)
+  (($
+    (|List|
+     (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|)))))
+   14)
+  (($
+    (|List|
+     (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|))))
+    (|List|
+     (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+               (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+               (|:| |yOffset| (|Integer|))
+               (|:| |map| (|List| (|NonNegativeInteger|))))))
+   17)
+  (($ (|List| |#1|)
+    (|List|
+     (|Record| (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)))))
+   25)
+  (($ (|FinitePoset| |#1|)) 31)
+  (($ (|List| |#1|) (|List| (|List| (|NonNegativeInteger|)))) 39))
+ (|terminal| (($ |#1|) 50))
+ (|subdiagramSvg|
+  (((|Void|) (|Scene| (|SCartesian| 2)) $ (|Boolean|) (|Boolean|)) 110))
+ (|spanningTreeNode| (((|Tree| (|Integer|)) $ (|NonNegativeInteger|)) NIL))
+ (|spanningTreeArrow| (((|Tree| (|Integer|)) $ (|NonNegativeInteger|)) NIL))
+ (|spanningForestNode| (((|List| (|Tree| (|Integer|))) $) NIL))
+ (|spanningForestArrow| (((|List| (|Tree| (|Integer|))) $) NIL))
+ (|routeNodes|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   NIL))
+ (|routeArrows|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)
+    (|NonNegativeInteger|))
+   NIL))
+ (|outDegree| (((|NonNegativeInteger|) $ (|NonNegativeInteger|)) NIL))
+ (|nodeToNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|nodeToArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|nodeFromNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|nodeFromArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|min| (((|NonNegativeInteger|) $) NIL)
+  (((|NonNegativeInteger|) $ (|List| (|NonNegativeInteger|))) NIL))
+ (|merge| (($ $ $) 62))
+ (|max| (((|NonNegativeInteger|) $) NIL)
+  (((|NonNegativeInteger|) $ (|List| (|NonNegativeInteger|))) NIL))
+ (|mapContra|
+  (($ $ (|List| (|NonNegativeInteger|)) (|List| |#1|) (|Integer|) (|Integer|))
+   84))
+ (|map|
+  (($ $ (|List| (|NonNegativeInteger|)) (|List| |#1|) (|Integer|) (|Integer|))
+   83))
+ (|looseEquals| (((|Boolean|) $ $) NIL))
+ (|loopsNodes| (((|List| (|Loop|)) $) NIL))
+ (|loopsAtNode| (((|List| (|Loop|)) $ (|NonNegativeInteger|)) NIL))
+ (|loopsArrows| (((|List| (|Loop|)) $) NIL)) (|latex| (((|String|) $) NIL))
+ (|laplacianMatrix| (((|Matrix| (|Integer|)) $) NIL))
+ (|kgraph| (($ (|List| |#1|) (|String|)) 56))
+ (|isGreaterThan?|
+  (((|Boolean|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) NIL))
+ (|isFunctional?| (((|Boolean|) $) NIL))
+ (|isFixPoint?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|isDirected?| (((|Boolean|)) 9))
+ (|isDirectSuccessor?|
+  (((|Boolean|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 70))
+ (|isAcyclic?| (((|Boolean|) $) NIL)) (|initial| (($) 49))
+ (|incidenceMatrix| (((|Matrix| (|Integer|)) $) NIL))
+ (|inDegree| (((|NonNegativeInteger|) $ (|NonNegativeInteger|)) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|getVertices|
+  (((|List|
+     (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|))))
+    $)
+   47))
+ (|getVertexIndex| (((|NonNegativeInteger|) $ |#1|) NIL))
+ (|getArrows|
+  (((|List|
+     (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+               (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+               (|:| |yOffset| (|Integer|))
+               (|:| |map| (|List| (|NonNegativeInteger|)))))
+    $)
+   48))
+ (|getArrowIndex|
+  (((|NonNegativeInteger|) $ (|NonNegativeInteger|) (|NonNegativeInteger|))
+   NIL))
+ (|flatten| (($ (|DirectedGraph| $)) NIL))
+ (|distanceMatrix| (((|Matrix| (|Integer|)) $) NIL))
+ (|distance|
+  (((|Integer|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) NIL))
+ (|diagramsSvg| (((|Void|) (|String|) (|List| $) (|Boolean|)) NIL))
+ (|diagramWidth| (((|NonNegativeInteger|) $) 63))
+ (|diagramSvg2| (((|Void|) (|String|) $ (|Boolean|)) 116))
+ (|diagramSvg| (((|Void|) (|String|) $ (|Boolean|)) 115))
+ (|diagramHeight| (((|NonNegativeInteger|) $) 64))
+ (|deepDiagramSvg| (((|Void|) (|String|) $ (|Boolean|)) NIL))
+ (|cycleOpen| (($ (|List| |#1|) (|String|)) 52))
+ (|cycleClosed| (($ (|List| |#1|) (|String|)) 53))
+ (|createY|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)) 20))
+ (|createX|
+  (((|NonNegativeInteger|) (|NonNegativeInteger|) (|NonNegativeInteger|)) 19))
+ (|createWidth| (((|NonNegativeInteger|) (|NonNegativeInteger|)) NIL))
+ (|coerce| (((|OutputForm|) $) 94) (($ (|FinitePoset| |#1|)) 85))
+ (|closedTensor| (($ $ $ (|Mapping| |#1| |#1| |#1|)) 79))
+ (|closedCartesian| (($ $ $ (|Mapping| |#1| |#1| |#1|)) 80))
+ (|cartesian| (((|UndirectedGraph| (|Product| |#1| |#1|)) $ $) 77))
+ (|arrowsToNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) 106))
+ (|arrowsToArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|arrowsFromNode|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|arrowsFromArrow|
+  (((|List| (|NonNegativeInteger|)) $ (|NonNegativeInteger|)) NIL))
+ (|arrowName|
+  (((|String|) $ (|NonNegativeInteger|) (|NonNegativeInteger|)) 71))
+ (|adjacencyMatrix| (((|Matrix| (|NonNegativeInteger|)) $) NIL))
+ (|addObject!| (($ $ |#1|) 41)
+  (($ $
+    (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+              (|:| |posY| (|NonNegativeInteger|))))
+   42))
+ (|addArrow!|
+  (($ $
+    (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+              (|:| |fromOb| (|NonNegativeInteger|))
+              (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+              (|:| |yOffset| (|Integer|))
+              (|:| |map| (|List| (|NonNegativeInteger|)))))
+   43)
+  (($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)) 45)
+  (($ $ (|String|) (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|List| (|NonNegativeInteger|)))
+   46)
+  (($ $ (|String|) |#1| |#1|) NIL))
+ (= (((|Boolean|) $ $) NIL)) (+ (($ $ $) 59))
+ (* (((|UndirectedGraph| (|Product| |#1| |#1|)) $ $) 76)))
+UDGRPH
+(((|FiniteGraph| |#1|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|FiniteGraph| |#1|) . T) ((|SetCategory|) . T))
+((|constructor| (NIL "allows us to model graph theory \\blankline"))
+ (|coerce| (($ (|FinitePoset| |#1|)) "\\spad{coerce FinitePoset} to graph"))
+ (|diagramSvg2|
+  (((|Void|) (|String|) $ (|Boolean|))
+   "diagramSvg(fileName,{} \\spad{n},{} dispArrowName) creates an \\spad{SVG} diagram. This is an altenative version which does not shorten lines. fileName: String is the name of the \\spad{SVG} file that will be created \\spad{n:} \\% is the graph that will be written dispArrowName: Boolean is \\spad{true} to include the name of each arrow"))
+ (|closedCartesian|
+  (($ $ $ (|Mapping| |#1| |#1| |#1|)) "as Cartesian product but returns \\%."))
+ (|closedTensor|
+  (($ $ $ (|Mapping| |#1| |#1| |#1|)) "as tensor product but returns \\%."))
+ (|cartesian|
+  (((|UndirectedGraph| (|Product| |#1| |#1|)) $ $)
+   "Cartesian product: the vertex set of \\spad{G} \\spad{o} \\spad{H} is the Cartesian product \\spad{V}(\\spad{G}) \\times \\spad{V}(\\spad{H}) and any two vertices (\\spad{u},{} u') and (\\spad{v},{} \\spad{v'}) \\indented{1}{are adjacent in \\spad{G} \\spad{o} \\spad{H} if and only if either} \\spad{u} = \\spad{v} and u' is adjacent with \\spad{v'} in \\spad{H},{} or u' = \\spad{v'} and \\spad{u} is adjacent with \\spad{v} in \\spad{G}."))
+ (*
+  (((|UndirectedGraph| (|Product| |#1| |#1|)) $ $)
+   "tensor product : the tensor product \\spad{G*H} of graphs \\spad{G} and \\spad{H} is a graph such that the vertex set of \\spad{G*H} is the Cartesian product \\spad{V}(\\spad{G}) \\times \\spad{V}(\\spad{H}); and any two vertices (\\spad{u},{} u') and (\\spad{v},{} \\spad{v'}) are adjacent in \\spad{G} \\times \\spad{H} if and only if u' is adjacent with \\spad{v'} and \\spad{u} is adjacent with \\spad{v}."))
+ (|undirectedGraph|
+  (($ (|List| |#1|) (|List| (|List| (|NonNegativeInteger|))))
+   "constructor for graph with given objects and adjacency matrix.")
+  (($ (|FinitePoset| |#1|))
+   "\\spad{undirectedGraph(poset)} constructs graph from a partially ordered set. This will be a graph with,{} at most,{} one arrow between any two nodes (in each direction).")
+  (($ (|List| |#1|)
+    (|List|
+     (|Record| (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)))))
+   "\\spad{undirectedGraph(obs,{} ars)} constructs graph with objects \\spad{obs} and arrows ars. This constructor just has pure abstract graph information without decoration information.")
+  (($
+    (|List|
+     (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|))))
+    (|List|
+     (|Record| (|:| |name| (|String|)) (|:| |arrType| (|NonNegativeInteger|))
+               (|:| |fromOb| (|NonNegativeInteger|))
+               (|:| |toOb| (|NonNegativeInteger|)) (|:| |xOffset| (|Integer|))
+               (|:| |yOffset| (|Integer|))
+               (|:| |map| (|List| (|NonNegativeInteger|))))))
+   "constructor for graph with given objects and arrows more objects and arrows can be added later if required.")
+  (($
+    (|List|
+     (|Record| (|:| |value| |#1|) (|:| |posX| (|NonNegativeInteger|))
+               (|:| |posY| (|NonNegativeInteger|)))))
+   "constructor for graph with given objects more objects and arrows can be added later if required.")
+  (($ (|List| |#1|))
+   "constructor for graph with given list of object names. Use this version of the constructor if you don\\spad{'t} intend to create diagrams and therefore don\\spad{'t} care about \\spad{x},{} \\spad{y} coordinates. more objects and arrows can be added later if required.")))
+(("documentation" 0 13346) ("ancestors" 0 13237) ("parents" 0 13208)
+ ("abbreviation" 0 13201) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 6679) ("modemaps" 0 3677) ("sourceFile" 0 3639)
+ ("constructorCategory" 0 1914) ("constructorModemap" 0 51)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

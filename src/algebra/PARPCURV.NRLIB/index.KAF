@@ -1,0 +1,32 @@
+1289                (|ParametricPlaneCurve| |ComponentFunction|)
+|domain|
+(((|ParametricPlaneCurve| |#1|)
+  (CATEGORY |domain| (SIGNATURE |curve| ($ |#1| |#1|))
+   (SIGNATURE |coordinate| (|#1| $ (|NonNegativeInteger|))))
+  (|Type|))
+ (T |ParametricPlaneCurve|))
+(CATEGORY |domain| (SIGNATURE |curve| ($ |#1| |#1|))
+ (SIGNATURE |coordinate| (|#1| $ (|NonNegativeInteger|))))
+"/git/fricas/src/algebra/PARPCURV.spad"
+((|coordinate| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *1 (|ParametricPlaneCurve| *2)) (|ofCategory| *2 (|Type|))))
+ (|curve| (*1 *1 *2 *2)
+  (AND (|isDomain| *1 (|ParametricPlaneCurve| *2)) (|ofCategory| *2 (|Type|)))))
+((|curve| (($ |#1| |#1|) 8))
+ (|coordinate| ((|#1| $ (|NonNegativeInteger|)) 10)))
+PARPCURV
+((|constructor|
+  (NIL
+   "ParametricPlaneCurve is used for plotting parametric plane curves in the affine plane."))
+ (|coordinate|
+  ((|#1| $ (|NonNegativeInteger|))
+   "\\spad{coordinate(c,{} i)} returns a coordinate function for \\spad{c} using 1-based indexing according to \\spad{i}. This indicates what the function for the coordinate component \\spad{i} of the plane curve is."))
+ (|curve|
+  (($ |#1| |#1|)
+   "\\spad{curve(c1,{} c2)} creates a plane curve from 2 component functions \\spad{c1} and \\spad{c2}.")))
+(("documentation" 0 767) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 758) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 675) ("modemaps" 0 415) ("sourceFile" 0 375)
+ ("constructorCategory" 0 263) ("constructorModemap" 0 74)
+ ("constructorKind" 0 65) ("constructorForm" 0 20))

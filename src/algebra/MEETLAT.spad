@@ -1,0 +1,20 @@
+)abbrev category MEETLAT MeetSemilattice
+++ Author: Martin Baker
+++ Date Created: Aug 2015
+++ Basic Operations: Meet
+++ Related Constructors: BoundedMeetSemilattice
+++  use BoundedMeetSemilattice if the semilattice has a 'top' which will be
+++  the case for all finite meet semilattices since we can do a meet of
+++  all values
+++ Keywords: Meet
+++ Description: meet semilattice
+++   Implementations in set, logic and orders
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+++ Axiom: commutativity forall(x, y): x/\y=y/\x
+++ Axiom: associativity forall(x, y, z): (x/\y)/\z=y/\(x/\z)
+++ Axiom: idempotence forall x: x/\x=x
+MeetSemilattice : Category == SetCategory with
+      _/_\ : (%, %) -> %
+        ++ returns the logical 'meet', e.g. 'and'.
+

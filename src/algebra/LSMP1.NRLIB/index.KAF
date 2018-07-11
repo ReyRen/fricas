@@ -1,0 +1,155 @@
+7706                (|LinearSystemMatrixPackage1| F)
+|package|
+(((|LinearSystemMatrixPackage1| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |solve|
+    ((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1="failed"))
+               (|:| |basis| (|List| (|Vector| |#1|))))
+     (|Matrix| |#1|) (|Vector| |#1|)))
+   (SIGNATURE |solve|
+    ((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+               (|:| |basis| (|List| (|Vector| |#1|))))
+     (|List| (|List| |#1|)) (|Vector| |#1|)))
+   (SIGNATURE |solve|
+    ((|List|
+      (|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+                (|:| |basis| (|List| (|Vector| |#1|)))))
+     (|Matrix| |#1|) (|List| (|Vector| |#1|))))
+   (SIGNATURE |solve|
+    ((|List|
+      (|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+                (|:| |basis| (|List| (|Vector| |#1|)))))
+     (|List| (|List| |#1|)) (|List| (|Vector| |#1|))))
+   (SIGNATURE |particularSolution|
+    ((|Union| (|Vector| |#1|) #1#) (|Matrix| |#1|) (|Vector| |#1|)))
+   (SIGNATURE |hasSolution?| ((|Boolean|) (|Matrix| |#1|) (|Vector| |#1|)))
+   (SIGNATURE |rank| ((|NonNegativeInteger|) (|Matrix| |#1|) (|Vector| |#1|))))
+  (|Field|))
+ (T |LinearSystemMatrixPackage1|))
+(CATEGORY |package|
+ (SIGNATURE |solve|
+  ((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1="failed"))
+             (|:| |basis| (|List| (|Vector| |#1|))))
+   (|Matrix| |#1|) (|Vector| |#1|)))
+ (SIGNATURE |solve|
+  ((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+             (|:| |basis| (|List| (|Vector| |#1|))))
+   (|List| (|List| |#1|)) (|Vector| |#1|)))
+ (SIGNATURE |solve|
+  ((|List|
+    (|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+              (|:| |basis| (|List| (|Vector| |#1|)))))
+   (|Matrix| |#1|) (|List| (|Vector| |#1|))))
+ (SIGNATURE |solve|
+  ((|List|
+    (|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+              (|:| |basis| (|List| (|Vector| |#1|)))))
+   (|List| (|List| |#1|)) (|List| (|Vector| |#1|))))
+ (SIGNATURE |particularSolution|
+  ((|Union| (|Vector| |#1|) #1#) (|Matrix| |#1|) (|Vector| |#1|)))
+ (SIGNATURE |hasSolution?| ((|Boolean|) (|Matrix| |#1|) (|Vector| |#1|)))
+ (SIGNATURE |rank| ((|NonNegativeInteger|) (|Matrix| |#1|) (|Vector| |#1|))))
+"/git/fricas/src/algebra/LSMP1.spad"
+((|rank| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *5)) (|isDomain| *4 (|Vector| *5))
+       (|ofCategory| *5 (|Field|)) (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|LinearSystemMatrixPackage1| *5))))
+ (|hasSolution?| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *5)) (|isDomain| *4 (|Vector| *5))
+       (|ofCategory| *5 (|Field|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|LinearSystemMatrixPackage1| *5))))
+ (|particularSolution| (*1 *2 *3 *2)
+  (|partial| AND (|isDomain| *2 (|Vector| *4)) (|isDomain| *3 (|Matrix| *4))
+   (|ofCategory| *4 (|Field|))
+   (|isDomain| *1 (|LinearSystemMatrixPackage1| *4))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|List| *5)))
+       (|isDomain| *4 (|List| (|Vector| *5))) (|ofCategory| *5 (|Field|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record|
+                     (|:| |particular| (|Union| (|Vector| *5) #1="failed"))
+                     (|:| |basis| (|List| (|Vector| *5))))))
+       (|isDomain| *1 (|LinearSystemMatrixPackage1| *5))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *5)) (|isDomain| *4 (|List| (|Vector| *5)))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |particular| (|Union| (|Vector| *5) #1#))
+                              (|:| |basis| (|List| (|Vector| *5))))))
+       (|isDomain| *1 (|LinearSystemMatrixPackage1| *5))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|List| *5))) (|isDomain| *4 (|Vector| *5))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2
+                   (|Record| (|:| |particular| (|Union| (|Vector| *5) #1#))
+                             (|:| |basis| (|List| (|Vector| *5)))))
+       (|isDomain| *1 (|LinearSystemMatrixPackage1| *5))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *5)) (|isDomain| *4 (|Vector| *5))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2
+                   (|Record| (|:| |particular| (|Union| (|Vector| *5) #1#))
+                             (|:| |basis| (|List| (|Vector| *5)))))
+       (|isDomain| *1 (|LinearSystemMatrixPackage1| *5)))))
+((|solve|
+  (((|List|
+     (|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1="failed"))
+               (|:| |basis| (|List| (|Vector| |#1|)))))
+    (|List| (|List| |#1|)) (|List| (|Vector| |#1|)))
+   21)
+  (((|List|
+     (|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+               (|:| |basis| (|List| (|Vector| |#1|)))))
+    (|Matrix| |#1|) (|List| (|Vector| |#1|)))
+   20)
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+              (|:| |basis| (|List| (|Vector| |#1|))))
+    (|List| (|List| |#1|)) (|Vector| |#1|))
+   16)
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+              (|:| |basis| (|List| (|Vector| |#1|))))
+    (|Matrix| |#1|) (|Vector| |#1|))
+   13))
+ (|rank| (((|NonNegativeInteger|) (|Matrix| |#1|) (|Vector| |#1|)) 29))
+ (|particularSolution|
+  (((|Union| (|Vector| |#1|) #1#) (|Matrix| |#1|) (|Vector| |#1|)) 23))
+ (|hasSolution?| (((|Boolean|) (|Matrix| |#1|) (|Vector| |#1|)) 26)))
+LSMP1
+((|constructor|
+  (NIL
+   "This package solves linear system in the matrix form \\spad{AX = B}. It is essentially a particular instantiation of the package \\spadtype{LinearSystemMatrixPackage} for Matrix and Vector. This package\\spad{'s} existence makes it easier to use \\spadfun{solve} in the FriCAS interpreter."))
+ (|rank|
+  (((|NonNegativeInteger|) (|Matrix| |#1|) (|Vector| |#1|))
+   "\\spad{rank(A,{} B)} computes the rank of the complete matrix \\spad{(A|B)} of the linear system \\spad{AX = B}."))
+ (|hasSolution?|
+  (((|Boolean|) (|Matrix| |#1|) (|Vector| |#1|))
+   "\\spad{hasSolution?(A,{} B)} tests if the linear system \\spad{AX = B} has a solution."))
+ (|particularSolution|
+  (((|Union| (|Vector| |#1|) #1="failed") (|Matrix| |#1|) (|Vector| |#1|))
+   "\\spad{particularSolution(A,{} B)} finds a particular solution of the linear system \\spad{AX = B}."))
+ (|solve|
+  (((|List|
+     (|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+               (|:| |basis| (|List| (|Vector| |#1|)))))
+    (|List| (|List| |#1|)) (|List| (|Vector| |#1|)))
+   "\\spad{solve(A,{} LB)} finds a particular soln of the systems \\spad{AX = B} and a basis of the associated homogeneous systems \\spad{AX = 0} where \\spad{B} varies in the list of column vectors \\spad{LB}.")
+  (((|List|
+     (|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+               (|:| |basis| (|List| (|Vector| |#1|)))))
+    (|Matrix| |#1|) (|List| (|Vector| |#1|)))
+   "\\spad{solve(A,{} LB)} finds a particular soln of the systems \\spad{AX = B} and a basis of the associated homogeneous systems \\spad{AX = 0} where \\spad{B} varies in the list of column vectors \\spad{LB}.")
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+              (|:| |basis| (|List| (|Vector| |#1|))))
+    (|List| (|List| |#1|)) (|Vector| |#1|))
+   "\\spad{solve(A,{} B)} finds a particular solution of the system \\spad{AX = B} and a basis of the associated homogeneous system \\spad{AX = 0}.")
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#1|) #1#))
+              (|:| |basis| (|List| (|Vector| |#1|))))
+    (|Matrix| |#1|) (|Vector| |#1|))
+   "\\spad{solve(A,{} B)} finds a particular solution of the system \\spad{AX = B} and a basis of the associated homogeneous system \\spad{AX = 0}.")))
+(("documentation" 0 5416) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 5410) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4448) ("modemaps" 0 2288) ("sourceFile" 0 2251)
+ ("constructorCategory" 0 1223) ("constructorModemap" 0 63)
+ ("constructorKind" 0 53) ("constructorForm" 0 20))

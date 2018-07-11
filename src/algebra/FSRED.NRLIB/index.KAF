@@ -1,0 +1,63 @@
+2775                (|FunctionSpaceReduce| R F)
+|package|
+(((|FunctionSpaceReduce| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |bringDown| ((|Fraction| (|Integer|)) |#2|))
+   (SIGNATURE |bringDown|
+    ((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) |#2|
+     (|Kernel| |#2|)))
+   (SIGNATURE |newReduc| ((|Void|) (|Integer|))))
+  (|Join| (|Comparable|) (|IntegralDomain|) (|RetractableTo| (|Integer|)))
+  (|FunctionSpace| |#1|))
+ (T |FunctionSpaceReduce|))
+(CATEGORY |package| (SIGNATURE |bringDown| ((|Fraction| (|Integer|)) |#2|))
+ (SIGNATURE |bringDown|
+  ((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) |#2|
+   (|Kernel| |#2|)))
+ (SIGNATURE |newReduc| ((|Void|) (|Integer|))))
+"/git/fricas/src/algebra/FSRED.spad"
+((|newReduc| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|ofCategory| *4
+                     (|Join| (|Comparable|) (|IntegralDomain|)
+                             (|RetractableTo| *3)))
+       (|isDomain| *2 (|Void|)) (|isDomain| *1 (|FunctionSpaceReduce| *4 *5))
+       (|ofCategory| *5 (|FunctionSpace| *4))))
+ (|bringDown| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Kernel| *3)) (|ofCategory| *3 (|FunctionSpace| *5))
+       (|ofCategory| *5
+                     (|Join| (|Comparable|) (|IntegralDomain|)
+                             (|RetractableTo| (|Integer|))))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| (|Fraction| (|Integer|))))
+       (|isDomain| *1 (|FunctionSpaceReduce| *5 *3))))
+ (|bringDown| (*1 *2 *3)
+  (AND
+   (|ofCategory| *4
+                 (|Join| (|Comparable|) (|IntegralDomain|)
+                         (|RetractableTo| (|Integer|))))
+   (|isDomain| *2 (|Fraction| (|Integer|)))
+   (|isDomain| *1 (|FunctionSpaceReduce| *4 *3))
+   (|ofCategory| *3 (|FunctionSpace| *4)))))
+((|newReduc| (((|Void|) (|Integer|)) 20))
+ (|bringDown|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) |#2|
+    (|Kernel| |#2|))
+   42)
+  (((|Fraction| (|Integer|)) |#2|) 25)))
+FSRED
+((|constructor|
+  (NIL
+   "This package provides function which replaces transcendental kernels in a function space by random integers. The correspondence between the kernels and the integers is fixed between calls to newReduc()."))
+ (|newReduc|
+  (((|Void|) (|Integer|))
+   "\\spad{newReduc(n)} empties reduction state. \\spad{n} is size of random integers to use during next reduction."))
+ (|bringDown|
+  (((|SparseUnivariatePolynomial| (|Fraction| (|Integer|))) |#2|
+    (|Kernel| |#2|))
+   "\\spad{bringDown(f,{} k)} is like bringDown(\\spad{f}) but \\spad{k} is algebraic kernel and the result is reduced modulo minimal polynomial of \\spad{k}.")
+  (((|Fraction| (|Integer|)) |#2|)
+   "\\spad{bringDown(f)} replaces transcendental kernels in \\spad{f} by random integers. Error if \\spad{f} contains algebraic kernel.")))
+(("documentation" 0 1948) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1942) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1752) ("modemaps" 0 736) ("sourceFile" 0 699)
+ ("constructorCategory" 0 466) ("constructorModemap" 0 58)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

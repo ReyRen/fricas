@@ -1,0 +1,26 @@
+2088                (|Permanent| |n| R)
+|package|
+(((|Permanent| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |permanent| (|#2| (|SquareMatrix| |#1| |#2|))))
+  (|PositiveInteger|) (|Join| (|Ring|) (|CommutativeStar|)))
+ (T |Permanent|))
+(CATEGORY |package| (SIGNATURE |permanent| (|#2| (|SquareMatrix| |#1| |#2|))))
+"/git/fricas/src/algebra/PERMAN.spad"
+((|permanent| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SquareMatrix| *4 *2)) (|ofType| *4 (|PositiveInteger|))
+       (|ofCategory| *2 (|Join| (|Ring|) (|CommutativeStar|)))
+       (|isDomain| *1 (|Permanent| *4 *2)))))
+((|permanent| ((|#2| (|SquareMatrix| |#1| |#2|)) 37)))
+PERMAN
+((|constructor|
+  (NIL
+   "Permanent implements the functions {\\em permanent},{} the permanent for square matrices."))
+ (|permanent|
+  ((|#2| (|SquareMatrix| |#1| |#2|))
+   "\\spad{permanent(x)} computes the permanent of a square matrix \\spad{x}. The {\\em permanent} is equivalent to the \\spadfun{determinant} except that coefficients have no change of sign. This function is much more difficult to compute than the {\\em determinant}. The formula used is by \\spad{H}.\\spad{J}. Ryser,{} improved by [Nijenhuis and Wilf,{} \\spad{Ch}. 19]. Note: permanent(\\spad{x}) choose one of three algorithms,{} depending on the underlying ring \\spad{R} and on \\spad{n},{} the number of rows (and columns) of \\spad{x:} \\begin{items} \\item 1. if 2 has an inverse in \\spad{R} we can use the algorithm of \\indented{3}{[Nijenhuis and Wilf,{} \\spad{ch}.19,{} \\spad{p}.158]; if 2 has no inverse,{}} \\indented{3}{some modifications are necessary:} \\item 2. if {\\em n > 6} and \\spad{R} is an integral domain with characteristic \\indented{3}{different from 2 (the algorithm works if and only 2 is not a} \\indented{3}{zero-divisor of \\spad{R} and {\\em characteristic()\\$R ~= 2},{}} \\indented{3}{but how to check that for any given \\spad{R} ?),{}} \\indented{3}{the local function {\\em permanent2} is called;} \\item 3. else,{} the local function {\\em permanent3} is called \\indented{3}{(works for all commutative rings \\spad{R}).} \\end{items}")))
+(("documentation" 0 632) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 625) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 570) ("modemaps" 0 356) ("sourceFile" 0 318)
+ ("constructorCategory" 0 239) ("constructorModemap" 0 50)
+ ("constructorKind" 0 40) ("constructorForm" 0 20))

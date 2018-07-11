@@ -1,0 +1,34 @@
+)abbrev package SEQU2 SequenceFunctions2
+++ Author: Franz Lehner lehner@math.tugraz.at
+++ Date Created: 16.09.2011
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   A domain for mappings between sequences.
+SequenceFunctions2(R1 : CommutativeRing, R2 : CommutativeRing) : Exports
+     == Implementation where
+  Exports ==> with
+    map : (R1 -> R2, Sequence R1) -> Sequence R2
+      ++ \spad{map(f, x)} maps the function f on the entries of x
+  Implementation ==> add
+    map(f, x) == sequence map(f, stream x)$StreamFunctions2(R1, R2)
+
+)if false
+\section{package HANKP HankelPackage}
+The Hankel matrix of a sequence $[a_0, a_1, \dots, a_{2n}]$
+of odd length is the matrix
+$$
+A =
+\begin{bmatrix}
+  a_0 & a_1 &\dots &a_n\\
+  a_1 & a_2 &\dots &a_{n-1}\\
+  \hdotsfor{4}\\
+  a_n & a_2 &\dots &a_{2n}\\
+\end{bmatrix}
+$$
+)endif
+

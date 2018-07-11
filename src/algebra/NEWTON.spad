@@ -1,0 +1,60 @@
+)abbrev package NEWTON NewtonInterpolation
+++ Description:
+++ This package exports Newton interpolation for the special case where the
+++ result is known to be in the original integral domain
+NewtonInterpolation F : Exports == Implementation where
+    F : IntegralDomain
+    Exports == with
+
+      newton : List F -> SparseUnivariatePolynomial F
+
+      ++ \spad{newton}(l) returns the interpolating polynomial for the values
+      ++ l, where the x-coordinates are assumed to be [1, 2, 3, ..., n] and the
+      ++ coefficients of the interpolating polynomial are known to be in the
+      ++ domain F. I.e., it is a very streamlined version for a special case of
+      ++ interpolation.
+
+    Implementation == add
+
+      differences(yl : List F) : List F ==
+        [y2-y1 for y1 in yl for y2 in rest yl]
+
+      z : SparseUnivariatePolynomial(F) := monomial(1, 1)
+
+-- we assume x=[1, 2, 3, ..., n]
+      newtonAux(k : F, fact : F, yl : List F) : SparseUnivariatePolynomial(F) ==
+        if empty? rest yl
+        then ((yl.1) exquo fact)::F::SparseUnivariatePolynomial(F)
+        else ((yl.1) exquo fact)::F::SparseUnivariatePolynomial(F)
+             + (z-k::SparseUnivariatePolynomial(F)) _
+               * newtonAux(k+1$F, fact*k, differences yl)
+
+
+      newton yl == newtonAux(1$F, 1$F, yl)
+
+
+--Copyright (c) 2006-2007, Martin Rubey <Martin.Rubey@univie.ac.at>
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

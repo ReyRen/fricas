@@ -1,0 +1,38 @@
+1581                (|PatternMatchable| S)
+|category|
+(((|PatternMatchable| |#1|) (|Category|) (|SetCategory|))
+ (T |PatternMatchable|))
+(|Join| (|SetCategory|)
+        (CATEGORY |domain|
+         (SIGNATURE |patternMatch|
+          ((|PatternMatchResult| |t#1| $) $ (|Pattern| |t#1|)
+           (|PatternMatchResult| |t#1| $)))))
+"/git/fricas/src/algebra/PATMAB.spad"
+((|patternMatch| (*1 *2 *1 *3 *2)
+  (AND (|isDomain| *2 (|PatternMatchResult| *4 *1))
+       (|isDomain| *3 (|Pattern| *4)) (|ofCategory| *1 (|PatternMatchable| *4))
+       (|ofCategory| *4 (|SetCategory|)))))
+((~= (((|Boolean|) $ $) 6))
+ (|patternMatch|
+  (((|PatternMatchResult| |#1| $) $ (|Pattern| |#1|)
+    (|PatternMatchResult| |#1| $))
+   6))
+ (|latex| (((|String|) $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (= (((|Boolean|) $ $) 6)))
+PATMAB
+(((|SetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "A set \\spad{R} is PatternMatchable over \\spad{S} if elements of \\spad{R} can be matched to patterns over \\spad{S}."))
+ (|patternMatch|
+  (((|PatternMatchResult| |#1| $) $ (|Pattern| |#1|)
+    (|PatternMatchResult| |#1| $))
+   "\\spad{patternMatch(expr,{} pat,{} res)} matches the pattern \\spad{pat} to the expression \\spad{expr}. res contains the variables of \\spad{pat} which are already matched and their matches (necessary for recursion). Initially,{} res is just the result of \\spadfun{new} which is an empty list of matches.")))
+(("documentation" 0 1012) ("ancestors" 0 931) ("parents" 0 907)
+ ("abbreviation" 0 900) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 579) ("modemaps" 0 369) ("sourceFile" 0 331)
+ ("constructorCategory" 0 137) ("constructorModemap" 0 54)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

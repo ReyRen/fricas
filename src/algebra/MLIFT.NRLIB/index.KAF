@@ -1,0 +1,156 @@
+8744                (|MultivariateLifting| E OV R P)
+|package|
+(((|MultivariateLifting| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |corrPoly|
+    ((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+     (|SparseUnivariatePolynomial| |#4|) (|List| |#2|) (|List| |#3|)
+     (|List| (|NonNegativeInteger|))
+     (|List| (|SparseUnivariatePolynomial| |#4|))
+     (|Mapping|
+      (|Union| (|List| (|SparseUnivariatePolynomial| |#3|)) #1="failed")
+      (|SparseUnivariatePolynomial| |#3|))))
+   (SIGNATURE |lifting|
+    ((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+     (|SparseUnivariatePolynomial| |#4|) (|List| |#2|)
+     (|List| (|SparseUnivariatePolynomial| |#3|)) (|List| |#3|) (|List| |#4|)
+     (|List| (|NonNegativeInteger|))
+     (|Mapping|
+      (|Mapping| (|Union| (|List| (|SparseUnivariatePolynomial| |#3|)) #1#)
+                 (|SparseUnivariatePolynomial| |#3|))
+      (|List| (|SparseUnivariatePolynomial| |#3|)))))
+   (IF (|has| |#3| (|EuclideanDomain|))
+       (SIGNATURE |lifting|
+        ((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+         (|SparseUnivariatePolynomial| |#4|) (|List| |#2|)
+         (|List| (|SparseUnivariatePolynomial| |#3|)) (|List| |#3|)
+         (|List| |#4|) (|List| (|NonNegativeInteger|)) |#3|))
+       |noBranch|))
+  (|OrderedAbelianMonoidSup|) (|OrderedSet|) (|IntegralDomain|)
+  (|PolynomialCategory| |#3| |#1| |#2|))
+ (T |MultivariateLifting|))
+(CATEGORY |package|
+ (SIGNATURE |corrPoly|
+  ((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+   (|SparseUnivariatePolynomial| |#4|) (|List| |#2|) (|List| |#3|)
+   (|List| (|NonNegativeInteger|)) (|List| (|SparseUnivariatePolynomial| |#4|))
+   (|Mapping|
+    (|Union| (|List| (|SparseUnivariatePolynomial| |#3|)) #1="failed")
+    (|SparseUnivariatePolynomial| |#3|))))
+ (SIGNATURE |lifting|
+  ((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+   (|SparseUnivariatePolynomial| |#4|) (|List| |#2|)
+   (|List| (|SparseUnivariatePolynomial| |#3|)) (|List| |#3|) (|List| |#4|)
+   (|List| (|NonNegativeInteger|))
+   (|Mapping|
+    (|Mapping| (|Union| (|List| (|SparseUnivariatePolynomial| |#3|)) #1#)
+               (|SparseUnivariatePolynomial| |#3|))
+    (|List| (|SparseUnivariatePolynomial| |#3|)))))
+ (IF (|has| |#3| (|EuclideanDomain|))
+     (SIGNATURE |lifting|
+      ((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+       (|SparseUnivariatePolynomial| |#4|) (|List| |#2|)
+       (|List| (|SparseUnivariatePolynomial| |#3|)) (|List| |#3|) (|List| |#4|)
+       (|List| (|NonNegativeInteger|)) |#3|))
+     |noBranch|))
+"/git/fricas/src/algebra/MLIFT.spad"
+((|lifting| (*1 *2 *3 *4 *5 *6 *7 *8 *9)
+  (|partial| AND (|isDomain| *3 (|SparseUnivariatePolynomial| *12))
+   (|isDomain| *4 (|List| *11))
+   (|isDomain| *5 (|List| (|SparseUnivariatePolynomial| *9)))
+   (|isDomain| *6 (|List| *9)) (|isDomain| *7 (|List| *12))
+   (|isDomain| *8 (|List| (|NonNegativeInteger|)))
+   (|ofCategory| *9 (|EuclideanDomain|)) (|ofCategory| *11 (|OrderedSet|))
+   (|ofCategory| *9 (|IntegralDomain|))
+   (|ofCategory| *12 (|PolynomialCategory| *9 *10 *11))
+   (|ofCategory| *10 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *2 (|List| (|SparseUnivariatePolynomial| *12)))
+   (|isDomain| *1 (|MultivariateLifting| *10 *11 *9 *12))))
+ (|lifting| (*1 *2 *3 *4 *5 *6 *7 *8 *9)
+  (|partial| AND (|isDomain| *3 (|SparseUnivariatePolynomial| *13))
+   (|isDomain| *4 (|List| *11)) (|isDomain| *6 (|List| *12))
+   (|isDomain| *7 (|List| *13)) (|isDomain| *8 (|List| (|NonNegativeInteger|)))
+   (|isDomain| *9
+               (|Mapping|
+                (|Mapping|
+                 (|Union| (|List| (|SparseUnivariatePolynomial| *12))
+                          #1="failed")
+                 (|SparseUnivariatePolynomial| *12))
+                (|List| (|SparseUnivariatePolynomial| *12))))
+   (|ofCategory| *11 (|OrderedSet|)) (|ofCategory| *12 (|IntegralDomain|))
+   (|ofCategory| *13 (|PolynomialCategory| *12 *10 *11))
+   (|isDomain| *5 (|List| (|SparseUnivariatePolynomial| *12)))
+   (|ofCategory| *10 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *2 (|List| (|SparseUnivariatePolynomial| *13)))
+   (|isDomain| *1 (|MultivariateLifting| *10 *11 *12 *13))))
+ (|corrPoly| (*1 *2 *3 *4 *5 *6 *2 *7)
+  (|partial| AND (|isDomain| *2 (|List| (|SparseUnivariatePolynomial| *11)))
+   (|isDomain| *3 (|SparseUnivariatePolynomial| *11))
+   (|isDomain| *4 (|List| *9)) (|isDomain| *5 (|List| *10))
+   (|isDomain| *6 (|List| (|NonNegativeInteger|)))
+   (|isDomain| *7
+               (|Mapping|
+                (|Union| (|List| (|SparseUnivariatePolynomial| *10)) #1#)
+                (|SparseUnivariatePolynomial| *10)))
+   (|ofCategory| *9 (|OrderedSet|)) (|ofCategory| *10 (|IntegralDomain|))
+   (|ofCategory| *11 (|PolynomialCategory| *10 *8 *9))
+   (|ofCategory| *8 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *1 (|MultivariateLifting| *8 *9 *10 *11)))))
+((|lifting|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+    (|SparseUnivariatePolynomial| |#4|) (|List| |#2|)
+    (|List| (|SparseUnivariatePolynomial| |#3|)) (|List| |#3|) (|List| |#4|)
+    (|List| (|NonNegativeInteger|)) |#3|)
+   79 (|has| |#3| (|EuclideanDomain|)))
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+    (|SparseUnivariatePolynomial| |#4|) (|List| |#2|)
+    (|List| (|SparseUnivariatePolynomial| |#3|)) (|List| |#3|) (|List| |#4|)
+    (|List| (|NonNegativeInteger|))
+    (|Mapping|
+     (|Mapping|
+      (|Union| (|List| (|SparseUnivariatePolynomial| |#3|)) #1="failed")
+      (|SparseUnivariatePolynomial| |#3|))
+     (|List| (|SparseUnivariatePolynomial| |#3|))))
+   68))
+ (|corrPoly|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+    (|SparseUnivariatePolynomial| |#4|) (|List| |#2|) (|List| |#3|)
+    (|List| (|NonNegativeInteger|))
+    (|List| (|SparseUnivariatePolynomial| |#4|))
+    (|Mapping| (|Union| (|List| (|SparseUnivariatePolynomial| |#3|)) #1#)
+               (|SparseUnivariatePolynomial| |#3|)))
+   30)))
+((|HasCategory| |#3| '(|EuclideanDomain|)))
+MLIFT
+((|constructor|
+  (NIL
+   "This package provides the functions for the multivariate \"lifting\",{} using an algorithm of Paul Wang. This package will work for every euclidean domain \\spad{R} which has property \\spad{F},{} \\spadignore{i.e.} there exists a factor operation in \\spad{R[x]}."))
+ (|lifting|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+    (|SparseUnivariatePolynomial| |#4|) (|List| |#2|)
+    (|List| (|SparseUnivariatePolynomial| |#3|)) (|List| |#3|) (|List| |#4|)
+    (|List| (|NonNegativeInteger|)) |#3|)
+   "\\spad{lifting(u,{} lv,{} lu,{} lr,{} lp,{} ln,{} r)} is lifting(\\spad{u},{} \\spad{lv},{} \\spad{lu},{} \\spad{lr},{} \\spad{lp},{} \\spad{ln},{} solv(\\spad{r})) where solv(\\spad{r}) is solver using reduction modulo \\spad{r} and lifting. Memberes of \\spad{lu} must be relatively prime modulo \\spad{r}")
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+    (|SparseUnivariatePolynomial| |#4|) (|List| |#2|)
+    (|List| (|SparseUnivariatePolynomial| |#3|)) (|List| |#3|) (|List| |#4|)
+    (|List| (|NonNegativeInteger|))
+    (|Mapping|
+     (|Mapping|
+      (|Union| (|List| (|SparseUnivariatePolynomial| |#3|)) #1="failed")
+      (|SparseUnivariatePolynomial| |#3|))
+     (|List| (|SparseUnivariatePolynomial| |#3|))))
+   "\\spad{lifting(u,{} lv,{} lu,{} lr,{} lp,{} ln,{} gen_solv)} lifts univariate factorization,{} returning recovered factors or \"failed\" in case of bad reduction. \\spad{u} is multivariate polynomial to factor,{} \\spad{lu} is list of univariate factors,{} \\spad{lv} is list of variables,{} \\spad{ln} is list of degrees corresponding to variables,{} \\spad{lr} is list of evaluation points,{} \\spad{lp} is list of leading coefficients of factors if known,{} empty otherwise,{} gen_solv delivers solver for polynomial equations"))
+ (|corrPoly|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+    (|SparseUnivariatePolynomial| |#4|) (|List| |#2|) (|List| |#3|)
+    (|List| (|NonNegativeInteger|))
+    (|List| (|SparseUnivariatePolynomial| |#4|))
+    (|Mapping| (|Union| (|List| (|SparseUnivariatePolynomial| |#3|)) #1#)
+               (|SparseUnivariatePolynomial| |#3|)))
+   "\\spad{corrPoly(u,{} lv,{} lr,{} ln,{} lu,{} bsolv)} solves polynomial equation system u/f = sum(ai/lu(\\spad{i})) where \\spad{f} is product of \\spad{lu}(\\spad{i}) and deg(\\spad{ai}) < deg(\\spad{lu}(\\spad{i})) using modular method. corrPoly returns \"failed\" if there are no solution. \\spad{lv} is list of variables,{} \\spad{lr} is list of corresponding evaluation points,{} bsolv is solver over \\spad{R} specialized for modular images of \\spad{lu}.")))
+(("documentation" 0 6081) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 6075) ("predicates" 0 6031) ("superDomain" 0 NIL)
+ ("operationAlist" 0 4926) ("modemaps" 0 2664) ("sourceFile" 0 2627)
+ ("constructorCategory" 0 1461) ("constructorModemap" 0 63)
+ ("constructorKind" 0 53) ("constructorForm" 0 20))

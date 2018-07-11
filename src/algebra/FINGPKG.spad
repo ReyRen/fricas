@@ -1,0 +1,31 @@
+)abbrev package FINGPKG FiniteGroupPackage
+++ Author: Franz Lehner
+++ Date Created: 02.01.2015
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ A package for permutation representations of finite groups.
+FiniteGroupPackage(G:Join(Group, Finite)) : with
+    permutationRepresentation : G -> Permutation Integer
+    ++ \spad{permutationRepresentation(x)} returns the permutation induced by x on \spad{enumerate()$G}
+    regularRepresentation : G -> Matrix Integer
+    ++ \spad{regularRepresentation(x)} returns the matrix representation of the
+    ++ permutation \spad{permutationRep(x)}
+  == add
+    permutationRepresentation(x:G) : Permutation Integer ==
+            all : List G := enumerate()$G
+            n : Integer := (#all)::Integer
+            xall := [x*a for a in all]
+            k : Integer
+            preimag : List Integer := [k for k in 1..n]
+            imag : List Integer := [position(a, xall) for a in all]
+            p : Permutation Integer := coercePreimagesImages([preimag, imag])
+
+    regularRepresentation(x:G) : Matrix Integer ==
+            n : Integer := size()$G
+            permutationRepresentation(permutationRepresentation x, n)$(RepresentationPackage1 Integer)
+

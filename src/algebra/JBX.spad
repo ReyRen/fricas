@@ -1,0 +1,68 @@
+)abbrev domain JBX JetBundleXExpression
+++ Description:
+++ \spadtype{JetBundleXExpression} implements arbitrary functions in a jet
+++ bundle which depend only on the independent variables \spad{x}. Otherwise
+++ it is identical with \spadtype{JetBundleExpression}. Such a domain is
+++ needed for \spadtype{JetLinearFunction}.
+
+JetBundleXExpression(JB : JBC) : Cat == Def where
+
+  Sy    ==> Symbol
+  PI    ==> PositiveInteger
+  NNI   ==> NonNegativeInteger
+  L     ==> List
+  EI    ==> Expression Integer
+  FS    ==> FunctionSpace Integer
+  ACFS  ==> AlgebraicallyClosedFunctionSpace Integer
+  TFC   ==> TranscendentalFunctionCategory
+  COC   ==> CombinatorialOpsCategory
+  LFC   ==> LiouvillianFunctionCategory
+  SFC   ==> SpecialFunctionCategory
+  JBC   ==> JetBundleCategory
+  JBE   ==> JetBundleExpression JB
+  JBFC  ==> JetBundleFunctionCategory JB
+  BFC   ==> JetBundleBaseFunctionCategory JB
+
+  Indep    ==> "Indep"::Sy
+
+  errmsg ==> "Only functions of independent variables allowed"
+
+  Cat ==> Join(JBFC, BFC, FS, ACFS, TFC, COC, LFC, SFC) with
+
+    coerce : EI -> %
+    coerce : %  -> EI
+
+    retractIfCan : JBE -> Union(%, "failed")
+      ++ \spad{retractIfCan(p)} checks whether \spad{p} depends only on
+      ++ the independent variables. If yes, it is coerced.
+
+    retract : JBE -> %
+      ++ \spad{retract(p)} is like \spad{retractIfCan(p)} put yields a
+      ++ hard error, if \spad{p} contains further jet variables.
+
+    reduce : % -> %
+      ++ \spad{reduce(x)} reduces the algebraics in \spad{x}.
+
+    function : (Sy, L %) -> %
+      ++ \spad{function(f, arg)} generates a function with name \spad{f}
+      ++ and arguments \spad{arg}.
+
+  Def ==> JBE add
+
+    Rep := JBE
+
+    coerce(jv : JB) : % ==
+        type(jv) ~= Indep => error errmsg
+        coerce(jv)$JBE
+
+    retractIfCan(p : JBE) : Union(%, "failed") ==
+        reduce("and", [type(jv) = Indep  for jv in jetVariables p], true) =>
+            p::Rep::%
+        "failed"
+
+    retract(p : JBE) : % ==
+        px : Union(%, "failed") := retractIfCan(p)
+        px case "failed" => error errmsg
+        px::%
+
+

@@ -1,0 +1,25 @@
+905                 (|PiCoercions| R)
+|package|
+(((|PiCoercions| |#1|)
+  (CATEGORY |package| (SIGNATURE |coerce| ((|Expression| |#1|) (|Pi|))))
+  (|Join| (|Comparable|) (|IntegralDomain|)))
+ (T |PiCoercions|))
+(CATEGORY |package| (SIGNATURE |coerce| ((|Expression| |#1|) (|Pi|))))
+"/git/fricas/src/algebra/PICOERCE.spad"
+((|coerce| (*1 *2 *3)
+           (AND (|isDomain| *3 (|Pi|)) (|isDomain| *2 (|Expression| *4))
+                (|isDomain| *1 (|PiCoercions| *4))
+                (|ofCategory| *4 (|Join| (|Comparable|) (|IntegralDomain|))))))
+((|coerce| (((|Expression| |#1|) (|Pi|)) 15)))
+PICOERCE
+((|constructor|
+  (NIL
+   "\\indented{1}{Provides a coercion from the symbolic fractions in \\%\\spad{pi} with} integer coefficients to any Expression type. Date Created: 21 Feb 1990"))
+ (|coerce|
+  (((|Expression| |#1|) (|Pi|))
+   "\\spad{coerce(f)} returns \\spad{f} as an Expression(\\spad{R}).")))
+(("documentation" 0 603) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 594) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 547) ("modemaps" 0 321) ("sourceFile" 0 281)
+ ("constructorCategory" 0 210) ("constructorModemap" 0 48)
+ ("constructorKind" 0 38) ("constructorForm" 0 20))

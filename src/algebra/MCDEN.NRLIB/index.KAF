@@ -1,0 +1,53 @@
+2533                (|MatrixCommonDenominator| R Q)
+|package|
+(((|MatrixCommonDenominator| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |commonDenominator| (|#1| (|Matrix| |#2|)))
+   (SIGNATURE |clearDenominator| ((|Matrix| |#1|) (|Matrix| |#2|)))
+   (SIGNATURE |splitDenominator|
+    ((|Record| (|:| |num| (|Matrix| |#1|)) (|:| |den| |#1|)) (|Matrix| |#2|))))
+  (|IntegralDomain|) (|QuotientFieldCategory| |#1|))
+ (T |MatrixCommonDenominator|))
+(CATEGORY |package| (SIGNATURE |commonDenominator| (|#1| (|Matrix| |#2|)))
+ (SIGNATURE |clearDenominator| ((|Matrix| |#1|) (|Matrix| |#2|)))
+ (SIGNATURE |splitDenominator|
+  ((|Record| (|:| |num| (|Matrix| |#1|)) (|:| |den| |#1|)) (|Matrix| |#2|))))
+"/git/fricas/src/algebra/MCDEN.spad"
+((|splitDenominator| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *5))
+       (|ofCategory| *5 (|QuotientFieldCategory| *4))
+       (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2 (|Record| (|:| |num| (|Matrix| *4)) (|:| |den| *4)))
+       (|isDomain| *1 (|MatrixCommonDenominator| *4 *5))))
+ (|clearDenominator| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *5))
+       (|ofCategory| *5 (|QuotientFieldCategory| *4))
+       (|ofCategory| *4 (|IntegralDomain|)) (|isDomain| *2 (|Matrix| *4))
+       (|isDomain| *1 (|MatrixCommonDenominator| *4 *5))))
+ (|commonDenominator| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *4))
+       (|ofCategory| *4 (|QuotientFieldCategory| *2))
+       (|ofCategory| *2 (|IntegralDomain|))
+       (|isDomain| *1 (|MatrixCommonDenominator| *2 *4)))))
+((|splitDenominator|
+  (((|Record| (|:| |num| (|Matrix| |#1|)) (|:| |den| |#1|)) (|Matrix| |#2|))
+   18))
+ (|commonDenominator| ((|#1| (|Matrix| |#2|)) 9))
+ (|clearDenominator| (((|Matrix| |#1|) (|Matrix| |#2|)) 16)))
+MCDEN
+((|constructor|
+  (NIL
+   "MatrixCommonDenominator provides functions to compute the common denominator of a matrix of elements of the quotient field of an integral domain."))
+ (|splitDenominator|
+  (((|Record| (|:| |num| (|Matrix| |#1|)) (|:| |den| |#1|)) (|Matrix| |#2|))
+   "\\spad{splitDenominator(q)} returns \\spad{[p,{} d]} such that \\spad{q = p/d} and \\spad{d} is a common denominator for the elements of \\spad{q}."))
+ (|clearDenominator|
+  (((|Matrix| |#1|) (|Matrix| |#2|))
+   "\\spad{clearDenominator(q)} returns \\spad{p} such that \\spad{q = p/d} where \\spad{d} is a common denominator for the elements of \\spad{q}."))
+ (|commonDenominator|
+  ((|#1| (|Matrix| |#2|))
+   "\\spad{commonDenominator(q)} returns a common denominator \\spad{d} for the elements of \\spad{q}.")))
+(("documentation" 0 1741) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1735) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1517) ("modemaps" 0 732) ("sourceFile" 0 695)
+ ("constructorCategory" 0 445) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

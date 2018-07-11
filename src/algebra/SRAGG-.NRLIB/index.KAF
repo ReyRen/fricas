@@ -1,0 +1,94 @@
+5316                (|StringAggregate&| S)
+|domain|
+(((|StringAggregate&| |#1|)
+  (CATEGORY |domain| (SIGNATURE |elt| (|#1| |#1| |#1|))
+   (SIGNATURE |trim| (|#1| |#1| (|CharacterClass|)))
+   (SIGNATURE |coerce| (|#1| (|Character|)))
+   (SIGNATURE |prefix?| ((|Boolean|) |#1| |#1|))
+   (SIGNATURE |upperCase| (|#1| |#1|)) (SIGNATURE |lowerCase| (|#1| |#1|))
+   (SIGNATURE |coerce| ((|OutputForm|) |#1|))
+   (SIGNATURE |trim| (|#1| |#1| (|Character|)))
+   (SIGNATURE |elt| (|#1| |#1| (|UniversalSegment| (|Integer|))))
+   (SIGNATURE |elt| ((|Character|) |#1| (|Integer|)))
+   (SIGNATURE |elt| ((|Character|) |#1| (|Integer|) (|Character|))))
+  (|StringAggregate|))
+ (T |StringAggregate&|))
+(CATEGORY |domain| (SIGNATURE |elt| (|#1| |#1| |#1|))
+ (SIGNATURE |trim| (|#1| |#1| (|CharacterClass|)))
+ (SIGNATURE |coerce| (|#1| (|Character|)))
+ (SIGNATURE |prefix?| ((|Boolean|) |#1| |#1|))
+ (SIGNATURE |upperCase| (|#1| |#1|)) (SIGNATURE |lowerCase| (|#1| |#1|))
+ (SIGNATURE |coerce| ((|OutputForm|) |#1|))
+ (SIGNATURE |trim| (|#1| |#1| (|Character|)))
+ (SIGNATURE |elt| (|#1| |#1| (|UniversalSegment| (|Integer|))))
+ (SIGNATURE |elt| ((|Character|) |#1| (|Integer|)))
+ (SIGNATURE |elt| ((|Character|) |#1| (|Integer|) (|Character|))))
+"/git/fricas/src/algebra/SRAGG.spad"
+((|upperCase| (($ $) 15))
+ (|trim| (($ $ (|Character|)) NIL) (($ $ (|CharacterClass|)) 10))
+ (|prefix?| (((|Boolean|) $ $) 20)) (|lowerCase| (($ $) 13))
+ (|elt| (((|Character|) $ (|Integer|) (|Character|)) NIL)
+  (((|Character|) $ (|Integer|)) NIL)
+  (($ $ (|UniversalSegment| (|Integer|))) NIL) (($ $ $) 26))
+ (|coerce| (((|OutputForm|) $) NIL) (($ (|Character|)) 24)))
+SRAGG-
+((|constructor|
+  (NIL
+   "A string aggregate is a category for strings,{} that is,{} one dimensional arrays of characters."))
+ (|elt|
+  (($ $ $)
+   "\\spad{elt(s,{} t)} returns the concatenation of \\spad{s} and \\spad{t}. It is provided to allow juxtaposition of strings to work as concatenation. For example,{} \\spad{\"smoo\" \"shed\"} returns \\spad{\"smooshed\"}."))
+ (|rightTrim|
+  (($ $ (|CharacterClass|))
+   "\\spad{rightTrim(s,{} cc)} returns \\spad{s} with all trailing occurrences of characters in \\spad{cc} deleted. For example,{} \\spad{rightTrim(\"(abc)\",{} charClass \"()\")} returns \\spad{\"(abc\"}."))
+ (|leftTrim|
+  (($ $ (|CharacterClass|))
+   "\\spad{leftTrim(s,{} cc)} returns \\spad{s} with all leading characters in \\spad{cc} deleted. For example,{} \\spad{leftTrim(\"(abc)\",{} charClass \"()\")} returns \\spad{\"abc)\"}."))
+ (|trim|
+  (($ $ (|CharacterClass|))
+   "\\spad{trim(s,{} cc)} returns \\spad{s} with all characters in \\spad{cc} deleted from right and left ends. For example,{} \\spad{trim(\"(abc)\",{} charClass \"()\")} returns \\spad{\"abc\"}."))
+ (|split|
+  (((|List| $) $ (|CharacterClass|))
+   "\\spad{split(s,{} cc)} returns a list of substrings delimited by characters in \\spad{cc}.")
+  (((|List| $) $ (|Character|))
+   "\\spad{split(s,{} c)} returns a list of substrings delimited by character \\spad{c}."))
+ (|coerce|
+  (($ (|Character|))
+   "\\spad{coerce(c)} returns \\spad{c} as a string \\spad{s} with the character \\spad{c}."))
+ (|position|
+  (((|Integer|) (|CharacterClass|) $ (|Integer|))
+   "\\spad{position(cc,{} t,{} i)} returns the position \\spad{j} in string \\spad{t} of the first character belonging to \\spad{cc},{} beginning at index \\spad{i}. Returns \\spad{minIndex(t) - 1} if there is no such \\spad{j}.")
+  (((|Integer|) $ $ (|Integer|))
+   "\\spad{position(s,{} t,{} i)} returns the position \\spad{j} of the substring \\spad{s} in string \\spad{t},{} beginning at index \\spad{i}. Returns \\spad{minIndex(s) - 1} if there is no such \\spad{j}."))
+ (|replace|
+  (($ $ (|UniversalSegment| (|Integer|)) $)
+   "\\spad{replace(s,{} i..j,{} t)} replaces the substring \\spad{s(i..j)} of \\spad{s} by string \\spad{t}."))
+ (|match?|
+  (((|Boolean|) $ $ (|Character|))
+   "\\spad{match?(s,{} t,{} c)} tests if \\spad{s} matches \\spad{t} except perhaps for multiple and consecutive occurrences of character \\spad{c}. Typically \\spad{c} is the blank character."))
+ (|substring?|
+  (((|Boolean|) $ $ (|Integer|))
+   "\\spad{substring?(s,{} t,{} i)} tests if \\spad{s} is a substring of \\spad{t} beginning at index \\spad{i}. Note: \\spad{substring?(s,{} t,{} 0) = prefix?(s,{} t)}."))
+ (|suffix?|
+  (((|Boolean|) $ $)
+   "\\spad{suffix?(s,{} t)} tests if the string \\spad{s} is the final substring of \\spad{t}. Note: \\spad{suffix?(s,{} t) = reduce(and,{} [s.i = t.(n - m + i) for i indices s])} where \\spad{m} and \\spad{n} denote the maxIndex of \\spad{s} and \\spad{t} respectively."))
+ (|prefix?|
+  (((|Boolean|) $ $)
+   "\\spad{prefix?(s,{} t)} tests if the string \\spad{s} is the initial substring of \\spad{t}. Note: \\spad{prefix?(s,{} t) = reduce(and,{} [s.i = t.i for i in indices s])}."))
+ (|upperCase!|
+  (($ $)
+   "\\spad{upperCase!(s)} destructively replaces the alphabetic characters in \\spad{s} by corresponding upper case characters."))
+ (|upperCase|
+  (($ $)
+   "\\spad{upperCase(s)} returns the string with all characters in upper case."))
+ (|lowerCase!|
+  (($ $)
+   "\\spad{lowerCase!(s)} destructively replaces the alphabetic characters in \\spad{s} by lower case."))
+ (|lowerCase|
+  (($ $)
+   "\\spad{lowerCase(s)} returns the string with all characters in lower case.")))
+(("documentation" 0 1645) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1638) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1267) ("modemaps" 0 NIL) ("sourceFile" 0 1230)
+ ("constructorCategory" 0 689) ("constructorModemap" 0 52)
+ ("constructorKind" 0 43) ("constructorForm" 0 20))

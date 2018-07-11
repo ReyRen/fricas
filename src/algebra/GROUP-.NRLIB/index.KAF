@@ -1,0 +1,45 @@
+1632                (|Group&| S)
+|domain|
+(((|Group&| |#1|)
+  (CATEGORY |domain| (SIGNATURE |commutator| (|#1| |#1| |#1|))
+   (SIGNATURE |conjugate| (|#1| |#1| |#1|))
+   (SIGNATURE ^ (|#1| |#1| (|Integer|))) (SIGNATURE / (|#1| |#1| |#1|))
+   (SIGNATURE ^ (|#1| |#1| (|NonNegativeInteger|)))
+   (SIGNATURE |recip| ((|Union| |#1| "failed") |#1|))
+   (SIGNATURE ^ (|#1| |#1| (|PositiveInteger|))))
+  (|Group|))
+ (T |Group&|))
+(CATEGORY |domain| (SIGNATURE |commutator| (|#1| |#1| |#1|))
+ (SIGNATURE |conjugate| (|#1| |#1| |#1|)) (SIGNATURE ^ (|#1| |#1| (|Integer|)))
+ (SIGNATURE / (|#1| |#1| |#1|))
+ (SIGNATURE ^ (|#1| |#1| (|NonNegativeInteger|)))
+ (SIGNATURE |recip| ((|Union| |#1| "failed") |#1|))
+ (SIGNATURE ^ (|#1| |#1| (|PositiveInteger|))))
+"/git/fricas/src/algebra/GROUP.spad"
+((|recip| (((|Union| $ "failed") $) 11)) (|conjugate| (($ $ $) 18))
+ (|commutator| (($ $ $) 19))
+ (^ (($ $ (|PositiveInteger|)) NIL) (($ $ (|NonNegativeInteger|)) NIL)
+  (($ $ (|Integer|)) 17))
+ (/ (($ $ $) 9)))
+GROUP-
+((|constructor|
+  (NIL
+   "The class of multiplicative groups,{} \\spadignore{i.e.} monoids with multiplicative inverses. \\blankline"))
+ (|commutator|
+  (($ $ $)
+   "\\spad{commutator(p,{} q)} computes \\spad{inv(p) * inv(q) * p * q}."))
+ (|conjugate|
+  (($ $ $)
+   "\\spad{conjugate(p,{} q)} computes \\spad{inv(q) * p * q}; this is 'right action by conjugation'."))
+ (^
+  (($ $ (|Integer|))
+   "\\spad{x^n} returns \\spad{x} raised to the integer power \\spad{n}."))
+ (/
+  (($ $ $)
+   "\\spad{x/y} is the same as \\spad{x} times the inverse of \\spad{y}."))
+ (|inv| (($ $) "\\spad{inv(x)} returns the inverse of \\spad{x}.")))
+(("documentation" 0 1002) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 995) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 783) ("modemaps" 0 NIL) ("sourceFile" 0 746)
+ ("constructorCategory" 0 423) ("constructorModemap" 0 42)
+ ("constructorKind" 0 33) ("constructorForm" 0 20))

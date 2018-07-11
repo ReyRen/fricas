@@ -1,0 +1,39 @@
+1635                (|DiscreteLogarithmPackage| M)
+|package|
+(((|DiscreteLogarithmPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |shanksDiscLogAlgorithm|
+    ((|Union| (|NonNegativeInteger|) "failed") |#1| |#1|
+     (|NonNegativeInteger|))))
+  (|Join| (|Monoid|) (|Finite|)
+          (CATEGORY |domain| (SIGNATURE ^ ($ $ (|Integer|))))))
+ (T |DiscreteLogarithmPackage|))
+(CATEGORY |package|
+ (SIGNATURE |shanksDiscLogAlgorithm|
+  ((|Union| (|NonNegativeInteger|) "failed") |#1| |#1| (|NonNegativeInteger|))))
+"/git/fricas/src/algebra/DLP.spad"
+((|shanksDiscLogAlgorithm| (*1 *2 *3 *3 *2)
+  (|partial| AND (|isDomain| *2 (|NonNegativeInteger|))
+   (|isDomain| *1 (|DiscreteLogarithmPackage| *3))
+   (|ofCategory| *3
+                 (|Join| (|Monoid|) (|Finite|)
+                         (CATEGORY |domain|
+                          (SIGNATURE ^ ($ $ (|Integer|)))))))))
+((|shanksDiscLogAlgorithm|
+  (((|Union| (|NonNegativeInteger|) "failed") |#1| |#1| (|NonNegativeInteger|))
+   26)))
+DLP
+((|constructor|
+  (NIL
+   "DiscreteLogarithmPackage implements help functions for discrete logarithms in monoids using small cyclic groups."))
+ (|shanksDiscLogAlgorithm|
+  (((|Union| (|NonNegativeInteger|) "failed") |#1| |#1| (|NonNegativeInteger|))
+   "\\spad{shanksDiscLogAlgorithm(b,{} a,{} p)} computes \\spad{s} with \\spad{b^s = a} for assuming that \\spad{a} and \\spad{b} are elements in a 'small' cyclic group of order \\spad{p} by Shank\\spad{'s} algorithm. Note: this is a subroutine of the function \\spadfun{discreteLog}."))
+ (^
+  (($ $ (|Integer|))
+   "\\spad{x ^ n} returns \\spad{x} raised to the integer power \\spad{n}")))
+(("documentation" 0 994) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 990) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 874) ("modemaps" 0 548) ("sourceFile" 0 513)
+ ("constructorCategory" 0 375) ("constructorModemap" 0 61)
+ ("constructorKind" 0 51) ("constructorForm" 0 20))

@@ -1,0 +1,60 @@
+2551                (|RootFSSplit| R F)
+|package|
+(((|RootFSSplit| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |alg_split_roots|
+    ((|List|
+      (|Record| (|:| |funs| (|List| |#2|)) (|:| |nroot| |#2|)
+                (|:| |npow1| (|Integer|)) (|:| |npow2| (|Integer|))))
+     (|List| |#2|) (|Kernel| |#2|) (|Kernel| |#2|)))
+   (SIGNATURE |alg_split_root0|
+    ((|List| |#2|) |#2| (|Kernel| |#2|) (|Integer|))))
+  (|Join| (|IntegralDomain|) (|RetractableTo| (|Integer|)) (|Comparable|))
+  (|FunctionSpace| |#1|))
+ (T |RootFSSplit|))
+(CATEGORY |package|
+ (SIGNATURE |alg_split_roots|
+  ((|List|
+    (|Record| (|:| |funs| (|List| |#2|)) (|:| |nroot| |#2|)
+              (|:| |npow1| (|Integer|)) (|:| |npow2| (|Integer|))))
+   (|List| |#2|) (|Kernel| |#2|) (|Kernel| |#2|)))
+ (SIGNATURE |alg_split_root0| ((|List| |#2|) |#2| (|Kernel| |#2|) (|Integer|))))
+"/git/fricas/src/algebra/RFSSPLIT.spad"
+((|alg_split_root0| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *4 (|Kernel| *3)) (|ofCategory| *3 (|FunctionSpace| *6))
+       (|ofCategory| *6
+                     (|Join| (|IntegralDomain|) (|RetractableTo| *5)
+                             (|Comparable|)))
+       (|isDomain| *5 (|Integer|)) (|isDomain| *2 (|List| *3))
+       (|isDomain| *1 (|RootFSSplit| *6 *3))))
+ (|alg_split_roots| (*1 *2 *3 *4 *4)
+  (AND (|isDomain| *3 (|List| *6)) (|isDomain| *4 (|Kernel| *6))
+       (|ofCategory| *6 (|FunctionSpace| *5))
+       (|ofCategory| *5
+                     (|Join| (|IntegralDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|)))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |funs| (|List| *6)) (|:| |nroot| *6)
+                              (|:| |npow1| (|Integer|))
+                              (|:| |npow2| (|Integer|)))))
+       (|isDomain| *1 (|RootFSSplit| *5 *6)))))
+((|alg_split_roots|
+  (((|List|
+     (|Record| (|:| |funs| (|List| |#2|)) (|:| |nroot| |#2|)
+               (|:| |npow1| (|Integer|)) (|:| |npow2| (|Integer|))))
+    (|List| |#2|) (|Kernel| |#2|) (|Kernel| |#2|))
+   60))
+ (|alg_split_root0| (((|List| |#2|) |#2| (|Kernel| |#2|) (|Integer|)) 37)))
+RFSSPLIT
+((|alg_split_roots|
+  (((|List|
+     (|Record| (|:| |funs| (|List| |#2|)) (|:| |nroot| |#2|)
+               (|:| |npow1| (|Integer|)) (|:| |npow2| (|Integer|))))
+    (|List| |#2|) (|Kernel| |#2|) (|Kernel| |#2|))
+   "\\spad{alg_split_roots(lf,{} r1,{} r2)} splits each \\spad{f} in \\spad{lf} into linear combination of product of powers of \\spad{r1} and \\spad{r2} which must be independent roots.")))
+(("documentation" 0 2147) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2138) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1841) ("modemaps" 0 899) ("sourceFile" 0 859)
+ ("constructorCategory" 0 538) ("constructorModemap" 0 50)
+ ("constructorKind" 0 40) ("constructorForm" 0 20))

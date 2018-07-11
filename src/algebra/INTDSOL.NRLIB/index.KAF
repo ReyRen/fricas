@@ -1,0 +1,63 @@
+2803                (|IntegrateSolutions| F L)
+|package|
+(((|IntegrateSolutions| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |integrate_sols|
+    ((|Record| (|:| |ltilde| |#2|) (|:| |r| (|Union| |#2| "failed"))) |#2|
+     (|Mapping|
+      (|Record| (|:| |particular| (|Union| |#1| "failed"))
+                (|:| |basis| (|List| |#1|)))
+      |#2| |#1|))))
+  (|Join| (|Field|) (|CharacteristicZero|) (|RetractableTo| (|Integer|))
+          (|RetractableTo| (|Fraction| (|Integer|))))
+  (|Join| (|UnivariateSkewPolynomialCategory| |#1|)
+          (CATEGORY |domain| (SIGNATURE |adjoint| ($ $)))))
+ (T |IntegrateSolutions|))
+(CATEGORY |package|
+ (SIGNATURE |integrate_sols|
+  ((|Record| (|:| |ltilde| |#2|) (|:| |r| (|Union| |#2| "failed"))) |#2|
+   (|Mapping|
+    (|Record| (|:| |particular| (|Union| |#1| "failed"))
+              (|:| |basis| (|List| |#1|)))
+    |#2| |#1|))))
+"/git/fricas/src/algebra/INTDSOL.spad"
+((|integrate_sols| (*1 *2 *3 *4)
+  (AND
+   (|isDomain| *4
+               (|Mapping|
+                (|Record| (|:| |particular| (|Union| *5 "failed"))
+                          (|:| |basis| (|List| *5)))
+                *3 *5))
+   (|ofCategory| *5
+                 (|Join| (|Field|) (|CharacteristicZero|)
+                         (|RetractableTo| (|Integer|))
+                         (|RetractableTo| (|Fraction| (|Integer|)))))
+   (|ofCategory| *3
+                 (|Join| (|UnivariateSkewPolynomialCategory| *5)
+                         (CATEGORY |domain| (SIGNATURE |adjoint| ($ $)))))
+   (|isDomain| *2 (|Record| (|:| |ltilde| *3) (|:| |r| (|Union| *3 "failed"))))
+   (|isDomain| *1 (|IntegrateSolutions| *5 *3)))))
+((|integrate_sols|
+  (((|Record| (|:| |ltilde| |#2|) (|:| |r| (|Union| |#2| "failed"))) |#2|
+    (|Mapping|
+     (|Record| (|:| |particular| (|Union| |#1| "failed"))
+               (|:| |basis| (|List| |#1|)))
+     |#2| |#1|))
+   22)))
+INTDSOL
+((|constructor|
+  (NIL
+   "\\spadtype{IntegrateSolutions} implements a method \\indented{1}{to compute integral of solution of differential operator.}"))
+ (|integrate_sols|
+  (((|Record| (|:| |ltilde| |#2|) (|:| |r| (|Union| |#2| "failed"))) |#2|
+    (|Mapping|
+     (|Record| (|:| |particular| (|Union| |#1| "failed"))
+               (|:| |basis| (|List| |#1|)))
+     |#2| |#1|))
+   "\\spad{integrate_sols(l,{} rat_solve)} integrates the solutions of an operator \\spad{l} given rat_solve(op,{} \\spad{g}) that returns \\spad{[\"failed\",{} []]} if the equation \\spad{op y = g} has no rational solution. Otherwise,{} the rat_solve function should return \\spad{[f,{} [y1,{} ...,{} ym]]} where \\spad{f} is a particular rational solution and the \\spad{yi}\\spad{'s} form a basis for the rational solutions of the homogeneous equation."))
+ (|adjoint| (($ $) "\\spad{adjoint(a)} returns the adjoint operator of a.")))
+(("documentation" 0 1885) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1877) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1641) ("modemaps" 0 919) ("sourceFile" 0 880)
+ ("constructorCategory" 0 626) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

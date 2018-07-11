@@ -1,0 +1,88 @@
+)abbrev category RRCC RealRootCharacterizationCategory
+++ Author: Renaud Rioboo
+++ Date Created: summer 1992
+++ Basic Functions: provides operations with generic real roots of
+++                  polynomials
+++ Related Constructors: RealClosure, RightOpenIntervalRootCharacterization
+++ Also See:
+++ AMS Classifications:
+++ Keywords: Real Algebraic Numbers
+++ References:
+++ Description:
+++ \spadtype{RealRootCharacterizationCategory} provides common access
+++ functions for all real root codings.
+RealRootCharacterizationCategory(TheField, ThePols) : Category == PUB where
+
+   TheField : Join(OrderedRing, Field)
+   ThePols : UnivariatePolynomialCategory(TheField)
+
+   Z ==> Integer
+   N ==> PositiveInteger
+
+   PUB ==>
+     SetCategory with
+
+        sign :                (ThePols, %)   ->            Z
+              ++ \spad{sign(pol, aRoot)} gives the sign of \spad{pol}
+              ++ interpreted as \spad{aRoot}
+        zero? :              (ThePols, %)   ->         Boolean
+              ++ \spad{zero?(pol, aRoot)} answers if \spad{pol}
+              ++ interpreted as \spad{aRoot} is \spad{0}
+        negative? :           (ThePols, %)   ->         Boolean
+              ++ \spad{negative?(pol, aRoot)} answers if \spad{pol}
+              ++ interpreted as \spad{aRoot} is negative
+        positive? :           (ThePols, %)   ->         Boolean
+              ++ \spad{positive?(pol, aRoot)} answers if \spad{pol}
+              ++ interpreted as \spad{aRoot} is positive
+        recip :               (ThePols, %)   ->   Union(ThePols, "failed")
+              ++ \spad{recip(pol, aRoot)} tries to inverse \spad{pol}
+              ++ interpreted as \spad{aRoot}
+        definingPolynomial :       %         ->         ThePols
+              ++ \spad{definingPolynomial(aRoot)} gives a polynomial
+              ++ such that \spad{definingPolynomial(aRoot).aRoot = 0}
+        allRootsOf :             ThePols      ->          List %
+              ++ \spad{allRootsOf(pol)} creates all the roots of \spad{pol}
+              ++ in the Real Closure, assumed in order.
+        rootOf :              (ThePols, N)   ->      Union(%, "failed")
+              ++ \spad{rootOf(pol, n)} gives the nth root for the order of the
+              ++ Real Closure
+        approximate :  (ThePols, %, TheField)   ->    TheField
+              ++ \spad{approximate(term, root, prec)} gives an approximation
+              ++ of \spad{term} over \spad{root} with precision \spad{prec}
+
+        relativeApprox :  (ThePols, %, TheField) ->   TheField
+              ++ \spad{approximate(term, root, prec)} gives an approximation
+              ++ of \spad{term} over \spad{root} with precision \spad{prec}
+
+      add
+
+        import from Integer
+
+        zero?(toTest, rootChar) ==
+          sign(toTest, rootChar) = 0
+
+        negative?(toTest, rootChar) ==
+          sign(toTest, rootChar) < 0
+
+        positive?(toTest, rootChar) ==
+          sign(toTest, rootChar) > 0
+
+        rootOf(pol, n) ==
+          liste : List(%) := allRootsOf(pol)
+          # liste > n => "failed"
+          liste.n
+
+        recip(toInv, rootChar) ==
+          degree(toInv) = 0 =>
+            res := recip(leadingCoefficient(toInv))
+            if (res case "failed") then "failed" else (res::TheField::ThePols)
+          defPol := definingPolynomial(rootChar)
+          d := principalIdeal([defPol, toInv])
+          zero?(d.generator,rootChar) => "failed"
+          if (degree(d.generator) ~= 0 )
+          then
+            defPol := (defPol exquo (d.generator))::ThePols
+            d := principalIdeal([defPol, toInv])
+          d.coef.2
+
+

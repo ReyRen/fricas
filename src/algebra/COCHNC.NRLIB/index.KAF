@@ -1,0 +1,71 @@
+3334                (|CoChainComplex| VS)
+|domain|
+(((|CoChainComplex| |#1|)
+  (|Join| (|SetCategory|)
+          (CATEGORY |domain|
+           (SIGNATURE |coChainComplex| ($ (|List| (|Matrix| (|Integer|)))))
+           (SIGNATURE |coChainComplex| ($ (|ChainComplex|)))
+           (SIGNATURE |validate| ((|Boolean|) $))
+           (SIGNATURE |coboundary|
+            ((|List| |#1|) $ (|NonNegativeInteger|) (|List| |#1|)))
+           (SIGNATURE |coHomology| ((|List| (|Homology|)) $))))
+  (|AbelianGroup|))
+ (T |CoChainComplex|))
+(|Join| (|SetCategory|)
+        (CATEGORY |domain|
+         (SIGNATURE |coChainComplex| ($ (|List| (|Matrix| (|Integer|)))))
+         (SIGNATURE |coChainComplex| ($ (|ChainComplex|)))
+         (SIGNATURE |validate| ((|Boolean|) $))
+         (SIGNATURE |coboundary|
+          ((|List| |#1|) $ (|NonNegativeInteger|) (|List| |#1|)))
+         (SIGNATURE |coHomology| ((|List| (|Homology|)) $))))
+"/git/fricas/src/algebra/COCHNC.spad"
+((|coChainComplex| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|Matrix| (|Integer|))))
+       (|isDomain| *1 (|CoChainComplex| *3))
+       (|ofCategory| *3 (|AbelianGroup|))))
+ (|coChainComplex| (*1 *1 *2)
+  (AND (|isDomain| *2 (|ChainComplex|)) (|isDomain| *1 (|CoChainComplex| *3))
+       (|ofCategory| *3 (|AbelianGroup|))))
+ (|validate| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|CoChainComplex| *3))
+       (|ofCategory| *3 (|AbelianGroup|))))
+ (|coboundary| (*1 *2 *1 *3 *2)
+  (AND (|isDomain| *2 (|List| *4)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|ofCategory| *4 (|AbelianGroup|))
+       (|isDomain| *1 (|CoChainComplex| *4))))
+ (|coHomology| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|Homology|)))
+       (|isDomain| *1 (|CoChainComplex| *3))
+       (|ofCategory| *3 (|AbelianGroup|)))))
+((~= (((|Boolean|) $ $) NIL)) (|validate| (((|Boolean|) $) 33))
+ (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|coerce| (((|OutputForm|) $) 55))
+ (|coboundary| (((|List| |#1|) $ (|NonNegativeInteger|) (|List| |#1|)) 47))
+ (|coHomology| (((|List| (|Homology|)) $) 52))
+ (|coChainComplex| (($ (|List| (|Matrix| (|Integer|)))) 9)
+  (($ (|ChainComplex|)) 16))
+ (= (((|Boolean|) $ $) NIL)))
+COCHNC
+(((|SetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "\\indented{2}{Delta Complexes are defined by a sequence of 'face maps',{} These can} \\indented{2}{be represented by a list of matrices.} \\indented{2}{for more documentation see:} \\indented{2}{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/chain/cochain/} Date Created: Jan 2016 Basic Operations: Related packages: Related categories: Related Domains: ChainComplex Also See: AMS Classifications:"))
+ (|coHomology|
+  (((|List| (|Homology|)) $) "calculate homology using SmithNormalForm"))
+ (|coboundary|
+  (((|List| |#1|) $ (|NonNegativeInteger|) (|List| |#1|))
+   "calculate coboundary at dimention \\spad{n} for a given input"))
+ (|validate|
+  (((|Boolean|) $)
+   "\\spad{true} if this is a valid chain complex,{} that is: 1. maps compose 2. product of adjacent coboundary maps is zero"))
+ (|coChainComplex|
+  (($ (|ChainComplex|)) "constructor from \\spad{ChainComplex}")
+  (($ (|List| (|Matrix| (|Integer|)))) "constructor")))
+(("documentation" 0 2360) ("ancestors" 0 2279) ("parents" 0 2255)
+ ("abbreviation" 0 2248) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1783) ("modemaps" 0 960) ("sourceFile" 0 922)
+ ("constructorCategory" 0 529) ("constructorModemap" 0 51)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

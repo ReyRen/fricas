@@ -1,0 +1,105 @@
+)abbrev domain LOOP Loop
+++ Author: Martin Baker
+++ Date Created: January 2012
+++ Basic Operations:
+++ Related Domains: FiniteGraph, DirectedGraph. FunctionGraph
+++ Also See: Graph
+++ Keywords: graph theory
+++ Examples: see
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/graph/
+++ References:
+++
+++ Description: This is used with graph theory code (FiniteGraph,
+++ DirectedGraph. FunctionGraph, and so on) to represent a
+++ loop as either a sequence of vertex or arrow indexes
+++ depending on context. The main benefit is that the loop
+++ is stored in a canonical way so that loops can be quickly
+++ compared using '='.
+
+Loop() : Exports == Implementation where
+  NNI==> NonNegativeInteger
+  x<<y ==> hconcat(x::OutputForm,y::OutputForm)
+
+  Exports ==> SetCategory with
+    loop : List NNI -> %
+      ++ loop(li) constructs loop from list of indexes li
+    entries : (lp : %) -> List NNI
+      ++ entries(lp) returns list of indexes that make this loop
+
+  Implementation ==> add
+
+    -- array of vertex indices which form loop
+    Rep := PrimitiveArray NNI
+
+    -- construct loop with list of indexes
+    -- rotate so that smallest index is always at the beginning
+    -- (thanks to Ralf for patch to this constructor)
+    loop(lis : List NNI) : % ==
+      li : List NNI := [x for x in lis]
+      empty? li => error "cannot form empty loop"
+      minValue : NNI := first li
+      lx : List(NNI) := []
+      l1 := li -- initialize part that comes first
+      l2 := lx -- initialize part that comes after l1
+      while not empty? li repeat
+        if first li < minValue then
+          l1 := li
+          l2 := lx
+          minValue := first li
+        -- shift one element from Li to Lx
+        lx := cons(first li, lx)
+        li := rest li
+      --print("construct loop "::Symbol << _
+      --      bracket[x::OutputForm for x in lis] << _
+      --      bracket[x::OutputForm for x in concat(l1, reverse l2)])
+      construct(concat(l1, reverse l2))$Rep
+
+    -- entries(lp) returns list of indexes that make this loop
+    entries(lp : %) : List NNI == entries(lp)$Rep
+
+    -- start of SetCategory definitions --
+
+    hash(s : %) : SingleInteger == 0$SingleInteger
+
+    latex(lp : %) : String ==
+      res:String := ""
+      for i in 1..#lp repeat
+        x : NNI := lp.(i-1)
+        res := concat([res,"->",string(x)])$String
+      concat(["[",res,"]"])$String
+
+    -- returns true if x equals y
+    -- Since the constructor always makes sure that the Rep is
+    -- rotated so that the smallest index is at the beginning,
+    -- this test is not sensitive to where we start in the loop.
+    _=(x : %, y : %) : Boolean ==
+      if #x ~= #y then return false
+      for i in 1..#x repeat
+        if x.(i-1) ~= y.(i-1) then return false
+      true
+
+    -- output
+    coerce(lp : %) : OutputForm ==
+      res : OutputForm := empty()$OutputForm
+      for i in 1..#lp repeat
+        x : NNI := lp.(i-1)
+        res := hconcat([res,outputForm("->"::Symbol),_
+                       x::OutputForm])$OutputForm
+      bracket(res)
+
+)if false
+
+\section{category FGRPH FiniteGraph}
+
+FiniteGraph is a graph category which has the following
+implementations:
+
+\begin{itemize}
+\item DirectedGraph
+\item UndirectedGraph
+\item WeightedGraph
+\item FunctionGraph
+\item MultifunctionGraph
+\end{itemize}
+)endif
+

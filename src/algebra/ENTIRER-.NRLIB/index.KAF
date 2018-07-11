@@ -1,0 +1,50 @@
+2335                (|EntireRing&| S)
+|domain|
+(((|EntireRing&| |#1|)
+  (CATEGORY |domain| (SIGNATURE |unit?| ((|Boolean|) |#1|))
+   (SIGNATURE |associates?| ((|Boolean|) |#1| |#1|))
+   (SIGNATURE |unitCanonical| (|#1| |#1|))
+   (SIGNATURE |unitNormal|
+    ((|Record| (|:| |unit| |#1|) (|:| |canonical| |#1|) (|:| |associate| |#1|))
+     |#1|))
+   (SIGNATURE |recip| ((|Union| |#1| "failed") |#1|))
+   (SIGNATURE |annihilate?| ((|Boolean|) |#1| |#1|)))
+  (|EntireRing|))
+ (T |EntireRing&|))
+(CATEGORY |domain| (SIGNATURE |unit?| ((|Boolean|) |#1|))
+ (SIGNATURE |associates?| ((|Boolean|) |#1| |#1|))
+ (SIGNATURE |unitCanonical| (|#1| |#1|))
+ (SIGNATURE |unitNormal|
+  ((|Record| (|:| |unit| |#1|) (|:| |canonical| |#1|) (|:| |associate| |#1|))
+   |#1|))
+ (SIGNATURE |recip| ((|Union| |#1| "failed") |#1|))
+ (SIGNATURE |annihilate?| ((|Boolean|) |#1| |#1|)))
+"/git/fricas/src/algebra/ENTIRER.spad"
+((|unitNormal|
+  (((|Record| (|:| |unit| $) (|:| |canonical| $) (|:| |associate| $)) $) 9))
+ (|unitCanonical| (($ $) 11)) (|unit?| (((|Boolean|) $) 18))
+ (|recip| (((|Union| $ "failed") $) 16)) (|associates?| (((|Boolean|) $ $) 20))
+ (|annihilate?| (((|Boolean|) $ $) 21)))
+ENTIRER-
+((|constructor|
+  (NIL
+   "Entire Rings (non-commutative Integral Domains),{} \\spadignore{i.e.} a ring not necessarily commutative which has no zero divisors. \\blankline"))
+ (|unit?|
+  (((|Boolean|) $)
+   "\\spad{unit?(x)} tests whether \\spad{x} is a unit,{} \\spadignore{i.e.} is invertible."))
+ (|associates?|
+  (((|Boolean|) $ $)
+   "\\spad{associates?(x,{} y)} tests whether \\spad{x} and \\spad{y} are associates,{} \\spadignore{i.e.} differ by a unit factor."))
+ (|unitCanonical|
+  (($ $) "\\spad{unitCanonical(x)} returns \\spad{unitNormal(x).canonical}."))
+ (|unitNormal|
+  (((|Record| (|:| |unit| $) (|:| |canonical| $) (|:| |associate| $)) $)
+   "\\spad{unitNormal(x)} tries to choose a canonical element from the associate class of \\spad{x}. The attribute canonicalUnitNormal,{} if asserted,{} means that the \"canonical\" element is the same across all associates of \\spad{x} if \\spad{unitNormal(x) = [u,{} c,{} a]} then \\spad{u*c = x},{} \\spad{a*u = 1}."))
+ (|exquo|
+  (((|Union| $ "failed") $ $)
+   "\\spad{exquo(a,{} b)} either returns an element \\spad{c} such that \\spad{c*b=a} or \"failed\" if no such element can be found.")))
+(("documentation" 0 1180) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1171) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 897) ("modemaps" 0 NIL) ("sourceFile" 0 858)
+ ("constructorCategory" 0 491) ("constructorModemap" 0 47)
+ ("constructorKind" 0 38) ("constructorForm" 0 20))

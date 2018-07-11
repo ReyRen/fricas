@@ -1,0 +1,25 @@
+)abbrev category SKAGG StackAggregate
+++ Author: Michael Monagan; revised by Manuel Bronstein and Richard Jenks
+++ Date Created: August 87 through August 88
+++ Basic Operations:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ A stack is a bag where the last item inserted is the first item extracted.
+StackAggregate(S : Type) : Category == Join(BagAggregate S, finiteAggregate) with
+   push! : (S, %) -> S
+     ++ push!(x, s) pushes x onto stack s, i.e. destructively changing s
+     ++ so as to have a new first (top) element x.
+     ++ Afterwards, pop!(s) produces x and pop!(s) produces the original s.
+   pop! : % -> S
+     ++ pop!(s) returns the top element x, destructively removing x from s.
+     ++ Note: Use \spad{top(s)} to obtain x without removing it from s.
+     ++ Error: if s is empty.
+   top : % -> S
+     ++ top(s) returns the top element x from s; s remains unchanged.
+     ++ Note: Use \spad{pop!(s)} to obtain x and remove it from s.
+
+

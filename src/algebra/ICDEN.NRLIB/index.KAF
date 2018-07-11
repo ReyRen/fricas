@@ -1,0 +1,55 @@
+2876                (|InnerCommonDenominator| R Q A B)
+|package|
+(((|InnerCommonDenominator| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |commonDenominator| (|#1| |#4|))
+   (SIGNATURE |clearDenominator| (|#3| |#4|))
+   (SIGNATURE |splitDenominator|
+    ((|Record| (|:| |num| |#3|) (|:| |den| |#1|)) |#4|)))
+  (|IntegralDomain|) (|QuotientFieldCategory| |#1|)
+  (|Join| (|LinearAggregate| |#1|) (|finiteAggregate|))
+  (|Join| (|LinearAggregate| |#2|) (|finiteAggregate|)))
+ (T |InnerCommonDenominator|))
+(CATEGORY |package| (SIGNATURE |commonDenominator| (|#1| |#4|))
+ (SIGNATURE |clearDenominator| (|#3| |#4|))
+ (SIGNATURE |splitDenominator|
+  ((|Record| (|:| |num| |#3|) (|:| |den| |#1|)) |#4|)))
+"/git/fricas/src/algebra/ICDEN.spad"
+((|splitDenominator| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|ofCategory| *5 (|QuotientFieldCategory| *4))
+       (|isDomain| *2 (|Record| (|:| |num| *6) (|:| |den| *4)))
+       (|isDomain| *1 (|InnerCommonDenominator| *4 *5 *6 *3))
+       (|ofCategory| *6 (|Join| (|LinearAggregate| *4) (|finiteAggregate|)))
+       (|ofCategory| *3 (|Join| (|LinearAggregate| *5) (|finiteAggregate|)))))
+ (|clearDenominator| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|ofCategory| *5 (|QuotientFieldCategory| *4))
+       (|ofCategory| *2 (|Join| (|LinearAggregate| *4) (|finiteAggregate|)))
+       (|isDomain| *1 (|InnerCommonDenominator| *4 *5 *2 *3))
+       (|ofCategory| *3 (|Join| (|LinearAggregate| *5) (|finiteAggregate|)))))
+ (|commonDenominator| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|QuotientFieldCategory| *2))
+       (|ofCategory| *2 (|IntegralDomain|))
+       (|isDomain| *1 (|InnerCommonDenominator| *2 *4 *5 *3))
+       (|ofCategory| *5 (|Join| (|LinearAggregate| *2) (|finiteAggregate|)))
+       (|ofCategory| *3 (|Join| (|LinearAggregate| *4) (|finiteAggregate|))))))
+((|splitDenominator| (((|Record| (|:| |num| |#3|) (|:| |den| |#1|)) |#4|) 19))
+ (|commonDenominator| ((|#1| |#4|) 10)) (|clearDenominator| ((|#3| |#4|) 17)))
+ICDEN
+((|constructor|
+  (NIL
+   "InnerCommonDenominator provides functions to compute the common denominator of a finite linear aggregate of elements of the quotient field of an integral domain."))
+ (|splitDenominator|
+  (((|Record| (|:| |num| |#3|) (|:| |den| |#1|)) |#4|)
+   "\\spad{splitDenominator([q1,{} ...,{} qn])} returns \\spad{[[p1,{} ...,{} pn],{} d]} such that \\spad{\\spad{qi} = pi/d} and \\spad{d} is a common denominator for the \\spad{qi}\\spad{'s}."))
+ (|clearDenominator|
+  ((|#3| |#4|)
+   "\\spad{clearDenominator([q1,{} ...,{} qn])} returns \\spad{[p1,{} ...,{} pn]} such that \\spad{\\spad{qi} = pi/d} where \\spad{d} is a common denominator for the \\spad{qi}\\spad{'s}."))
+ (|commonDenominator|
+  ((|#1| |#4|)
+   "\\spad{commonDenominator([q1,{} ...,{} qn])} returns a common denominator \\spad{d} for \\spad{q1},{} ...,{} \\spad{qn}.")))
+(("documentation" 0 2019) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2013) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1855) ("modemaps" 0 745) ("sourceFile" 0 708)
+ ("constructorCategory" 0 513) ("constructorModemap" 0 65)
+ ("constructorKind" 0 55) ("constructorForm" 0 20))

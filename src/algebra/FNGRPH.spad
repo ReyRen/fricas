@@ -1,0 +1,441 @@
+)abbrev domain FNGRPH FunctionGraph
+++ Author: Martin Baker
+++ Date Created: January 2011
+++ Basic Operations:
+++ Related Constructors:
+++ Keywords: graph theory
+++ Description: allows us to model graph theory
+++
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/graph/
+
+FunctionGraph(S) : Exports == Implementation where
+
+ S : SetCategory
+ NNI==> NonNegativeInteger
+ -- the following represent the graph in FiniteGraph
+ OBJT ==> Record(value : S, posX : NNI, posY : NNI)
+ ARROW ==> Record(name : String, arrType : NNI, fromOb : NNI, _
+           toOb : NNI, xOffset : Integer, yOffset : Integer, map : List NNI)
+ -- represent the graph in this domain
+ FOBJT ==> Record(value : S, posX : NNI, posY : NNI, next : NNI, map : List NNI)
+
+ SPROD ==> Product(S, S)
+ GRPHPROD ==> FunctionGraph SPROD
+ OBJTPROD ==> Record(value : SPROD, posX : NNI, posY : NNI, next : NNI, map : List NNI)
+ AJMAP ==> Union(List NNI,"failed")
+ DF ==> DoubleFloat
+ PT ==> SCartesian(2)
+ x<<y ==> hconcat(x::OutputForm,y::OutputForm)
+
+ Exports ==> FiniteGraph(S) with
+
+  functionGraph : (ob : List S) -> %
+    ++ constructor for graph with given list of
+    ++ object names. Use this version of the constructor
+    ++ if you don't intend to create diagrams and therefore don't
+    ++ care about x, y coordinates.
+    ++ more objects and arrows can be added later if required.
+  functionGraph : (ob : List FOBJT) -> %
+    ++ constructor for graph with given objects
+    ++ more objects and arrows can be added later if required.
+  functionGraph : (ob : List OBJT, ar : List ARROW) -> %
+    ++ constructor for graph with given objects and arrows
+    ++ more objects and arrows can be added later if required.
+  functionGraph : (perms : List Permutation S) -> %
+    ++ construct graph from a list of permutations.
+  "*":(%,%) -> GRPHPROD
+    ++ tensor product : the tensor product G*H of graphs G and H is
+    ++ a graph such that the vertex set of G*H is the Cartesian
+    ++ product V(G) \times V(H); and any two vertices (u, u') and (v, v')
+    ++ are adjacent in G \times H if and only if u' is adjacent with
+    ++ v' and u is adjacent with v.
+  --cartesian: (%, %) -> GRPHPROD
+    ++ Cartesian product does apply to function graph
+    ++ produces two arrows out of every node
+  closedTensor : (a : %, b : %, f : (S, S)->S) -> %
+    ++ as tensor product but returns %.
+  --closedCartesian: (a: %, b: %, f: (S, S)->S) -> %
+    ++ Cartesian product does apply to function graph
+    ++ produces two arrows out of every node
+  coAdjoint : (s : %, m : List NNI) -> AJMAP
+    ++ given a mapping from this graph this function tries to
+    ++ calculate a unique reverse mapping back to this graph
+  contraAdjoint : (s : %, m : List NNI) -> AJMAP
+    ++ given a mapping from this graph this function tries to
+    ++ calculate a unique reverse mapping back to this graph
+  apply : (s : %, a : NNI) -> NNI
+    ++ apply 'function' represented by this graph to vertex
+    ++ index 'a'
+  limit : (s : %, a : NNI) -> Loop
+    ++ apply 'function' represented by this graph to 'a'
+    ++ repeatedly until we reach a loop which is returned
+    ++ as a sequence of vertex indexes.
+
+ Implementation ==> add
+
+  -- The representation consists of 2 Lists:
+  --
+  -- Vertices (or objects or nodes)
+  -- ------------------------------
+  -- This table has an entry for each vertex:
+  -- Record(value: S, posX: NNI, posY: NNI, next: NNI)
+  -- posX and posY are not part of the mathematical structure but
+  -- are useful so that it can be drawn in a useful way.
+  -- Although this is thought of as a set (no duplication or ordering)
+  -- it is implemented as a list because entries in this table are
+  -- indexed by the following part so the order of the objects can't
+  -- be changed unless the index numbers in the following tables are
+  -- changed. The arrows are encoded here in the 'next' entry, each
+  -- vertex can only have 1 outgoing arrow which is enforced by this
+  -- coding.
+  Rep := Record(objects : List FOBJT)
+
+  import from FOBJT
+
+  -- constructor for graph with given list of
+  -- object names. Use this version of the constructor
+  -- if you don't intend to create diagrams and therefore don't
+  -- care about x, y coordinates.
+  -- more objects and arrows can be added later if required.
+  functionGraph(ob : List S) : % ==
+    objs : List FOBJT := [[x, 0::NNI, 0::NNI, 0::NNI, []] for x in ob]
+    [objs]
+
+  -- constructor for graph with given objects
+  -- more objects and arrows can be added later if required.
+  functionGraph(ob : List FOBJT) : % ==
+    [ob]
+
+  -- constructor for graph with given objects and arrows
+  -- more objects and arrows can be added later if required.
+  functionGraph(ob : List OBJT, ar : List ARROW) : % ==
+    arrs : List NNI := [x::NNI for x in 1..#ob]
+    for a in ar repeat
+      fromo : NNI := a.fromOb
+      too : NNI := a.toOb
+      arrs.fromo := too
+    fobs : List FOBJT := []
+    for fn in 1..#ob repeat
+      f := ob.fn
+      fo : FOBJT := [f.value, f.posX, f.posY, arrs.fn, []]
+      fobs := concat(fobs, fo)
+    [fobs]
+
+  -- construct graph from a list of permutations.
+  functionGraph(perms : List Permutation S) : % ==
+    if #perms ~= 1 then error "functionGraph only needs one permutation"
+    obs : List FOBJT := []
+    perm := first perms
+    lr := listRepresentation(perm)
+    im : List S := lr.image
+    preim : List S := lr.preimage
+    for vert in im for i in 1..#im repeat
+      n : NNI := 1
+      for j in 1..#preim repeat
+        if im.i = preim.j then n := j
+      o : FOBJT := [vert, createX(#im, i), createY(#im, i), n, []]
+      obs := concat(obs, o)
+    [obs]
+
+  -- adds an object to this graph
+  -- The added object loops back to itself
+  addObject!(s : %, n : S) : % ==
+    obs : List FOBJT := s.objects
+    obj : FOBJT := [n, 0::NNI, 0::NNI, #obs, []]
+    if obs = []
+      then s.objects := [obj]
+      else s.objects := concat(obs, obj)
+    s
+
+  -- this form of addObject! not supported in functionGraph but
+  -- it is in FiniteGraph category and it is included here to trap errors
+  addObject!(s : %, n : OBJT) : % ==
+    error "this form of addObject! not supported in functionGraph"
+    [[]]
+
+  -- This should really be replaceArrow! in functionGraph but
+  -- we use the name addArrow! for compatibility with directedGraph
+  -- and any other implementations of FiniteGraph
+  -- where:
+  -- s is the graph where the arrow is to be replaced
+  -- nm is the name of the arrow (not used)
+  -- n1 is the index of the start object
+  -- n2 is the index of the end object
+  addArrow!(s : %, nm : String, n1 : NNI, n2 : NNI) : % ==
+    ((s.objects).n1).next := n2
+    s
+
+  -- returns a list of all the vertices (or objects)
+  getVertices(s : %) : List OBJT ==
+    res : List OBJT := []
+    for soj in s.objects repeat
+      o : OBJT := [soj.value, soj.posX, soj.posY]
+      res := concat(res, o)
+    res
+
+  -- returns a list of all the arrows (or edges)
+  getArrows(s : %) : List ARROW ==
+    res : List ARROW := []
+    for sojn in 1..#(s.objects) repeat
+      soj : FOBJT := (s.objects).sojn
+      a : ARROW := [string(sojn), 0::NNI, sojn, soj.next, 0, 0, soj.map]
+      res := concat(res, a)
+    res
+
+  -- constructs a graph without vertices or edges
+  initial() : % ==
+    [[]]
+
+  -- constructs a graph with a single vertex and a single loop
+  terminal(a : S) : % ==
+    o : FOBJT := [a, 0::NNI, 0::NNI, 1::NNI, []]
+    [[o]]
+
+  -- constructs a graph with objects given connected in a
+  -- sequence with the last one looping to itself.
+  cycleOpen(objs : List S, arrowName : String) : % ==
+    obs : List FOBJT := []
+    for obn in 1..#(objs) repeat
+      -- build objects
+      ob := objs.obn
+      n : NNI := obn+1
+      if obn = #(objs) then n := #(objs)
+      o : FOBJT := [ob, createX(#objs, obn), createY(#objs, obn), n, []]
+      obs := concat(obs, o)
+    [obs]
+
+  -- constructs a graph with objects given connected in a
+  -- cycle.
+  cycleClosed(objs : List S, arrowName : String) : % ==
+    obs : List FOBJT := []
+    for obn in 1..#(objs) repeat
+      -- build objects
+      ob := objs.obn
+      n : NNI := obn+1
+      if obn = #(objs) then n := 1::NNI
+      o : FOBJT := [ob, createX(#objs, obn), createY(#objs, obn), n, []]
+      obs := concat(obs, o)
+    [obs]
+
+  -- constructs a graph with objects given and arrows from
+  -- each object only to itself.
+  unit(objs : List S, arrowName : String) : % ==
+    objs : List FOBJT := [[objs.x, 0::NNI, 0::NNI, x::NNI, []] for x in 1..#objs]
+    [objs]
+
+  -- constructs a graph with objects given and fully connected
+  -- arrows, that is, each object has an arrow to every other
+  -- object except itself.
+  kgraph(objs : List S, arrowName : String) : % ==
+    error "kgraph not valid in function graph"
+    [[]]
+
+  -- sum : disjoint union of vertices with arrows from appropriate
+  -- input
+  _+(a, b) : % ==
+    objs : List FOBJT := b.objects
+    c : List FOBJT := [[(objs.x).value, _
+         (objs.x).posX, (objs.x).posY, _
+         (x::NNI)+#(a.objects), (objs.x).map] for x in 1..#objs]
+    [concat(a.objects, c)]
+
+  -- sum : union (not necessarily disjoint) of vertices with arrows
+  -- merged in from appropriate input, if arrow exists from both
+  -- inputs then it will be duplicated.
+  merge(a : %, b : %) : % ==
+    error "merge not valid in function graph"
+    [[]]
+
+  -- this is a local function used by both tensor and Cartesian
+  -- product to calculate the new index.
+  indexProd(aObj : %, a : NNI, b : NNI) : NNI ==
+    x : NNI := a + ((b::Integer-1)::NNI * #aObj.objects)
+    x
+
+  -- tensor product : the tensor product A*B of graphs A and B is
+  -- a graph such that the vertex set of A*B is the Cartesian
+  -- product V(A) \times V(B)
+  -- any two vertices <au, bu> and <av, bv> are adjacent in A \times B
+  -- if and only if bu is adjacent with bv
+  -- and au is adjacent with av.
+  --
+  -- So this is defined over S^2 (that is Product(S, S))
+  _*(a : %, b : %) : GRPHPROD ==
+    newObjs : List OBJTPROD := []
+    for aoi in a.objects repeat
+      ai : S := aoi.value
+      axi : NNI := aoi.posX
+      ayi : NNI := aoi.posY
+      ani : NNI := aoi.next
+      for boi in b.objects repeat
+        bi : S := boi.value
+        bxi : NNI := boi.posX
+        byi : NNI := boi.posY
+        bni : NNI := boi.next
+        x : NNI := bxi*diagramWidth(a)+axi
+        y : NNI := byi*diagramHeight(a)+ayi
+        nextA := indexProd(b, bni, ani)
+        sp : SPROD := construct(ai, bi)$SPROD
+        ob : OBJTPROD := [sp, x, y, nextA, []]
+        newObjs := concat(newObjs, ob)
+    functionGraph(newObjs)$GRPHPROD
+
+  -- as tensor product but returns %.
+  closedTensor(a : %, b : %, f : (S, S)->S) : % ==
+    -- new objects are calculated by local closedObjProd function
+    -- calculate new arrows:
+    newObjs : List FOBJT := []
+    for aoi in a.objects repeat
+      ai : S := aoi.value
+      axi : NNI := aoi.posX
+      ayi : NNI := aoi.posY
+      ani : NNI := aoi.next
+      for boi in b.objects repeat
+        bi : S := boi.value
+        bxi : NNI := boi.posX
+        byi : NNI := boi.posY
+        bni : NNI := boi.next
+        x : NNI := bxi*diagramWidth(a)+axi
+        y : NNI := byi*diagramHeight(a)+ayi
+        nextA := indexProd(b, bni, ani)
+        sp : S := f(ai, bi)
+        ob : FOBJT := [sp, x, y, nextA, []]
+        newObjs := concat(newObjs, ob)
+    functionGraph(newObjs)
+
+  -- create a new graph by mapping from this one
+  -- newOb should contain the new list of vertices.
+  -- m should contain a NNI value for each vertex, this is the
+  -- new index into newOb. It is allowed that newOb may contain
+  -- less objects than s (for surjective mapping) or
+  -- more objects than s (for injective mapping)
+  map(s : %, m : List NNI, newOb : List S, offsetX : Integer, offsetY : Integer) : % ==
+    newObjs : List FOBJT := [[o, 0::NNI, 0::NNI, 0::NNI, []] for o in newOb]
+    oldObjs : List FOBJT := s.objects
+    for oi in 1..#oldObjs repeat
+      oldObj := oldObjs.oi
+      i : NNI := m.oi
+      inext : NNI := m.(oldObj.next)
+      newObj := newOb.i
+      newX := ((oldObj.posX)+offsetX)::NNI
+      newY := ((oldObj.posY)+offsetY)::NNI
+      newNext := m.(oldObj.next)
+      nv : FOBJT := [newObj, newX, newY, newNext, oldObj.map] -- assemble new vertex
+      if i ~= inext then newObjs.i := nv -- add it if it does not
+                                        -- point to itself
+    -- make sure all newObjs have 'next' set to valid index
+    for p in 1..#newObjs repeat
+      nwob := newObjs.p
+      -- make unassigned 'next' values loop to themselves
+      if nwob.next < 1 then nwob.next := p
+    [newObjs]
+
+  -- similar to map function but reverses the directions of
+  -- the arrows
+  mapContra(s : %, m : List NNI, newOb : List S, offsetX : Integer, offsetY : Integer) : % ==
+    newObjs : List FOBJT := [[o, 0::NNI, 0::NNI, 0::NNI, []] for o in newOb]
+    oldObjs : List FOBJT := s.objects
+    for oi in 1..#oldObjs repeat
+      oldObj := oldObjs.oi
+      i : NNI := m.oi
+      inext : NNI := m.(oldObj.next)
+      newObj := newOb.i
+      newX := ((oldObj.posX)+offsetX)::NNI
+      newY := ((oldObj.posY)+offsetY)::NNI
+      incoming : List NNI := nodeToNode(s, oi)
+      if #incoming ~= 1 then error "not a FunctionGraph"
+      newNext := m.(first incoming)
+      n : FOBJT := [newObj, newX, newY, newNext, oldObj.map]
+      if i ~= inext then newObjs.i := n
+    -- make sure all newObjs have 'next' set to valid index
+    for p in 1..#newObjs repeat
+      nwob := newObjs.p
+      -- make unassigned 'next' values loop to themselves
+      if nwob.next < 1 then nwob.next := p
+    [newObjs]
+
+  -- given a mapping from this graph this function tries to
+  -- calculate a unique reverse mapping back to this graph
+  coAdjoint(s : %, m : List NNI) : AJMAP ==
+    domainSize : NNI := #(s.objects)
+    codomainSize : NNI := 0
+    for mi in m repeat if mi > codomainSize then codomainSize := mi
+    ret : List NNI := [0::NNI for x in 1..codomainSize]
+    retOpt : List List NNI := [[] for x in 1..codomainSize]
+    for mi in 1..#m repeat
+      retOpt.(m.mi) := concat(retOpt.(m.mi), mi)
+    entry : NNI := 1
+    for ri in retOpt repeat
+      x := max(s, ri)
+      if x = 0 then return "failed"
+      ret.entry := x
+      entry := entry + 1
+    ret
+
+  -- given a mapping from this graph this function tries to
+  -- calculate a unique reverse mapping back to this graph
+  contraAdjoint(s : %, m : List NNI) : AJMAP ==
+    domainSize : NNI := #(s.objects)
+    codomainSize : NNI := 0
+    for mi in m repeat if mi > codomainSize then codomainSize := mi
+    ret : List NNI := [0::NNI for x in 1..codomainSize]
+    retOpt : List List NNI := [[] for x in 1..codomainSize]
+    for mi in 1..#m repeat
+      retOpt.(m.mi) := concat(retOpt.(m.mi), mi)
+    entry : NNI := 1
+    for ri in retOpt repeat
+      x := min(s, ri)
+      if x = 0 then return "failed"
+      ret.entry := x
+      entry := entry + 1
+    ret
+
+  -- apply 'function' represented by this graph to vertex
+  -- index 'a'
+  apply(s : %, a : NNI) : NNI ==
+    s.objects.a.next
+
+  -- apply 'function' represented by this graph to 'a'
+  -- repeatedly until we reach a loop which is returned
+  -- as a sequence of vertex indexes.
+  limit(s : %, a : NNI) : Loop ==
+    ptr := a
+    for s1 in s.objects repeat
+      lp : List Loop := loopsAtNode(s, ptr)
+      if #lp > 1 then error "limit: cant have >1 loop through node"
+      if #lp = 1 then return first lp
+      -- no loop so step to next node
+      ptr := apply(s, ptr)
+    -- should never get here as we should reach a loop by
+    -- a number of steps equal to the degree of the graph
+    loop([])
+
+
+)if false
+
+\section{domain UDGRPH UndirectedGraph}
+
+UndirectedGraph is an implementation of FiniteGraph.
+
+For DirectedGraph then:
+arrow(x, y) is not necessarily equal to arrow(y, x)
+Whereas for UndirectedGraph then:
+arrow(x, y) = arrow(y, x) so in searches we should always get a match
+regardless of order.
+
+Therefore these domains are represented in the same way, the
+difference being whether order is taken into account when comparing
+arrows.
+
+In the case of UndirectedGraph, when we request a list of all arrows,
+then the list will contain both arrow(x, y) and arrow(y, x) for
+compatibility with DirectedGraph. That is:
+An UndirectedGraph with arrow(x, y) is equivalent to:
+A DirectedGraph with arrow(x, y) and arrow(y, x).
+
+Both DirectedGraph and UndirectedGraph have additional information
+for notation and for drawing diagrams.
+
+)endif
+

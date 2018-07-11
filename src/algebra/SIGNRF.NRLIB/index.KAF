@@ -1,0 +1,64 @@
+3018                (|RationalFunctionSign| R)
+|package|
+(((|RationalFunctionSign| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |sign|
+    ((|Union| (|Integer|) #1="failed") (|Fraction| (|Polynomial| |#1|))))
+   (SIGNATURE |sign|
+    ((|Union| (|Integer|) #1#) (|Fraction| (|Polynomial| |#1|)) (|Symbol|)
+     (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))))
+   (SIGNATURE |sign|
+    ((|Union| (|Integer|) #1#) (|Fraction| (|Polynomial| |#1|)) (|Symbol|)
+     (|Fraction| (|Polynomial| |#1|)) (|String|))))
+  (|GcdDomain|))
+ (T |RationalFunctionSign|))
+(CATEGORY |package|
+ (SIGNATURE |sign|
+  ((|Union| (|Integer|) #1="failed") (|Fraction| (|Polynomial| |#1|))))
+ (SIGNATURE |sign|
+  ((|Union| (|Integer|) #1#) (|Fraction| (|Polynomial| |#1|)) (|Symbol|)
+   (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|)))))
+ (SIGNATURE |sign|
+  ((|Union| (|Integer|) #1#) (|Fraction| (|Polynomial| |#1|)) (|Symbol|)
+   (|Fraction| (|Polynomial| |#1|)) (|String|))))
+"/git/fricas/src/algebra/SIGNRF.spad"
+((|sign| (*1 *2 *3 *4 *3 *5)
+  (|partial| AND (|isDomain| *3 (|Fraction| (|Polynomial| *6)))
+   (|isDomain| *4 (|Symbol|)) (|isDomain| *5 (|String|))
+   (|ofCategory| *6 (|GcdDomain|)) (|isDomain| *2 (|Integer|))
+   (|isDomain| *1 (|RationalFunctionSign| *6))))
+ (|sign| (*1 *2 *3 *4 *5)
+  (|partial| AND (|isDomain| *4 (|Symbol|))
+   (|isDomain| *5 (|OrderedCompletion| (|Fraction| (|Polynomial| *6))))
+   (|isDomain| *3 (|Fraction| (|Polynomial| *6)))
+   (|ofCategory| *6 (|GcdDomain|)) (|isDomain| *2 (|Integer|))
+   (|isDomain| *1 (|RationalFunctionSign| *6))))
+ (|sign| (*1 *2 *3)
+  (|partial| AND (|isDomain| *3 (|Fraction| (|Polynomial| *4)))
+   (|ofCategory| *4 (|GcdDomain|)) (|isDomain| *2 (|Integer|))
+   (|isDomain| *1 (|RationalFunctionSign| *4)))))
+((|sign|
+  (((|Union| (|Integer|) #1="failed") (|Fraction| (|Polynomial| |#1|))
+    (|Symbol|) (|Fraction| (|Polynomial| |#1|)) (|String|))
+   34)
+  (((|Union| (|Integer|) #1#) (|Fraction| (|Polynomial| |#1|)) (|Symbol|)
+    (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|))))
+   29)
+  (((|Union| (|Integer|) #1#) (|Fraction| (|Polynomial| |#1|))) 12)))
+SIGNRF
+((|constructor|
+  (NIL "Find the sign of a rational function around a point or infinity."))
+ (|sign|
+  (((|Union| (|Integer|) #1="failed") (|Fraction| (|Polynomial| |#1|))
+    (|Symbol|) (|Fraction| (|Polynomial| |#1|)) (|String|))
+   "\\spad{sign(f,{} x,{} a,{} s)} returns the sign of \\spad{f} as \\spad{x} nears \\spad{a} from the left (below) if \\spad{s} is the string \\spad{\"left\"},{} or from the right (above) if \\spad{s} is the string \\spad{\"right\"}.")
+  (((|Union| (|Integer|) #1#) (|Fraction| (|Polynomial| |#1|)) (|Symbol|)
+    (|OrderedCompletion| (|Fraction| (|Polynomial| |#1|))))
+   "\\spad{sign(f,{} x,{} a)} returns the sign of \\spad{f} as \\spad{x} approaches \\spad{a},{} from both sides if \\spad{a} is finite.")
+  (((|Union| (|Integer|) #1#) (|Fraction| (|Polynomial| |#1|)))
+   "\\spad{sign f} returns the sign of \\spad{f} if it is constant everywhere.")))
+(("documentation" 0 2129) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2122) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1764) ("modemaps" 0 1001) ("sourceFile" 0 963)
+ ("constructorCategory" 0 558) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

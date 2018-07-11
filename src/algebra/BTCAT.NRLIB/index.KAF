@@ -1,0 +1,104 @@
+4831                (|BinaryTreeCategory| S)
+|category|
+(((|BinaryTreeCategory| |#1|) (|Category|) (|SetCategory|))
+ (T |BinaryTreeCategory|))
+(|Join| (|BinaryRecursiveAggregate| |t#1|) (|shallowlyMutable|)
+        (|finiteAggregate|)
+        (CATEGORY |domain| (SIGNATURE |node| ($ $ |t#1| $))))
+"/git/fricas/src/algebra/BTCAT.spad"
+((|node| (*1 *1 *1 *2 *1)
+  (AND (|ofCategory| *1 (|BinaryTreeCategory| *2))
+       (|ofCategory| *2 (|SetCategory|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|value| ((|#1| $) 6)) (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|setvalue!| ((|#1| $ |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|setright!| (($ $ $) 6 (|has| $ (|shallowlyMutable|))))
+ (|setleft!| (($ $ $) 6 (|has| $ (|shallowlyMutable|))))
+ (|setelt!| ((|#1| $ #1="value" |#1|) 6 (|has| $ (|shallowlyMutable|)))
+  (($ $ #2="left" $) 6 (|has| $ (|shallowlyMutable|)))
+  (($ $ #3="right" $) 6 (|has| $ (|shallowlyMutable|))))
+ (|setchildren!| (($ $ (|List| $)) 6 (|has| $ (|shallowlyMutable|))))
+ (|sample| (($) 6 T CONST)) (|right| (($ $) 6))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|nodes| (((|List| $) $) 6))
+ (|node?| (((|Boolean|) $ $) 6 (|has| |#1| (|BasicType|))))
+ (|node| (($ $ |#1| $) 6)) (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6)) (|left| (($ $) 6))
+ (|leaves| (((|List| |#1|) $) 6)) (|leaf?| (((|Boolean|) $) 6))
+ (|latex| (((|String|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|hash| (((|SingleInteger|) $) 6 (|has| |#1| (|SetCategory|))))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|elt| ((|#1| $ #1#) 6) (($ $ #2#) 6) (($ $ #3#) 6))
+ (|distance| (((|Integer|) $ $) 6)) (|cyclic?| (((|Boolean|) $) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|coerce| (((|OutputForm|) $) 6 (|has| |#1| (|CoercibleTo| (|OutputForm|)))))
+ (|children| (((|List| $) $) 6))
+ (|child?| (((|Boolean|) $ $) 6 (|has| |#1| (|BasicType|))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+BTCAT
+(((|BinaryRecursiveAggregate| |#1|) . T) ((|shallowlyMutable|) . T)
+ ((|finiteAggregate|) . T))
+(((|Aggregate|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|BinaryRecursiveAggregate| |#1|) . T)
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|RecursiveAggregate| |t#1|) . T)
+ ((|SetCategory|) |has| |t#1| (|SetCategory|)) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "\\spadtype{BinaryTreeCategory(S)} is the category of binary trees: a tree which is either empty or has a \\spadfun{node} consisting of a value and a \\spadfun{left} and \\spadfun{right} which are both binary trees."))
+ (|node|
+  (($ $ |#1| $)
+   "\\spad{node(l,{} v,{} r)} creates a binary tree with value \\spad{v},{} left subtree \\spad{l},{} and right subtree \\spad{r}.")))
+(("documentation" 0 4426) ("ancestors" 0 3787) ("parents" 0 3691)
+ ("abbreviation" 0 3685) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 455) ("modemaps" 0 334) ("sourceFile" 0 297)
+ ("constructorCategory" 0 143) ("constructorModemap" 0 56)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

@@ -1,0 +1,109 @@
+5435                (|GaloisGroupUtilities| R)
+|package|
+(((|GaloisGroupUtilities| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |pascalTriangle| (|#1| (|NonNegativeInteger|) (|Integer|)))
+   (SIGNATURE |rangePascalTriangle|
+    ((|NonNegativeInteger|) (|NonNegativeInteger|)))
+   (SIGNATURE |rangePascalTriangle| ((|NonNegativeInteger|)))
+   (SIGNATURE |sizePascalTriangle| ((|NonNegativeInteger|)))
+   (SIGNATURE |fillPascalTriangle| ((|Void|)))
+   (IF (|has| |#1| (|FloatingPointSystem|))
+       (PROGN
+        (SIGNATURE |safeCeiling| ((|Integer|) |#1|))
+        (SIGNATURE |safeFloor| ((|Integer|) |#1|))
+        (SIGNATURE |safetyMargin|
+         ((|NonNegativeInteger|) (|NonNegativeInteger|)))
+        (SIGNATURE |safetyMargin| ((|NonNegativeInteger|))))
+       |noBranch|))
+  (|Ring|))
+ (T |GaloisGroupUtilities|))
+(CATEGORY |package|
+ (SIGNATURE |pascalTriangle| (|#1| (|NonNegativeInteger|) (|Integer|)))
+ (SIGNATURE |rangePascalTriangle|
+  ((|NonNegativeInteger|) (|NonNegativeInteger|)))
+ (SIGNATURE |rangePascalTriangle| ((|NonNegativeInteger|)))
+ (SIGNATURE |sizePascalTriangle| ((|NonNegativeInteger|)))
+ (SIGNATURE |fillPascalTriangle| ((|Void|)))
+ (IF (|has| |#1| (|FloatingPointSystem|))
+     (PROGN
+      (SIGNATURE |safeCeiling| ((|Integer|) |#1|))
+      (SIGNATURE |safeFloor| ((|Integer|) |#1|))
+      (SIGNATURE |safetyMargin|
+       ((|NonNegativeInteger|) (|NonNegativeInteger|)))
+      (SIGNATURE |safetyMargin| ((|NonNegativeInteger|))))
+     |noBranch|))
+"/git/fricas/src/algebra/GALUTIL.spad"
+((|safetyMargin| (*1 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|GaloisGroupUtilities| *3))
+       (|ofCategory| *3 (|FloatingPointSystem|)) (|ofCategory| *3 (|Ring|))))
+ (|safetyMargin| (*1 *2 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|GaloisGroupUtilities| *3))
+       (|ofCategory| *3 (|FloatingPointSystem|)) (|ofCategory| *3 (|Ring|))))
+ (|safeFloor| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|GaloisGroupUtilities| *3))
+       (|ofCategory| *3 (|FloatingPointSystem|)) (|ofCategory| *3 (|Ring|))))
+ (|safeCeiling| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|GaloisGroupUtilities| *3))
+       (|ofCategory| *3 (|FloatingPointSystem|)) (|ofCategory| *3 (|Ring|))))
+ (|fillPascalTriangle| (*1 *2)
+  (AND (|isDomain| *2 (|Void|)) (|isDomain| *1 (|GaloisGroupUtilities| *3))
+       (|ofCategory| *3 (|Ring|))))
+ (|sizePascalTriangle| (*1 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|GaloisGroupUtilities| *3)) (|ofCategory| *3 (|Ring|))))
+ (|rangePascalTriangle| (*1 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|GaloisGroupUtilities| *3)) (|ofCategory| *3 (|Ring|))))
+ (|rangePascalTriangle| (*1 *2 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|GaloisGroupUtilities| *3)) (|ofCategory| *3 (|Ring|))))
+ (|pascalTriangle| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|NonNegativeInteger|)) (|isDomain| *4 (|Integer|))
+       (|isDomain| *1 (|GaloisGroupUtilities| *2)) (|ofCategory| *2 (|Ring|)))))
+((|sizePascalTriangle| (((|NonNegativeInteger|)) 44))
+ (|safetyMargin|
+  (((|NonNegativeInteger|)) 23 (|has| |#1| (|FloatingPointSystem|)))
+  (((|NonNegativeInteger|) (|NonNegativeInteger|)) 22
+   (|has| |#1| (|FloatingPointSystem|))))
+ (|safeFloor| (((|Integer|) |#1|) 18 (|has| |#1| (|FloatingPointSystem|))))
+ (|safeCeiling| (((|Integer|) |#1|) 20 (|has| |#1| (|FloatingPointSystem|))))
+ (|rangePascalTriangle| (((|NonNegativeInteger|)) 43)
+  (((|NonNegativeInteger|) (|NonNegativeInteger|)) 42))
+ (|pascalTriangle| ((|#1| (|NonNegativeInteger|) (|Integer|)) 29))
+ (|fillPascalTriangle| (((|Void|)) 46)))
+((|HasCategory| |#1| '(|FloatingPointSystem|)))
+GALUTIL
+((|constructor|
+  (NIL "\\spadtype{GaloisGroupUtilities} provides several useful functions."))
+ (|safetyMargin|
+  (((|NonNegativeInteger|))
+   "\\spad{safetyMargin()} returns the number of low weight digits we do not trust in the floating point representation (used by \\spadfun{safeCeiling}).")
+  (((|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{safetyMargin(n)} sets to \\spad{n} the number of low weight digits we do not trust in the floating point representation and returns the previous value (for use by \\spadfun{safeCeiling})."))
+ (|safeFloor|
+  (((|Integer|) |#1|)
+   "\\spad{safeFloor(x)} returns the integer which is lower or equal to the largest integer which has the same floating point number representation."))
+ (|safeCeiling|
+  (((|Integer|) |#1|)
+   "\\spad{safeCeiling(x)} returns the integer which is greater than any integer with the same floating point number representation."))
+ (|fillPascalTriangle|
+  (((|Void|)) "\\spad{fillPascalTriangle()} fills the stored table."))
+ (|sizePascalTriangle|
+  (((|NonNegativeInteger|))
+   "\\spad{sizePascalTriangle()} returns the number of entries currently stored in the table."))
+ (|rangePascalTriangle|
+  (((|NonNegativeInteger|))
+   "\\spad{rangePascalTriangle()} returns the maximal number of lines stored.")
+  (((|NonNegativeInteger|) (|NonNegativeInteger|))
+   "\\spad{rangePascalTriangle(n)} sets the maximal number of lines which are stored and returns the previous value."))
+ (|pascalTriangle|
+  ((|#1| (|NonNegativeInteger|) (|Integer|))
+   "\\spad{pascalTriangle(n,{} r)} returns the binomial coefficient \\spad{C(n,{} r)=n!/(r! (n-r)!)} and stores it in a table to prevent recomputation.")))
+(("documentation" 0 3759) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3751) ("predicates" 0 3703) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3095) ("modemaps" 0 1519) ("sourceFile" 0 1480)
+ ("constructorCategory" 0 820) ("constructorModemap" 0 57)
+ ("constructorKind" 0 47) ("constructorForm" 0 20))

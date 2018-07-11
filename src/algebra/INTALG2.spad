@@ -1,0 +1,210 @@
+)abbrev package INTALG2 AlgebraicIntegrate2
+AlgebraicIntegrate2(R0, F, R) : Exports == Implementation where
+  R0   : Join(Comparable, IntegralDomain, RetractableTo Integer)
+  F    : Join(AlgebraicallyClosedField, FunctionSpace R0)
+  R    : FunctionFieldCategory(F, UP, UPUP)
+  UP ==> SparseUnivariatePolynomial F
+  UPUP ==> SparseUnivariatePolynomial QF
+  QF  ==> Fraction UP
+  Param_Rec_F ==> Record(ratpart : F, coeffs : Vector(F))
+  L_Param_F ==> List Param_Rec_F
+  Param_Rec_Q ==> Record(ratpart : QF, coeffs : Vector(F))
+  L_Param_Q ==> List Param_Rec_Q
+  Param_Rec_R ==> Record(ratpart : R, coeffs : Vector(F))
+  L_Param_R ==> List Param_Rec_R
+  Exports ==> with
+      algextint : (UP -> UP, List(QF) -> L_Param_Q,
+                   (QF, List QF) -> L_Param_Q,
+                   Matrix F -> List Vector F, List(R)) -> L_Param_R
+        ++ algextint(der, ext, rde, csolve, [g1, ..., gn]) returns
+        ++ a basis of solutions of the homogeneous system
+        ++ \spad{h' + c1*g1 + ... + cn*gn = 0}.
+        ++ Argument ext is an extended integration function on F,
+        ++ rde is RDE solver, csolve is linear solver over constants.
+      algextint_base : (UP -> UP,
+                   Matrix F -> List Vector F, List(R)) -> L_Param_R
+        ++ algextint_base(der,  csolve, [g1, ..., gn]) is like
+        ++ algextint(der, ext, rde, csolve, [g1, ..., gn]), but assumes
+        ++ that field is algebraic extension of rational functions and
+        ++ that gi-s have no poles at infinity.
+
+  Implementation ==> add
+
+      GP  ==> LaurentPolynomial(F, UP)
+      AHR ==> AlgebraicHermiteIntegration(F, UP, UPUP, R)
+      HER_Rec ==> Record(answer : R, logpart : R, polypart : R)
+      Param_Rec_UP ==> Record(ratpart : UP, coeffs : Vector(F))
+      L_Param_UP ==> List Param_Rec_UP
+      RSOL ==> Record(ans : UP, remainder : UP)
+
+      algprimextint : (UP -> UP, List(QF) -> L_Param_Q,
+                      (QF, List QF) -> L_Param_Q,
+                       Matrix F -> List Vector F, List(R)) -> L_Param_R
+      algexpextint : (UP -> UP, List(QF) -> L_Param_Q,
+                     (QF, List QF) -> L_Param_Q,
+                      Matrix F -> List Vector F, List(R)) -> L_Param_R
+
+      exp_hermite1(f : R, der : UP -> UP) : HER_Rec ==
+          d := (c := integralCoordinates f).den
+          v := c.num
+          vp : Vector(QF) := new(n := #v, 0)
+          vf : Vector(QF) := new(n, 0)
+          for i in minIndex v .. maxIndex v repeat
+              r := separate(qelt(v, i) / d)$GP
+              qsetelt!(vf, i, r.fracPart)
+              qsetelt!(vp, i, convert(r.polyPart)@QF)
+          ff := represents(vf, w := integralBasis())
+          fp := represents(vp, w)
+          h := HermiteIntegrate(ff, der)$AHR
+          [h.answer, h.logpart, fp]
+
+      prim_hermite1(f : R, der : UP -> UP) : HER_Rec ==
+          h := HermiteIntegrate(f, der)$AHR
+          zero?(hh := h.logpart) => [h.answer, 0, 0]
+          d := (c := integralCoordinates(hh)).den
+          v := c.num
+          vp : Vector(QF) := new(n := #v, 0)
+          vf : Vector(QF) := new(n, 0)
+          for i in minIndex v .. maxIndex v repeat
+              r := divide(qelt(v, i), d)$UP
+              qsetelt!(vf, i, (r.remainder)/d)
+              qsetelt!(vp, i, (r.quotient)::QF)
+          ff := represents(vf, w := integralBasis())
+          fp := represents(vp, w)
+          [h.answer, ff, fp]
+
+      list_hermite(lf : List(R), hermite1 : R -> HER_Rec) : List(HER_Rec) ==
+          [hermite1(f) for f in lf]
+
+      import from LinearCombinationUtilities(F, UP)
+
+      lin_comb2(v : Vector F, lr : List(R)) : R ==
+          res : R := 0
+          for i in 1..#v for r in lr repeat
+              res := res + v(i)::UP::QF*r
+          res
+
+      split_logpart(p : QF, lg : QF, dden : UP
+                   ) : Record(polypart : QF, logpart : QF) ==
+          d0 := denom(lg)
+          g := gcd(dden, d0)
+          ground?(g) => [p, lg]
+          d1 := (d0 exquo g)::UP
+          ground?(d1) => [p + lg, 0]
+          eeu := extendedEuclidean(g, d1, numer(lg))
+          (a, b) := eeu::Record(coef1 : UP, coef2 : UP)
+          [p + a/d1, b/g]
+
+      split_logparts(lup : List QF, llog : List QF, dden : UP
+                    ) : Record(polypart : List QF, logpart : List QF) ==
+          pres : List QF := []
+          lres : List QF := []
+          for p1 in lup for lg1 in llog repeat
+              (p2, lg2) := split_logpart(p1, lg1, dden)
+              lres := cons(lg2, lres)
+              pres := cons(p2, pres)
+          pres := reverse!(pres)
+          lres := reverse!(lres)
+          [pres, lres]
+
+      diagextint(dden : UP, dm : Matrix(UP), w : Vector(R),
+                 lpv : List Vector QF, lgv : List Vector QF,
+                 ca0 : List R,
+                 ext : List QF -> L_Param_Q,
+                 rde : (QF, List QF) -> L_Param_Q,
+                 csolve : Matrix F -> List Vector F) : L_Param_R ==
+          lrf := [pv(1) + gv(1) for pv in lpv for gv in lgv]
+          res0 := ext(lrf)
+          cb := [be0.coeffs for be0 in res0]
+          wi := w(1)
+          ca : List(R) := [be0.ratpart*wi for be0 in res0]
+          for i in 2..#w repeat
+              dmi := dm(i, i)/dden
+              lup0 := [pv(i) for pv in lpv]
+              llog0 := [gv(i) for gv in lgv]
+              (lup1, llog1) := split_logparts(lup0, llog0, denom(dmi))
+              llog2 := [lin_comb(bv, llog1) for bv in cb]
+              rs1 : Matrix UP := reducedSystem(matrix([llog2]))$QF
+              rs2 : Matrix F := reducedSystem(rs1)
+              res1 := csolve(rs2)
+              ncb0 := [lin_comb(bv, cb) for bv in res1]
+              nca0 := [lin_comb2(bv, ca) for bv in res1]
+              cb := ncb0
+              ca := nca0
+              lup2 := [lin_comb(bv, lup1) for bv in cb]
+              res2 := rde(dmi, lup2)
+              ncb1 := [lin_comb(be.coeffs, cb) for be in res2]
+              wi := w(i)
+              nca1 := [be.ratpart*wi + lin_comb2(be.coeffs, ca)
+                       for be in res2]
+              cb := ncb1
+              ca := nca1
+          [[ai - lin_comb2(bv, ca0), bv] for ai in ca for bv in cb]
+
+      R_to_VQF(p : R) : Vector(QF) ==
+          c := integralCoordinates(p)
+          numv := c.num
+          n := #numv
+          res := new(n, 0)$Vector(QF)
+          cden := c.den
+          for i in 1..n repeat
+              res(i) := numv(i)/cden
+          res
+
+      algprimextint(der, ext, rde, csolve, lg) ==
+          hermite1 : R -> HER_Rec := g +-> prim_hermite1(g, der)
+          lh := list_hermite(lg, hermite1)
+          lpv : List Vector(QF) := []
+          lgv : List Vector(QF) := []
+          for h in lh repeat
+              lpv := cons(R_to_VQF(h.polypart), lpv)
+              lgv := cons(R_to_VQF(h.logpart), lgv)
+          lpv := reverse!(lpv)
+          lgv := reverse!(lgv)
+          w := integralBasis()$R
+          dm := integralDerivationMatrix(der)$R
+          dden := dm.den
+          ca0 := [h.answer for h in lh]
+          w(1) = 1 and diagonal?(dm.num) =>
+              diagextint(dden, dm.num, w, lpv, lgv, ca0, ext, rde, csolve)
+          error "algprimextint: non-root case unimplemented"
+
+      algexpextint(der, ext, rde, csolve, lg) ==
+          hermite1 : R -> HER_Rec := g +-> exp_hermite1(g, der)
+          lh := list_hermite(lg, hermite1)
+          lpv : List Vector(QF) := []
+          lgv : List Vector(QF) := []
+          w := integralBasis()$R
+          n := #w
+          for h in lh repeat
+              lpv := cons(R_to_VQF(h.polypart), lpv)
+              lgv := cons(R_to_VQF( h.logpart),lgv)
+          lpv := reverse!(lpv)
+          lgv := reverse!(lgv)
+          dm := integralDerivationMatrix(der)$R
+          dden := dm.den
+          ca0 := [h.answer for h in lh]
+          w(1) = 1 and diagonal?(dm.num) =>
+              diagextint(dden, dm.num, w, lpv, lgv, ca0, ext, rde, csolve)
+          error "algexpextint: non-root case unimplemented"
+
+      algextint_base(der, csolve, lg) ==
+          hermite1 : R -> HER_Rec := g +-> prim_hermite1(g, der)
+          lh := list_hermite(lg, hermite1)
+          lg1 := [h.logpart + h.polypart for h in lh]
+          rs1 : Matrix(QF) := reducedSystem(matrix([lg1]))
+          rs2 : Matrix(UP) := reducedSystem(rs1)
+          rs3 : Matrix(F) := reducedSystem(rs2)
+          res1 := csolve(rs3)
+          ca0 := [h.answer for h in lh]
+          [[-lin_comb2(bv, ca0), bv] for bv in res1]
+
+      algextint(der, ext, rde, csolve, lg) ==
+          x' := der(x := monomial(1, 1)$UP)
+          zero? degree(x') =>
+              algprimextint(der, ext, rde, csolve, lg)
+          ((xx := x' exquo x) case UP) and
+            (retractIfCan(xx::UP)@Union(F, "failed") case F) =>
+              algexpextint(der, ext, rde, csolve, lg)
+          error "algextint: unhandled case"
+

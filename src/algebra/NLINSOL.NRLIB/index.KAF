@@ -1,0 +1,97 @@
+4507                (|NonLinearSolvePackage| R)
+|package|
+(((|NonLinearSolvePackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |solveInField|
+    ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+     (|List| (|Polynomial| |#1|)) (|List| (|Symbol|))))
+   (SIGNATURE |solveInField|
+    ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+     (|List| (|Polynomial| |#1|))))
+   (SIGNATURE |solve|
+    ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+     (|List| (|Polynomial| |#1|)) (|List| (|Symbol|))))
+   (SIGNATURE |solve|
+    ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+     (|List| (|Polynomial| |#1|)))))
+  (|IntegralDomain|))
+ (T |NonLinearSolvePackage|))
+(CATEGORY |package|
+ (SIGNATURE |solveInField|
+  ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   (|List| (|Polynomial| |#1|)) (|List| (|Symbol|))))
+ (SIGNATURE |solveInField|
+  ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   (|List| (|Polynomial| |#1|))))
+ (SIGNATURE |solve|
+  ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   (|List| (|Polynomial| |#1|)) (|List| (|Symbol|))))
+ (SIGNATURE |solve|
+  ((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+   (|List| (|Polynomial| |#1|)))))
+"/git/fricas/src/algebra/NLINSOL.spad"
+((|solve| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *4)))
+       (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|List| (|Equation| (|Fraction| (|Polynomial| *4))))))
+       (|isDomain| *1 (|NonLinearSolvePackage| *4))))
+ (|solve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5)))
+       (|isDomain| *4 (|List| (|Symbol|))) (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|List| (|Equation| (|Fraction| (|Polynomial| *5))))))
+       (|isDomain| *1 (|NonLinearSolvePackage| *5))))
+ (|solveInField| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *4)))
+       (|ofCategory| *4 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|List| (|Equation| (|Fraction| (|Polynomial| *4))))))
+       (|isDomain| *1 (|NonLinearSolvePackage| *4))))
+ (|solveInField| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *5)))
+       (|isDomain| *4 (|List| (|Symbol|))) (|ofCategory| *5 (|IntegralDomain|))
+       (|isDomain| *2
+                   (|List|
+                    (|List| (|Equation| (|Fraction| (|Polynomial| *5))))))
+       (|isDomain| *1 (|NonLinearSolvePackage| *5)))))
+((|solveInField|
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)))
+   14)
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)))
+   13))
+ (|solve|
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)))
+   16)
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)))
+   15)))
+NLINSOL
+((|constructor|
+  (NIL
+   "NonLinearSolvePackage is an interface to \\spadtype{SystemSolvePackage} that attempts to retract the coefficients of the equations before solving. The solutions are given in the algebraic closure of \\spad{R} whenever possible."))
+ (|solve|
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)))
+   "\\spad{solve(lp)} finds the solution in the algebraic closure of \\spad{R} of the list \\spad{lp} of rational functions with respect to all the symbols appearing in \\spad{lp}.")
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)))
+   "\\spad{solve(lp,{} lv)} finds the solutions in the algebraic closure of \\spad{R} of the list \\spad{lp} of rational functions with respect to the list of symbols \\spad{lv}."))
+ (|solveInField|
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)))
+   "\\spad{solveInField(lp)} finds the solution of the list \\spad{lp} of rational functions with respect to all the symbols appearing in \\spad{lp}.")
+  (((|List| (|List| (|Equation| (|Fraction| (|Polynomial| |#1|)))))
+    (|List| (|Polynomial| |#1|)) (|List| (|Symbol|)))
+   "\\spad{solveInField(lp,{} lv)} finds the solutions of the list \\spad{lp} of rational functions with respect to the list of symbols \\spad{lv}.")))
+(("documentation" 0 3105) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3097) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2591) ("modemaps" 0 1326) ("sourceFile" 0 1287)
+ ("constructorCategory" 0 728) ("constructorModemap" 0 58)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

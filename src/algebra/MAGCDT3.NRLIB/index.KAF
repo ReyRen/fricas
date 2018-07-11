@@ -1,0 +1,142 @@
+6937                (MAKEPROP '|ModularAlgebraicGcdTools3| 'NILADIC T)
+(|ModularAlgebraicGcdTools3|)
+|domain|
+(((|ModularAlgebraicGcdTools3|)
+  (|Join|
+   (|ModularAlgebraicGcdOperations| (|Polynomial| (|Integer|))
+                                    (|SparseUnivariatePolynomial|
+                                     (|Polynomial| (|Integer|)))
+                                    (|Record| (|:| |svz| (|List| (|Symbol|)))
+                                              (|:| |sm|
+                                                   (|List|
+                                                    (|Polynomial|
+                                                     (|Integer|))))
+                                              (|:| |msizes|
+                                                   (|List| (|Integer|)))
+                                              (|:| |sp| (|Integer|))))
+   (CATEGORY |package|
+    (SIGNATURE |m_inverse|
+     ((|Union| (|Polynomial| (|Integer|)) "failed") (|Polynomial| (|Integer|))
+      (|List| (|Polynomial| (|Integer|))) (|List| (|Symbol|)) (|Integer|)))
+    (SIGNATURE |pack_exps0|
+     ((|Void|) (|SortedExponentVector|) (|List| (|Integer|)) (|Integer|)
+      (|Integer|))))))
+ (T |ModularAlgebraicGcdTools3|))
+(|Join|
+ (|ModularAlgebraicGcdOperations| (|Polynomial| (|Integer|))
+                                  (|SparseUnivariatePolynomial|
+                                   (|Polynomial| (|Integer|)))
+                                  (|Record| (|:| |svz| (|List| (|Symbol|)))
+                                            (|:| |sm|
+                                                 (|List|
+                                                  (|Polynomial| (|Integer|))))
+                                            (|:| |msizes| (|List| (|Integer|)))
+                                            (|:| |sp| (|Integer|))))
+ (CATEGORY |package|
+  (SIGNATURE |m_inverse|
+   ((|Union| (|Polynomial| (|Integer|)) "failed") (|Polynomial| (|Integer|))
+    (|List| (|Polynomial| (|Integer|))) (|List| (|Symbol|)) (|Integer|)))
+  (SIGNATURE |pack_exps0|
+   ((|Void|) (|SortedExponentVector|) (|List| (|Integer|)) (|Integer|)
+    (|Integer|)))))
+"/git/fricas/src/algebra/MAGCDT3.spad"
+((|m_inverse| (*1 *2 *2 *3 *4 *5)
+  (|partial| AND (|isDomain| *3 (|List| (|Polynomial| (|Integer|))))
+   (|isDomain| *4 (|List| (|Symbol|))) (|isDomain| *5 (|Integer|))
+   (|isDomain| *2 (|Polynomial| (|Integer|)))
+   (|isDomain| *1 (|ModularAlgebraicGcdTools3|))))
+ (|pack_exps0| (*1 *2 *3 *4 *5 *5)
+  (AND (|isDomain| *3 (|SortedExponentVector|))
+       (|isDomain| *4 (|List| (|Integer|))) (|isDomain| *5 (|Integer|))
+       (|isDomain| *2 (|Void|)) (|isDomain| *1 (|ModularAlgebraicGcdTools3|)))))
+((|zero?|
+  (((|Boolean|) (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))) 55))
+ (|repack1|
+  (((|Void|) (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))
+    (|U32Vector|) (|Integer|)
+    (|Record| (|:| |svz| (|List| (|Symbol|)))
+              (|:| |sm| (|List| (|Polynomial| (|Integer|))))
+              (|:| |msizes| (|List| (|Integer|))) (|:| |sp| (|Integer|))))
+   52))
+ (|pseudoRem|
+  (((|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))
+    (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))
+    (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))
+    (|Record| (|:| |svz| (|List| (|Symbol|)))
+              (|:| |sm| (|List| (|Polynomial| (|Integer|))))
+              (|:| |msizes| (|List| (|Integer|))) (|:| |sp| (|Integer|))))
+   72))
+ (|pack_modulus|
+  (((|Union|
+     (|Record| (|:| |svz| (|List| (|Symbol|)))
+               (|:| |sm| (|List| (|Polynomial| (|Integer|))))
+               (|:| |msizes| (|List| (|Integer|))) (|:| |sp| (|Integer|)))
+     #1="failed")
+    (|List| (|Polynomial| (|Integer|))) (|List| (|Symbol|)) (|Integer|))
+   38))
+ (|pack_exps0|
+  (((|Void|) (|SortedExponentVector|) (|List| (|Integer|)) (|Integer|)
+    (|Integer|))
+   43))
+ (|pack_exps|
+  (((|SortedExponentVector|) (|Integer|) (|Integer|)
+    (|Record| (|:| |svz| (|List| (|Symbol|)))
+              (|:| |sm| (|List| (|Polynomial| (|Integer|))))
+              (|:| |msizes| (|List| (|Integer|))) (|:| |sp| (|Integer|))))
+   44))
+ (|m_inverse|
+  (((|Union| (|Polynomial| (|Integer|)) "failed") (|Polynomial| (|Integer|))
+    (|List| (|Polynomial| (|Integer|))) (|List| (|Symbol|)) (|Integer|))
+   26))
+ (|degree|
+  (((|Integer|) (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))) 47))
+ (|canonicalIfCan|
+  (((|Union| (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))) #1#)
+    (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))
+    (|Record| (|:| |svz| (|List| (|Symbol|)))
+              (|:| |sm| (|List| (|Polynomial| (|Integer|))))
+              (|:| |msizes| (|List| (|Integer|))) (|:| |sp| (|Integer|))))
+   68))
+ (|MPtoMPT|
+  (((|Union| (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))) #1#)
+    (|Polynomial| (|Integer|)) (|Symbol|) (|List| (|Symbol|))
+    (|Record| (|:| |svz| (|List| (|Symbol|)))
+              (|:| |sm| (|List| (|Polynomial| (|Integer|))))
+              (|:| |msizes| (|List| (|Integer|))) (|:| |sp| (|Integer|))))
+   54)))
+MAGCDT3
+(((|ModularAlgebraicGcdOperations| (|Polynomial| (|Integer|))
+                                   (|SparseUnivariatePolynomial|
+                                    (|Polynomial| (|Integer|)))
+                                   (|Record| (|:| |svz| (|List| (|Symbol|)))
+                                             (|:| |sm|
+                                                  (|List|
+                                                   (|Polynomial| (|Integer|))))
+                                             (|:| |msizes|
+                                                  (|List| (|Integer|)))
+                                             (|:| |sp| (|Integer|))))
+  . T))
+(((|ModularAlgebraicGcdOperations| (|Polynomial| (|Integer|))
+                                   (|SparseUnivariatePolynomial|
+                                    (|Polynomial| (|Integer|)))
+                                   (|Record| (|:| |svz| (|List| (|Symbol|)))
+                                             (|:| |sm|
+                                                  (|List|
+                                                   (|Polynomial| (|Integer|))))
+                                             (|:| |msizes|
+                                                  (|List| (|Integer|)))
+                                             (|:| |sp| (|Integer|))))
+  . T))
+((|pack_exps0|
+  (((|Void|) (|SortedExponentVector|) (|List| (|Integer|)) (|Integer|)
+    (|Integer|))
+   "\\spad{pack_exps0(exps,{} sizes,{} ns,{} start)} is used by pack_exps."))
+ (|m_inverse|
+  (((|Union| (|Polynomial| (|Integer|)) "failed") (|Polynomial| (|Integer|))
+    (|List| (|Polynomial| (|Integer|))) (|List| (|Symbol|)) (|Integer|))
+   "\\spad{m_inverse(x,{} lm,{} lv,{} p)} computes inverse of \\spad{x} in algebraic extension defined by \\spad{lm}.")))
+(("documentation" 0 6470) ("ancestors" 0 5800) ("parents" 0 5130)
+ ("abbreviation" 0 5122) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2707) ("modemaps" 0 2204) ("sourceFile" 0 2165)
+ ("constructorCategory" 0 1240) ("constructorModemap" 0 110)
+ ("constructorKind" 0 101) ("constructorForm" 0 71) ("NILADIC" 0 20))

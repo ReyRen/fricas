@@ -1,0 +1,122 @@
+)abbrev package TBCMPPK TabulatedComputationPackage
+++ Author: Marc Moreno Maza
+++ Date Created: 09/09/1998
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   \spad{TabulatedComputationPackage(Key , Entry)} provides some modest support
+++   for dealing with operations with type \spad{Key -> Entry}. The result of
+++   such operations can be stored and retrieved with this package by using
+++   a hash-table. The user does not need to worry about the management of
+++   this hash-table. However, only one hash-table is built by calling
+++   \spad{TabulatedComputationPackage(Key , Entry)}.
+++ Version: 2.
+
+TabulatedComputationPackage(Key , Entry) : Exports == Implementation where
+  Key : SetCategory
+  Entry : SetCategory
+  N ==> NonNegativeInteger
+  H ==> HashTable(Key, Entry, "UEQUAL")
+  iprintpack ==> InternalPrintPackage()
+
+  Exports ==  with
+     initTable! : () -> Void
+       ++ \spad{initTable!()} initializes the hash-table.
+     printInfo! : (String, String) -> Void
+       ++ \spad{printInfo!(x, y)} initializes the messages to be printed
+       ++ when manipulating items from the hash-table. If
+       ++ a key is retrieved then \spad{x} is displayed. If an item is
+       ++ stored then \spad{y} is displayed.
+     startStats! : (String) -> Void
+       ++ \spad{startStats!(x)} initializes the statistics process and
+       ++ sets the comments to display when statistics are printed
+     printStats! : () -> Void
+       ++ \spad{printStats!()} prints the statistics.
+     clearTable! : () -> Void
+       ++ \spad{clearTable!()} clears the hash-table and assumes that
+       ++ it will no longer be used.
+     usingTable? : () -> Boolean
+       ++ \spad{usingTable?()} returns true iff the hash-table is used
+     printingInfo? : () -> Boolean
+       ++ \spad{printingInfo?()} returns true iff messages are printed
+       ++ when manipulating items from the hash-table.
+     makingStats? : () -> Boolean
+       ++ \spad{makingStats?()} returns true iff the statistics process
+       ++ is running.
+     extractIfCan : Key -> Union(Entry,"failed")
+       ++ \spad{extractIfCan(x)} searches the item whose key is \spad{x}.
+     insert! : (Key, Entry) -> Void
+       ++ \spad{insert!(x, y)} stores the item whose key is \spad{x} and whose
+       ++ entry is \spad{y}.
+
+  Implementation == add
+     table? : Boolean := false
+     t : H := empty()
+     info? : Boolean := false
+     stats? : Boolean := false
+     used : NonNegativeInteger := 0
+     ok : String := "o"
+     ko : String := "+"
+     domainName : String := empty()$String
+
+     initTable!() : Void ==
+       table? := true
+       t := empty()
+       void()
+     printInfo!(s1 : String, s2 : String) : Void ==
+       (empty? s1) or (empty? s2) => void()
+       not usingTable? =>
+         error "in printInfo!()$TBCMPPK: not allowed to use hashtable"
+       info? := true
+       ok := s1
+       ko := s2
+       void()
+     startStats!(s : String) : Void ==
+       empty? s => void()
+       not table? =>
+         error "in startStats!()$TBCMPPK: not allowed to use hashtable"
+       stats? := true
+       used := 0
+       domainName := s
+       void()
+     printStats!() : Void ==
+       not table? =>
+         error "in printStats!()$TBCMPPK: not allowed to use hashtable"
+       not stats? =>
+         error "in printStats!()$TBCMPPK: statistics not started"
+       output(" ")$OutputPackage
+       title : String := concat("*** ", concat(domainName," Statistics ***"))
+       output(title)$OutputPackage
+       n : N := #t
+       output("   Table     size: ", n::OutputForm)$OutputPackage
+       output("   Entries reused: ", used::OutputForm)$OutputPackage
+     clearTable!() : Void ==
+       not table? =>
+         error "in clearTable!()$TBCMPPK: not allowed to use hashtable"
+       t := empty()
+       table? := false
+       info? := false
+       stats? := false
+       domainName := empty()$String
+       void()
+     usingTable?() == table?
+     printingInfo?() == info?
+     makingStats?() == stats?
+     extractIfCan(k : Key) : Union(Entry,"failed") ==
+       not table? => "failed" :: Union(Entry,"failed")
+       s : Union(Entry,"failed") := search(k,t)
+       s case Entry =>
+         if info? then iprint(ok)$iprintpack
+         if stats? then used := used + 1
+         return s
+       "failed" :: Union(Entry,"failed")
+     insert!(k : Key, e : Entry) : Void ==
+       not table? => void()
+       t.k := e
+       if info? then iprint(ko)$iprintpack
+       void()
+

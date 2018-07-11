@@ -1,0 +1,58 @@
+3548                (|InternalRationalUnivariateRepresentationPackage| R E V P
+                                                                       TS)
+|package|
+(((|InternalRationalUnivariateRepresentationPackage| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package| (SIGNATURE |rur| ((|List| |#5|) |#5| (|Boolean|)))
+   (SIGNATURE |checkRur| ((|Boolean|) |#5| (|List| |#5|))))
+  (|Join| (|PolynomialFactorizationExplicit|) (|CharacteristicZero|))
+  (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|RecursivePolynomialCategory| |#1| |#2| |#3|)
+  (|SquareFreeRegularTriangularSetCategory| |#1| |#2| |#3| |#4|))
+ (T |InternalRationalUnivariateRepresentationPackage|))
+(CATEGORY |package| (SIGNATURE |rur| ((|List| |#5|) |#5| (|Boolean|)))
+ (SIGNATURE |checkRur| ((|Boolean|) |#5| (|List| |#5|))))
+"/git/fricas/src/algebra/IRURPK.spad"
+((|checkRur| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|List| *3))
+       (|ofCategory| *3 (|SquareFreeRegularTriangularSetCategory| *5 *6 *7 *8))
+       (|ofCategory| *5
+                     (|Join| (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *8 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1
+                   (|InternalRationalUnivariateRepresentationPackage| *5 *6 *7
+                                                                      *8 *3))))
+ (|rur| (*1 *2 *3 *4)
+  (AND (|isDomain| *4 (|Boolean|))
+       (|ofCategory| *5
+                     (|Join| (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *8 (|RecursivePolynomialCategory| *5 *6 *7))
+       (|isDomain| *2 (|List| *3))
+       (|isDomain| *1
+                   (|InternalRationalUnivariateRepresentationPackage| *5 *6 *7
+                                                                      *8 *3))
+       (|ofCategory| *3
+                     (|SquareFreeRegularTriangularSetCategory| *5 *6 *7 *8)))))
+((|rur| (((|List| |#5|) |#5| (|Boolean|)) 72))
+ (|checkRur| (((|Boolean|) |#5| (|List| |#5|)) 30)))
+IRURPK
+((|constructor|
+  (NIL
+   "\\indented{1}{An internal package for computing the rational univariate representation} \\indented{1}{of a zero-dimensional algebraic variety given by a square-free} \\indented{1}{triangular set.} \\indented{1}{The main operation is \\spadopFrom{rur}{InternalRationalUnivariateRepresentationPackage}.} \\indented{1}{It is based on the {\\em generic} algorithm description in [1]. \\newline References:} [1] \\spad{D}. LAZARD \"Solving Zero-dimensional Algebraic Systems\" \\indented{4}{Journal of Symbolic Computation,{} 1992,{} 13,{} 117-131}"))
+ (|checkRur|
+  (((|Boolean|) |#5| (|List| |#5|))
+   "\\spad{checkRur(ts,{} lus)} returns \\spad{true} if \\spad{lus} is a rational univariate representation of \\spad{ts}."))
+ (|rur|
+  (((|List| |#5|) |#5| (|Boolean|))
+   "\\spad{rur(ts,{} univ?)} returns a rational univariate representation of \\spad{ts}. This assumes that the lowest polynomial in \\spad{ts} is a variable \\spad{v} which does not occur in the other polynomials of \\spad{ts}. This variable will be used to define the simple algebraic extension over which these other polynomials will be rewritten as univariate polynomials with degree one. If \\spad{univ?} is \\spad{true} then these polynomials will have a constant initial.")))
+(("documentation" 0 2273) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2266) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2166) ("modemaps" 0 829) ("sourceFile" 0 791)
+ ("constructorCategory" 0 662) ("constructorModemap" 0 164)
+ ("constructorKind" 0 154) ("constructorForm" 0 20))

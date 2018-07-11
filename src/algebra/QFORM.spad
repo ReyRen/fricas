@@ -1,0 +1,330 @@
+)abbrev domain QFORM QuadraticForm
+++ Author: Stephen M. Watt
+++ Date Created: August 1988
+++ Basic Operations: quadraticForm, elt
+++ Related Domains: Matrix, SquareMatrix
+++ Also See:
+++ AMS Classifications:
+++ Keywords: quadratic form
+++ Examples:
+++ References:
+++
+++ Description:
+++   This domain provides modest support for quadratic forms.
+QuadraticForm(n, K) : T == Impl where
+    n : PositiveInteger
+    K : Field
+    SM ==> SquareMatrix
+    V  ==> DirectProduct
+
+    T ==> AbelianGroup with
+        quadraticForm : SM(n, K) -> %
+            ++ quadraticForm(m) creates a quadratic form from a symmetric,
+            ++ square matrix m.
+        matrix : % -> SM(n, K)
+            ++ matrix(qf) creates a square matrix from the quadratic form qf.
+        elt : (%, V(n, K)) -> K
+            ++ elt(qf, v) evaluates the quadratic form qf on the vector v,
+            ++ producing a scalar.
+        if SM(n, K) has ConvertibleTo InputForm then ConvertibleTo InputForm
+
+
+    Impl ==> SM(n, K) add
+        Rep := SM(n, K)
+
+        quadraticForm m ==
+            not symmetric? m =>
+                error "quadraticForm requires a symmetric matrix"
+            m::%
+        matrix q == q pretend SM(n, K)
+        elt(q, v) == dot(v, (matrix q * v))
+
+        if SM(n, K) has ConvertibleTo InputForm then
+            convert(q : %) : InputForm ==
+               -- without package call we get infinite recursion
+               mif := (convert(matrix q)$(SM(n, K)))@InputForm
+               qf := convert(convert('quadraticForm)@SExpression)@InputForm
+               convert([qf, mif])$InputForm
+
+
+)if false
+\section{domain CLIF CliffordAlgebra\cite{7, 12}}
+When using this algebra for geometry and physics we want to be able to mix the Clifford product with the Grassmann (exterior or wedge) product and inner products in the same equation..
+
+For example we may want to create a geometric object using meet and join then transform using conjugation.
+
+In physics we need to combine these products by analogy with the way that vector algebra combines scalar, dot and cross products. When modeling solid bodies (isometries) we want to model either 'projective space' or 'conformal space'.
+
+We also want these to work with a basis from non-diagonal quadratic form (such as bases which square to +ve and -ve and then rotated).
+\subsection{Why So Many Product Types?}
+Why So Many Product Types?
+
+The exterior and inner products can be introduced in different ways, one way is to look at the exterior product as the product which generates the structure:
+
+<e1, e2...en | ei/\ei = 0, ei/\ej= -ej/\ei>
+
+and the interior product defines the metric structure.
+
+Or we can look at exterior and inner products as duals:
+\begin{list}{}
+topic   concept         dual concept
+product         exterior        inner
+geometric interpretation        intersection of spaces  meet
+        union of spaces join
+element         grade = m         grade = n-m
+\end{list}
+
+Or we can look at the exterior and inner products as components of the Clifford product.
+
+When we are dealing with pure vectors in orthogonal bases these concepts all coincide, however when we move to higher grades or use metrics with a non-diagonal quadratic form, the inner product types start to diverge and we end up with the regressive inner product, the contraction inner products, and so on.
+
+\subsection{instantiate an instance of CliffordAlgebra}
+We first need to instantiate an instance of CliffordAlgebra, the constructor takes 3 parameters:
+\begin{list}{}
+parameter       type    meaning
+1st     PositiveInteger         dimension of the underling algebra (module over)
+2nd     Type    type over which this is defined
+3rd     SquareMatrix of dimension defined by 1st parameter      bilinear form
+\end{list}
+
+In the following example we will define a 3 dimensional Euclidean space so the bilinear form is the identity matrix:
+
+(1) -> Eu := CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+
+   (1)  CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+                                                                 Type : Domain
+\subsection{Entering Multivectors}
+Entering Multivectors
+
+We can then create some elements in the algebra (I will call the general element in this algebra a 'multivector' to be consistent with most of the literature). First we can create some basis vectors using e(PI):
+
+(2) -> e1 : Eu := e(1)
+
+   (2)  e
+         1
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(3) -> e2 : Eu := e(2)
+
+   (3)  e
+         2
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+
+There are many options for creating higher grade basis,
+
+    * by multiplying basis vectors,
+    * or by using ee(List PI) to specify the higher order term in one go with a list of its indices (exterior product of indicies)
+    * or from a binary map of the indicies
+    * or using the monomial function (Clifford product of indicies)
+    * or using the pseudoscalar.
+
+(4) -> e12 : Eu := e(1) /\ e(2)
+
+   (4)  e e
+         1 2
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(5) -> e12 : Eu := ee[1, 2]
+
+   (5)  e e
+         1 2
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(6) -> e12 : Eu := eFromBinaryMap(3)
+
+   (6)  e e
+         1 2
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(7) -> e12 : Eu := monomial(1, [1, 2])
+
+   (7)  e e
+         1 2
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(8) -> p : Eu := ePseudoscalar()
+
+   (8)  e e e
+         1 2 3
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+
+We can create vectors from a linear sum of its bases and similarly we can create a bivector from a sum of bases with grade 2:
+
+(9) -> v : Eu := 2*e(1) + 3*e(2) + 4*e(3)
+
+   (9)  2e  + 3e  + 4e
+          1     2     3
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(10) -> m : Eu := 2*ee[1, 2] + 3*ee[1, 3] + 4*ee[2, 3]
+
+   (10)  2e e  + 3e e  + 4e e
+          1 2     1 3     2 3
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+
+If we want a more complicated multivector, then it may be easier to specify it in one, by using the multivector function. Note that the indices are specified in binary order, that is multivector[scalar, e1, e2, e12, e3, e13, e23, e123...] so we only need specify the multipliers for these:
+
+(11) -> m : Eu := multivector[0, 0, 0, 2, 0, 3, 4, 0]
+
+   (11)  2e e  + 3e e  + 4e e
+          1 2     1 3     2 3
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+
+\subsection{Algebraic Operations}
+Algebraic Operations
+
+We can then do some operations such as:
+\begin{list}{}
+operator        meaning
+/\      exterior
+\/      regression
+*       Clifford
+lc      left contraction
+rc      right contraction
+\end{list}
+
+examples:
+
+(12) -> e1 /\ e2
+
+   (12)  e e
+         1 2
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(13) -> e1 /\ e1
+
+   (13)  0
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(14) -> e1 \/ e2
+
+   (14)  0
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(15) -> e1 \/ e1
+
+   (15)  0
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(16) -> lc(e1, e2)
+
+   (16)  0
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(17) -> lc(e1, e1)
+
+   (17)  1
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(18) -> rc(e1, e2)
+
+   (18)  0
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(19) -> rc(e1, e1)
+
+   (19)  1
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+
+\subsection{Functions}
+Functions
+
+Here are some functions available for the algebra :
+\begin{list}{}
+coefficient(%, List NNI)         extracts the scalar coefficient of a given basis which is specified by a list of indices.
+~(%)    Clifford dual
+gradeInvolution(%)      invert (multiply by -1) vector and modify other grades accordingly
+reverse(%)      reverse order of basis vectors in each blade
+conj(%)         equivalent to applying both gradeInvolution and reverse
+grade(%)        returns an integer representing the maximum grade of the non-zero blades in this multivector. 0 for scalar, 1 for vector and so on.
+\end{list}
+
+examples:
+
+(20) -> c : Eu := coefficient(p, [1, 2])
+
+   (20)  0
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(21) -> c : Eu := coefficient(p, [1, 2, 3])
+
+   (21)  1
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(22) -> ~e12
+
+   (22)  - 1
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(23) -> gradeInvolution(e12)
+
+   (23)  e e
+         1 2
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(24) -> gradeInvolution(p)
+
+   (24)  - e e e
+           1 2 3
+        Type : CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+(25) -> grade(p)
+
+   (25)  3
+                                                        Type : PositiveInteger
+\subsection{Tables}
+Tables
+
+We can produce tables (Cayley table) of the built-in operations, unary and binary functions by using 'toTable'. The result is a matrix showing all combinations of the basis for each operand:
+
+(26) -> toTable(lc)$Eu
+
+         +1  e   e   e e   e   e e   e e   e e e +
+         |    1   2   1 2   3   1 3   2 3   1 2 3|
+         |                                       |
+         |0  1   0    e    0    e     0     e e  |
+         |             2         3           2 3 |
+         |                                       |
+         |0  0   1   - e   0    0     e    - e e |
+         |              1              3      1 3|
+         |                                       |
+         |0  0   0   - 1   0    0     0     - e  |
+   (26)  |                                     3 |
+         |                                       |
+         |0  0   0    0    1   - e   - e    e e  |
+         |                        1     2    1 2 |
+         |                                       |
+         |0  0   0    0    0   - 1    0      e   |
+         |                                    2  |
+         |                                       |
+         |0  0   0    0    0    0    - 1    - e  |
+         |                                     1 |
+         |                                       |
+         +0  0   0    0    0    0     0     - 1  +
+Type : Matrix(CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]]))
+(27) -> toTable(*)$Eu
+
+         +  1       e        e       e e      e       e e      e e    e e e +
+         |           1        2       1 2      3       1 3      2 3    1 2 3|
+         |                                                                  |
+         |  e       1       e e       e      e e       e      e e e    e e  |
+         |   1               1 2       2      1 3       3      1 2 3    2 3 |
+         |                                                                  |
+         |  e     - e e      1       - e     e e    - e e e     e     - e e |
+         |   2       1 2                1     2 3      1 2 3     3       1 3|
+         |                                                                  |
+         | e e     - e       e       - 1    e e e    - e e     e e     - e  |
+         |  1 2       2       1              1 2 3      2 3     1 3       3 |
+   (27)  |                                                                  |
+         |  e     - e e    - e e    e e e     1       - e      - e     e e  |
+         |   3       1 3      2 3    1 2 3               1        2     1 2 |
+         |                                                                  |
+         | e e     - e    - e e e    e e      e       - 1     - e e     e   |
+         |  1 3       3      1 2 3    2 3      1                 1 2     2  |
+         |                                                                  |
+         | e e    e e e     - e     - e e     e       e e      - 1     - e  |
+         |  2 3    1 2 3       3       1 3     2       1 2                1 |
+         |                                                                  |
+         |e e e    e e     - e e     - e     e e       e       - e     - 1  |
+         + 1 2 3    2 3       1 3       3     1 2       2         1         +
+Type : Matrix(CliffordAlgebra(3, Fraction(Integer), [[1, 0, 0], [0, 1, 0], [0, 0, 1]]))
+
+\subsection{Debugging}
+Debugging
+
+There are some commands to help with debugging:
+
+setMode("orthogonal",false)
+
+The "orthogonal" flag is set to true if the non-diagonal terms in the matrix are zero.
+This allows a more optimised Clifford multiplication for this case. The above setMode command
+would turn that optimisation off forcing all multiplications to be done by the more general algorithm.
+This allows the output of the two algorithms to be compared.
+
+setMode("debug",true)
+
+This "debug" flag causes the internal working of the algorithms to be displayed during calculations.
+)endif
+

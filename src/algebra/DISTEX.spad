@@ -1,0 +1,89 @@
+)abbrev package DISTEX DistributionPackage
+++ Author: Franz Lehner lehner@math.tugraz.at, Waldek Hebisch
+++ Date Created: 2009
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   Various popular distributions.
+DistributionPackage(R : CommutativeRing) : Exports == Implementation where
+  DR ==> Distribution R
+
+  Exports ==> with
+    gaussianDistribution : R -> DR
+      ++ \spad{gaussianDistribution(a)} produces
+      ++ a gaussian distribution of variance \spad{a}.
+    poissonDistribution : R -> DR
+      ++ \spad{poissonDistribution(a)} produces
+      ++ a Poisson distribution of variance \spad{a}.
+    wignerDistribution : R -> DR
+      ++ \spad{wignerDistribution(a)} produces
+      ++ a Wigner distribution of variance \spad{a}.
+    freePoissonDistribution : R -> DR
+      ++ \spad{freePoissonDistribution(a)} produces
+      ++ a free Poisson distribution of variance \spad{a}.
+    bernoulliDistribution01 : R -> DR
+      ++ \spad{bernoulliDistribution01(a)} produces
+      ++ the distribution of a projection of trace a
+    if R has Algebra Fraction Integer then
+      arcsineDistribution : R -> DR
+        ++ \spad{arcsineDistribution(a)} produces
+        ++ the arcsine distribution of variance \spad{a}.
+
+  Implementation ==> add
+    gaussianDistribution(a : R) : DR ==
+        cumu : Stream R := concat(construct [0, a], repeating [0])
+        distributionByClassicalCumulants sequence cumu
+
+    poissonDistribution(a : R) : DR ==
+        cumu : Stream R := repeating [a]
+        distributionByClassicalCumulants sequence cumu
+
+    wignerDistribution(a : R) : DR ==
+        cumu : Stream R := concat(construct [0, a], repeating [0])
+        distributionByFreeCumulants sequence cumu
+
+    freePoissonDistribution(a : R) : DR ==
+        cumu : Stream R := repeating [a]
+        distributionByFreeCumulants sequence cumu
+
+    bernoulliDistribution01(a : R) : DR ==
+        mom : Stream R := repeating [a]
+        distributionByMoments sequence mom
+
+    if R has Algebra Fraction Integer then
+      STTR ==> StreamTaylorSeriesOperations R
+
+      arcsineDistribution(a : R) : DR ==
+          -- mgf is 1/sqrt(1-2x^2)
+          mgf : Stream R := cons(-2::R*a^2, repeating [0])
+          mgf := cons(0, mgf)
+          half : Fraction Integer := 1/ (2::Integer)
+          mgf := powern(half, cons(1, mgf))$STTR
+          mgf := (recip(mgf)$STTR)::Stream R
+          distributionByMoments sequence rest mgf
+
+
+)if false
+\bibliographystyle{plain}
+%\bibliography{distro.bib}
+\begin{thebibliography}{1}
+
+\bibitem{Flajolet:1982}
+P.~Flajolet.
+\newblock Combinatorial aspects of continued fractions.
+\newblock {\em Discrete Math.}, 32(2):125--161, 1980.
+
+\bibitem{RaoSpeicher:2007:multiplication}
+N.~Raj Rao and Roland Speicher.
+\newblock Multiplication of free random variables and the {$S$}-transform: the
+  case of vanishing mean.
+\newblock {\em Electron. Comm. Probab.}, 12:248--258, 2007.
+
+\end{thebibliography}
+
+\end{document}
+)endif

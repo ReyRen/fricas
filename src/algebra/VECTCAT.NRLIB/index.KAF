@@ -1,0 +1,331 @@
+15584               (|VectorCategory| R)
+|category|
+(((|VectorCategory| |#1|) (|Category|) (|Type|)) (T |VectorCategory|))
+(|Join| (|OneDimensionalArrayAggregate| |t#1|)
+        (CATEGORY |domain|
+         (IF (|has| |t#1| (|AbelianSemiGroup|))
+             (SIGNATURE + ($ $ $))
+             |noBranch|)
+         (IF (|has| |t#1| (|AbelianMonoid|))
+             (PROGN
+              (SIGNATURE |zero| ($ (|NonNegativeInteger|)))
+              (SIGNATURE |zero?| ((|Boolean|) $)))
+             |noBranch|)
+         (IF (|has| |t#1| (|AbelianGroup|))
+             (PROGN
+              (SIGNATURE - ($ $))
+              (SIGNATURE - ($ $ $))
+              (SIGNATURE * ($ (|Integer|) $)))
+             |noBranch|)
+         (IF (|has| |t#1| (|SemiGroup|))
+             (PROGN (SIGNATURE * ($ |t#1| $)) (SIGNATURE * ($ $ |t#1|)))
+             |noBranch|)
+         (IF (|has| |t#1| (|AbelianMonoid|))
+             (IF (|has| |t#1| (|SemiRng|))
+                 (SIGNATURE |dot| (|t#1| $ $))
+                 |noBranch|)
+             |noBranch|)
+         (IF (|has| |t#1| (|Ring|))
+             (PROGN
+              (SIGNATURE |outerProduct| ((|Matrix| |t#1|) $ $))
+              (SIGNATURE |cross| ($ $ $)))
+             |noBranch|)
+         (IF (|has| |t#1| (|RadicalCategory|))
+             (IF (|has| |t#1| (|Ring|))
+                 (SIGNATURE |length| (|t#1| $))
+                 |noBranch|)
+             |noBranch|)))
+"/git/fricas/src/algebra/VECTCAT.spad"
+((+ (*1 *1 *1 *1)
+    (AND (|ofCategory| *1 (|VectorCategory| *2)) (|ofCategory| *2 (|Type|))
+         (|ofCategory| *2 (|AbelianSemiGroup|))))
+ (|zero| (*1 *1 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|ofCategory| *1 (|VectorCategory| *3))
+       (|ofCategory| *3 (|AbelianMonoid|)) (|ofCategory| *3 (|Type|))))
+ (|zero?| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|VectorCategory| *3)) (|ofCategory| *3 (|Type|))
+       (|ofCategory| *3 (|AbelianMonoid|)) (|isDomain| *2 (|Boolean|))))
+ (- (*1 *1 *1)
+    (AND (|ofCategory| *1 (|VectorCategory| *2)) (|ofCategory| *2 (|Type|))
+         (|ofCategory| *2 (|AbelianGroup|))))
+ (- (*1 *1 *1 *1)
+    (AND (|ofCategory| *1 (|VectorCategory| *2)) (|ofCategory| *2 (|Type|))
+         (|ofCategory| *2 (|AbelianGroup|))))
+ (* (*1 *1 *2 *1)
+    (AND (|isDomain| *2 (|Integer|)) (|ofCategory| *1 (|VectorCategory| *3))
+         (|ofCategory| *3 (|Type|)) (|ofCategory| *3 (|AbelianGroup|))))
+ (* (*1 *1 *2 *1)
+    (AND (|ofCategory| *1 (|VectorCategory| *2)) (|ofCategory| *2 (|Type|))
+         (|ofCategory| *2 (|SemiGroup|))))
+ (* (*1 *1 *1 *2)
+    (AND (|ofCategory| *1 (|VectorCategory| *2)) (|ofCategory| *2 (|Type|))
+         (|ofCategory| *2 (|SemiGroup|))))
+ (|dot| (*1 *2 *1 *1)
+  (AND (|ofCategory| *1 (|VectorCategory| *2)) (|ofCategory| *2 (|Type|))
+       (|ofCategory| *2 (|AbelianMonoid|)) (|ofCategory| *2 (|SemiRng|))))
+ (|outerProduct| (*1 *2 *1 *1)
+  (AND (|ofCategory| *1 (|VectorCategory| *3)) (|ofCategory| *3 (|Type|))
+       (|ofCategory| *3 (|Ring|)) (|isDomain| *2 (|Matrix| *3))))
+ (|cross| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|VectorCategory| *2)) (|ofCategory| *2 (|Type|))
+       (|ofCategory| *2 (|Ring|))))
+ (|length| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|VectorCategory| *2)) (|ofCategory| *2 (|Type|))
+       (|ofCategory| *2 (|RadicalCategory|)) (|ofCategory| *2 (|Ring|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|zero?| (((|Boolean|) $) 6 (|has| |#1| (|AbelianMonoid|))))
+ (|zero| (($ (|NonNegativeInteger|)) 6 (|has| |#1| (|AbelianMonoid|))))
+ (|trim|
+  (($ $ |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|swap!|
+  (((|Void|) $ (|Integer|) (|Integer|)) 6 (|has| $ (|shallowlyMutable|))))
+ (|sorted?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1| |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|Boolean|) $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|sort!|
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $) 6
+   (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|))))
+  (($ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|shallowlyMutable|))
+        (|has| $ (|finiteAggregate|)))))
+ (|sort|
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  (($ $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|smaller?|
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|setelt!| ((|#1| $ (|Integer|) |#1|) 6 (|has| $ (|shallowlyMutable|)))
+  ((|#1| $ (|UniversalSegment| (|Integer|)) |#1|) 6
+   (|has| $ (|shallowlyMutable|))))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|sample| (($) 6 T CONST))
+ (|rightTrim|
+  (($ $ |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|reverse!|
+  (($ $) 6 (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|)))))
+ (|reverse| (($ $) 6 (|has| $ (|finiteAggregate|))))
+ (|removeDuplicates|
+  (($ $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove|
+  (($ |#1| $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|qsetelt!| ((|#1| $ (|Integer|) |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|qelt| ((|#1| $ (|Integer|)) 6))
+ (|position|
+  (((|Integer|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|Integer|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (((|Integer|) |#1| $ (|Integer|)) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|outerProduct| (((|Matrix| |#1|) $ $) 6 (|has| |#1| (|Ring|))))
+ (|new| (($ (|NonNegativeInteger|) |#1|) 6))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|minIndex| (((|Integer|) $) 6 (|has| (|Integer|) (|OrderedSet|))))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (($ $ $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|merge|
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $ $) 6 (|has| $ (|finiteAggregate|)))
+  (($ $ $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|maxIndex| (((|Integer|) $) 6 (|has| (|Integer|) (|OrderedSet|))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (($ $ $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6) (($ (|Mapping| |#1| |#1| |#1|) $ $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|length|
+  ((|#1| $) 6 (AND (|has| |#1| (|Ring|)) (|has| |#1| (|RadicalCategory|)))))
+ (|leftTrim|
+  (($ $ |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|latex|
+  (((|String|) $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|insert| (($ |#1| $ (|Integer|)) 6) (($ $ $ (|Integer|)) 6))
+ (|indices| (((|List| (|Integer|)) $) 6))
+ (|index?| (((|Boolean|) (|Integer|) $) 6))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|hash|
+  (((|SingleInteger|) $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|first| ((|#1| $) 6 (|has| (|Integer|) (|OrderedSet|)))
+  (($ $ (|NonNegativeInteger|)) 6))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) 6))
+ (|fill!| (($ $ |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6))
+ (|entry?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|entries| (((|List| |#1|) $) 6)) (|empty?| (((|Boolean|) $) 6))
+ (|empty| (($) 6))
+ (|elt| ((|#1| $ (|Integer|) |#1|) 6) ((|#1| $ (|Integer|)) 6)
+  (($ $ (|UniversalSegment| (|Integer|))) 6))
+ (|dot|
+  ((|#1| $ $) 6 (AND (|has| |#1| (|SemiRng|)) (|has| |#1| (|AbelianMonoid|)))))
+ (|delete| (($ $ (|Integer|)) 6) (($ $ (|UniversalSegment| (|Integer|))) 6))
+ (|cross| (($ $ $) 6 (|has| |#1| (|Ring|))))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copyInto!|
+  (($ $ $ (|Integer|)) 6
+   (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|convert| (((|InputForm|) $) 6 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 6))
+ (|concat| (($ $ |#1|) 6) (($ |#1| $) 6) (($ $ $) 6) (($ (|List| $)) 6))
+ (|coerce|
+  (((|OutputForm|) $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|CoercibleTo| (|OutputForm|))))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (>=
+  (((|Boolean|) $ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (>
+  (((|Boolean|) $ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (<=
+  (((|Boolean|) $ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (<
+  (((|Boolean|) $ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (- (($ $) 6 (|has| |#1| (|AbelianGroup|)))
+    (($ $ $) 6 (|has| |#1| (|AbelianGroup|))))
+ (+ (($ $ $) 6 (|has| |#1| (|AbelianSemiGroup|))))
+ (* (($ (|Integer|) $) 6 (|has| |#1| (|AbelianGroup|)))
+    (($ |#1| $) 6 (|has| |#1| (|SemiGroup|)))
+    (($ $ |#1|) 6 (|has| |#1| (|SemiGroup|))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+VECTCAT
+(((|OneDimensionalArrayAggregate| |#1|) . T))
+(((|Aggregate|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) OR
+  (|has| |t#1| (|CoercibleTo| (|OutputForm|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|))))
+ ((|Collection| |t#1|) . T)
+ ((|Comparable|) OR
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|))))
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Eltable| (|UniversalSegment| (|Integer|)) $) . T)
+ ((|Eltable| |t#1| |t#2|) . T) ((|EltableAggregate| |t#1| |t#2|) . T)
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|FiniteLinearAggregate| |t#1|) . T) ((|HomogeneousAggregate| |t#1|) . T)
+ ((|HomogeneousAggregate| |t#2|) . T)
+ ((|IndexedAggregate| (|Integer|) |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|LinearAggregate| |t#1|) . T) ((|OneDimensionalArrayAggregate| |#1|) . T)
+ ((|OrderedSet|) AND (|has| $ (|finiteAggregate|))
+  (|has| |t#1| (|OrderedSet|)))
+ ((|PartialOrder|) AND (|has| $ (|finiteAggregate|))
+  (|has| |t#1| (|OrderedSet|)))
+ ((|SetCategory|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|))))
+ ((|Type|) . T) ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "\\spadtype{VectorCategory} represents the type of vector like objects,{} \\spadignore{i.e.} finite sequences indexed by some finite segment of the integers. The operations available on vectors depend on the structure of the underlying components. Many operations from the component domain are defined for vectors componentwise. It can by assumed that extraction or updating components can be done in constant time."))
+ (|length|
+  ((|#1| $)
+   "\\spad{length(v)} computes the sqrt(dot(\\spad{v},{} \\spad{v})),{} \\spadignore{i.e.} the euclidean length"))
+ (|cross|
+  (($ $ $)
+   "\\spad{cross(u,{} v)} constructs the cross product of \\spad{u} and \\spad{v}. Error: if \\spad{u} and \\spad{v} are not of length 3."))
+ (|outerProduct|
+  (((|Matrix| |#1|) $ $)
+   "\\spad{outerProduct(u,{} v)} constructs the matrix whose (\\spad{i},{} \\spad{j})\\spad{'}th element is \\spad{u}(\\spad{i})\\spad{*v}(\\spad{j})."))
+ (|dot|
+  ((|#1| $ $)
+   "\\spad{dot(x,{} y)} computes the inner product of the two vectors \\spad{x} and \\spad{y}. Error: if \\spad{x} and \\spad{y} are not of the same length."))
+ (*
+  (($ $ |#1|)
+   "\\spad{y * r} multiplies each component of the vector \\spad{y} by the element \\spad{r}.")
+  (($ |#1| $)
+   "\\spad{r * y} multiplies the element \\spad{r} times each component of the vector \\spad{y}.")
+  (($ (|Integer|) $)
+   "\\spad{n * y} multiplies each component of the vector \\spad{y} by the integer \\spad{n}."))
+ (-
+  (($ $ $)
+   "\\spad{x - y} returns the component-wise difference of the vectors \\spad{x} and \\spad{y}. Error: if \\spad{x} and \\spad{y} are not of the same length.")
+  (($ $) "\\spad{-x} negates all components of the vector \\spad{x}."))
+ (|zero?|
+  (((|Boolean|) $)
+   "\\spad{zero?(x)} returns \\spad{true} if \\spad{x} is a zero vector,{} \\spad{false} otherwise."))
+ (|zero|
+  (($ (|NonNegativeInteger|))
+   "\\spad{zero(n)} creates a zero vector of length \\spad{n}."))
+ (+
+  (($ $ $)
+   "\\spad{x + y} returns the component-wise sum of the vectors \\spad{x} and \\spad{y}. Error: if \\spad{x} and \\spad{y} are not of the same length.")))
+(("documentation" 0 13462) ("ancestors" 0 11733) ("parents" 0 11687)
+ ("abbreviation" 0 11679) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3321) ("modemaps" 0 1458) ("sourceFile" 0 1419)
+ ("constructorCategory" 0 123) ("constructorModemap" 0 52)
+ ("constructorKind" 0 41) ("constructorForm" 0 20))

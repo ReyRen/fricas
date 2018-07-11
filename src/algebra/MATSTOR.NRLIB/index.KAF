@@ -1,0 +1,122 @@
+6908                (|StorageEfficientMatrixOperations| R)
+|package|
+(((|StorageEfficientMatrixOperations| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |copy!| ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+   (SIGNATURE |plus!|
+    ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+   (SIGNATURE |minus!| ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+   (SIGNATURE |minus!|
+    ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+   (SIGNATURE |leftScalarTimes!|
+    ((|Matrix| |#1|) (|Matrix| |#1|) |#1| (|Matrix| |#1|)))
+   (SIGNATURE |rightScalarTimes!|
+    ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) |#1|))
+   (SIGNATURE |times!|
+    ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+   (SIGNATURE |power!|
+    ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)
+     (|Matrix| |#1|) (|NonNegativeInteger|)))
+   (SIGNATURE ^ ((|Matrix| |#1|) (|Matrix| |#1|) (|NonNegativeInteger|))))
+  (|Ring|))
+ (T |StorageEfficientMatrixOperations|))
+(CATEGORY |package|
+ (SIGNATURE |copy!| ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+ (SIGNATURE |plus!|
+  ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+ (SIGNATURE |minus!| ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+ (SIGNATURE |minus!|
+  ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+ (SIGNATURE |leftScalarTimes!|
+  ((|Matrix| |#1|) (|Matrix| |#1|) |#1| (|Matrix| |#1|)))
+ (SIGNATURE |rightScalarTimes!|
+  ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) |#1|))
+ (SIGNATURE |times!|
+  ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)))
+ (SIGNATURE |power!|
+  ((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)
+   (|Matrix| |#1|) (|NonNegativeInteger|)))
+ (SIGNATURE ^ ((|Matrix| |#1|) (|Matrix| |#1|) (|NonNegativeInteger|))))
+"/git/fricas/src/algebra/MATSTOR.spad"
+((^ (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Matrix| *4)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|ofCategory| *4 (|Ring|))
+       (|isDomain| *1 (|StorageEfficientMatrixOperations| *4))))
+ (|power!| (*1 *2 *2 *2 *2 *2 *3)
+  (AND (|isDomain| *2 (|Matrix| *4)) (|isDomain| *3 (|NonNegativeInteger|))
+       (|ofCategory| *4 (|Ring|))
+       (|isDomain| *1 (|StorageEfficientMatrixOperations| *4))))
+ (|times!| (*1 *2 *2 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| *3)) (|ofCategory| *3 (|Ring|))
+       (|isDomain| *1 (|StorageEfficientMatrixOperations| *3))))
+ (|rightScalarTimes!| (*1 *2 *2 *2 *3)
+  (AND (|isDomain| *2 (|Matrix| *3)) (|ofCategory| *3 (|Ring|))
+       (|isDomain| *1 (|StorageEfficientMatrixOperations| *3))))
+ (|leftScalarTimes!| (*1 *2 *2 *3 *2)
+  (AND (|isDomain| *2 (|Matrix| *3)) (|ofCategory| *3 (|Ring|))
+       (|isDomain| *1 (|StorageEfficientMatrixOperations| *3))))
+ (|minus!| (*1 *2 *2 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| *3)) (|ofCategory| *3 (|Ring|))
+       (|isDomain| *1 (|StorageEfficientMatrixOperations| *3))))
+ (|minus!| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| *3)) (|ofCategory| *3 (|Ring|))
+       (|isDomain| *1 (|StorageEfficientMatrixOperations| *3))))
+ (|plus!| (*1 *2 *2 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| *3)) (|ofCategory| *3 (|Ring|))
+       (|isDomain| *1 (|StorageEfficientMatrixOperations| *3))))
+ (|copy!| (*1 *2 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| *3)) (|ofCategory| *3 (|Ring|))
+       (|isDomain| *1 (|StorageEfficientMatrixOperations| *3)))))
+((|times!|
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)) 20))
+ (|rightScalarTimes!|
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) |#1|) 18))
+ (|power!|
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)
+    (|Matrix| |#1|) (|NonNegativeInteger|))
+   22))
+ (|plus!|
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)) 11))
+ (|minus!|
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)) 15)
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)) 13))
+ (|leftScalarTimes!|
+  (((|Matrix| |#1|) (|Matrix| |#1|) |#1| (|Matrix| |#1|)) 17))
+ (|copy!| (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)) 9))
+ (^ (((|Matrix| |#1|) (|Matrix| |#1|) (|NonNegativeInteger|)) 26)))
+MATSTOR
+((|constructor|
+  (NIL
+   "This package provides standard arithmetic operations on matrices. The functions in this package store the results of computations in existing matrices,{} rather than creating new matrices. This package works only for matrices of type Matrix and uses the internal representation of this type."))
+ (^
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|NonNegativeInteger|))
+   "\\spad{x ^ n} computes the \\spad{n}-th power of a square matrix. The power \\spad{n} is assumed greater than 1."))
+ (|power!|
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|)
+    (|Matrix| |#1|) (|NonNegativeInteger|))
+   "\\spad{power!(a,{} b,{} c,{} m,{} n)} computes \\spad{m} ^ \\spad{n} and stores the result in \\spad{a}. The matrices \\spad{b} and \\spad{c} are used to store intermediate results. Error: if \\spad{a},{} \\spad{b},{} \\spad{c},{} and \\spad{m} are not square and of the same dimensions."))
+ (|times!|
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|))
+   "\\spad{times!(c,{} a,{} b)} computes the matrix product \\spad{a * b} and stores the result in the matrix \\spad{c}. Error: if \\spad{a},{} \\spad{b},{} and \\spad{c} do not have compatible dimensions."))
+ (|rightScalarTimes!|
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) |#1|)
+   "\\spad{rightScalarTimes!(c,{} a,{} r)} computes the scalar product \\spad{a * r} and stores the result in the matrix \\spad{c}. Error: if \\spad{a} and \\spad{c} do not have the same dimensions."))
+ (|leftScalarTimes!|
+  (((|Matrix| |#1|) (|Matrix| |#1|) |#1| (|Matrix| |#1|))
+   "\\spad{leftScalarTimes!(c,{} r,{} a)} computes the scalar product \\spad{r * a} and stores the result in the matrix \\spad{c}. Error: if \\spad{a} and \\spad{c} do not have the same dimensions."))
+ (|minus!|
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|))
+   "\\spad{!minus!(c,{} a,{} b)} computes the matrix difference \\spad{a - b} and stores the result in the matrix \\spad{c}. Error: if \\spad{a},{} \\spad{b},{} and \\spad{c} do not have the same dimensions.")
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|))
+   "\\spad{minus!(c,{} a)} computes \\spad{-a} and stores the result in the matrix \\spad{c}. Error: if a and \\spad{c} do not have the same dimensions."))
+ (|plus!|
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|))
+   "\\spad{plus!(c,{} a,{} b)} computes the matrix sum \\spad{a + b} and stores the result in the matrix \\spad{c}. Error: if \\spad{a},{} \\spad{b},{} and \\spad{c} do not have the same dimensions."))
+ (|copy!|
+  (((|Matrix| |#1|) (|Matrix| |#1|) (|Matrix| |#1|))
+   "\\spad{copy!(c,{} a)} copies the matrix \\spad{a} into the matrix \\spad{c}. Error: if \\spad{a} and \\spad{c} do not have the same dimensions.")))
+(("documentation" 0 4138) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4130) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3386) ("modemaps" 0 1871) ("sourceFile" 0 1832)
+ ("constructorCategory" 0 1016) ("constructorModemap" 0 69)
+ ("constructorKind" 0 59) ("constructorForm" 0 20))

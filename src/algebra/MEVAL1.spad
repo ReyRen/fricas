@@ -1,0 +1,26 @@
+)abbrev package MEVAL1 ModularEvaluation1
+ModularEvaluation1() : Exports == Implementation where
+  MP ==> Polynomial(Integer)
+  Exports ==> ModularEvaluationCategory(MP, MP)
+  Implementation ==> add
+
+    PE ==> PolynomialEvaluationUtilities
+
+    degree(p, s) == degree(p, s)$MP
+    ldegree(p, s) == degree(p, s)$MP
+    eval1a(p, pt, s) == eval1a(p, pt, s)$PE
+    eval1(p, v, pt, s) == eval1(p, v, pt, s)$PE
+    modpreduction(p, q) == modpreduction(p, q)$PE
+
+    subst_vars(p, ls1, ls2) ==
+        lm := [monomial(1, v, 1) for v in ls2]
+        eval(p, ls1, lm)
+
+    SMPI ==> SparseMultivariatePolynomial(Integer, Symbol)
+
+    trial_division(p, g, lm, v, ls) ==
+        alg_trial_division(p pretend SMPI, g pretend SMPI,
+                  [m pretend SMPI for m in lm], [v], ls
+                 )$PrimGCD
+
+

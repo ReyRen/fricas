@@ -1,0 +1,53 @@
+2464                (MAKEPROP '|CyclotomicPolynomialPackage| 'NILADIC T)
+(|CyclotomicPolynomialPackage|)
+|package|
+(((|CyclotomicPolynomialPackage|)
+  (CATEGORY |package|
+   (SIGNATURE |cyclotomicDecomposition|
+    ((|List| (|SparseUnivariatePolynomial| (|Integer|))) (|Integer|)))
+   (SIGNATURE |cyclotomic|
+    ((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+   (SIGNATURE |cyclotomicFactorization|
+    ((|Factored| (|SparseUnivariatePolynomial| (|Integer|))) (|Integer|)))))
+ (T |CyclotomicPolynomialPackage|))
+(CATEGORY |package|
+ (SIGNATURE |cyclotomicDecomposition|
+  ((|List| (|SparseUnivariatePolynomial| (|Integer|))) (|Integer|)))
+ (SIGNATURE |cyclotomic|
+  ((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)))
+ (SIGNATURE |cyclotomicFactorization|
+  ((|Factored| (|SparseUnivariatePolynomial| (|Integer|))) (|Integer|))))
+"/git/fricas/src/algebra/CYCLOTOM.spad"
+((|cyclotomicFactorization| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|Factored| (|SparseUnivariatePolynomial| (|Integer|))))
+       (|isDomain| *1 (|CyclotomicPolynomialPackage|))))
+ (|cyclotomic| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| (|Integer|)))
+       (|isDomain| *1 (|CyclotomicPolynomialPackage|))))
+ (|cyclotomicDecomposition| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *2 (|List| (|SparseUnivariatePolynomial| (|Integer|))))
+       (|isDomain| *1 (|CyclotomicPolynomialPackage|)))))
+((|cyclotomicFactorization|
+  (((|Factored| (|SparseUnivariatePolynomial| (|Integer|))) (|Integer|)) 32))
+ (|cyclotomicDecomposition|
+  (((|List| (|SparseUnivariatePolynomial| (|Integer|))) (|Integer|)) 27))
+ (|cyclotomic| (((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|)) 24)))
+CYCLOTOM
+((|constructor| (NIL "This package \\undocumented{}"))
+ (|cyclotomicFactorization|
+  (((|Factored| (|SparseUnivariatePolynomial| (|Integer|))) (|Integer|))
+   "\\spad{cyclotomicFactorization(n)} returns prime factors of \\spad{x^n - 1} over integers."))
+ (|cyclotomic|
+  (((|SparseUnivariatePolynomial| (|Integer|)) (|Integer|))
+   "\\spad{cyclotomic(n)} returns \\spad{n}-th cyclotomic polynomial,{} that is minimal polynomial over rationals of primitive \\spad{n}-th root of 1."))
+ (|cyclotomicDecomposition|
+  (((|List| (|SparseUnivariatePolynomial| (|Integer|))) (|Integer|))
+   "\\spad{cyclotomicDecomposition(n)} returns prime factors of \\spad{x^n - 1} over integers.")))
+(("documentation" 0 1785) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1776) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1489) ("modemaps" 0 888) ("sourceFile" 0 848)
+ ("constructorCategory" 0 524) ("constructorModemap" 0 115)
+ ("constructorKind" 0 105) ("constructorForm" 0 73) ("NILADIC" 0 20))

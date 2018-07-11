@@ -1,0 +1,92 @@
+4601                (MAKEPROP '|CubicalComplexFactory| 'NILADIC T)
+(|CubicalComplexFactory|)
+|package|
+(((|CubicalComplexFactory|)
+  (CATEGORY |package|
+   (SIGNATURE |sphereSolid|
+    ((|FiniteCubicalComplex| (|Integer|)) (|NonNegativeInteger|)))
+   (SIGNATURE |sphereSurface|
+    ((|FiniteCubicalComplex| (|Integer|)) (|NonNegativeInteger|)))
+   (SIGNATURE |torusSurface| ((|FiniteCubicalComplex| (|Integer|))))
+   (SIGNATURE |band| ((|FiniteCubicalComplex| (|Integer|))))
+   (SIGNATURE |moebiusBand| ((|FiniteCubicalComplex| (|Integer|))))
+   (SIGNATURE |projectiveSpace|
+    ((|FiniteCubicalComplex| (|Integer|)) (|NonNegativeInteger|)))
+   (SIGNATURE |kleinBottle| ((|FiniteCubicalComplex| (|Integer|))))))
+ (T |CubicalComplexFactory|))
+(CATEGORY |package|
+ (SIGNATURE |sphereSolid|
+  ((|FiniteCubicalComplex| (|Integer|)) (|NonNegativeInteger|)))
+ (SIGNATURE |sphereSurface|
+  ((|FiniteCubicalComplex| (|Integer|)) (|NonNegativeInteger|)))
+ (SIGNATURE |torusSurface| ((|FiniteCubicalComplex| (|Integer|))))
+ (SIGNATURE |band| ((|FiniteCubicalComplex| (|Integer|))))
+ (SIGNATURE |moebiusBand| ((|FiniteCubicalComplex| (|Integer|))))
+ (SIGNATURE |projectiveSpace|
+  ((|FiniteCubicalComplex| (|Integer|)) (|NonNegativeInteger|)))
+ (SIGNATURE |kleinBottle| ((|FiniteCubicalComplex| (|Integer|)))))
+"/git/fricas/src/algebra/CUBECF.spad"
+((|kleinBottle| (*1 *2)
+  (AND (|isDomain| *2 (|FiniteCubicalComplex| (|Integer|)))
+       (|isDomain| *1 (|CubicalComplexFactory|))))
+ (|projectiveSpace| (*1 *2 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *2 (|FiniteCubicalComplex| (|Integer|)))
+       (|isDomain| *1 (|CubicalComplexFactory|))))
+ (|moebiusBand| (*1 *2)
+  (AND (|isDomain| *2 (|FiniteCubicalComplex| (|Integer|)))
+       (|isDomain| *1 (|CubicalComplexFactory|))))
+ (|band| (*1 *2)
+         (AND (|isDomain| *2 (|FiniteCubicalComplex| (|Integer|)))
+              (|isDomain| *1 (|CubicalComplexFactory|))))
+ (|torusSurface| (*1 *2)
+  (AND (|isDomain| *2 (|FiniteCubicalComplex| (|Integer|)))
+       (|isDomain| *1 (|CubicalComplexFactory|))))
+ (|sphereSurface| (*1 *2 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *2 (|FiniteCubicalComplex| (|Integer|)))
+       (|isDomain| *1 (|CubicalComplexFactory|))))
+ (|sphereSolid| (*1 *2 *3)
+  (AND (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *2 (|FiniteCubicalComplex| (|Integer|)))
+       (|isDomain| *1 (|CubicalComplexFactory|)))))
+((|torusSurface| (((|FiniteCubicalComplex| (|Integer|))) 12))
+ (|sphereSurface|
+  (((|FiniteCubicalComplex| (|Integer|)) (|NonNegativeInteger|)) 10))
+ (|sphereSolid|
+  (((|FiniteCubicalComplex| (|Integer|)) (|NonNegativeInteger|)) 8))
+ (|projectiveSpace|
+  (((|FiniteCubicalComplex| (|Integer|)) (|NonNegativeInteger|)) 16))
+ (|moebiusBand| (((|FiniteCubicalComplex| (|Integer|))) NIL))
+ (|kleinBottle| (((|FiniteCubicalComplex| (|Integer|))) NIL))
+ (|band| (((|FiniteCubicalComplex| (|Integer|))) 13)))
+CUBECF
+((|constructor|
+  (NIL
+   "Provides functions to construct various Cubical complexes. For more information see: http://www.euclideanspace.com/prog/scratchpad/mycode/topology/cubical/factory/"))
+ (|kleinBottle|
+  (((|FiniteCubicalComplex| (|Integer|)))
+   "generate a cubical complex of the surface of a Klein bottle."))
+ (|projectiveSpace|
+  (((|FiniteCubicalComplex| (|Integer|)) (|NonNegativeInteger|))
+   "Generate a cubical complex of the surface of a projective plane. A one sided surface which cannot be embedded in 3D space without intersecting itself. There are no external boundaries,{} every edge connects two faces. (A punctured projective plane is equivalent to a Moebius band)"))
+ (|moebiusBand|
+  (((|FiniteCubicalComplex| (|Integer|)))
+   "Generate a cubical complex of the surface of a Moebius band. A one sided surface with a single external boundary line."))
+ (|band|
+  (((|FiniteCubicalComplex| (|Integer|)))
+   "Generate a cubical complex of the surface of a cylinder without ends"))
+ (|torusSurface|
+  (((|FiniteCubicalComplex| (|Integer|)))
+   "generate a cubical complex of the surface of an 3-dimensional torus."))
+ (|sphereSurface|
+  (((|FiniteCubicalComplex| (|Integer|)) (|NonNegativeInteger|))
+   "Generate a cubical complex equivalent to the surface of a hyper-sphere. That is,{} the surface of a volume with no holes in it,{} so we use the faces of a single cube."))
+ (|sphereSolid|
+  (((|FiniteCubicalComplex| (|Integer|)) (|NonNegativeInteger|))
+   "Generate a cubical complex equivalent to a solid hyper-sphere. That is,{} a solid volume with no holes in it,{} so we use a single \\spad{n}-dimensional cube.")))
+(("documentation" 0 2956) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2949) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2445) ("modemaps" 0 1338) ("sourceFile" 0 1300)
+ ("constructorCategory" 0 742) ("constructorModemap" 0 103)
+ ("constructorKind" 0 93) ("constructorForm" 0 67) ("NILADIC" 0 20))

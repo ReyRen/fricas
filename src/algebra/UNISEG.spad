@@ -1,0 +1,133 @@
+)abbrev domain UNISEG UniversalSegment
+++ Author:  Robert S. Sutor
+++ Date Created: 1987
+++ Basic Operations:
+++ Related Domains: Segment
+++ Also See:
+++ AMS Classifications:
+++ Keywords: equation
+++ Examples:
+++ References:
+++ Description:
+++  This domain provides segments which may be half open.
+++  That is, ranges of the form \spad{a..} or \spad{a..b}.
+
+UniversalSegment(S : Type) : SegmentCategory(S) with
+    SEGMENT : S -> %
+        ++ \spad{l..} produces a half open segment,
+        ++ that is, one with no upper bound.
+    segment : S -> %
+        ++ segment(l) is an alternate way to construct the segment \spad{l..}.
+    coerce : Segment S -> %
+        ++ coerce(x) allows \spadtype{Segment} values to be used as %.
+    hasHi : % -> Boolean
+        ++ hasHi(s) tests whether the segment s has an upper bound.
+
+    if S has OrderedRing then
+      SegmentExpansionCategory(S, Stream S)
+
+  == add
+    Rec  ==> Segment S
+    Rec2 ==> Record(low : S, incr : Integer)
+
+    Rep := Union(Rec2, Rec)
+    a, b : S
+    s : %
+    i : Integer
+    ls : List %
+
+    segment a == [a, 1]$Rec2 :: Rep
+    segment(a, b) == segment(a, b)$Rec :: Rep
+    BY(s, i) ==
+      s case Rec => BY(s, i)$Rec :: Rep
+      [low(s), i]$Rec2 :: Rep
+
+    low s ==
+      s case Rec2 => (s :: Rec2).low
+      low(s)$Rec
+
+    hasHi s == s case Rec
+
+    high s ==
+      not hasHi(s) => error "high: segment has no upper bound"
+      high(s)$Rec
+
+    incr s ==
+      s case Rec2 => (s :: Rec2).incr
+      incr(s)$Rec
+
+    SEGMENT(a) == segment a
+    SEGMENT(a, b) == segment(a, b)
+
+    coerce(sg : Segment S) : % == segment(low(sg), high(sg))
+
+    convert a == convert(a)$Rec
+
+    if S has SetCategory then
+
+       (s1 : %) = (s2 : %) ==
+          s1 case Rec2 =>
+             s2 case Rec2 =>
+                 s1.low = s2.low and s1.incr = s2.incr
+             false
+          s1 case Rec =>
+             s2 case Rec =>
+                 (s1 = s2)$Rec
+             false
+          false
+
+       coerce(s : %) : OutputForm ==
+         seg :=
+           e := (low(s))::OutputForm
+           hasHi s => SEGMENT(e, (high(s))::OutputForm)
+           SEGMENT e
+         inc := incr s
+         inc = 1 => seg
+         infix(message(" by "), seg, inc::OutputForm)
+
+    if S has ConvertibleTo InputForm then
+        INFORM1 ==> InputFormFunctions1(%)
+
+        convert(s : %) : InputForm ==
+            s case Rec => convert(s)$Rec
+            seg := packageCall('SEGMENT,
+                               [convert(low s)@InputForm])$INFORM1
+            if one?(incr s)
+            then seg
+            else packageCall('BY,
+                             [seg, convert(incr s)@InputForm])$INFORM1
+
+    if S has AbelianSemiGroup then
+        (i : S + s : %) ==
+            s case Rec => (i+s)$Rec
+            [i + low(s), incr(s)]
+        (s : % + i : S) ==
+            s case Rec => (s+i)$Rec
+            [low(s) + i, incr(s)]
+
+    if S has AbelianGroup then
+        (s : % - i : S) ==
+            s case Rec => (s-i)$Rec
+            [low(s) - i, incr(s)]
+
+    if S has OrderedRing then
+      expand(s : %)       == expand([s])
+      map(f : S->S, s : %)  == map(f, expand s)
+
+      expand(ls : List %) : Stream S ==
+        st : Stream S := empty()
+        empty?(ls) => st
+
+        lb : List(Segment S) := []
+        while not(empty?(ls)) and hasHi first ls repeat
+            s  := first ls
+            ls := rest ls
+            ns := BY(SEGMENT(low(s), high(s)), incr s)$Segment(S)
+            lb := concat!(lb, ns)
+        if not(empty?(ls)) then
+            s := first ls
+            st : Stream S := stream(x +-> x + incr(s)::S, low(s))
+        else
+            st : Stream S := empty()
+        concat(construct expand(lb),  st)
+

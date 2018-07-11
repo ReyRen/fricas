@@ -1,0 +1,89 @@
+4518                (|MappingPackage3| A B C)
+|package|
+(((|MappingPackage3| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |curryRight|
+    ((|Mapping| |#3| |#1|) (|Mapping| |#3| |#1| |#2|) |#2|))
+   (SIGNATURE |curryLeft|
+    ((|Mapping| |#3| |#2|) (|Mapping| |#3| |#1| |#2|) |#1|))
+   (SIGNATURE |constantRight|
+    ((|Mapping| |#3| |#1| |#2|) (|Mapping| |#3| |#1|)))
+   (SIGNATURE |constantLeft|
+    ((|Mapping| |#3| |#1| |#2|) (|Mapping| |#3| |#2|)))
+   (SIGNATURE |twist| ((|Mapping| |#3| |#2| |#1|) (|Mapping| |#3| |#1| |#2|)))
+   (SIGNATURE *
+    ((|Mapping| |#3| |#1|) (|Mapping| |#3| |#2|) (|Mapping| |#2| |#1|))))
+  (|SetCategory|) (|SetCategory|) (|SetCategory|))
+ (T |MappingPackage3|))
+(CATEGORY |package|
+ (SIGNATURE |curryRight|
+  ((|Mapping| |#3| |#1|) (|Mapping| |#3| |#1| |#2|) |#2|))
+ (SIGNATURE |curryLeft|
+  ((|Mapping| |#3| |#2|) (|Mapping| |#3| |#1| |#2|) |#1|))
+ (SIGNATURE |constantRight| ((|Mapping| |#3| |#1| |#2|) (|Mapping| |#3| |#1|)))
+ (SIGNATURE |constantLeft| ((|Mapping| |#3| |#1| |#2|) (|Mapping| |#3| |#2|)))
+ (SIGNATURE |twist| ((|Mapping| |#3| |#2| |#1|) (|Mapping| |#3| |#1| |#2|)))
+ (SIGNATURE *
+  ((|Mapping| |#3| |#1|) (|Mapping| |#3| |#2|) (|Mapping| |#2| |#1|))))
+"/git/fricas/src/algebra/MAPPKG3.spad"
+((* (*1 *2 *3 *4)
+    (AND (|isDomain| *3 (|Mapping| *7 *6)) (|isDomain| *4 (|Mapping| *6 *5))
+         (|ofCategory| *5 (|SetCategory|)) (|ofCategory| *6 (|SetCategory|))
+         (|ofCategory| *7 (|SetCategory|)) (|isDomain| *2 (|Mapping| *7 *5))
+         (|isDomain| *1 (|MappingPackage3| *5 *6 *7))))
+ (|twist| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Mapping| *6 *4 *5)) (|ofCategory| *4 (|SetCategory|))
+       (|ofCategory| *5 (|SetCategory|)) (|ofCategory| *6 (|SetCategory|))
+       (|isDomain| *2 (|Mapping| *6 *5 *4))
+       (|isDomain| *1 (|MappingPackage3| *4 *5 *6))))
+ (|constantLeft| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Mapping| *6 *5)) (|ofCategory| *5 (|SetCategory|))
+       (|ofCategory| *6 (|SetCategory|)) (|isDomain| *2 (|Mapping| *6 *4 *5))
+       (|isDomain| *1 (|MappingPackage3| *4 *5 *6))
+       (|ofCategory| *4 (|SetCategory|))))
+ (|constantRight| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Mapping| *6 *4)) (|ofCategory| *4 (|SetCategory|))
+       (|ofCategory| *6 (|SetCategory|)) (|isDomain| *2 (|Mapping| *6 *4 *5))
+       (|isDomain| *1 (|MappingPackage3| *4 *5 *6))
+       (|ofCategory| *5 (|SetCategory|))))
+ (|curryLeft| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *6 *4 *5)) (|ofCategory| *4 (|SetCategory|))
+       (|ofCategory| *5 (|SetCategory|)) (|ofCategory| *6 (|SetCategory|))
+       (|isDomain| *2 (|Mapping| *6 *5))
+       (|isDomain| *1 (|MappingPackage3| *4 *5 *6))))
+ (|curryRight| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *6 *5 *4)) (|ofCategory| *5 (|SetCategory|))
+       (|ofCategory| *4 (|SetCategory|)) (|ofCategory| *6 (|SetCategory|))
+       (|isDomain| *2 (|Mapping| *6 *5))
+       (|isDomain| *1 (|MappingPackage3| *5 *4 *6)))))
+((|twist| (((|Mapping| |#3| |#2| |#1|) (|Mapping| |#3| |#1| |#2|)) 17))
+ (|curryRight| (((|Mapping| |#3| |#1|) (|Mapping| |#3| |#1| |#2|) |#2|) 11))
+ (|curryLeft| (((|Mapping| |#3| |#2|) (|Mapping| |#3| |#1| |#2|) |#1|) 13))
+ (|constantRight| (((|Mapping| |#3| |#1| |#2|) (|Mapping| |#3| |#1|)) 14))
+ (|constantLeft| (((|Mapping| |#3| |#1| |#2|) (|Mapping| |#3| |#2|)) 15))
+ (* (((|Mapping| |#3| |#1|) (|Mapping| |#3| |#2|) (|Mapping| |#2| |#1|)) 21)))
+MAPPKG3
+((|constructor| (NIL "various Currying operations."))
+ (*
+  (((|Mapping| |#3| |#1|) (|Mapping| |#3| |#2|) (|Mapping| |#2| |#1|))
+   "\\spad{f*g} is the function \\spad{h} \\indented{1}{such that \\spad{h x= f(g x)}.}"))
+ (|twist|
+  (((|Mapping| |#3| |#2| |#1|) (|Mapping| |#3| |#1| |#2|))
+   "\\spad{twist(f)} is the function \\spad{g} \\indented{1}{such that \\spad{g (a,{} b)= f(b,{} a)}.}"))
+ (|constantLeft|
+  (((|Mapping| |#3| |#1| |#2|) (|Mapping| |#3| |#2|))
+   "\\spad{constantLeft(f)} is the function \\spad{g} \\indented{1}{such that \\spad{g (a,{} b)= f b}.}"))
+ (|constantRight|
+  (((|Mapping| |#3| |#1| |#2|) (|Mapping| |#3| |#1|))
+   "\\spad{constantRight(f)} is the function \\spad{g} \\indented{1}{such that \\spad{g (a,{} b)= f a}.}"))
+ (|curryLeft|
+  (((|Mapping| |#3| |#2|) (|Mapping| |#3| |#1| |#2|) |#1|)
+   "\\spad{curryLeft(f,{} a)} is the function \\spad{g} \\indented{1}{such that \\spad{g b = f(a,{} b)}.}"))
+ (|curryRight|
+  (((|Mapping| |#3| |#1|) (|Mapping| |#3| |#1| |#2|) |#2|)
+   "\\spad{curryRight(f,{} b)} is the function \\spad{g} such that \\indented{1}{\\spad{g a = f(a,{} b)}.}")))
+(("documentation" 0 3398) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3390) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2937) ("modemaps" 0 1253) ("sourceFile" 0 1214)
+ ("constructorCategory" 0 705) ("constructorModemap" 0 56)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))

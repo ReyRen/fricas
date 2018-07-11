@@ -1,0 +1,55 @@
+2458                (|Field&| S)
+|domain|
+(((|Field&| |#1|)
+  (CATEGORY |domain| (SIGNATURE / (|#1| |#1| |#1|))
+   (SIGNATURE |inv| (|#1| |#1|)) (SIGNATURE |prime?| ((|Boolean|) |#1|))
+   (SIGNATURE |squareFree| ((|Factored| |#1|) |#1|))
+   (SIGNATURE |factor| ((|Factored| |#1|) |#1|))
+   (SIGNATURE |divide|
+    ((|Record| (|:| |quotient| |#1|) (|:| |remainder| |#1|)) |#1| |#1|))
+   (SIGNATURE |euclideanSize| ((|NonNegativeInteger|) |#1|))
+   (SIGNATURE |gcd| (|#1| (|List| |#1|))) (SIGNATURE |gcd| (|#1| |#1| |#1|))
+   (SIGNATURE |exquo| ((|Union| |#1| "failed") |#1| |#1|))
+   (SIGNATURE |unitNormal|
+    ((|Record| (|:| |unit| |#1|) (|:| |canonical| |#1|) (|:| |associate| |#1|))
+     |#1|))
+   (SIGNATURE |unitCanonical| (|#1| |#1|))
+   (SIGNATURE |associates?| ((|Boolean|) |#1| |#1|)))
+  (|Field|))
+ (T |Field&|))
+(CATEGORY |domain| (SIGNATURE / (|#1| |#1| |#1|)) (SIGNATURE |inv| (|#1| |#1|))
+ (SIGNATURE |prime?| ((|Boolean|) |#1|))
+ (SIGNATURE |squareFree| ((|Factored| |#1|) |#1|))
+ (SIGNATURE |factor| ((|Factored| |#1|) |#1|))
+ (SIGNATURE |divide|
+  ((|Record| (|:| |quotient| |#1|) (|:| |remainder| |#1|)) |#1| |#1|))
+ (SIGNATURE |euclideanSize| ((|NonNegativeInteger|) |#1|))
+ (SIGNATURE |gcd| (|#1| (|List| |#1|))) (SIGNATURE |gcd| (|#1| |#1| |#1|))
+ (SIGNATURE |exquo| ((|Union| |#1| "failed") |#1| |#1|))
+ (SIGNATURE |unitNormal|
+  ((|Record| (|:| |unit| |#1|) (|:| |canonical| |#1|) (|:| |associate| |#1|))
+   |#1|))
+ (SIGNATURE |unitCanonical| (|#1| |#1|))
+ (SIGNATURE |associates?| ((|Boolean|) |#1| |#1|)))
+"/git/fricas/src/algebra/FIELD.spad"
+((|unitNormal|
+  (((|Record| (|:| |unit| $) (|:| |canonical| $) (|:| |associate| $)) $) 13))
+ (|unitCanonical| (($ $) 14)) (|squareFree| (((|Factored| $) $) 29))
+ (|prime?| (((|Boolean|) $) 25)) (|inv| (($ $) 18))
+ (|gcd| (($ $ $) 22) (($ (|List| $)) NIL)) (|factor| (((|Factored| $) $) 30))
+ (|exquo| (((|Union| $ "failed") $ $) 21))
+ (|euclideanSize| (((|NonNegativeInteger|) $) 24))
+ (|divide| (((|Record| (|:| |quotient| $) (|:| |remainder| $)) $ $) 34))
+ (|associates?| (((|Boolean|) $ $) 15)) (/ (($ $ $) 32)))
+FIELD-
+((|constructor|
+  (NIL
+   "The category of commutative fields,{} \\spadignore{i.e.} commutative rings where all non-zero elements have multiplicative inverses. The \\spadfun{factor} operation while trivial is useful to have defined. \\blankline"))
+ (/
+  (($ $ $)
+   "\\spad{x/y} divides the element \\spad{x} by the element \\spad{y}. Error: if \\spad{y} is 0.")))
+(("documentation" 0 2093) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2086) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1569) ("modemaps" 0 NIL) ("sourceFile" 0 1532)
+ ("constructorCategory" 0 824) ("constructorModemap" 0 42)
+ ("constructorKind" 0 33) ("constructorForm" 0 20))

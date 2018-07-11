@@ -1,0 +1,51 @@
+2545                (|PartialFractionPackage| R)
+|package|
+(((|PartialFractionPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |partialFraction|
+    ((|Any|) (|Fraction| (|Polynomial| |#1|)) (|Symbol|)))
+   (SIGNATURE |partialFraction|
+    ((|Any|) (|Polynomial| |#1|) (|Factored| (|Polynomial| |#1|)) (|Symbol|))))
+  (|Join| (|EuclideanDomain|) (|PolynomialFactorizationExplicit|)
+          (|CharacteristicZero|)))
+ (T |PartialFractionPackage|))
+(CATEGORY |package|
+ (SIGNATURE |partialFraction|
+  ((|Any|) (|Fraction| (|Polynomial| |#1|)) (|Symbol|)))
+ (SIGNATURE |partialFraction|
+  ((|Any|) (|Polynomial| |#1|) (|Factored| (|Polynomial| |#1|)) (|Symbol|))))
+"/git/fricas/src/algebra/PFRPAC.spad"
+((|partialFraction| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *4 (|Factored| (|Polynomial| *6)))
+       (|isDomain| *5 (|Symbol|)) (|isDomain| *3 (|Polynomial| *6))
+       (|ofCategory| *6
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|isDomain| *2 (|Any|)) (|isDomain| *1 (|PartialFractionPackage| *6))))
+ (|partialFraction| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| *5)))
+       (|isDomain| *4 (|Symbol|))
+       (|ofCategory| *5
+                     (|Join| (|EuclideanDomain|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|CharacteristicZero|)))
+       (|isDomain| *2 (|Any|)) (|isDomain| *1 (|PartialFractionPackage| *5)))))
+((|partialFraction|
+  (((|Any|) (|Polynomial| |#1|) (|Factored| (|Polynomial| |#1|)) (|Symbol|))
+   16)
+  (((|Any|) (|Fraction| (|Polynomial| |#1|)) (|Symbol|)) 17)))
+PFRPAC
+((|constructor|
+  (NIL
+   "The package \\spadtype{PartialFractionPackage} gives an easier to use interface to \\spadtype{PartialFraction}. The user gives a fraction of polynomials,{} and a variable and the package converts it to the proper datatype for the \\spadtype{PartialFraction} domain."))
+ (|partialFraction|
+  (((|Any|) (|Polynomial| |#1|) (|Factored| (|Polynomial| |#1|)) (|Symbol|))
+   "\\spad{partialFraction(num,{} facdenom,{} var)} returns the partial fraction decomposition of the rational function whose numerator is \\spad{num} and whose factored denominator is \\spad{facdenom} with respect to the variable var.")
+  (((|Any|) (|Fraction| (|Polynomial| |#1|)) (|Symbol|))
+   "\\spad{partialFraction(rf,{} var)} returns the partial fraction decomposition of the rational function \\spad{rf} with respect to the variable var.")))
+(("documentation" 0 1701) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1694) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1527) ("modemaps" 0 703) ("sourceFile" 0 665)
+ ("constructorCategory" 0 450) ("constructorModemap" 0 59)
+ ("constructorKind" 0 49) ("constructorForm" 0 20))

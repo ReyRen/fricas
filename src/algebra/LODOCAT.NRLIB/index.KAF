@@ -1,0 +1,500 @@
+22752               (|LinearOrdinaryDifferentialOperatorCategory| A)
+|category|
+(((|LinearOrdinaryDifferentialOperatorCategory| |#1|) (|Category|) (|Ring|))
+ (T |LinearOrdinaryDifferentialOperatorCategory|))
+(|Join| (|UnivariateSkewPolynomialCategory| |t#1|) (|Eltable| |t#1| |t#1|)
+        (CATEGORY |domain| (SIGNATURE D ($)) (SIGNATURE |adjoint| ($ $))
+         (IF (|has| |t#1| (|Field|))
+             (PROGN
+              (SIGNATURE |symmetricProduct| ($ $ $))
+              (SIGNATURE |symmetricPower| ($ $ (|NonNegativeInteger|)))
+              (SIGNATURE |symmetricSquare| ($ $))
+              (SIGNATURE |directSum| ($ $ $)))
+             |noBranch|)))
+"/git/fricas/src/algebra/LODOCAT.spad"
+((D (*1 *1)
+  (AND (|ofCategory| *1 (|LinearOrdinaryDifferentialOperatorCategory| *2))
+       (|ofCategory| *2 (|Ring|))))
+ (|adjoint| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|LinearOrdinaryDifferentialOperatorCategory| *2))
+       (|ofCategory| *2 (|Ring|))))
+ (|symmetricProduct| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|LinearOrdinaryDifferentialOperatorCategory| *2))
+       (|ofCategory| *2 (|Ring|)) (|ofCategory| *2 (|Field|))))
+ (|symmetricPower| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|NonNegativeInteger|))
+       (|ofCategory| *1 (|LinearOrdinaryDifferentialOperatorCategory| *3))
+       (|ofCategory| *3 (|Ring|)) (|ofCategory| *3 (|Field|))))
+ (|symmetricSquare| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|LinearOrdinaryDifferentialOperatorCategory| *2))
+       (|ofCategory| *2 (|Ring|)) (|ofCategory| *2 (|Field|))))
+ (|directSum| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|LinearOrdinaryDifferentialOperatorCategory| *2))
+       (|ofCategory| *2 (|Ring|)) (|ofCategory| *2 (|Field|)))))
+((~= (((|Boolean|) $ $) 6))
+ (|zero?|
+  (((|Boolean|) $) 6
+   (OR
+    (AND (|has| |#1| (|CommutativeRing|))
+         (|has| $ (|VariablesCommuteWithCoefficients|)))
+    (AND (|has| |#1| (|IntegralDomain|))
+         (|has| $ (|VariablesCommuteWithCoefficients|)))
+    (|has| |#1| (|AbelianMonoid|)) (|has| $ (|AbelianMonoid|)))))
+ (|variables| (((|List| (|SingletonAsOrderedSet|)) $) 6))
+ (|unitNormal|
+  (((|Record| (|:| |unit| $) (|:| |canonical| $) (|:| |associate| $)) $) 6
+   (OR (|has| |#1| (|EntireRing|))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|unitCanonical|
+  (($ $) 6
+   (OR (|has| |#1| (|EntireRing|))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|unit?|
+  (((|Boolean|) $) 6
+   (OR (|has| |#1| (|EntireRing|))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|totalDegreeSorted|
+  (((|NonNegativeInteger|) $ (|List| (|SingletonAsOrderedSet|))) 6))
+ (|totalDegree| (((|NonNegativeInteger|) $) 6)
+  (((|NonNegativeInteger|) $ (|List| (|SingletonAsOrderedSet|))) 6))
+ (|symmetricSquare| (($ $) 6 (|has| |#1| (|Field|))))
+ (|symmetricProduct| (($ $ $) 6 (|has| |#1| (|Field|))))
+ (|symmetricPower| (($ $ (|NonNegativeInteger|)) 6 (|has| |#1| (|Field|))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) 6
+   (OR (|has| |#1| (|CancellationAbelianMonoid|))
+       (|and| (OR (|has| $ (|AbelianGroup|)) (|has| $ (|AbelianGroup|)))
+        (|has| |#1| (|SemiRing|)))
+       (AND (|has| |#1| (|CommutativeRing|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (|has| $ (|AbelianGroup|)))))
+ (|smaller?| (((|Boolean|) $ $) 6 (|has| |#1| (|Comparable|))))
+ (|sample|
+  (($) 6
+   (OR
+    (AND (|has| |#1| (|CommutativeRing|))
+         (|has| $ (|VariablesCommuteWithCoefficients|)))
+    (AND (|has| |#1| (|IntegralDomain|))
+         (|has| $ (|VariablesCommuteWithCoefficients|)))
+    (|has| |#1| (|AbelianMonoid|)) (|has| $ (|AbelianMonoid|)))
+   CONST))
+ (|right_ext_ext_GCD|
+  (((|Record| (|:| |generator| $) (|:| |coef1| $) (|:| |coef2| $)
+              (|:| |coefu| $) (|:| |coefv| $))
+    $ $)
+   6 (|has| |#1| (|Field|))))
+ (|rightRemainder| (($ $ $) 6 (|has| |#1| (|Field|))))
+ (|rightRecip|
+  (((|Union| $ #1="failed") $) 6
+   (OR (|has| |#1| (|SemiRing|))
+       (AND (|has| |#1| (|CommutativeRing|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|rightQuotient| (($ $ $) 6 (|has| |#1| (|Field|))))
+ (|rightPower| (($ $ (|PositiveInteger|)) 6)
+  (($ $ (|NonNegativeInteger|)) 6
+   (OR (|has| |#1| (|SemiRing|))
+       (AND (|has| |#1| (|CommutativeRing|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|rightLcm| (($ $ $) 6 (|has| |#1| (|Field|))))
+ (|rightGcd| (($ $ $) 6 (|has| |#1| (|Field|))))
+ (|rightExtendedGcd|
+  (((|Record| (|:| |coef1| $) (|:| |coef2| $) (|:| |generator| $)) $ $) 6
+   (|has| |#1| (|Field|))))
+ (|rightExactQuotient|
+  (((|Union| $ #2="failed") $ $) 6 (|has| |#1| (|Field|))))
+ (|rightDivide|
+  (((|Record| (|:| |quotient| $) (|:| |remainder| $)) $ $) 6
+   (|has| |#1| (|Field|))))
+ (|retractIfCan|
+  (((|Union| (|Integer|) #3="failed") $) 6
+   (|has| |#1| (|RetractableTo| (|Integer|))))
+  (((|Union| (|Fraction| (|Integer|)) #3#) $) 6
+   (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|)))))
+  (((|Union| |#1| #3#) $) 6))
+ (|retract| (((|Integer|) $) 6 (|has| |#1| (|RetractableTo| (|Integer|))))
+            (((|Fraction| (|Integer|)) $) 6
+             (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|)))))
+            ((|#1| $) 6))
+ (|reductum| (($ $) 6))
+ (|reducedSystem|
+  (((|Matrix| (|Integer|)) (|Matrix| $)) 6
+   (|and| (|has| |#1| (|LinearlyExplicitOver| (|Integer|)))
+    (|has| |#1| (|Ring|))))
+  (((|Record| (|:| |mat| (|Matrix| (|Integer|)))
+              (|:| |vec| (|Vector| (|Integer|))))
+    (|Matrix| $) (|Vector| $))
+   6
+   (|and| (|has| |#1| (|LinearlyExplicitOver| (|Integer|)))
+    (|has| |#1| (|Ring|))))
+  (((|Record| (|:| |mat| (|Matrix| |#1|)) (|:| |vec| (|Vector| |#1|)))
+    (|Matrix| $) (|Vector| $))
+   6 (|has| |#1| (|Ring|)))
+  (((|Matrix| |#1|) (|Matrix| $)) 6 (|has| |#1| (|Ring|))))
+ (|recip|
+  (((|Union| $ #1#) $) 6
+   (OR (|has| |#1| (|SemiRing|))
+       (AND (|has| |#1| (|CommutativeRing|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|primitivePart| (($ $) 6 (|has| |#1| (|GcdDomain|))))
+ (|primitiveMonomials| (((|List| $) $) 6 (|has| |#1| (|SemiRing|))))
+ (|pomopo!| (($ $ |#1| (|NonNegativeInteger|) $) 6))
+ (|opposite?|
+  (((|Boolean|) $ $) 6
+   (OR
+    (AND (|has| |#1| (|CommutativeRing|))
+         (|has| $ (|VariablesCommuteWithCoefficients|)))
+    (AND (|has| |#1| (|IntegralDomain|))
+         (|has| $ (|VariablesCommuteWithCoefficients|)))
+    (|has| |#1| (|AbelianMonoid|)) (|has| $ (|AbelianMonoid|)))))
+ (|one?|
+  (((|Boolean|) $) 6
+   (OR (|has| |#1| (|SemiRing|))
+       (AND (|has| |#1| (|CommutativeRing|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|numberOfMonomials| (((|NonNegativeInteger|) $) 6))
+ (|monomials| (((|List| $) $) 6)) (|monomial?| (((|Boolean|) $) 6))
+ (|monomial| (($ |#1| (|NonNegativeInteger|)) 6)
+  (($ $ (|SingletonAsOrderedSet|) (|NonNegativeInteger|)) 6)
+  (($ $ (|List| (|SingletonAsOrderedSet|)) (|List| (|NonNegativeInteger|))) 6))
+ (|monicRightDivide|
+  (((|Record| (|:| |quotient| $) (|:| |remainder| $)) $ $) 6
+   (|has| |#1| (|IntegralDomain|))))
+ (|monicLeftDivide|
+  (((|Record| (|:| |quotient| $) (|:| |remainder| $)) $ $) 6
+   (|has| |#1| (|IntegralDomain|))))
+ (|minimumDegree| (((|NonNegativeInteger|) $) 6))
+ (|mapExponents|
+  (($ (|Mapping| (|NonNegativeInteger|) (|NonNegativeInteger|)) $) 6))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|mainVariable| (((|Union| (|SingletonAsOrderedSet|) "failed") $) 6))
+ (|leftRemainder| (($ $ $) 6 (|has| |#1| (|Field|))))
+ (|leftRecip|
+  (((|Union| $ #1#) $) 6
+   (OR (|has| |#1| (|SemiRing|))
+       (AND (|has| |#1| (|CommutativeRing|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|leftQuotient| (($ $ $) 6 (|has| |#1| (|Field|))))
+ (|leftPower| (($ $ (|PositiveInteger|)) 6)
+  (($ $ (|NonNegativeInteger|)) 6
+   (OR (|has| |#1| (|SemiRing|))
+       (AND (|has| |#1| (|CommutativeRing|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|leftLcm| (($ $ $) 6 (|has| |#1| (|Field|))))
+ (|leftGcd| (($ $ $) 6 (|has| |#1| (|Field|))))
+ (|leftExtendedGcd|
+  (((|Record| (|:| |coef1| $) (|:| |coef2| $) (|:| |generator| $)) $ $) 6
+   (|has| |#1| (|Field|))))
+ (|leftExactQuotient| (((|Union| $ #2#) $ $) 6 (|has| |#1| (|Field|))))
+ (|leftDivide|
+  (((|Record| (|:| |quotient| $) (|:| |remainder| $)) $ $) 6
+   (|has| |#1| (|Field|))))
+ (|leadingMonomial| (($ $) 6)) (|leadingCoefficient| ((|#1| $) 6))
+ (|latex| (((|String|) $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|ground?| (((|Boolean|) $) 6))
+ (|ground| ((|#1| $) 6))
+ (|fmecg| (($ $ (|NonNegativeInteger|) |#1| $) 6 (|has| |#1| (|Ring|))))
+ (|exquo|
+  (((|Union| $ "failed") $ $) 6
+   (OR (|has| |#1| (|EntireRing|))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))))
+  (((|Union| $ #2#) $ |#1|) 6 (|has| |#1| (|EntireRing|))))
+ (|elt| ((|#1| $ |#1|) 6)) (|directSum| (($ $ $) 6 (|has| |#1| (|Field|))))
+ (|degree| (((|NonNegativeInteger|) $) 6)
+  (((|NonNegativeInteger|) $ (|SingletonAsOrderedSet|)) 6)
+  (((|List| (|NonNegativeInteger|)) $ (|List| (|SingletonAsOrderedSet|))) 6))
+ (|content| ((|#1| $) 6 (|has| |#1| (|GcdDomain|))))
+ (|commutator|
+  (($ $ $) 6
+   (OR (|has| |#1| (|Ring|))
+       (AND (|has| |#1| (|CommutativeRing|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|coerce| (((|OutputForm|) $) 6)
+           (($ $) 6
+            (OR
+             (AND (|has| |#1| (|CommutativeRing|))
+                  (|has| $ (|VariablesCommuteWithCoefficients|)))
+             (AND (|has| |#1| (|IntegralDomain|))
+                  (|has| $ (|VariablesCommuteWithCoefficients|)))))
+           (($ (|Fraction| (|Integer|))) 6
+            (OR (|has| |#1| (|RetractableTo| (|Fraction| (|Integer|))))
+                (|has| |#1| (|Algebra| (|Fraction| (|Integer|))))))
+           (($ |#1|) 6)
+           (($ (|Integer|)) 6
+            (OR (|has| |#1| (|RetractableTo| (|Integer|)))
+                (|has| |#1| (|Ring|))
+                (AND (|has| |#1| (|CommutativeRing|))
+                     (|has| $ (|VariablesCommuteWithCoefficients|)))
+                (AND (|has| |#1| (|IntegralDomain|))
+                     (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|coefficients| (((|List| |#1|) $) 6))
+ (|coefficient| ((|#1| $ (|NonNegativeInteger|)) 6)
+  (($ $ (|SingletonAsOrderedSet|) (|NonNegativeInteger|)) 6)
+  (($ $ (|List| (|SingletonAsOrderedSet|)) (|List| (|NonNegativeInteger|))) 6))
+ (|charthRoot|
+  (((|Union| $ "failed") $) 6 (|has| |#1| (|CharacteristicNonZero|))))
+ (|characteristic|
+  (((|NonNegativeInteger|)) 6
+   (OR (|has| |#1| (|Ring|))
+       (AND (|has| |#1| (|CommutativeRing|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|binomThmExpt|
+  (($ $ $ (|NonNegativeInteger|)) 6 (|has| $ (|CommutativeRing|))))
+ (|associator|
+  (($ $ $ $) 6
+   (OR (|has| |#1| (|Ring|))
+       (AND (|has| |#1| (|CommutativeRing|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|associates?|
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|EntireRing|))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|apply| ((|#1| $ |#1| |#1|) 6)) (|antiCommutator| (($ $ $) 6))
+ (|annihilate?|
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|Ring|))
+       (AND (|has| |#1| (|CommutativeRing|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|adjoint| (($ $) 6))
+ (^ (($ $ (|PositiveInteger|)) 6)
+  (($ $ (|NonNegativeInteger|)) 6
+   (OR (|has| |#1| (|SemiRing|))
+       (AND (|has| |#1| (|CommutativeRing|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))))
+ (|Zero|
+  (($) 6
+   (OR
+    (AND (|has| |#1| (|CommutativeRing|))
+         (|has| $ (|VariablesCommuteWithCoefficients|)))
+    (AND (|has| |#1| (|IntegralDomain|))
+         (|has| $ (|VariablesCommuteWithCoefficients|)))
+    (|has| |#1| (|AbelianMonoid|)) (|has| $ (|AbelianMonoid|)))
+   CONST))
+ (|One|
+  (($) 6
+   (OR (|has| |#1| (|SemiRing|))
+       (AND (|has| |#1| (|CommutativeRing|))
+            (|has| $ (|VariablesCommuteWithCoefficients|)))
+       (AND (|has| |#1| (|IntegralDomain|))
+            (|has| $ (|VariablesCommuteWithCoefficients|))))
+   CONST))
+ (D (($) 6)) (= (((|Boolean|) $ $) 6))
+ (/ (($ $ |#1|) 6 (|has| |#1| (|Field|))))
+ (-
+  (($ $) 6
+   (OR
+    (|and| (OR (|has| $ (|AbelianGroup|)) (|has| $ (|AbelianGroup|)))
+     (|has| |#1| (|SemiRing|)))
+    (AND (|has| |#1| (|CommutativeRing|))
+         (|has| $ (|VariablesCommuteWithCoefficients|)))
+    (AND (|has| |#1| (|IntegralDomain|))
+         (|has| $ (|VariablesCommuteWithCoefficients|)))
+    (|has| |#1| (|AbelianGroup|)) (|has| $ (|AbelianGroup|))))
+  (($ $ $) 6
+   (OR
+    (|and| (OR (|has| $ (|AbelianGroup|)) (|has| $ (|AbelianGroup|)))
+     (|has| |#1| (|SemiRing|)))
+    (AND (|has| |#1| (|CommutativeRing|))
+         (|has| $ (|VariablesCommuteWithCoefficients|)))
+    (AND (|has| |#1| (|IntegralDomain|))
+         (|has| $ (|VariablesCommuteWithCoefficients|)))
+    (|has| |#1| (|AbelianGroup|)) (|has| $ (|AbelianGroup|)))))
+ (+ (($ $ $) 6))
+ (* (($ (|PositiveInteger|) $) 6) (($ $ $) 6) (($ $ |#1|) 6) (($ |#1| $) 6)
+    (($ (|Fraction| (|Integer|)) $) 6
+     (|has| |#1| (|Algebra| (|Fraction| (|Integer|)))))
+    (($ $ (|Fraction| (|Integer|))) 6
+     (|has| |#1| (|Algebra| (|Fraction| (|Integer|)))))
+    (($ (|NonNegativeInteger|) $) 6
+     (OR
+      (AND (|has| |#1| (|CommutativeRing|))
+           (|has| $ (|VariablesCommuteWithCoefficients|)))
+      (AND (|has| |#1| (|IntegralDomain|))
+           (|has| $ (|VariablesCommuteWithCoefficients|)))
+      (|has| |#1| (|AbelianMonoid|)) (|has| $ (|AbelianMonoid|))))
+    (($ (|Integer|) $) 6
+     (OR
+      (|and| (OR (|has| $ (|AbelianGroup|)) (|has| $ (|AbelianGroup|)))
+       (|has| |#1| (|SemiRing|)))
+      (AND (|has| |#1| (|CommutativeRing|))
+           (|has| $ (|VariablesCommuteWithCoefficients|)))
+      (AND (|has| |#1| (|IntegralDomain|))
+           (|has| $ (|VariablesCommuteWithCoefficients|)))
+      (|has| |#1| (|AbelianGroup|)) (|has| $ (|AbelianGroup|))))))
+LODOCAT
+(((|UnivariateSkewPolynomialCategory| |#1|) . T) ((|Eltable| |#1| |#1|) . T))
+(((|AbelianGroup|) OR
+  (AND (|has| |t#1| (|LinearlyExplicitOver| (|Integer|)))
+       (|has| |t#1| (|Ring|)))
+  (|has| |t#1| (|AbelianGroup|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|AbelianMonoid|) OR
+  (AND (|has| |t#1| (|LinearlyExplicitOver| (|Integer|)))
+       (|has| |t#1| (|Ring|)))
+  (|has| |t#1| (|AbelianMonoid|))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|SemiRing|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|AbelianMonoidRing| |t#1| |t#2|) . T) ((|AbelianSemiGroup|) . T)
+ ((|Algebra| (|Fraction| (|Integer|))) |has| |t#1|
+  (|Algebra| (|Fraction| (|Integer|))))
+ ((|Algebra| $) OR
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|Algebra| |t#1|) |has| |t#1| (|CommutativeRing|)) ((|BasicType|) . T)
+ ((|BiModule| |t#1| |t#1|) . T) ((|BiModule| $ $) . T)
+ ((|CancellationAbelianMonoid|) OR
+  (AND (|has| |t#1| (|LinearlyExplicitOver| (|Integer|)))
+       (|has| |t#1| (|Ring|)))
+  (|has| |t#1| (|CancellationAbelianMonoid|))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|SemiRing|)))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|Ring|)))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|EntireRing|)))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|CommutativeRing|)))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|CharacteristicZero|)))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|CharacteristicNonZero|)))
+  (AND (|has| |t#1| (|AbelianGroup|))
+       (|has| |t#1| (|Algebra| (|Fraction| (|Integer|)))))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|CharacteristicNonZero|) |has| |t#1| (|CharacteristicNonZero|))
+ ((|CharacteristicZero|) |has| |t#1| (|CharacteristicZero|))
+ ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|CommutativeRing|) OR
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|CommutativeStar|) OR
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|Comparable|) |has| |t#1| (|Comparable|)) ((|Eltable| |#1| |#1|) . T)
+ ((|EntireRing|) OR (|has| |t#1| (|EntireRing|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|FiniteAbelianMonoidRing| |t#1| |t#2|) . T)
+ ((|FullyLinearlyExplicitOver| |t#1|) |has| |t#1| (|Ring|))
+ ((|FullyRetractableTo| |t#1|) . T)
+ ((|IntegralDomain|) AND (|has| $ (|VariablesCommuteWithCoefficients|))
+  (|has| |t#1| (|IntegralDomain|)))
+ ((|LeftModule| |t#1|) . T)
+ ((|LinearlyExplicitOver| (|Integer|)) AND
+  (|has| |t#1| (|LinearlyExplicitOver| (|Integer|))) (|has| |t#1| (|Ring|)))
+ ((|LinearlyExplicitOver| |t#1|) |has| |t#1| (|Ring|)) ((|Magma|) . T)
+ ((|MagmaWithUnit|) OR (|has| |t#1| (|SemiRing|))
+  (AND (|has| |t#1| (|LinearlyExplicitOver| (|Integer|)))
+       (|has| |t#1| (|Ring|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|MaybeSkewPolynomialCategory| |t#1| (|NonNegativeInteger|)
+                                 (|SingletonAsOrderedSet|))
+  . T)
+ ((|Module| |t#1|) OR (|has| |t#1| (|CommutativeRing|))
+  (|has| |t#1| (|Algebra| (|Fraction| (|Integer|))))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|Monoid|) OR (|has| |t#1| (|SemiRing|))
+  (AND (|has| |t#1| (|LinearlyExplicitOver| (|Integer|)))
+       (|has| |t#1| (|Ring|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|NonAssociativeRing|) OR (|has| |t#1| (|Ring|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|NonAssociativeRng|) OR (|has| |t#1| (|Ring|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|NonAssociativeSemiRing|) OR (|has| |t#1| (|SemiRing|))
+  (AND (|has| |t#1| (|LinearlyExplicitOver| (|Integer|)))
+       (|has| |t#1| (|Ring|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|NonAssociativeSemiRng|) . T)
+ ((|RetractableTo| (|Fraction| (|Integer|))) |has| |t#1|
+  (|RetractableTo| (|Fraction| (|Integer|))))
+ ((|RetractableTo| (|Integer|)) |has| |t#1| (|RetractableTo| (|Integer|)))
+ ((|RetractableTo| |t#1|) . T) ((|RightModule| |t#2|) . T)
+ ((|Ring|) OR (|has| |t#1| (|Ring|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|Rng|) OR (|has| |t#1| (|Ring|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|SemiGroup|) . T)
+ ((|SemiRing|) OR (|has| |t#1| (|SemiRing|))
+  (AND (|has| |t#1| (|LinearlyExplicitOver| (|Integer|)))
+       (|has| |t#1| (|Ring|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|SemiRng|) . T) ((|SetCategory|) . T)
+ ((|TwoSidedRecip|) OR
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|CommutativeRing|))))
+ ((|UnivariateSkewPolynomialCategory| |#1|) . T)
+ ((|canonicalUnitNormal|) |has| |t#1| (|canonicalUnitNormal|))
+ ((|noZeroDivisors|) OR (|has| |t#1| (|EntireRing|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|))))
+ ((|unitsKnown|) OR (|has| |t#1| (|Ring|))
+  (AND (|has| $ (|VariablesCommuteWithCoefficients|))
+       (|has| |t#1| (|IntegralDomain|)))))
+((|constructor|
+  (NIL
+   "\\spad{LinearOrdinaryDifferentialOperatorCategory} is the category of differential operators with coefficients in a ring A with a given derivation. Multiplication of operators corresponds to functional composition: \\indented{4}{\\spad{(L1 * L2).(f) = L1 L2 f}}"))
+ (|directSum|
+  (($ $ $)
+   "\\spad{directSum(a,{} b)} computes an operator \\spad{c} of minimal order such that the nullspace of \\spad{c} is generated by all the sums of a solution of \\spad{a} by a solution of \\spad{b}."))
+ (|symmetricSquare|
+  (($ $)
+   "\\spad{symmetricSquare(a)} computes \\spad{symmetricProduct(a,{} a)} using a more efficient method."))
+ (|symmetricPower|
+  (($ $ (|NonNegativeInteger|))
+   "\\spad{symmetricPower(a,{} n)} computes an operator \\spad{c} of minimal order such that the nullspace of \\spad{c} is generated by all the products of \\spad{n} solutions of \\spad{a}."))
+ (|symmetricProduct|
+  (($ $ $)
+   "\\spad{symmetricProduct(a,{} b)} computes an operator \\spad{c} of minimal order such that the nullspace of \\spad{c} is generated by all the products of a solution of \\spad{a} by a solution of \\spad{b}."))
+ (|adjoint| (($ $) "\\spad{adjoint(a)} returns the adjoint operator of a."))
+ (D
+  (($)
+   "\\spad{D()} provides the operator corresponding to a derivation in the ring \\spad{A}.")))
+(("documentation" 0 21425) ("ancestors" 0 15527) ("parents" 0 15449)
+ ("abbreviation" 0 15441) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1688) ("modemaps" 0 701) ("sourceFile" 0 662)
+ ("constructorCategory" 0 208) ("constructorModemap" 0 80)
+ ("constructorKind" 0 69) ("constructorForm" 0 20))

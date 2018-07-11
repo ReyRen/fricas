@@ -1,0 +1,413 @@
+17692               (|SystemODESolver| F LO)
+|package|
+(((|SystemODESolver| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |triangulate|
+    ((|Record| (|:| A (|Matrix| |#1|))
+               (|:| |eqs|
+                    (|List|
+                     (|Record| (|:| C (|Matrix| |#1|))
+                               (|:| |g| (|Vector| |#1|)) (|:| |eq| |#2|)
+                               (|:| |rh| |#1|)))))
+     (|Matrix| |#1|) (|Vector| |#1|)))
+   (SIGNATURE |triangulate|
+    ((|Record| (|:| A (|Matrix| |#1|))
+               (|:| |eqs|
+                    (|List|
+                     (|Record| (|:| C (|Matrix| |#1|))
+                               (|:| |lg| (|List| (|Vector| |#1|)))
+                               (|:| |eq| |#2|) (|:| |lrh| (|List| |#1|))))))
+     (|Matrix| |#1|) (|List| (|Vector| |#1|))))
+   (SIGNATURE |triangulate|
+    ((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#1|)))
+     (|Matrix| |#2|) (|Vector| |#1|)))
+   (SIGNATURE |triangulate|
+    ((|Record| (|:| |mat| (|Matrix| |#2|))
+               (|:| |vecs| (|List| (|Vector| |#1|))))
+     (|Matrix| |#2|) (|List| (|Vector| |#1|))))
+   (SIGNATURE |solve|
+    ((|Union|
+      (|Record| (|:| |particular| (|Vector| |#1|))
+                (|:| |basis| (|Matrix| |#1|)))
+      "failed")
+     (|Matrix| |#1|) (|Vector| |#1|)
+     (|Mapping|
+      (|Union| (|Record| (|:| |particular| |#1|) (|:| |basis| (|List| |#1|)))
+               "failed")
+      |#2| |#1|)))
+   (SIGNATURE |solve|
+    ((|Record|
+      (|:| |particular|
+           (|List|
+            (|Record| (|:| |ratpart| (|Vector| |#1|))
+                      (|:| |coeffs| (|Vector| |#1|)))))
+      (|:| |basis| (|List| (|Vector| |#1|))))
+     (|Matrix| |#1|) (|List| (|Vector| |#1|))
+     (|Mapping|
+      (|Record|
+       (|:| |particular|
+            (|List|
+             (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+       (|:| |basis| (|List| |#1|)))
+      |#2| (|List| |#1|))))
+   (SIGNATURE |solveInField|
+    ((|Record| (|:| |particular| (|Union| (|Vector| |#1|) "failed"))
+               (|:| |basis| (|List| (|Vector| |#1|))))
+     (|Matrix| |#2|) (|Vector| |#1|)
+     (|Mapping|
+      (|Record| (|:| |particular| (|Union| |#1| "failed"))
+                (|:| |basis| (|List| |#1|)))
+      |#2| |#1|)))
+   (SIGNATURE |solveInField|
+    ((|Record|
+      (|:| |particular|
+           (|List|
+            (|Record| (|:| |ratpart| (|Vector| |#1|))
+                      (|:| |coeffs| (|Vector| |#1|)))))
+      (|:| |basis| (|List| (|Vector| |#1|))))
+     (|Matrix| |#2|) (|List| (|Vector| |#1|))
+     (|Mapping|
+      (|Record|
+       (|:| |particular|
+            (|List|
+             (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+       (|:| |basis| (|List| |#1|)))
+      |#2| (|List| |#1|)))))
+  (|Field|) (|LinearOrdinaryDifferentialOperatorCategory| |#1|))
+ (T |SystemODESolver|))
+(CATEGORY |package|
+ (SIGNATURE |triangulate|
+  ((|Record| (|:| A (|Matrix| |#1|))
+             (|:| |eqs|
+                  (|List|
+                   (|Record| (|:| C (|Matrix| |#1|)) (|:| |g| (|Vector| |#1|))
+                             (|:| |eq| |#2|) (|:| |rh| |#1|)))))
+   (|Matrix| |#1|) (|Vector| |#1|)))
+ (SIGNATURE |triangulate|
+  ((|Record| (|:| A (|Matrix| |#1|))
+             (|:| |eqs|
+                  (|List|
+                   (|Record| (|:| C (|Matrix| |#1|))
+                             (|:| |lg| (|List| (|Vector| |#1|)))
+                             (|:| |eq| |#2|) (|:| |lrh| (|List| |#1|))))))
+   (|Matrix| |#1|) (|List| (|Vector| |#1|))))
+ (SIGNATURE |triangulate|
+  ((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#1|)))
+   (|Matrix| |#2|) (|Vector| |#1|)))
+ (SIGNATURE |triangulate|
+  ((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vecs| (|List| (|Vector| |#1|))))
+   (|Matrix| |#2|) (|List| (|Vector| |#1|))))
+ (SIGNATURE |solve|
+  ((|Union|
+    (|Record| (|:| |particular| (|Vector| |#1|)) (|:| |basis| (|Matrix| |#1|)))
+    "failed")
+   (|Matrix| |#1|) (|Vector| |#1|)
+   (|Mapping|
+    (|Union| (|Record| (|:| |particular| |#1|) (|:| |basis| (|List| |#1|)))
+             "failed")
+    |#2| |#1|)))
+ (SIGNATURE |solve|
+  ((|Record|
+    (|:| |particular|
+         (|List|
+          (|Record| (|:| |ratpart| (|Vector| |#1|))
+                    (|:| |coeffs| (|Vector| |#1|)))))
+    (|:| |basis| (|List| (|Vector| |#1|))))
+   (|Matrix| |#1|) (|List| (|Vector| |#1|))
+   (|Mapping|
+    (|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+     (|:| |basis| (|List| |#1|)))
+    |#2| (|List| |#1|))))
+ (SIGNATURE |solveInField|
+  ((|Record| (|:| |particular| (|Union| (|Vector| |#1|) "failed"))
+             (|:| |basis| (|List| (|Vector| |#1|))))
+   (|Matrix| |#2|) (|Vector| |#1|)
+   (|Mapping|
+    (|Record| (|:| |particular| (|Union| |#1| "failed"))
+              (|:| |basis| (|List| |#1|)))
+    |#2| |#1|)))
+ (SIGNATURE |solveInField|
+  ((|Record|
+    (|:| |particular|
+         (|List|
+          (|Record| (|:| |ratpart| (|Vector| |#1|))
+                    (|:| |coeffs| (|Vector| |#1|)))))
+    (|:| |basis| (|List| (|Vector| |#1|))))
+   (|Matrix| |#2|) (|List| (|Vector| |#1|))
+   (|Mapping|
+    (|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+     (|:| |basis| (|List| |#1|)))
+    |#2| (|List| |#1|)))))
+"/git/fricas/src/algebra/ODESYS.spad"
+((|solveInField| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Matrix| *7)) (|isDomain| *4 (|List| (|Vector| *6)))
+       (|isDomain| *5
+                   (|Mapping|
+                    (|Record|
+                     (|:| |particular|
+                          (|List|
+                           (|Record| (|:| |ratpart| *6)
+                                     (|:| |coeffs| (|Vector| *6)))))
+                     (|:| |basis| (|List| *6)))
+                    *7 (|List| *6)))
+       (|ofCategory| *6 (|Field|))
+       (|ofCategory| *7 (|LinearOrdinaryDifferentialOperatorCategory| *6))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular|
+                         (|List|
+                          (|Record| (|:| |ratpart| (|Vector| *6))
+                                    (|:| |coeffs| (|Vector| *6)))))
+                    (|:| |basis| (|List| (|Vector| *6)))))
+       (|isDomain| *1 (|SystemODESolver| *6 *7))))
+ (|solveInField| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Matrix| *7)) (|isDomain| *4 (|Vector| *6))
+       (|isDomain| *5
+                   (|Mapping|
+                    (|Record| (|:| |particular| (|Union| *6 "failed"))
+                              (|:| |basis| (|List| *6)))
+                    *7 *6))
+       (|ofCategory| *6 (|Field|))
+       (|ofCategory| *7 (|LinearOrdinaryDifferentialOperatorCategory| *6))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular| (|Union| (|Vector| *6) "failed"))
+                    (|:| |basis| (|List| (|Vector| *6)))))
+       (|isDomain| *1 (|SystemODESolver| *6 *7))))
+ (|solve| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Matrix| *6)) (|isDomain| *4 (|List| (|Vector| *6)))
+       (|isDomain| *5
+                   (|Mapping|
+                    (|Record|
+                     (|:| |particular|
+                          (|List|
+                           (|Record| (|:| |ratpart| *6)
+                                     (|:| |coeffs| (|Vector| *6)))))
+                     (|:| |basis| (|List| *6)))
+                    *7 (|List| *6)))
+       (|ofCategory| *6 (|Field|))
+       (|ofCategory| *7 (|LinearOrdinaryDifferentialOperatorCategory| *6))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular|
+                         (|List|
+                          (|Record| (|:| |ratpart| (|Vector| *6))
+                                    (|:| |coeffs| (|Vector| *6)))))
+                    (|:| |basis| (|List| (|Vector| *6)))))
+       (|isDomain| *1 (|SystemODESolver| *6 *7))))
+ (|solve| (*1 *2 *3 *4 *5)
+  (|partial| AND (|isDomain| *3 (|Matrix| *6)) (|isDomain| *4 (|Vector| *6))
+   (|isDomain| *5
+               (|Mapping|
+                (|Union|
+                 (|Record| (|:| |particular| *6) (|:| |basis| (|List| *6)))
+                 "failed")
+                *7 *6))
+   (|ofCategory| *6 (|Field|))
+   (|ofCategory| *7 (|LinearOrdinaryDifferentialOperatorCategory| *6))
+   (|isDomain| *2
+               (|Record| (|:| |particular| (|Vector| *6))
+                         (|:| |basis| (|Matrix| *6))))
+   (|isDomain| *1 (|SystemODESolver| *6 *7))))
+ (|triangulate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *6)) (|isDomain| *4 (|List| (|Vector| *5)))
+       (|ofCategory| *5 (|Field|))
+       (|ofCategory| *6 (|LinearOrdinaryDifferentialOperatorCategory| *5))
+       (|isDomain| *2
+                   (|Record| (|:| |mat| (|Matrix| *6))
+                             (|:| |vecs| (|List| (|Vector| *5)))))
+       (|isDomain| *1 (|SystemODESolver| *5 *6))))
+ (|triangulate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *6)) (|isDomain| *4 (|Vector| *5))
+       (|ofCategory| *5 (|Field|))
+       (|ofCategory| *6 (|LinearOrdinaryDifferentialOperatorCategory| *5))
+       (|isDomain| *2
+                   (|Record| (|:| |mat| (|Matrix| *6))
+                             (|:| |vec| (|Vector| *5))))
+       (|isDomain| *1 (|SystemODESolver| *5 *6))))
+ (|triangulate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *5)) (|isDomain| *4 (|List| (|Vector| *5)))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2
+                   (|Record| (|:| A (|Matrix| *5))
+                             (|:| |eqs|
+                                  (|List|
+                                   (|Record| (|:| C (|Matrix| *5))
+                                             (|:| |lg| (|List| (|Vector| *5)))
+                                             (|:| |eq| *6)
+                                             (|:| |lrh| (|List| *5)))))))
+       (|isDomain| *1 (|SystemODESolver| *5 *6))
+       (|ofCategory| *6 (|LinearOrdinaryDifferentialOperatorCategory| *5))))
+ (|triangulate| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Matrix| *5)) (|isDomain| *4 (|Vector| *5))
+       (|ofCategory| *5 (|Field|))
+       (|isDomain| *2
+                   (|Record| (|:| A (|Matrix| *5))
+                             (|:| |eqs|
+                                  (|List|
+                                   (|Record| (|:| C (|Matrix| *5))
+                                             (|:| |g| (|Vector| *5))
+                                             (|:| |eq| *6) (|:| |rh| *5))))))
+       (|isDomain| *1 (|SystemODESolver| *5 *6))
+       (|ofCategory| *6 (|LinearOrdinaryDifferentialOperatorCategory| *5)))))
+((|triangulate|
+  (((|Record| (|:| |mat| (|Matrix| |#2|))
+              (|:| |vecs| (|List| (|Vector| |#1|))))
+    (|Matrix| |#2|) (|List| (|Vector| |#1|)))
+   85)
+  (((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#1|)))
+    (|Matrix| |#2|) (|Vector| |#1|))
+   87)
+  (((|Record| (|:| A (|Matrix| |#1|))
+              (|:| |eqs|
+                   (|List|
+                    (|Record| (|:| C (|Matrix| |#1|))
+                              (|:| |lg| (|List| (|Vector| |#1|)))
+                              (|:| |eq| |#2|) (|:| |lrh| (|List| |#1|))))))
+    (|Matrix| |#1|) (|List| (|Vector| |#1|)))
+   14)
+  (((|Record| (|:| A (|Matrix| |#1|))
+              (|:| |eqs|
+                   (|List|
+                    (|Record| (|:| C (|Matrix| |#1|)) (|:| |g| (|Vector| |#1|))
+                              (|:| |eq| |#2|) (|:| |rh| |#1|)))))
+    (|Matrix| |#1|) (|Vector| |#1|))
+   68))
+ (|solveInField|
+  (((|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| (|Vector| |#1|))
+                     (|:| |coeffs| (|Vector| |#1|)))))
+     (|:| |basis| (|List| (|Vector| |#1|))))
+    (|Matrix| |#2|) (|List| (|Vector| |#1|))
+    (|Mapping|
+     (|Record|
+      (|:| |particular|
+           (|List|
+            (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+      (|:| |basis| (|List| |#1|)))
+     |#2| (|List| |#1|)))
+   76)
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#1|) "failed"))
+              (|:| |basis| (|List| (|Vector| |#1|))))
+    (|Matrix| |#2|) (|Vector| |#1|)
+    (|Mapping|
+     (|Record| (|:| |particular| (|Union| |#1| "failed"))
+               (|:| |basis| (|List| |#1|)))
+     |#2| |#1|))
+   NIL))
+ (|solve|
+  (((|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| (|Vector| |#1|))
+                     (|:| |coeffs| (|Vector| |#1|)))))
+     (|:| |basis| (|List| (|Vector| |#1|))))
+    (|Matrix| |#1|) (|List| (|Vector| |#1|))
+    (|Mapping|
+     (|Record|
+      (|:| |particular|
+           (|List|
+            (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+      (|:| |basis| (|List| |#1|)))
+     |#2| (|List| |#1|)))
+   35)
+  (((|Union|
+     (|Record| (|:| |particular| (|Vector| |#1|))
+               (|:| |basis| (|Matrix| |#1|)))
+     "failed")
+    (|Matrix| |#1|) (|Vector| |#1|)
+    (|Mapping|
+     (|Union| (|Record| (|:| |particular| |#1|) (|:| |basis| (|List| |#1|)))
+              "failed")
+     |#2| |#1|))
+   48)))
+ODESYS
+((|constructor|
+  (NIL
+   "SystemODESolver provides tools for triangulating and solving some systems of linear ordinary differential equations."))
+ (|solveInField|
+  (((|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| (|Vector| |#1|))
+                     (|:| |coeffs| (|Vector| |#1|)))))
+     (|:| |basis| (|List| (|Vector| |#1|))))
+    (|Matrix| |#2|) (|List| (|Vector| |#1|))
+    (|Mapping|
+     (|Record|
+      (|:| |particular|
+           (|List|
+            (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+      (|:| |basis| (|List| |#1|)))
+     |#2| (|List| |#1|)))
+   "\\spad{solveInField(m,{} lv,{} solve)} is a parametric version of solveInField(\\spad{m},{} \\spad{v},{} solve)")
+  (((|Record| (|:| |particular| (|Union| (|Vector| |#1|) "failed"))
+              (|:| |basis| (|List| (|Vector| |#1|))))
+    (|Matrix| |#2|) (|Vector| |#1|)
+    (|Mapping|
+     (|Record| (|:| |particular| (|Union| |#1| "failed"))
+               (|:| |basis| (|List| |#1|)))
+     |#2| |#1|))
+   "\\spad{solveInField(m,{} v,{} solve)} returns \\spad{[[v_1,{} ...,{} v_m],{} v_p]} such that the solutions in \\spad{F} of the system \\spad{m x = v} are \\spad{v_p + c_1 v_1 + ... + c_m v_m} where the \\spad{c_i's} are constants,{} and the \\spad{v_i's} form a basis for the solutions of \\spad{m x = 0}. Argument \\spad{solve} is a function for solving a single linear ordinary differential equation in \\spad{F}."))
+ (|solve|
+  (((|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| (|Vector| |#1|))
+                     (|:| |coeffs| (|Vector| |#1|)))))
+     (|:| |basis| (|List| (|Vector| |#1|))))
+    (|Matrix| |#1|) (|List| (|Vector| |#1|))
+    (|Mapping|
+     (|Record|
+      (|:| |particular|
+           (|List|
+            (|Record| (|:| |ratpart| |#1|) (|:| |coeffs| (|Vector| |#1|)))))
+      (|:| |basis| (|List| |#1|)))
+     |#2| (|List| |#1|)))
+   "\\spad{solve(m,{} lv,{} solve)} is a parametric version of solve(\\spad{m},{} \\spad{v},{} solve)")
+  (((|Union|
+     (|Record| (|:| |particular| (|Vector| |#1|))
+               (|:| |basis| (|Matrix| |#1|)))
+     "failed")
+    (|Matrix| |#1|) (|Vector| |#1|)
+    (|Mapping|
+     (|Union| (|Record| (|:| |particular| |#1|) (|:| |basis| (|List| |#1|)))
+              "failed")
+     |#2| |#1|))
+   "\\spad{solve(m,{} v,{} solve)} returns \\spad{[v_p,{} bm]} such that the solutions in \\spad{F} of the system \\spad{D x = m x + v} are \\spad{v_p + c_1 v_1 + ... + c_m v_m} where the \\spad{c_i's} are constants,{} and the \\spad{v_i's} are columns of \\spad{bm} and form a basis for the solutions of \\spad{D x = m x}. Argument \\spad{solve} is a function for solving a single linear ordinary differential equation in \\spad{F}."))
+ (|triangulate|
+  (((|Record| (|:| |mat| (|Matrix| |#2|))
+              (|:| |vecs| (|List| (|Vector| |#1|))))
+    (|Matrix| |#2|) (|List| (|Vector| |#1|)))
+   "\\spad{triangulate(m,{} [v1,{} ...,{} vn])} returns \\spad{[m_0,{} [w1,{} ...,{} wn]]} such that for any constant \\spad{c1,{} ...,{} cn} the system \\spad{m_0 x = c1*w1 + ... + cn*wn} is equivalent to to \\spad{m x = c1*v1 + ... + cn*vn}")
+  (((|Record| (|:| |mat| (|Matrix| |#2|)) (|:| |vec| (|Vector| |#1|)))
+    (|Matrix| |#2|) (|Vector| |#1|))
+   "\\spad{triangulate(m,{} v)} returns \\spad{[m_0,{} v_0]} such that \\spad{m_0} is upper triangular and the system \\spad{m_0 x = v_0} is equivalent to \\spad{m x = v}.")
+  (((|Record| (|:| A (|Matrix| |#1|))
+              (|:| |eqs|
+                   (|List|
+                    (|Record| (|:| C (|Matrix| |#1|))
+                              (|:| |lg| (|List| (|Vector| |#1|)))
+                              (|:| |eq| |#2|) (|:| |lrh| (|List| |#1|))))))
+    (|Matrix| |#1|) (|List| (|Vector| |#1|)))
+   "\\spad{triangulate(A,{} lv)} is a parametric version of triangulate(A,{} \\spad{v}).")
+  (((|Record| (|:| A (|Matrix| |#1|))
+              (|:| |eqs|
+                   (|List|
+                    (|Record| (|:| C (|Matrix| |#1|)) (|:| |g| (|Vector| |#1|))
+                              (|:| |eq| |#2|) (|:| |rh| |#1|)))))
+    (|Matrix| |#1|) (|Vector| |#1|))
+   "\\spad{triangulate(M,{} v)} returns \\spad{A,{} [[C_1,{} g_1,{} L_1,{} h_1],{} ...,{} [C_k,{} g_k,{} L_k,{} h_k]]} such that under the change of variable \\spad{y = A z},{} the first order linear system \\spad{D y = M y + v} is uncoupled as \\spad{D z_i = C_i z_i + g_i} and each \\spad{C_i} is a companion matrix corresponding to the scalar equation \\spad{L_i z_j = h_i}.")))
+(("documentation" 0 13161) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 13154) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 10683) ("modemaps" 0 5424) ("sourceFile" 0 5386)
+ ("constructorCategory" 0 2881) ("constructorModemap" 0 55)
+ ("constructorKind" 0 45) ("constructorForm" 0 20))

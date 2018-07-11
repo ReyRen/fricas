@@ -1,0 +1,17 @@
+)abbrev category BLAT BoundedLattice
+++ Author: Martin Baker
+++ Date Created: Aug 2015
+++ Basic Operations: Meet Join
+++ Related Constructors: Lattice
+++  use BoundedLattice if the lattice has a top and 'bottom' which will be
+++  the case for all finite lattices since we can do a meet and join of all
+++  values
+++ Keywords: Meet Top Join Bottom
+++ Description: lattice with top and bottom
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/logic/index.htm
+++ Axiom: absorptionMeetOverJoin forall(x, y): x/\(x\/y)=x
+++ Axiom: absorptionJoinOverMeet forall(x, y): x\/(x/\y)=x
+BoundedLattice: Category == Join(BoundedMeetSemilattice,
+                                 BoundedJoinSemilattice)
+

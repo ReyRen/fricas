@@ -1,0 +1,118 @@
+6138                (|ElementaryRischDEX2| R F)
+|package|
+(((|ElementaryRischDEX2| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |risch_de_ext|
+    ((|Record| (|:| |ans| |#2|) (|:| |right| |#2|) (|:| |primpart| |#2|)
+               (|:| |sol?| (|Boolean|)))
+     (|Integer|) |#2| |#2| (|Symbol|)))
+   (SIGNATURE |do_risch_DE|
+    ((|Record| (|:| |ans| |#2|) (|:| |right| |#2|) (|:| |primpart| |#2|)
+               (|:| |sol?| (|Boolean|)))
+     |#2| |#2| (|Symbol|) (|List| (|Kernel| |#2|))))
+   (SIGNATURE |do_param_RDE|
+    ((|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))
+              "failed")
+     |#2| |#2| (|List| |#2|) (|Symbol|) (|List| (|Kernel| |#2|)))))
+  (|Join| (|GcdDomain|) (|Comparable|) (|CharacteristicZero|)
+          (|PolynomialFactorizationExplicit|) (|RetractableTo| (|Integer|))
+          (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|TranscendentalFunctionCategory|) (|AlgebraicallyClosedField|)
+          (|FunctionSpace| |#1|)))
+ (T |ElementaryRischDEX2|))
+(CATEGORY |package|
+ (SIGNATURE |risch_de_ext|
+  ((|Record| (|:| |ans| |#2|) (|:| |right| |#2|) (|:| |primpart| |#2|)
+             (|:| |sol?| (|Boolean|)))
+   (|Integer|) |#2| |#2| (|Symbol|)))
+ (SIGNATURE |do_risch_DE|
+  ((|Record| (|:| |ans| |#2|) (|:| |right| |#2|) (|:| |primpart| |#2|)
+             (|:| |sol?| (|Boolean|)))
+   |#2| |#2| (|Symbol|) (|List| (|Kernel| |#2|))))
+ (SIGNATURE |do_param_RDE|
+  ((|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))
+            "failed")
+   |#2| |#2| (|List| |#2|) (|Symbol|) (|List| (|Kernel| |#2|)))))
+"/git/fricas/src/algebra/RDEEFX2.spad"
+((|do_param_RDE| (*1 *2 *3 *3 *4 *5 *6)
+  (|partial| AND (|isDomain| *4 (|List| *3)) (|isDomain| *5 (|Symbol|))
+   (|isDomain| *6 (|List| (|Kernel| *3)))
+   (|ofCategory| *3
+                 (|Join| (|TranscendentalFunctionCategory|)
+                         (|AlgebraicallyClosedField|) (|FunctionSpace| *7)))
+   (|ofCategory| *7
+                 (|Join| (|GcdDomain|) (|Comparable|) (|CharacteristicZero|)
+                         (|PolynomialFactorizationExplicit|)
+                         (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *2 (|Record| (|:| |ratpart| *3) (|:| |coeffs| (|Vector| *3))))
+   (|isDomain| *1 (|ElementaryRischDEX2| *7 *3))))
+ (|do_risch_DE| (*1 *2 *3 *3 *4 *5)
+  (AND (|isDomain| *4 (|Symbol|)) (|isDomain| *5 (|List| (|Kernel| *3)))
+       (|ofCategory| *3
+                     (|Join| (|TranscendentalFunctionCategory|)
+                             (|AlgebraicallyClosedField|)
+                             (|FunctionSpace| *6)))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Record| (|:| |ans| *3) (|:| |right| *3)
+                             (|:| |primpart| *3) (|:| |sol?| (|Boolean|))))
+       (|isDomain| *1 (|ElementaryRischDEX2| *6 *3))))
+ (|risch_de_ext| (*1 *2 *3 *4 *4 *5)
+  (AND (|isDomain| *5 (|Symbol|)) (|isDomain| *3 (|Integer|))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|CharacteristicZero|)
+                             (|PolynomialFactorizationExplicit|)
+                             (|RetractableTo| *3) (|LinearlyExplicitOver| *3)))
+       (|isDomain| *2
+                   (|Record| (|:| |ans| *4) (|:| |right| *4)
+                             (|:| |primpart| *4) (|:| |sol?| (|Boolean|))))
+       (|isDomain| *1 (|ElementaryRischDEX2| *6 *4))
+       (|ofCategory| *4
+                     (|Join| (|TranscendentalFunctionCategory|)
+                             (|AlgebraicallyClosedField|)
+                             (|FunctionSpace| *6))))))
+((|risch_de_ext|
+  (((|Record| (|:| |ans| |#2|) (|:| |right| |#2|) (|:| |primpart| |#2|)
+              (|:| |sol?| (|Boolean|)))
+    (|Integer|) |#2| |#2| (|Symbol|))
+   33))
+ (|do_risch_DE|
+  (((|Record| (|:| |ans| |#2|) (|:| |right| |#2|) (|:| |primpart| |#2|)
+              (|:| |sol?| (|Boolean|)))
+    |#2| |#2| (|Symbol|) (|List| (|Kernel| |#2|)))
+   30))
+ (|do_param_RDE|
+  (((|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))
+             "failed")
+    |#2| |#2| (|List| |#2|) (|Symbol|) (|List| (|Kernel| |#2|)))
+   26)))
+RDEEFX2
+((|constructor|
+  (NIL "Risch differential equation,{} wrapper for extended version."))
+ (|do_param_RDE|
+  (((|Union| (|Record| (|:| |ratpart| |#2|) (|:| |coeffs| (|Vector| |#2|)))
+             "failed")
+    |#2| |#2| (|List| |#2|) (|Symbol|) (|List| (|Kernel| |#2|)))
+   "\\spad{do_param_RDE(f,{} h,{} lg,{} x,{} lk)} solves parametric Risch differential equation,{} that is returns \\spad{[y,{} [c1,{} ...,{} ck]]} such that dy/dx + \\spad{n} df/dx \\spad{y} + \\spad{c1} \\spad{g1} + ... \\spad{cn} \\spad{gn} = \\spad{h} where \\spad{y} is in the is in field generated by \\spad{lk} and \\spad{ci} are constants or \"failed\" if there is no solution."))
+ (|do_risch_DE|
+  (((|Record| (|:| |ans| |#2|) (|:| |right| |#2|) (|:| |primpart| |#2|)
+              (|:| |sol?| (|Boolean|)))
+    |#2| |#2| (|Symbol|) (|List| (|Kernel| |#2|)))
+   "\\spad{do_risch_DE(f,{} g,{} x,{} lk)} returns \\spad{[y,{} h,{} 0,{} b]} such that \\spad{dy/dx + df/dx y = h} and \\spad{b := h = g}. The equation \\spad{dy/dx + df/dx y = g} has no solution in the field generated by \\spad{lk} if \\spad{h \\~~= g} (\\spad{y} is a partial solution in that case)."))
+ (|risch_de_ext|
+  (((|Record| (|:| |ans| |#2|) (|:| |right| |#2|) (|:| |primpart| |#2|)
+              (|:| |sol?| (|Boolean|)))
+    (|Integer|) |#2| |#2| (|Symbol|))
+   "\\spad{risch_de_ext(n,{} f,{} g,{} x)} returns \\spad{[y,{} h,{} p,{} b]} such that \\spad{dy/dx + n df/dx y + exp(-nf)dp = h} and \\spad{b := h = g}. The equation \\spad{dy/dx + n df/dx y = g} has no solution if \\spad{h \\~~= g} (\\spad{y} is a partial solution in that case).")))
+(("documentation" 0 4541) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4533) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3981) ("modemaps" 0 1626) ("sourceFile" 0 1587)
+ ("constructorCategory" 0 1015) ("constructorModemap" 0 58)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

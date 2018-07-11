@@ -1,0 +1,51 @@
+2443                (|CommonDenominator| R Q A)
+|package|
+(((|CommonDenominator| |#1| |#2| |#3|)
+  (CATEGORY |package| (SIGNATURE |commonDenominator| (|#1| |#3|))
+   (SIGNATURE |clearDenominator| (|#3| |#3|))
+   (SIGNATURE |splitDenominator|
+    ((|Record| (|:| |num| |#3|) (|:| |den| |#1|)) |#3|)))
+  (|IntegralDomain|) (|QuotientFieldCategory| |#1|)
+  (|FiniteLinearAggregate| |#2|))
+ (T |CommonDenominator|))
+(CATEGORY |package| (SIGNATURE |commonDenominator| (|#1| |#3|))
+ (SIGNATURE |clearDenominator| (|#3| |#3|))
+ (SIGNATURE |splitDenominator|
+  ((|Record| (|:| |num| |#3|) (|:| |den| |#1|)) |#3|)))
+"/git/fricas/src/algebra/CDEN.spad"
+((|splitDenominator| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|ofCategory| *5 (|QuotientFieldCategory| *4))
+       (|isDomain| *2 (|Record| (|:| |num| *3) (|:| |den| *4)))
+       (|isDomain| *1 (|CommonDenominator| *4 *5 *3))
+       (|ofCategory| *3 (|FiniteLinearAggregate| *5))))
+ (|clearDenominator| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *4 (|QuotientFieldCategory| *3))
+       (|isDomain| *1 (|CommonDenominator| *3 *4 *2))
+       (|ofCategory| *2 (|FiniteLinearAggregate| *4))))
+ (|commonDenominator| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|QuotientFieldCategory| *2))
+       (|ofCategory| *2 (|IntegralDomain|))
+       (|isDomain| *1 (|CommonDenominator| *2 *4 *3))
+       (|ofCategory| *3 (|FiniteLinearAggregate| *4)))))
+((|splitDenominator| (((|Record| (|:| |num| |#3|) (|:| |den| |#1|)) |#3|) 17))
+ (|commonDenominator| ((|#1| |#3|) 9)) (|clearDenominator| ((|#3| |#3|) 15)))
+CDEN
+((|constructor|
+  (NIL
+   "CommonDenominator provides functions to compute the common denominator of a finite linear aggregate of elements of the quotient field of an integral domain."))
+ (|splitDenominator|
+  (((|Record| (|:| |num| |#3|) (|:| |den| |#1|)) |#3|)
+   "\\spad{splitDenominator([q1,{} ...,{} qn])} returns \\spad{[[p1,{} ...,{} pn],{} d]} such that \\spad{\\spad{qi} = pi/d} and \\spad{d} is a common denominator for the \\spad{qi}\\spad{'s}."))
+ (|clearDenominator|
+  ((|#3| |#3|)
+   "\\spad{clearDenominator([q1,{} ...,{} qn])} returns \\spad{[p1,{} ...,{} pn]} such that \\spad{\\spad{qi} = pi/d} where \\spad{d} is a common denominator for the \\spad{qi}\\spad{'s}."))
+ (|commonDenominator|
+  ((|#1| |#3|)
+   "\\spad{commonDenominator([q1,{} ...,{} qn])} returns a common denominator \\spad{d} for \\spad{q1},{} ...,{} \\spad{qn}.")))
+(("documentation" 0 1591) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1586) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1429) ("modemaps" 0 643) ("sourceFile" 0 607)
+ ("constructorCategory" 0 412) ("constructorModemap" 0 58)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

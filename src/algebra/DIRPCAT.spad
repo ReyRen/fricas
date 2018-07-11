@@ -1,0 +1,110 @@
+)abbrev category DIRPCAT DirectProductCategory
+
+--% DirectProductCategory
+
+++ Author:
+++ Basic Functions:
+++ Related Constructors: DirectProduct
+++ Also See: VectorCategory
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   This category represents a finite cartesian product of a given type.
+++ Many categorical properties are preserved under this construction.
+
+DirectProductCategory(dim : NonNegativeInteger, R : Type) : Category ==
+  Join(IndexedAggregate(Integer, R), CoercibleTo Vector R, _
+           AbelianProductCategory(R), finiteAggregate) with
+           -- attribute to indicate an aggregate of finite size
+         directProduct : Vector R -> %
+           ++ directProduct(v) converts the vector v to
+           ++ a direct product. Error: if the length of v is
+           ++ different from dim.
+         if R has SetCategory then FullyRetractableTo R
+         if R has Ring then
+           DifferentialExtension R
+           FullyLinearlyExplicitOver R
+         if R has AbelianMonoid and R has Monoid then
+           unitVector : PositiveInteger -> %
+             ++ unitVector(n) produces a vector with 1 in position n and
+             ++ zero elsewhere.
+         if R has SemiRng then
+           SemiRng
+           BiModule(R, R)
+           if R has AbelianMonoid then
+             dot : (%, %) -> R
+               ++ dot(x, y) computes the inner product of the vectors x and y.
+         if R has Monoid then Monoid
+         if R has SemiGroup then
+           SemiGroup
+           _* : (R, %) -> %
+             ++ r * y multiplies the element r times each component of the
+             ++ vector y.
+           _* : (%, R) -> %
+             ++ y * r multiplies each component of the vector y by the element r.
+         if R has Finite then Finite
+         if R has CommutativeRing then
+           Algebra R
+           CommutativeRing
+         if R has unitsKnown then unitsKnown
+         if R has OrderedSet then OrderedSet
+         if R has OrderedAbelianMonoidSup then OrderedAbelianMonoidSup
+         if R has Field then VectorSpace R
+ add
+      if R has Ring then
+        equation2R : Vector % -> Matrix R
+
+        coerce(n : Integer) : %          == n::R::%
+        characteristic()             == characteristic()$R
+        differentiate(z : %, d : R -> R) == map(d, z)
+
+        equation2R v ==
+          ans : Matrix(R) := new(dim, #v, 0)
+          for i in minRowIndex ans .. maxRowIndex ans repeat
+            for j in minColIndex ans .. maxColIndex ans repeat
+              qsetelt!(ans, i, j, qelt(qelt(v, j), i))
+          ans
+
+        reducedSystem(m : Matrix %) : Matrix(R) ==
+          empty? m => new(dim*nrows(m), ncols(m), 0)
+          reduce(vertConcat, [equation2R row(m, i)
+                 for i in minRowIndex m .. maxRowIndex m])$List(Matrix R)
+
+        reducedSystem(m : Matrix %, v : Vector %):
+          Record(mat : Matrix R, vec : Vector R) ==
+            vh : Vector(R) :=
+              empty? v => empty()
+              rh := reducedSystem(v::Matrix %)@Matrix(R)
+              column(rh, minColIndex rh)
+            [reducedSystem(m)@Matrix(R), vh]
+
+      if R has Field then
+        x / b       == x * inv b
+        dimension() == dim::CardinalNumber
+
+      if R has Finite then
+          size() == size()$R ^ dim
+
+          index n ==
+              s := size()$R
+              r := new(dim, index(1)$R)$Vector(R)
+              n0 : Integer := n-1
+              for i in 1..dim repeat
+                  d := divide(n0, s)
+                  r.i := index((1+d.remainder)::PositiveInteger)$R
+                  n0 := d.quotient
+
+              directProduct r
+
+          lookup v ==
+              s := size()$R
+              pow : NonNegativeInteger := 1
+              res : Integer := 1
+              for i in 1..dim repeat
+                  res := res + (lookup(v.i)$R - 1)*pow
+                  pow := pow * s
+
+              res::PositiveInteger
+
+

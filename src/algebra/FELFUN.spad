@@ -1,0 +1,1017 @@
+)abbrev package FELFUN FloatEllipticFunctions
+++ Description:
+++   This package implements arbitrary precision numerical elliptic
+++   functions.  The method is based on descending Landen transform.
+FloatEllipticFunctions() : with
+    jacobiSn : (Float, Float) -> Float
+      ++ jacobiSn(z, m) is the Jacobi sn function
+    jacobiSn : (Complex Float, Complex Float) -> Complex Float
+      ++ jacobiSn(z, m) is the Jacobi sn function
+    jacobiCn : (Float, Float) -> Float
+      ++ jacobiCn(z, m) is the Jacobi cn function
+    jacobiCn : (Complex Float, Complex Float) -> Complex Float
+      ++ jacobiCn(z, m) is the Jacobi cn function
+    jacobiDn : (Float, Float) -> Float
+      ++ jacobiDn(z, m) is the Jacobi dn function
+    jacobiDn : (Complex Float, Complex Float) -> Complex Float
+      ++ jacobiDn(z, m) is the Jacobi dn function
+    jacobiZeta : (Float, Float) -> Float
+      ++ jacobiZeta(z, m) is the Jacobi zeta function
+    weierstrassP : (Float, Float, Float) -> Float
+      ++ weierstrassP(g2, g3, x) is the Weierstrass P function
+    weierstrassP : (Complex Float, Complex Float, Complex Float) ->
+                   Complex Float
+      ++ weierstrassP(g2, g3, x) is the Weierstrass P function
+    weierstrassPPrime : (Float, Float, Float) -> Float
+      ++ weierstrassPPrime(g2, g3, x) is the derivative of
+      ++ the Weierstrass P function
+    weierstrassPPrime : (Complex Float, Complex Float, Complex Float) ->
+                         Complex Float
+      ++ weierstrassPPrime(g2, g3, x) is the derivative of
+      ++ the Weierstrass P function
+    weierstrassHalfPeriods : (Complex Float, Complex Float) ->
+                             List Complex Float
+      ++ weierstrassHalfPeriods(g2, g3) computes half periods of
+      ++ Weierstrass elliptic functions from invariants g2, g3.
+    weierstrassInvariants : (Complex Float, Complex Float) ->
+                             List Complex Float
+      ++ weierstrassInvariants(w1, w2) computes invariants g2, g3 of
+      ++ Weierstrass elliptic functions from half periods w1, w2.
+    modularInvariantJ : (Complex Float) -> Complex Float
+      ++ modularInvariantJ(tau) computes modular invariant j,
+      ++ that is \spad{1728*g2^3/(g2^3 - 27*g3^2)} where g2, g3
+      ++ are invariants corresponding to half periods w1, w2
+      ++ such that \spad{tau = w1/w2}.
+    ellipticK : Float -> Float
+      ++ ellipticK(m) is the complete elliptic integral of the first kind.
+    ellipticK : Complex Float -> Complex Float
+      ++ ellipticK(m) is the complete elliptic integral of the first kind.
+    ellipticE : Float -> Float
+      ++ ellipticE(m) is the complete elliptic integral of the second kind.
+    ellipticE : Complex Float -> Complex Float
+      ++ ellipticE(m) is the complete elliptic integral of the second kind.
+    ellipticE : (Float, Float) -> Float
+      ++ ellipticE(z, m) is the incomplete elliptic integral of the second
+      ++ kind.
+    ellipticE : (Complex Float, Complex Float) -> Complex Float
+      ++ ellipticE(z, m) is the incomplete elliptic integral of the second
+      ++ kind.
+    ellipticF : (Float, Float) -> Float
+      ++ ellipticF(z, m) is the incomplete elliptic integral of the
+      ++ first kind.
+    ellipticF : (Complex Float, Complex Float) -> Complex Float
+      ++ ellipticF(z, m) is the incomplete elliptic integral of the
+      ++ first kind.
+    ellipticPi : (Float, Float, Float) -> Float
+      ++ ellipticPi(z, n, m) is the incomplete elliptic integral of the
+      ++ third kind.
+    ellipticPi : (Complex Float, Complex Float, Complex Float) -> Complex Float
+      ++ ellipticPi(z, n, m) is the incomplete elliptic integral of the
+      ++ third kind.
+    -- Functions below should be local but overloaded
+    rabs : Float -> Float
+      ++ Undocumented.
+    rabs : Complex Float -> Float
+      ++ Undocumented.
+    landen1 : (Float, List Float) -> List Float
+      ++ Undocumented.
+    landen1 : (Complex Float, List Complex Float) -> List Complex Float
+      ++ Undocumented.
+    landen2 : (Float, List Float, Float) -> List Float
+      ++ Undocumented.
+    landen2 : (Complex Float, List Complex Float, Float) -> List Complex Float
+      ++ Undocumented.
+    landen : (Float, Float) -> List Float
+      ++ Undocumented.
+    landen : (Complex Float, Float) -> List Complex Float
+      ++ Undocumented.
+    kprod : List Float -> Float
+      ++ Undocumented.
+    kprod : List Complex Float -> Complex Float
+      ++ Undocumented.
+    sn2 : (Float, List Float) -> Float
+      ++ Undocumented.
+    sn2 : (Complex Float, List Complex Float) -> Complex Float
+      ++ Undocumented.
+
+ == add
+
+    import from Float
+
+    CF ==> Complex Float
+
+    rabs(r : Float) : Float == abs(r)
+
+    rabs(r : CF) : Float == real(abs(r))
+
+    Funs ==>
+      landen1(m1 : NT, res : List NT) : List NT ==
+        while rabs(m1) < 0.25 repeat
+            kp := sqrt(m1)
+            kn1 := 2*kp/(1+kp)
+            res := cons(1 - kn1, res)
+            m1 := 2*kn1 - kn1^2
+        cons(m1, res)
+
+      landen2(m : NT, res : List NT, eps : Float) : List NT ==
+        repeat
+            -- rm := real(m)
+            -- im := imag(m)
+            -- abs(rm) < eps and abs(im) < eps =>
+            am := rabs(m)
+            am < eps =>
+                kn := (1/4)*m
+                res := cons(kn, res)
+                break
+            kp := sqrt(1 - m)
+            -- if am > 0.25 then
+            if true then
+                kn := (1 - kp)/(1 + kp)
+            else
+                kn := m/(2 - m + 2*kp)
+            res := cons(kn, res)
+            m := kn^2
+        res
+
+      landen(m : NT, eps : Float) : List NT ==
+        res : List NT := []
+        if rabs(m1 := 1 - m) < 0.25 then
+            res := landen1(m1, res)
+            m := 1 - first(res)
+            res := rest(res)
+        landen2(m, res, eps)
+
+      kprod(ll : List NT) : NT ==
+        reduce(_*, [1 + k for k in ll])
+
+      sn2(z : NT, ll : List NT) : NT ==
+          res := sin(z)
+          for k in ll repeat
+              res := (1 + k)*res/(1 + k*res^2)
+          res
+
+    Funs where NT ==> Float
+
+    Funs where NT ==> CF
+
+    pimod(z : Float) : Float ==
+        pi2 := 2*pi()
+        nn := retract(round(z/pi2))@Integer
+        z - nn*pi2
+
+    two_to_minus_n(n : Integer) : Float ==
+        base() ~= 2 => error "Only base 2 is supported"
+        float(1, - n)
+
+    ellipticK(m : Float) : Float ==
+        m >= 1.0 => error "ellipticK : m >= 1.0"
+        obits := bits()
+        prec := obits + 20
+        bits(prec)
+        eps := two_to_minus_n(prec quo 2)
+        ll := landen(m, eps)
+        res := (1/2)*pi()*kprod(ll)
+        bits(obits)
+        res
+
+    ellipticK(m : Complex Float) : Complex Float ==
+        m = 1 => error "ellipticK : m = 1.0"
+        obits := bits()
+        prec := obits + 20
+        bits(prec)
+        eps := two_to_minus_n(prec quo 2)
+        ll := landen(m, eps)
+        res := (1/2)*pi()*kprod(ll)
+        bits(obits)
+        res
+
+    -- Compute 1-sin(z) for z in [0, \pi] with small relative error
+    sin1(z : Float) : Float ==
+        if z < 1 or z > 2.0 then
+            1 - sin(z)
+        else
+            z1 := z - pi()/2.0
+            z1 := z1/2
+            2*sin(z1)^2
+
+    -- assumption z \in [0, \pi]
+    sn21(z : Float, ll : List Float) : Float==
+        res := sin1(z)
+        for k in ll repeat
+            res0 := 1 - res
+            -- 1 + k*res0^2 - (1 + k)*res0 =
+            -- 1 + k*(1 - res)^2 - (1 + k)*(1 - res) =
+            -- 1 + k*(1 -2*res + res^2) - 1 - k + res + k*res =
+            -- k - 2*k*res + k*res^2 - k + res + k*res =
+            -- -k*res + k*res^2 + res
+            kres := k*res
+            res := (res - kres + kres*res)/(1 + k*res0^2)
+            -- res0 := (1 + k)*res0/(1 + k*res0^2)
+        res
+
+    -- assumption: m < 1
+    sn1(z : Float, m : Float, prec : PositiveInteger) : Float ==
+        if m > 0.8 or m < -4.0 then
+            prec := prec + 20
+            bits(prec)
+        eps := two_to_minus_n(prec quo 2)
+        if m < -48.0 then
+            kp := sqrt(1 - m)
+            -- 1 + k1
+            kp1 := 2.0/(1 + kp)
+            m1 := 2*kp1 - kp1^2
+            z := z/kp1
+            ll : List(Float) := []
+            if m1 < 0.25 then
+                ll := landen1(m1, ll)
+                m := 1 - first(ll)
+                ll := landen2(m, rest(ll), eps)
+            else
+                ll := landen(1 - m1, eps)
+            kk := kprod(ll)
+            z1 := z/kk
+            z1 := pimod(z1)
+            if z1 < 0 then
+                sign := -1
+                z1 := -z1
+            else
+                sign := 1
+            z0 := z1*kk
+            if z0 < 0.5 then
+                res := sn2(z1, ll)
+                sign*kp1*res/(1 + (kp1 - 1)*res^2)
+            else
+                res1 := sn21(z1, ll)
+                -- res = 1 - res1
+                -- 1 + k1*res^2 = 1 + (kp1 - 1)*(1 - res1)^2 =
+                -- 1 + (kp1 - 1)*(1 -2*res1 + res1^2) =
+                -- 1 + (kp1 - 1) + (kp1 - 1)*(-2*res1 +res1^2) =
+                -- kp1 + (kp1 - 1)*(res1 - 2)*res1
+                sign*kp1*(1 - res1)/(kp1 + (kp1 - 1)*(res1 - 2.0)*res1)
+        else
+            ll := landen(m, eps)
+            kk := kprod(ll)
+            z1 := z/kk
+            sn2(z1, ll)
+
+    cn1(z : Float, m : Float, prec : PositiveInteger) : Float ==
+        if z < 0 then z := -z
+        prec := 2*prec
+        if m > 0.8 or m < -4.0 then
+            prec := prec + 20
+        bits(prec)
+        eps := two_to_minus_n(prec quo 2)
+        ll := landen(m, eps)
+        kk := kprod(ll)
+        z1 := z/kk
+        pih := 0.5*pi()$Float
+        nn := retract(round(z1/pih)$Float)@Integer
+        if odd?(nn) then
+            z2 := z1 - nn*pih
+            nn := nn quo 2
+            sgn := (odd?(nn) => 1 ; -1)
+            sgn := sign(z2)*sgn
+        else
+            nn := nn quo 2
+            sgn := (odd?(nn) => -1 ; 1)
+        res0 := sn2(z1, ll)
+        sgn*sqrt(1 - res0^2)
+
+    dn1(z : Float, m : Float, prec : PositiveInteger) : Float ==
+        -- Usually overkill, but needed if m close to 1
+        prec := 2*prec
+        bits(prec)
+        res0 := sn1(z, m, prec)
+        sqrt(1 - m*res0^2)
+
+    sn_cn_dn : (CF, CF) -> List CF
+
+    jacobi_imaginary(z : CF, m : CF
+                    ) : List CF ==
+        iu := complex(0, 1.0)
+        pl := sn_cn_dn(-iu*z, 1 - m)
+        cc := pl(3)
+        pl(1) = 1 =>
+            cc = 0 =>
+                cc := pl(2)
+                [0, 1, 1/cc, pl(4)/cc]
+            [1, iu*pl(2)/cc, 1/cc, pl(4)/cc]
+        [1, iu*pl(2)/cc, 0, pl(4)/cc]
+
+    -- returns (sn, cn, dn) as element of projective space, that is
+    -- either [1, sn, cn, dn] (if no pole)
+    -- or [0, 1, lim (cn/sn), lim(dn/ sn)] (in pole)
+    sn_cn_dn(z : CF, m : CF) : List CF ==
+        m = 0 => [1, sin(z), cos(z), 1]
+        obits := bits()
+        prec := obits + 20
+        m = 1 =>
+            cc := cosh(z)
+            res :=
+               cc = 0 =>
+                   cc := 1/sinh(z)
+                   [0, 1, cc, cc]
+               cc := 1/cc
+               [1, tanh(z), cc, cc]
+            res
+        rabs(m - 1) < 0.5 =>
+            jacobi_imaginary(z, m)
+        rabs(m) > 1 =>
+            m := 1/m
+            k := sqrt(m)
+            z := z/k
+            pl := sn_cn_dn(z, m)
+            res :=
+                pl(1) = 1 => [1, k*pl(2), pl(4), pl(3)]
+                [0, 1, pl(4)/k, pl(3)/k]
+            res
+        real(m) > 0.5 =>
+            jacobi_imaginary(z, m)
+        eps := float(1, - (prec quo 2))
+        ll := landen(m, eps)
+        kk := kprod(ll)
+        z1 := z/kk
+        iz := imag(z1)
+        m1 := 1 - m
+        ms0 := sqrt(m)
+        ll2 : List(Complex(Float))
+        if rabs(ms0) < 0.25 then
+            kn := 2*ms0/(1+ms0)
+            ll2 := landen1(2*kn - kn^2, [1 - kn])
+            mp := 1 - first(ll2)
+            ll2 := landen2(mp, rest(ll2), eps)
+        else
+            kn := (1 - ms0)/(1 + ms0)
+            ll2 := landen2(kn^2, [kn], eps)
+        iu := complex(0, 1.0)
+        kk2 := kprod(ll2)
+        ppi : Float := pi()/2
+        z1 := z/(kk*ppi)
+        tau := iu*kk2/kk
+        itau := imag(tau)
+        iz1 := imag(z1)
+        ni := retract(round(iz1/itau))@Integer
+        z1 := z1 - ni*tau
+        nr := retract(round(real(z1)))@Integer
+        z1 := z1 - nr::Float::CF
+        zz1 := ppi*z1
+        s1 := sn2(zz1, ll)
+        ctwo := 2.0::CF
+        s2 := sn2(zz1/ctwo, ll)
+        s2 := s2*s2
+        ms2 := m*s2
+        den := 1 - ms2*s2
+        c1 := (1 - s2*(ctwo - ms2))/den
+        d1 := (1 - ms2*(ctwo - s2))/den
+        ni := positiveRemainder(ni, 4)
+        nr := positiveRemainder(nr, 4)
+        iu := complex(0, 1.0)
+        if nr >= 2 then
+            (s1, c1, d1) := (-s1, -c1, d1)
+            nr := nr - 2
+        if nr = 1 then
+            ms1 := sqrt(m1)
+            (s1, c1, d1) := (c1/d1, -ms1*s1/d1, ms1/d1)
+        if ni >= 2 then
+            (s1, c1, d1) := (s1, -c1, -d1)
+            ni := ni - 2
+        ni = 0 => [1, s1, c1, d1]
+        s1 = 0 => [0, 1, -iu*d1, -iu*ms0]
+        [1, 1/(ms0*s1), -iu*d1/(ms0*s1), -iu*c1/s1]
+
+    jacobiSn(z : CF, m : CF) ==
+        pl := sn_cn_dn(z, m)
+        pl(1) = 0 => error "pole of jacobiSn"
+        pl(2)
+
+    jacobiCn(z : CF, m : CF) ==
+        pl := sn_cn_dn(z, m)
+        pl(1) = 0 => error "pole of jacobiCn"
+        pl(3)
+
+    jacobiDn(z : CF, m : CF) ==
+        pl := sn_cn_dn(z, m)
+        pl(1) = 0 => error "pole of jacobiDn"
+        pl(4)
+
+    jacobiSn(z : Float, m : Float) ==
+        obits := bits()
+        prec := obits + 20
+        m = 1.0 =>
+            bits(prec)
+            res := tanh(z)
+            bits(obits)
+            res
+        bits(prec)
+        cc := 1.0
+        if m > 1 then
+            m := 1/m
+            k := sqrt(m)
+            z := z/k
+            res := k*sn1(z, m, prec)
+        else
+            res := sn1(z, m, prec)
+        bits(obits)
+        res
+
+    jacobiCn(z : Float, m : Float) : Float ==
+        obits := bits()
+        prec := obits + 20
+        m = 1.0 =>
+            bits(prec)
+            res := 1/cosh(z)
+            bits(obits)
+            res
+        bits(prec)
+        if m > 1 then
+            m := 1/m
+            k := sqrt(m)
+            z := z/k
+            res := dn1(z, m, prec)
+        else
+            res := cn1(z, m, prec)
+        bits(obits)
+        res
+
+    jacobiDn(z : Float, m : Float) : Float ==
+        obits := bits()
+        prec := obits + 20
+        m = 1.0 =>
+            bits(prec)
+            res := 1/cosh(z)
+            bits(obits)
+            res
+        bits(prec)
+        if m > 1 then
+            m := 1/m
+            k := sqrt(m)
+            z := z/k
+            res := cn1(z, m, prec)
+        else
+            res := dn1(z, m, prec)
+        bits(obits)
+        res
+
+    zeta2(z : Float, k0 : Float, ll : List Float) : Float ==
+        res : Float := 0
+        pii := pi()$Float
+        nn := retract(round(z/pii)$Float)@Integer
+        z1 := z - nn*pii
+        snz := sin(z1)
+        for k in ll repeat
+            k1 := 1 + k
+            k1inv := 1/k1
+            p := (1 - k)*k1inv
+            snz2 := snz*snz
+            k_snz2 := k*snz2
+            snf_inv := 1/(1 + k_snz2)
+            r := sqrt((1 - snz2)*(1 - k*k_snz2))
+            r := (1 - p)*snz*r*snf_inv
+            res := 2*k1inv*res + r
+            snz := k1*snz*snf_inv
+        res
+
+    jacobiZeta(z : Float, m : Float) : Float ==
+        m = 0 => 0
+        m = 1 => tanh(z)
+        obits := bits()
+        try
+            prec := obits + 20
+            bits(prec)
+            m > 1 =>
+                error "jacobiZeta: m > 1"
+            eps := two_to_minus_n(prec quo 2)
+            ll := landen(m, eps)
+            kk := kprod(ll)
+            z1 := z/kk
+            res := zeta2(z1, sqrt(1 - m), ll)
+        finally
+            bits(obits)
+
+    -- This routine expects argument which is reduced to the
+    -- fundamental region,
+    -- returns [theta2(0, tau)^2, theta3(0, tau)^2]
+    theta0(tau : Complex(Float)) : List(Complex(Float)) ==
+        prec := bits()
+        tresh := ((38/100)*prec)::Float
+        k : Integer := 0
+        not((1/2)::Float < imag(tau)) =>
+            error "imag(tau) must be bigger than 1/2"
+        otau := tau
+        while imag(tau) < tresh repeat
+            tau := (2::Float)*tau
+            k := k + 1
+        q2 := exp((1/2)::Float*pi()$Float*imaginary()*tau)
+        q := q2*q2
+        t2 := (2::Float)*(1 + q*q)
+        t3 := 1 + (2::Float)*q
+        -- Now we work with squares
+        t2 := q2*t2*t2
+        t3 := t3*t3
+        k = 0 => [t2, t3]
+        rtd := (1/2)::Float*pi()*real(otau)
+        iq2 := exp(-imaginary()*rtd)
+        liq2 : List(Complex(Float)) := []
+        for i in 1..k repeat
+            liq2 := cons(iq2, liq2)
+            iq2 := iq2*iq2
+        for i in 1..k for iq2 in liq2 repeat
+            nt3 := t3 + t2
+            t2 := (2::Float)*sqrt(t2*t3)
+            pp := t2*iq2
+            if real(pp) < 0 then
+                t2 := -t2
+            t3 := nt3
+        [t2, t3]
+
+    modularInvariants(tau : Complex Float) : List(Complex Float) ==
+        td := theta0(tau)
+        t2 := first(td)
+        t3 := first(rest(td))
+        k := t2/t3
+        m := k*k
+        m2 := m*m
+        g2 := (4/3)::Float*(m2 - m + 1)
+        g3 := (4/27)::Float*(2::Float*m*m2 - (3::Float)*m2 - (3::Float)*m +
+              2::Complex(Float))
+        [g2, g3, t3]
+
+    reduce_periods(w1 : Complex Float, w2 : Complex Float
+                  ) : List(Complex Float) ==
+        aw1 := rabs(w1)
+        aw2 := rabs(w2)
+        repeat
+            if aw2 > aw1 then
+                (w1, w2) := (w2, w1)
+                (aw1, aw2) := (aw2, aw1)
+            tau := w1/w2
+            if imag(tau) < 0 then
+                tau := -tau
+                w1 := -w1
+            rit := round(real(tau))
+            rit = 0 => return [w1, w2]
+            w1 := w1 - rit*w2
+            (2/$Fraction(Integer) 3)::Float < imag(tau) => return [w1, w2]
+            aw1 := rabs(w1)
+
+    modularInvariantJ(tau : Complex Float) : Complex Float ==
+        not(0 < imag(tau)) => error "need imag(tau) > 0"
+        obits := bits()
+        try
+            bits(3*obits + 20)
+            nw := reduce_periods(tau, 1)
+            bits(obits + 20)
+            tau := nw(1)/nw(2)
+            md := modularInvariants(tau)
+            g2 := md(1)
+            g3 := md(2)
+            g2_3 := g2*g2*g2
+            1728*g2_3/(g2_3 - 27*g3*g3)
+        finally
+            bits(obits)
+
+    weierstrassInvariants(w1, w2) ==
+        obits := bits()
+        try
+            bits(3*obits + 20)
+            nw := reduce_periods(w1, w2)
+            bits(obits + 20)
+            w1 := nw(1)
+            w2 := nw(2)
+            tau := w1/w2
+            md := modularInvariants(tau)
+            g2 := md(1)
+            g3 := md(2)
+            tf := md(3)
+            s := pi()$Float*tf/w2
+            s2 := s*s
+            s4 := s2*s2
+            [s4*g2, s2*s4*g3]
+        finally
+            bits(obits)
+
+    ellipticF(z : Float, m : Float) : Float ==
+        m = 1 => atanh(z)
+        obits := bits()
+        m > 1 =>
+            bits(obits + 20)
+            m2 := sqrt(m)
+            (z2 := m2*z) > 1 =>
+                bits(obits)
+                error "ellipticF: abs(z) > 1/sqrt(m)"
+            res := ellipticF(z2, 1/m)/m2
+            bits(obits)
+            res
+        m = 0 => asin(z)
+        abs(z) > 1 => error "ellipticF: abs(z) > 1"
+        z = 1 => ellipticK(m)
+        z = -1 => -ellipticK(m)
+        prec := obits + 20
+        bits(prec)
+        eps := two_to_minus_n(prec quo 2)
+        ll := landen(m, eps)
+        res := kprod(ll)
+        ll := reverse!(ll)
+        for k in ll repeat
+            delta := (1 + k)^2 - 4*k*z^2
+            z := 2*z/(1 + k + sqrt(delta))
+        res := res*asin(z)
+        bits(obits)
+        res
+
+    half_z(z : CF, m : CF) : CF ==
+        z0 := z
+        z2 := z*z
+        z2 := (1 - sqrt(1 - z2))/(1 + sqrt(1 - m*z2))
+        cnz := sqrt(1 - z2)
+        dnz := sqrt(1 - m*z2)
+        snf := cnz*dnz/(1 - m*z2*z2)
+        z := sqrt(z2)
+        zz := z*snf
+        if real(conjugate(z0)*zz) < 0 then
+                z := -z
+        z
+
+    ellipticF_aux(z : CF, m : CF) : CF ==
+        m = 1 => atanh(z)
+        obits := bits()
+        rabs(m) > 1 =>
+            bits(obits + 20)
+            m2 := sqrt(m)
+            z2 := m2*z
+            ellipticF_aux(z2, 1/m)/m2
+        m = 0 => asin(z)
+        z = 1 => ellipticK(m)
+        z = -1 => -ellipticK(m)
+        prec := obits + 20
+        bits(prec)
+        eps := two_to_minus_n(prec quo 2)
+        ll := landen(m, eps)
+        res := kprod(ll)
+        ll := reverse!(ll)
+        sf : Float := 1
+        nz := norm(z)
+        if 1$Float < nz then
+            z := half_z(z, m)
+            sf := 2::Float
+        for k in ll repeat
+            delta := (1 + k)^2 - 4*k*z^2
+            z := 2*z/(1 + k + sqrt(delta))
+        sf*res*asin(z)
+
+    ellipticF(z : CF, m : CF) : CF ==
+        m = 1 => atanh(z)
+        obits := bits()
+        try
+            ellipticF_aux(z, m)
+        finally
+            bits(obits)
+
+    ellipticE(m : Float) : Float ==
+        m >= 1 => error "ellipticE: m >=1"
+        m = 0 => pi()/2
+        obits := bits()
+        prec := obits + 20
+        bits(prec)
+        eps := two_to_minus_n(prec quo 2)
+        ll := landen(m, eps)
+        llr := reverse(ll)
+        f_val := e_val := pi()/2
+        for k in ll repeat
+            k1 := 1 + k
+            f_val := k1*f_val
+            k1inv := 1/k1
+            p := (1 - k)*k1inv
+            e_val := 2*k1inv*e_val - p*f_val
+        bits(obits)
+        e_val
+
+    ellipticE(m : CF) : CF ==
+        m = 1 => error "ellipticE: m = 1"
+        e_val := (pi()/(2::Float))::CF
+        m = 0 => e_val
+        obits := bits()
+        try
+            prec := obits + 20
+            bits(prec)
+            eps := two_to_minus_n(prec quo 2)
+            ll := landen(m, eps)
+            llr := reverse(ll)
+            f_val := e_val
+            for k in ll repeat
+                k1 := 1 + k
+                f_val := k1*f_val
+                k1inv := 1/k1
+                p := (1 - k)*k1inv
+                e_val := 2*k1inv*e_val - p*f_val
+            e_val
+        finally
+            bits(obits)
+
+    ellipticE(z : Float, m : Float) : Float ==
+        m = 1 => z
+        obits := bits()
+        m > 1 =>
+            bits(obits + 20)
+            m2 := sqrt(m)
+            (z2 := m2*z) > 1 =>
+                bits(obits)
+                error "ellipticE: abs(z) > 1/sqrt(m)"
+            res := m2*ellipticE(z2, 1/m) - (m - 1)*z
+            bits(obits)
+            res
+        m = 0 => asin(z)
+        abs(z) > 1 => error "ellipticE: abs(z) > 1"
+        z = 1 => ellipticE(m)
+        z = -1 => -ellipticE(m)
+        prec := obits + 20
+        bits(prec)
+        eps := two_to_minus_n(prec quo 2)
+        ll := landen(m, eps)
+        llr := reverse(ll)
+        lz : List Float := []
+        for k in llr repeat
+            delta := (1 + k)^2 - 4*k*z^2
+            z := 2*z/(1 + k + sqrt(delta))
+            lz := cons(z, lz)
+        f_val := e_val := asin(z)
+        for k in ll for z in lz repeat
+            k1 := 1 + k
+            f_val := k1*f_val
+            k1inv := 1/k1
+            p := (1 - k)*k1inv
+            z2 := z*z
+            k_z2 := k*z2
+            r := sqrt((1 - z2)*(1 - k*k_z2))
+            r := (1 - p)*z*r/(1 + k_z2)
+            e_val := 2*k1inv*e_val - p*f_val + r
+        bits(obits)
+        e_val
+
+    ellipticE_aux(z : CF, m : CF) : CF ==
+        obits := bits()
+        rabs(m) > 1 =>
+            bits(obits + 20)
+            m2 := sqrt(m)
+            z2 := m2*z
+            m2*ellipticE_aux(z2, 1/m) - (m - 1)*z
+        m = 0 => asin(z)
+        z = 1 => ellipticE(m)
+        z = -1 => -ellipticE(m)
+        prec := obits + 20
+        bits(prec)
+        eps := two_to_minus_n(prec quo 2)
+        ll := landen(m, eps)
+        llr := reverse(ll)
+        lz : List CF := []
+        sf : Float := 1
+        nz := norm(z)
+        res0 : CF := 0
+        if 1$Float < nz then
+            sf := 2::Float
+            z0 := z
+            z := half_z(z, m)
+            res0 := z0*z^2
+        for k in llr repeat
+            delta := (1 + k)^2 - 4*k*z^2
+            z := 2*z/(1 + k + sqrt(delta))
+            lz := cons(z, lz)
+        f_val := e_val := asin(z)
+        for k in ll for z in lz repeat
+            k1 := 1 + k
+            f_val := k1*f_val
+            k1inv := 1/k1
+            p := (1 - k)*k1inv
+            z2 := z*z
+            k_z2 := k*z2
+            r := sqrt((1 - z2)*(1 - k*k_z2))
+            r := (1 - p)*z*r/(1 + k_z2)
+            e_val := 2*k1inv*e_val - p*f_val + r
+        sf*e_val - m*res0
+
+    ellipticE(z : CF, m : CF) : CF ==
+        m = 1 => z
+        obits := bits()
+        try
+            ellipticE_aux(z, m)
+        finally
+            bits(obits)
+
+    pi0_aux(t : Float, n1 : Float) : Float ==
+        n1 = 0 => t
+        0 < n1 =>
+            ns := sqrt(n1)
+            atan(ns*t)/ns
+        ns := sqrt(-n1)
+        atanh(ns*t)/ns
+
+    pi0(z : Float, n1 : Float) : Float ==
+        pi0_aux(z/sqrt(1 - z^2), n1)
+
+    pi0_auxc(t : CF, n1 : CF) : CF ==
+        n1 = 0 => t
+        ns := sqrt(n1)
+        atan(ns*t)/ns
+
+    pi0c(z : CF, n1 : CF) : CF ==
+        pi0_auxc(z/sqrt(1 - z^2), n1)
+
+    ellipticPi_r(z : Float, n : Float, m : Float) : Float ==
+        m > 1 =>
+            m*z^2 >= 1 => error "m*z^2 >= 1"
+            m1 := sqrt(m)
+            ellipticPi_r(m1*z, n/m, 1/m)/m1
+        z2 := z*z
+        z2 >= 1 =>
+            error "abs(z) >= 1"
+        n*z2 >= 1 =>
+            error "n*z^2 >= 1"
+        m = 1 =>
+            lzz := log((1 + z)/(1 - z))/2
+            n < 0 =>
+                n1 := sqrt(-n)
+                (n1*atan(-n1*z) - lzz)/(n - 1)
+            n = 1 =>
+                (lzz - z/(z2 - 1))/2
+            n1 := sqrt(n)
+            res1 := n1*log((1 + n1*z)/(1 - n1*z))/2
+            (res1 - lzz)/(n - 1)
+        0 < n and n < m or n < 0 and m < n =>
+            nn := m/n
+            nn1 := (1 - n)*(1 - nn)
+            ellipticF(z, m) - ellipticPi_r(z, nn, m)
+               + pi0_aux(z/sqrt((1 - m*z2)*(1 - z2)), nn1)
+        prec := bits()
+        eps := two_to_minus_n(prec quo 2)
+        ll := landen(m, eps)
+        llr := reverse(ll)
+        lz : List Float := []
+        lp : List Float := []
+        lnk : List Float := []
+        z0 := z
+        for k in llr repeat
+            delta := (1 + k)^2 - 4*k*z^2
+            z := 2*z/(1 + k + sqrt(delta))
+            lz := cons(z, lz)
+        f_val := asin(z)
+        nk := n
+        p := sqrt(1 - m/nk)
+        for k in llr repeat
+            lp := cons(p, lp)
+            cc := (1 + p)*(1 + k)/2
+            nk := nk*cc^2
+            lnk := cons(nk, lnk)
+            p := sqrt(1 - k^2/nk)
+        pi_val := pi0(z, 1 - nk)
+        p_inv : Float := 0
+        for k in ll for z in lz for p in lp for nk in lnk repeat
+            pi_val := pi_val - p_inv*pi0(z, 1 - nk)
+            k1 := 1 + k
+            f_val := k1*f_val
+            pi_val := 2*k1*pi_val + (p - 1)*f_val
+            p_inv := 1/p
+            pi_val := p_inv*pi_val
+        pi_val - p_inv*pi0(z0, 1 - n)
+
+    ellipticPi(z : Float, n : Float, m : Float) : Float ==
+        n = 0 => ellipticF(z, m)
+        obits := bits()
+        try
+            bits(obits+20)
+            ellipticPi_r(z, n, m)
+        finally
+            bits(obits)
+
+    -- Precondition: |m| \leq 1
+    ellipticPi_aux(z : CF, n : CF, m : CF) : CF ==
+        ctwo := 2.0::CF
+        z2 := z*z
+        m = 1 =>
+            lzz := log((1 + z)/(1 - z))/ctwo
+            n = 1 =>
+                (lzz - z/(z2 - 1))/ctwo
+            n1 := sqrt(n)
+            res1 := n1*log((1 + n1*z)/(1 - n1*z))/ctwo
+            (res1 - lzz)/(n - 1)
+        rabs(n) < rabs(m) =>
+            nn := m/n
+            nn1 := (1 - n)*(1 - nn)
+            ellipticF(z, m) - ellipticPi_aux(z, nn, m)
+              + pi0_auxc(z/(sqrt(1 - m*z2)*sqrt(1 - z2)), nn1)
+        nz := norm(z)
+        sf : Float := 1
+        res0 : CF := 0
+        if 1$Float < nz then
+            z0 := z
+            sf := 2::Float
+            z := half_z(z, m)
+            z2 := z0*z0
+            z12 := z*z
+            ss := sqrt(1 - z2)*sqrt(1 - m*z2)
+            ss := z2 - z12*ss
+            t := z0*z12/(1 - n*ss)
+            h := n*(1 - n)*(n - m)
+            res0 :=
+                h = 0 => t
+                h1 := sqrt(h)
+                atan(t*h1)/h1
+            res0 := n*res0
+        prec := bits()
+        eps := two_to_minus_n(prec quo 2)
+        ll := landen(m, eps)
+        llr := reverse(ll)
+        lz : List CF := []
+        lp : List CF := []
+        lnk : List CF := []
+        nk := n
+        z0 := z
+        for k in llr repeat
+            delta := (1 + k)^2 - 4*k*z^2
+            z := 2*z/(1 + k + sqrt(delta))
+            lz := cons(z, lz)
+        f_val := asin(z)
+        p := sqrt(1 - m/nk)
+        for k in llr repeat
+            lp := cons(p, lp)
+            cc := (1 + p)*(1 + k)/(2::CF)
+            nk := nk*cc^2
+            lnk := cons(nk, lnk)
+            p := sqrt(1 - k^2/nk)
+        pi_val := pi0c(z, 1 - nk)
+        p_inv : CF := 0
+        for k in ll for z in lz for p in lp for nk in lnk repeat
+            pi_val := pi_val - p_inv*pi0c(z, 1 - nk)
+            k1 := 1 + k
+            f_val := k1*f_val
+            pi_val := 2*k1*pi_val + (p - 1)*f_val
+            p_inv := 1/p
+            pi_val := p_inv*pi_val
+        pi_val := pi_val - p_inv*pi0c(z0, 1 - n)
+        sf*pi_val + res0
+
+    ellipticPi(z : CF, n : CF, m : CF) : CF ==
+        n = 0 => ellipticF(z, m)
+        obits := bits()
+        try
+            bits(obits+20)
+            rabs(m) > 1 =>
+                m1 := sqrt(m)
+                ellipticPi_aux(m1*z, n/m, 1/m)/m1
+            ellipticPi_aux(z, n, m)
+        finally
+            bits(obits)
+
+    mkr(rr : CF, g23 : CF, r1 : CF) : CF ==
+        pr := r1*rr
+        (pr^2 + g23)/pr
+
+    cardano(g2 : CF, g3 : CF) : List CF ==
+        dd := 27*g3^2 - g2^3
+        dd1 := dd/(3.0::CF)
+        sd := sqrt(dd1)
+        sd1 := (sd + 3*g3)/(24.0::CF)
+        rr := sd1^(1/3)
+        r1 := sqrt(3.0)
+        g23 := g2/(12.0::CF)
+        [mkr(rr, g23, 1), mkr(rr, g23, complex(-1, r1)/(2.0::CF)),
+           mkr(rr, g23, complex(-1, -r1)/(2.0::CF))]
+
+    weierstrassHalfPeriods(g2 : CF, g3 : CF) : List CF ==
+        rl := cardano(g2, g3)
+        e13 := rl(1) - rl(3)
+        m := (rl(2) - rl(3))/e13
+        zq := sqrt(e13)
+        omega1 := 2*ellipticK(m)/zq
+        omega2 := 2*complex(0, 1.0)*ellipticK(1-m)/zq
+        [omega1, omega2]
+
+    weierstrassP(g2 : CF, g3 : CF, x : CF) : CF ==
+        rl := cardano(g2, g3)
+        e13 := rl(1) - rl(3)
+        m := (rl(2) - rl(3))/e13
+        zq := sqrt(e13)
+        x1 := zq*x
+        pp := jacobiSn(x1, m)
+        rl(3) + e13/pp^2
+
+    weierstrassPPrime(g2 : CF, g3 : CF, x : CF) : CF ==
+        rl := cardano(g2, g3)
+        e13 := rl(1) - rl(3)
+        m := (rl(2) - rl(3))/e13
+        zq := sqrt(e13)
+        x1 := zq*x
+        pl := sn_cn_dn(x1, m)
+        pl(1) = 0 => 0
+        s1 := pl(2)
+        c1 := pl(3)
+        d1 := pl(4)
+        -2*zq*e13*c1*d1/s1^3
+
+    weierstrassP(g2 : Float, g3 : Float, x : Float) : Float ==
+        real(weierstrassP(g2::CF, g3::CF, x::CF))
+
+    weierstrassPPrime(g2 : Float, g3 : Float, x : Float) : Float ==
+        real(weierstrassPPrime(g2::CF, g3::CF, x::CF))
+
+
+

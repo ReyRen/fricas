@@ -1,0 +1,12 @@
+
+-- Input for page HeapXmpPage
+)clear all
+
+h := heap [-4,9,11,2,7,-7]
+insert!(3,h)
+extract! h
+h
+[extract!(h) while not empty?(h)]
+heapsort(x) == (empty? x => []; cons(extract!(x),heapsort x))
+h1 := heap [17,-4,9,-11,2,7,-7]
+heapsort h1

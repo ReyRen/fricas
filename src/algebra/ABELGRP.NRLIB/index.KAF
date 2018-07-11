@@ -1,0 +1,41 @@
+1685                (MAKEPROP '|AbelianGroup| 'NILADIC T)
+(|AbelianGroup|)
+|category|
+(((|AbelianGroup|) (|Category|)) (T |AbelianGroup|))
+(|Join| (|CancellationAbelianMonoid|)
+        (CATEGORY |domain| (SIGNATURE - ($ $)) (SIGNATURE - ($ $ $))
+         (SIGNATURE * ($ (|Integer|) $))))
+"/git/fricas/src/algebra/ABELGRP.spad"
+((- (*1 *1 *1) (|ofCategory| *1 (|AbelianGroup|)))
+ (- (*1 *1 *1 *1) (|ofCategory| *1 (|AbelianGroup|)))
+ (* (*1 *1 *2 *1)
+    (AND (|ofCategory| *1 (|AbelianGroup|)) (|isDomain| *2 (|Integer|)))))
+((~= (((|Boolean|) $ $) 6)) (|zero?| (((|Boolean|) $) 6))
+ (|subtractIfCan| (((|Union| $ "failed") $ $) 6)) (|sample| (($) 6 T CONST))
+ (|opposite?| (((|Boolean|) $ $) 6)) (|latex| (((|String|) $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (|Zero| (($) 6 T CONST)) (= (((|Boolean|) $ $) 6)) (- (($ $) 6) (($ $ $) 6))
+ (+ (($ $ $) 6))
+ (* (($ (|PositiveInteger|) $) 6) (($ (|NonNegativeInteger|) $) 6)
+    (($ (|Integer|) $) 6)))
+ABELGRP
+(((|CancellationAbelianMonoid|) . T))
+(((|AbelianMonoid|) . T) ((|AbelianSemiGroup|) . T) ((|BasicType|) . T)
+ ((|CancellationAbelianMonoid|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "The class of abelian groups,{} \\spadignore{i.e.} additive monoids where each element has an additive inverse. \\blankline"))
+ (*
+  (($ (|Integer|) $)
+   "\\spad{n*x} is the product of \\spad{x} by the integer \\spad{n}."))
+ (-
+  (($ $ $)
+   "\\spad{x-y} is the difference of \\spad{x} and \\spad{y} \\spadignore{i.e.} \\spad{x + (-y)}.")
+  (($ $) "\\spad{-x} is the additive inverse of \\spad{x}.")))
+(("documentation" 0 1256) ("ancestors" 0 1086) ("parents" 0 1048)
+ ("abbreviation" 0 1040) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 526) ("modemaps" 0 328) ("sourceFile" 0 289)
+ ("constructorCategory" 0 139) ("constructorModemap" 0 86)
+ ("constructorKind" 0 75) ("constructorForm" 0 58) ("NILADIC" 0 20))

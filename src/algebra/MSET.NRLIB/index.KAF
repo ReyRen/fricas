@@ -1,0 +1,179 @@
+9117                (|Multiset| S)
+|domain|
+(((|Multiset| |#1|)
+  (|Join| (|MultisetAggregate| |#1|) (|finiteAggregate|) (|shallowlyMutable|)
+          (CATEGORY |domain| (SIGNATURE |multiset| ($))
+           (SIGNATURE |multiset| ($ |#1|))
+           (SIGNATURE |multiset| ($ (|List| |#1|)))
+           (SIGNATURE |remove| ($ |#1| $ (|Integer|)))
+           (SIGNATURE |remove| ($ (|Mapping| (|Boolean|) |#1|) $ (|Integer|)))
+           (SIGNATURE |remove!| ($ |#1| $ (|Integer|)))
+           (SIGNATURE |remove!|
+            ($ (|Mapping| (|Boolean|) |#1|) $ (|Integer|)))))
+  (|SetCategory|))
+ (T |Multiset|))
+(|Join| (|MultisetAggregate| |#1|) (|finiteAggregate|) (|shallowlyMutable|)
+        (CATEGORY |domain| (SIGNATURE |multiset| ($))
+         (SIGNATURE |multiset| ($ |#1|))
+         (SIGNATURE |multiset| ($ (|List| |#1|)))
+         (SIGNATURE |remove| ($ |#1| $ (|Integer|)))
+         (SIGNATURE |remove| ($ (|Mapping| (|Boolean|) |#1|) $ (|Integer|)))
+         (SIGNATURE |remove!| ($ |#1| $ (|Integer|)))
+         (SIGNATURE |remove!| ($ (|Mapping| (|Boolean|) |#1|) $ (|Integer|)))))
+"/git/fricas/src/algebra/MSET.spad"
+((|multiset| (*1 *1)
+  (AND (|isDomain| *1 (|Multiset| *2)) (|ofCategory| *2 (|SetCategory|))))
+ (|multiset| (*1 *1 *2)
+  (AND (|isDomain| *1 (|Multiset| *2)) (|ofCategory| *2 (|SetCategory|))))
+ (|multiset| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *1 (|Multiset| *3))))
+ (|remove| (*1 *1 *2 *1 *3)
+           (AND (|isDomain| *3 (|Integer|)) (|isDomain| *1 (|Multiset| *2))
+                (|ofCategory| *2 (|SetCategory|))))
+ (|remove| (*1 *1 *2 *1 *3)
+           (AND (|isDomain| *2 (|Mapping| (|Boolean|) *4))
+                (|isDomain| *3 (|Integer|)) (|ofCategory| *4 (|SetCategory|))
+                (|isDomain| *1 (|Multiset| *4))))
+ (|remove!| (*1 *1 *2 *1 *3)
+  (AND (|isDomain| *3 (|Integer|)) (|isDomain| *1 (|Multiset| *2))
+       (|ofCategory| *2 (|SetCategory|))))
+ (|remove!| (*1 *1 *2 *1 *3)
+  (AND (|isDomain| *2 (|Mapping| (|Boolean|) *4)) (|isDomain| *3 (|Integer|))
+       (|ofCategory| *4 (|SetCategory|)) (|isDomain| *1 (|Multiset| *4)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|union| (($ |#1| $) NIL) (($ $ |#1|) NIL) (($ $ $) 74))
+ (|symmetricDifference| (($ $ $) 77)) (|subset?| (((|Boolean|) $ $) 81))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|set| (($ (|List| |#1|)) 22) (($) 15))
+ (|select!|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 68 (|has| $ (|finiteAggregate|))))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) NIL (|has| $ (|finiteAggregate|))))
+ (|sample| (($) NIL T CONST)) (|removeDuplicates!| (($ $) 69))
+ (|removeDuplicates|
+  (($ $) NIL (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|remove!|
+  (($ |#1| $) 59
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|))))
+  (($ (|Mapping| (|Boolean|) |#1|) $) 63 (|has| $ (|finiteAggregate|)))
+  (($ |#1| $ (|Integer|)) 61)
+  (($ (|Mapping| (|Boolean|) |#1|) $ (|Integer|)) 64))
+ (|remove|
+  (($ (|Mapping| (|Boolean|) |#1|) $) NIL (|has| $ (|finiteAggregate|)))
+  (($ |#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|))))
+  (($ |#1| $ (|Integer|)) 66)
+  (($ (|Mapping| (|Boolean|) |#1|) $ (|Integer|)) 67))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) NIL (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) NIL (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|parts| (((|List| |#1|) $) 27 (|has| $ (|finiteAggregate|))))
+ (|multiset| (($) 13) (($ |#1|) 23) (($ (|List| |#1|)) 20))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|min|
+  ((|#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (|members| (((|List| |#1|) $) 33 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 55
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  ((|#1| $) NIL
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|OrderedSet|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 72 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 73))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|latex| (((|String|) $) NIL)) (|intersect| (($ $ $) 75))
+ (|inspect| ((|#1| $) 52))
+ (|insert!| (($ |#1| $) 53) (($ |#1| $ (|NonNegativeInteger|)) 70))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) NIL))
+ (|extract!| ((|#1| $) 51))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) NIL
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) NIL)) (|empty?| (((|Boolean|) $) 47))
+ (|empty| (($) 12))
+ (|duplicates|
+  (((|List| (|Record| (|:| |entry| |#1|) (|:| |count| (|NonNegativeInteger|))))
+    $)
+   46))
+ (|difference| (($ $ |#1|) NIL) (($ $ $) 76))
+ (|dictionary| (($) 14) (($ (|List| |#1|)) 21))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 58
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|copy| (($ $) 65))
+ (|convert|
+  (((|InputForm|) $) 31 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 19)) (|coerce| (((|OutputForm|) $) 43))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (>= (((|Boolean|) $ $) NIL)) (> (((|Boolean|) $ $) NIL))
+ (= (((|Boolean|) $ $) 79)) (<= (((|Boolean|) $ $) 82))
+ (< (((|Boolean|) $ $) 80))
+ (|#| (((|NonNegativeInteger|) $) 57 (|has| $ (|finiteAggregate|)))))
+((AND (|HasCategory| |#1| (LIST '|Evalable| (|devaluate| |#1|)))
+      (|HasCategory| |#1| '(|SetCategory|)))
+ (|HasCategory| |#1| (LIST '|ConvertibleTo| '(|InputForm|)))
+ (|HasCategory| |#1| '(|OrderedSet|)) (|HasCategory| |#1| '(|BasicType|))
+ (|HasCategory| $ '(|shallowlyMutable|)) (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| |#1| '(|OrderedSet|))
+      (|HasCategory| $ '(|finiteAggregate|)))
+ (AND (|HasCategory| |#1| '(|BasicType|))
+      (|HasCategory| $ '(|finiteAggregate|))))
+MSET
+(((|MultisetAggregate| |#1|) . T) ((|finiteAggregate|) . T)
+ ((|shallowlyMutable|) . T))
+(((|Aggregate|) . T) ((|BagAggregate| |t#1|) . T) ((|BasicType|) . T)
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|Collection| |t#1|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|DictionaryOperations| |t#1|) . T)
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|MultiDictionary| |t#1|) . T) ((|MultisetAggregate| |#1|) . T)
+ ((|PartialOrder|) . T) ((|SetAggregate| |t#1|) . T) ((|SetCategory|) . T)
+ ((|Type|) . T) ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor| (NIL "A multiset is a set with multiplicities."))
+ (|remove!|
+  (($ (|Mapping| (|Boolean|) |#1|) $ (|Integer|))
+   "\\spad{remove!(p,{} ms,{} number)} removes destructively at most \\spad{number} copies of elements \\spad{x} such that \\spad{p(x)} is \\spadfun{\\spad{true}} if \\spad{number} is positive,{} all of them if \\spad{number} equals zero,{} and all but at most \\spad{-number} if \\spad{number} is negative.")
+  (($ |#1| $ (|Integer|))
+   "\\spad{remove!(x,{} ms,{} number)} removes destructively at most \\spad{number} copies of element \\spad{x} if \\spad{number} is positive,{} all of them if \\spad{number} equals zero,{} and all but at most \\spad{-number} if \\spad{number} is negative."))
+ (|remove|
+  (($ (|Mapping| (|Boolean|) |#1|) $ (|Integer|))
+   "\\spad{remove(p,{} ms,{} number)} removes at most \\spad{number} copies of elements \\spad{x} such that \\spad{p(x)} is \\spadfun{\\spad{true}} if \\spad{number} is positive,{} all of them if \\spad{number} equals zero,{} and all but at most \\spad{-number} if \\spad{number} is negative.")
+  (($ |#1| $ (|Integer|))
+   "\\spad{remove(x,{} ms,{} number)} removes at most \\spad{number} copies of element \\spad{x} if \\spad{number} is positive,{} all of them if \\spad{number} equals zero,{} and all but at most \\spad{-number} if \\spad{number} is negative."))
+ (|multiset|
+  (($ (|List| |#1|))
+   "\\spad{multiset(ls)} creates a multiset with elements from \\spad{ls}.")
+  (($ |#1|) "\\spad{multiset(s)} creates a multiset with singleton \\spad{s}.")
+  (($)
+   "\\spad{multiset()}\\$\\spad{D} creates an empty multiset of domain \\spad{D}.")))
+(("documentation" 0 7482) ("ancestors" 0 6788) ("parents" 0 6699)
+ ("abbreviation" 0 6694) ("predicates" 0 6191) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2156) ("modemaps" 0 1134) ("sourceFile" 0 1098)
+ ("constructorCategory" 0 613) ("constructorModemap" 0 44)
+ ("constructorKind" 0 35) ("constructorForm" 0 20))

@@ -1,0 +1,337 @@
+15115               (MAKEPROP '|ComplexDoubleFloatMatrix| 'NILADIC T)
+(|ComplexDoubleFloatMatrix|)
+|domain|
+(((|ComplexDoubleFloatMatrix|)
+  (|MatrixCategory| (|Complex| (|DoubleFloat|)) (|ComplexDoubleFloatVector|)
+                    (|ComplexDoubleFloatVector|)))
+ (T |ComplexDoubleFloatMatrix|))
+(|MatrixCategory| (|Complex| (|DoubleFloat|)) (|ComplexDoubleFloatVector|)
+                  (|ComplexDoubleFloatVector|))
+"/git/fricas/src/algebra/CDFMAT.spad"
+((~=
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| $ (|finiteAggregate|))
+         (|has| (|Complex| (|DoubleFloat|)) (|BasicType|)))
+    (|has| (|Complex| (|DoubleFloat|)) (|SetCategory|)))))
+ (|zero?| (((|Boolean|) $) NIL))
+ (|zero| (($ (|NonNegativeInteger|) (|NonNegativeInteger|)) NIL))
+ (|vertSplit| (((|List| $) $ (|PositiveInteger|)) NIL)
+  (((|List| $) $ (|List| (|NonNegativeInteger|))) NIL))
+ (|vertConcat| (($ $ $) NIL) (($ (|List| $)) NIL))
+ (|transpose| (($ $) NIL) (($ (|ComplexDoubleFloatVector|)) NIL))
+ (|symmetric?| (((|Boolean|) $) NIL))
+ (|swapRows!| (($ $ (|Integer|) (|Integer|)) NIL))
+ (|swapColumns!| (($ $ (|Integer|) (|Integer|)) NIL))
+ (|subMatrix| (($ $ (|Integer|) (|Integer|) (|Integer|) (|Integer|)) NIL))
+ (|squareTop| (($ $) NIL)) (|square?| (((|Boolean|) $) NIL))
+ (|smaller?|
+  (((|Boolean|) $ $) NIL (|has| (|Complex| (|DoubleFloat|)) (|Comparable|))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|setsubMatrix!| (($ $ (|Integer|) (|Integer|) $) NIL))
+ (|setelt!| (($ $ (|Integer|) (|List| (|Segment| (|Integer|))) $) NIL)
+  (($ $ (|List| (|Segment| (|Integer|))) (|Integer|) $) NIL)
+  (((|Complex| (|DoubleFloat|)) $ (|Integer|) (|Integer|)
+    (|Complex| (|DoubleFloat|)))
+   18)
+  (($ $ (|Integer|) (|List| (|Integer|)) $) NIL)
+  (($ $ (|List| (|Integer|)) (|Integer|) $) NIL)
+  (($ $ (|List| (|Integer|)) (|List| (|Integer|)) $) NIL)
+  (($ $ (|Segment| (|Integer|)) (|Segment| (|Integer|)) $) NIL)
+  (($ $ (|List| (|Integer|)) (|Segment| (|Integer|)) $) NIL)
+  (($ $ (|Segment| (|Integer|)) (|List| (|Integer|)) $) NIL)
+  (($ $ (|Segment| (|Integer|)) (|List| (|Segment| (|Integer|))) $) NIL)
+  (($ $ (|List| (|Segment| (|Integer|))) (|Segment| (|Integer|)) $) NIL)
+  (($ $ (|List| (|Segment| (|Integer|))) (|List| (|Segment| (|Integer|))) $)
+   NIL))
+ (|setRow!| (($ $ (|Integer|) (|ComplexDoubleFloatVector|)) NIL))
+ (|setColumn!| (($ $ (|Integer|) (|ComplexDoubleFloatVector|)) NIL))
+ (|scalarMatrix| (($ (|NonNegativeInteger|) (|Complex| (|DoubleFloat|))) NIL))
+ (|sample| (($) NIL T CONST)) (|rowSlice| (((|Segment| (|Integer|)) $) NIL))
+ (|rowEchelon|
+  (($ $) NIL (|has| (|Complex| (|DoubleFloat|)) (|EuclideanDomain|))))
+ (|row| (((|ComplexDoubleFloatVector|) $ (|Integer|)) NIL))
+ (|rank|
+  (((|NonNegativeInteger|) $) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|IntegralDomain|))))
+ (|qsetelt!|
+  (((|Complex| (|DoubleFloat|)) $ (|Integer|) (|Integer|)
+    (|Complex| (|DoubleFloat|)))
+   17))
+ (|qnew| (($ (|NonNegativeInteger|) (|NonNegativeInteger|)) 20))
+ (|qelt| (((|Complex| (|DoubleFloat|)) $ (|Integer|) (|Integer|)) 15))
+ (|positivePower|
+  (($ $ (|Integer|)) NIL (|has| (|Complex| (|DoubleFloat|)) (|SemiRng|))))
+ (|parts| (((|List| (|Complex| (|DoubleFloat|))) $) NIL))
+ (|nullity|
+  (((|NonNegativeInteger|) $) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|IntegralDomain|))))
+ (|nullSpace|
+  (((|List| (|ComplexDoubleFloatVector|)) $) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|IntegralDomain|))))
+ (|nrows| (((|NonNegativeInteger|) $) 10))
+ (|new|
+  (($ (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|Complex| (|DoubleFloat|)))
+   21))
+ (|ncols| (((|NonNegativeInteger|) $) 11))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|minordet|
+  (((|Complex| (|DoubleFloat|)) $) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|CommutativeRing|))))
+ (|minRowIndex| (((|Integer|) $) 7)) (|minColIndex| (((|Integer|) $) 8))
+ (|min|
+  (((|Complex| (|DoubleFloat|)) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Complex| (|DoubleFloat|)) (|OrderedSet|)))))
+ (|members|
+  (((|List| (|Complex| (|DoubleFloat|))) $) NIL (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) (|Complex| (|DoubleFloat|)) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Complex| (|DoubleFloat|)) (|BasicType|)))))
+ (|maxRowIndex| (((|Integer|) $) 12)) (|maxColIndex| (((|Integer|) $) 13))
+ (|max|
+  (((|Complex| (|DoubleFloat|))
+    (|Mapping| (|Boolean|) (|Complex| (|DoubleFloat|))
+               (|Complex| (|DoubleFloat|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|Complex| (|DoubleFloat|)) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Complex| (|DoubleFloat|)) (|OrderedSet|)))))
+ (|matrix| (($ (|List| (|List| (|Complex| (|DoubleFloat|))))) NIL)
+  (($ (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|Mapping| (|Complex| (|DoubleFloat|)) (|Integer|) (|Integer|)))
+   NIL))
+ (|map!|
+  (($ (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|))) $)
+   NIL))
+ (|map|
+  (($ (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|))) $)
+   NIL)
+  (($
+    (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|))
+               (|Complex| (|DoubleFloat|)))
+    $ $)
+   NIL)
+  (($
+    (|Mapping| (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|))
+               (|Complex| (|DoubleFloat|)))
+    $ $ (|Complex| (|DoubleFloat|)))
+   NIL))
+ (|listOfLists| (((|List| (|List| (|Complex| (|DoubleFloat|)))) $) NIL))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) NIL))
+ (|latex|
+  (((|String|) $) NIL (|has| (|Complex| (|DoubleFloat|)) (|SetCategory|))))
+ (|kronecker_prod1|
+  (((|Void|) $ (|Integer|) (|List| (|List| (|NonNegativeInteger|))) (|List| $)
+    (|NonNegativeInteger|) (|NonNegativeInteger|)
+    (|Union| (|Complex| (|DoubleFloat|)) "one"))
+   NIL))
+ (|kroneckerSum| (($ $ $) NIL) (($ (|List| $)) NIL))
+ (|kroneckerProduct|
+  (($ $ $) NIL (|has| (|Complex| (|DoubleFloat|)) (|SemiRng|)))
+  (($ (|List| $)) NIL (|has| (|Complex| (|DoubleFloat|)) (|SemiRng|))))
+ (|inverse|
+  (((|Union| $ #1="failed") $) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|Field|))))
+ (|horizSplit| (((|List| $) $ (|PositiveInteger|)) NIL)
+  (((|List| $) $ (|List| (|NonNegativeInteger|))) NIL))
+ (|horizConcat| (($ $ $) NIL) (($ (|List| $)) NIL))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|SetCategory|))))
+ (|hash|
+  (((|SingleInteger|) $) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|SetCategory|))))
+ (|fill!| (($ $ (|Complex| (|DoubleFloat|))) NIL))
+ (|exquo|
+  (((|Union| $ #1#) $ (|Complex| (|DoubleFloat|))) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|IntegralDomain|))))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Complex| (|DoubleFloat|))) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| (|Complex| (|DoubleFloat|))))) NIL
+   (AND
+    (|has| (|Complex| (|DoubleFloat|))
+           (|Evalable| (|Complex| (|DoubleFloat|))))
+    (|has| (|Complex| (|DoubleFloat|)) (|SetCategory|))))
+  (($ $ (|Equation| (|Complex| (|DoubleFloat|)))) NIL
+   (AND
+    (|has| (|Complex| (|DoubleFloat|))
+           (|Evalable| (|Complex| (|DoubleFloat|))))
+    (|has| (|Complex| (|DoubleFloat|)) (|SetCategory|))))
+  (($ $ (|Complex| (|DoubleFloat|)) (|Complex| (|DoubleFloat|))) NIL
+   (AND
+    (|has| (|Complex| (|DoubleFloat|))
+           (|Evalable| (|Complex| (|DoubleFloat|))))
+    (|has| (|Complex| (|DoubleFloat|)) (|SetCategory|))))
+  (($ $ (|List| (|Complex| (|DoubleFloat|)))
+    (|List| (|Complex| (|DoubleFloat|))))
+   NIL
+   (AND
+    (|has| (|Complex| (|DoubleFloat|))
+           (|Evalable| (|Complex| (|DoubleFloat|))))
+    (|has| (|Complex| (|DoubleFloat|)) (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) NIL)) (|empty?| (((|Boolean|) $) NIL))
+ (|empty| (($) 19))
+ (|elt| (((|Complex| (|DoubleFloat|)) $ (|Integer|) (|Integer|)) 16)
+  (((|Complex| (|DoubleFloat|)) $ (|Integer|) (|Integer|)
+    (|Complex| (|DoubleFloat|)))
+   NIL)
+  (($ $ (|Integer|) (|List| (|Integer|))) NIL)
+  (($ $ (|List| (|Integer|)) (|Integer|)) NIL)
+  (($ $ (|List| (|Integer|)) (|List| (|Integer|))) NIL)
+  (($ $ (|Segment| (|Integer|)) (|Segment| (|Integer|))) NIL)
+  (($ $ (|List| (|Integer|)) (|Segment| (|Integer|))) NIL)
+  (($ $ (|Segment| (|Integer|)) (|List| (|Integer|))) NIL)
+  (($ $ (|Integer|) (|List| (|Segment| (|Integer|)))) NIL)
+  (($ $ (|List| (|Segment| (|Integer|))) (|Integer|)) NIL)
+  (($ $ (|Segment| (|Integer|)) (|List| (|Segment| (|Integer|)))) NIL)
+  (($ $ (|List| (|Segment| (|Integer|))) (|Segment| (|Integer|))) NIL)
+  (($ $ (|List| (|Segment| (|Integer|))) (|List| (|Segment| (|Integer|))))
+   NIL))
+ (|diagonalMatrix| (($ (|List| (|Complex| (|DoubleFloat|)))) NIL)
+  (($ (|List| $)) NIL))
+ (|diagonal?| (((|Boolean|) $) NIL))
+ (|determinant|
+  (((|Complex| (|DoubleFloat|)) $) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|CommutativeRing|))))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) (|Complex| (|DoubleFloat|)))
+    $)
+   NIL (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) (|Complex| (|DoubleFloat|)) $) NIL
+   (AND (|has| $ (|finiteAggregate|))
+        (|has| (|Complex| (|DoubleFloat|)) (|BasicType|)))))
+ (|copy| (($ $) NIL))
+ (|columnSpace|
+  (((|List| (|ComplexDoubleFloatVector|)) $) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|EuclideanDomain|))))
+ (|column| (((|ComplexDoubleFloatVector|) $ (|Integer|)) NIL))
+ (|colSlice| (((|Segment| (|Integer|)) $) NIL))
+ (|coerce|
+  (((|OutputForm|) $) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|CoercibleTo| (|OutputForm|))))
+  (($ (|ComplexDoubleFloatVector|)) NIL))
+ (|blockSplit|
+  (((|List| (|List| $)) $ (|PositiveInteger|) (|PositiveInteger|)) NIL)
+  (((|List| (|List| $)) $ (|List| (|NonNegativeInteger|))
+    (|List| (|NonNegativeInteger|)))
+   NIL))
+ (|blockConcat| (($ (|List| (|List| $))) NIL))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) (|Complex| (|DoubleFloat|))) $) NIL
+   (|has| $ (|finiteAggregate|))))
+ (|antisymmetric?|
+  (((|Boolean|) $) NIL (|has| (|Complex| (|DoubleFloat|)) (|AbelianGroup|))))
+ (^
+  (($ $ (|NonNegativeInteger|)) NIL
+   (AND (|has| (|Complex| (|DoubleFloat|)) (|Monoid|))
+        (|has| (|Complex| (|DoubleFloat|)) (|SemiRng|))))
+  (($ $ (|Integer|)) NIL (|has| (|Complex| (|DoubleFloat|)) (|Field|))))
+ (|Pfaffian|
+  (((|Complex| (|DoubleFloat|)) $) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|CommutativeRing|))))
+ (=
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| $ (|finiteAggregate|))
+         (|has| (|Complex| (|DoubleFloat|)) (|BasicType|)))
+    (|has| (|Complex| (|DoubleFloat|)) (|SetCategory|)))))
+ (/
+  (($ $ (|Complex| (|DoubleFloat|))) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|Field|))))
+ (- (($ $ $) NIL (|has| (|Complex| (|DoubleFloat|)) (|AbelianGroup|)))
+    (($ $) NIL (|has| (|Complex| (|DoubleFloat|)) (|AbelianGroup|))))
+ (+ (($ $ $) NIL))
+ (*
+  (($ (|Integer|) $) NIL (|has| (|Complex| (|DoubleFloat|)) (|AbelianGroup|)))
+  (($ $ $) NIL (|has| (|Complex| (|DoubleFloat|)) (|SemiRng|)))
+  (($ (|Complex| (|DoubleFloat|)) $) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|SemiRng|)))
+  (($ $ (|Complex| (|DoubleFloat|))) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|SemiRng|)))
+  (((|ComplexDoubleFloatVector|) $ (|ComplexDoubleFloatVector|)) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|SemiRng|)))
+  (((|ComplexDoubleFloatVector|) (|ComplexDoubleFloatVector|) $) NIL
+   (|has| (|Complex| (|DoubleFloat|)) (|SemiRng|))))
+ (|#| (((|NonNegativeInteger|) $) NIL (|has| $ (|finiteAggregate|)))))
+((|HasCategory| (|Complex| (|DoubleFloat|)) '(|Comparable|))
+ (|HasCategory| (|Complex| (|DoubleFloat|)) '(|OrderedSet|))
+ (|HasCategory| (|Complex| (|DoubleFloat|)) '(|BasicType|))
+ (|HasCategory| (|Complex| (|DoubleFloat|)) '(|SetCategory|))
+ (OR (|HasCategory| (|Complex| (|DoubleFloat|)) '(|BasicType|))
+     (|HasCategory| (|Complex| (|DoubleFloat|)) '(|Comparable|))
+     (|HasCategory| (|Complex| (|DoubleFloat|)) '(|SetCategory|)))
+ (OR (|HasCategory| (|Complex| (|DoubleFloat|)) '(|Comparable|))
+     (|HasCategory| (|Complex| (|DoubleFloat|)) '(|SetCategory|)))
+ (AND
+  (|HasCategory| (|Complex| (|DoubleFloat|))
+                 (LIST '|Evalable| (LIST '|Complex| '(|DoubleFloat|))))
+  (|HasCategory| (|Complex| (|DoubleFloat|)) '(|SetCategory|)))
+ (OR
+  (AND
+   (|HasCategory| (|Complex| (|DoubleFloat|))
+                  (LIST '|Evalable| (LIST '|Complex| '(|DoubleFloat|))))
+   (|HasCategory| (|Complex| (|DoubleFloat|)) '(|Comparable|)))
+  (AND
+   (|HasCategory| (|Complex| (|DoubleFloat|))
+                  (LIST '|Evalable| (LIST '|Complex| '(|DoubleFloat|))))
+   (|HasCategory| (|Complex| (|DoubleFloat|)) '(|SetCategory|))))
+ (|HasCategory| (|Complex| (|DoubleFloat|))
+                (LIST '|CoercibleTo| '(|OutputForm|)))
+ (OR
+  (|HasCategory| (|Complex| (|DoubleFloat|))
+                 (LIST '|CoercibleTo| '(|OutputForm|)))
+  (AND
+   (|HasCategory| (|Complex| (|DoubleFloat|))
+                  (LIST '|Evalable| (LIST '|Complex| '(|DoubleFloat|))))
+   (|HasCategory| (|Complex| (|DoubleFloat|)) '(|SetCategory|))))
+ (|HasCategory| (|Complex| (|DoubleFloat|)) '(|AbelianGroup|))
+ (|HasCategory| (|Complex| (|DoubleFloat|)) '(|SemiRng|))
+ (AND (|HasCategory| (|Complex| (|DoubleFloat|)) '(|Monoid|))
+      (|HasCategory| (|Complex| (|DoubleFloat|)) '(|SemiRng|)))
+ (|HasCategory| (|Complex| (|DoubleFloat|)) '(|EuclideanDomain|))
+ (|HasCategory| (|Complex| (|DoubleFloat|)) '(|IntegralDomain|))
+ (|HasCategory| (|Complex| (|DoubleFloat|)) '(|CommutativeRing|))
+ (|HasCategory| (|Complex| (|DoubleFloat|)) '(|Field|))
+ (|HasCategory| $ '(|finiteAggregate|))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| (|Complex| (|DoubleFloat|)) '(|OrderedSet|)))
+ (AND (|HasCategory| $ '(|finiteAggregate|))
+      (|HasCategory| (|Complex| (|DoubleFloat|)) '(|BasicType|)))
+ (OR
+  (AND (|HasCategory| $ '(|finiteAggregate|))
+       (|HasCategory| (|Complex| (|DoubleFloat|)) '(|BasicType|)))
+  (|HasCategory| (|Complex| (|DoubleFloat|)) '(|SetCategory|))))
+CDFMAT
+(((|MatrixCategory| (|Complex| (|DoubleFloat|)) (|ComplexDoubleFloatVector|)
+                    (|ComplexDoubleFloatVector|))
+  . T))
+(((|Aggregate|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) |has| |t#1| (|CoercibleTo| (|OutputForm|)))
+ ((|Comparable|) |has| |t#1| (|Comparable|))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|MatrixCategory| (|Complex| (|DoubleFloat|)) (|ComplexDoubleFloatVector|)
+                    (|ComplexDoubleFloatVector|))
+  . T)
+ ((|SetCategory|) |has| |t#1| (|SetCategory|))
+ ((|TwoDimensionalArrayCategory| |t#1| |t#2| |t#3|) . T) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "This is a low-level domain which implements matrices (two dimensional arrays) of complex double precision floating point numbers. Indexing is 0 based,{} there is no bound checking (unless provided by lower level).")))
+(("documentation" 0 14870) ("ancestors" 0 14072) ("parents" 0 13937)
+ ("abbreviation" 0 13930) ("predicates" 0 11441) ("superDomain" 0 NIL)
+ ("operationAlist" 0 461) ("modemaps" 0 NIL) ("sourceFile" 0 423)
+ ("constructorCategory" 0 300) ("constructorModemap" 0 108)
+ ("constructorKind" 0 99) ("constructorForm" 0 70) ("NILADIC" 0 20))

@@ -1,0 +1,14 @@
+
+-- Input for page MultivariatePolynomialXmpPage
+)clear all
+
+m : MPOLY([x,y],INT) := (x^2 - x*y^3 +3*y)^2
+m :: MPOLY([y,x],INT)
+p : MPOLY([x,y],POLY INT)
+p := (a^2*x - b*y^2 + 1)^2
+p :: POLY INT
+% :: MPOLY([a,b],POLY INT)
+q : UP(x, FRAC MPOLY([y,z],INT))
+q := (x^2 - x*(z+1)/y +2)^2
+q :: UP(z, FRAC MPOLY([x,y],INT))
+q :: MPOLY([x,z], FRAC UP(y,INT))

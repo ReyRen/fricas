@@ -1,0 +1,281 @@
+13323               (|TensorPower| |n| R B M)
+|domain|
+(((|TensorPower| |#1| |#2| |#3| |#4|)
+  (|Join| (|TensorPowerCategory| |#1| |#2| |#4|)
+          (|FreeModuleCategory| |#2| (|Vector| |#3|))
+          (CATEGORY |domain| (SIGNATURE |tensor| ($ (|List| |#3|)))))
+  (|NonNegativeInteger|) (|CommutativeRing|) (|OrderedSet|)
+  (|FreeModuleCategory| |#2| |#3|))
+ (T |TensorPower|))
+(|Join| (|TensorPowerCategory| |#1| |#2| |#4|)
+        (|FreeModuleCategory| |#2| (|Vector| |#3|))
+        (CATEGORY |domain| (SIGNATURE |tensor| ($ (|List| |#3|)))))
+"/git/fricas/src/algebra/TENSPOW.spad"
+((|tensor| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| *5)) (|ofCategory| *5 (|OrderedSet|))
+       (|ofCategory| *4 (|CommutativeRing|))
+       (|isDomain| *1 (|TensorPower| *3 *4 *5 *6))
+       (|ofType| *3 (|NonNegativeInteger|))
+       (|ofCategory| *6 (|FreeModuleCategory| *4 *5)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|zero?|
+  (((|Boolean|) $) 11
+   (OR (|has| |#4| (|Algebra| |#2|)) (|has| |#2| (|AbelianMonoid|))
+       (AND (|has| |#2| (|OrderedAbelianMonoid|))
+            (|has| (|Vector| |#3|) (|OrderedSet|)))
+       (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+            (|has| (|Vector| |#3|) (|OrderedSet|))))))
+ (|tensor| (($ (|List| |#4|)) 46) (($ |#4| |#4|) NIL) (($ (|List| |#3|)) 37))
+ (|support| (((|List| (|Vector| |#3|)) $) NIL))
+ (|sup|
+  (($ $ $) NIL
+   (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+        (|has| (|Vector| |#3|) (|OrderedSet|)))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) NIL
+   (OR (|has| |#4| (|Algebra| |#2|)) (|has| |#2| (|AbelianGroup|))
+       (|has| |#2| (|CancellationAbelianMonoid|))
+       (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+            (|has| (|Vector| |#3|) (|OrderedSet|))))))
+ (|smaller?|
+  (((|Boolean|) $ $) NIL
+   (OR (AND (|has| |#2| (|Comparable|)) (|has| (|Vector| |#3|) (|Comparable|)))
+       (AND (|has| |#2| (|OrderedAbelianMonoid|))
+            (|has| (|Vector| |#3|) (|OrderedSet|)))
+       (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+            (|has| (|Vector| |#3|) (|OrderedSet|))))))
+ (|sample|
+  (($) NIL
+   (OR (|has| |#4| (|Algebra| |#2|)) (|has| |#2| (|AbelianMonoid|))
+       (AND (|has| |#2| (|OrderedAbelianMonoid|))
+            (|has| (|Vector| |#3|) (|OrderedSet|)))
+       (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+            (|has| (|Vector| |#3|) (|OrderedSet|))))
+   CONST))
+ (|rightRecip| (((|Union| $ #1="failed") $) NIL (|has| |#4| (|Algebra| |#2|))))
+ (|rightPower| (($ $ (|NonNegativeInteger|)) NIL (|has| |#4| (|Algebra| |#2|)))
+  (($ $ (|PositiveInteger|)) NIL (|has| |#4| (|Algebra| |#2|))))
+ (|retractIfCan|
+  (((|Union| (|Vector| |#3|) "failed") $) NIL (|has| |#2| (|SemiRing|))))
+ (|retract| (((|Vector| |#3|) $) NIL (|has| |#2| (|SemiRing|))))
+ (|reductum| (($ $) NIL (|has| (|Vector| |#3|) (|Comparable|))))
+ (|recip| (((|Union| $ #1#) $) NIL (|has| |#4| (|Algebra| |#2|))))
+ (|opposite?|
+  (((|Boolean|) $ $) NIL
+   (OR (|has| |#4| (|Algebra| |#2|)) (|has| |#2| (|AbelianMonoid|))
+       (AND (|has| |#2| (|OrderedAbelianMonoid|))
+            (|has| (|Vector| |#3|) (|OrderedSet|)))
+       (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+            (|has| (|Vector| |#3|) (|OrderedSet|))))))
+ (|one?| (((|Boolean|) $) NIL (|has| |#4| (|Algebra| |#2|))))
+ (|numberOfMonomials| (((|NonNegativeInteger|) $) NIL))
+ (|monomials| (((|List| $) $) NIL)) (|monomial?| (((|Boolean|) $) NIL))
+ (|monomial| (($ |#2| (|Vector| |#3|)) 36))
+ (|min|
+  (($ $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|Vector| |#3|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|Vector| |#3|) (|OrderedSet|))))))
+ (|max|
+  (($ $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|Vector| |#3|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|Vector| |#3|) (|OrderedSet|))))))
+ (|map| (($ (|Mapping| |#2| |#2|) $) NIL))
+ (|listOfTerms|
+  (((|List| (|Record| (|:| |k| (|Vector| |#3|)) (|:| |c| |#2|))) $) 17))
+ (|linearExtend|
+  ((|#2| (|Mapping| |#2| (|Vector| |#3|)) $) NIL
+   (|has| |#2| (|CommutativeRing|))))
+ (|leftRecip| (((|Union| $ #1#) $) NIL (|has| |#4| (|Algebra| |#2|))))
+ (|leftPower| (($ $ (|NonNegativeInteger|)) NIL (|has| |#4| (|Algebra| |#2|)))
+  (($ $ (|PositiveInteger|)) NIL (|has| |#4| (|Algebra| |#2|))))
+ (|leadingTerm|
+  (((|Record| (|:| |k| (|Vector| |#3|)) (|:| |c| |#2|)) $) NIL
+   (|has| (|Vector| |#3|) (|Comparable|))))
+ (|leadingSupport|
+  (((|Vector| |#3|) $) NIL (|has| (|Vector| |#3|) (|Comparable|))))
+ (|leadingMonomial| (($ $) NIL (|has| (|Vector| |#3|) (|Comparable|))))
+ (|leadingCoefficient| ((|#2| $) NIL (|has| (|Vector| |#3|) (|Comparable|))))
+ (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|constructOrdered|
+  (($ (|List| (|Record| (|:| |k| (|Vector| |#3|)) (|:| |c| |#2|)))) 45
+   (|has| (|Vector| |#3|) (|Comparable|))))
+ (|construct|
+  (($ (|List| (|Record| (|:| |k| (|Vector| |#3|)) (|:| |c| |#2|)))) 50))
+ (|commutator| (($ $ $) NIL (|has| |#4| (|Algebra| |#2|))))
+ (|coerce| (((|OutputForm|) $) 30) (($ |#2|) NIL (|has| |#4| (|Algebra| |#2|)))
+           (($ (|Integer|)) NIL (|has| |#4| (|Algebra| |#2|)))
+           (($ (|Vector| |#3|)) NIL (|has| |#2| (|SemiRing|))))
+ (|coefficients| (((|List| |#2|) $) NIL))
+ (|coefficient| ((|#2| $ (|Vector| |#3|)) NIL))
+ (|characteristic|
+  (((|NonNegativeInteger|)) NIL (|has| |#4| (|Algebra| |#2|))))
+ (|associator| (($ $ $ $) NIL (|has| |#4| (|Algebra| |#2|))))
+ (|antiCommutator| (($ $ $) NIL (|has| |#4| (|Algebra| |#2|))))
+ (|annihilate?| (((|Boolean|) $ $) NIL (|has| |#4| (|Algebra| |#2|))))
+ (^ (($ $ (|NonNegativeInteger|)) NIL (|has| |#4| (|Algebra| |#2|)))
+  (($ $ (|PositiveInteger|)) NIL (|has| |#4| (|Algebra| |#2|))))
+ (|Zero|
+  (($) 44
+   (OR (|has| |#4| (|Algebra| |#2|)) (|has| |#2| (|AbelianMonoid|))
+       (AND (|has| |#2| (|OrderedAbelianMonoid|))
+            (|has| (|Vector| |#3|) (|OrderedSet|)))
+       (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+            (|has| (|Vector| |#3|) (|OrderedSet|))))
+   CONST))
+ (|One| (($) NIL (|has| |#4| (|Algebra| |#2|)) CONST))
+ (>=
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|Vector| |#3|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|Vector| |#3|) (|OrderedSet|))))))
+ (>
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|Vector| |#3|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|Vector| |#3|) (|OrderedSet|))))))
+ (= (((|Boolean|) $ $) NIL))
+ (<=
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|Vector| |#3|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|Vector| |#3|) (|OrderedSet|))))))
+ (<
+  (((|Boolean|) $ $) NIL
+   (OR
+    (AND (|has| |#2| (|OrderedAbelianMonoid|))
+         (|has| (|Vector| |#3|) (|OrderedSet|)))
+    (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+         (|has| (|Vector| |#3|) (|OrderedSet|))))))
+ (-
+  (($ $) NIL (OR (|has| |#4| (|Algebra| |#2|)) (|has| |#2| (|AbelianGroup|))))
+  (($ $ $) NIL
+   (OR (|has| |#4| (|Algebra| |#2|)) (|has| |#2| (|AbelianGroup|)))))
+ (+ (($ $ $) NIL))
+ (* (($ (|PositiveInteger|) $) NIL) (($ |#2| $) 49) (($ $ |#2|) NIL)
+    (($ $ $) 51 (|has| |#4| (|Algebra| |#2|)))
+    (($ (|NonNegativeInteger|) $) NIL
+     (OR (|has| |#4| (|Algebra| |#2|)) (|has| |#2| (|AbelianMonoid|))
+         (AND (|has| |#2| (|OrderedAbelianMonoid|))
+              (|has| (|Vector| |#3|) (|OrderedSet|)))
+         (AND (|has| |#2| (|OrderedAbelianMonoidSup|))
+              (|has| (|Vector| |#3|) (|OrderedSet|)))))
+    (($ (|Integer|) $) NIL
+     (OR (|has| |#4| (|Algebra| |#2|)) (|has| |#2| (|AbelianGroup|))))
+    (($ (|Vector| |#3|) |#2|) NIL) (($ |#2| (|Vector| |#3|)) NIL)))
+((|HasCategory| |#4| (LIST '|Algebra| (|devaluate| |#2|)))
+ (OR (|HasCategory| |#2| '(|AbelianGroup|))
+     (|HasCategory| |#4| (LIST '|Algebra| (|devaluate| |#2|))))
+ (|HasCategory| |#2| '(|SemiRing|))
+ (AND (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))
+      (|HasCategory| (|Vector| |#3|) '(|OrderedSet|)))
+ (OR
+  (AND (|HasCategory| |#2| '(|OrderedAbelianMonoid|))
+       (|HasCategory| (|Vector| |#3|) '(|OrderedSet|)))
+  (AND (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))
+       (|HasCategory| (|Vector| |#3|) '(|OrderedSet|))))
+ (OR (|HasCategory| |#2| '(|AbelianGroup|))
+     (|HasCategory| |#2| '(|AbelianMonoid|))
+     (|HasCategory| |#2| '(|CancellationAbelianMonoid|))
+     (|HasCategory| |#4| (LIST '|Algebra| (|devaluate| |#2|))))
+ (OR (|HasCategory| |#2| '(|AbelianGroup|))
+     (|HasCategory| |#2| '(|CancellationAbelianMonoid|))
+     (|HasCategory| |#4| (LIST '|Algebra| (|devaluate| |#2|))))
+ (OR (|HasCategory| |#2| '(|AbelianMonoid|))
+     (AND (|HasCategory| |#2| '(|OrderedAbelianMonoid|))
+          (|HasCategory| (|Vector| |#3|) '(|OrderedSet|)))
+     (AND (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))
+          (|HasCategory| (|Vector| |#3|) '(|OrderedSet|)))
+     (|HasCategory| |#4| (LIST '|Algebra| (|devaluate| |#2|))))
+ (OR (|HasCategory| |#2| '(|AbelianGroup|))
+     (|HasCategory| |#2| '(|CancellationAbelianMonoid|))
+     (AND (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))
+          (|HasCategory| (|Vector| |#3|) '(|OrderedSet|)))
+     (|HasCategory| |#4| (LIST '|Algebra| (|devaluate| |#2|))))
+ (|HasCategory| |#2| '(|CommutativeRing|))
+ (|HasCategory| (|Vector| |#3|) '(|Comparable|))
+ (OR
+  (AND (|HasCategory| |#2| '(|Comparable|))
+       (|HasCategory| (|Vector| |#3|) '(|Comparable|)))
+  (AND (|HasCategory| |#2| '(|OrderedAbelianMonoid|))
+       (|HasCategory| (|Vector| |#3|) '(|OrderedSet|)))
+  (AND (|HasCategory| |#2| '(|OrderedAbelianMonoidSup|))
+       (|HasCategory| (|Vector| |#3|) '(|OrderedSet|)))))
+TENSPOW
+(((|TensorPowerCategory| |#1| |#2| |#4|) . T)
+ ((|FreeModuleCategory| |#2| (|Vector| |#3|)) . T))
+(((|AbelianGroup|) OR (|has| |t#3| (|Algebra| |t#2|))
+  (|has| |t#1| (|AbelianGroup|)))
+ ((|AbelianMonoid|) OR (|has| |t#3| (|Algebra| |t#2|))
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|)))
+  (|has| |t#1| (|AbelianMonoid|))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|CommutativeRing|))))
+ ((|AbelianProductCategory| |t#1|) . T) ((|AbelianSemiGroup|) . T)
+ ((|Algebra| |t#2|) |has| |t#3| (|Algebra| |t#2|)) ((|BasicType|) . T)
+ ((|BiModule| $ $) |has| |t#3| (|Algebra| |t#2|))
+ ((|BiModule| |t#1| |t#1|) . T)
+ ((|CancellationAbelianMonoid|) OR (|has| |t#3| (|Algebra| |t#2|))
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (|has| |t#1| (|CancellationAbelianMonoid|))
+  (AND (|has| |t#1| (|AbelianGroup|)) (|has| |t#1| (|CommutativeRing|))))
+ ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|Comparable|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|Comparable|)) (|has| |t#2| (|Comparable|))))
+ ((|FreeModuleCategory| |#2| (|Vector| |#3|)) . T)
+ ((|IndexedDirectProductCategory| |t#1| |t#2|) . T) ((|LeftModule| |t#1|) . T)
+ ((|Magma|) |has| |t#3| (|Algebra| |t#2|))
+ ((|MagmaWithUnit|) |has| |t#3| (|Algebra| |t#2|)) ((|Module| |t#1|) . T)
+ ((|Module| |t#2|) . T) ((|Monoid|) |has| |t#3| (|Algebra| |t#2|))
+ ((|NonAssociativeRing|) |has| |t#3| (|Algebra| |t#2|))
+ ((|NonAssociativeRng|) |has| |t#3| (|Algebra| |t#2|))
+ ((|NonAssociativeSemiRing|) |has| |t#3| (|Algebra| |t#2|))
+ ((|NonAssociativeSemiRng|) |has| |t#3| (|Algebra| |t#2|))
+ ((|OrderedAbelianMonoid|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|OrderedAbelianMonoidSup|) AND (|has| |t#1| (|OrderedAbelianMonoidSup|))
+  (|has| |t#2| (|OrderedSet|)))
+ ((|OrderedAbelianSemiGroup|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|OrderedCancellationAbelianMonoid|) AND
+  (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+ ((|OrderedSet|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|PartialOrder|) OR
+  (AND (|has| |t#1| (|OrderedAbelianMonoidSup|)) (|has| |t#2| (|OrderedSet|)))
+  (AND (|has| |t#1| (|OrderedAbelianMonoid|)) (|has| |t#2| (|OrderedSet|))))
+ ((|RetractableTo| |t#2|) |has| |t#1| (|SemiRing|)) ((|RightModule| |t#2|) . T)
+ ((|Ring|) |has| |t#3| (|Algebra| |t#2|))
+ ((|Rng|) |has| |t#3| (|Algebra| |t#2|))
+ ((|SemiGroup|) |has| |t#3| (|Algebra| |t#2|))
+ ((|SemiRing|) |has| |t#3| (|Algebra| |t#2|))
+ ((|SemiRng|) |has| |t#3| (|Algebra| |t#2|)) ((|SetCategory|) . T)
+ ((|TensorPowerCategory| |#1| |#2| |#4|) . T)
+ ((|TensorProductCategory| |t#2| |t#3| |t#3|) . T)
+ ((|unitsKnown|) |has| |t#3| (|Algebra| |t#2|)))
+((|constructor|
+  (NIL
+   "Tensor powers of a free module over a commutative ring. It is represented as a free module over the cartesian power of the basis.")))
+(("documentation" 0 13162) ("ancestors" 0 10023) ("parents" 0 9925)
+ ("abbreviation" 0 9917) ("predicates" 0 7949) ("superDomain" 0 NIL)
+ ("operationAlist" 0 875) ("modemaps" 0 588) ("sourceFile" 0 549)
+ ("constructorCategory" 0 382) ("constructorModemap" 0 55)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))

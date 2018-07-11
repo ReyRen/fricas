@@ -1,0 +1,55 @@
+)abbrev domain INFCG InfiniteCyclicGroup
+++ Author: Franz Lehner
+++ Date Created: 30.12.2014
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++ Infinite cyclic groups.
+InfiniteCyclicGroup(g: Symbol) : Exports == Implementation where
+  Exports ==> Join(Group, FinitelyGenerated, OrderedMonoid,
+                   CommutativeStar, ConvertibleTo SExpression) with
+    generator : () -> %
+    ++ \spad{generator()} returns the generator.
+    exponent : % -> Integer
+    ++ \spad{exponent(g^k)} returns the representative integer $k$.
+
+  Implementation ==> add
+    Rep := Integer
+
+    rep(x:%) : Rep == x :: Rep
+    per(r:Rep) : % == r :: %
+
+    coerce(x: %) : OutputForm ==
+        one?(x) => coerce(1$Integer)$Integer
+        one?(rep x)$Integer => coerce(g)$Symbol
+        coerce(g)^(coerce(rep x)$Rep)
+
+    hashUpdate!(hs, s) == update!(hs, rep s pretend SingleInteger)$HashState
+
+    convert(x:%) : SExpression ==
+        convert(rep x)$SExpression
+
+    -- FinitelyGenerated
+    generator() : % == per (1$Rep)
+
+    generators() : List % == [generator()]
+
+    exponent x == rep x
+
+    -- Group operations
+    1 : % ==  per(0$Rep)
+
+    one?(x: %) : Boolean == zero?(rep x)$Rep
+
+    _*(x:%, y:%) : % == per(rep(x) +  rep(y))
+
+    inv(x: %) : % == per( - rep x)
+
+    -- OrderedSet
+    _=(x:%, y:%) : Boolean == ( rep x =$Rep rep y)
+    _<(x:%, y:%) : Boolean == ( rep x <$Rep rep y)
+

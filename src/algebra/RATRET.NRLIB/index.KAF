@@ -1,0 +1,45 @@
+1911                (|RationalRetractions| S)
+|package|
+(((|RationalRetractions| |#1|)
+  (CATEGORY |package| (SIGNATURE |rational| ((|Fraction| (|Integer|)) |#1|))
+   (SIGNATURE |rational?| ((|Boolean|) |#1|))
+   (SIGNATURE |rationalIfCan|
+    ((|Union| (|Fraction| (|Integer|)) "failed") |#1|)))
+  (|RetractableTo| (|Fraction| (|Integer|))))
+ (T |RationalRetractions|))
+(CATEGORY |package| (SIGNATURE |rational| ((|Fraction| (|Integer|)) |#1|))
+ (SIGNATURE |rational?| ((|Boolean|) |#1|))
+ (SIGNATURE |rationalIfCan| ((|Union| (|Fraction| (|Integer|)) "failed") |#1|)))
+"/git/fricas/src/algebra/RATRET.spad"
+((|rationalIfCan| (*1 *2 *3)
+  (|partial| AND (|isDomain| *2 (|Fraction| (|Integer|)))
+   (|isDomain| *1 (|RationalRetractions| *3))
+   (|ofCategory| *3 (|RetractableTo| *2))))
+ (|rational?| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|RationalRetractions| *3))
+       (|ofCategory| *3 (|RetractableTo| (|Fraction| (|Integer|))))))
+ (|rational| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Fraction| (|Integer|)))
+       (|isDomain| *1 (|RationalRetractions| *3))
+       (|ofCategory| *3 (|RetractableTo| *2)))))
+((|rationalIfCan| (((|Union| (|Fraction| (|Integer|)) "failed") |#1|) 14))
+ (|rational?| (((|Boolean|) |#1|) 13))
+ (|rational| (((|Fraction| (|Integer|)) |#1|) 9)))
+RATRET
+((|constructor|
+  (NIL
+   "rational number testing and retraction functions. Date Created: March 1990"))
+ (|rationalIfCan|
+  (((|Union| (|Fraction| (|Integer|)) "failed") |#1|)
+   "\\spad{rationalIfCan(x)} returns \\spad{x} as a rational number,{} \"failed\" if \\spad{x} is not a rational number."))
+ (|rational?|
+  (((|Boolean|) |#1|)
+   "\\spad{rational?(x)} returns \\spad{true} if \\spad{x} is a rational number,{} \\spad{false} otherwise."))
+ (|rational|
+  (((|Fraction| (|Integer|)) |#1|)
+   "\\spad{rational(x)} returns \\spad{x} as a rational number; error if \\spad{x} is not a rational number.")))
+(("documentation" 0 1302) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1295) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1130) ("modemaps" 0 609) ("sourceFile" 0 571)
+ ("constructorCategory" 0 371) ("constructorModemap" 0 56)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))

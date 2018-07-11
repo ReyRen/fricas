@@ -1,0 +1,81 @@
+3760                (MAKEPROP '|Homology| 'NILADIC T)
+(|Homology|)
+|domain|
+(((|Homology|)
+  (|Join| (|SetCategory|)
+          (CATEGORY |domain|
+           (SIGNATURE |homologyGroup|
+            ($ (|Matrix| (|Integer|)) (|Matrix| (|Integer|))))
+           (SIGNATURE |homology|
+            ($ (|List| (|List| (|Integer|))) (|List| (|Integer|))
+             (|List| (|List| (|Integer|)))))
+           (SIGNATURE |homology0| ($)) (SIGNATURE |homologyz| ($))
+           (SIGNATURE |homologyzz| ($)) (SIGNATURE |homologyc2| ($))
+           (SIGNATURE |homologyzc2| ($))
+           (SIGNATURE |dispGenerators| ((|OutputForm|) $)))))
+ (T |Homology|))
+(|Join| (|SetCategory|)
+        (CATEGORY |domain|
+         (SIGNATURE |homologyGroup|
+          ($ (|Matrix| (|Integer|)) (|Matrix| (|Integer|))))
+         (SIGNATURE |homology|
+          ($ (|List| (|List| (|Integer|))) (|List| (|Integer|))
+           (|List| (|List| (|Integer|)))))
+         (SIGNATURE |homology0| ($)) (SIGNATURE |homologyz| ($))
+         (SIGNATURE |homologyzz| ($)) (SIGNATURE |homologyc2| ($))
+         (SIGNATURE |homologyzc2| ($))
+         (SIGNATURE |dispGenerators| ((|OutputForm|) $))))
+"/git/fricas/src/algebra/HOMOL.spad"
+((|homologyGroup| (*1 *1 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| (|Integer|))) (|isDomain| *1 (|Homology|))))
+ (|homology| (*1 *1 *2 *3 *2)
+  (AND (|isDomain| *2 (|List| (|List| (|Integer|))))
+       (|isDomain| *3 (|List| (|Integer|))) (|isDomain| *1 (|Homology|))))
+ (|homology0| (*1 *1) (|isDomain| *1 (|Homology|)))
+ (|homologyz| (*1 *1) (|isDomain| *1 (|Homology|)))
+ (|homologyzz| (*1 *1) (|isDomain| *1 (|Homology|)))
+ (|homologyc2| (*1 *1) (|isDomain| *1 (|Homology|)))
+ (|homologyzc2| (*1 *1) (|isDomain| *1 (|Homology|)))
+ (|dispGenerators| (*1 *2 *1)
+  (AND (|isDomain| *2 (|OutputForm|)) (|isDomain| *1 (|Homology|)))))
+((~= (((|Boolean|) $ $) NIL)) (|latex| (((|String|) $) NIL))
+ (|homologyzz| (($) 47)) (|homologyzc2| (($) 49)) (|homologyz| (($) 46))
+ (|homologyc2| (($) 48))
+ (|homologyGroup| (($ (|Matrix| (|Integer|)) (|Matrix| (|Integer|))) 39))
+ (|homology0| (($) 45))
+ (|homology|
+  (($ (|List| (|List| (|Integer|))) (|List| (|Integer|))
+    (|List| (|List| (|Integer|))))
+   44))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|dispGenerators| (((|OutputForm|) $) 58)) (|coerce| (((|OutputForm|) $) 61))
+ (= (((|Boolean|) $ $) 60)))
+HOMOL
+(((|SetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "\\indented{2}{Intended to hold homology which is calculated using SmithNormalForm:} \\indented{2}{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/homology/} Date Created: June 2016 Basic Operations: Related packages: Related categories: Related Domains: FreeModule,{} FiniteSimplicialComplex Also See: AMS Classifications:"))
+ (|dispGenerators| (((|OutputForm|) $) "more detailed output with generators"))
+ (|homologyzc2|
+  (($) "construct \\spad{Z+C2} homology,{} useful in validation code"))
+ (|homologyc2|
+  (($) "construct \\spad{C2} homology,{} useful in validation code"))
+ (|homologyzz|
+  (($) "construct \\spad{Z*Z} homology,{} useful in validation code"))
+ (|homologyz|
+  (($) "construct \\spad{Z} homology,{} useful in validation code"))
+ (|homology0| (($) "construct empty homology,{} useful in validation code"))
+ (|homology|
+  (($ (|List| (|List| (|Integer|))) (|List| (|Integer|))
+    (|List| (|List| (|Integer|))))
+   "construct from lists"))
+ (|homologyGroup|
+  (($ (|Matrix| (|Integer|)) (|Matrix| (|Integer|)))
+   "construct from differential over integers uses method described by Waldek Hebisch here: https://groups.google.com/forum/?hl=en\\#!topic/fricas-devel/mLOdQ-\\spad{fwbO0}")))
+(("documentation" 0 2513) ("ancestors" 0 2432) ("parents" 0 2408)
+ ("abbreviation" 0 2402) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1831) ("modemaps" 0 1200) ("sourceFile" 0 1163)
+ ("constructorCategory" 0 647) ("constructorModemap" 0 76)
+ ("constructorKind" 0 67) ("constructorForm" 0 54) ("NILADIC" 0 20))

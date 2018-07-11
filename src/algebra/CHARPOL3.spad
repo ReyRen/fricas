@@ -1,0 +1,80 @@
+)abbrev package CHARPOL3 CharacteristicPolynomial3
+++ Description: This package computes charateristi polynomial
+++  via interpolation from values at several points.
+++  Additionally, it computes determinant of matrix of
+++  fractions by clearing common denominators of rows.
+++  The determinant routine can be used to compute characteristic
+++  polynomial instead of regular determinant.
+CharacteristicPolynomial3(R : IntegralDomain) : Exports == Implementation where
+  Mat ==> Matrix(R)
+  Up ==> SparseUnivariatePolynomial(R)
+  F ==> Fraction(R)
+  MatF ==> Matrix(F)
+  UpF ==> SparseUnivariatePolynomial(F)
+  Exports ==> with
+    char_pol_via_interpolation : Mat -> Up
+      ++ char_pol_via_interpolation(m) computes characteristic
+      ++ polynomial of m.
+    if R has GcdDomain then
+        det_via_common_denominator : MatF -> F
+          ++ det_via_common_denominator(m) computes determinant of m.
+        char_pol_via_den_interpolation : MatF -> UpF
+          ++ char_pol_via_den_interpolation(m) computes characteristic
+          ++ polynomial of m.
+
+  Implementation ==> add
+
+    char_pol_via_interpolation0(m : Mat, ld : List(R)) : UpF ==
+        n := ncols(m)
+        n ~= nrows(m) => error "matrix not square"
+        A1 := copy(m)
+        res : UpF := 0
+        m1 : UpF := 1
+        v := create()$SingletonAsOrderedSet
+        for i in 0..n repeat
+            d1 := determinant(A1)
+            i_f := i::R::F
+            m1v := ground(eval(m1, v, i_f))
+            cor := d1::F - ground(eval(res, v, i_f))
+            res := res + (cor/m1v)*m1
+            m1 := (monomial(1, 1)$UpF - i_f::UpF)*m1
+            for j in 1..n for di in ld repeat
+                A1(j, j) := A1(j, j) - di
+        res
+
+    char_pol_via_interpolation(m : Mat) : Up ==
+        ld : List(R) := [1 for i in 1..ncols(m)]
+        p1 := char_pol_via_interpolation0(m, ld)
+        map(retract, p1
+           )$UnivariatePolynomialCategoryFunctions2(F, UpF, R, Up)
+
+    if R has GcdDomain then
+
+        to_common_denominator(m : MatF) : Record(mr : Mat, rd : List(R)) ==
+            n := nrows(m)
+            k := ncols(m)
+            lg : List(R) := []
+            B := new(n, n, 0)$Matrix(R)
+            for i in 1..n repeat
+               lr : List(R) := []
+               for j in 1..k repeat
+                    lr := cons(denom(qelt(m, i, j)), lr)
+               g := lcm(lr)
+               lg := cons(g, lg)
+               for j in 1..k repeat
+                   a := qelt(m, i, j)
+                   g1 := (g exquo denom(a))::R
+                   qsetelt!(B, i, j, g1*numer(a))
+            [B, reverse!(lg)]
+
+        det_via_common_denominator(m : MatF) : F ==
+            (B, lg) := to_common_denominator(m)
+            det1 := determinant(B)
+            d := reduce(_*, lg, 1)
+            det1/d
+
+        char_pol_via_den_interpolation(m : MatF) : UpF ==
+            (B, lg) := to_common_denominator(m)
+            res1 := char_pol_via_interpolation0(B, lg)
+            d := reduce(_*, lg, 1)::F
+            map(c +-> c/d, res1)

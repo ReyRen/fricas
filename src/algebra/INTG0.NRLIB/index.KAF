@@ -1,0 +1,341 @@
+18317               (|GenusZeroIntegration| R F L)
+|package|
+(((|GenusZeroIntegration| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |palgint0|
+    ((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|) |#2|
+     (|SparseUnivariatePolynomial| |#2|)))
+   (SIGNATURE |palgint0|
+    ((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+     (|Kernel| |#2|) |#2| (|Fraction| (|SparseUnivariatePolynomial| |#2|))
+     |#2|))
+   (SIGNATURE |palgRDE0|
+    ((|Union| |#2| #1="failed") |#2| |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+     (|Mapping| (|Union| |#2| #1#) |#2| |#2| (|Symbol|)) |#2|
+     (|SparseUnivariatePolynomial| |#2|)))
+   (SIGNATURE |palgRDE0|
+    ((|Union| |#2| #1#) |#2| |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+     (|Mapping| (|Union| |#2| #1#) |#2| |#2| (|Symbol|)) (|Kernel| |#2|) |#2|
+     (|Fraction| (|SparseUnivariatePolynomial| |#2|)) |#2|))
+   (SIGNATURE |univariate|
+    ((|SparseUnivariatePolynomial|
+      (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+     |#2| (|Kernel| |#2|) (|Kernel| |#2|) (|SparseUnivariatePolynomial| |#2|)))
+   (SIGNATURE |multivariate|
+    (|#2|
+     (|SparseUnivariatePolynomial|
+      (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+     (|Kernel| |#2|) |#2|))
+   (SIGNATURE |lift|
+    ((|SparseUnivariatePolynomial|
+      (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+     (|SparseUnivariatePolynomial| |#2|) (|Kernel| |#2|)))
+   (SIGNATURE |rationalize_ir|
+    ((|IntegrationResult| |#2|) (|IntegrationResult| |#2|) (|Kernel| |#2|)))
+   (IF (|has| |#3| (|LinearOrdinaryDifferentialOperatorCategory| |#2|))
+       (PROGN
+        (SIGNATURE |palgLODE0|
+         ((|Record| (|:| |particular| (|Union| |#2| #2="failed"))
+                    (|:| |basis| (|List| |#2|)))
+          |#3| |#2| (|Kernel| |#2|) (|Kernel| |#2|) |#2|
+          (|SparseUnivariatePolynomial| |#2|)))
+        (SIGNATURE |palgLODE0|
+         ((|Record| (|:| |particular| (|Union| |#2| #2#))
+                    (|:| |basis| (|List| |#2|)))
+          |#3| |#2| (|Kernel| |#2|) (|Kernel| |#2|) (|Kernel| |#2|) |#2|
+          (|Fraction| (|SparseUnivariatePolynomial| |#2|)) |#2|)))
+       |noBranch|))
+  (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|)) (|Comparable|)
+          (|CharacteristicZero|) (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|FunctionSpace| |#1|) (|AlgebraicallyClosedField|)
+          (|TranscendentalFunctionCategory|))
+  (|SetCategory|))
+ (T |GenusZeroIntegration|))
+(CATEGORY |package|
+ (SIGNATURE |palgint0|
+  ((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|) |#2|
+   (|SparseUnivariatePolynomial| |#2|)))
+ (SIGNATURE |palgint0|
+  ((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+   (|Kernel| |#2|) |#2| (|Fraction| (|SparseUnivariatePolynomial| |#2|)) |#2|))
+ (SIGNATURE |palgRDE0|
+  ((|Union| |#2| #1="failed") |#2| |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+   (|Mapping| (|Union| |#2| #1#) |#2| |#2| (|Symbol|)) |#2|
+   (|SparseUnivariatePolynomial| |#2|)))
+ (SIGNATURE |palgRDE0|
+  ((|Union| |#2| #1#) |#2| |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+   (|Mapping| (|Union| |#2| #1#) |#2| |#2| (|Symbol|)) (|Kernel| |#2|) |#2|
+   (|Fraction| (|SparseUnivariatePolynomial| |#2|)) |#2|))
+ (SIGNATURE |univariate|
+  ((|SparseUnivariatePolynomial|
+    (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+   |#2| (|Kernel| |#2|) (|Kernel| |#2|) (|SparseUnivariatePolynomial| |#2|)))
+ (SIGNATURE |multivariate|
+  (|#2|
+   (|SparseUnivariatePolynomial|
+    (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+   (|Kernel| |#2|) |#2|))
+ (SIGNATURE |lift|
+  ((|SparseUnivariatePolynomial|
+    (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+   (|SparseUnivariatePolynomial| |#2|) (|Kernel| |#2|)))
+ (SIGNATURE |rationalize_ir|
+  ((|IntegrationResult| |#2|) (|IntegrationResult| |#2|) (|Kernel| |#2|)))
+ (IF (|has| |#3| (|LinearOrdinaryDifferentialOperatorCategory| |#2|))
+     (PROGN
+      (SIGNATURE |palgLODE0|
+       ((|Record| (|:| |particular| (|Union| |#2| #2="failed"))
+                  (|:| |basis| (|List| |#2|)))
+        |#3| |#2| (|Kernel| |#2|) (|Kernel| |#2|) |#2|
+        (|SparseUnivariatePolynomial| |#2|)))
+      (SIGNATURE |palgLODE0|
+       ((|Record| (|:| |particular| (|Union| |#2| #2#))
+                  (|:| |basis| (|List| |#2|)))
+        |#3| |#2| (|Kernel| |#2|) (|Kernel| |#2|) (|Kernel| |#2|) |#2|
+        (|Fraction| (|SparseUnivariatePolynomial| |#2|)) |#2|)))
+     |noBranch|))
+"/git/fricas/src/algebra/INTG0.spad"
+((|palgLODE0| (*1 *2 *3 *4 *5 *5 *5 *4 *6 *4)
+  (AND (|isDomain| *5 (|Kernel| *4))
+       (|isDomain| *6 (|Fraction| (|SparseUnivariatePolynomial| *4)))
+       (|ofCategory| *4
+                     (|Join| (|FunctionSpace| *7) (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *7
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|) (|CharacteristicZero|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Record| (|:| |particular| (|Union| *4 #1="failed"))
+                             (|:| |basis| (|List| *4))))
+       (|isDomain| *1 (|GenusZeroIntegration| *7 *4 *3))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *4))
+       (|ofCategory| *3 (|SetCategory|))))
+ (|palgLODE0| (*1 *2 *3 *4 *5 *5 *4 *6)
+  (AND (|isDomain| *5 (|Kernel| *4))
+       (|isDomain| *6 (|SparseUnivariatePolynomial| *4))
+       (|ofCategory| *4
+                     (|Join| (|FunctionSpace| *7) (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *7
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|) (|CharacteristicZero|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|Record| (|:| |particular| (|Union| *4 #1#))
+                             (|:| |basis| (|List| *4))))
+       (|isDomain| *1 (|GenusZeroIntegration| *7 *4 *3))
+       (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *4))
+       (|ofCategory| *3 (|SetCategory|))))
+ (|rationalize_ir| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|IntegrationResult| *5)) (|isDomain| *3 (|Kernel| *5))
+       (|ofCategory| *5
+                     (|Join| (|FunctionSpace| *4) (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *4
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|) (|CharacteristicZero|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *1 (|GenusZeroIntegration| *4 *5 *6))
+       (|ofCategory| *6 (|SetCategory|))))
+ (|lift| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *6))
+       (|isDomain| *4 (|Kernel| *6))
+       (|ofCategory| *6
+                     (|Join| (|FunctionSpace| *5) (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *5
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|) (|CharacteristicZero|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|SparseUnivariatePolynomial|
+                    (|Fraction| (|SparseUnivariatePolynomial| *6))))
+       (|isDomain| *1 (|GenusZeroIntegration| *5 *6 *7))
+       (|ofCategory| *7 (|SetCategory|))))
+ (|multivariate| (*1 *2 *3 *4 *2)
+  (AND
+   (|isDomain| *3
+               (|SparseUnivariatePolynomial|
+                (|Fraction| (|SparseUnivariatePolynomial| *2))))
+   (|isDomain| *4 (|Kernel| *2))
+   (|ofCategory| *2
+                 (|Join| (|FunctionSpace| *5) (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)))
+   (|ofCategory| *5
+                 (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                         (|Comparable|) (|CharacteristicZero|)
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *1 (|GenusZeroIntegration| *5 *2 *6))
+   (|ofCategory| *6 (|SetCategory|))))
+ (|univariate| (*1 *2 *3 *4 *4 *5)
+  (AND (|isDomain| *4 (|Kernel| *3))
+       (|isDomain| *5 (|SparseUnivariatePolynomial| *3))
+       (|ofCategory| *3
+                     (|Join| (|FunctionSpace| *6) (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|) (|CharacteristicZero|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2
+                   (|SparseUnivariatePolynomial|
+                    (|Fraction| (|SparseUnivariatePolynomial| *3))))
+       (|isDomain| *1 (|GenusZeroIntegration| *6 *3 *7))
+       (|ofCategory| *7 (|SetCategory|))))
+ (|palgRDE0| (*1 *2 *2 *2 *3 *3 *4 *3 *2 *5 *2)
+  (|partial| AND (|isDomain| *3 (|Kernel| *2))
+   (|isDomain| *4 (|Mapping| (|Union| *2 #2="failed") *2 *2 (|Symbol|)))
+   (|isDomain| *5 (|Fraction| (|SparseUnivariatePolynomial| *2)))
+   (|ofCategory| *2
+                 (|Join| (|FunctionSpace| *6) (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)))
+   (|ofCategory| *6
+                 (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                         (|Comparable|) (|CharacteristicZero|)
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *1 (|GenusZeroIntegration| *6 *2 *7))
+   (|ofCategory| *7 (|SetCategory|))))
+ (|palgRDE0| (*1 *2 *2 *2 *3 *3 *4 *2 *5)
+  (|partial| AND (|isDomain| *3 (|Kernel| *2))
+   (|isDomain| *4 (|Mapping| (|Union| *2 #2#) *2 *2 (|Symbol|)))
+   (|isDomain| *5 (|SparseUnivariatePolynomial| *2))
+   (|ofCategory| *2
+                 (|Join| (|FunctionSpace| *6) (|AlgebraicallyClosedField|)
+                         (|TranscendentalFunctionCategory|)))
+   (|ofCategory| *6
+                 (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                         (|Comparable|) (|CharacteristicZero|)
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *1 (|GenusZeroIntegration| *6 *2 *7))
+   (|ofCategory| *7 (|SetCategory|))))
+ (|palgint0| (*1 *2 *3 *4 *4 *4 *3 *5 *3)
+  (AND (|isDomain| *4 (|Kernel| *3))
+       (|isDomain| *5 (|Fraction| (|SparseUnivariatePolynomial| *3)))
+       (|ofCategory| *3
+                     (|Join| (|FunctionSpace| *6) (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|) (|CharacteristicZero|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2 (|IntegrationResult| *3))
+       (|isDomain| *1 (|GenusZeroIntegration| *6 *3 *7))
+       (|ofCategory| *7 (|SetCategory|))))
+ (|palgint0| (*1 *2 *3 *4 *4 *3 *5)
+  (AND (|isDomain| *4 (|Kernel| *3))
+       (|isDomain| *5 (|SparseUnivariatePolynomial| *3))
+       (|ofCategory| *3
+                     (|Join| (|FunctionSpace| *6) (|AlgebraicallyClosedField|)
+                             (|TranscendentalFunctionCategory|)))
+       (|ofCategory| *6
+                     (|Join| (|GcdDomain|) (|RetractableTo| (|Integer|))
+                             (|Comparable|) (|CharacteristicZero|)
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2 (|IntegrationResult| *3))
+       (|isDomain| *1 (|GenusZeroIntegration| *6 *3 *7))
+       (|ofCategory| *7 (|SetCategory|)))))
+((|univariate|
+  (((|SparseUnivariatePolynomial|
+     (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+    |#2| (|Kernel| |#2|) (|Kernel| |#2|) (|SparseUnivariatePolynomial| |#2|))
+   28))
+ (|rationalize_ir|
+  (((|IntegrationResult| |#2|) (|IntegrationResult| |#2|) (|Kernel| |#2|))
+   101))
+ (|palgint0|
+  (((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Kernel| |#2|) |#2| (|Fraction| (|SparseUnivariatePolynomial| |#2|)) |#2|)
+   136)
+  (((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|) |#2|
+    (|SparseUnivariatePolynomial| |#2|))
+   116))
+ (|palgRDE0|
+  (((|Union| |#2| #1="failed") |#2| |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Mapping| (|Union| |#2| #1#) |#2| |#2| (|Symbol|)) (|Kernel| |#2|) |#2|
+    (|Fraction| (|SparseUnivariatePolynomial| |#2|)) |#2|)
+   142)
+  (((|Union| |#2| #1#) |#2| |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Mapping| (|Union| |#2| #1#) |#2| |#2| (|Symbol|)) |#2|
+    (|SparseUnivariatePolynomial| |#2|))
+   146))
+ (|palgLODE0|
+  (((|Record| (|:| |particular| (|Union| |#2| #2="failed"))
+              (|:| |basis| (|List| |#2|)))
+    |#3| |#2| (|Kernel| |#2|) (|Kernel| |#2|) (|Kernel| |#2|) |#2|
+    (|Fraction| (|SparseUnivariatePolynomial| |#2|)) |#2|)
+   163 (|has| |#3| (|LinearOrdinaryDifferentialOperatorCategory| |#2|)))
+  (((|Record| (|:| |particular| (|Union| |#2| #2#))
+              (|:| |basis| (|List| |#2|)))
+    |#3| |#2| (|Kernel| |#2|) (|Kernel| |#2|) |#2|
+    (|SparseUnivariatePolynomial| |#2|))
+   162 (|has| |#3| (|LinearOrdinaryDifferentialOperatorCategory| |#2|))))
+ (|multivariate|
+  ((|#2|
+    (|SparseUnivariatePolynomial|
+     (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+    (|Kernel| |#2|) |#2|)
+   104))
+ (|lift|
+  (((|SparseUnivariatePolynomial|
+     (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+    (|SparseUnivariatePolynomial| |#2|) (|Kernel| |#2|))
+   27)))
+((|HasCategory| |#3|
+                (LIST '|LinearOrdinaryDifferentialOperatorCategory|
+                      (|devaluate| |#2|))))
+INTG0
+((|constructor|
+  (NIL
+   "This internal package rationalises integrands on curves of the form: \\indented{2}{\\spad{y\\^2 = a x\\^2 + b x + c}} \\indented{2}{\\spad{y\\^2 = (a x + b) / (c x + d)}} \\indented{2}{\\spad{f(x,{} y) = 0} where \\spad{f} has degree 1 in \\spad{x}} The rationalization is done for integration,{} limited integration,{} extended integration and the risch differential equation."))
+ (|palgLODE0|
+  (((|Record| (|:| |particular| (|Union| |#2| #1="failed"))
+              (|:| |basis| (|List| |#2|)))
+    |#3| |#2| (|Kernel| |#2|) (|Kernel| |#2|) (|Kernel| |#2|) |#2|
+    (|Fraction| (|SparseUnivariatePolynomial| |#2|)) |#2|)
+   "\\spad{palgLODE0(op,{} g,{} x,{} y,{} z,{} t,{} c)} returns the solution of \\spad{op f = g}. Argument \\spad{y} is an algebraic function of \\spad{x} satisfying \\spad{x = eval(t,{} z,{} ry)} and \\spad{c = d/dz t}; \\spad{r} is rational function of \\spad{x},{} \\spad{c} and \\spad{t} are rational functions of \\spad{z}.")
+  (((|Record| (|:| |particular| (|Union| |#2| #1#))
+              (|:| |basis| (|List| |#2|)))
+    |#3| |#2| (|Kernel| |#2|) (|Kernel| |#2|) |#2|
+    (|SparseUnivariatePolynomial| |#2|))
+   "\\spad{palgLODE0(op,{} g,{} x,{} y,{} d,{} p)} returns the solution of \\spad{op f = g}. Argument \\spad{y} is an algebraic function of \\spad{x} satisfying \\spad{d(x)\\^2y(x)\\^2 = P(x)}."))
+ (|rationalize_ir|
+  (((|IntegrationResult| |#2|) (|IntegrationResult| |#2|) (|Kernel| |#2|))
+   "\\spad{rationalize_ir(irf,{} k1)} eliminates square root \\spad{k1} from the integration result."))
+ (|lift|
+  (((|SparseUnivariatePolynomial|
+     (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+    (|SparseUnivariatePolynomial| |#2|) (|Kernel| |#2|))
+   "\\spad{lift(u,{} k)} \\undocumented"))
+ (|multivariate|
+  ((|#2|
+    (|SparseUnivariatePolynomial|
+     (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+    (|Kernel| |#2|) |#2|)
+   "\\spad{multivariate(u,{} k,{} f)} \\undocumented"))
+ (|univariate|
+  (((|SparseUnivariatePolynomial|
+     (|Fraction| (|SparseUnivariatePolynomial| |#2|)))
+    |#2| (|Kernel| |#2|) (|Kernel| |#2|) (|SparseUnivariatePolynomial| |#2|))
+   "\\spad{univariate(f,{} k,{} k,{} p)} \\undocumented"))
+ (|palgRDE0|
+  (((|Union| |#2| #2="failed") |#2| |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Mapping| (|Union| |#2| #2#) |#2| |#2| (|Symbol|)) (|Kernel| |#2|) |#2|
+    (|Fraction| (|SparseUnivariatePolynomial| |#2|)) |#2|)
+   "\\spad{palgRDE0(f,{} g,{} x,{} y,{} foo,{} t,{} c)} returns a function \\spad{z(x,{} y)} such that \\spad{dz/dx + n * df/dx z(x,{} y) = g(x,{} y)} if such a \\spad{z} exists,{} and \"failed\" otherwise. Argument \\spad{y} is an algebraic function of \\spad{x} satisfying \\spad{x = eval(t,{} z,{} ry)} and \\spad{c = d/dz t}; \\spad{r} is rational function of \\spad{x},{} \\spad{c} and \\spad{t} are rational functions of \\spad{z}. Argument \\spad{foo},{} called by \\spad{foo(a,{} b,{} x)},{} is a function that solves \\spad{du/dx + n * da/dx u(x) = u(x)} for an unknown \\spad{u(x)} not involving \\spad{y}.")
+  (((|Union| |#2| #2#) |#2| |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Mapping| (|Union| |#2| #2#) |#2| |#2| (|Symbol|)) |#2|
+    (|SparseUnivariatePolynomial| |#2|))
+   "\\spad{palgRDE0(f,{} g,{} x,{} y,{} foo,{} d,{} p)} returns a function \\spad{z(x,{} y)} such that \\spad{dz/dx + n * df/dx z(x,{} y) = g(x,{} y)} if such a \\spad{z} exists,{} and \"failed\" otherwise. Argument \\spad{y} is an algebraic function of \\spad{x} satisfying \\spad{d(x)\\^2y(x)\\^2 = P(x)}. Argument \\spad{foo},{} called by \\spad{foo(a,{} b,{} x)},{} is a function that solves \\spad{du/dx + n * da/dx u(x) = u(x)} for an unknown \\spad{u(x)} not involving \\spad{y}."))
+ (|palgint0|
+  (((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|)
+    (|Kernel| |#2|) |#2| (|Fraction| (|SparseUnivariatePolynomial| |#2|)) |#2|)
+   "\\spad{palgint0(f,{} x,{} y,{} z,{} t,{} c)} returns the integral of \\spad{f(x,{} y)dx} where \\spad{y} is an algebraic function of \\spad{x} satisfying \\spad{x = eval(t,{} z,{} ry)} and \\spad{c = d/dz t}; \\spad{r} is rational function of \\spad{x},{} \\spad{c} and \\spad{t} are rational functions of \\spad{z}. Argument \\spad{z} is a dummy variable not appearing in \\spad{f(x,{} y)}.")
+  (((|IntegrationResult| |#2|) |#2| (|Kernel| |#2|) (|Kernel| |#2|) |#2|
+    (|SparseUnivariatePolynomial| |#2|))
+   "\\spad{palgint0(f,{} x,{} y,{} d,{} p)} returns the integral of \\spad{f(x,{} y)dx} where \\spad{y} is an algebraic function of \\spad{x} satisfying \\spad{d(x)\\^2 y(x)\\^2 = P(x)}.")))
+(("documentation" 0 13755) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 13749) ("predicates" 0 13616) ("superDomain" 0 NIL)
+ ("operationAlist" 0 11734) ("modemaps" 0 4443) ("sourceFile" 0 4406)
+ ("constructorCategory" 0 2448) ("constructorModemap" 0 61)
+ ("constructorKind" 0 51) ("constructorForm" 0 20))

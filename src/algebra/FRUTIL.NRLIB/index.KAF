@@ -1,0 +1,31 @@
+1407                (|FactoredFunctionUtilities| R)
+|package|
+(((|FactoredFunctionUtilities| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |refine|
+    ((|Factored| |#1|) (|Factored| |#1|) (|Mapping| (|Factored| |#1|) |#1|))))
+  (|IntegralDomain|))
+ (T |FactoredFunctionUtilities|))
+(CATEGORY |package|
+ (SIGNATURE |refine|
+  ((|Factored| |#1|) (|Factored| |#1|) (|Mapping| (|Factored| |#1|) |#1|))))
+"/git/fricas/src/algebra/FRUTIL.spad"
+((|refine| (*1 *2 *2 *3)
+  (AND (|isDomain| *3 (|Mapping| (|Factored| *4) *4))
+       (|ofCategory| *4 (|IntegralDomain|)) (|isDomain| *2 (|Factored| *4))
+       (|isDomain| *1 (|FactoredFunctionUtilities| *4)))))
+((|refine|
+  (((|Factored| |#1|) (|Factored| |#1|) (|Mapping| (|Factored| |#1|) |#1|))
+   20)))
+FRUTIL
+((|constructor|
+  (NIL
+   "\\spadtype{FactoredFunctionUtilities} implements some utility functions for manipulating factored objects."))
+ (|refine|
+  (((|Factored| |#1|) (|Factored| |#1|) (|Mapping| (|Factored| |#1|) |#1|))
+   "\\spad{refine(u,{} fn)} is used to apply the function \\userfun{\\spad{fn}} to each factor of \\spadvar{\\spad{u}} and then build a new factored object from the results. For example,{} if \\spadvar{\\spad{u}} were created by calling \\spad{nilFactor(10,{} 2)} then \\spad{refine(u,{} factor)} would create a factored object equal to that created by \\spad{factor(100)} or \\spad{primeFactor(2,{} 2) * primeFactor(5,{} 2)}.")))
+(("documentation" 0 752) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 745) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 649) ("modemaps" 0 435) ("sourceFile" 0 397)
+ ("constructorCategory" 0 279) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

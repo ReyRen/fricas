@@ -1,0 +1,31 @@
+1298                (|ExpressionLinearSolve| R F)
+|package|
+(((|ExpressionLinearSolve| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |lin_sol|
+    ((|Union| (|List| |#2|) "failed") (|List| |#2|) (|List| (|Symbol|)))))
+  (|Join| (|IntegralDomain|) (|Comparable|)) (|FunctionSpace| |#1|))
+ (T |ExpressionLinearSolve|))
+(CATEGORY |package|
+ (SIGNATURE |lin_sol|
+  ((|Union| (|List| |#2|) "failed") (|List| |#2|) (|List| (|Symbol|)))))
+"/git/fricas/src/algebra/ELINSOL.spad"
+((|lin_sol| (*1 *2 *2 *3)
+  (|partial| AND (|isDomain| *2 (|List| *5))
+   (|isDomain| *3 (|List| (|Symbol|))) (|ofCategory| *5 (|FunctionSpace| *4))
+   (|ofCategory| *4 (|Join| (|IntegralDomain|) (|Comparable|)))
+   (|isDomain| *1 (|ExpressionLinearSolve| *4 *5)))))
+((|lin_sol|
+  (((|Union| (|List| |#2|) "failed") (|List| |#2|) (|List| (|Symbol|))) 60)))
+ELINSOL
+((|constructor|
+  (NIL
+   "Solver for linear systems represented as list \\indented{1}{of expressions.\\space{2}More efficient than using solve because} \\indented{1}{it does not check that system really is linear.}"))
+ (|lin_sol|
+  (((|Union| (|List| |#2|) "failed") (|List| |#2|) (|List| (|Symbol|)))
+   "\\spad{lin_sol(eql,{} vl)} solves system of equations \\spad{eql} for variables in \\spad{vl}. Equations must be linear in variables from \\spad{vl}.")))
+(("documentation" 0 837) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 829) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 739) ("modemaps" 0 472) ("sourceFile" 0 433)
+ ("constructorCategory" 0 318) ("constructorModemap" 0 60)
+ ("constructorKind" 0 50) ("constructorForm" 0 20))

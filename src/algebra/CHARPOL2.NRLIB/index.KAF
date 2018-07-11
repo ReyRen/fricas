@@ -1,0 +1,52 @@
+1960                (|CharacteristicPolynomial2| F)
+|package|
+(((|CharacteristicPolynomial2| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |danilewski|
+    ((|Record| (|:| |matrix| (|Matrix| |#1|))
+               (|:| |block_list| (|List| (|Integer|))))
+     (|Matrix| |#1|)))
+   (SIGNATURE |char_pol|
+    ((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|))))
+  (|Field|))
+ (T |CharacteristicPolynomial2|))
+(CATEGORY |package|
+ (SIGNATURE |danilewski|
+  ((|Record| (|:| |matrix| (|Matrix| |#1|))
+             (|:| |block_list| (|List| (|Integer|))))
+   (|Matrix| |#1|)))
+ (SIGNATURE |char_pol| ((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|))))
+"/git/fricas/src/algebra/CHARPOL2.spad"
+((|char_pol| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *4)) (|ofCategory| *4 (|Field|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|CharacteristicPolynomial2| *4))))
+ (|danilewski| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *4)) (|ofCategory| *4 (|Field|))
+       (|isDomain| *2
+                   (|Record| (|:| |matrix| (|Matrix| *4))
+                             (|:| |block_list| (|List| (|Integer|)))))
+       (|isDomain| *1 (|CharacteristicPolynomial2| *4)))))
+((|danilewski|
+  (((|Record| (|:| |matrix| (|Matrix| |#1|))
+              (|:| |block_list| (|List| (|Integer|))))
+    (|Matrix| |#1|))
+   23))
+ (|char_pol| (((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|)) 35)))
+CHARPOL2
+((|constructor|
+  (NIL
+   "This package computes characteristic polynomial \\indented{1}{using Danilewski method.}"))
+ (|char_pol|
+  (((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|))
+   "\\spad{char_pol(m)} computes characteristic polynomial of \\spad{m}."))
+ (|danilewski|
+  (((|Record| (|:| |matrix| (|Matrix| |#1|))
+              (|:| |block_list| (|List| (|Integer|))))
+    (|Matrix| |#1|))
+   "\\spad{danilewski(m)} converts \\spad{m} to block form where each block represents transposition of multiplication by a polynomial.")))
+(("documentation" 0 1420) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1411) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1193) ("modemaps" 0 688) ("sourceFile" 0 648)
+ ("constructorCategory" 0 405) ("constructorModemap" 0 62)
+ ("constructorKind" 0 52) ("constructorForm" 0 20))

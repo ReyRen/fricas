@@ -1,0 +1,60 @@
+)abbrev domain SDPOL SequentialDifferentialPolynomial
+++ Author:  William Sit
+++ Date Created: 24 September, 1991
+++ Basic Operations: DifferentialPolynomialCategory
+++ Related Constructors: DifferentialSparseMultivariatePolynomial
+++ See Also:
+++ AMS Classifications: 12H05
+++ Keywords: differential indeterminates, ranking, differential polynomials,
+++           order, weight, leader, separant, initial, isobaric
+++ References:Kolchin, E.R. "Differential Algebra and Algebraic Groups"
+++   (Academic Press, 1973).
+++ Description:
+++   \spadtype{SequentialDifferentialPolynomial} implements
+++   an ordinary differential polynomial ring in arbitrary number
+++   of differential indeterminates, with coefficients in a
+++   ring.  The ranking on the differential indeterminate is sequential.
+++
+
+SequentialDifferentialPolynomial(R):
+     Exports == Implementation where
+  R : Ring
+  S  ==> Symbol
+  V  ==> SequentialDifferentialVariable S
+  E   ==> IndexedExponents(V)
+  SMP ==> SparseMultivariatePolynomial(R, S)
+  Exports ==> Join(DifferentialPolynomialCategory(R, S, V, E),
+                   RetractableTo SMP)
+
+  Implementation ==> DifferentialSparseMultivariatePolynomial(R, S, V)
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

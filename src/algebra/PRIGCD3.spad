@@ -1,0 +1,139 @@
+)abbrev package PRIGCD3 PrimGCD
+++ Description: This is unfinished package for computing primitive
+++  gcd over algebraic extensions.  Algebraic extension is defined
+++  by list of polynomial forming triangular system.
+++  Currently implemented is only trial division.
+PrimGCD() : Exports == Implementation where
+    OV ==> Symbol
+    MP ==> SparseMultivariatePolynomial(Integer, OV)
+
+    LMP ==> List MP
+
+    SmpTerm ==> Record(k : NonNegativeInteger, c : MP)
+    VPoly ==>  Record(v : OV, ts : List SmpTerm)
+    SmpRep ==>  Union(Integer, VPoly)
+
+    Lcx0Res ==> Record(lcx0lc : MP, lcx0m : MP)
+    LczRes ==> Record(lczlc : MP, k : Integer)
+
+    Exports ==> with
+        lcx0 : (MP, List OV) -> Lcx0Res
+          ++ lcx0(x, lv) computes leading coefficient of x and
+          ++ corresponding product of variables (monomial with
+          ++ coefficient 1) with respect to variables in lv
+          ++ Variables in lv must be decreasing and bigger than
+          ++ all other variables of x.
+        lcz : (MP, OV) -> LczRes
+          ++ lcz(x, z) computes leading coefficient and degree
+          ++ of x with respect to variable z.
+        coeffs0 : (MP, List OV, LMP) -> LMP
+          ++ coeffs0(x, lv, lp) is used by coeffs1
+        coeffs1 : (MP, List OV) -> LMP
+          ++ coeffs1(x, lv) computes list of coefficients of
+          ++ x with respect to variables in lv. Variables in
+          ++ lv must be decreasing and bigger than all other
+          ++ variables of x.
+        alg_reduce0 : (MP, MP, List OV, OV) -> MP
+          ++ alg_reduce0(x, m, lv, z) performs single reduction
+          ++ step.
+        alg_reduce : (MP, LMP, List OV, List OV) -> MP
+          ++ alg_reduce(x, lm, lv, lz) reduces x modulo elements
+          ++ of lm.
+        alg_trial_division : (MP, MP, LMP, List OV, List OV) -> _
+             Boolean
+          ++ alg_trial_division(x, y, lm, lv, lz) checks if
+          ++ x is divisible by y in algebraic extension defined by lm.
+          ++ lz is list of algebraic variables, lv is list of
+          ++ independent (polynomial) variables.  Other variables
+          ++ serve as parameters.
+
+    Implementation ==> add
+
+        lcx0(p : MP, xvars : List OV) : Lcx0Res ==
+            empty?(xvars) => [p, 1]@Lcx0Res
+            xr : SmpRep := p pretend SmpRep
+            xr case Integer =>
+                [p, 1]@Lcx0Res
+            vx : OV := xr.v
+            while not empty?(xvars) repeat
+                vx = first xvars =>
+                    t0 := first (xr.ts)
+                    pr := lcx0(t0.c, rest xvars)
+                    return [pr.lcx0lc, monomial(1, vx, t0.k)$MP*pr.lcx0m]
+                xvars := rest xvars
+            [p, 1]@Lcx0Res
+
+        lcz(p : MP, z : OV) : LczRes ==
+            xr : SmpRep := p pretend SmpRep
+            xr case Integer =>
+                [p, 0]@LczRes
+            vx : OV := xr.v
+            xu : List SmpTerm := xr.ts
+            vx = z =>
+                t0 := first (xu)
+                [t0.c, t0.k]
+            zdeg : Integer := 0
+            yu : List SmpTerm := []
+            for t0 in xu repeat
+                pr := lcz(t0.c, z)
+                zdeg > pr.k => "iterate"
+                if zdeg < pr.k then
+                    yu := []
+                    zdeg := pr.k
+                yu := cons([t0.k, pr.lczlc], yu)
+            xr := [vx, reverse yu]
+            [xr pretend MP, zdeg]
+
+        coeffs0(p : MP, xvars : List OV, acc : LMP) : LMP ==
+            xr : SmpRep := p pretend SmpRep
+            xr case Integer =>
+                cons(p, acc)
+            vx : OV := xr.v
+            while not empty?(xvars) repeat
+                vx = first xvars =>
+                    lp := xr.ts
+                    for t0 in lp repeat
+                        acc := coeffs0(t0.c, rest xvars, acc)
+                    return acc
+                xvars := rest xvars
+            cons(p, acc)
+
+        coeffs1(p : MP, xvars : List OV) : LMP == coeffs0(p, xvars, [])
+
+        alg_reduce0(p : MP, m : MP, xvars : List OV, z : OV) : MP ==
+            mlcr := lcz(m, z)
+            degm := mlcr.k
+            mlc := mlcr.lczlc
+            repeat
+                plcr := lcz(p, z)
+                degp := plcr.k
+                degp < degm => return p
+                alc := plcr.lczlc
+                g := gcd(cons(mlc, coeffs1(alc, xvars)))
+                alc := (alc exquo g)::MP
+                mlc1 := (mlc exquo g)::MP
+                p := mlc1*p - (alc*monomial(1, z,
+                                    (degp - degm)::NonNegativeInteger))*m
+
+        alg_reduce(p : MP, lm : LMP, xvars : List OV, zvars : List OV) : MP ==
+            for m in lm for z in zvars repeat
+                p := alg_reduce0(p, m, xvars, z)
+            p
+
+        alg_trial_division(a : MP, b : MP, lm : LMP, xvars : List OV, _
+            zvars : List OV) : Boolean ==
+            blcr := lcx0(b, xvars)
+            blc := blcr.lcx0lc
+            blm := blcr.lcx0m
+            repeat
+                a = 0 => return true
+                alcr := lcx0(a, xvars)
+                alc := alcr.lcx0lc
+                alm := alcr.lcx0m
+                mquo := alm exquo blm
+                (mquo case "failed") => return false
+                g := gcd(cons(blc, coeffs1(alc, zvars)))
+                alc := (alc exquo g) :: MP
+                s := (blc exquo g) :: MP
+                a := alg_reduce(s*a - alc*mquo*b, lm, xvars, zvars)
+

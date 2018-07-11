@@ -1,0 +1,52 @@
+)abbrev package PRROOT PolynomialRationalRoots
+PolynomialRationalRoots(F, UP) : Exports == Implementation where
+  F  : Join(IntegralDomain, LinearlyExplicitOver Integer)
+  UP : UnivariatePolynomialCategory F
+
+  Z   ==> Integer
+  Q   ==> Fraction Z
+  K   ==> Kernel F
+  UPQ ==> SparseUnivariatePolynomial Q
+
+  Exports ==> with
+    get_rational_roots : UP -> List(Q)
+      ++ get_rational_roots(p) finds rational root of p.
+    integerBound : UP -> Z
+      ++ integerBound(p) returns a lower bound on the negative integer
+      ++ roots of p, and 0 if p has no negative integer roots.
+
+  Implementation ==> add
+
+    N   ==> NonNegativeInteger
+    UPZ ==> SparseUnivariatePolynomial Z
+    LF  ==> List F
+
+    get_rational_roots(p : UP) : List(Q) ==
+        nn := degree(p) +$N 1
+        vv := vectorise(p, nn)
+        vm := matrix([parts(vv)$Vector(F)]$List(LF))$Matrix(F)
+        vvr : Matrix(Z) := reducedSystem(vm)
+        i : N
+        pl2 : List(UPZ) := [unvectorise(row(vvr, i)$Matrix(Z))$UPZ
+                  for i in 1..nrows(vvr)]
+        eq2z := gcd(pl2)
+        ff := factorPolynomial(eq2z)$Z
+        facl := factorList(ff)$Factored(UPZ)
+        res : List(Q) := []
+        for facr in facl repeat
+            fac := facr.factor
+            degree(fac) ~= 1 => "iterate"
+            val1r : Q := -coefficient(fac, 0) /$Q leadingCoefficient(fac)
+            res := cons(val1r, res)
+        res
+
+    integerBound(p) ==
+        lr := get_rational_roots(p)
+        res : Integer := 0
+        for r in lr repeat
+            qu := retractIfCan(r)@Union(Integer, "failed")
+            qu case "failed" => "iterate"
+            q := qu::Integer
+            if q < res then res := q
+        res
+

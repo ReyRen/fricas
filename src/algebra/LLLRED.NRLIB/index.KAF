@@ -1,0 +1,76 @@
+3726                (MAKEPROP '|LLLReduction| 'NILADIC T)
+(|LLLReduction|)
+|package|
+(((|LLLReduction|)
+  (CATEGORY |package|
+   (SIGNATURE LLL ((|Matrix| (|Integer|)) (|Matrix| (|Integer|))))
+   (SIGNATURE |extendedLLL!|
+    ((|Matrix| (|Integer|)) (|Matrix| (|Integer|)) (|NonNegativeInteger|)))
+   (SIGNATURE |extendedLLL|
+    ((|Record| (|:| |lll| (|Matrix| (|Integer|)))
+               (|:| |trf| (|Matrix| (|Integer|))))
+     (|Matrix| (|Integer|))))
+   (SIGNATURE |find_relation|
+    ((|List| (|Integer|)) (|List| (|Float|)) (|NonNegativeInteger|)))))
+ (T |LLLReduction|))
+(CATEGORY |package|
+ (SIGNATURE LLL ((|Matrix| (|Integer|)) (|Matrix| (|Integer|))))
+ (SIGNATURE |extendedLLL!|
+  ((|Matrix| (|Integer|)) (|Matrix| (|Integer|)) (|NonNegativeInteger|)))
+ (SIGNATURE |extendedLLL|
+  ((|Record| (|:| |lll| (|Matrix| (|Integer|)))
+             (|:| |trf| (|Matrix| (|Integer|))))
+   (|Matrix| (|Integer|))))
+ (SIGNATURE |find_relation|
+  ((|List| (|Integer|)) (|List| (|Float|)) (|NonNegativeInteger|))))
+"/git/fricas/src/algebra/LLLRED.spad"
+((|find_relation| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Float|)))
+       (|isDomain| *4 (|NonNegativeInteger|))
+       (|isDomain| *2 (|List| (|Integer|))) (|isDomain| *1 (|LLLReduction|))))
+ (|extendedLLL| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| (|Integer|)))
+       (|isDomain| *2
+                   (|Record| (|:| |lll| (|Matrix| (|Integer|)))
+                             (|:| |trf| (|Matrix| (|Integer|)))))
+       (|isDomain| *1 (|LLLReduction|))))
+ (|extendedLLL!| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Matrix| (|Integer|)))
+       (|isDomain| *3 (|NonNegativeInteger|))
+       (|isDomain| *1 (|LLLReduction|))))
+ (LLL (*1 *2 *2)
+  (AND (|isDomain| *2 (|Matrix| (|Integer|)))
+       (|isDomain| *1 (|LLLReduction|)))))
+((|find_relation|
+  (((|List| (|Integer|)) (|List| (|Float|)) (|NonNegativeInteger|)) 47))
+ (|extendedLLL!|
+  (((|Matrix| (|Integer|)) (|Matrix| (|Integer|)) (|NonNegativeInteger|)) 39))
+ (|extendedLLL|
+  (((|Record| (|:| |lll| (|Matrix| (|Integer|)))
+              (|:| |trf| (|Matrix| (|Integer|))))
+    (|Matrix| (|Integer|)))
+   41))
+ (LLL (((|Matrix| (|Integer|)) (|Matrix| (|Integer|))) 43)))
+LLLRED
+((|constructor|
+  (NIL
+   "This package implements \\spad{LLL} reduction. Before \\indented{1}{use user must set appropriate floating point precision.\\space{2}Too} \\indented{1}{low precision may cause nontermination.\\space{2}Higher precisions} \\indented{1}{require more compute time.}"))
+ (|find_relation|
+  (((|List| (|Integer|)) (|List| (|Float|)) (|NonNegativeInteger|))
+   "\\spad{find_relation(lf,{} k)} finds short integer relation between elements of \\spad{lf} rounded to \\spad{k} decimal places."))
+ (|extendedLLL|
+  (((|Record| (|:| |lll| (|Matrix| (|Integer|)))
+              (|:| |trf| (|Matrix| (|Integer|))))
+    (|Matrix| (|Integer|)))
+   "\\spad{extendedLLL(m)} returns the \\spad{LLL} reductions of \\spad{m} together with the transformation matrix,{} \\spadignore{i.e.} if [\\spad{l},{} \\spad{t}] is returned then it holds \\spad{l} = \\spad{t*m}."))
+ (|extendedLLL!|
+  (((|Matrix| (|Integer|)) (|Matrix| (|Integer|)) (|NonNegativeInteger|))
+   "\\spad{extendedLLL!(m,{} n)} with 1 \\spad{<=} \\spad{n} \\spad{<=} ncols(\\spad{m}) performs the \\spad{LLL} reduction of \\spad{m} where only the first \\spad{n} colums are considered significant. All matrix transformations,{} however,{} will be executed on the full matrix. \\spad{m} is destructively modified and will be lost after this call."))
+ (LLL
+  (((|Matrix| (|Integer|)) (|Matrix| (|Integer|)))
+   "\\spad{LLL(m)} computes \\spad{LLL} reduction of \\spad{m} \\spad{LLL}(\\spad{m}) is the same as extendedLLL!(copy \\spad{m},{} ncols \\spad{m}).")))
+(("documentation" 0 2195) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2188) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1789) ("modemaps" 0 1052) ("sourceFile" 0 1014)
+ ("constructorCategory" 0 580) ("constructorModemap" 0 85)
+ ("constructorKind" 0 75) ("constructorForm" 0 58) ("NILADIC" 0 20))

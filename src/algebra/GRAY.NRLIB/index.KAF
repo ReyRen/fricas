@@ -1,0 +1,47 @@
+2724                (MAKEPROP '|GrayCode| 'NILADIC T)
+(|GrayCode|)
+|package|
+(((|GrayCode|)
+  (CATEGORY |package|
+   (SIGNATURE |nextSubsetGray|
+    ((|Vector| (|Vector| (|Integer|))) (|Vector| (|Vector| (|Integer|)))
+     (|PositiveInteger|)))
+   (SIGNATURE |firstSubsetGray|
+    ((|Vector| (|Vector| (|Integer|))) (|PositiveInteger|)))))
+ (T |GrayCode|))
+(CATEGORY |package|
+ (SIGNATURE |nextSubsetGray|
+  ((|Vector| (|Vector| (|Integer|))) (|Vector| (|Vector| (|Integer|)))
+   (|PositiveInteger|)))
+ (SIGNATURE |firstSubsetGray|
+  ((|Vector| (|Vector| (|Integer|))) (|PositiveInteger|))))
+"/git/fricas/src/algebra/GRAY.spad"
+((|firstSubsetGray| (*1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *2 (|Vector| (|Vector| (|Integer|))))
+       (|isDomain| *1 (|GrayCode|))))
+ (|nextSubsetGray| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|Vector| (|Vector| (|Integer|))))
+       (|isDomain| *3 (|PositiveInteger|)) (|isDomain| *1 (|GrayCode|)))))
+((|nextSubsetGray|
+  (((|Vector| (|Vector| (|Integer|))) (|Vector| (|Vector| (|Integer|)))
+    (|PositiveInteger|))
+   15))
+ (|firstSubsetGray|
+  (((|Vector| (|Vector| (|Integer|))) (|PositiveInteger|)) 13)))
+GRAY
+((|constructor|
+  (NIL
+   "GrayCode provides a function for efficiently running through all subsets of a finite set,{} only changing one element by another one."))
+ (|firstSubsetGray|
+  (((|Vector| (|Vector| (|Integer|))) (|PositiveInteger|))
+   "\\spad{firstSubsetGray(n)} creates the first vector {\\em ww} to start a loop using {\\em nextSubsetGray(ww,{} n)}"))
+ (|nextSubsetGray|
+  (((|Vector| (|Vector| (|Integer|))) (|Vector| (|Vector| (|Integer|)))
+    (|PositiveInteger|))
+   "\\spad{nextSubsetGray(ww,{} n)} returns a vector {\\em vv} whose components have the following meanings: \\begin{items} \\item {\\em vv.1}: a vector of length \\spad{n} whose entries are 0 or 1. This \\indented{3}{can be interpreted as a code for a subset of the set 1,{} ...,{} \\spad{n};} \\indented{3}{{\\em vv.1} differs from {\\em ww.1} by exactly one entry;} \\item {\\em vv.2.1} is the number of the entry of {\\em vv.1} which \\indented{3}{will be changed next time;} \\item {\\em vv.2.1 = n+1} means that {\\em vv.1} is the last subset; \\indented{3}{trying to compute nextSubsetGray(\\spad{vv}) if {\\em vv.2.1 = n+1}} \\indented{3}{will produce an error!} \\end{items} The other components of {\\em vv.2} are needed to compute nextSubsetGray efficiently. Note: this is an implementation of [Williamson,{} Topic II,{} 3.54,{} \\spad{p}. 112] for the special case {\\em r1 = r2 = ... = rn = 2}; Note: nextSubsetGray produces a side-effect,{} \\spadignore{i.e.} {\\em nextSubsetGray(vv)} and {\\em vv := nextSubsetGray(vv)} will have the same effect.")))
+(("documentation" 0 1176) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1171) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 962) ("modemaps" 0 628) ("sourceFile" 0 592)
+ ("constructorCategory" 0 357) ("constructorModemap" 0 77)
+ ("constructorKind" 0 67) ("constructorForm" 0 54) ("NILADIC" 0 20))

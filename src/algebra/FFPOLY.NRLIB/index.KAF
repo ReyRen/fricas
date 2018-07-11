@@ -1,0 +1,293 @@
+19249               (|FiniteFieldPolynomialPackage| GF)
+|package|
+(((|FiniteFieldPolynomialPackage| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |primitive?| ((|Boolean|) (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |normal?| ((|Boolean|) (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |numberOfIrreduciblePoly|
+    ((|PositiveInteger|) (|PositiveInteger|)))
+   (SIGNATURE |numberOfPrimitivePoly|
+    ((|PositiveInteger|) (|PositiveInteger|)))
+   (SIGNATURE |numberOfNormalPoly| ((|PositiveInteger|) (|PositiveInteger|)))
+   (SIGNATURE |createIrreduciblePoly|
+    ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)))
+   (SIGNATURE |createPrimitivePoly|
+    ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)))
+   (SIGNATURE |createNormalPoly|
+    ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)))
+   (SIGNATURE |createNormalPrimitivePoly|
+    ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)))
+   (SIGNATURE |createPrimitiveNormalPoly|
+    ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)))
+   (SIGNATURE |nextIrreduciblePoly|
+    ((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+     (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |nextPrimitivePoly|
+    ((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+     (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |nextNormalPoly|
+    ((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+     (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |nextNormalPrimitivePoly|
+    ((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+     (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |nextPrimitiveNormalPoly|
+    ((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+     (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |random|
+    ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)))
+   (SIGNATURE |random|
+    ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)
+     (|PositiveInteger|)))
+   (SIGNATURE |leastAffineMultiple|
+    ((|SparseUnivariatePolynomial| |#1|) (|SparseUnivariatePolynomial| |#1|)))
+   (SIGNATURE |reducedQPowers|
+    ((|PrimitiveArray| (|SparseUnivariatePolynomial| |#1|))
+     (|SparseUnivariatePolynomial| |#1|))))
+  (|FiniteFieldCategory|))
+ (T |FiniteFieldPolynomialPackage|))
+(CATEGORY |package|
+ (SIGNATURE |primitive?| ((|Boolean|) (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |normal?| ((|Boolean|) (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |numberOfIrreduciblePoly|
+  ((|PositiveInteger|) (|PositiveInteger|)))
+ (SIGNATURE |numberOfPrimitivePoly| ((|PositiveInteger|) (|PositiveInteger|)))
+ (SIGNATURE |numberOfNormalPoly| ((|PositiveInteger|) (|PositiveInteger|)))
+ (SIGNATURE |createIrreduciblePoly|
+  ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)))
+ (SIGNATURE |createPrimitivePoly|
+  ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)))
+ (SIGNATURE |createNormalPoly|
+  ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)))
+ (SIGNATURE |createNormalPrimitivePoly|
+  ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)))
+ (SIGNATURE |createPrimitiveNormalPoly|
+  ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)))
+ (SIGNATURE |nextIrreduciblePoly|
+  ((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+   (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |nextPrimitivePoly|
+  ((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+   (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |nextNormalPoly|
+  ((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+   (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |nextNormalPrimitivePoly|
+  ((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+   (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |nextPrimitiveNormalPoly|
+  ((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+   (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |random| ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)))
+ (SIGNATURE |random|
+  ((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)
+   (|PositiveInteger|)))
+ (SIGNATURE |leastAffineMultiple|
+  ((|SparseUnivariatePolynomial| |#1|) (|SparseUnivariatePolynomial| |#1|)))
+ (SIGNATURE |reducedQPowers|
+  ((|PrimitiveArray| (|SparseUnivariatePolynomial| |#1|))
+   (|SparseUnivariatePolynomial| |#1|))))
+"/git/fricas/src/algebra/FFPOLY.spad"
+((|reducedQPowers| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))
+       (|isDomain| *2 (|PrimitiveArray| (|SparseUnivariatePolynomial| *4)))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *4))))
+ (|leastAffineMultiple| (*1 *2 *2)
+  (AND (|isDomain| *2 (|SparseUnivariatePolynomial| *3))
+       (|ofCategory| *3 (|FiniteFieldCategory|))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *3))))
+ (|random| (*1 *2 *3 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|random| (*1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|nextPrimitiveNormalPoly| (*1 *2 *2)
+  (|partial| AND (|isDomain| *2 (|SparseUnivariatePolynomial| *3))
+   (|ofCategory| *3 (|FiniteFieldCategory|))
+   (|isDomain| *1 (|FiniteFieldPolynomialPackage| *3))))
+ (|nextNormalPrimitivePoly| (*1 *2 *2)
+  (|partial| AND (|isDomain| *2 (|SparseUnivariatePolynomial| *3))
+   (|ofCategory| *3 (|FiniteFieldCategory|))
+   (|isDomain| *1 (|FiniteFieldPolynomialPackage| *3))))
+ (|nextNormalPoly| (*1 *2 *2)
+  (|partial| AND (|isDomain| *2 (|SparseUnivariatePolynomial| *3))
+   (|ofCategory| *3 (|FiniteFieldCategory|))
+   (|isDomain| *1 (|FiniteFieldPolynomialPackage| *3))))
+ (|nextPrimitivePoly| (*1 *2 *2)
+  (|partial| AND (|isDomain| *2 (|SparseUnivariatePolynomial| *3))
+   (|ofCategory| *3 (|FiniteFieldCategory|))
+   (|isDomain| *1 (|FiniteFieldPolynomialPackage| *3))))
+ (|nextIrreduciblePoly| (*1 *2 *2)
+  (|partial| AND (|isDomain| *2 (|SparseUnivariatePolynomial| *3))
+   (|ofCategory| *3 (|FiniteFieldCategory|))
+   (|isDomain| *1 (|FiniteFieldPolynomialPackage| *3))))
+ (|createPrimitiveNormalPoly| (*1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|createNormalPrimitivePoly| (*1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|createNormalPoly| (*1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|createPrimitivePoly| (*1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|createIrreduciblePoly| (*1 *2 *3)
+  (AND (|isDomain| *3 (|PositiveInteger|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|))))
+ (|numberOfNormalPoly| (*1 *2 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *3))
+       (|ofCategory| *3 (|FiniteFieldCategory|))))
+ (|numberOfPrimitivePoly| (*1 *2 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *3))
+       (|ofCategory| *3 (|FiniteFieldCategory|))))
+ (|numberOfIrreduciblePoly| (*1 *2 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *3))
+       (|ofCategory| *3 (|FiniteFieldCategory|))))
+ (|normal?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *4))))
+ (|primitive?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *4))
+       (|ofCategory| *4 (|FiniteFieldCategory|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|FiniteFieldPolynomialPackage| *4)))))
+((|reducedQPowers|
+  (((|PrimitiveArray| (|SparseUnivariatePolynomial| |#1|))
+    (|SparseUnivariatePolynomial| |#1|))
+   35))
+ (|random|
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)
+    (|PositiveInteger|))
+   111)
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)) 109))
+ (|primitive?| (((|Boolean|) (|SparseUnivariatePolynomial| |#1|)) 76))
+ (|numberOfPrimitivePoly| (((|PositiveInteger|) (|PositiveInteger|)) 61))
+ (|numberOfNormalPoly| (((|PositiveInteger|) (|PositiveInteger|)) 65))
+ (|numberOfIrreduciblePoly| (((|PositiveInteger|) (|PositiveInteger|)) 59))
+ (|normal?| (((|Boolean|) (|SparseUnivariatePolynomial| |#1|)) 80))
+ (|nextPrimitivePoly|
+  (((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+    (|SparseUnivariatePolynomial| |#1|))
+   94))
+ (|nextPrimitiveNormalPoly|
+  (((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+    (|SparseUnivariatePolynomial| |#1|))
+   100))
+ (|nextNormalPrimitivePoly|
+  (((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+    (|SparseUnivariatePolynomial| |#1|))
+   99))
+ (|nextNormalPoly|
+  (((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+    (|SparseUnivariatePolynomial| |#1|))
+   98))
+ (|nextIrreduciblePoly|
+  (((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+    (|SparseUnivariatePolynomial| |#1|))
+   89))
+ (|leastAffineMultiple|
+  (((|SparseUnivariatePolynomial| |#1|) (|SparseUnivariatePolynomial| |#1|))
+   52))
+ (|createPrimitivePoly|
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)) 104))
+ (|createPrimitiveNormalPoly|
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)) 107))
+ (|createNormalPrimitivePoly|
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)) 106))
+ (|createNormalPoly|
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)) 105))
+ (|createIrreduciblePoly|
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)) 101)))
+FFPOLY
+((|constructor|
+  (NIL
+   "This package provides a number of functions for generating,{} counting and testing irreducible,{} normal,{} primitive,{} random polynomials over finite fields."))
+ (|reducedQPowers|
+  (((|PrimitiveArray| (|SparseUnivariatePolynomial| |#1|))
+    (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{reducedQPowers(f)} generates \\spad{[x,{} x^q,{} x^(q^2),{} ...,{} x^(q^(n-1))]} reduced modulo \\spad{f} where \\spad{q = size()\\$GF} and \\spad{n = degree f}."))
+ (|leastAffineMultiple|
+  (((|SparseUnivariatePolynomial| |#1|) (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{leastAffineMultiple(f)} computes the least affine polynomial which is divisible by the polynomial \\spad{f} over the finite field {\\em GF},{} \\spadignore{i.e.} a polynomial whose exponents are 0 or a power of \\spad{q},{} the size of {\\em GF}."))
+ (|random|
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|)
+    (|PositiveInteger|))
+   "\\spad{random(m,{} n)}\\$FFPOLY(\\spad{GF}) generates a random monic polynomial of degree \\spad{d} over the finite field {\\em GF},{} \\spad{d} between \\spad{m} and \\spad{n}.")
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|))
+   "\\spad{random(n)}\\$FFPOLY(\\spad{GF}) generates a random monic polynomial of degree \\spad{n} over the finite field {\\em GF}."))
+ (|nextPrimitiveNormalPoly|
+  (((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+    (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{nextPrimitiveNormalPoly(f)} yields the next primitive normal polynomial over a finite field {\\em GF} of the same degree as \\spad{f} in the following order,{} or \"failed\" if there are no greater ones. Error: if \\spad{f} has degree 0. Note: the input polynomial \\spad{f} is made monic. Also,{} \\spad{f < g} if the {\\em lookup} of the constant term of \\spad{f} is less than this number for \\spad{g} or,{} in case these numbers are equal,{} if the {\\em lookup} of the coefficient of the term of degree {\\em n-1} of \\spad{f} is less than this number for \\spad{g}. If these numbers are equals,{} \\spad{f < g} if the number of monomials of \\spad{f} is less than that for \\spad{g},{} or if the lists of exponents for \\spad{f} are lexicographically less than those for \\spad{g}. If these lists are also equal,{} the lists of coefficients are coefficients according to the lexicographic ordering induced by the ordering of the elements of {\\em GF} given by {\\em lookup}. This operation is equivalent to nextNormalPrimitivePoly(\\spad{f})."))
+ (|nextNormalPrimitivePoly|
+  (((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+    (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{nextNormalPrimitivePoly(f)} yields the next normal primitive polynomial over a finite field {\\em GF} of the same degree as \\spad{f} in the following order,{} or \"failed\" if there are no greater ones. Error: if \\spad{f} has degree 0. Note: the input polynomial \\spad{f} is made monic. Also,{} \\spad{f < g} if the {\\em lookup} of the constant term of \\spad{f} is less than this number for \\spad{g} or if {\\em lookup} of the coefficient of the term of degree {\\em n-1} of \\spad{f} is less than this number for \\spad{g}. Otherwise,{} \\spad{f < g} if the number of monomials of \\spad{f} is less than that for \\spad{g} or if the lists of exponents for \\spad{f} are lexicographically less than those for \\spad{g}. If these lists are also equal,{} the lists of coefficients are compared according to the lexicographic ordering induced by the ordering of the elements of {\\em GF} given by {\\em lookup}. This operation is equivalent to nextPrimitiveNormalPoly(\\spad{f})."))
+ (|nextNormalPoly|
+  (((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+    (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{nextNormalPoly(f)} yields the next normal polynomial over a finite field {\\em GF} of the same degree as \\spad{f} in the following order,{} or \"failed\" if there are no greater ones. Error: if \\spad{f} has degree 0. Note: the input polynomial \\spad{f} is made monic. Also,{} \\spad{f < g} if the {\\em lookup} of the coefficient of the term of degree {\\em n-1} of \\spad{f} is less than that for \\spad{g}. In case these numbers are equal,{} \\spad{f < g} if if the number of monomials of \\spad{f} is less that for \\spad{g} or if the list of exponents of \\spad{f} are lexicographically less than the corresponding list for \\spad{g}. If these lists are also equal,{} the lists of coefficients are compared according to the lexicographic ordering induced by the ordering of the elements of {\\em GF} given by {\\em lookup}."))
+ (|nextPrimitivePoly|
+  (((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+    (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{nextPrimitivePoly(f)} yields the next primitive polynomial over a finite field {\\em GF} of the same degree as \\spad{f} in the following order,{} or \"failed\" if there are no greater ones. Error: if \\spad{f} has degree 0. Note: the input polynomial \\spad{f} is made monic. Also,{} \\spad{f < g} if the {\\em lookup} of the constant term of \\spad{f} is less than this number for \\spad{g}. If these values are equal,{} then \\spad{f < g} if if the number of monomials of \\spad{f} is less than that for \\spad{g} or if the lists of exponents of \\spad{f} are lexicographically less than the corresponding list for \\spad{g}. If these lists are also equal,{} the lists of coefficients are compared according to the lexicographic ordering induced by the ordering of the elements of {\\em GF} given by {\\em lookup}."))
+ (|nextIrreduciblePoly|
+  (((|Union| (|SparseUnivariatePolynomial| |#1|) "failed")
+    (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{nextIrreduciblePoly(f)} yields the next monic irreducible polynomial over a finite field {\\em GF} of the same degree as \\spad{f} in the following order,{} or \"failed\" if there are no greater ones. Error: if \\spad{f} has degree 0. Note: the input polynomial \\spad{f} is made monic. Also,{} \\spad{f < g} if the number of monomials of \\spad{f} is less than this number for \\spad{g}. If \\spad{f} and \\spad{g} have the same number of monomials,{} the lists of exponents are compared lexicographically. If these lists are also equal,{} the lists of coefficients are compared according to the lexicographic ordering induced by the ordering of the elements of {\\em GF} given by {\\em lookup}."))
+ (|createPrimitiveNormalPoly|
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|))
+   "\\spad{createPrimitiveNormalPoly(n)}\\$FFPOLY(\\spad{GF}) generates a normal and primitive polynomial of degree \\spad{n} over the field {\\em GF}. polynomial of degree \\spad{n} over the field {\\em GF}."))
+ (|createNormalPrimitivePoly|
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|))
+   "\\spad{createNormalPrimitivePoly(n)}\\$FFPOLY(\\spad{GF}) generates a normal and primitive polynomial of degree \\spad{n} over the field {\\em GF}. Note: this function is equivalent to createPrimitiveNormalPoly(\\spad{n})"))
+ (|createNormalPoly|
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|))
+   "\\spad{createNormalPoly(n)}\\$FFPOLY(\\spad{GF}) generates a normal polynomial of degree \\spad{n} over the finite field {\\em GF}."))
+ (|createPrimitivePoly|
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|))
+   "\\spad{createPrimitivePoly(n)}\\$FFPOLY(\\spad{GF}) generates a primitive polynomial of degree \\spad{n} over the finite field {\\em GF}."))
+ (|createIrreduciblePoly|
+  (((|SparseUnivariatePolynomial| |#1|) (|PositiveInteger|))
+   "\\spad{createIrreduciblePoly(n)}\\$FFPOLY(\\spad{GF}) generates a monic irreducible univariate polynomial of degree \\spad{n} over the finite field {\\em GF}."))
+ (|numberOfNormalPoly|
+  (((|PositiveInteger|) (|PositiveInteger|))
+   "\\spad{numberOfNormalPoly(n)}\\$FFPOLY(\\spad{GF}) yields the number of normal polynomials of degree \\spad{n} over the finite field {\\em GF}."))
+ (|numberOfPrimitivePoly|
+  (((|PositiveInteger|) (|PositiveInteger|))
+   "\\spad{numberOfPrimitivePoly(n)}\\$FFPOLY(\\spad{GF}) yields the number of primitive polynomials of degree \\spad{n} over the finite field {\\em GF}."))
+ (|numberOfIrreduciblePoly|
+  (((|PositiveInteger|) (|PositiveInteger|))
+   "\\spad{numberOfIrreduciblePoly(n)}\\$FFPOLY(\\spad{GF}) yields the number of monic irreducible univariate polynomials of degree \\spad{n} over the finite field {\\em GF}."))
+ (|normal?|
+  (((|Boolean|) (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{normal?(f)} tests whether the polynomial \\spad{f} over a finite field is normal,{} \\spadignore{i.e.} its roots are linearly independent over the field."))
+ (|primitive?|
+  (((|Boolean|) (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{primitive?(f)} tests whether the polynomial \\spad{f} over a finite field is primitive,{} \\spadignore{i.e.} all its roots are primitive.")))
+(("documentation" 0 10377) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 10370) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 8474) ("modemaps" 0 4266) ("sourceFile" 0 4228)
+ ("constructorCategory" 0 2244) ("constructorModemap" 0 66)
+ ("constructorKind" 0 56) ("constructorForm" 0 20))

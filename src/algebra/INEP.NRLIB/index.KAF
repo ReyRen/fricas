@@ -1,0 +1,85 @@
+4261                (|InnerNumericEigenPackage| K F |Par|)
+|package|
+(((|InnerNumericEigenPackage| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |charpol| ((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|)))
+   (SIGNATURE |solve1|
+    ((|List| |#2|) (|SparseUnivariatePolynomial| |#1|) |#3|))
+   (SIGNATURE |innerEigenvectors|
+    ((|List|
+      (|Record| (|:| |outval| |#2|) (|:| |outmult| (|Integer|))
+                (|:| |outvect| (|List| (|Matrix| |#2|)))))
+     (|Matrix| |#1|) |#3|
+     (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+                (|SparseUnivariatePolynomial| |#1|)))))
+  (|Field|) (|Field|) (|Join| (|Field|) (|OrderedRing|)))
+ (T |InnerNumericEigenPackage|))
+(CATEGORY |package|
+ (SIGNATURE |charpol| ((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|)))
+ (SIGNATURE |solve1| ((|List| |#2|) (|SparseUnivariatePolynomial| |#1|) |#3|))
+ (SIGNATURE |innerEigenvectors|
+  ((|List|
+    (|Record| (|:| |outval| |#2|) (|:| |outmult| (|Integer|))
+              (|:| |outvect| (|List| (|Matrix| |#2|)))))
+   (|Matrix| |#1|) |#3|
+   (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+              (|SparseUnivariatePolynomial| |#1|)))))
+"/git/fricas/src/algebra/INEP.spad"
+((|innerEigenvectors| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Matrix| *6))
+       (|isDomain| *5
+                   (|Mapping| (|Factored| (|SparseUnivariatePolynomial| *6))
+                              (|SparseUnivariatePolynomial| *6)))
+       (|ofCategory| *6 (|Field|))
+       (|isDomain| *2
+                   (|List|
+                    (|Record| (|:| |outval| *7) (|:| |outmult| (|Integer|))
+                              (|:| |outvect| (|List| (|Matrix| *7))))))
+       (|isDomain| *1 (|InnerNumericEigenPackage| *6 *7 *4))
+       (|ofCategory| *7 (|Field|))
+       (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|)))))
+ (|solve1| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *5))
+       (|ofCategory| *5 (|Field|)) (|isDomain| *2 (|List| *6))
+       (|isDomain| *1 (|InnerNumericEigenPackage| *5 *6 *4))
+       (|ofCategory| *6 (|Field|))
+       (|ofCategory| *4 (|Join| (|Field|) (|OrderedRing|)))))
+ (|charpol| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Matrix| *4)) (|ofCategory| *4 (|Field|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *4))
+       (|isDomain| *1 (|InnerNumericEigenPackage| *4 *5 *6))
+       (|ofCategory| *5 (|Field|))
+       (|ofCategory| *6 (|Join| (|Field|) (|OrderedRing|))))))
+((|solve1| (((|List| |#2|) (|SparseUnivariatePolynomial| |#1|) |#3|) 82))
+ (|innerEigenvectors|
+  (((|List|
+     (|Record| (|:| |outval| |#2|) (|:| |outmult| (|Integer|))
+               (|:| |outvect| (|List| (|Matrix| |#2|)))))
+    (|Matrix| |#1|) |#3|
+    (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+               (|SparseUnivariatePolynomial| |#1|)))
+   98))
+ (|charpol| (((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|)) 94)))
+INEP
+((|constructor|
+  (NIL
+   "This package is the inner package to be used by NumericRealEigenPackage and NumericComplexEigenPackage for the computation of numeric eigenvalues and eigenvectors."))
+ (|innerEigenvectors|
+  (((|List|
+     (|Record| (|:| |outval| |#2|) (|:| |outmult| (|Integer|))
+               (|:| |outvect| (|List| (|Matrix| |#2|)))))
+    (|Matrix| |#1|) |#3|
+    (|Mapping| (|Factored| (|SparseUnivariatePolynomial| |#1|))
+               (|SparseUnivariatePolynomial| |#1|)))
+   "\\spad{innerEigenvectors(m,{} eps,{} factor)} computes explicitly the eigenvalues and the correspondent eigenvectors of the matrix \\spad{m}. The parameter \\spad{eps} determines the type of the output,{} factor is the univariate factorizer used to reduce the characteristic polynomial into irreducible factors."))
+ (|solve1|
+  (((|List| |#2|) (|SparseUnivariatePolynomial| |#1|) |#3|)
+   "\\spad{solve1(pol,{} eps)} finds the roots of the univariate polynomial polynomial \\spad{pol} to precision eps. If \\spad{K} is \\spad{Fraction Integer} then only the real roots are returned,{} if \\spad{K} is \\spad{Complex Fraction Integer} then all roots are found."))
+ (|charpol|
+  (((|SparseUnivariatePolynomial| |#1|) (|Matrix| |#1|))
+   "\\spad{charpol(m)} computes the characteristic polynomial of a matrix \\spad{m} with entries in \\spad{K}.")))
+(("documentation" 0 2919) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2914) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2462) ("modemaps" 0 1224) ("sourceFile" 0 1188)
+ ("constructorCategory" 0 709) ("constructorModemap" 0 69)
+ ("constructorKind" 0 59) ("constructorForm" 0 20))

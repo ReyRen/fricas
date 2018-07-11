@@ -1,0 +1,58 @@
+2278                (|GuessPolynomialFunctions| R)
+|package|
+(((|GuessPolynomialFunctions| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE F2EXPRR
+    ((|Expression| (|Integer|)) (|Fraction| (|Polynomial| |#1|))))
+   (SIGNATURE EXPRR2F
+    ((|Fraction| (|Polynomial| |#1|)) (|Expression| (|Integer|))))
+   (SIGNATURE |iim2| ((|Expression| (|Integer|)) |#1|))
+   (SIGNATURE |iiretractVar|
+    ((|Polynomial| |#1|) (|Kernel| (|Expression| (|Integer|))))))
+  (|Ring|))
+ (T |GuessPolynomialFunctions|))
+(CATEGORY |package|
+ (SIGNATURE F2EXPRR
+  ((|Expression| (|Integer|)) (|Fraction| (|Polynomial| |#1|))))
+ (SIGNATURE EXPRR2F
+  ((|Fraction| (|Polynomial| |#1|)) (|Expression| (|Integer|))))
+ (SIGNATURE |iim2| ((|Expression| (|Integer|)) |#1|))
+ (SIGNATURE |iiretractVar|
+  ((|Polynomial| |#1|) (|Kernel| (|Expression| (|Integer|))))))
+"/git/fricas/src/algebra/GUESSP1.spad"
+((|iiretractVar| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Kernel| (|Expression| (|Integer|))))
+       (|isDomain| *2 (|Polynomial| *4))
+       (|isDomain| *1 (|GuessPolynomialFunctions| *4))
+       (|ofCategory| *4 (|Ring|))))
+ (|iim2| (*1 *2 *3)
+  (AND (|isDomain| *2 (|Expression| (|Integer|)))
+       (|isDomain| *1 (|GuessPolynomialFunctions| *3))
+       (|ofCategory| *3 (|Ring|))))
+ (EXPRR2F (*1 *2 *3)
+  (AND (|isDomain| *3 (|Expression| (|Integer|)))
+       (|isDomain| *2 (|Fraction| (|Polynomial| *4)))
+       (|isDomain| *1 (|GuessPolynomialFunctions| *4))
+       (|ofCategory| *4 (|Ring|))))
+ (F2EXPRR (*1 *2 *3)
+  (AND (|isDomain| *3 (|Fraction| (|Polynomial| *4)))
+       (|ofCategory| *4 (|Ring|)) (|isDomain| *2 (|Expression| (|Integer|)))
+       (|isDomain| *1 (|GuessPolynomialFunctions| *4)))))
+((|iiretractVar|
+  (((|Polynomial| |#1|) (|Kernel| (|Expression| (|Integer|)))) 21))
+ (|iim2| (((|Expression| (|Integer|)) |#1|) 13))
+ (F2EXPRR (((|Expression| (|Integer|)) (|Fraction| (|Polynomial| |#1|))) 36))
+ (EXPRR2F (((|Fraction| (|Polynomial| |#1|)) (|Expression| (|Integer|))) 46)))
+GUESSP1
+((|constructor|
+  (NIL
+   "This package exports coercion and retraction from EXPR INT to polynomials"))
+ (|iiretractVar|
+  (((|Polynomial| |#1|) (|Kernel| (|Expression| (|Integer|))))
+   "should be local but conditional"))
+ (|iim2| (((|Expression| (|Integer|)) |#1|) "should be local but conditional")))
+(("documentation" 0 1974) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1966) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1675) ("modemaps" 0 867) ("sourceFile" 0 828)
+ ("constructorCategory" 0 493) ("constructorModemap" 0 61)
+ ("constructorKind" 0 51) ("constructorForm" 0 20))

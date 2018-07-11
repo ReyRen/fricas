@@ -1,0 +1,59 @@
+2840                (|FGLMIfCanPackage| R |ls|)
+|package|
+(((|FGLMIfCanPackage| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |zeroDimensional?| ((|Boolean|) (|List| (|Polynomial| |#1|))))
+   (SIGNATURE |fglmIfCan|
+    ((|Union| (|List| (|Polynomial| |#1|)) "failed")
+     (|List| (|Polynomial| |#1|))))
+   (SIGNATURE |groebner|
+    ((|List| (|Polynomial| |#1|)) (|List| (|Polynomial| |#1|)))))
+  (|GcdDomain|) (|List| (|Symbol|)))
+ (T |FGLMIfCanPackage|))
+(CATEGORY |package|
+ (SIGNATURE |zeroDimensional?| ((|Boolean|) (|List| (|Polynomial| |#1|))))
+ (SIGNATURE |fglmIfCan|
+  ((|Union| (|List| (|Polynomial| |#1|)) "failed")
+   (|List| (|Polynomial| |#1|))))
+ (SIGNATURE |groebner|
+  ((|List| (|Polynomial| |#1|)) (|List| (|Polynomial| |#1|)))))
+"/git/fricas/src/algebra/FGLMICPK.spad"
+((|groebner| (*1 *2 *2)
+  (AND (|isDomain| *2 (|List| (|Polynomial| *3)))
+       (|ofCategory| *3 (|GcdDomain|))
+       (|isDomain| *1 (|FGLMIfCanPackage| *3 *4))
+       (|ofType| *4 (|List| (|Symbol|)))))
+ (|fglmIfCan| (*1 *2 *2)
+  (|partial| AND (|isDomain| *2 (|List| (|Polynomial| *3)))
+   (|ofCategory| *3 (|GcdDomain|)) (|isDomain| *1 (|FGLMIfCanPackage| *3 *4))
+   (|ofType| *4 (|List| (|Symbol|)))))
+ (|zeroDimensional?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Polynomial| *4)))
+       (|ofCategory| *4 (|GcdDomain|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|FGLMIfCanPackage| *4 *5))
+       (|ofType| *5 (|List| (|Symbol|))))))
+((|zeroDimensional?| (((|Boolean|) (|List| (|Polynomial| |#1|))) 31))
+ (|groebner| (((|List| (|Polynomial| |#1|)) (|List| (|Polynomial| |#1|))) 42))
+ (|fglmIfCan|
+  (((|Union| (|List| (|Polynomial| |#1|)) "failed")
+    (|List| (|Polynomial| |#1|)))
+   38)))
+FGLMICPK
+((|constructor|
+  (NIL
+   "This is just an interface between several packages and domains. The goal is to compute lexicographical Groebner bases of sets of polynomial with type \\spadtype{Polynomial R} by the {\\em FGLM} algorithm if this is possible (\\spadignore{i.e.} if the input system generates a zero-dimensional ideal)."))
+ (|groebner|
+  (((|List| (|Polynomial| |#1|)) (|List| (|Polynomial| |#1|)))
+   "\\spad{groebner(lq1)} returns the lexicographical Groebner basis of \\spad{lq1}. If \\spad{lq1} generates a zero-dimensional ideal then the {\\em FGLM} strategy is used,{} otherwise the {\\em Sugar} strategy is used."))
+ (|fglmIfCan|
+  (((|Union| (|List| (|Polynomial| |#1|)) "failed")
+    (|List| (|Polynomial| |#1|)))
+   "\\spad{fglmIfCan(lq1)} returns the lexicographical Groebner basis of \\spad{lq1} by using the {\\em FGLM} strategy,{} if \\spad{zeroDimensional?(lq1)} holds."))
+ (|zeroDimensional?|
+  (((|Boolean|) (|List| (|Polynomial| |#1|)))
+   "\\spad{zeroDimensional?(lq1)} returns \\spad{true} iff \\spad{lq1} generates a zero-dimensional ideal \\spad{w}.\\spad{r}.\\spad{t}. the variables of \\spad{ls}.")))
+(("documentation" 0 1707) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1698) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1440) ("modemaps" 0 789) ("sourceFile" 0 749)
+ ("constructorCategory" 0 458) ("constructorModemap" 0 58)
+ ("constructorKind" 0 48) ("constructorForm" 0 20))

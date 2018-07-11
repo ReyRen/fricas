@@ -1,0 +1,1155 @@
+)abbrev category FGRPH FiniteGraph
+++ Author: Martin Baker
+++ Date Created: December 2011
+++ Basic Operations:
+++ Related Constructors:
+++ Keywords: graph theory
+++ Description:
+++  Category of finite graphs, allows us to model graph theory
+++
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/discrete/graph/
+
+FiniteGraph(S) : Category == Definition where
+ S : SetCategory
+ NNI==> NonNegativeInteger
+ OBJT ==> Record(value : S, posX : NNI, posY : NNI)
+ ARROW ==> Record(name : String, arrType : NNI, fromOb : NNI, _
+           toOb : NNI, xOffset : Integer, yOffset : Integer, map : List NNI)
+ SPROD ==> Product(S, S)
+ GRPHPROD ==> FiniteGraph SPROD
+ OBJTPROD ==> Record(value : SPROD, posX : NNI, posY : NNI)
+ DF ==> DoubleFloat
+ PT ==> SCartesian(2)
+ x<<y ==> hconcat(x::OutputForm,y::OutputForm)
+
+ Definition ==> SetCategory with
+   addObject! : (s : %, n : S) -> %
+    ++ addObject!(s, n) adds object n to the graph s.
+    ++ Use this version
+    ++ if you don't intend to create diagrams and therefore don't
+    ++ care about x, y coordinates.
+   addObject! : (s : %, n : OBJT) -> %
+    ++ addObject!(s, n) adds object with coordinates n to the
+    ++ graph s.
+   addArrow! : (s : %, ar: ARROW) -> %
+    ++ addArrow!(s, ar) adds an arrow ar to the graph s
+   addArrow! : (s : %, name : String, n1 : NNI, n2 : NNI) -> %
+    ++ addArrow!(s, nm, n1, n2) adds an arrow to the graph s, where:
+    ++ nm is the name of the arrow
+    ++ n1 is the index of the start object
+    ++ n2 is the index of the end object
+   addArrow! : (s : %, name : String, n1 : NNI, n2 : NNI, mp : List NNI) -> %
+    ++ addArrow!(s, nm, n1, n2, mp) adds an arrow to the graph s, where:
+    ++ nm is the name of the arrow
+    ++ n1 is the index of the start object
+    ++ n2 is the index of the end object
+    ++ mp is a map represented by this arrow
+   addArrow! : (%, String, S, S) -> %
+    ++ addArrow!(s, nm, o1, o2) adds an arrow to the graph s, where:
+    ++ nm is the name of the arrow
+    ++ o1 is the start object
+    ++ o2 is the end object
+   getVertices : (s : %) -> List OBJT
+    ++ getVertices(s) returns a list of all the vertices (or objects)
+    ++ of the graph s.
+   getVertexIndex : (s : %, o : S) -> NNI
+    ++ getVertexIndex(s, o) gives index of object o.
+    ++ returns 0 if not found
+   getArrows : (s : %) -> List ARROW
+    ++ getArrows(s) returns a list of all the arrows (or edges)
+   flatten : (n : DirectedGraph(%)) -> %
+    ++ flatten(n) takes a second order graph, that is a graph
+    ++ whose elements are themselves graphs and create a first
+    ++ order graph whose vertices are the vertices of the inner
+    ++ graphs.
+   initial : () -> %
+    ++ initial constructs a graph without vertices or edges
+   terminal : (a : S) -> %
+    ++ terminal(a) constructs a graph over a with a single vertex
+    ++ and a single loop
+   cycleOpen : (objs : List S, arrowName : String) -> %
+    ++ cycleOpen(objs, arrowName) constructs a graph with vertices
+    ++ (from objs) connected in a cycle but with one gap. The last
+    ++ vertex in the sequence loops back to itself so all vertices
+    ++ have one outgoing arrow.
+    ++ arrowName is a prefix for all arrow names, this will be
+    ++ followed by a number starting at 1 and incremented for each
+    ++ arrow
+   cycleClosed : (objs : List S, arrowName : String) -> %
+    ++ cycleClosed: (objs: List S, arrowName: String) constructs a graph
+    ++ with vertices (from objs) connected in a cycle.
+    ++ arrowName is a prefix for all arrow names, this will be
+    ++ followed by a number starting at 1 and incremented for each
+    ++ arrow
+   unit : (objs : List S, arrowName : String) -> %
+    ++ unit(objs, arrowName) constructs a graph with vertices
+    ++ (from objs) and arrows from each object to itself.
+    ++ arrowName is a prefix for all arrow names, this will be
+    ++ followed by a number starting at 1 and incremented for each
+    ++ arrow
+   kgraph : (objs : List S, arrowName : String) -> %
+    ++ kgraph(objs, arrowName)
+    ++ constructs a graph with vertices (from objs) and fully
+    ++ connected arrows, that is, each object has an arrow to
+    ++ every other object except itself.
+    ++ arrowName is a prefix for all arrow names, this will be
+    ++ followed by a number starting at 1 and incremented for each
+    ++ arrow
+   isDirectSuccessor? : (s : %, a : NNI, b : NNI) -> Boolean
+    ++ isDirectSuccessor?(s, a, b) is
+    ++ true if 'b' is a direct successor of 'a'
+    ++ that is, if there is a direct arrow from 'a' to 'b'
+   isGreaterThan? : (s : %, a : NNI, b : NNI) -> Boolean
+    ++ isGreaterThan?(s, a, b) is
+    ++ true if we can get from vertex 'a' to 'b' through a
+    ++ sequence of arrows but we can't go in the opposite
+    ++ direction from 'b' to 'a'
+   max : (s : %) -> NNI
+    ++ max(s) returns index of the vertex which can be reached
+    ++ from all other vertices. Gives 0 if no such node exists
+    ++ or if it is not unique, if there is a loop for instance.
+   max : (s : %, sub : List NNI) -> NNI
+    ++ max(s, sub) returns index of the vertex which
+    ++ can be reached from a given subset of the vertices. Gives
+    ++ 0 if no such node exists or if it is not unique, if there
+    ++ is a loop for instance.
+   min : (s : %) -> NNI
+    ++ min(s) returns index of the vertex which can reach to all
+    ++ other vertices. Gives 0 if no such node exists or if it is
+    ++ not unique, if there is a loop for instance.
+   min : (s : %, sub : List NNI) -> NNI
+    ++ min(s, sub) returns index of the vertex which can reach
+    ++ to a given subset of the vertices. Gives 0 if no such node
+    ++ exists or if it is not unique, if there is a loop for instance.
+   isFixPoint? : (s : %, a : NNI) -> Boolean
+    ++ isFixPoint?(s, a) is
+    ++ true if 'a' has an arrow to itself
+   arrowName : (s : %, a : NNI, b : NNI) -> String
+    ++ arrowName(s, a, b) retrieves
+    ++ the name of arrow a->b
+    ++ if it does not exist then return "?"
+   getArrowIndex : (s : %, a : NNI, b : NNI) -> NNI
+    ++ getArrowIndex(s, a, b) retrieves
+    ++ arrow index of the arrow form a to b
+   inDegree : (s : %, a : NNI) -> NNI
+    ++ inDegree(s, a) gives the number of arrows leading in to node
+    ++ 'a' in graph 's'
+   outDegree : (s : %, a : NNI) -> NNI
+    ++ outDegree(s, a) gives
+    ++ the number of arrows leading out of node 'a' in graph 's'
+   nodeFromNode : (s : %, a : NNI) -> List NNI
+    ++ nodeFromNode(s, a) gives list
+    ++ of all nodes with a direct arrow leading
+    ++ in to node 'a' in graph 's'
+   nodeToNode : (s : %, a : NNI) -> List NNI
+    ++ nodeToNode(s, a) gives list of all nodes with a direct arrow leading
+    ++ out of node 'a' in graph 's'
+   arrowsFromNode : (s : %, a : NNI) -> List NNI
+    ++ arrowsFromNode(s, a) gives list of all arrows leading to a given node
+   arrowsToNode : (s : %, a : NNI) -> List NNI
+    ++ arrowsToNode(s, a) gives list of all arrows leading from a given node
+   nodeFromArrow : (s : %, a : NNI) -> List NNI
+    ++ nodeFromArrow(s, a) returns index of all nodes with a direct
+    ++ arrow leading in to arrow 'a' in graph 's'
+   nodeToArrow : (s : %, a : NNI) -> List NNI
+    ++ nodeToArrow(s, a) returns index of all nodes with a direct
+    ++ arrow leading out of arrow 'a' in graph 's'
+   arrowsFromArrow : (s : %, a : NNI) -> List NNI
+    ++ index of all arrows leading to a given arrow
+   arrowsToArrow : (s : %, a : NNI) -> List NNI
+    ++ arrowsToArrow: (s: %, a: NNI) returns index of all arrows leading from
+    ++ a given arrow
+   routeNodes : (s : %, a : NNI, b : NNI) -> List NNI
+    ++ routeNodes(s, a, b) gives the shortest route between
+    ++ nodes 'a' and 'b' as a sequence of node indexes.
+    ++ [a] if  'a' = 'b'
+    ++ [] if it is not possible to go from 'a' to 'b'
+   routeArrows : (s : %, a : NNI, b : NNI) -> List NNI
+    ++ routeArrows(s, a, b) gives
+    ++ the shortest route between nodes 'a' and 'b' as a
+    ++ sequence of arrow indexes.
+    ++ [] if  'a' = 'b'
+    ++ [0] if it is not possible to go from 'a' to 'b'
+   distance : (s : %, a : NNI, b : NNI) -> Integer
+    ++ distance(s, a, b) gives the shortest distance between
+    ++ nodes 'a' and 'b' as a
+    ++ number of hops.
+    ++ 0 if  'a' = 'b',
+    ++ -1 if it is not possible to go from 'a' to 'b'
+   "+":(%,%) -> %
+    ++ sum : disjoint union of nodes with arrows from appropriate
+    ++ input
+   merge : (%, %) -> %
+    ++ merge(a, b) returns sum : union (not necessarily disjoint) of
+    ++ nodes with arrows merged in from appropriate input, if arrow
+    ++ exists from both inputs then it will be duplicated.
+   spanningTreeArrow : (s : %, i : NNI) -> Tree Integer
+    ++ spanningTreeArrow(s, i) constructs a spanning tree for graph
+    ++ 's' rooted at the arrow indexed by 'i'.
+    ++ The tree will expand out from 'i' only stopping when reaching
+    ++ a arrow that has already been visited (that is: loop detected).
+    ++ Elements in the tree are Integer, a positive Integer represents
+    ++ a arrow and a negative Integer represents a repeated arrow.
+    ++ note: it is possible that nodes may be visited many times, only
+    ++ arrows must not be re-visited.
+   spanningForestArrow : (s : %) -> List Tree Integer
+    ++ spanningForestArrow(s) constructs a spanning tree for every arrow.
+   spanningTreeNode : (s : %, i : NNI) -> Tree Integer
+    ++ spanningTreeNode(s, i) constructs a spanning tree for graph 's'
+    ++ rooted at the node indexed by 'i'.
+    ++ The tree will expand out from 'i' only stopping when reaching
+    ++ a vertex that has already been visited (that is: loop detected).
+    ++ Elements in the tree are Integer, a positive Integer represents
+    ++ a vertex and a negative Integer represents a repeated vertex.
+   spanningForestNode : (s : %) -> List Tree Integer
+    ++ spanningForestNode(s) constructs a spanning tree for every vertex.
+   loopsNodes : (s : %) -> List Loop
+    ++ loopsNodes(s) returns a list of loops for this graph
+    ++ in this case the loop is represented by the indexes of the
+    ++ sequence of nodes passed through.
+    -- to-do: it would be better to use a more efficient algorithm,
+    -- currently the code calls spanningForestNode and traverses the result
+    -- for loops, it might be more efficient to use Floyds algorithm.
+   loopsAtNode : (s : %, a : NNI) -> List Loop
+    ++ loopsAtNode(s, a) returns a list of loops for this graph that pass
+    ++ through vertex index 'a'
+   loopsArrows : (s : %) -> List Loop
+    ++ loopsArrows(s) returns a list of loops for this graph
+    ++ in this case the loop is represented by the indexes of the
+    ++ sequence of nodes passed through.
+    ++ to-do: it would be better to use a more efficient algorithm,
+    ++ currently the code calls spanningForestArrow and traverses the result
+    ++ for loops, it might be more efficient to use Floyds algorithm.
+   isAcyclic? : (s : %) -> Boolean
+    ++ isAcyclic?(s) returns true if there are no loops
+   incidenceMatrix : (%) -> Matrix Integer
+    ++ incidenceMatrix(s) represents graph s by a matrix of
+    ++ size |V| by |E|
+    ++ where:
+    ++ V=number of vertices
+    ++ E=number of edges
+    ++ entry [vertex, arrow] = arrow endpoint
+    ++ data (undirected case case: 1 - incident, 0 - not incident,
+    ++ directed case: -1 - start, 1 - end, 0 - not incident).
+   adjacencyMatrix : (%) -> Matrix NNI
+    ++ adjacencyMatrix(s) returns an n by n matrix A, where n is the
+    ++ number of vertices in the graph. If there is an edge from a
+    ++ vertex x to a vertex y, then the element ax, y is 1 (or in
+    ++ general the number of xy edges), otherwise it is 0. In computing,
+    ++ this matrix makes it easy to find subgraphs, and to reverse a
+    ++ directed graph.
+   laplacianMatrix : (%) -> Matrix Integer
+    ++ laplacianMatrix(s) returns matrix also known as "Kirchhoff matrix"
+    ++ or "Admittance matrix" where:
+    ++ entry [i, j] =
+    ++ inDegree(vi) if i = j (number of incoming links)
+    ++ -1 if i not = j and vi is adjacent to vj
+    ++ 0 otherwise
+    ++ Alternatively this is defined as D - A, where D is the diagonal
+    ++ degree matrix.
+    ++ It contains both adjacency information and degree information.
+    ++ There are other, similar matrices, that are also called "Laplacian
+    ++ matrices" of a graph.
+   distanceMatrix : (%) -> Matrix Integer
+    ++ distanceMatrix(s) gives matrix of distances between vertices.
+    ++ Element a_{i, j} is the distance from i to j.
+    ++ Distance matrices are related to adjacency matrices, with the
+    ++ differences that:
+    ++ a. the latter only provides the information which vertices are connected
+    ++    but does not tell about costs or distances between the vertices
+    ++ b. adjacency matrix only tells us about directly connected
+    ++    vertices while distance matrix also considers indirect connections.
+   isFunctional? : (%) -> Boolean
+    ++ isFunctional?(s) returns true if s is a functional graph, that is a
+    ++ directed graph in which each vertex has a single outgoing arrow.
+   isDirected? : () -> Boolean
+    ++ isDirected? is true iff % is domain consisting of directed
+    ++ graphs, false for undirected graphs.
+   subdiagramSvg : (sc : Scene(PT), n : %, dispArrowName : Boolean, deep : Boolean) -> Void
+    ++ subdiagramSvg(sc, n, dispArrowName, deep) creates a branch of
+    ++ an SVG diagram diagram under an already existing scene node sc.
+    ++ n: % is the graph that will be written
+    ++ dispArrowName: Boolean is true to include the name of each arrow
+   diagramSvg : (fileName : String, n : %, dispArrowName : Boolean) -> Void
+    ++ diagramSvg(fileName, n, dispArrowName) creates an SVG diagram
+    ++ fileName: String is the name of the SVG file that will be created
+    ++ n: % is the graph that will be written
+    ++ dispArrowName: Boolean is true to include the name of each arrow
+   diagramsSvg : (fileName : String, ln : List %,
+                  dispArrowName : Boolean) -> Void
+    ++ creates SVG diagram containing multiple graphs
+    ++ fileName: String is the name of the SVG file that will be created
+    ++ ln: List % is list of graphs that will be written
+    ++ dispArrowName: Boolean is true to include the name of each arrow
+   deepDiagramSvg : (fileName : String, n : %, dispArrowName : Boolean) -> Void
+   diagramWidth : (s : %) -> NNI
+    ++ diagramWidth(s) returns the width of the diagram that will be
+    ++ generated by diagramSvg. This is the maximum posX of all
+    ++ vertices in graph s
+   diagramHeight : (s : %) -> NNI
+    ++ diagramHeight(s) returns the height of the diagram that will be
+    ++ generated by diagramSvg. This is the maximum posY of all
+    ++ vertices in graph s
+   createWidth : (x : NNI) -> NNI
+    ++ createWidth(x) can be used by domains which extend graph
+    ++ to help in creating coordinates for objects in a graph
+   createX : (x : NNI, n : NNI) -> NNI
+    ++ createX(x, n) can be used by domains which extend graph to
+    ++ help in creating the x coordinate for objects in a graph
+   createY : (x : NNI, n : NNI) -> NNI
+    ++ createY(x, n) can be used by domains which extend graph to
+    ++ help in creating the y coordinate for objects in a graph
+   looseEquals : (x : %, y : %) -> Boolean
+    ++ looseEquals(x, y) is true if x 'equals' y
+    ++ this is a looser version of equality test but is not as
+    ++ general as isomorphism.
+    ++ it only requires the same number of vertices but does not
+    ++ require the objects themselves being equal.
+    ++ the arrows must be the same, that is it may return false
+    ++ if the order of vertices is changed so this is not
+    ++ isomorphism test.
+    -- I would like to enhance this code into a true isomorphism test
+   map : (s : %, m : List NNI, newOb : List S, offsetX : Integer, offsetY : Integer) -> %
+    ++ map(s, m, newOb, offsetX, offsetY) creates a new graph by
+    ++ mapping from this one
+    ++ newOb should contain the new list of vertices.
+    ++ m should contain a NNI value for each vertex, this is the
+    ++ new index into newOb. It is allowed that newOb may contain
+    ++ less objects than s (for surjective mapping) or
+    ++ more objects than s (for injective mapping)
+   mapContra : (s : %, m : List NNI, newOb : List S, offsetX : Integer, offsetY : Integer) -> %
+    ++ mapContra(s, m, newOb, offsetX, offsetY) is similar to map
+    ++ function but reverses the directions of the arrows
+
+  add
+
+   import from List(OBJT)
+   import from List(ARROW)
+   import from List(Loop)
+   import from List(NonNegativeInteger)
+
+   math_to_string ==> mathObject2String$Lisp
+
+   -- getVertexIndex(s, o) gives index of object o.
+   -- returns 0 if not found
+   getVertexIndex(s : %, o : S) : NNI ==
+       lv := getVertices(s)
+       for i in 1.. for v in lv repeat
+           if v.value = o then return i
+       0::NNI
+
+   addArrow!(s : %, aname : String, o1 : S, o2 : S) : % ==
+       addArrow!(s, aname, getVertexIndex(s, o1), getVertexIndex(s, o2))
+
+   isDirected?() == true
+
+   -- The graph is represented by a matrix of size |V| by |E|
+   -- where:
+   -- V=number of vertices
+   -- E=number of edges
+   -- entry [vertex, arrow] = arrow endpoint
+   -- data (simplest case: 1 - incident, 0 - not incident).
+   incidenceMatrix(s : %) : Matrix Integer ==
+       vl := getVertices s
+       al := getArrows s
+       res := zero(#vl, #al)$Matrix(Integer)
+       ss : Integer :=
+           isDirected?() => -1
+           1
+       for ar in al for j in 1.. repeat
+           res(ar.fromOb, j) := ss
+           res(ar.toOb, j) := 1
+       res
+
+   -- This is an n by n matrix A, where n is the number of vertices
+   -- in the graph. If there is an arrow from a vertex x to a vertex y,
+   -- then the element ax, y is 1 (or in general the number of xy edges),
+   -- otherwise it is 0. In computing, this matrix makes it easy to find
+   -- subgraphs, and to reverse a directed graph.
+   adjacencyMatrix(s : %) : Matrix NNI ==
+    n := #(getVertices s)
+    m : List List NNI := [[if isDirectSuccessor?(s, u, v) then 1::NNI else 0::NNI_
+                        for u in 1..n] for v in 1..n]
+    matrix(m)
+
+   -- a local function used by laplacianMatrix to calculate the value for
+   -- a given entry.
+   -- inDegree(vi) if i = j (number of incoming links)
+   -- -1 if i not = j and vi is adjacent to vj
+   -- 0 otherwise
+   laplacianEntry(s : %, i : NNI, j : NNI) : Integer ==
+    if i = j then return inDegree(s, i)
+    if isDirectSuccessor?(s, i, j) then return -1::Integer
+    0::Integer
+
+   -- Also known as "Kirchhoff matrix" or "Admittance matrix" where:
+   -- entry [i, j] =
+   -- inDegree(vi) if i = j (number of incoming links)
+   -- -1 if i not = j and vi is adjacent to vj
+   -- 0 otherwise
+   -- Alternatively this is defined as D - A, where D is the diagonal
+   -- degree matrix.
+   -- It contains both adjacency information and degree information.
+   -- There are other, similar matrices, that are also called "Laplacian
+   -- matrices" of a graph.
+   laplacianMatrix(s : %) : Matrix Integer ==
+    m : List List Integer := [[laplacianEntry(s, u, v)_
+                        for u in 1..#(getVertices s)]for v in 1..#(getVertices s)]
+    matrix(m)
+
+   -- Distance matrices are related to adjacency matrices, with the
+   -- differences that:
+   -- a) the latter only provides the information which vertices are connected
+   --    but does not tell about costs or distances between the vertices and
+   -- b) an entry of a distance matrix is smaller
+   --    if two elements are closer, while "close" (connected) vertices yield
+   --    larger entries in an adjacency matrix.
+   distanceMatrix(s : %) : Matrix Integer ==
+    m : List List Integer := [[distance(s, u, v)_
+                        for u in 1..#(getVertices s)]for v in 1..#(getVertices s)]
+    matrix(m)
+
+   -- a local function, called recursively by spanningTreeArrow
+   -- i = index of current arrow
+   -- visited = list of arrow indexes already visited
+   --           note that this is called by reference because we want inner changes to be seen
+   --           in outer functions.
+   spanningTreeArrowRecursive(s : %, i : NNI, visited : Reference(List(NNI))
+                             ) : Tree Integer ==
+       aa : List NNI := arrowsToArrow(s, i)
+       ch : List Tree Integer := []
+       visited1:List(NNI) := deref(visited)
+       for x in aa repeat
+           if entry?(x, visited1) then
+               ch := concat(ch, tree((-x)::Integer))
+           else
+               visited1 := concat(visited1, x)$List(NNI)
+               setref(visited, visited1)
+               ch := concat(ch, spanningTreeArrowRecursive(s, x, visited))
+       tree(i::Integer, ch)
+
+   -- constructs a spanning tree for graph 's' rooted at the
+   -- arrow indexed by 'i'.
+   -- The tree will expand out from 'i' only stopping when reaching
+   -- a arrow that has already been visited (that is: loop detected).
+   -- Elements in the tree are Integer, a positive Integer represents
+   -- a arrow and a negative Integer represents a repeated arrow.
+   -- note: it is possible that nodes may be visited many times, only
+   -- arrows must not be re-visited.
+   spanningTreeArrow(s : %, i : NNI) : Tree Integer ==
+       spanningTreeArrowRecursive(s, i, ref([i]))
+
+   -- constructs a spanning tree for every arrow.
+   spanningForestArrow(s : %) : List Tree Integer ==
+    [spanningTreeArrow(s, i) for i in 1..#getArrows(s)]
+
+   -- a local function, called recursively by spanningTreeNode
+   --  i = index of current node
+   --  visited = list of node indexes already visited
+   -- note that this is called by reference because we want inner
+   -- changes to be seen in outer functions.
+   spanningTreeNodeRecursive(s : %, i : NNI, visited : Reference(List(NNI))
+                            ) : Tree Integer ==
+       --print("spanningTreeNodeRecursive start node="::Symbol << i)
+       oa : List(NNI) := nodeToNode(s, i)
+       ch : List(Tree(Integer)) := empty()$List(Tree(Integer))
+       -- To minimise the depth of the tree it is best to do a breadth-first
+       -- search.  So first we flag all links that lead to a new node:
+       flags:List(Boolean) := empty()$List(Boolean)
+       visited1:List(NNI) := deref(visited)
+       for n in oa repeat
+           if entry?(n, visited1) then
+               flags := concat(flags,false)$List(Boolean)
+           else
+               flags := concat(flags,true)$List(Boolean)
+               visited1:= concat(visited1,n)$List(NNI)
+           --print("spanningTreeNodeRecursive node="::Symbol << i <<
+           --      " n="::Symbol << n << " flag="::Symbol << last(flags))
+       setref(visited,visited1)
+       -- now add these links to tree
+       for n in oa for flag in flags repeat
+           if flag then
+               ch := concat(ch, spanningTreeNodeRecursive(s,n,visited))
+       --print("spanningTreeNodeRecursive end node="::Symbol << i)
+       tree(i::Integer, ch)
+
+   -- constructs a spanning tree for graph 's' rooted at the
+   -- node indexed by 'i'.
+   -- The tree will expand out from 'i' only stopping when reaching
+   -- a vertex that has already been visited (that is: loop detected).
+   -- Elements in the tree are Integer.
+   spanningTreeNode(s : %, i : NNI) : Tree Integer ==
+       spanningTreeNodeRecursive(s, i, ref([i]))
+
+   -- constructs a spanning tree for every vertex.
+   spanningForestNode(s : %) : List Tree Integer ==
+    [spanningTreeNode(s, i) for i in 1..#getVertices(s)]
+
+   -- a local function, called recursively by loopsNodes
+   loopsNodesRecursive(t : Tree Integer, visited : List NNI) : List Loop ==
+     c : List Tree Integer := children(t)
+     v : Integer := value(t)
+     if v<0 then
+       v2 := (-v)::NNI
+       i := position(v2, visited)$List(NNI)
+       if i < 1 then return [loop(visited)]
+       afterIndex := (#visited+1)-i
+       if afterIndex < 1 then return [loop(visited)]
+       return [loop(last(visited, afterIndex::NNI)$List(NNI))]
+     res : List Loop := []
+     for x in c repeat
+       ll := loopsNodesRecursive(x, concat(visited, v::NNI))
+       res := concat(res, ll)$List(Loop)
+     res
+
+   -- returns a list of loops for this graph
+   -- in this case the loop is represented by the indexes of the
+   -- sequence of nodes passed through.
+   -- to-do: it would be better to use a more efficient algorithm,
+   -- currently the code calls spanningForestNode and traverses the result
+   -- for loops, it might be more efficient to use Floyds algorithm.
+   loopsNodes(s : %) : List Loop ==
+    res : List Loop := []
+    sf := spanningForestNode(s)
+    for x in sf repeat
+      res := concat(res, loopsNodesRecursive(x, []))$List(Loop)
+    removeDuplicates(res)
+
+   -- a list of loops for this graph that pass through vertex index 'a'
+   loopsAtNode(s : %, a : NNI) : List Loop ==
+    st : Tree Integer := spanningTreeNode(s, a)
+    removeDuplicates(loopsNodesRecursive(st, []))
+
+   -- a local function, called recursively by loopsNodes
+   loopsArrowsRecursive(t : Tree Integer, visited : List NNI) : List Loop ==
+     c : List Tree Integer := children(t)
+     v : Integer := value(t)
+     if v<0 then
+       v2 := (-v)::NNI
+       i := position(v2, visited)$List(NNI)
+       if i < 1 then return [loop(visited)]
+       afterIndex := (#visited+1)-i
+       if afterIndex < 1 then return [loop(visited)]
+       return [loop(last(visited, afterIndex::NNI)$List(NNI))]
+     res : List Loop := []
+     for x in c repeat
+       ll := loopsArrowsRecursive(x, concat(visited, v::NNI))
+       res := concat(res, ll)$List(Loop)
+     res
+
+   -- returns a list of loops for this graph
+   -- in this case the loop is represented by the indexes of the
+   -- sequence of nodes passed through.
+   -- to-do: it would be better to use a more efficient algorithm,
+   -- currently the code calls spanningForestArrow and traverses the result
+   -- for loops, it might be more efficient to use Floyds algorithm.
+   loopsArrows(s : %) : List Loop ==
+    res : List Loop := []
+    sf := spanningForestArrow(s)
+    for x in sf repeat
+      res := concat(res, loopsArrowsRecursive(x, []))$List(Loop)
+    removeDuplicates(res)
+
+   -- returns true if there are no loops
+   isAcyclic?(s : %) : Boolean == loopsNodes(s) = []
+
+   -- returns true if 'b' is a direct successor of 'a'
+   -- that is, if there is a direct arrow from 'a' to 'b'
+   isDirectSuccessor?(s : %, a : NNI, b : NNI) : Boolean ==
+    for arr in getArrows(s) repeat
+      if arr.fromOb = a and arr.toOb = b then return true
+    false
+
+   -- true if 'a' has an arrow to itself
+   isFixPoint?(s : %, a : NNI) : Boolean ==
+    for arr in getArrows(s) repeat
+      if arr.fromOb = a and arr.toOb = a then return true
+    false
+
+   -- arrow index from two vertex indices
+   getArrowIndex(s : %, a : NNI, b : NNI) : NNI ==
+    arrs := getArrows(s)
+    for arrn in 1..#arrs repeat
+      if (arrs.arrn).fromOb = a and (arrs.arrn).toOb = b then
+        return arrn
+    0::NNI
+
+
+   -- returns the name of arrow a->b
+   -- if it does not exist then return "?"
+   arrowName(s : %, a : NNI, b : NNI) : String ==
+    for arr in getArrows(s) repeat
+      if arr.fromOb = a and arr.toOb = b then return arr.name
+    "?"
+
+   -- the number of arrows leading in to vertex 'a' in graph 's'
+   inDegree(s : %, a : NNI) : NNI ==
+    count := 0::NNI
+    for arr in getArrows(s) repeat
+      if arr.toOb = a then count := count + 1::NNI
+    count
+
+   -- the number of arrows leading out of vertex 'a' in graph 's'
+   outDegree(s : %, a : NNI) : NNI ==
+    count := 0::NNI
+    for arr in getArrows(s) repeat
+      if arr.fromOb = a then count := count + 1::NNI
+    count
+
+   -- returns index of all nodes with a direct arrow leading
+   -- in to node 'v' in graph 's'
+   nodeFromNode(s : %, v : NNI) : List NNI ==
+    i : List NNI := []
+    for arr in getArrows(s) repeat
+      if arr.toOb = v then i := concat(i, arr.fromOb)
+    i
+
+   -- returns index of all nodes with a direct arrow leading
+   -- out of node 'v' in graph 's'
+   nodeToNode(s : %, v : NNI) : List NNI ==
+    i : List NNI := []
+    for arr in getArrows(s) repeat
+      if arr.fromOb = v then i := concat(i, arr.toOb)
+    i
+
+   -- returns index of all arrows leading to a given node
+   arrowsFromNode(s : %, v : NNI) : List NNI ==
+    i : List NNI := []
+    arrs := getArrows(s)
+    for arrn in 1..#arrs repeat
+      if (arrs.arrn).toOb = v then i := concat(i, arrn)
+    i
+
+   -- returns index of all arrows leading from a given node
+   arrowsToNode(s : %, v : NNI) : List NNI ==
+    i : List NNI := []
+    arrs := getArrows(s)
+    for arrn in 1..#arrs repeat
+      if (arrs.arrn).fromOb = v then i := concat(i, arrn)
+    i
+
+   -- returns index of all nodes with a direct arrow leading
+   -- in to arrow 'a' in graph 's'
+   nodeFromArrow(s : %, a : NNI) : List NNI ==
+    arrs := getArrows(s)
+    [(arrs.a).toOb]
+
+   -- returns index of all nodes with a direct arrow leading
+   -- out of arrow 'a' in graph 's'
+   nodeToArrow(s : %, a : NNI) : List NNI ==
+    arrs := getArrows(s)
+    [(arrs.a).fromOb]
+
+   -- returns index of all arrows leading to a given arrow
+   arrowsFromArrow(s : %, a : NNI) : List NNI ==
+    i : List NNI := []
+    arrs := getArrows(s)
+    for arrn in 1..#arrs repeat
+      if (arrs.arrn).toOb = (arrs.a).fromOb then i := concat(i, arrn)
+    i
+
+   -- returns index of all arrows leading from a given arrow
+   arrowsToArrow(s : %, a : NNI) : List NNI ==
+    i : List NNI := []
+    arrs := getArrows(s)
+    for arrn in 1..#arrs repeat
+      if (arrs.arrn).fromOb = (arrs.a).toOb then i := concat(i, arrn)
+    i
+
+   -- local function used by route to give a route between a
+   -- and b, track visited nodes to avoid infinite loop.
+   routeNodeRecursive(s : %, a : NNI, b : NNI, visited : List NNI) : List NNI ==
+    if #visited > #getVertices(s) then return []
+    shortest : List NNI := []
+    if a = b then return [a]
+    if isDirectSuccessor?(s, a, b) then return [a, b]
+    for arr in getArrows(s) repeat
+      if isDirectSuccessor?(s, a, arr.fromOb) then
+        d := routeNodeRecursive(s, arr.fromOb, b, concat(visited, a)$List(NNI))
+        if shortest = []
+          then shortest := d
+          else if (d ~= []) and #d < #shortest then shortest := d
+    if shortest = [] then return []
+    concat(a, shortest)
+
+   -- the shortest route between 'a' and 'b' as a
+   -- sequence of node indexes.
+   -- [a] if  'a' = 'b'
+   -- [] if it is not possible to go from 'a' to 'b'
+   routeNodes(s : %, a : NNI, b : NNI) : List NNI == routeNodeRecursive(s, a, b, [])
+
+   -- local function used by route to give a route between a
+   -- and b, track visited nodes to avoid infinite loop.
+   routeArrowRecursive(s : %, a : NNI, b : NNI, visited : List NNI) : List NNI ==
+    if #visited > #getVertices(s) then return [0]
+    shortest : List NNI := [0]
+    if a = b then return []
+    arrn := getArrowIndex(s, a, b)
+    if arrn ~= 0 then
+       return [arrn]
+    aa : NNI := 0
+    shortestFullPath : List NNI := [0]
+    arrs := getArrows(s)
+    for arr in arrs repeat
+      if isDirectSuccessor?(s, a, arr.fromOb) then
+        aa := getArrowIndex(s, a, arr.fromOb)
+        d := routeArrowRecursive(s, arr.fromOb, b, concat(visited, a)$List(NNI))
+        fullPath := concat(aa, d)
+        if shortest = [0]
+          then
+            shortest := d
+            shortestFullPath := fullPath
+          else if (d ~= [0]) and #fullPath < #shortestFullPath then
+            shortest := d
+            shortestFullPath := fullPath
+    if shortest = [0] then return [0]
+    shortestFullPath
+
+   -- the shortest route between 'a' and 'b' as a
+   -- sequence of arrow indexes.
+   -- [] if  'a' = 'b'
+   -- [0] if it is not possible to go from 'a' to 'b'
+   routeArrows(s : %, a : NNI, b : NNI) : List NNI == routeArrowRecursive(s, a, b, [])
+
+   -- true if we can get from vertex 'a' to 'b' through a
+   -- sequence of arrows but we can't go in the opposite
+   -- direction from 'b' to 'a'
+   isGreaterThan?(s : %, a : NNI, b : NNI) : Boolean ==
+     if routeNodeRecursive(s, a, b, []) = [] then return false
+     if routeNodeRecursive(s, b, a, []) ~= [] then return false
+     true
+
+   -- index of the vertex which can be reached from all other
+   -- vertices. Gives 0 if no such node exists or if it is not
+   -- unique, if there is a loop for instance.
+   max(s : %) : NNI ==
+    ls : List OBJT := getVertices(s)
+    for i in 1..#ls repeat
+      fail : Boolean := false
+      for j in 1..#ls repeat
+        if i ~= j then
+          if not isGreaterThan?(s, j, i) then fail := true
+      if not fail then return i
+    0::NNI
+
+   -- index of the vertex which can be reached from a given
+   -- subset of the vertices. Gives 0 if no such node exists
+   -- or if it is not unique, if there is a loop for instance.
+   max(s : %, sub : List NNI) : NNI ==
+    for i in sub repeat
+      fail : Boolean := false
+      for j in sub repeat
+        if i ~= j then
+          if not isGreaterThan?(s, j, i) then fail := true
+      if not fail then return i
+    0::NNI
+
+   -- index of the vertex which can reach to all other
+   -- vertices. Gives 0 if no such node exists or if it is not
+   -- unique, if there is a loop for instance.
+   min(s : %) : NNI ==
+    ls : List OBJT := getVertices(s)
+    for i in 1..#ls repeat
+      fail : Boolean := false
+      for j in 1..#ls repeat
+        if i ~= j then
+          if not isGreaterThan?(s, i, j) then fail := true
+      if not fail then return i
+    0::NNI
+
+   -- index of the vertex which can reach to a given
+   -- subset of the vertices. Gives 0 if no such node exists
+   -- or if it is not unique, if there is a loop for instance.
+   min(s : %, sub : List NNI) : NNI ==
+    for i in sub repeat
+      fail : Boolean := false
+      for j in sub repeat
+        if i ~= j then
+          if not isGreaterThan?(s, i, j) then fail := true
+      if not fail then return i
+    0::NNI
+
+   -- the shortest route between 'a' and 'b' as a
+   -- number of hops.
+   -- 0 if  'a' = 'b'
+   -- -1 if it is not possible to go from 'a' to 'b'
+   distance(s : %, a : NNI, b : NNI) : Integer == #routeNodeRecursive(s, a, b, [])-1
+
+   -- a functional graph is a directed graph in which each vertex has
+   -- a single outgoing arrow.
+   isFunctional?(s : %) : Boolean ==
+    counts : List NNI := [0::NNI for x in getVertices(s)]
+    for arr in getArrows(s) repeat
+      fromI : NNI := arr.fromOb
+      counts.fromI := counts.fromI + 1::NNI
+    for x in counts repeat
+      if not x = 1::NNI then return false
+    true
+
+   -- this function can be used by domains which extend graph
+   -- to help in creating coordinates for objects in a graph
+   createWidth(x : NNI) : NNI ==
+    for w in 1..100 repeat
+      if w*w >= x then return w
+    100::NNI
+
+   -- this function can be used by domains which extend graph to
+   -- help in creating the x coordinate for objects in a graph
+   createX(x : NNI, n : NNI) : NNI ==
+    w : NNI := createWidth(x)
+    r := subtractIfCan(n, 1)
+    d : Record(quotient : NNI, remainder : NNI) := divide(r::NNI, w)$NNI
+    if odd?((d.quotient)::Integer) then return (subtractIfCan(w, d.remainder)::NNI)*2
+    (d.remainder + 1)*2
+
+   -- this function can be used by domains which extend graph to
+   -- help in creating the y coordinate for objects in a graph
+   createY(x : NNI, n : NNI) : NNI ==
+    w : NNI := createWidth(x)
+    r := subtractIfCan(n, 1)
+    d : Record(quotient : NNI, remainder : NNI) := divide(r::NNI, w)$NNI
+    (d.quotient + 1)*2
+
+   -- subdiagramSvg(sc, n, dispArrowName, deep) creates a branch of an
+   -- SVG diagram diagram under an already existing scene node sc
+   -- n: % is the graph that will be written
+   -- dispArrowName: Boolean is true to include the name of each arrow
+   subdiagramSvg(sc : Scene(PT), n : %, dispArrowName : Boolean, deep : Boolean) : Void ==
+    mt1 := addSceneMaterial(sc,3::DF,"black","black")$Scene(PT)
+    mt2 := addSceneMaterial(sc,3::DF,"blue","blue")$Scene(PT)
+    mt3 := addSceneMaterial(sc,3::DF,"orange","orange")$Scene(PT)
+    mt4 := addSceneMaterial(sc,3::DF,"green","green")$Scene(PT)
+    mt5 := addSceneMaterial(sc,3::DF,"brown","brown")$Scene(PT)
+    mt6 := addSceneMaterial(sc,3::DF,"grey","grey")$Scene(PT)
+    mt7 := addSceneMaterial(sc,3::DF,"red","red")$Scene(PT)
+    mt8 := addSceneMaterial(sc,3::DF,"purple","purple")$Scene(PT)
+    ls : List OBJT := getVertices(n)
+    -- indexPointx and indexPointy holds an array of the x and y coordinates
+    -- so they can be looked up using an index value.
+    indexPointx : List NNI := []
+    indexPointy : List NNI := []
+    -- indexBounds holds an array of scene nodes so they can
+    -- be looked up using an index value (to draw arrows upto
+    -- their boundary).
+    indexBounds : List Scene(PT) := []
+    -- indexNodes holds an array of vertices so they can
+    -- be looked up using an index value (in case we need to look
+    -- inside them for second order graphs).
+    indexNodes : List S := []
+    for i in ls repeat
+      indexNodes := concat(indexNodes, i.value)
+      s : String := math_to_string i.value
+      x : NNI := i.posX
+      y : NNI := i.posY
+      indexPointx := concat(indexPointx, x)
+      indexPointy := concat(indexPointy, y)
+      -- if this is a second order graph then draw sub graphs
+      -- otherwise draw vertex name
+      if S has DirectedGraph(String)
+       then
+        subgraph : DirectedGraph(String) := (i.value) pretend DirectedGraph(String)
+        SHAPE ==> Record(shptype : Symbol, centre : PT, size : PT, fill : Boolean)
+        sh:SHAPE := ["ellipse"::Symbol,sipnt(x,y)+svec(0.7::DF,0.7::DF),_
+                                       svec(0.7::DF, 0.7::DF), false]
+        ellip := addSceneShape(sc, sh)
+        tn := addSceneGraph(sc, subgraph, x, y, dispArrowName)
+        indexBounds := concat(indexBounds, ellip)
+       else
+        tn := addSceneText(sc, s, 32::NNI, sipnt(x, y)$PT)$Scene(PT)
+        indexBounds := concat(indexBounds, tn)
+    arrs : List ARROW := getArrows(n)
+    -- if no arrows then just write vertex names
+    if arrs = [] then return void
+    -- if this is a second order graph then we need to get the inner objects
+    IOBJT ==> Record(value : DirectedGraph(String), posX : NNI, posY : NNI)
+    innerOb : List List IOBJT := []
+    if deep and S has DirectedGraph(String) then
+      for nd in indexNodes repeat
+        subNd : DirectedGraph(String) := nd pretend DirectedGraph(String)
+        innerObs : List IOBJT := getVertices(subNd)$DirectedGraph(String) pretend List IOBJT
+        innerOb := concat(innerOb, innerObs)$(List List IOBJT)
+    -- now draw arrows in diagram
+    for arrow in arrs for arrn in 1..#arrs repeat
+      fromX : NNI := indexPointx.(arrow.fromOb)
+      toX : NNI := indexPointx.(arrow.toOb)
+      fromX := (fromX+arrow.xOffset)::NNI
+      toX := (toX+arrow.xOffset)::NNI
+      fromY : NNI := indexPointy.(arrow.fromOb)
+      toY : NNI := indexPointy.(arrow.toOb)
+      fromY := (fromY+arrow.yOffset)::NNI
+      toY := (toY+arrow.yOffset)::NNI
+      -- for arrow name we want to position text at the mid point of the
+      -- arrow, this is given by (start + end)/2. We divide integer by 2
+      -- by shifting binary number one place to the left.
+      midX : NNI := shift(toX + fromX, -1)
+      midY : NNI := shift(toY + fromY, -1)
+      -- get information to set line colour
+      arrIndex : List NNI := arrowsToNode(n, arrow.fromOb)
+      arrNumber : Integer := position(arrn, arrIndex)
+      rema : Integer := divide(arrNumber, 8).remainder
+      mt := mt1
+      if rema = 0 then mt := mt1
+      if rema = 1 then mt := mt2
+      if rema = 2 then mt := mt3
+      if rema = 3 then mt := mt4
+      if rema = 4 then mt := mt5
+      if rema = 5 then mt := mt6
+      if rema = 6 then mt := mt7
+      if rema = 7 then mt := mt8
+      -- if this is a second order graph then we draw inner arrows
+      if deep and S has DirectedGraph(String) then
+        mp : List NNI := arrow.map
+        for subArrow in mp for subArrowN in 1..#mp repeat
+          --print("fgraph subarrow subArrowN="::Symbol <<subArrowN <<_
+          --           " subArrow="::Symbol << subArrow)
+          innerObFrom : IOBJT := innerOb.(arrow.fromOb).subArrowN
+          innerObTo : IOBJT := innerOb.(arrow.toOb).subArrow
+          --v1 := innerObFrom.value
+          --st1: String := math_to_string v1
+          --v2 := innerObTo.value
+          --st2: String := math_to_string v2
+          --print("fgraph subarrow subValueN="::Symbol << st1 <<_
+          --           " subValue="::Symbol << st2)
+          subFromX : DF := (fromX::DF)+((innerObFrom.posX)::DF)*(0.25::DF)
+          subToX : DF := (toX::DF)+((innerObFrom.posY)::DF)*(0.25::DF)
+          subFromY : DF := (fromY::DF)+((innerObTo.posX)::DF)*(0.25::DF)
+          subToY : DF := (toY::DF)+((innerObTo.posY)::DF)*(0.25::DF)
+          subArrNode := addSceneArrows(mt, [[spnt(subFromX, subFromY)$PT, _
+                     spnt(subToX, subToY)$PT]], _
+                     "fixed"::Symbol,0.1::DF)
+          --print("fgraph subarrow from="::Symbol << (arrow.fromOb) << _
+          --           " to="::Symbol << (arrow.toOb) << _
+          --           " arrn="::Symbol << arrn << _
+          --           " subArrow="::Symbol << subArrow << _
+          --           " subArrowN="::Symbol << subArrowN << _
+          --           " x="::Symbol << (innerObFrom.posX) << _
+          --           " y="::Symbol << (innerObFrom.posY))
+      if not deep then
+        fnode : Scene(PT) := indexBounds.(arrow.fromOb)
+        tnode : Scene(PT) := indexBounds.(arrow.toOb)
+        offset : PT := sipnt(arrow.xOffset, arrow.yOffset)$PT
+        -- next we add the arrows, the parameter "proportional"::Symbol
+        -- tells the scenegraph code to reduce the length of the arrow
+        -- slightly to avoid overlapping the vertex label, this is only
+        -- required if not second order graph.
+        if S has DirectedGraph(String)
+         then
+          arrNode := addSceneArrow(mt, fnode, tnode, offset, _
+                     "fixed"::Symbol,0.1::DF,(diagramWidth(n)+10)::DF)
+         else
+          arrNode := addSceneArrow(mt, fnode, tnode, offset, _
+                     "proportional"::Symbol,0.1::DF,(diagramWidth(n)+10)::DF)
+        -- print("fgraph subdiagramSvg sc="::Symbol << sc )
+        -- print(" n="::Symbol << n)
+        -- print(" arrNode="::Symbol << arrNode)
+        -- add the name of the arrow
+        if dispArrowName then
+          s : String := arrow.name
+          addSceneText(mt, s, 32::NNI, sipnt(midX, midY)$PT)$Scene(PT)
+    return void
+
+   -- creates an SVG diagram
+   -- fileName: String is the name of the SVG file that will be created
+   -- n: % is the graph that will be written
+   -- dispArrowName: Boolean is true to include the name of each arrow
+   diagramSvg(fileName : String, n : %, dispArrowName : Boolean) : Void ==
+    view := boxBoundary(sipnt(0, 0)$PT, sipnt(diagramWidth(n)+10::NNI, _
+                           diagramHeight(n)+10::NNI)$PT)$SBoundary(PT)
+    sc := createSceneRoot(view)$Scene(PT)
+    subdiagramSvg(sc, n, dispArrowName, false)
+    writeSvg(sc, fileName)
+
+   -- creates SVG diagram containing multiple graphs
+   -- fileName: String is the name of the SVG file that will be created
+   -- ln: List % is list of graphs that will be written
+   -- dispArrowName: Boolean is true to include the name of each arrow
+   diagramsSvg(fileName : String, ln : List %, dispArrowName : Boolean
+              ) : Void ==
+       dW : NNI := 0
+       for n in ln repeat dW := (dW + diagramWidth(n) + 10)::NNI
+       view := boxBoundary(sipnt(0, 0)$PT, sipnt(dW,
+                           diagramHeight(first ln) + 10::NNI)$PT)$SBoundary(PT)
+       sc := createSceneRoot(view)$Scene(PT)
+       for n in ln repeat subdiagramSvg(sc, n, dispArrowName, false)
+       writeSvg(sc, fileName)
+
+   deepDiagramSvg(fileName : String, n : %, dispArrowName : Boolean) : Void ==
+    view := boxBoundary(sipnt(0, 0)$PT, sipnt(diagramWidth(n)+10::NNI, _
+                           diagramHeight(n)+10::NNI)$PT)$SBoundary(PT)
+    sc := createSceneRoot(view)$Scene(PT)
+    subdiagramSvg(sc, n, dispArrowName, true)
+    writeSvg(sc, fileName)
+
+   -- returns the width of the diagram that will be generated by
+   -- diagramSvg. This is the maximum posX of all vertices in
+   -- graph s
+   diagramWidth(s : %) : NNI ==
+    maxx : NNI := 0::NNI
+    ls : List OBJT := getVertices(s)
+    for i in ls repeat
+      if (i.posX) > maxx then maxx := i.posX
+    maxx
+
+   -- returns the height of the diagram that will be generated by
+   -- diagramSvg. This is the maximum posY of all vertices in
+   -- graph s
+   diagramHeight(s : %) : NNI ==
+    maxy : NNI := 0::NNI
+    ls : List OBJT := getVertices(s)
+    for i in ls repeat
+      if (i.posY) > maxy then maxy := i.posY
+    maxy
+
+   -- returns true if x 'equals' y
+   -- this is a looser version of equality test but is not as
+   -- general as isomorphism.
+   -- it only requires the same number of vertices but does not
+   -- require the objects themselves being equal.
+   -- the arrows must be the same, that is if the order of
+   -- vertices is changed then false is changed so this is not
+   -- isomorphism test.
+   -- I would like to enhance this code into a true isomorphism test
+   looseEquals(x : %, y : %) : Boolean ==
+    if #getVertices(x) ~= #getVertices(y) then return false
+    arx : List ARROW := getArrows(x)
+    ary : List ARROW := getArrows(y)
+    if #arx ~= #ary then return false
+    for i in 1..#arx repeat
+      if arx.i.fromOb ~= ary.i.fromOb then
+        return false
+      if arx.i.toOb ~= ary.i.toOb then
+        return false
+    true
+
+   -- start of SetCategory definitions --
+
+   hash(s : %) : SingleInteger == 0$SingleInteger
+
+   -- return string representation
+   -- I'm not sure how latex(s: %) is intended to be used but
+   -- there is nothing specifically latex here, it just returns a
+   -- string description of the graph.
+   latex(n : %) : String ==
+    -- s holds result that we are constructing
+    s:String := ""
+    -- first represent objects in s
+    ls : List OBJT := getVertices(n)
+    for i in ls repeat
+      if s=""
+        then s := latex(i.value)
+        else s := concat([s,",",latex(i.value)])
+    arrs : List ARROW := getArrows(n)
+    if arrs = [] then return s
+    -- now represent arrows in s
+    -- arrs is List ARROW
+    if arrs = [] then return s
+    s := concat([s,"|"])$String
+    fst : Boolean := true()
+    arrStr:String := "->"
+    for arrow in arrs repeat
+      if not fst then s := concat(s,",")
+      s := concat([s,arrow.name,":",latex(ls.(arrow.fromOb).value),arrStr,_
+             latex(ls.(arrow.toOb).value)])$String
+      fst := false()
+    s
+
+   -- returns true if x equals y
+   -- this is equality and not isomorphism
+   -- that is it returns true only if exact index values and names are used
+   -- in addition to the structure(arrows) being the same.
+   _=(x : %, y : %) : Boolean ==
+    if getVertices(x) ~= getVertices(y) then return false
+    if getArrows(x) ~= getArrows(y) then return false
+    true
+
+   -- returns true if x is not equal to y
+   _~_=(x : %, y : %) : Boolean == not(x = y)
+
+
+   -- this is a local function used by coerce(n: %): OutputForm
+   -- it is used when outputting second order graphs to
+   -- avoid a massive output to command line if we displayed
+   -- full details of inner graphs. Instead we just represent
+   -- inner graphs by integers 1, 2, 3...
+   coerceSubgraph(n : %) : OutputForm ==
+    -- s holds result that we are constructing
+    s : OutputForm := empty()
+    -- first represent objects in s
+    ls : List OBJT := getVertices(n)
+    for i in 1..#ls repeat
+      st : OutputForm := i::OutputForm
+      if s = empty()$OutputForm
+        then s := st
+        else s := hconcat([s, message(","), st])$OutputForm
+    arrs : List ARROW := getArrows(n)
+    if arrs = [] then return s
+    -- now represent arrows in s
+    -- arrs is List ARROW
+    if arrs = [] then return s
+    s := hconcat([s, message("|")])$OutputForm
+    fst : Boolean := true()
+    arrStr : OutputForm := message("->")
+    for arrow in arrs repeat
+      stFrom : OutputForm := (arrow.fromOb)::OutputForm
+      stTo : OutputForm := (arrow.toOb)::OutputForm
+      if not fst then s := hconcat(s, message(","))
+      s := hconcat([s,(arrow.name)::OutputForm, message(":"), _
+             stFrom, arrStr, stTo])$OutputForm
+      fst := false()
+    s
+
+   -- output graph to OutputForm
+   coerce(n : %) : OutputForm ==
+    -- s holds result that we are constructing
+    if S has DirectedGraph(String) then return coerceSubgraph(n)
+    s : OutputForm := empty()
+    -- first represent objects in s
+    ls : List OBJT := getVertices(n)
+    for i in ls repeat
+      st : OutputForm := (i.value)::OutputForm
+      if s = empty()$OutputForm
+        then s := st
+        else s := hconcat([s, message(","), st])$OutputForm
+    arrs : List ARROW := getArrows(n)
+    if arrs = [] then return s
+    -- now represent arrows in s
+    -- arrs is List ARROW
+    if arrs = [] then return s
+    s := hconcat([s, message("|")])$OutputForm
+    fst : Boolean := true()
+    arrStr:OutputForm := message("->")
+    for arrow in arrs repeat
+      stFrom : OutputForm := (ls.(arrow.fromOb).value)::OutputForm
+      stTo : OutputForm := (ls.(arrow.toOb).value)::OutputForm
+      if not fst then s := hconcat(s, message(","))
+      s := hconcat([s,(arrow.name)::OutputForm, message(":"), _
+             stFrom, arrStr, stTo])$OutputForm
+      fst := false()
+    s
+
+)if false
+
+\section{domain DGRPH DirectedGraph}
+
+DirectedGraph is an implementation of FiniteGraph.
+
+We start with the concept of a graph as a set of external 'objects'
+(graph defined over a set of some type) together with pairs of
+indices to represent the arrows.
+
+Because the arrows are defined in terms of indices this means that the
+order of the objects becomes important and therefore must be held in a
+list/array rather than a set.
+
+For DirectedGraph then:
+arrow(x, y) is not necessarily equal to arrow(y, x)
+Whereas for UndirectedGraph then:
+arrow(x, y) = arrow(y, x) so in searches we should always get a match
+regardless of order.
+
+DirectedGraph has additional information for notation and for drawing
+diagrams.
+
+)endif
+

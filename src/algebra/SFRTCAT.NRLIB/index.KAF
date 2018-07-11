@@ -1,0 +1,177 @@
+9140                (|SquareFreeRegularTriangularSetCategory| R E V P)
+|category|
+(((|SquareFreeRegularTriangularSetCategory| |#1| |#2| |#3| |#4|) (|Category|)
+  (|GcdDomain|) (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|RecursivePolynomialCategory| |t#1| |t#2| |t#3|))
+ (T |SquareFreeRegularTriangularSetCategory|))
+(|Join| (|RegularTriangularSetCategory| |t#1| |t#2| |t#3| |t#4|))
+"/git/fricas/src/algebra/SFRTCAT.spad"
+((~= (((|Boolean|) $ $) 6))
+ (|zeroSetSplitIntoTriangularSystems|
+  (((|List| (|Record| (|:| |close| $) (|:| |open| (|List| |#4|))))
+    (|List| |#4|))
+   6))
+ (|zeroSetSplit| (((|List| $) (|List| |#4|)) 6)
+  (((|List| $) (|List| |#4|) (|Boolean|)) 6))
+ (|variables| (((|List| |#3|) $) 6)) (|trivialIdeal?| (((|Boolean|) $) 6))
+ (|triangular?| (((|Boolean|) $) 6 (|has| |#1| (|IntegralDomain|))))
+ (|stronglyReduced?| (((|Boolean|) |#4| $) 6) (((|Boolean|) $) 6))
+ (|stronglyReduce| ((|#4| |#4| $) 6))
+ (|squareFreePart|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| $))) |#4| $) 6))
+ (|sort|
+  (((|Record| (|:| |under| $) (|:| |floor| $) (|:| |upper| $)) $ |#3|) 6))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|select| (($ (|Mapping| (|Boolean|) |#4|) $) 6 (|has| $ (|finiteAggregate|)))
+  (((|Union| |#4| #1="failed") $ |#3|) 6))
+ (|sample| (($) 6 T CONST))
+ (|roughUnitIdeal?| (((|Boolean|) $) 6 (|has| |#1| (|IntegralDomain|))))
+ (|roughSubIdeal?| (((|Boolean|) $ $) 6 (|has| |#1| (|IntegralDomain|))))
+ (|roughEqualIdeals?| (((|Boolean|) $ $) 6 (|has| |#1| (|IntegralDomain|))))
+ (|roughBase?| (((|Boolean|) $) 6 (|has| |#1| (|IntegralDomain|))))
+ (|rewriteSetWithReduction|
+  (((|List| |#4|) (|List| |#4|) $ (|Mapping| |#4| |#4| |#4|)
+    (|Mapping| (|Boolean|) |#4| |#4|))
+   6))
+ (|rewriteIdealWithRemainder|
+  (((|List| |#4|) (|List| |#4|) $) 6 (|has| |#1| (|IntegralDomain|))))
+ (|rewriteIdealWithHeadRemainder|
+  (((|List| |#4|) (|List| |#4|) $) 6 (|has| |#1| (|IntegralDomain|))))
+ (|retractIfCan| (((|Union| $ "failed") (|List| |#4|)) 6))
+ (|retract| (($ (|List| |#4|)) 6)) (|rest| (((|Union| $ #1#) $) 6))
+ (|removeZero| ((|#4| |#4| $) 6))
+ (|removeDuplicates|
+  (($ $) 6 (AND (|has| |#4| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove|
+  (($ |#4| $) 6 (AND (|has| |#4| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) |#4|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|remainder|
+  (((|Record| (|:| |rnum| |#1|) (|:| |polnum| |#4|) (|:| |den| |#1|)) |#4| $) 6
+   (|has| |#1| (|IntegralDomain|))))
+ (|reduced?| (((|Boolean|) |#4| $ (|Mapping| (|Boolean|) |#4| |#4|)) 6))
+ (|reduceByQuasiMonic| ((|#4| |#4| $) 6))
+ (|reduce|
+  ((|#4| (|Mapping| |#4| |#4| |#4|) $ |#4| |#4|) 6
+   (AND (|has| |#4| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  ((|#4| (|Mapping| |#4| |#4| |#4|) $ |#4|) 6 (|has| $ (|finiteAggregate|)))
+  ((|#4| (|Mapping| |#4| |#4| |#4|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#4| |#4| $ (|Mapping| |#4| |#4| |#4|) (|Mapping| (|Boolean|) |#4| |#4|))
+   6))
+ (|quasiComponent|
+  (((|Record| (|:| |close| (|List| |#4|)) (|:| |open| (|List| |#4|))) $) 6))
+ (|purelyTranscendental?| (((|Boolean|) |#4| $) 6))
+ (|purelyAlgebraicLeadingMonomial?| (((|Boolean|) |#4| $) 6))
+ (|purelyAlgebraic?| (((|Boolean|) |#4| $) 6) (((|Boolean|) $) 6))
+ (|parts| (((|List| |#4|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|normalized?| (((|Boolean|) |#4| $) 6) (((|Boolean|) $) 6))
+ (|mvar| ((|#3| $) 6)) (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#4| $) 6 (AND (|has| |#4| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#4|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#4| $) 6
+   (AND (|has| |#4| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#4| $) 6 (AND (|has| |#4| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  ((|#4| (|Mapping| (|Boolean|) |#4| |#4|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|map!| (($ (|Mapping| |#4| |#4|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#4| |#4|) $) 6))
+ (|mainVariables| (((|List| |#3|) $) 6))
+ (|mainVariable?| (((|Boolean|) |#3| $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|latex| (((|String|) $) 6))
+ (|lastSubResultantElseSplit| (((|Union| |#4| (|List| $)) |#4| |#4| $) 6))
+ (|lastSubResultant|
+  (((|List| (|Record| (|:| |val| |#4|) (|:| |tower| $))) |#4| |#4| $) 6))
+ (|last| (((|Union| |#4| #1#) $) 6)) (|invertibleSet| (((|List| $) |#4| $) 6))
+ (|invertibleElseSplit?| (((|Union| (|Boolean|) (|List| $)) |#4| $) 6))
+ (|invertible?|
+  (((|List| (|Record| (|:| |val| (|Boolean|)) (|:| |tower| $))) |#4| $) 6)
+  (((|Boolean|) |#4| $) 6))
+ (|intersect| (((|List| $) |#4| $) 6) (((|List| $) (|List| |#4|) $) 6)
+  (((|List| $) (|List| |#4|) (|List| $)) 6) (((|List| $) |#4| (|List| $)) 6))
+ (|internalAugment| (($ |#4| $) 6) (($ (|List| |#4|) $) 6))
+ (|initials| (((|List| |#4|) $) 6))
+ (|initiallyReduced?| (((|Boolean|) |#4| $) 6) (((|Boolean|) $) 6))
+ (|initiallyReduce| ((|#4| |#4| $) 6)) (|infRittWu?| (((|Boolean|) $ $) 6))
+ (|iexactQuo| ((|#1| |#1| |#1|) 6 (|has| |#1| (|IntegralDomain|))))
+ (|headRemainder|
+  (((|Record| (|:| |num| |#4|) (|:| |den| |#1|)) |#4| $) 6
+   (|has| |#1| (|IntegralDomain|))))
+ (|headReduced?| (((|Boolean|) |#4| $) 6) (((|Boolean|) $) 6))
+ (|headReduce| ((|#4| |#4| $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|first| (((|Union| |#4| #1#) $) 6))
+ (|find| (((|Union| |#4| "failed") (|Mapping| (|Boolean|) |#4|) $) 6))
+ (|extendIfCan| (((|Union| $ #1#) $ |#4|) 6))
+ (|extend| (($ $ |#4|) 6) (((|List| $) |#4| $) 6)
+  (((|List| $) |#4| (|List| $)) 6) (((|List| $) (|List| |#4|) $) 6)
+  (((|List| $) (|List| |#4|) (|List| $)) 6))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#4|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| |#4|) (|List| |#4|)) 6
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|))))
+  (($ $ |#4| |#4|) 6
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|))))
+  (($ $ (|Equation| |#4|)) 6
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|))))
+  (($ $ (|List| (|Equation| |#4|))) 6
+   (AND (|has| |#4| (|Evalable| |#4|)) (|has| |#4| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|degree| (((|NonNegativeInteger|) $) 6))
+ (|count|
+  (((|NonNegativeInteger|) |#4| $) 6
+   (AND (|has| |#4| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#4|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|copy| (($ $) 6))
+ (|convert| (((|InputForm|) $) 6 (|has| |#4| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#4|)) 6)) (|collectUpper| (($ $ |#3|) 6))
+ (|collectUnder| (($ $ |#3|) 6)) (|collectQuasiMonic| (($ $) 6))
+ (|collect| (($ $ |#3|) 6))
+ (|coerce| (((|OutputForm|) $) 6) (((|List| |#4|) $) 6))
+ (|coHeight| (((|NonNegativeInteger|) $) 6 (|has| |#3| (|Finite|))))
+ (|basicSet|
+  (((|Union| (|Record| (|:| |bas| $) (|:| |top| (|List| |#4|))) #1#)
+    (|List| |#4|) (|Mapping| (|Boolean|) |#4| |#4|))
+   6)
+  (((|Union| (|Record| (|:| |bas| $) (|:| |top| (|List| |#4|))) #1#)
+    (|List| |#4|) (|Mapping| (|Boolean|) |#4|)
+    (|Mapping| (|Boolean|) |#4| |#4|))
+   6))
+ (|autoReduced?|
+  (((|Boolean|) $ (|Mapping| (|Boolean|) |#4| (|List| |#4|))) 6))
+ (|augment| (((|List| $) |#4| $) 6) (((|List| $) |#4| (|List| $)) 6)
+  (((|List| $) (|List| |#4|) $) 6) (((|List| $) (|List| |#4|) (|List| $)) 6))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#4|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|algebraicVariables| (((|List| |#3|) $) 6))
+ (|algebraicCoefficients?| (((|Boolean|) |#4| $) 6))
+ (|algebraic?| (((|Boolean|) |#3| $) 6)) (= (((|Boolean|) $ $) 6))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+SFRTCAT
+(((|RegularTriangularSetCategory| |#1| |#2| |#3| |#4|) . T))
+(((|Aggregate|) . T) ((|BasicType|) . T) ((|CoercibleTo| (|List| |t#4|)) . T)
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|Collection| |t#4|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|PolynomialSetCategory| |t#1| |t#2| |t#3| |t#4|) . T)
+ ((|RegularTriangularSetCategory| |#1| |#2| |#3| |#4|) . T)
+ ((|RetractableFrom| (|List| |t#4|)) . T) ((|SetCategory|) . T)
+ ((|TriangularSetCategory| |t#1| |t#2| |t#3| |t#4|) . T) ((|Type|) . T)
+ ((|finiteAggregate|) . T) ((|shallowlyMutable|) . T))
+((|constructor|
+  (NIL
+   "The category of square-free regular triangular sets. A regular triangular set \\spad{ts} is square-free if the \\spad{gcd} of any polynomial \\spad{p} in \\spad{ts} and \\spad{differentiate(p,{} mvar(p))} \\spad{w}.\\spad{r}.\\spad{t}. \\spadopFrom{collectUnder}{TriangularSetCategory}(\\spad{ts},{} \\spadopFrom{mvar}{RecursivePolynomialCategory}(\\spad{p})) has degree zero \\spad{w}.\\spad{r}.\\spad{t}. \\spad{mvar(p)}. Thus any square-free regular set defines a tower of square-free simple extensions.\\newline")))
+(("documentation" 0 8593) ("ancestors" 0 7832) ("parents" 0 7771)
+ ("abbreviation" 0 7763) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 424) ("modemaps" 0 NIL) ("sourceFile" 0 385)
+ ("constructorCategory" 0 319) ("constructorModemap" 0 82)
+ ("constructorKind" 0 71) ("constructorForm" 0 20))

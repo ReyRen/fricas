@@ -1,0 +1,73 @@
+4475                (MAKEPROP '|IrrRepSymNatPackage| 'NILADIC T)
+(|IrrRepSymNatPackage|)
+|package|
+(((|IrrRepSymNatPackage|)
+  (CATEGORY |package|
+   (SIGNATURE |dimensionOfIrreducibleRepresentation|
+    ((|NonNegativeInteger|) (|List| (|Integer|))))
+   (SIGNATURE |irreducibleRepresentation|
+    ((|Matrix| (|Integer|)) (|List| (|Integer|)) (|Permutation| (|Integer|))))
+   (SIGNATURE |irreducibleRepresentation|
+    ((|List| (|Matrix| (|Integer|))) (|List| (|Integer|))))
+   (SIGNATURE |irreducibleRepresentation|
+    ((|List| (|Matrix| (|Integer|))) (|List| (|Integer|))
+     (|List| (|Permutation| (|Integer|)))))))
+ (T |IrrRepSymNatPackage|))
+(CATEGORY |package|
+ (SIGNATURE |dimensionOfIrreducibleRepresentation|
+  ((|NonNegativeInteger|) (|List| (|Integer|))))
+ (SIGNATURE |irreducibleRepresentation|
+  ((|Matrix| (|Integer|)) (|List| (|Integer|)) (|Permutation| (|Integer|))))
+ (SIGNATURE |irreducibleRepresentation|
+  ((|List| (|Matrix| (|Integer|))) (|List| (|Integer|))))
+ (SIGNATURE |irreducibleRepresentation|
+  ((|List| (|Matrix| (|Integer|))) (|List| (|Integer|))
+   (|List| (|Permutation| (|Integer|))))))
+"/git/fricas/src/algebra/IRSN.spad"
+((|irreducibleRepresentation| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *4 (|List| (|Permutation| (|Integer|))))
+       (|isDomain| *2 (|List| (|Matrix| (|Integer|))))
+       (|isDomain| *1 (|IrrRepSymNatPackage|))))
+ (|irreducibleRepresentation| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *2 (|List| (|Matrix| (|Integer|))))
+       (|isDomain| *1 (|IrrRepSymNatPackage|))))
+ (|irreducibleRepresentation| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *4 (|Permutation| (|Integer|)))
+       (|isDomain| *2 (|Matrix| (|Integer|)))
+       (|isDomain| *1 (|IrrRepSymNatPackage|))))
+ (|dimensionOfIrreducibleRepresentation| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|Integer|)))
+       (|isDomain| *2 (|NonNegativeInteger|))
+       (|isDomain| *1 (|IrrRepSymNatPackage|)))))
+((|irreducibleRepresentation|
+  (((|List| (|Matrix| (|Integer|))) (|List| (|Integer|))
+    (|List| (|Permutation| (|Integer|))))
+   46)
+  (((|List| (|Matrix| (|Integer|))) (|List| (|Integer|))) 47)
+  (((|Matrix| (|Integer|)) (|List| (|Integer|)) (|Permutation| (|Integer|)))
+   42))
+ (|dimensionOfIrreducibleRepresentation|
+  (((|NonNegativeInteger|) (|List| (|Integer|))) 40)))
+IRSN
+((|constructor|
+  (NIL
+   "IrrRepSymNatPackage contains functions for computing the ordinary irreducible representations of symmetric groups on \\spad{n} letters {\\em {1,{} 2,{} ...,{} n}} in Young\\spad{'s} natural form and their dimensions. These representations can be labelled by number partitions of \\spad{n},{} \\spadignore{i.e.} a weakly decreasing sequence of integers summing up to \\spad{n},{} \\spadignore{e.g.} {\\em [3,{} 3,{} 3,{} 1]} labels an irreducible representation for \\spad{n} equals 10. Note: whenever a \\spadtype{List Integer} appears in a signature,{} a partition required."))
+ (|irreducibleRepresentation|
+  (((|List| (|Matrix| (|Integer|))) (|List| (|Integer|))
+    (|List| (|Permutation| (|Integer|))))
+   "\\spad{irreducibleRepresentation(lambda,{} listOfPerm)} is the list of the irreducible representations corresponding to {\\em lambda} in Young\\spad{'s} natural form for the list of permutations given by {\\em listOfPerm}.")
+  (((|List| (|Matrix| (|Integer|))) (|List| (|Integer|)))
+   "\\spad{irreducibleRepresentation(lambda)} is the list of the two irreducible representations corresponding to the partition {\\em lambda} in Young\\spad{'s} natural form for the following two generators of the symmetric group,{} whose elements permute {\\em {1,{} 2,{} ...,{} n}},{} namely {\\em (1 2)} (2-cycle) and {\\em (1 2 ... n)} (\\spad{n}-cycle).")
+  (((|Matrix| (|Integer|)) (|List| (|Integer|)) (|Permutation| (|Integer|)))
+   "\\spad{irreducibleRepresentation(lambda,{} \\spad{pi})} is the irreducible representation corresponding to partition {\\em lambda} in Young\\spad{'s} natural form of the permutation {\\em \\spad{pi}} in the symmetric group,{} whose elements permute {\\em {1,{} 2,{} ...,{} n}}."))
+ (|dimensionOfIrreducibleRepresentation|
+  (((|NonNegativeInteger|) (|List| (|Integer|)))
+   "\\spad{dimensionOfIrreducibleRepresentation(lambda)} is the dimension of the ordinary irreducible representation of the symmetric group corresponding to {\\em lambda}. Note: the Robinson-Thrall hook formula is implemented.")))
+(("documentation" 0 2409) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2404) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2025) ("modemaps" 0 1158) ("sourceFile" 0 1122)
+ ("constructorCategory" 0 648) ("constructorModemap" 0 99)
+ ("constructorKind" 0 89) ("constructorForm" 0 65) ("NILADIC" 0 20))

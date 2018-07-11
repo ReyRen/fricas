@@ -1,0 +1,53 @@
+2521                (|FiniteLinearAggregateSort| S V)
+|package|
+(((|FiniteLinearAggregateSort| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |quickSort| (|#2| (|Mapping| (|Boolean|) |#1| |#1|) |#2|))
+   (SIGNATURE |heapSort| (|#2| (|Mapping| (|Boolean|) |#1| |#1|) |#2|))
+   (SIGNATURE |shellSort| (|#2| (|Mapping| (|Boolean|) |#1| |#1|) |#2|)))
+  (|Type|) (|Join| (|FiniteLinearAggregate| |#1|) (|shallowlyMutable|)))
+ (T |FiniteLinearAggregateSort|))
+(CATEGORY |package|
+ (SIGNATURE |quickSort| (|#2| (|Mapping| (|Boolean|) |#1| |#1|) |#2|))
+ (SIGNATURE |heapSort| (|#2| (|Mapping| (|Boolean|) |#1| |#1|) |#2|))
+ (SIGNATURE |shellSort| (|#2| (|Mapping| (|Boolean|) |#1| |#1|) |#2|)))
+"/git/fricas/src/algebra/FLASORT.spad"
+((|shellSort| (*1 *2 *3 *2)
+  (AND (|isDomain| *3 (|Mapping| (|Boolean|) *4 *4)) (|ofCategory| *4 (|Type|))
+       (|isDomain| *1 (|FiniteLinearAggregateSort| *4 *2))
+       (|ofCategory| *2
+                     (|Join| (|FiniteLinearAggregate| *4)
+                             (|shallowlyMutable|)))))
+ (|heapSort| (*1 *2 *3 *2)
+  (AND (|isDomain| *3 (|Mapping| (|Boolean|) *4 *4)) (|ofCategory| *4 (|Type|))
+       (|isDomain| *1 (|FiniteLinearAggregateSort| *4 *2))
+       (|ofCategory| *2
+                     (|Join| (|FiniteLinearAggregate| *4)
+                             (|shallowlyMutable|)))))
+ (|quickSort| (*1 *2 *3 *2)
+  (AND (|isDomain| *3 (|Mapping| (|Boolean|) *4 *4)) (|ofCategory| *4 (|Type|))
+       (|isDomain| *1 (|FiniteLinearAggregateSort| *4 *2))
+       (|ofCategory| *2
+                     (|Join| (|FiniteLinearAggregate| *4)
+                             (|shallowlyMutable|))))))
+((|shellSort| ((|#2| (|Mapping| (|Boolean|) |#1| |#1|) |#2|) 25))
+ (|quickSort| ((|#2| (|Mapping| (|Boolean|) |#1| |#1|) |#2|) 12))
+ (|heapSort| ((|#2| (|Mapping| (|Boolean|) |#1| |#1|) |#2|) 21)))
+FLASORT
+((|constructor|
+  (NIL
+   "This package exports 3 sorting algorithms which work over FiniteLinearAggregates."))
+ (|shellSort|
+  ((|#2| (|Mapping| (|Boolean|) |#1| |#1|) |#2|)
+   "\\spad{shellSort(f,{} agg)} sorts the aggregate agg with the ordering function \\spad{f} using the shellSort algorithm."))
+ (|heapSort|
+  ((|#2| (|Mapping| (|Boolean|) |#1| |#1|) |#2|)
+   "\\spad{heapSort(f,{} agg)} sorts the aggregate agg with the ordering function \\spad{f} using the heapsort algorithm."))
+ (|quickSort|
+  ((|#2| (|Mapping| (|Boolean|) |#1| |#1|) |#2|)
+   "\\spad{quickSort(f,{} agg)} sorts the aggregate agg with the ordering function \\spad{f} using the quicksort algorithm.")))
+(("documentation" 0 1841) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1833) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1635) ("modemaps" 0 726) ("sourceFile" 0 687)
+ ("constructorCategory" 0 454) ("constructorModemap" 0 64)
+ ("constructorKind" 0 54) ("constructorForm" 0 20))

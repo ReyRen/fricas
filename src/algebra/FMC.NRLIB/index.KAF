@@ -1,0 +1,58 @@
+2713                (MAKEPROP '|FortranMatrixCategory| 'NILADIC T)
+(|FortranMatrixCategory|)
+|category|
+(((|FortranMatrixCategory|) (|Category|)) (T |FortranMatrixCategory|))
+(|Join| (|FortranProgramCategory|)
+        (CATEGORY |domain| (SIGNATURE |coerce| ($ (|Matrix| (|MachineFloat|))))
+         (SIGNATURE |coerce| ($ (|List| (|FortranCode|))))
+         (SIGNATURE |coerce| ($ (|FortranCode|)))
+         (SIGNATURE |coerce|
+          ($
+           (|Record| (|:| |localSymbols| (|SymbolTable|))
+                     (|:| |code| (|List| (|FortranCode|))))))))
+"/git/fricas/src/algebra/FMC.spad"
+((|coerce| (*1 *1 *2)
+           (AND (|isDomain| *2 (|Matrix| (|MachineFloat|)))
+                (|ofCategory| *1 (|FortranMatrixCategory|))))
+ (|coerce| (*1 *1 *2)
+           (AND (|isDomain| *2 (|List| (|FortranCode|)))
+                (|ofCategory| *1 (|FortranMatrixCategory|))))
+ (|coerce| (*1 *1 *2)
+           (AND (|isDomain| *2 (|FortranCode|))
+                (|ofCategory| *1 (|FortranMatrixCategory|))))
+ (|coerce| (*1 *1 *2)
+           (AND
+            (|isDomain| *2
+                        (|Record| (|:| |localSymbols| (|SymbolTable|))
+                                  (|:| |code| (|List| (|FortranCode|)))))
+            (|ofCategory| *1 (|FortranMatrixCategory|)))))
+((|outputAsFortran| (((|Void|) $) 6))
+ (|coerce| (((|OutputForm|) $) 6) (($ (|Matrix| (|MachineFloat|))) 6)
+           (($ (|List| (|FortranCode|))) 6) (($ (|FortranCode|)) 6)
+           (($
+             (|Record| (|:| |localSymbols| (|SymbolTable|))
+                       (|:| |code| (|List| (|FortranCode|)))))
+            6)))
+FMC
+(((|FortranProgramCategory|) . T))
+(((|CoercibleTo| (|OutputForm|)) . T) ((|FortranProgramCategory|) . T)
+ ((|Type|) . T))
+((|constructor|
+  (NIL
+   "\\spadtype{FortranMatrixCategory} provides support for producing Functions and Subroutines when the input to these is an FriCAS object of type \\spadtype{Matrix} or in domains involving \\spadtype{FortranCode}."))
+ (|coerce|
+  (($
+    (|Record| (|:| |localSymbols| (|SymbolTable|))
+              (|:| |code| (|List| (|FortranCode|)))))
+   "\\spad{coerce(e)} takes the component of \\spad{e} from \\spadtype{List FortranCode} and uses it as the body of the ASP,{} making the declarations in the \\spadtype{SymbolTable} component.")
+  (($ (|FortranCode|))
+   "\\spad{coerce(e)} takes an object from \\spadtype{FortranCode} and \\indented{1}{uses it as the body of an ASP.}")
+  (($ (|List| (|FortranCode|)))
+   "\\spad{coerce(e)} takes an object from \\spadtype{List FortranCode} and \\indented{1}{uses it as the body of an ASP.}")
+  (($ (|Matrix| (|MachineFloat|)))
+   "\\spad{coerce(v)} produces an ASP which returns the value of \\spad{v}.")))
+(("documentation" 0 1742) ("ancestors" 0 1654) ("parents" 0 1619)
+ ("abbreviation" 0 1615) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1284) ("modemaps" 0 598) ("sourceFile" 0 563)
+ ("constructorCategory" 0 175) ("constructorModemap" 0 104)
+ ("constructorKind" 0 93) ("constructorForm" 0 67) ("NILADIC" 0 20))

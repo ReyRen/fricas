@@ -1,0 +1,476 @@
+21734               (MAKEPROP '|ModularHermitePade| 'NILADIC T)
+(|ModularHermitePade|)
+|package|
+(((|ModularHermitePade|)
+  (CATEGORY |package|
+   (SIGNATURE |HP_solve_I|
+    ((|Union| (|Matrix| (|SparseUnivariatePolynomial| (|Integer|)))
+              (|Boolean|))
+     (|List| (|List| (|Fraction| (|Integer|)))) (|List| (|Integer|)) (|Symbol|)
+     (|NonNegativeInteger|)
+     (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+                (|Integer|))
+     (|Mapping| (|Union| #1="good" #2="reject" #3="no_solution")
+                (|List| (|SparseUnivariatePolynomial| (|Integer|))))))
+   (SIGNATURE |HP_solve_A|
+    ((|Union| (|Matrix| (|SparseUnivariatePolynomial| (|AlgebraicNumber|)))
+              (|Boolean|))
+     (|List| (|List| (|AlgebraicNumber|))) (|List| (|Integer|)) (|Symbol|)
+     (|NonNegativeInteger|)
+     (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+                (|Integer|))
+     (|Mapping| (|Union| #1# #2# #3#)
+                (|List| (|SparseUnivariatePolynomial| (|AlgebraicNumber|))))))
+   (SIGNATURE |HP_solve_P|
+    ((|Union|
+      (|Matrix| (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))))
+      (|Boolean|))
+     (|List| (|List| (|Fraction| (|Polynomial| (|Integer|)))))
+     (|List| (|Integer|)) (|Symbol|) (|Symbol|) (|NonNegativeInteger|)
+     (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+                (|Integer|))
+     (|Mapping| (|Union| #1# #2# #3#)
+                (|List|
+                 (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))))))
+   (SIGNATURE |HP_solve_PA|
+    ((|Union|
+      (|Matrix|
+       (|SparseUnivariatePolynomial| (|Polynomial| (|AlgebraicNumber|))))
+      (|Boolean|))
+     (|List| (|List| (|Fraction| (|Polynomial| (|AlgebraicNumber|)))))
+     (|List| (|Integer|)) (|Symbol|) (|Symbol|) (|NonNegativeInteger|)
+     (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+                (|Integer|))
+     (|Mapping| (|Union| #1# #2# #3#)
+                (|List|
+                 (|SparseUnivariatePolynomial|
+                  (|Polynomial| (|AlgebraicNumber|)))))))
+   (SIGNATURE |HP_solve_M|
+    ((|Union| (|Matrix| (|SparseUnivariatePolynomial| (|Integer|)))
+              (|Boolean|))
+     (|List| (|List| (|Integer|))) (|List| (|Integer|)) (|Symbol|) (|Integer|)
+     (|NonNegativeInteger|)
+     (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+                (|Integer|))
+     (|Mapping| (|Union| #1# #2# #3#)
+                (|List| (|SparseUnivariatePolynomial| (|Integer|))))))
+   (SIGNATURE |check_sol1a|
+    ((|U32Vector|) (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+     (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+                (|Integer|))
+     (|Integer|) (|Integer|) (|Integer|)))
+   (SIGNATURE |VSUPI_to_VPA|
+    ((|Vector| (|U32Vector|))
+     (|Vector| (|SparseUnivariatePolynomial| (|Integer|))) (|Integer|)))
+   (SIGNATURE |VSUPPI_to_VPA|
+    ((|Vector| (|U32Vector|))
+     (|Vector| (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))))
+     (|List| (|Symbol|)) (|List| (|Integer|)) (|Integer|)))
+   (SIGNATURE |LLFI_to_LPA|
+    ((|Union| (|List| (|U32Vector|)) "failed")
+     (|List| (|List| (|Fraction| (|Integer|)))) (|Integer|) (|Integer|)))
+   (SIGNATURE |LLFPI_to_LPA|
+    ((|Union| (|List| (|U32Vector|)) "failed")
+     (|List| (|List| (|Fraction| (|Polynomial| (|Integer|))))) (|Integer|)
+     (|List| (|Symbol|)) (|List| (|Integer|)) (|Integer|)))
+   (SIGNATURE |get_variables|
+    ((|List| (|Symbol|))
+     (|List| (|List| (|Fraction| (|Polynomial| (|Integer|))))) (|Symbol|)
+     (|Symbol|)))
+   (SIGNATURE |unpack_poly|
+    ((|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))
+     (|List| (|Symbol|)) (|SortedExponentVector|)
+     (|PrimitiveArray| (|Integer|)) (|Integer|) (|Integer|)))))
+ (T |ModularHermitePade|))
+(CATEGORY |package|
+ (SIGNATURE |HP_solve_I|
+  ((|Union| (|Matrix| (|SparseUnivariatePolynomial| (|Integer|))) (|Boolean|))
+   (|List| (|List| (|Fraction| (|Integer|)))) (|List| (|Integer|)) (|Symbol|)
+   (|NonNegativeInteger|)
+   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+              (|Integer|))
+   (|Mapping| (|Union| #1="good" #2="reject" #3="no_solution")
+              (|List| (|SparseUnivariatePolynomial| (|Integer|))))))
+ (SIGNATURE |HP_solve_A|
+  ((|Union| (|Matrix| (|SparseUnivariatePolynomial| (|AlgebraicNumber|)))
+            (|Boolean|))
+   (|List| (|List| (|AlgebraicNumber|))) (|List| (|Integer|)) (|Symbol|)
+   (|NonNegativeInteger|)
+   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+              (|Integer|))
+   (|Mapping| (|Union| #1# #2# #3#)
+              (|List| (|SparseUnivariatePolynomial| (|AlgebraicNumber|))))))
+ (SIGNATURE |HP_solve_P|
+  ((|Union|
+    (|Matrix| (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))))
+    (|Boolean|))
+   (|List| (|List| (|Fraction| (|Polynomial| (|Integer|)))))
+   (|List| (|Integer|)) (|Symbol|) (|Symbol|) (|NonNegativeInteger|)
+   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+              (|Integer|))
+   (|Mapping| (|Union| #1# #2# #3#)
+              (|List|
+               (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))))))
+ (SIGNATURE |HP_solve_PA|
+  ((|Union|
+    (|Matrix|
+     (|SparseUnivariatePolynomial| (|Polynomial| (|AlgebraicNumber|))))
+    (|Boolean|))
+   (|List| (|List| (|Fraction| (|Polynomial| (|AlgebraicNumber|)))))
+   (|List| (|Integer|)) (|Symbol|) (|Symbol|) (|NonNegativeInteger|)
+   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+              (|Integer|))
+   (|Mapping| (|Union| #1# #2# #3#)
+              (|List|
+               (|SparseUnivariatePolynomial|
+                (|Polynomial| (|AlgebraicNumber|)))))))
+ (SIGNATURE |HP_solve_M|
+  ((|Union| (|Matrix| (|SparseUnivariatePolynomial| (|Integer|))) (|Boolean|))
+   (|List| (|List| (|Integer|))) (|List| (|Integer|)) (|Symbol|) (|Integer|)
+   (|NonNegativeInteger|)
+   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+              (|Integer|))
+   (|Mapping| (|Union| #1# #2# #3#)
+              (|List| (|SparseUnivariatePolynomial| (|Integer|))))))
+ (SIGNATURE |check_sol1a|
+  ((|U32Vector|) (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+              (|Integer|))
+   (|Integer|) (|Integer|) (|Integer|)))
+ (SIGNATURE |VSUPI_to_VPA|
+  ((|Vector| (|U32Vector|))
+   (|Vector| (|SparseUnivariatePolynomial| (|Integer|))) (|Integer|)))
+ (SIGNATURE |VSUPPI_to_VPA|
+  ((|Vector| (|U32Vector|))
+   (|Vector| (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))))
+   (|List| (|Symbol|)) (|List| (|Integer|)) (|Integer|)))
+ (SIGNATURE |LLFI_to_LPA|
+  ((|Union| (|List| (|U32Vector|)) "failed")
+   (|List| (|List| (|Fraction| (|Integer|)))) (|Integer|) (|Integer|)))
+ (SIGNATURE |LLFPI_to_LPA|
+  ((|Union| (|List| (|U32Vector|)) "failed")
+   (|List| (|List| (|Fraction| (|Polynomial| (|Integer|))))) (|Integer|)
+   (|List| (|Symbol|)) (|List| (|Integer|)) (|Integer|)))
+ (SIGNATURE |get_variables|
+  ((|List| (|Symbol|))
+   (|List| (|List| (|Fraction| (|Polynomial| (|Integer|))))) (|Symbol|)
+   (|Symbol|)))
+ (SIGNATURE |unpack_poly|
+  ((|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))
+   (|List| (|Symbol|)) (|SortedExponentVector|) (|PrimitiveArray| (|Integer|))
+   (|Integer|) (|Integer|))))
+"/git/fricas/src/algebra/MODHP.spad"
+((|unpack_poly| (*1 *2 *3 *4 *5 *6 *6)
+  (AND (|isDomain| *3 (|List| (|Symbol|)))
+       (|isDomain| *4 (|SortedExponentVector|))
+       (|isDomain| *5 (|PrimitiveArray| (|Integer|)))
+       (|isDomain| *6 (|Integer|))
+       (|isDomain| *2
+                   (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))))
+       (|isDomain| *1 (|ModularHermitePade|))))
+ (|get_variables| (*1 *2 *3 *4 *4)
+  (AND
+   (|isDomain| *3 (|List| (|List| (|Fraction| (|Polynomial| (|Integer|))))))
+   (|isDomain| *4 (|Symbol|)) (|isDomain| *2 (|List| (|Symbol|)))
+   (|isDomain| *1 (|ModularHermitePade|))))
+ (|LLFPI_to_LPA| (*1 *2 *3 *4 *5 *6 *4)
+  (|partial| AND
+   (|isDomain| *3 (|List| (|List| (|Fraction| (|Polynomial| (|Integer|))))))
+   (|isDomain| *5 (|List| (|Symbol|))) (|isDomain| *6 (|List| (|Integer|)))
+   (|isDomain| *4 (|Integer|)) (|isDomain| *2 (|List| (|U32Vector|)))
+   (|isDomain| *1 (|ModularHermitePade|))))
+ (|LLFI_to_LPA| (*1 *2 *3 *4 *4)
+  (|partial| AND (|isDomain| *3 (|List| (|List| (|Fraction| (|Integer|)))))
+   (|isDomain| *4 (|Integer|)) (|isDomain| *2 (|List| (|U32Vector|)))
+   (|isDomain| *1 (|ModularHermitePade|))))
+ (|VSUPPI_to_VPA| (*1 *2 *3 *4 *5 *6)
+  (AND
+   (|isDomain| *3
+               (|Vector|
+                (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))))
+   (|isDomain| *4 (|List| (|Symbol|))) (|isDomain| *5 (|List| (|Integer|)))
+   (|isDomain| *6 (|Integer|)) (|isDomain| *2 (|Vector| (|U32Vector|)))
+   (|isDomain| *1 (|ModularHermitePade|))))
+ (|VSUPI_to_VPA| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Vector| (|SparseUnivariatePolynomial| (|Integer|))))
+       (|isDomain| *4 (|Integer|)) (|isDomain| *2 (|Vector| (|U32Vector|)))
+       (|isDomain| *1 (|ModularHermitePade|))))
+ (|check_sol1a| (*1 *2 *3 *4 *5 *6 *6 *6)
+  (AND
+   (|isDomain| *5
+               (|Mapping| (|Vector| *2) (|List| *2) (|Integer|) (|Integer|)))
+   (|isDomain| *6 (|Integer|)) (|isDomain| *3 (|Vector| (|U32Vector|)))
+   (|isDomain| *4 (|List| (|U32Vector|))) (|isDomain| *2 (|U32Vector|))
+   (|isDomain| *1 (|ModularHermitePade|))))
+ (|HP_solve_M| (*1 *2 *3 *4 *5 *6 *7 *8 *9)
+  (AND (|isDomain| *3 (|List| (|List| (|Integer|))))
+       (|isDomain| *4 (|List| (|Integer|))) (|isDomain| *5 (|Symbol|))
+       (|isDomain| *7 (|NonNegativeInteger|))
+       (|isDomain| *8
+                   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                              (|Integer|) (|Integer|)))
+       (|isDomain| *9
+                   (|Mapping| (|Union| #1="good" #2="reject" #3="no_solution")
+                              (|List|
+                               (|SparseUnivariatePolynomial| (|Integer|)))))
+       (|isDomain| *6 (|Integer|))
+       (|isDomain| *2
+                   (|Union|
+                    (|Matrix| (|SparseUnivariatePolynomial| (|Integer|)))
+                    (|Boolean|)))
+       (|isDomain| *1 (|ModularHermitePade|))))
+ (|HP_solve_PA| (*1 *2 *3 *4 *5 *5 *6 *7 *8)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|List| (|Fraction| (|Polynomial| (|AlgebraicNumber|))))))
+   (|isDomain| *4 (|List| (|Integer|))) (|isDomain| *5 (|Symbol|))
+   (|isDomain| *6 (|NonNegativeInteger|))
+   (|isDomain| *7
+               (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                          (|Integer|) (|Integer|)))
+   (|isDomain| *8
+               (|Mapping| (|Union| #1# #2# #3#)
+                          (|List|
+                           (|SparseUnivariatePolynomial|
+                            (|Polynomial| (|AlgebraicNumber|))))))
+   (|isDomain| *2
+               (|Union|
+                (|Matrix|
+                 (|SparseUnivariatePolynomial|
+                  (|Polynomial| (|AlgebraicNumber|))))
+                (|Boolean|)))
+   (|isDomain| *1 (|ModularHermitePade|))))
+ (|HP_solve_P| (*1 *2 *3 *4 *5 *5 *6 *7 *8)
+  (AND
+   (|isDomain| *3 (|List| (|List| (|Fraction| (|Polynomial| (|Integer|))))))
+   (|isDomain| *4 (|List| (|Integer|))) (|isDomain| *5 (|Symbol|))
+   (|isDomain| *6 (|NonNegativeInteger|))
+   (|isDomain| *7
+               (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                          (|Integer|) (|Integer|)))
+   (|isDomain| *8
+               (|Mapping| (|Union| #1# #2# #3#)
+                          (|List|
+                           (|SparseUnivariatePolynomial|
+                            (|Polynomial| (|Integer|))))))
+   (|isDomain| *2
+               (|Union|
+                (|Matrix|
+                 (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))))
+                (|Boolean|)))
+   (|isDomain| *1 (|ModularHermitePade|))))
+ (|HP_solve_A| (*1 *2 *3 *4 *5 *6 *7 *8)
+  (AND (|isDomain| *3 (|List| (|List| (|AlgebraicNumber|))))
+       (|isDomain| *4 (|List| (|Integer|))) (|isDomain| *5 (|Symbol|))
+       (|isDomain| *6 (|NonNegativeInteger|))
+       (|isDomain| *7
+                   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                              (|Integer|) (|Integer|)))
+       (|isDomain| *8
+                   (|Mapping| (|Union| #1# #2# #3#)
+                              (|List|
+                               (|SparseUnivariatePolynomial|
+                                (|AlgebraicNumber|)))))
+       (|isDomain| *2
+                   (|Union|
+                    (|Matrix|
+                     (|SparseUnivariatePolynomial| (|AlgebraicNumber|)))
+                    (|Boolean|)))
+       (|isDomain| *1 (|ModularHermitePade|))))
+ (|HP_solve_I| (*1 *2 *3 *4 *5 *6 *7 *8)
+  (AND (|isDomain| *3 (|List| (|List| (|Fraction| (|Integer|)))))
+       (|isDomain| *4 (|List| (|Integer|))) (|isDomain| *5 (|Symbol|))
+       (|isDomain| *6 (|NonNegativeInteger|))
+       (|isDomain| *7
+                   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                              (|Integer|) (|Integer|)))
+       (|isDomain| *8
+                   (|Mapping| (|Union| #1# #2# #3#)
+                              (|List|
+                               (|SparseUnivariatePolynomial| (|Integer|)))))
+       (|isDomain| *2
+                   (|Union|
+                    (|Matrix| (|SparseUnivariatePolynomial| (|Integer|)))
+                    (|Boolean|)))
+       (|isDomain| *1 (|ModularHermitePade|)))))
+((|unpack_poly|
+  (((|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))
+    (|List| (|Symbol|)) (|SortedExponentVector|) (|PrimitiveArray| (|Integer|))
+    (|Integer|) (|Integer|))
+   123))
+ (|get_variables|
+  (((|List| (|Symbol|))
+    (|List| (|List| (|Fraction| (|Polynomial| (|Integer|))))) (|Symbol|)
+    (|Symbol|))
+   142))
+ (|check_sol1a|
+  (((|U32Vector|) (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+               (|Integer|))
+    (|Integer|) (|Integer|) (|Integer|))
+   62))
+ (|VSUPPI_to_VPA|
+  (((|Vector| (|U32Vector|))
+    (|Vector| (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))))
+    (|List| (|Symbol|)) (|List| (|Integer|)) (|Integer|))
+   30))
+ (|VSUPI_to_VPA|
+  (((|Vector| (|U32Vector|))
+    (|Vector| (|SparseUnivariatePolynomial| (|Integer|))) (|Integer|))
+   15))
+ (|LLFPI_to_LPA|
+  (((|Union| (|List| (|U32Vector|)) "failed")
+    (|List| (|List| (|Fraction| (|Polynomial| (|Integer|))))) (|Integer|)
+    (|List| (|Symbol|)) (|List| (|Integer|)) (|Integer|))
+   46))
+ (|LLFI_to_LPA|
+  (((|Union| (|List| (|U32Vector|)) "failed")
+    (|List| (|List| (|Fraction| (|Integer|)))) (|Integer|) (|Integer|))
+   41))
+ (|HP_solve_PA|
+  (((|Union|
+     (|Matrix|
+      (|SparseUnivariatePolynomial| (|Polynomial| (|AlgebraicNumber|))))
+     (|Boolean|))
+    (|List| (|List| (|Fraction| (|Polynomial| (|AlgebraicNumber|)))))
+    (|List| (|Integer|)) (|Symbol|) (|Symbol|) (|NonNegativeInteger|)
+    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+               (|Integer|))
+    (|Mapping| (|Union| #1="good" #2="reject" #3="no_solution")
+               (|List|
+                (|SparseUnivariatePolynomial|
+                 (|Polynomial| (|AlgebraicNumber|))))))
+   172))
+ (|HP_solve_P|
+  (((|Union|
+     (|Matrix| (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))))
+     (|Boolean|))
+    (|List| (|List| (|Fraction| (|Polynomial| (|Integer|)))))
+    (|List| (|Integer|)) (|Symbol|) (|Symbol|) (|NonNegativeInteger|)
+    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+               (|Integer|))
+    (|Mapping| (|Union| #1# #2# #3#)
+               (|List|
+                (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))))))
+   161))
+ (|HP_solve_M|
+  (((|Union| (|Matrix| (|SparseUnivariatePolynomial| (|Integer|))) (|Boolean|))
+    (|List| (|List| (|Integer|))) (|List| (|Integer|)) (|Symbol|) (|Integer|)
+    (|NonNegativeInteger|)
+    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+               (|Integer|))
+    (|Mapping| (|Union| #1# #2# #3#)
+               (|List| (|SparseUnivariatePolynomial| (|Integer|)))))
+   164))
+ (|HP_solve_I|
+  (((|Union| (|Matrix| (|SparseUnivariatePolynomial| (|Integer|))) (|Boolean|))
+    (|List| (|List| (|Fraction| (|Integer|)))) (|List| (|Integer|)) (|Symbol|)
+    (|NonNegativeInteger|)
+    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+               (|Integer|))
+    (|Mapping| (|Union| #1# #2# #3#)
+               (|List| (|SparseUnivariatePolynomial| (|Integer|)))))
+   109))
+ (|HP_solve_A|
+  (((|Union| (|Matrix| (|SparseUnivariatePolynomial| (|AlgebraicNumber|)))
+             (|Boolean|))
+    (|List| (|List| (|AlgebraicNumber|))) (|List| (|Integer|)) (|Symbol|)
+    (|NonNegativeInteger|)
+    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+               (|Integer|))
+    (|Mapping| (|Union| #1# #2# #3#)
+               (|List| (|SparseUnivariatePolynomial| (|AlgebraicNumber|)))))
+   168)))
+MODHP
+((|constructor|
+  (NIL
+   "This package provides modular Hermite-Pade solvers \\indented{1}{for a few rings.\\space{2}Solver over integers is implemented in this} \\indented{1}{package.\\space{2}Also it contains interfaces to solver over \\$\\spad{Z_p}\\$ and} \\indented{1}{solver over ring of integer polynomials.}"))
+ (|unpack_poly|
+  (((|SparseUnivariatePolynomial| (|Polynomial| (|Integer|)))
+    (|List| (|Symbol|)) (|SortedExponentVector|) (|PrimitiveArray| (|Integer|))
+    (|Integer|) (|Integer|))
+   "\\spad{unpack_poly(vars,{} exps,{} coeffs,{} lo,{} \\spad{hi})} converts polynomial from packed to sparse representation. Coefficients of packed polynomial are stored in \\spad{coeffs}(\\spad{l0}) up to \\spad{coeffs}(\\spad{hi}) Exponents are stored in corresponding elements of \\spad{exps}."))
+ (|LLFPI_to_LPA|
+  (((|Union| (|List| (|U32Vector|)) "failed")
+    (|List| (|List| (|Fraction| (|Polynomial| (|Integer|))))) (|Integer|)
+    (|List| (|Symbol|)) (|List| (|Integer|)) (|Integer|))
+   "evaluation routine"))
+ (|LLFI_to_LPA|
+  (((|Union| (|List| (|U32Vector|)) "failed")
+    (|List| (|List| (|Fraction| (|Integer|)))) (|Integer|) (|Integer|))
+   "evaluation routine"))
+ (|VSUPPI_to_VPA|
+  (((|Vector| (|U32Vector|))
+    (|Vector| (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))))
+    (|List| (|Symbol|)) (|List| (|Integer|)) (|Integer|))
+   "evaluation routine"))
+ (|VSUPI_to_VPA|
+  (((|Vector| (|U32Vector|))
+    (|Vector| (|SparseUnivariatePolynomial| (|Integer|))) (|Integer|))
+   "evaluation routine"))
+ (|check_sol1a|
+  (((|U32Vector|) (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+               (|Integer|))
+    (|Integer|) (|Integer|) (|Integer|))
+   "one round of modular Monte Carlo check for solutions."))
+ (|HP_solve_M|
+  (((|Union| (|Matrix| (|SparseUnivariatePolynomial| (|Integer|))) (|Boolean|))
+    (|List| (|List| (|Integer|))) (|List| (|Integer|)) (|Symbol|) (|Integer|)
+    (|NonNegativeInteger|)
+    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+               (|Integer|))
+    (|Mapping| (|Union| #1="good" #2="reject" #3="no_solution")
+               (|List| (|SparseUnivariatePolynomial| (|Integer|)))))
+   "implements HP_solve over \\$\\spad{Z_p}\\$ with machine-sized \\$\\spad{p}\\$."))
+ (|HP_solve_PA|
+  (((|Union|
+     (|Matrix|
+      (|SparseUnivariatePolynomial| (|Polynomial| (|AlgebraicNumber|))))
+     (|Boolean|))
+    (|List| (|List| (|Fraction| (|Polynomial| (|AlgebraicNumber|)))))
+    (|List| (|Integer|)) (|Symbol|) (|Symbol|) (|NonNegativeInteger|)
+    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+               (|Integer|))
+    (|Mapping| (|Union| #1# #2# #3#)
+               (|List|
+                (|SparseUnivariatePolynomial|
+                 (|Polynomial| (|AlgebraicNumber|))))))
+   "Fake solver over polynomials having algebraic coefficients."))
+ (|HP_solve_P|
+  (((|Union|
+     (|Matrix| (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))))
+     (|Boolean|))
+    (|List| (|List| (|Fraction| (|Polynomial| (|Integer|)))))
+    (|List| (|Integer|)) (|Symbol|) (|Symbol|) (|NonNegativeInteger|)
+    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+               (|Integer|))
+    (|Mapping| (|Union| #1# #2# #3#)
+               (|List|
+                (|SparseUnivariatePolynomial| (|Polynomial| (|Integer|))))))
+   "implements HP_solve over integer polynomials."))
+ (|HP_solve_A|
+  (((|Union| (|Matrix| (|SparseUnivariatePolynomial| (|AlgebraicNumber|)))
+             (|Boolean|))
+    (|List| (|List| (|AlgebraicNumber|))) (|List| (|Integer|)) (|Symbol|)
+    (|NonNegativeInteger|)
+    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+               (|Integer|))
+    (|Mapping| (|Union| #1# #2# #3#)
+               (|List| (|SparseUnivariatePolynomial| (|AlgebraicNumber|)))))
+   "Fake solver over algebraic numbers."))
+ (|HP_solve_I|
+  (((|Union| (|Matrix| (|SparseUnivariatePolynomial| (|Integer|))) (|Boolean|))
+    (|List| (|List| (|Fraction| (|Integer|)))) (|List| (|Integer|)) (|Symbol|)
+    (|NonNegativeInteger|)
+    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|)) (|Integer|)
+               (|Integer|))
+    (|Mapping| (|Union| #1# #2# #3#)
+               (|List| (|SparseUnivariatePolynomial| (|Integer|)))))
+   "implements HP_solve over integers.")))
+(("documentation" 0 17307) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 17301) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 13717) ("modemaps" 0 7507) ("sourceFile" 0 7470)
+ ("constructorCategory" 0 3901) ("constructorModemap" 0 97)
+ ("constructorKind" 0 87) ("constructorForm" 0 64) ("NILADIC" 0 20))

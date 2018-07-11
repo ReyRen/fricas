@@ -1,0 +1,311 @@
+16609               (MAKEPROP '|DrawOption| 'NILADIC T)
+(|DrawOption|)
+|domain|
+(((|DrawOption|)
+  (|Join| (|SetCategory|)
+          (CATEGORY |domain| (SIGNATURE |adaptive| ($ (|Boolean|)))
+           (SIGNATURE |clip| ($ (|Boolean|)))
+           (SIGNATURE |viewpoint|
+            ($
+             (|Record| (|:| |theta| (|DoubleFloat|))
+                       (|:| |phi| (|DoubleFloat|))
+                       (|:| |scale| (|DoubleFloat|))
+                       (|:| |scaleX| (|DoubleFloat|))
+                       (|:| |scaleY| (|DoubleFloat|))
+                       (|:| |scaleZ| (|DoubleFloat|))
+                       (|:| |deltaX| (|DoubleFloat|))
+                       (|:| |deltaY| (|DoubleFloat|)))))
+           (SIGNATURE |title| ($ (|String|)))
+           (SIGNATURE |style| ($ (|String|)))
+           (SIGNATURE |toScale| ($ (|Boolean|)))
+           (SIGNATURE |clip| ($ (|List| (|Segment| (|Float|)))))
+           (SIGNATURE |coordinates|
+            ($
+             (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))))
+           (SIGNATURE |pointColor| ($ (|Float|)))
+           (SIGNATURE |pointColor| ($ (|Palette|)))
+           (SIGNATURE |curveColor| ($ (|Float|)))
+           (SIGNATURE |curveColor| ($ (|Palette|)))
+           (SIGNATURE |colorFunction|
+            ($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|))))
+           (SIGNATURE |colorFunction|
+            ($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|))))
+           (SIGNATURE |colorFunction|
+            ($
+             (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)
+                        (|DoubleFloat|))))
+           (SIGNATURE |tubeRadius| ($ (|Float|)))
+           (SIGNATURE |range| ($ (|List| (|Segment| (|Float|)))))
+           (SIGNATURE |range|
+            ($ (|List| (|Segment| (|Fraction| (|Integer|))))))
+           (SIGNATURE |ranges| ($ (|List| (|Segment| (|Float|)))))
+           (SIGNATURE |space| ($ (|ThreeSpace| (|DoubleFloat|))))
+           (SIGNATURE |var1Steps| ($ (|PositiveInteger|)))
+           (SIGNATURE |var2Steps| ($ (|PositiveInteger|)))
+           (SIGNATURE |tubePoints| ($ (|PositiveInteger|)))
+           (SIGNATURE |coord|
+            ($
+             (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))))
+           (SIGNATURE |unit| ($ (|List| (|Float|))))
+           (SIGNATURE |option|
+            ((|Union| (|Any|) "failed") (|List| $) (|Symbol|)))
+           (SIGNATURE |option?| ((|Boolean|) (|List| $) (|Symbol|))))))
+ (T |DrawOption|))
+(|Join| (|SetCategory|)
+        (CATEGORY |domain| (SIGNATURE |adaptive| ($ (|Boolean|)))
+         (SIGNATURE |clip| ($ (|Boolean|)))
+         (SIGNATURE |viewpoint|
+          ($
+           (|Record| (|:| |theta| (|DoubleFloat|)) (|:| |phi| (|DoubleFloat|))
+                     (|:| |scale| (|DoubleFloat|))
+                     (|:| |scaleX| (|DoubleFloat|))
+                     (|:| |scaleY| (|DoubleFloat|))
+                     (|:| |scaleZ| (|DoubleFloat|))
+                     (|:| |deltaX| (|DoubleFloat|))
+                     (|:| |deltaY| (|DoubleFloat|)))))
+         (SIGNATURE |title| ($ (|String|))) (SIGNATURE |style| ($ (|String|)))
+         (SIGNATURE |toScale| ($ (|Boolean|)))
+         (SIGNATURE |clip| ($ (|List| (|Segment| (|Float|)))))
+         (SIGNATURE |coordinates|
+          ($ (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))))
+         (SIGNATURE |pointColor| ($ (|Float|)))
+         (SIGNATURE |pointColor| ($ (|Palette|)))
+         (SIGNATURE |curveColor| ($ (|Float|)))
+         (SIGNATURE |curveColor| ($ (|Palette|)))
+         (SIGNATURE |colorFunction|
+          ($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|))))
+         (SIGNATURE |colorFunction|
+          ($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|))))
+         (SIGNATURE |colorFunction|
+          ($
+           (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)
+                      (|DoubleFloat|))))
+         (SIGNATURE |tubeRadius| ($ (|Float|)))
+         (SIGNATURE |range| ($ (|List| (|Segment| (|Float|)))))
+         (SIGNATURE |range| ($ (|List| (|Segment| (|Fraction| (|Integer|))))))
+         (SIGNATURE |ranges| ($ (|List| (|Segment| (|Float|)))))
+         (SIGNATURE |space| ($ (|ThreeSpace| (|DoubleFloat|))))
+         (SIGNATURE |var1Steps| ($ (|PositiveInteger|)))
+         (SIGNATURE |var2Steps| ($ (|PositiveInteger|)))
+         (SIGNATURE |tubePoints| ($ (|PositiveInteger|)))
+         (SIGNATURE |coord|
+          ($ (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))))
+         (SIGNATURE |unit| ($ (|List| (|Float|))))
+         (SIGNATURE |option|
+          ((|Union| (|Any|) "failed") (|List| $) (|Symbol|)))
+         (SIGNATURE |option?| ((|Boolean|) (|List| $) (|Symbol|)))))
+"/git/fricas/src/algebra/DROPT.spad"
+((|adaptive| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|DrawOption|))))
+ (|clip| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|DrawOption|))))
+ (|viewpoint| (*1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|Record| (|:| |theta| (|DoubleFloat|))
+                         (|:| |phi| (|DoubleFloat|))
+                         (|:| |scale| (|DoubleFloat|))
+                         (|:| |scaleX| (|DoubleFloat|))
+                         (|:| |scaleY| (|DoubleFloat|))
+                         (|:| |scaleZ| (|DoubleFloat|))
+                         (|:| |deltaX| (|DoubleFloat|))
+                         (|:| |deltaY| (|DoubleFloat|))))
+   (|isDomain| *1 (|DrawOption|))))
+ (|title| (*1 *1 *2)
+  (AND (|isDomain| *2 (|String|)) (|isDomain| *1 (|DrawOption|))))
+ (|style| (*1 *1 *2)
+  (AND (|isDomain| *2 (|String|)) (|isDomain| *1 (|DrawOption|))))
+ (|toScale| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|DrawOption|))))
+ (|clip| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|Segment| (|Float|))))
+       (|isDomain| *1 (|DrawOption|))))
+ (|coordinates| (*1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))))
+   (|isDomain| *1 (|DrawOption|))))
+ (|pointColor| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Float|)) (|isDomain| *1 (|DrawOption|))))
+ (|pointColor| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Palette|)) (|isDomain| *1 (|DrawOption|))))
+ (|curveColor| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Float|)) (|isDomain| *1 (|DrawOption|))))
+ (|curveColor| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Palette|)) (|isDomain| *1 (|DrawOption|))))
+ (|colorFunction| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+       (|isDomain| *1 (|DrawOption|))))
+ (|colorFunction| (*1 *1 *2)
+  (AND
+   (|isDomain| *2 (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)))
+   (|isDomain| *1 (|DrawOption|))))
+ (|colorFunction| (*1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)
+                          (|DoubleFloat|)))
+   (|isDomain| *1 (|DrawOption|))))
+ (|tubeRadius| (*1 *1 *2)
+  (AND (|isDomain| *2 (|Float|)) (|isDomain| *1 (|DrawOption|))))
+ (|range| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|Segment| (|Float|))))
+       (|isDomain| *1 (|DrawOption|))))
+ (|range| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|Segment| (|Fraction| (|Integer|)))))
+       (|isDomain| *1 (|DrawOption|))))
+ (|ranges| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|Segment| (|Float|))))
+       (|isDomain| *1 (|DrawOption|))))
+ (|space| (*1 *1 *2)
+  (AND (|isDomain| *2 (|ThreeSpace| (|DoubleFloat|)))
+       (|isDomain| *1 (|DrawOption|))))
+ (|var1Steps| (*1 *1 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|)) (|isDomain| *1 (|DrawOption|))))
+ (|var2Steps| (*1 *1 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|)) (|isDomain| *1 (|DrawOption|))))
+ (|tubePoints| (*1 *1 *2)
+  (AND (|isDomain| *2 (|PositiveInteger|)) (|isDomain| *1 (|DrawOption|))))
+ (|coord| (*1 *1 *2)
+  (AND
+   (|isDomain| *2
+               (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))))
+   (|isDomain| *1 (|DrawOption|))))
+ (|unit| (*1 *1 *2)
+  (AND (|isDomain| *2 (|List| (|Float|))) (|isDomain| *1 (|DrawOption|))))
+ (|option| (*1 *2 *3 *4)
+  (|partial| AND (|isDomain| *3 (|List| (|DrawOption|)))
+   (|isDomain| *4 (|Symbol|)) (|isDomain| *2 (|Any|))
+   (|isDomain| *1 (|DrawOption|))))
+ (|option?| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|DrawOption|))) (|isDomain| *4 (|Symbol|))
+       (|isDomain| *2 (|Boolean|)) (|isDomain| *1 (|DrawOption|)))))
+((~= (((|Boolean|) $ $) NIL))
+ (|viewpoint|
+  (($
+    (|Record| (|:| |theta| (|DoubleFloat|)) (|:| |phi| (|DoubleFloat|))
+              (|:| |scale| (|DoubleFloat|)) (|:| |scaleX| (|DoubleFloat|))
+              (|:| |scaleY| (|DoubleFloat|)) (|:| |scaleZ| (|DoubleFloat|))
+              (|:| |deltaX| (|DoubleFloat|)) (|:| |deltaY| (|DoubleFloat|))))
+   11))
+ (|var2Steps| (($ (|PositiveInteger|)) 70))
+ (|var1Steps| (($ (|PositiveInteger|)) 69))
+ (|unit| (($ (|List| (|Float|))) 76)) (|tubeRadius| (($ (|Float|)) 55))
+ (|tubePoints| (($ (|PositiveInteger|)) 71)) (|toScale| (($ (|Boolean|)) 20))
+ (|title| (($ (|String|)) 15)) (|style| (($ (|String|)) 16))
+ (|space| (($ (|ThreeSpace| (|DoubleFloat|))) 65))
+ (|ranges| (($ (|List| (|Segment| (|Float|)))) 61))
+ (|range| (($ (|List| (|Segment| (|Float|)))) 56)
+  (($ (|List| (|Segment| (|Fraction| (|Integer|))))) 60))
+ (|pointColor| (($ (|Float|)) 26) (($ (|Palette|)) 30))
+ (|option?| (((|Boolean|) (|List| $) (|Symbol|)) 86))
+ (|option| (((|Union| (|Any|) "failed") (|List| $) (|Symbol|)) 88))
+ (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL))
+ (|curveColor| (($ (|Float|)) 31) (($ (|Palette|)) 32))
+ (|coordinates|
+  (($ (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))) 54))
+ (|coord|
+  (($ (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|)))) 72))
+ (|colorFunction| (($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|))) 36)
+  (($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|))) 40)
+  (($
+    (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)
+               (|DoubleFloat|)))
+   44))
+ (|coerce| (((|OutputForm|) $) 82))
+ (|clip| (($ (|Boolean|)) 21) (($ (|List| (|Segment| (|Float|)))) 50))
+ (|adaptive| (($ (|Boolean|)) 22)) (= (((|Boolean|) $ $) 84)))
+DROPT
+(((|SetCategory|) . T))
+(((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "DrawOption allows the user to specify defaults for the creation and rendering of plots."))
+ (|option?|
+  (((|Boolean|) (|List| $) (|Symbol|))
+   "\\spad{option?()} is not to be used at the top level; option? internally returns \\spad{true} for drawing options which are indicated in a draw command,{} or \\spad{false} for those which are not."))
+ (|option|
+  (((|Union| (|Any|) "failed") (|List| $) (|Symbol|))
+   "\\spad{option()} is not to be used at the top level; option determines internally which drawing options are indicated in a draw command."))
+ (|unit|
+  (($ (|List| (|Float|)))
+   "\\spad{unit(lf)} will mark off the units according to the indicated list \\spad{lf}. This option is expressed in the form \\spad{unit == [f1,{} f2]}."))
+ (|coord|
+  (($ (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))))
+   "\\spad{coord(p)} specifies a change of coordinates of point \\spad{p}. This option is expressed in the form \\spad{coord == p}."))
+ (|tubePoints|
+  (($ (|PositiveInteger|))
+   "\\spad{tubePoints(n)} specifies the number of points,{} \\spad{n},{} defining the circle which creates the tube around a 3D curve,{} the default is 6. This option is expressed in the form \\spad{tubePoints == n}."))
+ (|var2Steps|
+  (($ (|PositiveInteger|))
+   "\\spad{var2Steps(n)} indicates the number of subdivisions,{} \\spad{n},{} of the second range variable. This option is expressed in the form \\spad{var2Steps == n}."))
+ (|var1Steps|
+  (($ (|PositiveInteger|))
+   "\\spad{var1Steps(n)} indicates the number of subdivisions,{} \\spad{n},{} of the first range variable. This option is expressed in the form \\spad{var1Steps == n}."))
+ (|space|
+  (($ (|ThreeSpace| (|DoubleFloat|)))
+   "\\spad{space specifies} the space into which we will draw. If none is given then a new space is created."))
+ (|ranges|
+  (($ (|List| (|Segment| (|Float|))))
+   "\\spad{ranges(l)} provides a list of user-specified ranges \\spad{l}. This option is expressed in the form \\spad{ranges == l}."))
+ (|range|
+  (($ (|List| (|Segment| (|Fraction| (|Integer|)))))
+   "\\spad{range([i])} provides a user-specified range \\spad{i}. This option is expressed in the form \\spad{range == [i]}.")
+  (($ (|List| (|Segment| (|Float|))))
+   "\\spad{range([l])} provides a user-specified range \\spad{l}. This option is expressed in the form \\spad{range == [l]}."))
+ (|tubeRadius|
+  (($ (|Float|))
+   "\\spad{tubeRadius(r)} specifies a radius,{} \\spad{r},{} for a tube plot around a 3D curve; is expressed in the form \\spad{tubeRadius == 4}."))
+ (|colorFunction|
+  (($
+    (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)
+               (|DoubleFloat|)))
+   "\\spad{colorFunction(f(x,{} y,{} z))} specifies the color for three dimensional plots as a function of \\spad{x},{} \\spad{y},{} and \\spad{z} coordinates. This option is expressed in the form \\spad{colorFunction == f(x,{} y,{} z)}.")
+  (($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|) (|DoubleFloat|)))
+   "\\spad{colorFunction(f(u,{} v))} specifies the color for three dimensional plots as a function based upon the two parametric variables. This option is expressed in the form \\spad{colorFunction == f(u,{} v)}.")
+  (($ (|Mapping| (|DoubleFloat|) (|DoubleFloat|)))
+   "\\spad{colorFunction(f(z))} specifies the color based upon the \\spad{z}-component of three dimensional plots. This option is expressed in the form \\spad{colorFunction == f(z)}."))
+ (|curveColor|
+  (($ (|Palette|))
+   "\\spad{curveColor(p)} specifies a color index for 2D graph curves from the spadcolors palette \\spad{p}. This option is expressed in the form \\spad{curveColor ==p}.")
+  (($ (|Float|))
+   "\\spad{curveColor(v)} specifies a color,{} \\spad{v},{} for 2D graph curves. This option is expressed in the form \\spad{curveColor == v}."))
+ (|pointColor|
+  (($ (|Palette|))
+   "\\spad{pointColor(p)} specifies a color index for 2D graph points from the spadcolors palette \\spad{p}. This option is expressed in the form \\spad{pointColor == p}.")
+  (($ (|Float|))
+   "\\spad{pointColor(v)} specifies a color,{} \\spad{v},{} for 2D graph points. This option is expressed in the form \\spad{pointColor == v}."))
+ (|coordinates|
+  (($ (|Mapping| (|Point| (|DoubleFloat|)) (|Point| (|DoubleFloat|))))
+   "\\spad{coordinates(p)} specifies a change of coordinate systems of point \\spad{p}. This option is expressed in the form \\spad{coordinates == p}."))
+ (|toScale|
+  (($ (|Boolean|))
+   "\\spad{toScale(b)} specifies whether or not a plot is to be drawn to scale; if \\spad{b} is \\spad{true} it is drawn to scale,{} if \\spad{b} is \\spad{false} it is not. This option is expressed in the form \\spad{toScale == b}."))
+ (|style|
+  (($ (|String|))
+   "\\spad{style(s)} specifies the drawing style in which the graph will be plotted by the indicated string \\spad{s}. This option is expressed in the form \\spad{style == s}."))
+ (|title|
+  (($ (|String|))
+   "\\spad{title(s)} specifies a title for a plot by the indicated string \\spad{s}. This option is expressed in the form \\spad{title == s}."))
+ (|viewpoint|
+  (($
+    (|Record| (|:| |theta| (|DoubleFloat|)) (|:| |phi| (|DoubleFloat|))
+              (|:| |scale| (|DoubleFloat|)) (|:| |scaleX| (|DoubleFloat|))
+              (|:| |scaleY| (|DoubleFloat|)) (|:| |scaleZ| (|DoubleFloat|))
+              (|:| |deltaX| (|DoubleFloat|)) (|:| |deltaY| (|DoubleFloat|))))
+   "\\spad{viewpoint(vp)} creates a viewpoint data structure corresponding to the list of values. The values are interpreted as [theta,{} phi,{} scale,{} scaleX,{} scaleY,{} scaleZ,{} deltaX,{} deltaY]. This option is expressed in the form \\spad{viewpoint == ls}."))
+ (|clip|
+  (($ (|List| (|Segment| (|Float|))))
+   "\\spad{clip([l])} provides ranges for user-defined clipping as specified in the list \\spad{l}. This option is expressed in the form \\spad{clip == [l]}.")
+  (($ (|Boolean|))
+   "\\spad{clip(b)} turns 2D clipping on if \\spad{b} is \\spad{true},{} or off if \\spad{b} is \\spad{false}. This option is expressed in the form \\spad{clip == b}."))
+ (|adaptive|
+  (($ (|Boolean|))
+   "\\spad{adaptive(b)} turns adaptive 2D plotting on if \\spad{b} is \\spad{true},{} or off if \\spad{b} is \\spad{false}. This option is expressed in the form \\spad{adaptive == b}.")))
+(("documentation" 0 10340) ("ancestors" 0 10259) ("parents" 0 10235)
+ ("abbreviation" 0 10229) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 8401) ("modemaps" 0 4804) ("sourceFile" 0 4767)
+ ("constructorCategory" 0 2521) ("constructorModemap" 0 80)
+ ("constructorKind" 0 71) ("constructorForm" 0 56) ("NILADIC" 0 20))

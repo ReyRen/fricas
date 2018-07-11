@@ -1,0 +1,24 @@
+)abbrev category COALG Coalgebra
+++ Author: Franz Lehner lehner@finanz.math.tugraz.at, Waldek Hebisch
+++ Date Created: 2009
+++ Basic Functions:
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ Description:
+++   A coalgebra A over a ring is an R-module
+++   with a coassociative comultiplication from A
+++   to the tensor product of A with itself
+++   and which possesses a counit.
+Coalgebra(R : CommutativeRing, MxM : Module R) : Category == _
+        Module(R) with
+    coproduct : % -> MxM
+      ++ \spad{coproduct(x)} computes the coproduct of an element \spad{x}
+    counit : % -> R
+      ++ \spad{counit(x)} evaluates the counit at an element \spad{x}
+--Coalgebra(R : CommutativeRing, MxM : TensorPowerCategory(2, R, %)
+--         ) : Category == _
+
+

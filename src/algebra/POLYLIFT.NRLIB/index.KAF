@@ -1,0 +1,37 @@
+2016                (|PolynomialCategoryLifting| E |Vars| R P S)
+|package|
+(((|PolynomialCategoryLifting| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package|
+   (SIGNATURE |map| (|#5| (|Mapping| |#5| |#2|) (|Mapping| |#5| |#3|) |#4|)))
+  (|OrderedAbelianMonoidSup|) (|OrderedSet|)
+  (|Join| (|SemiRng|) (|AbelianMonoid|)) (|PolynomialCategory| |#3| |#1| |#2|)
+  (CATEGORY |domain| (SIGNATURE + ($ $ $)) (SIGNATURE * ($ $ $))
+   (SIGNATURE ^ ($ $ (|NonNegativeInteger|)))))
+ (T |PolynomialCategoryLifting|))
+(CATEGORY |package|
+ (SIGNATURE |map| (|#5| (|Mapping| |#5| |#2|) (|Mapping| |#5| |#3|) |#4|)))
+"/git/fricas/src/algebra/POLYLIFT.spad"
+((|map| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|Mapping| *2 *7)) (|isDomain| *4 (|Mapping| *2 *8))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *8 (|Join| (|SemiRng|) (|AbelianMonoid|)))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *2
+                     (CATEGORY |domain| (SIGNATURE + ($ $ $))
+                      (SIGNATURE * ($ $ $))
+                      (SIGNATURE ^ ($ $ (|NonNegativeInteger|)))))
+       (|isDomain| *1 (|PolynomialCategoryLifting| *6 *7 *8 *5 *2))
+       (|ofCategory| *5 (|PolynomialCategory| *8 *6 *7)))))
+((|map| ((|#5| (|Mapping| |#5| |#2|) (|Mapping| |#5| |#3|) |#4|) 20)))
+POLYLIFT
+((|constructor|
+  (NIL
+   "This package provides a very general map function,{} which given a set \\spad{S} and polynomials over \\spad{R} with maps from the variables into \\spad{S} and the coefficients into \\spad{S},{} maps polynomials into \\spad{S}. \\spad{S} is assumed to support \\spad{+},{} \\spad{*} and \\spad{^}."))
+ (|map|
+  ((|#5| (|Mapping| |#5| |#2|) (|Mapping| |#5| |#3|) |#4|)
+   "\\spad{map(varmap,{} coefmap,{} p)} takes a \\spad{varmap},{} a mapping from the variables of polynomial \\spad{p} into \\spad{S},{} \\spad{coefmap},{} a mapping from coefficients of \\spad{p} into \\spad{S},{} and \\spad{p},{} and produces a member of \\spad{S} using the corresponding arithmetic in \\spad{S}.")))
+(("documentation" 0 1301) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1292) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1221) ("modemaps" 0 639) ("sourceFile" 0 599)
+ ("constructorCategory" 0 503) ("constructorModemap" 0 75)
+ ("constructorKind" 0 65) ("constructorForm" 0 20))

@@ -1,0 +1,78 @@
+5011                (|FunctionFieldIntegralBasis| R UP F)
+|package|
+(((|FunctionFieldIntegralBasis| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |integralBasis|
+    ((|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+               (|:| |basisInv| (|Matrix| |#1|)))))
+   (SIGNATURE |localIntegralBasis|
+    ((|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+               (|:| |basisInv| (|Matrix| |#1|)))
+     |#1|)))
+  (|Join| (|EuclideanDomain|)
+          (CATEGORY |domain| (SIGNATURE |squareFree| ((|Factored| $) $))))
+  (|UnivariatePolynomialCategory| |#1|) (|FramedAlgebra| |#1| |#2|))
+ (T |FunctionFieldIntegralBasis|))
+(CATEGORY |package|
+ (SIGNATURE |integralBasis|
+  ((|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+             (|:| |basisInv| (|Matrix| |#1|)))))
+ (SIGNATURE |localIntegralBasis|
+  ((|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+             (|:| |basisInv| (|Matrix| |#1|)))
+   |#1|)))
+"/git/fricas/src/algebra/FFINTBAS.spad"
+((|localIntegralBasis| (*1 *2 *3)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|EuclideanDomain|)
+                         (CATEGORY |domain|
+                          (SIGNATURE |squareFree| ((|Factored| $) $)))))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+   (|isDomain| *2
+               (|Record| (|:| |basis| (|Matrix| *3)) (|:| |basisDen| *3)
+                         (|:| |basisInv| (|Matrix| *3))))
+   (|isDomain| *1 (|FunctionFieldIntegralBasis| *3 *4 *5))
+   (|ofCategory| *5 (|FramedAlgebra| *3 *4))))
+ (|integralBasis| (*1 *2)
+  (AND
+   (|ofCategory| *3
+                 (|Join| (|EuclideanDomain|)
+                         (CATEGORY |domain|
+                          (SIGNATURE |squareFree| ((|Factored| $) $)))))
+   (|ofCategory| *4 (|UnivariatePolynomialCategory| *3))
+   (|isDomain| *2
+               (|Record| (|:| |basis| (|Matrix| *3)) (|:| |basisDen| *3)
+                         (|:| |basisInv| (|Matrix| *3))))
+   (|isDomain| *1 (|FunctionFieldIntegralBasis| *3 *4 *5))
+   (|ofCategory| *5 (|FramedAlgebra| *3 *4)))))
+((|localIntegralBasis|
+  (((|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+              (|:| |basisInv| (|Matrix| |#1|)))
+    |#1|)
+   51))
+ (|integralBasis|
+  (((|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+              (|:| |basisInv| (|Matrix| |#1|))))
+   49)))
+FFINTBAS
+((|constructor|
+  (NIL
+   "In this package \\spad{R} is a Euclidean domain and \\spad{F} is a framed algebra over \\spad{R}. The package provides functions to compute the integral closure of \\spad{R} in the quotient field of \\spad{F}. It is assumed that \\spad{char(R/P) = char(R)} for any prime \\spad{P} of \\spad{R}. A typical instance of this is when \\spad{R = K[x]} and \\spad{F} is a function field over \\spad{R}."))
+ (|localIntegralBasis|
+  (((|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+              (|:| |basisInv| (|Matrix| |#1|)))
+    |#1|)
+   "\\spad{integralBasis(p)} returns a record \\spad{[basis,{} basisDen,{} basisInv]} containing information regarding the local integral closure of \\spad{R} at the prime \\spad{p} in the quotient field of \\spad{F},{} where \\spad{F} is a framed algebra with \\spad{R}-module basis \\spad{w1,{} w2,{} ...,{} wn}. If \\spad{basis} is the matrix \\spad{(aij,{} i = 1..n,{} j = 1..n)},{} then the \\spad{i}th element of the local integral basis is \\spad{\\spad{vi} = (1/basisDen) * sum(aij * wj,{} j = 1..n)},{} \\spadignore{i.e.} the \\spad{i}th row of \\spad{basis} contains the coordinates of the \\spad{i}th basis vector. Similarly,{} the \\spad{i}th row of the matrix \\spad{basisInv} contains the coordinates of \\spad{\\spad{wi}} with respect to the basis \\spad{v1,{} ...,{} vn}: if \\spad{basisInv} is the matrix \\spad{(bij,{} i = 1..n,{} j = 1..n)},{} then \\spad{\\spad{wi} = sum(bij * vj,{} j = 1..n)}."))
+ (|integralBasis|
+  (((|Record| (|:| |basis| (|Matrix| |#1|)) (|:| |basisDen| |#1|)
+              (|:| |basisInv| (|Matrix| |#1|))))
+   "\\spad{integralBasis()} returns a record \\spad{[basis,{} basisDen,{} basisInv]} containing information regarding the integral closure of \\spad{R} in the quotient field of \\spad{F},{} where \\spad{F} is a framed algebra with \\spad{R}-module basis \\spad{w1,{} w2,{} ...,{} wn}. If \\spad{basis} is the matrix \\spad{(aij,{} i = 1..n,{} j = 1..n)},{} then the \\spad{i}th element of the integral basis is \\spad{\\spad{vi} = (1/basisDen) * sum(aij * wj,{} j = 1..n)},{} \\spadignore{i.e.} the \\spad{i}th row of \\spad{basis} contains the coordinates of the \\spad{i}th basis vector. Similarly,{} the \\spad{i}th row of the matrix \\spad{basisInv} contains the coordinates of \\spad{\\spad{wi}} with respect to the basis \\spad{v1,{} ...,{} vn}: if \\spad{basisInv} is the matrix \\spad{(bij,{} i = 1..n,{} j = 1..n)},{} then \\spad{\\spad{wi} = sum(bij * vj,{} j = 1..n)}."))
+ (|squareFree|
+  (((|Factored| $) $)
+   "\\spad{squareFree(x)} returns a square-free factorisation of \\spad{x}")))
+(("documentation" 0 2386) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2377) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2080) ("modemaps" 0 1017) ("sourceFile" 0 977)
+ ("constructorCategory" 0 659) ("constructorModemap" 0 68)
+ ("constructorKind" 0 58) ("constructorForm" 0 20))

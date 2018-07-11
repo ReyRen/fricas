@@ -1,0 +1,30 @@
+1023                (|ComplexPattern| R S CS)
+|package|
+(((|ComplexPattern| |#1| |#2| |#3|)
+  (CATEGORY |package| (SIGNATURE |convert| ((|Pattern| |#1|) |#3|)))
+  (|SetCategory|)
+  (|Join| (|ConvertibleTo| (|Pattern| |#1|)) (|CommutativeRing|))
+  (|ComplexCategory| |#2|))
+ (T |ComplexPattern|))
+(CATEGORY |package| (SIGNATURE |convert| ((|Pattern| |#1|) |#3|)))
+"/git/fricas/src/algebra/COMPLPAT.spad"
+((|convert| (*1 *2 *3)
+            (AND
+             (|ofCategory| *5
+                           (|Join| (|ConvertibleTo| *2) (|CommutativeRing|)))
+             (|isDomain| *2 (|Pattern| *4))
+             (|isDomain| *1 (|ComplexPattern| *4 *5 *3))
+             (|ofCategory| *4 (|SetCategory|))
+             (|ofCategory| *3 (|ComplexCategory| *5)))))
+((|convert| (((|Pattern| |#1|) |#3|) 20)))
+COMPLPAT
+((|constructor|
+  (NIL "This package supports converting complex expressions to patterns"))
+ (|convert|
+  (((|Pattern| |#1|) |#3|)
+   "\\spad{convert(cs)} converts the complex expression \\spad{cs} to a pattern")))
+(("documentation" 0 808) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 799) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 756) ("modemaps" 0 403) ("sourceFile" 0 363)
+ ("constructorCategory" 0 296) ("constructorModemap" 0 56)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))

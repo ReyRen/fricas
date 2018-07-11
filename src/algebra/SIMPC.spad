@@ -1,0 +1,750 @@
+)abbrev domain SIMPC FiniteSimplicialComplex
+++ Author: Martin Baker
+++ Description:
+++   A Finite Simplicial Complex
+++   for more documentation see:
+++   http://www.euclideanspace.com/prog/scratchpad/mycode/topology/simplex/
+++ Date Created: Dec 2015
+++ Basic Operations: star, link, cone, product
+++ Related packages:
+++ Related categories:
+++ Related Domains: DeltaComplex is an alternative representation
+++    which is less compact but allows edges, triangles, etc to be indexed.
+++ Also See:
+++ AMS Classifications:
+++ Keywords: topology, finite, simplicial, complex, edge, triangle
+++ Examples:
+++ References:
+
+FiniteSimplicialComplex(VS : AbelianGroup) : Exports == Impl where
+  NNI==> NonNegativeInteger
+  x<<y ==> hconcat(x::OutputForm, y::OutputForm)
+
+  Exports ==> SetCategory() with
+    simplicialComplex : (v : List(VS), numPoints:NNI,
+                         fs : List(List(NNI))) -> %
+      ++ constructor where the simplices are supplied
+    simplicialComplex : (v : List(VS), fs : List(List(NNI))) -> %
+      ++ constructor where the simplices are supplied
+    simplicialComplex : (v : List(VS)) -> %
+      ++ construct empty simplex
+    simplicialComplexIfCan : (dc : DeltaComplex(VS),trace : Boolean) -> _
+                         Union(%, "failed")
+      ++ construct FiniteSimplicialComplex from DeltaComplex with trace.
+      ++ If there are 'implied' loops, such as facets with multiple
+      ++ entries with the same index, then this function may fail.
+    simplicialComplexIfCan : (dc : DeltaComplex(VS)) -> _
+                         Union(%, "failed")
+      ++ construct FiniteSimplicialComplex from DeltaComplex.
+      ++ If there are 'implied' loops, such as facets with multiple
+      ++ entries with the same index, then this function may fail.
+    addSimplex : (a : %, f : OrientedFacet) -> %
+      ++ Add a facet to this simplex
+      ++ If the facet is also in the list then, dont append, instead
+      ++ change the multiplier. Used by boundary function
+    maxIndex : (s : %) -> NNI
+      ++ find the maximum index.
+    minIndex : (s : %) -> NNI
+      ++ find the minimum index.
+    grade : (s : %) -> List(List(OrientedFacet))
+      ++ a function to grade simplexes according to their lengths.
+      ++ This nests the lists according to their length.
+      ++ Verticies, edges, trianges and so on.
+      ++ The list is returned in reverse order, that is, it starts
+      ++ at highest grade and works down.
+    sort : (s : %) -> %
+      ++ sort
+    addImpliedFaces : (s : %) -> List(List(OrientedFacet))
+      ++ a function to take a set of faces and add those that are implied
+      ++ by the simplecicalComplex conventions (if they don't already
+      ++ exist). For example, if the input is a triangle ((1, 2, 3))
+      ++ then we would add:
+      ++ its points ((1), (2), (3)).
+      ++ and its edges ((1, 2), (1, 3), (2, 3)).
+    boundary : (s : %) -> %
+      ++ Step down to the next lower dimension, this is like hollowing
+      ++ out the complex.
+      ++ It takes the highest dimension entries and replaces them with
+      ++ their boundaries, cancelling out where it can.
+    star : (s : %, simplex : OrientedFacet) -> %
+      ++ The 'star' of a simplicial complex and a facet contains only
+      ++ the faces of s which include simplex.
+    link : (s : %, simplex : OrientedFacet) -> %
+      ++ The 'link' of a simplicial complex and a vertex contains the
+      ++ boundary of the simplexes of s which include simplex.
+    cone : (s : %, vertex : NNI) -> %
+      ++ The 'cone' of a simplicial complex is formed by adding the
+      ++ vertex to every facet.
+      ++ 'vertex' should not already be included in existing faces,
+      ++ this is not checked and so will lead to simplexes with
+      ++ duplicate vertices.
+    refactorIndexes : (a : %, n : NNI) -> %
+      ++ add 'n' to all indexes without changing the structure of
+      ++ this simplicial complex.
+    makeDisjoint : (a : %, b : %) -> %
+      ++ If index numbers of 'b' overlap with index numbers of 'a' then
+      ++ refactor 'b' so that it does not overlap.
+    simplicialJoin : (a : %, b : %, enforceDisjoint : Boolean) -> %
+      ++ Forms join of two simplicial complexes.
+      ++ The join S*T of two simplicial sets S and T is a new simplicial
+      ++ set that may geometrically be thought of as a cone over T with
+      ++ tip of shape S.
+      ++ simplicialJoin is commutative and associative.
+      ++ For more information:
+      ++ \url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/simplex/join/index.htm}
+    merge : (a : %, b : %) -> %
+      ++ Forms union of two simplicial complexes.
+    product : (a : %, b : %) -> %
+      ++ Forms product of two simplicial complexes.
+      ++ For more detailed explanation of simplex product code see:
+      ++ \url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/simplex/product/}
+      ++ Also see Hatcher [9].
+      ++ page 277 - The simplical cross product.
+      ++ page 278 - The cohomology cross product.
+      ++ Returns list, each entry is a 'lattice path' from (0, 0) to
+      ++ (x, y) where x is number of entries in sa and y is number of
+      ++ entries in sb.
+    oneSkeleton : (s : %) -> DirectedGraph(NNI)
+      ++ generates graph AKA 1-skeleton
+    fundamentalGroup : (s : %) -> GroupPresentation
+      ++ Generates fundamental group from this simplicial complex.
+      ++ This works by converting to a DeltaComplex and then generating the
+      ++ fundamentalGroup from that. This is not the most efficient method
+      ++ because the conversion generates lots of higher order faceMaps
+      ++ which are not used.
+      ++ This will attempt to simplify the group presentation, if you
+      ++ don't want this use alternative function of same name.
+      -- TODO write a faster implemetation which only generates edge and
+      -- triangle faceMaps.
+      ++ For more information:
+      ++ \url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/homotopy/index.htm}
+    fundamentalGroup : (s : %, simplify : Boolean, trace : Boolean) -> GroupPresentation
+      ++ Generates fundamental group from this simplicial complex.
+      ++ This works by converting to a DeltaComplex and then generating the
+      ++ fundamentalGroup from that. This is not the most efficient method
+      ++ because the conversion generates lots of higher order faceMaps
+      ++ which are not used.
+      -- TODO write a faster implementation which only generates edge and
+      -- triangle faceMaps.
+      ++ This version has options to:
+      ++ simplify - if true attempts to simplify the group presentation
+      ++ trace - if true outputs trace of simplification rules used.
+      ++ For more information:
+      ++ \url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/homotopy/index.htm}
+    chain : (s : %) -> ChainComplex
+      ++ returns a matrix sequence representing the face maps
+      ++ in linear algebra form
+      ++ For more information:
+      ++ \url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/chain/index.htm}
+    coChain : (s : %) -> CoChainComplex(VS)
+      ++ returns a matrix sequence representing the face maps
+      ++ in linear algebra form
+      ++ For more information:
+      ++ \url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/chain/cochain/index.htm}
+    homology : (s : %) -> List(Homology)
+      ++ calculate homology using SmithNormalForm
+      ++ For more information:
+      ++ \url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/homology/index.htm}
+    coHomology : (s : %) -> List(Homology)
+      ++ calculate cohomology using SmithNormalForm
+      ++ \url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/homology/cohomol/index.htm}
+    coerce : (s : %) -> DeltaComplex(VS)
+      ++ coerce SimplicialComplex to DeltaComplex
+
+  Impl ==> add
+
+   -- Representation holds whole Simplicial Complex. This consists of
+   -- a vertex set, here represented as a vertex list so that we can
+   -- index it.
+   -- Also a list of simplices (that is n-dimensional faces). each
+   -- simplice is an array of vertex indexes.
+   -- So each simplice is a subset of the vertex set.
+   -- where:
+   --  VS is a list of vertices in whatever form we are using.
+   --  NNI is an index.
+   --  The inner list represents an individual simplex.
+   --  The outer list holds a list of simplexes.
+   Rep := Record(VERTSET : List(VS),NUMPOINTS : NNI, SIMP : List(OrientedFacet))
+
+   -- constructor where the vertex set and simplices are supplied
+   simplicialComplex(v : List(VS), numPoints : NNI, fs : List(List(NNI))
+                    ) : % ==
+       --print("simplicialComplex(" << fs << ")")
+       res := []$List(OrientedFacet)
+       for f in fs repeat
+           res := concat(res, orientedFacet(1, f))
+       --print("simplicialComplex f=" << f << " res=" << res)
+       [v, numPoints, res]
+
+   -- constructor where the vertex set and simplices are supplied
+   simplicialComplex(v : List(VS), fs : List(List(NNI))) : % ==
+       facs := []$List(OrientedFacet)
+       for f in fs repeat
+           facs := concat(facs, orientedFacet(1, f))
+       numPoints : NNI := 0
+       for fac in facs repeat
+           m := maxIndex(fac)
+           if m>numPoints then numPoints := m
+       [v,numPoints, facs]
+
+   -- construct empty simplex
+   simplicialComplex(v : List(VS)) : % ==
+       res := []$List(OrientedFacet)
+       [v,0, res]
+
+   -- construct FiniteSimplicialComplex from DeltaComplex.
+   -- For more information:
+   -- \url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/delta/delta2simplex/index.htm}
+   simplicialComplexIfCan(dc : DeltaComplex(VS)) : Union(%, "failed") ==
+       simplicialComplexIfCan(dc,false)
+
+   -- construct FiniteSimplicialComplex from DeltaComplex with trace.
+   -- For more information:
+   -- \url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/delta/delta2simplex/index.htm}
+   simplicialComplexIfCan(dc : DeltaComplex(VS),trace : Boolean) : _
+            Union(%, "failed") ==
+       if trace then
+           print(message("simplicialComplex(") << dc << message(")"))
+       dcrep := dc pretend Record(VERTSET : List(VS), _
+                                  MAPS : List(List(List(Integer))))
+       NumPoints : NNI := 0
+       vertset : List(VS) := dcrep.VERTSET
+       maps : List(List(List(Integer))) := reverse(dcrep.MAPS)
+       -- res contains list which will become the result
+       res := []$List(OrientedFacet)
+       -- deleteList contains list for removal at the end
+       deleteList := []$List(OrientedFacet)
+       lastMap := []$List(List(OrientedFacet))
+       for map in maps for grade in 1..(#maps) repeat
+           lastMap := concat(lastMap, []$List(OrientedFacet))
+           if trace then
+              print("simplicialComplex map=" << map << _
+                             " grade=" << grade << _
+                             " lastMap=" << lastMap)
+           if grade = 1 then
+               -- points so facets are equal to map
+               NumPoints := #map
+               thisPoint : NNI := 0
+               for facet in map repeat
+                   thisPoint := thisPoint + 1
+                   if not empty?(facet) then
+                       orf := orientedFacetSigned([thisPoint])
+                       if trace then
+                         print(message "simplicialComplex add point=" << _
+                            orf <<  message " from face=" << facet)
+                       res := concat(res, orf)
+                       lastMap.grade :=concat(lastMap.grade, orf)
+           if grade > 1 then
+               -- for higher grades lookup index in next lower grade
+               for facet in map repeat
+                   --print(message "simplicialComplex g=" << grade <<
+                   --      message" facet=" << facet)
+                   subFacets := []$List(OrientedFacet)
+                   for i in facet repeat
+                       ind : NNI := abs(i)::NNI
+                       subFacet : OrientedFacet := (lastMap.(grade-1)).ind
+                       m : Integer := if i<1 then -1 else 1
+                       -- construct an OrientedFacet with the appropriate
+                       -- sign from index
+                       subFacet2 : OrientedFacet := orientedFacet(m, subFacet)
+                       deleteList := concat(deleteList, subFacet)
+                       subFacets := concat (subFacets, subFacet2)
+                   orfx : Union(OrientedFacet, "failed") := _
+                          orientedFacetIfCan(subFacets)
+                   if orfx case "failed" then return "failed"
+                   orf := orfx pretend OrientedFacet
+                   res := concat(res, orf)
+                   lastMap.grade := concat(lastMap.grade, orf)
+       -- remove any facets that are contained in higher facets
+       for r in deleteList repeat
+           res := remove(r, res)
+       if trace then print(message("simplicialComplex construct res=") << res)
+       [vertset,NumPoints, res]
+
+   -- Add a facet to this simplex
+   -- If the facet is also in the list then, dont append, instead
+   -- change the multiplier.
+   -- Used by boundary function
+   addSimplex(a : %, f : OrientedFacet) : % ==
+       res : List(OrientedFacet) := a.SIMP
+       -- check for duplicates
+       found : Boolean := false
+       for orf in res repeat
+           if getIndexes(orf)=getIndexes(f) then
+               m : Integer := getMult(orf) + getMult(f)
+               setMult!(orf, m)
+               found := true
+       if not found then
+           res := concat(res, f)
+       -- remove empty faces
+       res2 := []$List(OrientedFacet)
+       for orf in res repeat
+           if getMult(orf) ~= 0 then
+               res2 := concat(res2, orf)
+       -- set number of points
+       numPoints : NNI := 0
+       for orf2 in res2 repeat
+           max : NNI := maxIndex(orf2)
+           if max > numPoints then numPoints := max
+       [a.VERTSET, numPoints, res2]
+
+   -- find the maximum index value.
+   maxIndex(s : %) : NNI ==
+       res : NNI := 0
+       facs : List(OrientedFacet) := s.SIMP
+       for fac in facs repeat
+           m := maxIndex(fac)
+           if m>res then res := m
+       res
+
+   -- find the minimum index value.
+   minIndex(s : %) : NNI ==
+       res : NNI := 10000
+       facs : List(OrientedFacet) := s.SIMP
+       if #facs = 0 then return 0
+       for fac in facs repeat
+           m := minIndex(fac)
+           if m<res then res := m
+       res
+
+   -- A function to grade simplexes according to their lengths.
+   -- This nests the lists according to their length.
+   -- Verticies, edges, trianges and so on.
+   -- The list is returned in reverse order, that is, it starts
+   -- at highest grade and works down.
+   grade(s : %) : List(List(OrientedFacet)) ==
+       simp : List(OrientedFacet) := s.SIMP
+       maxGrade : NNI := 0
+       for face in simp repeat
+           if order(face) > maxGrade then maxGrade := order(face)
+       res := []$List(List(OrientedFacet))
+       if maxGrade < 1 then return res
+       for a in 1..maxGrade repeat
+           res := concat(res, []$List(OrientedFacet))
+       for face in simp repeat
+           gr : Integer := order(face)
+           if gr > 0 then
+               res.gr := concat(res.gr, face)
+       res
+
+   -- sort faces to be in numeric order
+   sort(s : %) : % ==
+       v : List(VS) := s.VERTSET
+       fs : List(OrientedFacet) := s.SIMP -- list of faces
+       [v, s.NUMPOINTS, sort(fs)]
+
+   -- a local function to return a list where each entry:
+   -- i) is a permutation of the input list
+   -- ii) contains integers in ascending order
+   -- iii) is of the specified length
+   -- TODO this is in both simplicial and delta complexes so need to find common
+   -- home for it.
+   orderedPermutation(lst : List(Integer), len :  NNI) : List(List(Integer)) ==
+       if len < 1 then return []$List(List(Integer))
+       if len > #lst then return []$List(List(Integer))
+       if len = #lst then return [lst]
+       reslt := []$List(List(Integer))
+       if len=1 then
+           for y in lst repeat
+               reslt := concat(reslt, [y])
+           return reslt
+       fst : Integer := lst.first
+       rst : List(Integer) := lst.rest
+       -- len can never be negative due to the tests
+       -- at the start of this function.
+       for x in orderedPermutation(rst, subtractIfCan(len, 1)::NNI) repeat
+           r1 : List(Integer) := concat(fst, x)
+           -- r1 holds a permutations starting with fst
+           reslt := concat(reslt, r1)
+       -- now we have combinations staring with fst
+       -- so we just have to add the rest
+       reslt := concat(reslt, orderedPermutation(rst, len))
+       reslt
+
+   -- local function used in unorientedUnion in addImpliedFaces.
+   -- Returns true if 'b' is an element of 'lst'.
+   isNewFace?(lst : List(OrientedFacet), b : OrientedFacet) : Boolean ==
+       --print("isNewFace?(" << a << ", " << b << ")")
+       for a in lst repeat
+           if sameFace?(a, b) then return false
+       true
+
+   -- local function used in addImpliedFaces.
+   -- Merge two lists of facets. If a facet is contained in both then
+   -- only include it once.
+   unorientedUnion(a : List(OrientedFacet), b : List(OrientedFacet)
+            ) : List(OrientedFacet) ==
+       res := a
+       for b1 in b repeat
+           if isNewFace?(a, b1) then
+               res := cons(b1, res)
+       -- print("unorientedUnion(" << a << ", " << b << ") = " << res)
+       res
+
+   import from OutputForm
+
+   -- A function to take a set of faces and add those that are implied
+   -- by the simplicial complex conventions (if they don't already exist).
+   -- For example, if the input is a triangle ((1, 2, 3)) then we would add
+   -- its points ((1),(2),(3)) and its edges ((1, 2), (1, 3), (2, 3)).
+   addImpliedFaces(s : %) : List(List(OrientedFacet)) ==
+       inputList : List(List(OrientedFacet)) := reverse(grade(s))
+       --print(message "addImpliedFaces s=" << s << _
+       --      message " reverse=" << inputList)
+       res := []$List(List(OrientedFacet))
+       maxGrade : NNI := #inputList
+       if (maxGrade) < 1 then
+           print(message "addImpliedFaces return because empty" << maxGrade)
+           return res
+       -- create an empty list for each grade
+       res := []$List(List(OrientedFacet))
+       newFaces := []$List(OrientedFacet)
+       for gr in inputList repeat
+           --print("addImpliedFaces grade=" << gr)
+           -- add old faces
+           all_faces := unorientedUnion(newFaces, gr)
+           --print(message"all_faces = " << all_faces::OutputForm)
+           res := cons(all_faces, res)
+           --print("addImpliedFaces res=" << res)
+           newFaces := []
+           --print("addImpliedFaces res.grn=" << res.grn)
+           for face in all_faces repeat
+               -- FIXME: handle order 1 too
+               len := qcoerce(order(face) - 1)@NNI
+               if len > 0 then
+                   newFaces := unorientedUnion(newFaces,
+                                               allSubsets(face, len, len))
+           -- print(message("newFaces = "))
+           -- print(newFaces::OutputForm)
+           --print("addImpliedFaces get next grade res=" << res)
+       --print("addImpliedFaces result=" << reverse(res))
+       res
+
+   -- Step down to the next lower dimension, this is like hollowing
+   -- out the complex.
+   -- It takes the highest dimension entries and replaces them with
+   -- their boundaries, cancelling out where it can.
+   boundary(s : %) : % ==
+       res : % := simplicialComplex(s.VERTSET)
+       --facets := []$List(OrientedFacet)
+       for facet in s.SIMP repeat
+           x : List(OrientedFacet) := boundary(facet)
+           --print("boundary(" << s.SIMP << ") x=" << x)
+           for y in x repeat
+               --facets := concat(facets, y)$List(OrientedFacet)
+               res := addSimplex(res, y)
+       res
+
+   -- The 'star' of a simplicial complex and a simplex contains only the faces
+   -- of s which include simplex.
+   star(s : %, simplex : OrientedFacet) : % ==
+       res := []$List(OrientedFacet)
+       for simp in s.SIMP repeat
+           if isSubsetOf?(simplex, simp) then
+               res := concat(res, simp)
+       [s.VERTSET, s.NUMPOINTS, res]
+
+   -- The 'link' of a simplicial complex and a simplex contains the
+   -- boundary of the simplexes of s which include simplex.
+   link(s : %, simplex : OrientedFacet) : % ==
+       res := []$List(OrientedFacet)
+       for facet in s.SIMP repeat
+           if isSubsetOf?(simplex, facet) then
+               x : List(OrientedFacet) := boundary(facet)
+               res := concat(res, x)
+       [s.VERTSET, s.NUMPOINTS, res]
+
+   -- The 'cone' of a simplicial complex is formed by adding the vertex
+   -- to every facet.
+   -- 'vertex' should not already be included in existing faces, this
+   -- is not checked and so will lead to simplexed with duplicate vertices.
+   cone(s : %, vertex : NNI) : % ==
+       res := []$List(OrientedFacet)
+       for facet in s.SIMP repeat
+           x : OrientedFacet := addVertex(facet, vertex)
+           res := concat(res, x)
+       [s.VERTSET, s.NUMPOINTS, res]
+
+   -- add 'n' to all indexes without changing the structure of
+   -- this simplicial complex.
+   -- Used by makeDisjoint which is used by simplicialJoin.
+   refactorIndexes(a : %, n : NNI) : % ==
+       res := []$List(OrientedFacet)
+       for facet in a.SIMP repeat
+           r :OrientedFacet := refactorIndexes(facet,n)
+           res := concat (res,r)
+       [a.VERTSET, a.NUMPOINTS, res]
+
+   -- If index numbers of 'b' overlap with index numbers of 'a' then
+   -- refactor 'b' so that it does not overlap.
+   -- Used by simplicialJoin.
+   makeDisjoint(a : %, b : %) : % ==
+       mina : NNI := minIndex(a)
+       maxa : NNI := maxIndex(a)
+       minb : NNI := minIndex(b)
+       maxb : NNI := maxIndex(b)
+       if maxa < minb then return b
+       if maxb < mina then return b
+       refactorIndexes(b,maxa)
+
+   -- Forms join of two simplicial complexes.
+   simplicialJoin(a : %, b : %, enforceDisjoint : Boolean) : % ==
+       if empty?(a.SIMP) then return b
+       if empty?(b.SIMP) then return a
+       b2 : % := if enforceDisjoint then makeDisjoint(a, b) else b
+       res := []$List(OrientedFacet)
+       for x in a.SIMP repeat
+           for y in b2.SIMP repeat
+               --print ("simplicialJoin x=" << x << " y=" << y)
+               fac : OrientedFacet := join(x,y)
+               res := concat(res, fac)
+               --print ("res=" << res)
+       verts : List(VS) := concat(a.VERTSET,b.VERTSET)
+       numPoints : NNI := a.NUMPOINTS + b.NUMPOINTS
+       [verts, numPoints, res]
+
+   -- Forms union of two simplicial complexes.
+   merge(a : %, b : %) : % ==
+       res : % := copy(a)
+       for x in b.SIMP repeat
+           res := addSimplex(res, x)
+           -- print ("n=" << n << " offset=" << offset)
+       -- print ("res=" << res)
+       res
+
+   -- local function used in oneSkeleton
+   concatIfNew(a : List(Record(value : NNI, posX : NNI, posY : NNI)), _
+               b : NNI) : _
+               List(Record(value : NNI, posX : NNI, posY : NNI)) ==
+       OBJT ==> Record(value : NNI, posX : NNI, posY : NNI)
+       if member?([b, 0::NNI, 0::NNI], a)$List(OBJT) then return a
+       concat(a, [b, 0::NNI, 0::NNI])$List(OBJT)
+
+   -- local function used in oneSkeleton
+   concatIfNewArrow(a : List(Record(name : String, arrType : NNI, _
+                        fromOb : NNI, toOb : NNI, xOffset : Integer, _
+                        yOffset : Integer, map : List NNI)), _
+                   p : NNI, m : NNI):_
+                   List(Record(name : String, arrType : NNI, fromOb : NNI, _
+                        toOb : NNI, xOffset : Integer, yOffset : Integer, _
+                        map : List NNI)) ==
+       ARROW ==> Record(name : String, arrType : NNI, fromOb : NNI, _
+                   toOb : NNI, xOffset : Integer, yOffset : Integer, _
+                   map : List NNI)
+       if member?(["x", 0::NNI, p, m, 0::Integer, 0::Integer, []],_
+                a)$List(ARROW) then return a
+       if member?(["x", 0::NNI, m, p, 0::Integer, 0::Integer, []], _
+                a)$List(ARROW) then return a
+       concat(a, ["x", 0::NNI, p, m, 0::Integer, 0::Integer, []])$List(ARROW)
+
+   -- Generates graph AKA 1-skeleton.
+   -- Used to generate fundamental group
+   oneSkeleton(s : %) : DirectedGraph(NNI) ==
+       ARROW ==> Record(name : String, arrType : NNI, fromOb : NNI, _
+                   toOb : NNI, xOffset : Integer, yOffset : Integer, _
+                   map : List NNI)
+       OBJT ==> Record(value : NNI, posX : NNI, posY : NNI)
+       GS := DirectedGraph(NNI)
+       nodes := []$List(OBJT)
+       edges := []$List(ARROW)
+       for x in s.SIMP repeat
+           -- SIMP is List(OrientedFacet) so x is OrientedFacet
+           n : NNI := order(x)
+           indexes : List(NNI) := getIndexes(x)
+           if n=2 then
+               nodes := concatIfNew(nodes, indexes.1)
+               nodes := concatIfNew(nodes, indexes.2)
+               y : ARROW := ["x", 0::NNI, indexes.1, indexes.2, 0::Integer, 0::Integer, []]
+               edges := concat(edges, y)$List(ARROW)
+               --print ("nodes=" << nodes << " edges=" << edges)
+           if n > 2 then
+               for m in indexes repeat
+                   nodes := concatIfNew(nodes, m)
+                   for p in indexes repeat
+                       if p<m then
+                           edges := concatIfNewArrow(edges, p::NNI, m::NNI)
+       directedGraph(nodes, edges)$GS
+
+   -- Generates fundamental group from this simplicial complex.
+   -- This works by converting to a DeltaComplex and then generating the
+   -- fundamentalGroup from that. This is not the most efficient method
+   -- because the conversion generates lots of higher order faceMaps
+   -- which are not used.
+   -- This will attempt to simplify the group presentation, if you
+   -- don't want this use alternative function of same name.
+   -- TODO write a faster implementation which only generates edge and
+   -- triangle faceMaps.
+   fundamentalGroup(s : %) : GroupPresentation ==
+       fundamentalGroup(s, true, false)
+
+   -- Generates fundamental group from this simplicial complex.
+   -- This works by converting to a DeltaComplex and then generating the
+   -- fundamentalGroup from that. This is not the most efficient method
+   -- because the conversion generates lots of higher order faceMaps
+   -- which are not used.
+   -- TODO write a faster implementation which only generates edge and
+   -- triangle faceMaps.
+   -- This version has options to:
+   -- simplify - if true attempts to simplify the group presentation
+   -- trace - if true outputs trace of simplification rules used.
+   fundamentalGroup(s : %, simplify : Boolean, _
+                    trace : Boolean) : GroupPresentation ==
+       dc : DeltaComplex(VS) := deltaComplex(_
+                    s pretend FiniteSimplicialComplex(VS))
+       fundamentalGroup(dc, simplify, trace)
+
+   -- returns a matrix sequence representing the face maps
+   -- in linear algebra form
+   chain(s : %) : ChainComplex ==
+       dc : DeltaComplex(VS) := deltaComplex(_
+                   s pretend FiniteSimplicialComplex(VS))
+       chain(dc)$DeltaComplex(VS)
+
+   -- returns a matrix sequence representing the face maps
+   -- in linear algebra form
+   coChain(s : %) : CoChainComplex(VS) ==
+       coChainComplex(chain(s))
+
+   -- calculate homology using SmithNormalForm
+   homology(s : %) : List(Homology) ==
+       dc : DeltaComplex(VS) := deltaComplex(_
+               s pretend FiniteSimplicialComplex(VS))
+       homology(dc)$DeltaComplex(VS)
+
+   -- calculate homology using SmithNormalForm
+   coHomology(s : %) : List(Homology) ==
+       dc : DeltaComplex(VS) := deltaComplex(_
+                   s pretend FiniteSimplicialComplex(VS))
+       coHomology(dc)$DeltaComplex(VS)
+
+   -- Forms product of two simplicial complexes.
+   -- For more detailed explanation of simplex product code see:
+   -- \url{http://www.euclideanspace.com/prog/scratchpad/mycode/topology/simplex/product/}
+   -- Also see Hatcher [9].
+   -- page 277 - The simplical cross product.
+   -- page 278 - The cohomology cross product.
+   -- Returns list, each entry is a 'lattice path' from (0, 0) to (x, y)
+   -- where x is number of entries in sa and y is number of entries in sb.
+   product(a : %, b : %) : % ==
+       simpsa : List(OrientedFacet) := a.SIMP
+       simpsb : List(OrientedFacet) := b.SIMP
+       -- How do we represent the points? This should be the Cartesian
+       -- product of the points in 'a' and the points in 'b', so this
+       -- would increase the dimension of the points. But here
+       -- we do not know how these points are represented, we can only
+       -- do Abelian group operations (+, - or set to 0).
+       -- The following is not correct but it is the best I can do for now.
+       vs : List(VS) := []
+       for pa in a.VERTSET repeat
+           for pb in b.VERTSET repeat
+               pp:VS := pa+pb
+               vs := concat(vs,pp)
+       res := []$List(ProductFacet)
+       for simpa in simpsa repeat
+           for simpb in simpsb repeat
+               res := concat(res, product(simpa, simpb))
+       --print("product(" << a << ", " << b << ") raw res=" << res)
+       -- remove duplicates
+       res2 := []$List(ProductFacet)
+       for e in res repeat
+           if not member?(e, res2) then res2 := concat(res2, e)
+       --print("product(" << a << ", " << b << ") no dup=" << res2)
+       -- normalise res2 so facets have one index list each
+       res3 := []$List(OrientedFacet)
+       dima : NNI := 0 -- maximum dimension of left element
+       dimb : NNI := 0 -- maximum dimension of right element
+       for z in res2 repeat
+           az := getMaxLeft(z)
+           if az > dima then dima := az
+           bz := getMaxRight(z)
+           if bz > dimb then dimb := bz
+       for x in res2 repeat
+           inds : List(Record(left : NNI, right : NNI)) := getIndexs(x)
+           inds2 := []$List(NNI)
+           mul : Integer := getMult(x)
+           for y in inds repeat
+               l : NNI := subtractIfCan(y.left, 1)::NNI
+               r : NNI := subtractIfCan(y.right, 1)::NNI
+               newIndex : NNI := l*dimb + r + 1
+               --newIndex : NNI := (r + (dima - l)*dimb)pretend NNI
+               inds2 := concat(inds2, newIndex)$List(NNI)
+               --print("product indexes l=" << l << " r=" << r << " dima="
+               --    << dima << " dimb=" << dimb << " newIndex=" << newIndex)
+           res3 := concat(res3, orientedFacet(mul, inds2))
+       numPoints : NNI := a.NUMPOINTS * b.NUMPOINTS
+       [vs, numPoints, res3]
+
+   -- Local function used by '=' to check if two simplexes are equal.
+   -- To be equal they must contain the same indexes, wound in the same
+   -- direction but not necessarily starting at the same value.
+   equalSimplex(a : List(NNI), b : List(NNI)) : Boolean ==
+       --print("equalSimplex:" << a << ", " << b)
+       len : NNI := #a
+       if len ~= #b then return false
+       if len = 0 then return true
+       fst : NNI := first a
+       offset : Integer := position(fst, b)
+       if offset < 1 then return false
+       for n in 1..#a repeat
+           if a.n ~= b.offset then return false
+           offset := offset + 1
+           if offset > #b then offset := 1
+       true
+
+   -- Returns true if x equals y.
+   -- That is, they contain the same simplexes, although not necessarily
+   -- in the same order.
+   -- TODO - Assumes point set is exactly the same, for more generality
+   -- we should allow the points to be defined in a different order.
+   _=(a : %, b : %) : Boolean ==
+       as : List(OrientedFacet) := a.SIMP
+       bs : List(OrientedFacet) := b.SIMP
+       --print("equal:" << as << ", " << bs)
+       len : NNI := #as
+       if len ~= #bs then return false
+       -- flag for every entry in b
+       flags : List(Boolean) := [false for x in as]
+       --print("empty flags " << flags)
+       for a1 in as repeat
+           x : NNI := 1
+           while (a1 ~= bs.x) or (flags.x) repeat
+               --print("loop:" << x << " flags" << flags)
+               x := x + 1
+               if x > #as then return false
+           flags.x := true
+           --print("flags." << x << "=true " << flags)
+       --print("final flags " << flags)
+       for f in flags repeat
+           if f = false then return false
+       true
+
+   -- output
+   coerce(s : %) : OutputForm ==
+       res : OutputForm := hconcat([message("points 1.."),
+                                   (s.NUMPOINTS)::OutputForm])
+       if empty?(s.SIMP) then return bracket(message("empty"))
+       for a in s.SIMP repeat
+           -- a is OrientedFacet
+           res := vconcat(res, a::OutputForm)
+       --print("FiniteSimplicialComplex coerce num=" << #(s.SIMP))
+       res
+
+   -- coerce SimplicialComplex to DeltaComplex
+   coerce(s : %) : DeltaComplex(VS) ==
+       deltaComplex(s pretend FiniteSimplicialComplex(VS))
+
+)if false
+\section{FiniteCubicalComplex}
+
+Defines a set of n-dimensional facets.
+
+This representation defines faces, of any dimension, by their intervals.
+The representation is in two parts:
+\begin{itemize}
+\item The verities themselves which may either geometric (actual
+  coordinates) or abstract.
+\item A set of facets, each one represented by a set intervals.
+\end{itemize}
+
+)endif
+

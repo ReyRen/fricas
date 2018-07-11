@@ -1,0 +1,356 @@
+)abbrev package TESTCNT UnittestCount
+++ Author: Martin Rubey
+++ Description: UnittestCount is a package that keeps track of statistics
+++              collected during testing.  It is separate from
+++              \spadtype{UnittestAux} because the latter takes an argument,
+++              and we want the state to be common for all arguments.
+UnittestCount() : with
+
+     testsuite : String -> Void
+       ++ testsuite s starts a new testsuite with s as title. It also calls
+       ++ \spad{clear all}.  A testsuite is composed of several testcases.
+
+     testsuiteNoClear : String -> Void
+       ++ testsuiteNoClear s starts a new testsuite with s as title, without
+       ++ calling \spad{clear all}.  A testsuite is composed of several
+       ++ testcases.
+
+     testcase : String -> Void
+       ++ testcase s starts a new testcase with s as title.  It also calls
+       ++ \spad{clear all}.  A testcase is composed of several tests.
+
+     testcaseNoClear : String -> Void
+       ++ testcaseNoClear s, starts a new testcase with s as title, without
+       ++ calling \spad{clear all}.  A testcase is composed of several tests.
+
+     statistics : () -> Void
+       ++ statistics() prints out a summary of the outcome of the testcases so
+       ++ far. Use \spad{clear completely} to reset the statistics.
+
+     incPass : () -> Void
+       ++ incPass is an internal function that steps the number of passed
+       ++ tests.
+
+     incFail : (String, List OutputForm) -> Void
+       ++ incFail(s, o) is an internal function that steps the number of
+       ++ failed tests and records in- and output.
+
+     incXfPass : (String, List OutputForm) -> Void
+       ++ incXfPass(s, o) is an internal function that steps the number
+       ++ of tests that passed but were expected to fail and records
+       ++ in- and output.
+
+     decXfPass : () -> Void
+       ++ decXfPass() is an internal function that declares that the preceding
+       ++ test did not pass unexpectedly.  This function should only be used
+       ++ for testing library errors
+
+     incXfFail : () -> Void
+       ++ incXfFail() is an internal function that steps the number
+       ++ expected failures.
+
+     chkLibraryError : () -> Void
+       ++ chkLibraryError is an internal function that steps the number of
+       ++ tests.
+
+     incLibraryError : (String, List OutputForm) -> Void
+       ++ incLibraryError is an internal function that steps the number of
+       ++ failed tests, but not the number of tests.
+
+     incXfLibraryError : (String, List OutputForm) -> Void
+       ++ like incLibraryError, but using expected failures.
+
+     incFatal : String -> Void
+       ++ incFatal s is an internal function that steps the number of fatal
+       ++ tests and records input.
+
+     incXfFatal : String -> Void
+       ++ like incFatal, but for expected failures.
+
+     decFatal : () -> Void
+       ++ decFatal is an internal function that declares that the preceding
+       ++ test did not fail with a fatal error.
+
+     decXfFatal : () -> Void
+        ++ like decFatal, but for expected failures.
+
+     addWarning : OutputForm -> Void
+       ++ addWarning s is an internal function that adds s, together with an
+       ++ indication of the current testcase and the current testsuite to the
+       ++ list of warnings.
+
+  == add
+
+     O ==> OutputForm
+     P ==> OutputPackage
+
+     maxWidth : NonNegativeInteger := 77
+
+     FAILED    ==> Record(index : Integer,
+                          input : String,
+                          output : List OutputForm)
+
+     FATAL     ==> Record(index : Integer,
+                          input : String)
+
+     TESTCASE  ==> Record(total : Integer,
+                          fail : Integer,
+                          xfail : Integer,
+                          xfpass : Integer,
+                          fatalities : List FATAL,
+                          xfpassed : List FAILED,
+                          failed : List FAILED)
+
+     TESTSUITE ==> AssociationList(String, TESTCASE)
+
+     tests : AssociationList(String, TESTSUITE) := empty()
+     warnings : List O := []
+
+     currentTestcase : String := ""
+     currentTestsuite : String := ""
+
+     testsuite s ==
+         systemCommand("clear all")$MoreSystemCommands
+         testsuiteNoClear s
+
+     testsuiteNoClear s ==
+         if #s > 15
+         then messagePrint("WARNING: string for testsuite should have less than "
+                           "15 characters!")$OutputForm
+
+         currentTestsuite := s
+         insert!([currentTestsuite, empty()$TESTSUITE]_
+                 $Record(key : String, entry : TESTSUITE), _
+                 tests)
+
+     testcaseNoClear s ==
+         -- if #s > maxWidth - # "  Testcase: " then
+         --  messagePrint("WARNING: string for testcase should have less than "
+         --                  string(maxWidth - # "  Testcase: ") _
+         --                  " characters!")$OutputForm
+
+         currentTestcase := s
+         insert!([currentTestcase, _
+                  [0, 0, 0, 0, [], [], []]$TESTCASE]$Record(key : String, entry : TESTCASE), _
+                 tests.currentTestsuite)
+
+     testcase s ==
+         systemCommand("clear all")$MoreSystemCommands
+         testcaseNoClear s
+
+     incPass() ==
+         cur := tests.currentTestsuite.currentTestcase
+         cur.total := cur.total + 1
+
+     chkLibraryError() ==
+         cur := tests.currentTestsuite.currentTestcase
+         cur.total := cur.total + 1
+
+     incLibraryError(inp, out) ==
+         cur := tests.currentTestsuite.currentTestcase
+         cur.fail := cur.fail + 1
+-- because of the chkLibraryError / incLibraryError construction, the total
+-- number must not be stepped
+         cur.failed := cons([cur.total, inp, out]$FAILED, cur.failed)
+
+     incXfLibraryError(inp, out) ==
+         cur := tests.currentTestsuite.currentTestcase
+         cur.xfail := cur.xfail + 1
+
+     incXfFail() ==
+         cur := tests.currentTestsuite.currentTestcase
+         cur.xfail := cur.xfail + 1
+         cur.total := cur.total + 1
+
+     incFail(inp, out) ==
+         cur := tests.currentTestsuite.currentTestcase
+         cur.fail := cur.fail + 1
+-- because of the incFatal / decFatal construction, the current index is
+-- cur.total, rather than cur.total + 1
+         cur.failed := cons([cur.total, inp, out]$FAILED, cur.failed)
+         cur.total := cur.total + 1
+
+     incXfPass(inp, out) ==
+         cur := tests.currentTestsuite.currentTestcase
+         cur.xfpass := cur.xfpass + 1
+         cur.xfpassed := cons([cur.total, inp, out]$FAILED,
+                                  cur.xfpassed)
+         cur.total := cur.total + 1
+
+     decXfPass() ==
+         cur := tests.currentTestsuite.currentTestcase
+         cur.total := cur.total - 1
+         cur.xfpassed := rest(cur.xfpassed)
+         cur.xfpass := cur.xfpass - 1
+
+     incFatal inp ==
+         cur := tests.currentTestsuite.currentTestcase
+         cur.total := cur.total + 1
+         cur.fail := cur.fail + 1
+         cur.fatalities := cons([cur.total, inp]$FATAL, cur.fatalities)
+
+     decFatal() ==
+         cur := tests.currentTestsuite.currentTestcase
+         cur.total := cur.total - 1
+         cur.fail := cur.fail - 1
+         cur.fatalities := rest(cur.fatalities)
+
+     incXfFatal inp ==
+         cur := tests.currentTestsuite.currentTestcase
+         cur.total := cur.total + 1
+         cur.xfail := cur.xfail + 1
+
+     decXfFatal() ==
+         cur := tests.currentTestsuite.currentTestcase
+         cur.total := cur.total - 1
+         cur.xfail := cur.xfail - 1
+
+     addWarning s ==
+         idx := tests.currentTestsuite.currentTestcase.total
+         warnings := cons(pile([message("Testsuite: " currentTestsuite)$O,
+                                message("Testcase: " currentTestcase)$O,
+                                message("test: " string(idx))$O,
+                                s])$O, warnings)
+
+     statistics() ==
+         messagePrint(new(maxWidth, char "=")$String)$O
+         messagePrint("General WARNINGS:")$O
+         messagePrint("* do not use ')clear completely' before having used "_
+                      "'statistics()'")$O
+         messagePrint("  It clears the statistics without warning!")$O
+         messagePrint("* do not forget to pass the arguments of the testXxxx "_
+                      "functions as Strings!")$O
+         messagePrint("  Otherwise, the test will fail and statistics() will "_
+                      "not notice!")$O
+         messagePrint("* testLibraryError does not prevent FriCAS from " _
+                      "aborting the current block.")$O
+         messagePrint("  Thus, if a block contains other test functions, they " _
+                      "will not be executed")$O
+         messagePrint("  and statistics() will not notice!")$O
+
+         if # warnings > 0 then
+             messagePrint(new(maxWidth, char "=")$String)$O
+             messagePrint("WARNINGS:")$O
+             for w in reverse warnings repeat
+                 output(w)$P
+
+         output("")$P
+
+         totalTests : Integer := 0
+         failedTests : Integer := 0
+         xfailedTests : Integer := 0
+         xfpassedTests : Integer := 0
+
+         for tstsuite in reverse parts(tests)_
+                             @List Record(key : String, entry : TESTSUITE) repeat
+
+             failedCases : Integer := 0
+             xfpassedCases : Integer := 0
+             totalCases : Integer := 0
+
+             for tstcase in reverse parts(tstsuite.entry)_
+                              @List Record(key : String, entry : TESTCASE) repeat
+                 totalCases := totalCases + 1
+                 if tstcase.entry.fail > 0 then failedCases := failedCases + 1
+                 if tstcase.entry.xfpass > 0 then xfpassedCases := xfpassedCases + 1
+
+                 totalTests := totalTests + tstcase.entry.total
+                 failedTests := failedTests + tstcase.entry.fail
+                 xfailedTests := xfailedTests + tstcase.entry.xfail
+                 xfpassedTests := xfpassedTests + tstcase.entry.xfpass
+
+             messagePrint(new(maxWidth, char "=")$String)$O
+             messagePrint("Testsuite: " tstsuite.key)$O
+             messagePrint("  failed (total): " _
+                          string(failedCases) " (" _
+                          string(totalCases) ")")$O
+             if failedCases > 0 then
+                 output("")$P
+                 messagePrint("  failed testcases were:")$O
+                 for tstcase in reverse parts(tstsuite.entry)_
+                              @List Record(key : String, entry : TESTCASE) _
+                     | tstcase.entry.fail > 0 repeat
+                     messagePrint("  " new((maxWidth-2)::NonNegativeInteger, _
+                                           char "-")$String)$O
+                     messagePrint("  Testcase: " tstcase.key)$O
+                     messagePrint("    failed (total): " _
+                          string(tstcase.entry.fail) _
+                          " (" string(tstcase.entry.total) ")")$O
+
+                     if not empty?(tstcase.entry.failed) then
+                         output("")$P
+                         messagePrint("    failed tests were:")$O
+                         for f in reverse(tstcase.entry.failed) repeat
+                             output("")$P
+                             messagePrint("      " string(f.index) ": " f.input)$O
+                             for o in f.output for i in 1..#(f.output) repeat
+                                 outstring := "      Output" string(i) ": "
+                                 output(hconcat(message outstring, o)$O)$P
+
+                     if not empty?(tstcase.entry.fatalities) then
+                         output("")$P
+                         messagePrint("  fatal tests were:")$O
+                         for f in reverse(tstcase.entry.fatalities) repeat
+                             output("")$P
+                             messagePrint("      " string(f.index) ": " f.input)$O
+
+             if xfpassedCases > 0 then
+                 output("")$P
+                 messagePrint("  testcases with unexpected passed tests were:")$O
+                 for tstcase in reverse parts(tstsuite.entry)_
+                              @List Record(key : String, entry : TESTCASE) _
+                     |  tstcase.entry.xfpass > 0 repeat
+                     messagePrint("  " new((maxWidth-2)::NonNegativeInteger, _
+                                           char "-")$String)$O
+                     messagePrint("  Testcase: " tstcase.key)$O
+
+                     if not empty?(tstcase.entry.xfpassed) then
+                         output("")$P
+                         messagePrint("  unexpected passed tests were:")$O
+                         for f in reverse(tstcase.entry.xfpassed) repeat
+                             output("")$P
+                             messagePrint("      " string(f.index) ": " f.input)$O
+
+
+         output("")$P
+         messagePrint(new(maxWidth, char "=")$String)$O
+         messagePrint("testsuite | testcases: failed (total) | tests: failed (total)")$O
+         for tstsuite in reverse parts(tests)_
+                             @List Record(key : String, entry : TESTSUITE) repeat
+
+             failedCases : Integer := 0
+             totalCases : Integer := 0
+
+             tsfailedTests : Integer := 0
+             tstotalTests : Integer := 0
+
+             for tstcase in reverse parts(tstsuite.entry)_
+                              @List Record(key : String, entry : TESTCASE) repeat
+                 totalCases := totalCases + 1
+                 if tstcase.entry.fail > 0 then failedCases := failedCases + 1
+                 tstotalTests := tstotalTests + tstcase.entry.total
+                 tsfailedTests := tsfailedTests + tstcase.entry.fail
+
+             sfailedCases := string failedCases
+             stotalCases := string totalCases
+             sfailedTests := string tsfailedTests
+             stotalTests := string tstotalTests
+             messagePrint(tstsuite.key _
+                          new(max(24-#(tstsuite.key), 0)::NonNegativeInteger, _
+                              char " ") _
+                          new(max(5-#sfailedCases, 0)::NonNegativeInteger, _
+                              char " ") sfailedCases _
+                          new(max(6-#stotalCases, 0)::NonNegativeInteger, _
+                              char " ") "(" stotalCases ")" _
+                          new(max(16-#sfailedTests, 0)::NonNegativeInteger, _
+                              char " ") sfailedTests _
+                          new(max(6-#stotalTests, 0)::NonNegativeInteger, _
+                              char " ") "(" stotalTests ")")$O
+         messagePrint(new(maxWidth, char "=")$String)$O
+         messagePrint("File summary.")$O
+         messagePrint("unexpected failures: " string failedTests)$O
+         messagePrint("expected failures: " string xfailedTests)$O
+         messagePrint("unexpected passes: " string xfpassedTests)$O
+         messagePrint("total tests: " string totalTests)$O
+
+

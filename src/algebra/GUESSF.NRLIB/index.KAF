@@ -1,0 +1,1620 @@
+82165               (|GuessFinite| F)
+|package|
+(((|GuessFinite| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |guess| ((|List| (|Expression| (|Integer|))) (|List| |#1|)))
+   (SIGNATURE |guess|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)
+     (|List| (|GuessOption|))))
+   (SIGNATURE |guess|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)
+     (|List|
+      (|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+                 (|List| (|GuessOption|))))
+     (|List| (|Symbol|))))
+   (SIGNATURE |guess|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)
+     (|List|
+      (|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+                 (|List| (|GuessOption|))))
+     (|List| (|Symbol|)) (|List| (|GuessOption|))))
+   (SIGNATURE |guessExpRat|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)))
+   (SIGNATURE |guessExpRat|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)
+     (|List| (|GuessOption|))))
+   (SIGNATURE |guessBinRat|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)))
+   (SIGNATURE |guessBinRat|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)
+     (|List| (|GuessOption|))))
+   (IF (|has| |#1| (|RetractableTo| (|Symbol|)))
+       (IF (|has| |#1| (|RetractableTo| (|Symbol|)))
+           (PROGN
+            (SIGNATURE |guessExpRat|
+             ((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+                         (|List| (|GuessOption|)))
+              (|Symbol|)))
+            (SIGNATURE |guessBinRat|
+             ((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+                         (|List| (|GuessOption|)))
+              (|Symbol|))))
+           |noBranch|)
+       |noBranch|)
+   (SIGNATURE |guessAlgDep|
+    ((|List| (|Expression| (|Integer|))) (|List| (|List| |#1|))))
+   (SIGNATURE |guessAlgDep|
+    ((|List| (|Expression| (|Integer|))) (|List| (|List| |#1|))
+     (|List| (|GuessOption|))))
+   (SIGNATURE |guessADE| ((|List| (|Expression| (|Integer|))) (|List| |#1|)))
+   (SIGNATURE |guessADE|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)
+     (|List| (|GuessOption|))))
+   (SIGNATURE |guessFE| ((|List| (|Expression| (|Integer|))) (|List| |#1|)))
+   (SIGNATURE |guessFE|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)
+     (|List| (|GuessOption|))))
+   (SIGNATURE |guessAlg| ((|List| (|Expression| (|Integer|))) (|List| |#1|)))
+   (SIGNATURE |guessAlg|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)
+     (|List| (|GuessOption|))))
+   (SIGNATURE |guessHolo| ((|List| (|Expression| (|Integer|))) (|List| |#1|)))
+   (SIGNATURE |guessHolo|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)
+     (|List| (|GuessOption|))))
+   (SIGNATURE |guessPade|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)
+     (|List| (|GuessOption|))))
+   (SIGNATURE |guessPade| ((|List| (|Expression| (|Integer|))) (|List| |#1|)))
+   (SIGNATURE |guessRec| ((|List| (|Expression| (|Integer|))) (|List| |#1|)))
+   (SIGNATURE |guessRec|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)
+     (|List| (|GuessOption|))))
+   (SIGNATURE |guessPRec|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)
+     (|List| (|GuessOption|))))
+   (SIGNATURE |guessPRec| ((|List| (|Expression| (|Integer|))) (|List| |#1|)))
+   (SIGNATURE |guessRat|
+    ((|List| (|Expression| (|Integer|))) (|List| |#1|)
+     (|List| (|GuessOption|))))
+   (SIGNATURE |guessRat| ((|List| (|Expression| (|Integer|))) (|List| |#1|)))
+   (SIGNATURE |algDepHP|
+    ((|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+               (|:| |guessStream|
+                    (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                               (|UnivariateFormalPowerSeries| |#1|)))
+               (|:| |guessModGen|
+                    (|Mapping|
+                     (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                                (|Integer|) (|Integer|))
+                     (|NonNegativeInteger|)))
+               (|:| |testGen|
+                    (|Mapping|
+                     (|Mapping|
+                      (|Vector|
+                       (|UnivariateFormalPowerSeries|
+                        (|SparseMultivariatePolynomial| |#1|
+                                                        (|NonNegativeInteger|))))
+                      (|UnivariateFormalPowerSeries|
+                       (|SparseMultivariatePolynomial| |#1|
+                                                       (|NonNegativeInteger|))))
+                     (|List| (|PositiveInteger|))))
+               (|:| |exprStream|
+                    (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                               (|Expression| (|Integer|)) (|Symbol|)))
+               (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+               (|:| A
+                    (|Mapping| |#1| (|NonNegativeInteger|)
+                               (|NonNegativeInteger|)
+                               (|SparseUnivariatePolynomial| |#1|)))
+               (|:| AF
+                    (|Mapping|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|))
+                     (|NonNegativeInteger|) (|NonNegativeInteger|)
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|)))))
+               (|:| AX
+                    (|Mapping| (|Expression| (|Integer|))
+                               (|NonNegativeInteger|) (|Symbol|)
+                               (|Expression| (|Integer|))))
+               (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+     (|List| (|List| |#1|)) (|List| (|GuessOption|))))
+   (SIGNATURE |diffHP|
+    ((|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+               (|:| |guessStream|
+                    (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                               (|UnivariateFormalPowerSeries| |#1|)))
+               (|:| |guessModGen|
+                    (|Mapping|
+                     (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                                (|Integer|) (|Integer|))
+                     (|NonNegativeInteger|)))
+               (|:| |testGen|
+                    (|Mapping|
+                     (|Mapping|
+                      (|Vector|
+                       (|UnivariateFormalPowerSeries|
+                        (|SparseMultivariatePolynomial| |#1|
+                                                        (|NonNegativeInteger|))))
+                      (|UnivariateFormalPowerSeries|
+                       (|SparseMultivariatePolynomial| |#1|
+                                                       (|NonNegativeInteger|))))
+                     (|List| (|PositiveInteger|))))
+               (|:| |exprStream|
+                    (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                               (|Expression| (|Integer|)) (|Symbol|)))
+               (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+               (|:| A
+                    (|Mapping| |#1| (|NonNegativeInteger|)
+                               (|NonNegativeInteger|)
+                               (|SparseUnivariatePolynomial| |#1|)))
+               (|:| AF
+                    (|Mapping|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|))
+                     (|NonNegativeInteger|) (|NonNegativeInteger|)
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|)))))
+               (|:| AX
+                    (|Mapping| (|Expression| (|Integer|))
+                               (|NonNegativeInteger|) (|Symbol|)
+                               (|Expression| (|Integer|))))
+               (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+     (|List| (|GuessOption|))))
+   (SIGNATURE |substHP|
+    ((|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+               (|:| |guessStream|
+                    (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                               (|UnivariateFormalPowerSeries| |#1|)))
+               (|:| |guessModGen|
+                    (|Mapping|
+                     (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                                (|Integer|) (|Integer|))
+                     (|NonNegativeInteger|)))
+               (|:| |testGen|
+                    (|Mapping|
+                     (|Mapping|
+                      (|Vector|
+                       (|UnivariateFormalPowerSeries|
+                        (|SparseMultivariatePolynomial| |#1|
+                                                        (|NonNegativeInteger|))))
+                      (|UnivariateFormalPowerSeries|
+                       (|SparseMultivariatePolynomial| |#1|
+                                                       (|NonNegativeInteger|))))
+                     (|List| (|PositiveInteger|))))
+               (|:| |exprStream|
+                    (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                               (|Expression| (|Integer|)) (|Symbol|)))
+               (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+               (|:| A
+                    (|Mapping| |#1| (|NonNegativeInteger|)
+                               (|NonNegativeInteger|)
+                               (|SparseUnivariatePolynomial| |#1|)))
+               (|:| AF
+                    (|Mapping|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|))
+                     (|NonNegativeInteger|) (|NonNegativeInteger|)
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|)))))
+               (|:| AX
+                    (|Mapping| (|Expression| (|Integer|))
+                               (|NonNegativeInteger|) (|Symbol|)
+                               (|Expression| (|Integer|))))
+               (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+     (|List| (|GuessOption|))))
+   (SIGNATURE |shiftHP|
+    ((|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+               (|:| |guessStream|
+                    (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                               (|UnivariateFormalPowerSeries| |#1|)))
+               (|:| |guessModGen|
+                    (|Mapping|
+                     (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                                (|Integer|) (|Integer|))
+                     (|NonNegativeInteger|)))
+               (|:| |testGen|
+                    (|Mapping|
+                     (|Mapping|
+                      (|Vector|
+                       (|UnivariateFormalPowerSeries|
+                        (|SparseMultivariatePolynomial| |#1|
+                                                        (|NonNegativeInteger|))))
+                      (|UnivariateFormalPowerSeries|
+                       (|SparseMultivariatePolynomial| |#1|
+                                                       (|NonNegativeInteger|))))
+                     (|List| (|PositiveInteger|))))
+               (|:| |exprStream|
+                    (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                               (|Expression| (|Integer|)) (|Symbol|)))
+               (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+               (|:| A
+                    (|Mapping| |#1| (|NonNegativeInteger|)
+                               (|NonNegativeInteger|)
+                               (|SparseUnivariatePolynomial| |#1|)))
+               (|:| AF
+                    (|Mapping|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|))
+                     (|NonNegativeInteger|) (|NonNegativeInteger|)
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|)))))
+               (|:| AX
+                    (|Mapping| (|Expression| (|Integer|))
+                               (|NonNegativeInteger|) (|Symbol|)
+                               (|Expression| (|Integer|))))
+               (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+     (|List| (|GuessOption|))))
+   (IF (|has| |#1| (|RetractableTo| (|Symbol|)))
+       (IF (|has| |#1| (|RetractableTo| (|Symbol|)))
+           (PROGN
+            (SIGNATURE |shiftHP|
+             ((|Mapping|
+               (|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+                         (|:| |guessStream|
+                              (|Mapping|
+                               (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                               (|UnivariateFormalPowerSeries| |#1|)))
+                         (|:| |guessModGen|
+                              (|Mapping|
+                               (|Mapping| (|Vector| (|U32Vector|))
+                                          (|List| (|U32Vector|)) (|Integer|)
+                                          (|Integer|))
+                               (|NonNegativeInteger|)))
+                         (|:| |testGen|
+                              (|Mapping|
+                               (|Mapping|
+                                (|Vector|
+                                 (|UnivariateFormalPowerSeries|
+                                  (|SparseMultivariatePolynomial| |#1|
+                                                                  (|NonNegativeInteger|))))
+                                (|UnivariateFormalPowerSeries|
+                                 (|SparseMultivariatePolynomial| |#1|
+                                                                 (|NonNegativeInteger|))))
+                               (|List| (|PositiveInteger|))))
+                         (|:| |exprStream|
+                              (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                                         (|Expression| (|Integer|))
+                                         (|Symbol|)))
+                         (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+                         (|:| A
+                              (|Mapping| |#1| (|NonNegativeInteger|)
+                                         (|NonNegativeInteger|)
+                                         (|SparseUnivariatePolynomial| |#1|)))
+                         (|:| AF
+                              (|Mapping|
+                               (|SparseMultivariatePolynomial| |#1|
+                                                               (|NonNegativeInteger|))
+                               (|NonNegativeInteger|) (|NonNegativeInteger|)
+                               (|UnivariateFormalPowerSeries|
+                                (|SparseMultivariatePolynomial| |#1|
+                                                                (|NonNegativeInteger|)))))
+                         (|:| AX
+                              (|Mapping| (|Expression| (|Integer|))
+                                         (|NonNegativeInteger|) (|Symbol|)
+                                         (|Expression| (|Integer|))))
+                         (|:| C
+                              (|Mapping| (|List| |#1|)
+                                         (|NonNegativeInteger|))))
+               (|List| (|GuessOption|)))
+              (|Symbol|)))
+            (SIGNATURE |diffHP|
+             ((|Mapping|
+               (|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+                         (|:| |guessStream|
+                              (|Mapping|
+                               (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                               (|UnivariateFormalPowerSeries| |#1|)))
+                         (|:| |guessModGen|
+                              (|Mapping|
+                               (|Mapping| (|Vector| (|U32Vector|))
+                                          (|List| (|U32Vector|)) (|Integer|)
+                                          (|Integer|))
+                               (|NonNegativeInteger|)))
+                         (|:| |testGen|
+                              (|Mapping|
+                               (|Mapping|
+                                (|Vector|
+                                 (|UnivariateFormalPowerSeries|
+                                  (|SparseMultivariatePolynomial| |#1|
+                                                                  (|NonNegativeInteger|))))
+                                (|UnivariateFormalPowerSeries|
+                                 (|SparseMultivariatePolynomial| |#1|
+                                                                 (|NonNegativeInteger|))))
+                               (|List| (|PositiveInteger|))))
+                         (|:| |exprStream|
+                              (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                                         (|Expression| (|Integer|))
+                                         (|Symbol|)))
+                         (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+                         (|:| A
+                              (|Mapping| |#1| (|NonNegativeInteger|)
+                                         (|NonNegativeInteger|)
+                                         (|SparseUnivariatePolynomial| |#1|)))
+                         (|:| AF
+                              (|Mapping|
+                               (|SparseMultivariatePolynomial| |#1|
+                                                               (|NonNegativeInteger|))
+                               (|NonNegativeInteger|) (|NonNegativeInteger|)
+                               (|UnivariateFormalPowerSeries|
+                                (|SparseMultivariatePolynomial| |#1|
+                                                                (|NonNegativeInteger|)))))
+                         (|:| AX
+                              (|Mapping| (|Expression| (|Integer|))
+                                         (|NonNegativeInteger|) (|Symbol|)
+                                         (|Expression| (|Integer|))))
+                         (|:| C
+                              (|Mapping| (|List| |#1|)
+                                         (|NonNegativeInteger|))))
+               (|List| (|GuessOption|)))
+              (|Symbol|)))
+            (SIGNATURE |guessRec|
+             ((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+                         (|List| (|GuessOption|)))
+              (|Symbol|)))
+            (SIGNATURE |guessPRec|
+             ((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+                         (|List| (|GuessOption|)))
+              (|Symbol|)))
+            (SIGNATURE |guessRat|
+             ((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+                         (|List| (|GuessOption|)))
+              (|Symbol|)))
+            (SIGNATURE |guessADE|
+             ((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+                         (|List| (|GuessOption|)))
+              (|Symbol|)))
+            (SIGNATURE |guessHolo|
+             ((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+                         (|List| (|GuessOption|)))
+              (|Symbol|))))
+           |noBranch|)
+       |noBranch|))
+  (|Join| (|FiniteFieldCategory|) (|ConvertibleTo| (|Integer|))))
+ (T |GuessFinite|))
+(CATEGORY |package|
+ (SIGNATURE |guess| ((|List| #1=(|Expression| (|Integer|))) (|List| |#1|)))
+ (SIGNATURE |guess| ((|List| #1#) (|List| |#1|) (|List| (|GuessOption|))))
+ (SIGNATURE |guess|
+  ((|List| #1#) (|List| |#1|)
+   (|List| (|Mapping| (|List| #1#) (|List| |#1|) (|List| (|GuessOption|))))
+   (|List| (|Symbol|))))
+ (SIGNATURE |guess|
+  ((|List| #1#) (|List| |#1|)
+   (|List| (|Mapping| (|List| #1#) (|List| |#1|) (|List| (|GuessOption|))))
+   (|List| (|Symbol|)) (|List| (|GuessOption|))))
+ (SIGNATURE |guessExpRat| ((|List| #1#) (|List| |#1|)))
+ (SIGNATURE |guessExpRat|
+  ((|List| #1#) (|List| |#1|) (|List| (|GuessOption|))))
+ (SIGNATURE |guessBinRat| ((|List| #1#) (|List| |#1|)))
+ (SIGNATURE |guessBinRat|
+  ((|List| #1#) (|List| |#1|) (|List| (|GuessOption|))))
+ (IF (|has| |#1| (|RetractableTo| (|Symbol|)))
+     (IF (|has| |#1| (|RetractableTo| (|Symbol|)))
+         (PROGN
+          (SIGNATURE |guessExpRat|
+           ((|Mapping| (|List| #1#) (|List| |#1|) (|List| (|GuessOption|)))
+            (|Symbol|)))
+          (SIGNATURE |guessBinRat|
+           ((|Mapping| (|List| #1#) (|List| |#1|) (|List| (|GuessOption|)))
+            (|Symbol|))))
+         |noBranch|)
+     |noBranch|)
+ (SIGNATURE |guessAlgDep| ((|List| #1#) (|List| (|List| |#1|))))
+ (SIGNATURE |guessAlgDep|
+  ((|List| #1#) (|List| (|List| |#1|)) (|List| (|GuessOption|))))
+ (SIGNATURE |guessADE| ((|List| #1#) (|List| |#1|)))
+ (SIGNATURE |guessADE| ((|List| #1#) (|List| |#1|) (|List| (|GuessOption|))))
+ (SIGNATURE |guessFE| ((|List| #1#) (|List| |#1|)))
+ (SIGNATURE |guessFE| ((|List| #1#) (|List| |#1|) (|List| (|GuessOption|))))
+ (SIGNATURE |guessAlg| ((|List| #1#) (|List| |#1|)))
+ (SIGNATURE |guessAlg| ((|List| #1#) (|List| |#1|) (|List| (|GuessOption|))))
+ (SIGNATURE |guessHolo| ((|List| #1#) (|List| |#1|)))
+ (SIGNATURE |guessHolo| ((|List| #1#) (|List| |#1|) (|List| (|GuessOption|))))
+ (SIGNATURE |guessPade| ((|List| #1#) (|List| |#1|) (|List| (|GuessOption|))))
+ (SIGNATURE |guessPade| ((|List| #1#) (|List| |#1|)))
+ (SIGNATURE |guessRec| ((|List| #1#) (|List| |#1|)))
+ (SIGNATURE |guessRec| ((|List| #1#) (|List| |#1|) (|List| (|GuessOption|))))
+ (SIGNATURE |guessPRec| ((|List| #1#) (|List| |#1|) (|List| (|GuessOption|))))
+ (SIGNATURE |guessPRec| ((|List| #1#) (|List| |#1|)))
+ (SIGNATURE |guessRat| ((|List| #1#) (|List| |#1|) (|List| (|GuessOption|))))
+ (SIGNATURE |guessRat| ((|List| #1#) (|List| |#1|)))
+ (SIGNATURE |algDepHP|
+  ((|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+             (|:| |guessStream|
+                  (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                             (|UnivariateFormalPowerSeries| |#1|)))
+             (|:| |guessModGen|
+                  (|Mapping|
+                   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                              (|Integer|) (|Integer|))
+                   (|NonNegativeInteger|)))
+             (|:| |testGen|
+                  (|Mapping|
+                   (|Mapping|
+                    (|Vector|
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|))))
+                    (|UnivariateFormalPowerSeries|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|))))
+                   (|List| (|PositiveInteger|))))
+             (|:| |exprStream| (|Mapping| (|Stream| #1#) #1# (|Symbol|)))
+             (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+             (|:| A
+                  (|Mapping| |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)
+                             (|SparseUnivariatePolynomial| |#1|)))
+             (|:| AF
+                  (|Mapping|
+                   (|SparseMultivariatePolynomial| |#1| (|NonNegativeInteger|))
+                   (|NonNegativeInteger|) (|NonNegativeInteger|)
+                   (|UnivariateFormalPowerSeries|
+                    (|SparseMultivariatePolynomial| |#1|
+                                                    (|NonNegativeInteger|)))))
+             (|:| AX (|Mapping| #1# (|NonNegativeInteger|) (|Symbol|) #1#))
+             (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+   (|List| (|List| |#1|)) (|List| (|GuessOption|))))
+ (SIGNATURE |diffHP|
+  ((|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+             (|:| |guessStream|
+                  (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                             (|UnivariateFormalPowerSeries| |#1|)))
+             (|:| |guessModGen|
+                  (|Mapping|
+                   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                              (|Integer|) (|Integer|))
+                   (|NonNegativeInteger|)))
+             (|:| |testGen|
+                  (|Mapping|
+                   (|Mapping|
+                    (|Vector|
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|))))
+                    (|UnivariateFormalPowerSeries|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|))))
+                   (|List| (|PositiveInteger|))))
+             (|:| |exprStream| (|Mapping| (|Stream| #1#) #1# (|Symbol|)))
+             (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+             (|:| A
+                  (|Mapping| |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)
+                             (|SparseUnivariatePolynomial| |#1|)))
+             (|:| AF
+                  (|Mapping|
+                   (|SparseMultivariatePolynomial| |#1| (|NonNegativeInteger|))
+                   (|NonNegativeInteger|) (|NonNegativeInteger|)
+                   (|UnivariateFormalPowerSeries|
+                    (|SparseMultivariatePolynomial| |#1|
+                                                    (|NonNegativeInteger|)))))
+             (|:| AX (|Mapping| #1# (|NonNegativeInteger|) (|Symbol|) #1#))
+             (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+   (|List| (|GuessOption|))))
+ (SIGNATURE |substHP|
+  ((|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+             (|:| |guessStream|
+                  (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                             (|UnivariateFormalPowerSeries| |#1|)))
+             (|:| |guessModGen|
+                  (|Mapping|
+                   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                              (|Integer|) (|Integer|))
+                   (|NonNegativeInteger|)))
+             (|:| |testGen|
+                  (|Mapping|
+                   (|Mapping|
+                    (|Vector|
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|))))
+                    (|UnivariateFormalPowerSeries|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|))))
+                   (|List| (|PositiveInteger|))))
+             (|:| |exprStream| (|Mapping| (|Stream| #1#) #1# (|Symbol|)))
+             (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+             (|:| A
+                  (|Mapping| |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)
+                             (|SparseUnivariatePolynomial| |#1|)))
+             (|:| AF
+                  (|Mapping|
+                   (|SparseMultivariatePolynomial| |#1| (|NonNegativeInteger|))
+                   (|NonNegativeInteger|) (|NonNegativeInteger|)
+                   (|UnivariateFormalPowerSeries|
+                    (|SparseMultivariatePolynomial| |#1|
+                                                    (|NonNegativeInteger|)))))
+             (|:| AX (|Mapping| #1# (|NonNegativeInteger|) (|Symbol|) #1#))
+             (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+   (|List| (|GuessOption|))))
+ (SIGNATURE |shiftHP|
+  ((|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+             (|:| |guessStream|
+                  (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                             (|UnivariateFormalPowerSeries| |#1|)))
+             (|:| |guessModGen|
+                  (|Mapping|
+                   (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                              (|Integer|) (|Integer|))
+                   (|NonNegativeInteger|)))
+             (|:| |testGen|
+                  (|Mapping|
+                   (|Mapping|
+                    (|Vector|
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|))))
+                    (|UnivariateFormalPowerSeries|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|))))
+                   (|List| (|PositiveInteger|))))
+             (|:| |exprStream| (|Mapping| (|Stream| #1#) #1# (|Symbol|)))
+             (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+             (|:| A
+                  (|Mapping| |#1| (|NonNegativeInteger|) (|NonNegativeInteger|)
+                             (|SparseUnivariatePolynomial| |#1|)))
+             (|:| AF
+                  (|Mapping|
+                   (|SparseMultivariatePolynomial| |#1| (|NonNegativeInteger|))
+                   (|NonNegativeInteger|) (|NonNegativeInteger|)
+                   (|UnivariateFormalPowerSeries|
+                    (|SparseMultivariatePolynomial| |#1|
+                                                    (|NonNegativeInteger|)))))
+             (|:| AX (|Mapping| #1# (|NonNegativeInteger|) (|Symbol|) #1#))
+             (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+   (|List| (|GuessOption|))))
+ (IF (|has| |#1| (|RetractableTo| (|Symbol|)))
+     (IF (|has| |#1| (|RetractableTo| (|Symbol|)))
+         (PROGN
+          (SIGNATURE |shiftHP|
+           ((|Mapping|
+             (|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+                       (|:| |guessStream|
+                            (|Mapping|
+                             (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                             (|UnivariateFormalPowerSeries| |#1|)))
+                       (|:| |guessModGen|
+                            (|Mapping|
+                             (|Mapping| (|Vector| (|U32Vector|))
+                                        (|List| (|U32Vector|)) (|Integer|)
+                                        (|Integer|))
+                             (|NonNegativeInteger|)))
+                       (|:| |testGen|
+                            (|Mapping|
+                             (|Mapping|
+                              (|Vector|
+                               (|UnivariateFormalPowerSeries|
+                                (|SparseMultivariatePolynomial| |#1|
+                                                                (|NonNegativeInteger|))))
+                              (|UnivariateFormalPowerSeries|
+                               (|SparseMultivariatePolynomial| |#1|
+                                                               (|NonNegativeInteger|))))
+                             (|List| (|PositiveInteger|))))
+                       (|:| |exprStream|
+                            (|Mapping| (|Stream| #1#) #1# (|Symbol|)))
+                       (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+                       (|:| A
+                            (|Mapping| |#1| (|NonNegativeInteger|)
+                                       (|NonNegativeInteger|)
+                                       (|SparseUnivariatePolynomial| |#1|)))
+                       (|:| AF
+                            (|Mapping|
+                             (|SparseMultivariatePolynomial| |#1|
+                                                             (|NonNegativeInteger|))
+                             (|NonNegativeInteger|) (|NonNegativeInteger|)
+                             (|UnivariateFormalPowerSeries|
+                              (|SparseMultivariatePolynomial| |#1|
+                                                              (|NonNegativeInteger|)))))
+                       (|:| AX
+                            (|Mapping| #1# (|NonNegativeInteger|) (|Symbol|)
+                                       #1#))
+                       (|:| C
+                            (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+             (|List| (|GuessOption|)))
+            (|Symbol|)))
+          (SIGNATURE |diffHP|
+           ((|Mapping|
+             (|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+                       (|:| |guessStream|
+                            (|Mapping|
+                             (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                             (|UnivariateFormalPowerSeries| |#1|)))
+                       (|:| |guessModGen|
+                            (|Mapping|
+                             (|Mapping| (|Vector| (|U32Vector|))
+                                        (|List| (|U32Vector|)) (|Integer|)
+                                        (|Integer|))
+                             (|NonNegativeInteger|)))
+                       (|:| |testGen|
+                            (|Mapping|
+                             (|Mapping|
+                              (|Vector|
+                               (|UnivariateFormalPowerSeries|
+                                (|SparseMultivariatePolynomial| |#1|
+                                                                (|NonNegativeInteger|))))
+                              (|UnivariateFormalPowerSeries|
+                               (|SparseMultivariatePolynomial| |#1|
+                                                               (|NonNegativeInteger|))))
+                             (|List| (|PositiveInteger|))))
+                       (|:| |exprStream|
+                            (|Mapping| (|Stream| #1#) #1# (|Symbol|)))
+                       (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+                       (|:| A
+                            (|Mapping| |#1| (|NonNegativeInteger|)
+                                       (|NonNegativeInteger|)
+                                       (|SparseUnivariatePolynomial| |#1|)))
+                       (|:| AF
+                            (|Mapping|
+                             (|SparseMultivariatePolynomial| |#1|
+                                                             (|NonNegativeInteger|))
+                             (|NonNegativeInteger|) (|NonNegativeInteger|)
+                             (|UnivariateFormalPowerSeries|
+                              (|SparseMultivariatePolynomial| |#1|
+                                                              (|NonNegativeInteger|)))))
+                       (|:| AX
+                            (|Mapping| #1# (|NonNegativeInteger|) (|Symbol|)
+                                       #1#))
+                       (|:| C
+                            (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+             (|List| (|GuessOption|)))
+            (|Symbol|)))
+          (SIGNATURE |guessRec|
+           ((|Mapping| (|List| #1#) (|List| |#1|) (|List| (|GuessOption|)))
+            (|Symbol|)))
+          (SIGNATURE |guessPRec|
+           ((|Mapping| (|List| #1#) (|List| |#1|) (|List| (|GuessOption|)))
+            (|Symbol|)))
+          (SIGNATURE |guessRat|
+           ((|Mapping| (|List| #1#) (|List| |#1|) (|List| (|GuessOption|)))
+            (|Symbol|)))
+          (SIGNATURE |guessADE|
+           ((|Mapping| (|List| #1#) (|List| |#1|) (|List| (|GuessOption|)))
+            (|Symbol|)))
+          (SIGNATURE |guessHolo|
+           ((|Mapping| (|List| #1#) (|List| |#1|) (|List| (|GuessOption|)))
+            (|Symbol|))))
+         |noBranch|)
+     |noBranch|))
+"/git/fricas/src/algebra/GUESSF.spad"
+((|guessHolo| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|isDomain| *2
+                   (|Mapping| (|List| (|Expression| (|Integer|))) (|List| *4)
+                              (|List| (|GuessOption|))))
+       (|isDomain| *1 (|GuessFinite| *4))
+       (|ofCategory| *4 (|RetractableTo| *3))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))))
+ (|guessADE| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|isDomain| *2
+                   (|Mapping| (|List| (|Expression| (|Integer|))) (|List| *4)
+                              (|List| (|GuessOption|))))
+       (|isDomain| *1 (|GuessFinite| *4))
+       (|ofCategory| *4 (|RetractableTo| *3))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))))
+ (|guessRat| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|isDomain| *2
+                   (|Mapping| (|List| (|Expression| (|Integer|))) (|List| *4)
+                              (|List| (|GuessOption|))))
+       (|isDomain| *1 (|GuessFinite| *4))
+       (|ofCategory| *4 (|RetractableTo| *3))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))))
+ (|guessPRec| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|isDomain| *2
+                   (|Mapping| (|List| (|Expression| (|Integer|))) (|List| *4)
+                              (|List| (|GuessOption|))))
+       (|isDomain| *1 (|GuessFinite| *4))
+       (|ofCategory| *4 (|RetractableTo| *3))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))))
+ (|guessRec| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|isDomain| *2
+                   (|Mapping| (|List| (|Expression| (|Integer|))) (|List| *4)
+                              (|List| (|GuessOption|))))
+       (|isDomain| *1 (|GuessFinite| *4))
+       (|ofCategory| *4 (|RetractableTo| *3))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))))
+ (|diffHP| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|isDomain| *2
+                   (|Mapping|
+                    (|Record|
+                     (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+                     (|:| |guessStream|
+                          (|Mapping|
+                           (|Stream| (|UnivariateFormalPowerSeries| *4))
+                           (|UnivariateFormalPowerSeries| *4)))
+                     (|:| |guessModGen|
+                          (|Mapping|
+                           (|Mapping| (|Vector| (|U32Vector|))
+                                      (|List| (|U32Vector|)) (|Integer|)
+                                      (|Integer|))
+                           (|NonNegativeInteger|)))
+                     (|:| |testGen|
+                          (|Mapping|
+                           (|Mapping|
+                            (|Vector|
+                             (|UnivariateFormalPowerSeries|
+                              (|SparseMultivariatePolynomial| *4
+                                                              (|NonNegativeInteger|))))
+                            (|UnivariateFormalPowerSeries|
+                             (|SparseMultivariatePolynomial| *4
+                                                             (|NonNegativeInteger|))))
+                           (|List| (|PositiveInteger|))))
+                     (|:| |exprStream|
+                          (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                                     (|Expression| (|Integer|)) (|Symbol|)))
+                     (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+                     (|:| A
+                          (|Mapping| *4 (|NonNegativeInteger|)
+                                     (|NonNegativeInteger|)
+                                     (|SparseUnivariatePolynomial| *4)))
+                     (|:| AF
+                          (|Mapping|
+                           (|SparseMultivariatePolynomial| *4
+                                                           (|NonNegativeInteger|))
+                           (|NonNegativeInteger|) (|NonNegativeInteger|)
+                           (|UnivariateFormalPowerSeries|
+                            (|SparseMultivariatePolynomial| *4
+                                                            (|NonNegativeInteger|)))))
+                     (|:| AX
+                          (|Mapping| (|Expression| (|Integer|))
+                                     (|NonNegativeInteger|) (|Symbol|)
+                                     (|Expression| (|Integer|))))
+                     (|:| C (|Mapping| (|List| *4) (|NonNegativeInteger|))))
+                    (|List| (|GuessOption|))))
+       (|isDomain| *1 (|GuessFinite| *4))
+       (|ofCategory| *4 (|RetractableTo| *3))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))))
+ (|shiftHP| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|isDomain| *2
+                   (|Mapping|
+                    (|Record|
+                     (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+                     (|:| |guessStream|
+                          (|Mapping|
+                           (|Stream| (|UnivariateFormalPowerSeries| *4))
+                           (|UnivariateFormalPowerSeries| *4)))
+                     (|:| |guessModGen|
+                          (|Mapping|
+                           (|Mapping| (|Vector| (|U32Vector|))
+                                      (|List| (|U32Vector|)) (|Integer|)
+                                      (|Integer|))
+                           (|NonNegativeInteger|)))
+                     (|:| |testGen|
+                          (|Mapping|
+                           (|Mapping|
+                            (|Vector|
+                             (|UnivariateFormalPowerSeries|
+                              (|SparseMultivariatePolynomial| *4
+                                                              (|NonNegativeInteger|))))
+                            (|UnivariateFormalPowerSeries|
+                             (|SparseMultivariatePolynomial| *4
+                                                             (|NonNegativeInteger|))))
+                           (|List| (|PositiveInteger|))))
+                     (|:| |exprStream|
+                          (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                                     (|Expression| (|Integer|)) (|Symbol|)))
+                     (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+                     (|:| A
+                          (|Mapping| *4 (|NonNegativeInteger|)
+                                     (|NonNegativeInteger|)
+                                     (|SparseUnivariatePolynomial| *4)))
+                     (|:| AF
+                          (|Mapping|
+                           (|SparseMultivariatePolynomial| *4
+                                                           (|NonNegativeInteger|))
+                           (|NonNegativeInteger|) (|NonNegativeInteger|)
+                           (|UnivariateFormalPowerSeries|
+                            (|SparseMultivariatePolynomial| *4
+                                                            (|NonNegativeInteger|)))))
+                     (|:| AX
+                          (|Mapping| (|Expression| (|Integer|))
+                                     (|NonNegativeInteger|) (|Symbol|)
+                                     (|Expression| (|Integer|))))
+                     (|:| C (|Mapping| (|List| *4) (|NonNegativeInteger|))))
+                    (|List| (|GuessOption|))))
+       (|isDomain| *1 (|GuessFinite| *4))
+       (|ofCategory| *4 (|RetractableTo| *3))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))))
+ (|shiftHP| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+                    (|:| |guessStream|
+                         (|Mapping|
+                          (|Stream| (|UnivariateFormalPowerSeries| *4))
+                          (|UnivariateFormalPowerSeries| *4)))
+                    (|:| |guessModGen|
+                         (|Mapping|
+                          (|Mapping| (|Vector| (|U32Vector|))
+                                     (|List| (|U32Vector|)) (|Integer|)
+                                     (|Integer|))
+                          (|NonNegativeInteger|)))
+                    (|:| |testGen|
+                         (|Mapping|
+                          (|Mapping|
+                           (|Vector|
+                            (|UnivariateFormalPowerSeries|
+                             (|SparseMultivariatePolynomial| *4
+                                                             (|NonNegativeInteger|))))
+                           (|UnivariateFormalPowerSeries|
+                            (|SparseMultivariatePolynomial| *4
+                                                            (|NonNegativeInteger|))))
+                          (|List| (|PositiveInteger|))))
+                    (|:| |exprStream|
+                         (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                                    (|Expression| (|Integer|)) (|Symbol|)))
+                    (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+                    (|:| A
+                         (|Mapping| *4 (|NonNegativeInteger|)
+                                    (|NonNegativeInteger|)
+                                    (|SparseUnivariatePolynomial| *4)))
+                    (|:| AF
+                         (|Mapping|
+                          (|SparseMultivariatePolynomial| *4
+                                                          (|NonNegativeInteger|))
+                          (|NonNegativeInteger|) (|NonNegativeInteger|)
+                          (|UnivariateFormalPowerSeries|
+                           (|SparseMultivariatePolynomial| *4
+                                                           (|NonNegativeInteger|)))))
+                    (|:| AX
+                         (|Mapping| (|Expression| (|Integer|))
+                                    (|NonNegativeInteger|) (|Symbol|)
+                                    (|Expression| (|Integer|))))
+                    (|:| C (|Mapping| (|List| *4) (|NonNegativeInteger|)))))
+       (|isDomain| *1 (|GuessFinite| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))))
+ (|substHP| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+                    (|:| |guessStream|
+                         (|Mapping|
+                          (|Stream| (|UnivariateFormalPowerSeries| *4))
+                          (|UnivariateFormalPowerSeries| *4)))
+                    (|:| |guessModGen|
+                         (|Mapping|
+                          (|Mapping| (|Vector| (|U32Vector|))
+                                     (|List| (|U32Vector|)) (|Integer|)
+                                     (|Integer|))
+                          (|NonNegativeInteger|)))
+                    (|:| |testGen|
+                         (|Mapping|
+                          (|Mapping|
+                           (|Vector|
+                            (|UnivariateFormalPowerSeries|
+                             (|SparseMultivariatePolynomial| *4
+                                                             (|NonNegativeInteger|))))
+                           (|UnivariateFormalPowerSeries|
+                            (|SparseMultivariatePolynomial| *4
+                                                            (|NonNegativeInteger|))))
+                          (|List| (|PositiveInteger|))))
+                    (|:| |exprStream|
+                         (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                                    (|Expression| (|Integer|)) (|Symbol|)))
+                    (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+                    (|:| A
+                         (|Mapping| *4 (|NonNegativeInteger|)
+                                    (|NonNegativeInteger|)
+                                    (|SparseUnivariatePolynomial| *4)))
+                    (|:| AF
+                         (|Mapping|
+                          (|SparseMultivariatePolynomial| *4
+                                                          (|NonNegativeInteger|))
+                          (|NonNegativeInteger|) (|NonNegativeInteger|)
+                          (|UnivariateFormalPowerSeries|
+                           (|SparseMultivariatePolynomial| *4
+                                                           (|NonNegativeInteger|)))))
+                    (|:| AX
+                         (|Mapping| (|Expression| (|Integer|))
+                                    (|NonNegativeInteger|) (|Symbol|)
+                                    (|Expression| (|Integer|))))
+                    (|:| C (|Mapping| (|List| *4) (|NonNegativeInteger|)))))
+       (|isDomain| *1 (|GuessFinite| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))))
+ (|diffHP| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|GuessOption|)))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+                    (|:| |guessStream|
+                         (|Mapping|
+                          (|Stream| (|UnivariateFormalPowerSeries| *4))
+                          (|UnivariateFormalPowerSeries| *4)))
+                    (|:| |guessModGen|
+                         (|Mapping|
+                          (|Mapping| (|Vector| (|U32Vector|))
+                                     (|List| (|U32Vector|)) (|Integer|)
+                                     (|Integer|))
+                          (|NonNegativeInteger|)))
+                    (|:| |testGen|
+                         (|Mapping|
+                          (|Mapping|
+                           (|Vector|
+                            (|UnivariateFormalPowerSeries|
+                             (|SparseMultivariatePolynomial| *4
+                                                             (|NonNegativeInteger|))))
+                           (|UnivariateFormalPowerSeries|
+                            (|SparseMultivariatePolynomial| *4
+                                                            (|NonNegativeInteger|))))
+                          (|List| (|PositiveInteger|))))
+                    (|:| |exprStream|
+                         (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                                    (|Expression| (|Integer|)) (|Symbol|)))
+                    (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+                    (|:| A
+                         (|Mapping| *4 (|NonNegativeInteger|)
+                                    (|NonNegativeInteger|)
+                                    (|SparseUnivariatePolynomial| *4)))
+                    (|:| AF
+                         (|Mapping|
+                          (|SparseMultivariatePolynomial| *4
+                                                          (|NonNegativeInteger|))
+                          (|NonNegativeInteger|) (|NonNegativeInteger|)
+                          (|UnivariateFormalPowerSeries|
+                           (|SparseMultivariatePolynomial| *4
+                                                           (|NonNegativeInteger|)))))
+                    (|:| AX
+                         (|Mapping| (|Expression| (|Integer|))
+                                    (|NonNegativeInteger|) (|Symbol|)
+                                    (|Expression| (|Integer|))))
+                    (|:| C (|Mapping| (|List| *4) (|NonNegativeInteger|)))))
+       (|isDomain| *1 (|GuessFinite| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))))
+ (|algDepHP| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|List| *5)))
+       (|isDomain| *4 (|List| (|GuessOption|)))
+       (|ofCategory| *5
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+                    (|:| |guessStream|
+                         (|Mapping|
+                          (|Stream| (|UnivariateFormalPowerSeries| *5))
+                          (|UnivariateFormalPowerSeries| *5)))
+                    (|:| |guessModGen|
+                         (|Mapping|
+                          (|Mapping| (|Vector| (|U32Vector|))
+                                     (|List| (|U32Vector|)) (|Integer|)
+                                     (|Integer|))
+                          (|NonNegativeInteger|)))
+                    (|:| |testGen|
+                         (|Mapping|
+                          (|Mapping|
+                           (|Vector|
+                            (|UnivariateFormalPowerSeries|
+                             (|SparseMultivariatePolynomial| *5
+                                                             (|NonNegativeInteger|))))
+                           (|UnivariateFormalPowerSeries|
+                            (|SparseMultivariatePolynomial| *5
+                                                            (|NonNegativeInteger|))))
+                          (|List| (|PositiveInteger|))))
+                    (|:| |exprStream|
+                         (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                                    (|Expression| (|Integer|)) (|Symbol|)))
+                    (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+                    (|:| A
+                         (|Mapping| *5 (|NonNegativeInteger|)
+                                    (|NonNegativeInteger|)
+                                    (|SparseUnivariatePolynomial| *5)))
+                    (|:| AF
+                         (|Mapping|
+                          (|SparseMultivariatePolynomial| *5
+                                                          (|NonNegativeInteger|))
+                          (|NonNegativeInteger|) (|NonNegativeInteger|)
+                          (|UnivariateFormalPowerSeries|
+                           (|SparseMultivariatePolynomial| *5
+                                                           (|NonNegativeInteger|)))))
+                    (|:| AX
+                         (|Mapping| (|Expression| (|Integer|))
+                                    (|NonNegativeInteger|) (|Symbol|)
+                                    (|Expression| (|Integer|))))
+                    (|:| C (|Mapping| (|List| *5) (|NonNegativeInteger|)))))
+       (|isDomain| *1 (|GuessFinite| *5))))
+ (|guessRat| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *4))))
+ (|guessRat| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|List| (|GuessOption|)))
+       (|ofCategory| *5
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *5))))
+ (|guessPRec| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *4))))
+ (|guessPRec| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|List| (|GuessOption|)))
+       (|ofCategory| *5
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *5))))
+ (|guessRec| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|List| (|GuessOption|)))
+       (|ofCategory| *5
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *5))))
+ (|guessRec| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *4))))
+ (|guessPade| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *4))))
+ (|guessPade| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|List| (|GuessOption|)))
+       (|ofCategory| *5
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *5))))
+ (|guessHolo| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|List| (|GuessOption|)))
+       (|ofCategory| *5
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *5))))
+ (|guessHolo| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *4))))
+ (|guessAlg| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|List| (|GuessOption|)))
+       (|ofCategory| *5
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *5))))
+ (|guessAlg| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *4))))
+ (|guessFE| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|List| (|GuessOption|)))
+       (|ofCategory| *5
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *5))))
+ (|guessFE| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *4))))
+ (|guessADE| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|List| (|GuessOption|)))
+       (|ofCategory| *5
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *5))))
+ (|guessADE| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *4))))
+ (|guessAlgDep| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| (|List| *5)))
+       (|isDomain| *4 (|List| (|GuessOption|)))
+       (|ofCategory| *5
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *5))))
+ (|guessAlgDep| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| (|List| *4)))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *4))))
+ (|guessBinRat| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|isDomain| *2
+                   (|Mapping| (|List| (|Expression| (|Integer|))) (|List| *4)
+                              (|List| (|GuessOption|))))
+       (|isDomain| *1 (|GuessFinite| *4))
+       (|ofCategory| *4 (|RetractableTo| *3))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))))
+ (|guessExpRat| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Symbol|))
+       (|isDomain| *2
+                   (|Mapping| (|List| (|Expression| (|Integer|))) (|List| *4)
+                              (|List| (|GuessOption|))))
+       (|isDomain| *1 (|GuessFinite| *4))
+       (|ofCategory| *4 (|RetractableTo| *3))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))))
+ (|guessBinRat| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|List| (|GuessOption|)))
+       (|ofCategory| *5
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *5))))
+ (|guessBinRat| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *4))))
+ (|guessExpRat| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|List| (|GuessOption|)))
+       (|ofCategory| *5
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *5))))
+ (|guessExpRat| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *4))))
+ (|guess| (*1 *2 *3 *4 *5 *6)
+  (AND
+   (|isDomain| *4
+               (|List|
+                (|Mapping| (|List| (|Expression| (|Integer|))) (|List| *7)
+                           (|List| (|GuessOption|)))))
+   (|isDomain| *5 (|List| (|Symbol|))) (|isDomain| *6 (|List| (|GuessOption|)))
+   (|isDomain| *3 (|List| *7))
+   (|ofCategory| *7
+                 (|Join| (|FiniteFieldCategory|)
+                         (|ConvertibleTo| (|Integer|))))
+   (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+   (|isDomain| *1 (|GuessFinite| *7))))
+ (|guess| (*1 *2 *3 *4 *5)
+  (AND
+   (|isDomain| *4
+               (|List|
+                (|Mapping| (|List| (|Expression| (|Integer|))) (|List| *6)
+                           (|List| (|GuessOption|)))))
+   (|isDomain| *5 (|List| (|Symbol|))) (|isDomain| *3 (|List| *6))
+   (|ofCategory| *6
+                 (|Join| (|FiniteFieldCategory|)
+                         (|ConvertibleTo| (|Integer|))))
+   (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+   (|isDomain| *1 (|GuessFinite| *6))))
+ (|guess| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|List| *5)) (|isDomain| *4 (|List| (|GuessOption|)))
+       (|ofCategory| *5
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *5))))
+ (|guess| (*1 *2 *3)
+  (AND (|isDomain| *3 (|List| *4))
+       (|ofCategory| *4
+                     (|Join| (|FiniteFieldCategory|)
+                             (|ConvertibleTo| (|Integer|))))
+       (|isDomain| *2 (|List| (|Expression| (|Integer|))))
+       (|isDomain| *1 (|GuessFinite| *4)))))
+((|substHP|
+  (((|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+              (|:| |guessStream|
+                   (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                              (|UnivariateFormalPowerSeries| |#1|)))
+              (|:| |guessModGen|
+                   (|Mapping|
+                    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                               (|Integer|) (|Integer|))
+                    (|NonNegativeInteger|)))
+              (|:| |testGen|
+                   (|Mapping|
+                    (|Mapping|
+                     (|Vector|
+                      (|UnivariateFormalPowerSeries|
+                       (|SparseMultivariatePolynomial| |#1|
+                                                       (|NonNegativeInteger|))))
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|))))
+                    (|List| (|PositiveInteger|))))
+              (|:| |exprStream|
+                   (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                              (|Expression| (|Integer|)) (|Symbol|)))
+              (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+              (|:| A
+                   (|Mapping| |#1| (|NonNegativeInteger|)
+                              (|NonNegativeInteger|)
+                              (|SparseUnivariatePolynomial| |#1|)))
+              (|:| AF
+                   (|Mapping|
+                    (|SparseMultivariatePolynomial| |#1|
+                                                    (|NonNegativeInteger|))
+                    (|NonNegativeInteger|) (|NonNegativeInteger|)
+                    (|UnivariateFormalPowerSeries|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|)))))
+              (|:| AX
+                   (|Mapping| (|Expression| (|Integer|)) (|NonNegativeInteger|)
+                              (|Symbol|) (|Expression| (|Integer|))))
+              (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+    (|List| (|GuessOption|)))
+   NIL))
+ (|shiftHP|
+  (((|Mapping|
+     (|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+               (|:| |guessStream|
+                    (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                               (|UnivariateFormalPowerSeries| |#1|)))
+               (|:| |guessModGen|
+                    (|Mapping|
+                     (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                                (|Integer|) (|Integer|))
+                     (|NonNegativeInteger|)))
+               (|:| |testGen|
+                    (|Mapping|
+                     (|Mapping|
+                      (|Vector|
+                       (|UnivariateFormalPowerSeries|
+                        (|SparseMultivariatePolynomial| |#1|
+                                                        (|NonNegativeInteger|))))
+                      (|UnivariateFormalPowerSeries|
+                       (|SparseMultivariatePolynomial| |#1|
+                                                       (|NonNegativeInteger|))))
+                     (|List| (|PositiveInteger|))))
+               (|:| |exprStream|
+                    (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                               (|Expression| (|Integer|)) (|Symbol|)))
+               (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+               (|:| A
+                    (|Mapping| |#1| (|NonNegativeInteger|)
+                               (|NonNegativeInteger|)
+                               (|SparseUnivariatePolynomial| |#1|)))
+               (|:| AF
+                    (|Mapping|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|))
+                     (|NonNegativeInteger|) (|NonNegativeInteger|)
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|)))))
+               (|:| AX
+                    (|Mapping| (|Expression| (|Integer|))
+                               (|NonNegativeInteger|) (|Symbol|)
+                               (|Expression| (|Integer|))))
+               (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+     (|List| (|GuessOption|)))
+    (|Symbol|))
+   NIL (|has| |#1| (|RetractableTo| (|Symbol|))))
+  (((|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+              (|:| |guessStream|
+                   (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                              (|UnivariateFormalPowerSeries| |#1|)))
+              (|:| |guessModGen|
+                   (|Mapping|
+                    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                               (|Integer|) (|Integer|))
+                    (|NonNegativeInteger|)))
+              (|:| |testGen|
+                   (|Mapping|
+                    (|Mapping|
+                     (|Vector|
+                      (|UnivariateFormalPowerSeries|
+                       (|SparseMultivariatePolynomial| |#1|
+                                                       (|NonNegativeInteger|))))
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|))))
+                    (|List| (|PositiveInteger|))))
+              (|:| |exprStream|
+                   (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                              (|Expression| (|Integer|)) (|Symbol|)))
+              (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+              (|:| A
+                   (|Mapping| |#1| (|NonNegativeInteger|)
+                              (|NonNegativeInteger|)
+                              (|SparseUnivariatePolynomial| |#1|)))
+              (|:| AF
+                   (|Mapping|
+                    (|SparseMultivariatePolynomial| |#1|
+                                                    (|NonNegativeInteger|))
+                    (|NonNegativeInteger|) (|NonNegativeInteger|)
+                    (|UnivariateFormalPowerSeries|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|)))))
+              (|:| AX
+                   (|Mapping| (|Expression| (|Integer|)) (|NonNegativeInteger|)
+                              (|Symbol|) (|Expression| (|Integer|))))
+              (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+    (|List| (|GuessOption|)))
+   NIL))
+ (|guessRec|
+  (((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+               (|List| (|GuessOption|)))
+    (|Symbol|))
+   NIL (|has| |#1| (|RetractableTo| (|Symbol|))))
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|) (|List| (|GuessOption|)))
+   NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|)) NIL))
+ (|guessRat|
+  (((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+               (|List| (|GuessOption|)))
+    (|Symbol|))
+   NIL (|has| |#1| (|RetractableTo| (|Symbol|))))
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|)) NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|) (|List| (|GuessOption|)))
+   NIL))
+ (|guessPade| (((|List| (|Expression| (|Integer|))) (|List| |#1|)) NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|) (|List| (|GuessOption|)))
+   NIL))
+ (|guessPRec|
+  (((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+               (|List| (|GuessOption|)))
+    (|Symbol|))
+   NIL (|has| |#1| (|RetractableTo| (|Symbol|))))
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|)) NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|) (|List| (|GuessOption|)))
+   NIL))
+ (|guessHolo|
+  (((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+               (|List| (|GuessOption|)))
+    (|Symbol|))
+   NIL (|has| |#1| (|RetractableTo| (|Symbol|))))
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|) (|List| (|GuessOption|)))
+   NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|)) NIL))
+ (|guessFE|
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|) (|List| (|GuessOption|)))
+   NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|)) NIL))
+ (|guessExpRat|
+  (((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+               (|List| (|GuessOption|)))
+    (|Symbol|))
+   NIL (|has| |#1| (|RetractableTo| (|Symbol|))))
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|) (|List| (|GuessOption|)))
+   NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|)) NIL))
+ (|guessBinRat|
+  (((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+               (|List| (|GuessOption|)))
+    (|Symbol|))
+   NIL (|has| |#1| (|RetractableTo| (|Symbol|))))
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|) (|List| (|GuessOption|)))
+   NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|)) NIL))
+ (|guessAlgDep|
+  (((|List| (|Expression| (|Integer|))) (|List| (|List| |#1|))
+    (|List| (|GuessOption|)))
+   NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| (|List| |#1|))) NIL))
+ (|guessAlg|
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|) (|List| (|GuessOption|)))
+   NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|)) NIL))
+ (|guessADE|
+  (((|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+               (|List| (|GuessOption|)))
+    (|Symbol|))
+   NIL (|has| |#1| (|RetractableTo| (|Symbol|))))
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|) (|List| (|GuessOption|)))
+   NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|)) NIL))
+ (|guess|
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|)
+    (|List|
+     (|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+                (|List| (|GuessOption|))))
+    (|List| (|Symbol|)) (|List| (|GuessOption|)))
+   NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|)
+    (|List|
+     (|Mapping| (|List| (|Expression| (|Integer|))) (|List| |#1|)
+                (|List| (|GuessOption|))))
+    (|List| (|Symbol|)))
+   NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|) (|List| (|GuessOption|)))
+   NIL)
+  (((|List| (|Expression| (|Integer|))) (|List| |#1|)) NIL))
+ (|diffHP|
+  (((|Mapping|
+     (|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+               (|:| |guessStream|
+                    (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                               (|UnivariateFormalPowerSeries| |#1|)))
+               (|:| |guessModGen|
+                    (|Mapping|
+                     (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                                (|Integer|) (|Integer|))
+                     (|NonNegativeInteger|)))
+               (|:| |testGen|
+                    (|Mapping|
+                     (|Mapping|
+                      (|Vector|
+                       (|UnivariateFormalPowerSeries|
+                        (|SparseMultivariatePolynomial| |#1|
+                                                        (|NonNegativeInteger|))))
+                      (|UnivariateFormalPowerSeries|
+                       (|SparseMultivariatePolynomial| |#1|
+                                                       (|NonNegativeInteger|))))
+                     (|List| (|PositiveInteger|))))
+               (|:| |exprStream|
+                    (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                               (|Expression| (|Integer|)) (|Symbol|)))
+               (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+               (|:| A
+                    (|Mapping| |#1| (|NonNegativeInteger|)
+                               (|NonNegativeInteger|)
+                               (|SparseUnivariatePolynomial| |#1|)))
+               (|:| AF
+                    (|Mapping|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|))
+                     (|NonNegativeInteger|) (|NonNegativeInteger|)
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|)))))
+               (|:| AX
+                    (|Mapping| (|Expression| (|Integer|))
+                               (|NonNegativeInteger|) (|Symbol|)
+                               (|Expression| (|Integer|))))
+               (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+     (|List| (|GuessOption|)))
+    (|Symbol|))
+   NIL (|has| |#1| (|RetractableTo| (|Symbol|))))
+  (((|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+              (|:| |guessStream|
+                   (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                              (|UnivariateFormalPowerSeries| |#1|)))
+              (|:| |guessModGen|
+                   (|Mapping|
+                    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                               (|Integer|) (|Integer|))
+                    (|NonNegativeInteger|)))
+              (|:| |testGen|
+                   (|Mapping|
+                    (|Mapping|
+                     (|Vector|
+                      (|UnivariateFormalPowerSeries|
+                       (|SparseMultivariatePolynomial| |#1|
+                                                       (|NonNegativeInteger|))))
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|))))
+                    (|List| (|PositiveInteger|))))
+              (|:| |exprStream|
+                   (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                              (|Expression| (|Integer|)) (|Symbol|)))
+              (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+              (|:| A
+                   (|Mapping| |#1| (|NonNegativeInteger|)
+                              (|NonNegativeInteger|)
+                              (|SparseUnivariatePolynomial| |#1|)))
+              (|:| AF
+                   (|Mapping|
+                    (|SparseMultivariatePolynomial| |#1|
+                                                    (|NonNegativeInteger|))
+                    (|NonNegativeInteger|) (|NonNegativeInteger|)
+                    (|UnivariateFormalPowerSeries|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|)))))
+              (|:| AX
+                   (|Mapping| (|Expression| (|Integer|)) (|NonNegativeInteger|)
+                              (|Symbol|) (|Expression| (|Integer|))))
+              (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+    (|List| (|GuessOption|)))
+   NIL))
+ (|algDepHP|
+  (((|Record| (|:| |degreeStream| (|Stream| (|NonNegativeInteger|)))
+              (|:| |guessStream|
+                   (|Mapping| (|Stream| (|UnivariateFormalPowerSeries| |#1|))
+                              (|UnivariateFormalPowerSeries| |#1|)))
+              (|:| |guessModGen|
+                   (|Mapping|
+                    (|Mapping| (|Vector| (|U32Vector|)) (|List| (|U32Vector|))
+                               (|Integer|) (|Integer|))
+                    (|NonNegativeInteger|)))
+              (|:| |testGen|
+                   (|Mapping|
+                    (|Mapping|
+                     (|Vector|
+                      (|UnivariateFormalPowerSeries|
+                       (|SparseMultivariatePolynomial| |#1|
+                                                       (|NonNegativeInteger|))))
+                     (|UnivariateFormalPowerSeries|
+                      (|SparseMultivariatePolynomial| |#1|
+                                                      (|NonNegativeInteger|))))
+                    (|List| (|PositiveInteger|))))
+              (|:| |exprStream|
+                   (|Mapping| (|Stream| (|Expression| (|Integer|)))
+                              (|Expression| (|Integer|)) (|Symbol|)))
+              (|:| |kind| (|Symbol|)) (|:| |qvar| (|Symbol|))
+              (|:| A
+                   (|Mapping| |#1| (|NonNegativeInteger|)
+                              (|NonNegativeInteger|)
+                              (|SparseUnivariatePolynomial| |#1|)))
+              (|:| AF
+                   (|Mapping|
+                    (|SparseMultivariatePolynomial| |#1|
+                                                    (|NonNegativeInteger|))
+                    (|NonNegativeInteger|) (|NonNegativeInteger|)
+                    (|UnivariateFormalPowerSeries|
+                     (|SparseMultivariatePolynomial| |#1|
+                                                     (|NonNegativeInteger|)))))
+              (|:| AX
+                   (|Mapping| (|Expression| (|Integer|)) (|NonNegativeInteger|)
+                              (|Symbol|) (|Expression| (|Integer|))))
+              (|:| C (|Mapping| (|List| |#1|) (|NonNegativeInteger|))))
+    (|List| (|List| |#1|)) (|List| (|GuessOption|)))
+   NIL)))
+((|HasCategory| |#1| (LIST '|RetractableTo| '(|Symbol|))))
+GUESSF
+((|constructor|
+  (NIL
+   "This package exports guessing of sequences of numbers in a finite field")))
+(("documentation" 0 82062) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 82055) ("predicates" 0 81996) ("superDomain" 0 NIL)
+ ("operationAlist" 0 64795) ("modemaps" 0 35847) ("sourceFile" 0 35809)
+ ("constructorCategory" 0 19714) ("constructorModemap" 0 48)
+ ("constructorKind" 0 38) ("constructorForm" 0 20))

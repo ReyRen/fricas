@@ -1,0 +1,149 @@
+8342                (|SetAggregate| S)
+|category|
+(((|SetAggregate| |#1|) (|Category|) (|SetCategory|)) (T |SetAggregate|))
+(|Join| (|SetCategory|) (|Collection| |t#1|) (|PartialOrder|)
+        (CATEGORY |domain| (SIGNATURE |set| ($))
+         (SIGNATURE |set| ($ (|List| |t#1|))) (SIGNATURE |intersect| ($ $ $))
+         (SIGNATURE |difference| ($ $ $)) (SIGNATURE |difference| ($ $ |t#1|))
+         (SIGNATURE |symmetricDifference| ($ $ $))
+         (SIGNATURE |subset?| ((|Boolean|) $ $)) (SIGNATURE |union| ($ $ $))
+         (SIGNATURE |union| ($ $ |t#1|)) (SIGNATURE |union| ($ |t#1| $))))
+"/git/fricas/src/algebra/SETAGG.spad"
+((|set| (*1 *1)
+        (AND (|ofCategory| *1 (|SetAggregate| *2))
+             (|ofCategory| *2 (|SetCategory|))))
+ (|set| (*1 *1 *2)
+        (AND (|isDomain| *2 (|List| *3)) (|ofCategory| *3 (|SetCategory|))
+             (|ofCategory| *1 (|SetAggregate| *3))))
+ (|intersect| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|SetAggregate| *2))
+       (|ofCategory| *2 (|SetCategory|))))
+ (|difference| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|SetAggregate| *2))
+       (|ofCategory| *2 (|SetCategory|))))
+ (|difference| (*1 *1 *1 *2)
+  (AND (|ofCategory| *1 (|SetAggregate| *2))
+       (|ofCategory| *2 (|SetCategory|))))
+ (|symmetricDifference| (*1 *1 *1 *1)
+  (AND (|ofCategory| *1 (|SetAggregate| *2))
+       (|ofCategory| *2 (|SetCategory|))))
+ (|subset?| (*1 *2 *1 *1)
+  (AND (|ofCategory| *1 (|SetAggregate| *3)) (|ofCategory| *3 (|SetCategory|))
+       (|isDomain| *2 (|Boolean|))))
+ (|union| (*1 *1 *1 *1)
+          (AND (|ofCategory| *1 (|SetAggregate| *2))
+               (|ofCategory| *2 (|SetCategory|))))
+ (|union| (*1 *1 *1 *2)
+          (AND (|ofCategory| *1 (|SetAggregate| *2))
+               (|ofCategory| *2 (|SetCategory|))))
+ (|union| (*1 *1 *2 *1)
+          (AND (|ofCategory| *1 (|SetAggregate| *2))
+               (|ofCategory| *2 (|SetCategory|)))))
+((~= (((|Boolean|) $ $) 6)) (|union| (($ $ $) 6) (($ $ |#1|) 6) (($ |#1| $) 6))
+ (|symmetricDifference| (($ $ $) 6)) (|subset?| (((|Boolean|) $ $) 6))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|set| (($) 6) (($ (|List| |#1|)) 6))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|sample| (($) 6 T CONST))
+ (|removeDuplicates|
+  (($ $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove|
+  (($ |#1| $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|max|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|latex| (((|String|) $) 6)) (|intersect| (($ $ $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) 6))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6)) (|empty?| (((|Boolean|) $) 6)) (|empty| (($) 6))
+ (|difference| (($ $ $) 6) (($ $ |#1|) 6))
+ (|count|
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|copy| (($ $) 6))
+ (|convert| (((|InputForm|) $) 6 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (>= (((|Boolean|) $ $) 6)) (> (((|Boolean|) $ $) 6)) (= (((|Boolean|) $ $) 6))
+ (<= (((|Boolean|) $ $) 6)) (< (((|Boolean|) $ $) 6))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+SETAGG
+(((|SetCategory|) . T) ((|Collection| |#1|) . T) ((|PartialOrder|) . T))
+(((|Aggregate|) . T) ((|BasicType|) . T) ((|CoercibleTo| (|OutputForm|)) . T)
+ ((|Collection| |#1|) . T)
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|PartialOrder|) . T) ((|SetCategory|) . T) ((|Type|) . T))
+((|constructor|
+  (NIL
+   "A set category lists a collection of set-theoretic operations useful for both finite sets and multisets. Note however that finite sets are distinct from multisets. Although the operations defined for set categories are common to both,{} the relationship between the two cannot be described by inclusion or inheritance."))
+ (|union|
+  (($ |#1| $)
+   "\\spad{union(x,{} u)} returns the set aggregate \\spad{u} with the element \\spad{x} added. If \\spad{u} already contains \\spad{x},{} \\spad{union(x,{} u)} returns a copy of \\spad{u}.")
+  (($ $ |#1|)
+   "\\spad{union(u,{} x)} returns the set aggregate \\spad{u} with the element \\spad{x} added. If \\spad{u} already contains \\spad{x},{} \\spad{union(u,{} x)} returns a copy of \\spad{u}.")
+  (($ $ $)
+   "\\spad{union(u,{} v)} returns the set aggregate of elements which are members of either set aggregate \\spad{u} or \\spad{v}."))
+ (|subset?|
+  (((|Boolean|) $ $)
+   "\\spad{subset?(u,{} v)} tests if \\spad{u} is a subset of \\spad{v}. Note: equivalent to \\spad{reduce(and,{} [member?(x,{} v) for x in members(u)],{} true,{} false)}."))
+ (|symmetricDifference|
+  (($ $ $)
+   "\\spad{symmetricDifference(u,{} v)} returns the set aggregate of elements \\spad{x} which are members of set aggregate \\spad{u} or set aggregate \\spad{v} but not both. If \\spad{u} and \\spad{v} have no elements in common,{} \\spad{symmetricDifference(u,{} v)} returns a copy of \\spad{u}. Note: \\spad{symmetricDifference(u,{} v) = union(difference(u,{} v),{} difference(v,{} u))}"))
+ (|difference|
+  (($ $ |#1|)
+   "\\spad{difference(u,{} x)} returns the set aggregate \\spad{u} with element \\spad{x} removed. If \\spad{u} does not contain \\spad{x},{} a copy of \\spad{u} is returned. Note: \\spad{difference(s,{} x) = difference(s,{} set [x])}.")
+  (($ $ $)
+   "\\spad{difference(u,{} v)} returns the set aggregate \\spad{w} consisting of elements in set aggregate \\spad{u} but not in set aggregate \\spad{v}. If \\spad{u} and \\spad{v} have no elements in common,{} \\spad{difference(u,{} v)} returns a copy of \\spad{u}. Note: equivalent to the notation (not currently supported) \\spad{[x for x in u | not member?(x,{} v)]}."))
+ (|intersect|
+  (($ $ $)
+   "\\spad{intersect(u,{} v)} returns the set aggregate \\spad{w} consisting of elements common to both set aggregates \\spad{u} and \\spad{v}. Note: equivalent to the notation (not currently supported) [\\spad{x} for \\spad{x} in \\spad{u} | member?(\\spad{x},{} \\spad{v})]."))
+ (|set|
+  (($ (|List| |#1|))
+   "\\spad{set([x,{} y,{} ...,{} z])} creates a set aggregate containing items \\spad{x},{} \\spad{y},{} ...,{} \\spad{z}.")
+  (($)
+   "\\spad{set()}\\$\\spad{D} creates an empty set aggregate of type \\spad{D}.")))
+(("documentation" 0 5591) ("ancestors" 0 5114) ("parents" 0 5041)
+ ("abbreviation" 0 5034) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1899) ("modemaps" 0 633) ("sourceFile" 0 595)
+ ("constructorCategory" 0 124) ("constructorModemap" 0 50)
+ ("constructorKind" 0 39) ("constructorForm" 0 20))

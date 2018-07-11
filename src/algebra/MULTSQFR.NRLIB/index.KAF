@@ -1,0 +1,393 @@
+18028               (|MultivariateSquareFree| E OV R P)
+|package|
+(((|MultivariateSquareFree| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package| (SIGNATURE |squareFree| ((|Factored| |#4|) |#4|))
+   (SIGNATURE |squareFree|
+    ((|Factored| (|SparseUnivariatePolynomial| |#4|))
+     (|SparseUnivariatePolynomial| |#4|)))
+   (SIGNATURE |squareFreePrim| ((|Factored| |#4|) |#4|))
+   (SIGNATURE |compdegd|
+    ((|Integer|)
+     (|List|
+      (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+                (|:| |exponent| (|NonNegativeInteger|))))))
+   (SIGNATURE |univcase| ((|Factored| |#4|) |#4| |#2|))
+   (SIGNATURE |consnewpol|
+    ((|Record| (|:| |pol| (|SparseUnivariatePolynomial| |#4|))
+               (|:| |polval| (|SparseUnivariatePolynomial| |#3|)))
+     (|SparseUnivariatePolynomial| |#4|) (|SparseUnivariatePolynomial| |#3|)
+     (|Integer|)))
+   (SIGNATURE |nsqfree|
+    ((|Record| (|:| |unitPart| |#4|)
+               (|:| |suPart|
+                    (|List|
+                     (|Record|
+                      (|:| |factor| (|SparseUnivariatePolynomial| |#4|))
+                      (|:| |exponent| (|NonNegativeInteger|))))))
+     (|SparseUnivariatePolynomial| |#4|) (|List| |#2|) (|List| (|List| |#3|))))
+   (SIGNATURE |intChoose|
+    ((|Record| (|:| |upol| (|SparseUnivariatePolynomial| |#3|))
+               (|:| |Lval| (|List| |#3|))
+               (|:| |Lfact|
+                    (|List|
+                     (|Record|
+                      (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+                      (|:| |exponent| (|NonNegativeInteger|)))))
+               (|:| |ctpol| |#3|))
+     (|SparseUnivariatePolynomial| |#4|) (|List| |#2|) (|List| (|List| |#3|))))
+   (SIGNATURE |coefChoose|
+    (|#4| (|Integer|) |#4|
+     (|List|
+      (|Record| (|:| |factor| |#4|) (|:| |exponent| (|NonNegativeInteger|))))))
+   (SIGNATURE |check|
+    ((|Boolean|)
+     (|List|
+      (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+                (|:| |exponent| (|NonNegativeInteger|))))
+     (|List|
+      (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+                (|:| |exponent| (|NonNegativeInteger|))))))
+   (SIGNATURE |lift|
+    ((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+     (|SparseUnivariatePolynomial| |#4|) (|SparseUnivariatePolynomial| |#3|)
+     (|SparseUnivariatePolynomial| |#3|) |#4| (|List| |#2|)
+     (|List| (|NonNegativeInteger|)) (|List| |#3|)))
+   (SIGNATURE |myDegree|
+    ((|List| (|NonNegativeInteger|)) (|SparseUnivariatePolynomial| |#4|)
+     (|List| |#2|) (|NonNegativeInteger|)))
+   (SIGNATURE |normDeriv2|
+    ((|SparseUnivariatePolynomial| |#3|) (|SparseUnivariatePolynomial| |#3|)
+     (|Integer|))))
+  (|OrderedAbelianMonoidSup|) (|OrderedSet|) (|EuclideanDomain|)
+  (|PolynomialCategory| |#3| |#1| |#2|))
+ (T |MultivariateSquareFree|))
+(CATEGORY |package| (SIGNATURE |squareFree| ((|Factored| |#4|) |#4|))
+ (SIGNATURE |squareFree|
+  ((|Factored| (|SparseUnivariatePolynomial| |#4|))
+   (|SparseUnivariatePolynomial| |#4|)))
+ (SIGNATURE |squareFreePrim| ((|Factored| |#4|) |#4|))
+ (SIGNATURE |compdegd|
+  ((|Integer|)
+   (|List|
+    (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+              (|:| |exponent| (|NonNegativeInteger|))))))
+ (SIGNATURE |univcase| ((|Factored| |#4|) |#4| |#2|))
+ (SIGNATURE |consnewpol|
+  ((|Record| (|:| |pol| (|SparseUnivariatePolynomial| |#4|))
+             (|:| |polval| (|SparseUnivariatePolynomial| |#3|)))
+   (|SparseUnivariatePolynomial| |#4|) (|SparseUnivariatePolynomial| |#3|)
+   (|Integer|)))
+ (SIGNATURE |nsqfree|
+  ((|Record| (|:| |unitPart| |#4|)
+             (|:| |suPart|
+                  (|List|
+                   (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#4|))
+                             (|:| |exponent| (|NonNegativeInteger|))))))
+   (|SparseUnivariatePolynomial| |#4|) (|List| |#2|) (|List| (|List| |#3|))))
+ (SIGNATURE |intChoose|
+  ((|Record| (|:| |upol| (|SparseUnivariatePolynomial| |#3|))
+             (|:| |Lval| (|List| |#3|))
+             (|:| |Lfact|
+                  (|List|
+                   (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+                             (|:| |exponent| (|NonNegativeInteger|)))))
+             (|:| |ctpol| |#3|))
+   (|SparseUnivariatePolynomial| |#4|) (|List| |#2|) (|List| (|List| |#3|))))
+ (SIGNATURE |coefChoose|
+  (|#4| (|Integer|) |#4|
+   (|List|
+    (|Record| (|:| |factor| |#4|) (|:| |exponent| (|NonNegativeInteger|))))))
+ (SIGNATURE |check|
+  ((|Boolean|)
+   (|List|
+    (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+              (|:| |exponent| (|NonNegativeInteger|))))
+   (|List|
+    (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+              (|:| |exponent| (|NonNegativeInteger|))))))
+ (SIGNATURE |lift|
+  ((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+   (|SparseUnivariatePolynomial| |#4|) (|SparseUnivariatePolynomial| |#3|)
+   (|SparseUnivariatePolynomial| |#3|) |#4| (|List| |#2|)
+   (|List| (|NonNegativeInteger|)) (|List| |#3|)))
+ (SIGNATURE |myDegree|
+  ((|List| (|NonNegativeInteger|)) (|SparseUnivariatePolynomial| |#4|)
+   (|List| |#2|) (|NonNegativeInteger|)))
+ (SIGNATURE |normDeriv2|
+  ((|SparseUnivariatePolynomial| |#3|) (|SparseUnivariatePolynomial| |#3|)
+   (|Integer|))))
+"/git/fricas/src/algebra/MULTSQFR.spad"
+((|normDeriv2| (*1 *2 *2 *3)
+  (AND (|isDomain| *2 (|SparseUnivariatePolynomial| *6))
+       (|isDomain| *3 (|Integer|)) (|ofCategory| *6 (|EuclideanDomain|))
+       (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|isDomain| *1 (|MultivariateSquareFree| *4 *5 *6 *7))
+       (|ofCategory| *7 (|PolynomialCategory| *6 *4 *5))))
+ (|myDegree| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *9))
+       (|isDomain| *4 (|List| *7)) (|isDomain| *5 (|NonNegativeInteger|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|ofCategory| *9 (|PolynomialCategory| *8 *6 *7))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *8 (|EuclideanDomain|))
+       (|isDomain| *2 (|List| (|NonNegativeInteger|)))
+       (|isDomain| *1 (|MultivariateSquareFree| *6 *7 *8 *9))))
+ (|lift| (*1 *2 *3 *4 *4 *5 *6 *7 *8)
+  (|partial| AND (|isDomain| *3 (|SparseUnivariatePolynomial| *5))
+   (|isDomain| *4 (|SparseUnivariatePolynomial| *11))
+   (|isDomain| *6 (|List| *10)) (|isDomain| *7 (|List| (|NonNegativeInteger|)))
+   (|isDomain| *8 (|List| *11)) (|ofCategory| *10 (|OrderedSet|))
+   (|ofCategory| *11 (|EuclideanDomain|))
+   (|ofCategory| *5 (|PolynomialCategory| *11 *9 *10))
+   (|ofCategory| *9 (|OrderedAbelianMonoidSup|))
+   (|isDomain| *2 (|List| (|SparseUnivariatePolynomial| *5)))
+   (|isDomain| *1 (|MultivariateSquareFree| *9 *10 *11 *5))))
+ (|check| (*1 *2 *3 *3)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |factor| (|SparseUnivariatePolynomial| *6))
+                          (|:| |exponent| (|NonNegativeInteger|)))))
+   (|ofCategory| *6 (|EuclideanDomain|))
+   (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *5 (|OrderedSet|)) (|isDomain| *2 (|Boolean|))
+   (|isDomain| *1 (|MultivariateSquareFree| *4 *5 *6 *7))
+   (|ofCategory| *7 (|PolynomialCategory| *6 *4 *5))))
+ (|coefChoose| (*1 *2 *3 *2 *4)
+  (AND (|isDomain| *3 (|Integer|))
+       (|isDomain| *4
+                   (|List|
+                    (|Record| (|:| |factor| *2)
+                              (|:| |exponent| (|NonNegativeInteger|)))))
+       (|ofCategory| *2 (|PolynomialCategory| *7 *5 *6))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|)) (|ofCategory| *7 (|EuclideanDomain|))
+       (|isDomain| *1 (|MultivariateSquareFree| *5 *6 *7 *2))))
+ (|intChoose| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *9))
+       (|isDomain| *4 (|List| *7)) (|isDomain| *5 (|List| (|List| *8)))
+       (|ofCategory| *7 (|OrderedSet|)) (|ofCategory| *8 (|EuclideanDomain|))
+       (|ofCategory| *9 (|PolynomialCategory| *8 *6 *7))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|Record| (|:| |upol| (|SparseUnivariatePolynomial| *8))
+                             (|:| |Lval| (|List| *8))
+                             (|:| |Lfact|
+                                  (|List|
+                                   (|Record|
+                                    (|:| |factor|
+                                         (|SparseUnivariatePolynomial| *8))
+                                    (|:| |exponent| (|NonNegativeInteger|)))))
+                             (|:| |ctpol| *8)))
+       (|isDomain| *1 (|MultivariateSquareFree| *6 *7 *8 *9))))
+ (|nsqfree| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *9))
+       (|isDomain| *4 (|List| *7)) (|isDomain| *5 (|List| (|List| *8)))
+       (|ofCategory| *7 (|OrderedSet|)) (|ofCategory| *8 (|EuclideanDomain|))
+       (|ofCategory| *9 (|PolynomialCategory| *8 *6 *7))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|isDomain| *2
+                   (|Record| (|:| |unitPart| *9)
+                             (|:| |suPart|
+                                  (|List|
+                                   (|Record|
+                                    (|:| |factor|
+                                         (|SparseUnivariatePolynomial| *9))
+                                    (|:| |exponent|
+                                         (|NonNegativeInteger|)))))))
+       (|isDomain| *1 (|MultivariateSquareFree| *6 *7 *8 *9))))
+ (|consnewpol| (*1 *2 *3 *4 *5)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *9))
+       (|isDomain| *4 (|SparseUnivariatePolynomial| *8))
+       (|isDomain| *5 (|Integer|)) (|ofCategory| *8 (|EuclideanDomain|))
+       (|ofCategory| *9 (|PolynomialCategory| *8 *6 *7))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|isDomain| *2
+                   (|Record| (|:| |pol| (|SparseUnivariatePolynomial| *9))
+                             (|:| |polval| (|SparseUnivariatePolynomial| *8))))
+       (|isDomain| *1 (|MultivariateSquareFree| *6 *7 *8 *9))))
+ (|univcase| (*1 *2 *3 *4)
+  (AND (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *4 (|OrderedSet|)) (|ofCategory| *6 (|EuclideanDomain|))
+       (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|MultivariateSquareFree| *5 *4 *6 *3))
+       (|ofCategory| *3 (|PolynomialCategory| *6 *5 *4))))
+ (|compdegd| (*1 *2 *3)
+  (AND
+   (|isDomain| *3
+               (|List|
+                (|Record| (|:| |factor| (|SparseUnivariatePolynomial| *6))
+                          (|:| |exponent| (|NonNegativeInteger|)))))
+   (|ofCategory| *6 (|EuclideanDomain|))
+   (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+   (|ofCategory| *5 (|OrderedSet|)) (|isDomain| *2 (|Integer|))
+   (|isDomain| *1 (|MultivariateSquareFree| *4 *5 *6 *7))
+   (|ofCategory| *7 (|PolynomialCategory| *6 *4 *5))))
+ (|squareFreePrim| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5 (|OrderedSet|)) (|ofCategory| *6 (|EuclideanDomain|))
+       (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|MultivariateSquareFree| *4 *5 *6 *3))
+       (|ofCategory| *3 (|PolynomialCategory| *6 *4 *5))))
+ (|squareFree| (*1 *2 *3)
+  (AND (|isDomain| *3 (|SparseUnivariatePolynomial| *7))
+       (|ofCategory| *7 (|PolynomialCategory| *6 *4 *5))
+       (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5 (|OrderedSet|)) (|ofCategory| *6 (|EuclideanDomain|))
+       (|isDomain| *2 (|Factored| (|SparseUnivariatePolynomial| *7)))
+       (|isDomain| *1 (|MultivariateSquareFree| *4 *5 *6 *7))))
+ (|squareFree| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *5 (|OrderedSet|)) (|ofCategory| *6 (|EuclideanDomain|))
+       (|isDomain| *2 (|Factored| *3))
+       (|isDomain| *1 (|MultivariateSquareFree| *4 *5 *6 *3))
+       (|ofCategory| *3 (|PolynomialCategory| *6 *4 *5)))))
+((|univcase| (((|Factored| |#4|) |#4| |#2|) 120))
+ (|squareFreePrim| (((|Factored| |#4|) |#4|) NIL))
+ (|squareFree|
+  (((|Factored| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|))
+   111)
+  (((|Factored| |#4|) |#4|) 38))
+ (|nsqfree|
+  (((|Record| (|:| |unitPart| |#4|)
+              (|:| |suPart|
+                   (|List|
+                    (|Record|
+                     (|:| |factor| (|SparseUnivariatePolynomial| |#4|))
+                     (|:| |exponent| (|NonNegativeInteger|))))))
+    (|SparseUnivariatePolynomial| |#4|) (|List| |#2|) (|List| (|List| |#3|)))
+   66))
+ (|normDeriv2|
+  (((|SparseUnivariatePolynomial| |#3|) (|SparseUnivariatePolynomial| |#3|)
+    (|Integer|))
+   139))
+ (|myDegree|
+  (((|List| (|NonNegativeInteger|)) (|SparseUnivariatePolynomial| |#4|)
+    (|List| |#2|) (|NonNegativeInteger|))
+   59))
+ (|lift|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+    (|SparseUnivariatePolynomial| |#4|) (|SparseUnivariatePolynomial| |#3|)
+    (|SparseUnivariatePolynomial| |#3|) |#4| (|List| |#2|)
+    (|List| (|NonNegativeInteger|)) (|List| |#3|))
+   63))
+ (|intChoose|
+  (((|Record| (|:| |upol| (|SparseUnivariatePolynomial| |#3|))
+              (|:| |Lval| (|List| |#3|))
+              (|:| |Lfact|
+                   (|List|
+                    (|Record|
+                     (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+                     (|:| |exponent| (|NonNegativeInteger|)))))
+              (|:| |ctpol| |#3|))
+    (|SparseUnivariatePolynomial| |#4|) (|List| |#2|) (|List| (|List| |#3|)))
+   22))
+ (|consnewpol|
+  (((|Record| (|:| |pol| (|SparseUnivariatePolynomial| |#4|))
+              (|:| |polval| (|SparseUnivariatePolynomial| |#3|)))
+    (|SparseUnivariatePolynomial| |#4|) (|SparseUnivariatePolynomial| |#3|)
+    (|Integer|))
+   56))
+ (|compdegd|
+  (((|Integer|)
+    (|List|
+     (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+               (|:| |exponent| (|NonNegativeInteger|)))))
+   136))
+ (|coefChoose|
+  ((|#4| (|Integer|) |#4|
+    (|List|
+     (|Record| (|:| |factor| |#4|) (|:| |exponent| (|NonNegativeInteger|)))))
+   57))
+ (|check|
+  (((|Boolean|)
+    (|List|
+     (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+               (|:| |exponent| (|NonNegativeInteger|))))
+    (|List|
+     (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+               (|:| |exponent| (|NonNegativeInteger|)))))
+   NIL)))
+MULTSQFR
+((|constructor|
+  (NIL
+   "Author : \\spad{P}.Gianni This package provides the functions for the computation of the square free decomposition of a multivariate polynomial. It uses the package GenExEuclid for the resolution of the equation \\spad{Af + Bg = h} and its generalization to \\spad{n} polynomials over an integral domain and the package \\spad{MultivariateLifting} for the \"multivariate\" lifting."))
+ (|normDeriv2|
+  (((|SparseUnivariatePolynomial| |#3|) (|SparseUnivariatePolynomial| |#3|)
+    (|Integer|))
+   "\\spad{normDeriv2 should} be local"))
+ (|myDegree|
+  (((|List| (|NonNegativeInteger|)) (|SparseUnivariatePolynomial| |#4|)
+    (|List| |#2|) (|NonNegativeInteger|))
+   "\\spad{myDegree should} be local"))
+ (|lift|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#4|)) "failed")
+    (|SparseUnivariatePolynomial| |#4|) (|SparseUnivariatePolynomial| |#3|)
+    (|SparseUnivariatePolynomial| |#3|) |#4| (|List| |#2|)
+    (|List| (|NonNegativeInteger|)) (|List| |#3|))
+   "\\spad{lift should} be local"))
+ (|check|
+  (((|Boolean|)
+    (|List|
+     (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+               (|:| |exponent| (|NonNegativeInteger|))))
+    (|List|
+     (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+               (|:| |exponent| (|NonNegativeInteger|)))))
+   "\\spad{check should} be local"))
+ (|coefChoose|
+  ((|#4| (|Integer|) |#4|
+    (|List|
+     (|Record| (|:| |factor| |#4|) (|:| |exponent| (|NonNegativeInteger|)))))
+   "\\spad{coefChoose should} be local"))
+ (|intChoose|
+  (((|Record| (|:| |upol| (|SparseUnivariatePolynomial| |#3|))
+              (|:| |Lval| (|List| |#3|))
+              (|:| |Lfact|
+                   (|List|
+                    (|Record|
+                     (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+                     (|:| |exponent| (|NonNegativeInteger|)))))
+              (|:| |ctpol| |#3|))
+    (|SparseUnivariatePolynomial| |#4|) (|List| |#2|) (|List| (|List| |#3|)))
+   "\\spad{intChoose should} be local"))
+ (|nsqfree|
+  (((|Record| (|:| |unitPart| |#4|)
+              (|:| |suPart|
+                   (|List|
+                    (|Record|
+                     (|:| |factor| (|SparseUnivariatePolynomial| |#4|))
+                     (|:| |exponent| (|NonNegativeInteger|))))))
+    (|SparseUnivariatePolynomial| |#4|) (|List| |#2|) (|List| (|List| |#3|)))
+   "\\spad{nsqfree should} be local"))
+ (|consnewpol|
+  (((|Record| (|:| |pol| (|SparseUnivariatePolynomial| |#4|))
+              (|:| |polval| (|SparseUnivariatePolynomial| |#3|)))
+    (|SparseUnivariatePolynomial| |#4|) (|SparseUnivariatePolynomial| |#3|)
+    (|Integer|))
+   "\\spad{consnewpol should} be local"))
+ (|univcase|
+  (((|Factored| |#4|) |#4| |#2|) "\\spad{univcase should} be local"))
+ (|compdegd|
+  (((|Integer|)
+    (|List|
+     (|Record| (|:| |factor| (|SparseUnivariatePolynomial| |#3|))
+               (|:| |exponent| (|NonNegativeInteger|)))))
+   "\\spad{compdegd should} be local"))
+ (|squareFreePrim|
+  (((|Factored| |#4|) |#4|)
+   "\\spad{squareFreePrim(p)} compute the square free decomposition of a primitive multivariate polynomial \\spad{p}."))
+ (|squareFree|
+  (((|Factored| (|SparseUnivariatePolynomial| |#4|))
+    (|SparseUnivariatePolynomial| |#4|))
+   "\\spad{squareFree(p)} computes the square free decomposition of a multivariate polynomial \\spad{p} presented as a univariate polynomial with multivariate coefficients.")
+  (((|Factored| |#4|) |#4|)
+   "\\spad{squareFree(p)} computes the square free decomposition of a multivariate polynomial \\spad{p}.")))
+(("documentation" 0 14460) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 14451) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 11999) ("modemaps" 0 5344) ("sourceFile" 0 5304)
+ ("constructorCategory" 0 2846) ("constructorModemap" 0 66)
+ ("constructorKind" 0 56) ("constructorForm" 0 20))

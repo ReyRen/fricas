@@ -1,0 +1,40 @@
+1986                (|LinearPolynomialEquationByFractions| R)
+|package|
+(((|LinearPolynomialEquationByFractions| |#1|)
+  (CATEGORY |package|
+   (SIGNATURE |solveLinearPolynomialEquationByFractions|
+    ((|Union| (|List| (|SparseUnivariatePolynomial| |#1|)) "failed")
+     (|List| (|SparseUnivariatePolynomial| |#1|))
+     (|SparseUnivariatePolynomial| |#1|))))
+  (|PolynomialFactorizationExplicit|))
+ (T |LinearPolynomialEquationByFractions|))
+(CATEGORY |package|
+ (SIGNATURE |solveLinearPolynomialEquationByFractions|
+  ((|Union| (|List| (|SparseUnivariatePolynomial| |#1|)) "failed")
+   (|List| (|SparseUnivariatePolynomial| |#1|))
+   (|SparseUnivariatePolynomial| |#1|))))
+"/git/fricas/src/algebra/LPEFRAC.spad"
+((|solveLinearPolynomialEquationByFractions| (*1 *2 *2 *3)
+  (|partial| AND (|isDomain| *2 (|List| (|SparseUnivariatePolynomial| *4)))
+   (|isDomain| *3 (|SparseUnivariatePolynomial| *4))
+   (|ofCategory| *4 (|PolynomialFactorizationExplicit|))
+   (|isDomain| *1 (|LinearPolynomialEquationByFractions| *4)))))
+((|solveLinearPolynomialEquationByFractions|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#1|)) "failed")
+    (|List| (|SparseUnivariatePolynomial| |#1|))
+    (|SparseUnivariatePolynomial| |#1|))
+   33)))
+LPEFRAC
+((|constructor|
+  (NIL
+   "Given a PolynomialFactorizationExplicit ring,{} this package provides a defaulting rule for the \\spad{solveLinearPolynomialEquation} operation,{} by moving into the field of fractions,{} and solving it there via the \\spad{multiEuclidean} operation."))
+ (|solveLinearPolynomialEquationByFractions|
+  (((|Union| (|List| (|SparseUnivariatePolynomial| |#1|)) "failed")
+    (|List| (|SparseUnivariatePolynomial| |#1|))
+    (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{solveLinearPolynomialEquationByFractions([f1,{} ...,{} fn],{} g)} (where the \\spad{fi} are relatively prime to each other) returns a list of \\spad{ai} such that \\spad{g/prod \\spad{fi} = sum ai/fi} or returns \"failed\" if no such exists.")))
+(("documentation" 0 1245) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1237) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1025) ("modemaps" 0 715) ("sourceFile" 0 676)
+ ("constructorCategory" 0 444) ("constructorModemap" 0 72)
+ ("constructorKind" 0 62) ("constructorForm" 0 20))

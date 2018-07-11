@@ -1,0 +1,60 @@
+)abbrev domain SYMPOLY SymmetricPolynomial
+++ Description:
+++ This domain implements symmetric polynomial
+SymmetricPolynomial(R : Ring) == PolynomialRing(R, Partition) add
+       Term :=  Record(k : Partition, c : R)
+       Rep :=  List Term
+
+-- override PR implementation because coeff. arithmetic too expensive (??)
+
+       if R has EntireRing then
+         (p1 : %) * (p2 : %)  ==
+            empty?(p1) => 0
+            empty?(p2) => 0
+            zero?(p1.first.k) => p1.first.c * p2
+            (p2 = 1) => p1
+            +/[[[t1.k+t2.k, t1.c*t2.c]$Term for t2 in p2]
+                   for t1 in reverse(p1)]
+                   -- This 'reverse' is an efficiency improvement:
+                   -- reduces both time and space [Abbott/Bradford/Davenport]
+        else
+         (p1 : %) * (p2 : %)  ==
+            empty?(p1) => 0
+            empty?(p2) => 0
+            zero?(p1.first.k) => p1.first.c * p2
+            (p2 = 1) => p1
+            +/[[[t1.k+t2.k, r]$Term for t2 in p2 | (r := t1.c*t2.c) ~= 0]
+                 for t1 in reverse(p1)]
+                  -- This 'reverse' is an efficiency improvement:
+                  -- reduces both time and space [Abbott/Bradford/Davenport]
+
+--Copyright (c) 1991-2002, The Numerical ALgorithms Group Ltd.
+--All rights reserved.
+--
+--Redistribution and use in source and binary forms, with or without
+--modification, are permitted provided that the following conditions are
+--met:
+--
+--    - Redistributions of source code must retain the above copyright
+--      notice, this list of conditions and the following disclaimer.
+--
+--    - Redistributions in binary form must reproduce the above copyright
+--      notice, this list of conditions and the following disclaimer in
+--      the documentation and/or other materials provided with the
+--      distribution.
+--
+--    - Neither the name of The Numerical ALgorithms Group Ltd. nor the
+--      names of its contributors may be used to endorse or promote products
+--      derived from this software without specific prior written permission.
+--
+--THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+--IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+--TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+--PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+--OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+--EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+--PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+--PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+--LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+--NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+--SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

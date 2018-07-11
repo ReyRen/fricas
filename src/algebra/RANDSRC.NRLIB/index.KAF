@@ -1,0 +1,48 @@
+2003                (MAKEPROP '|RandomNumberSource| 'NILADIC T)
+(|RandomNumberSource|)
+|package|
+(((|RandomNumberSource|)
+  (CATEGORY |package| (SIGNATURE |randnum| ((|Integer|)))
+   (SIGNATURE |size| ((|Integer|)))
+   (SIGNATURE |randnum| ((|Integer|) (|Integer|)))
+   (SIGNATURE |reseed| ((|Void|) (|Integer|)))
+   (SIGNATURE |seed| ((|Integer|)))))
+ (T |RandomNumberSource|))
+(CATEGORY |package| (SIGNATURE |randnum| ((|Integer|)))
+ (SIGNATURE |size| ((|Integer|)))
+ (SIGNATURE |randnum| ((|Integer|) (|Integer|)))
+ (SIGNATURE |reseed| ((|Void|) (|Integer|))) (SIGNATURE |seed| ((|Integer|))))
+"/git/fricas/src/algebra/RANDSRC.spad"
+((|seed| (*1 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|RandomNumberSource|))))
+ (|reseed| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Integer|)) (|isDomain| *2 (|Void|))
+       (|isDomain| *1 (|RandomNumberSource|))))
+ (|randnum| (*1 *2 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|RandomNumberSource|))))
+ (|size| (*1 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|RandomNumberSource|))))
+ (|randnum| (*1 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|isDomain| *1 (|RandomNumberSource|)))))
+((|size| (((|Integer|)) 13)) (|seed| (((|Integer|)) 16))
+ (|reseed| (((|Void|) (|Integer|)) 15))
+ (|randnum| (((|Integer|) (|Integer|)) 17) (((|Integer|)) 12)))
+RANDSRC
+((|constructor|
+  (NIL
+   "Random number generators \\indented{1}{All random numbers used in the system should originate from} \\indented{1}{the same generator.\\space{2}This package is intended to be the source.}"))
+ (|seed| (((|Integer|)) "\\spad{seed()} returns the current seed value."))
+ (|reseed|
+  (((|Void|) (|Integer|))
+   "\\spad{reseed(n)} restarts the random number generator at \\spad{n}."))
+ (|size|
+  (((|Integer|)) "\\spad{size()} is the base of the random number generator"))
+ (|randnum|
+  (((|Integer|) (|Integer|))
+   "\\spad{randnum(n)} is a random number between 0 and \\spad{n}-1.")
+  (((|Integer|)) "\\spad{randnum()} is a random number between 0 and size().")))
+(("documentation" 0 1317) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1309) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1148) ("modemaps" 0 636) ("sourceFile" 0 597)
+ ("constructorCategory" 0 379) ("constructorModemap" 0 97)
+ ("constructorKind" 0 87) ("constructorForm" 0 64) ("NILADIC" 0 20))

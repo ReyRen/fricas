@@ -1,0 +1,110 @@
+6190                (|DefiniteIntegrationTools| R F)
+|package|
+(((|DefiniteIntegrationTools| |#1| |#2|)
+  (CATEGORY |package| (SIGNATURE |ignore?| ((|Boolean|) (|String|)))
+   (SIGNATURE |computeInt|
+    ((|Union| (|OrderedCompletion| |#2|) "failed") (|Kernel| |#2|) |#2|
+     (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|) (|Boolean|)))
+   (SIGNATURE |checkForZero|
+    ((|Union| (|Boolean|) "failed") (|Polynomial| |#1|) (|Symbol|)
+     (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|) (|Boolean|)))
+   (SIGNATURE |checkForZero|
+    ((|Union| (|Boolean|) "failed") (|SparseUnivariatePolynomial| |#2|)
+     (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|) (|Boolean|))))
+  (|Join| (|GcdDomain|) (|Comparable|) (|RetractableTo| (|Integer|))
+          (|LinearlyExplicitOver| (|Integer|)))
+  (|Join| (|TranscendentalFunctionCategory|) (|AlgebraicallyClosedField|)
+          (|FunctionSpace| |#1|)))
+ (T |DefiniteIntegrationTools|))
+(CATEGORY |package| (SIGNATURE |ignore?| ((|Boolean|) (|String|)))
+ (SIGNATURE |computeInt|
+  ((|Union| (|OrderedCompletion| |#2|) "failed") (|Kernel| |#2|) |#2|
+   (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|) (|Boolean|)))
+ (SIGNATURE |checkForZero|
+  ((|Union| (|Boolean|) "failed") (|Polynomial| |#1|) (|Symbol|)
+   (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|) (|Boolean|)))
+ (SIGNATURE |checkForZero|
+  ((|Union| (|Boolean|) "failed") (|SparseUnivariatePolynomial| |#2|)
+   (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|) (|Boolean|))))
+"/git/fricas/src/algebra/DFINTTLS.spad"
+((|checkForZero| (*1 *2 *3 *4 *4 *2)
+  (|partial| AND (|isDomain| *2 (|Boolean|))
+   (|isDomain| *3 (|SparseUnivariatePolynomial| *6))
+   (|isDomain| *4 (|OrderedCompletion| *6))
+   (|ofCategory| *6
+                 (|Join| (|TranscendentalFunctionCategory|)
+                         (|AlgebraicallyClosedField|) (|FunctionSpace| *5)))
+   (|ofCategory| *5
+                 (|Join| (|GcdDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *1 (|DefiniteIntegrationTools| *5 *6))))
+ (|checkForZero| (*1 *2 *3 *4 *5 *5 *2)
+  (|partial| AND (|isDomain| *2 (|Boolean|)) (|isDomain| *3 (|Polynomial| *6))
+   (|isDomain| *4 (|Symbol|)) (|isDomain| *5 (|OrderedCompletion| *7))
+   (|ofCategory| *6
+                 (|Join| (|GcdDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|ofCategory| *7
+                 (|Join| (|TranscendentalFunctionCategory|)
+                         (|AlgebraicallyClosedField|) (|FunctionSpace| *6)))
+   (|isDomain| *1 (|DefiniteIntegrationTools| *6 *7))))
+ (|computeInt| (*1 *2 *3 *4 *2 *2 *5)
+  (|partial| AND (|isDomain| *2 (|OrderedCompletion| *4))
+   (|isDomain| *3 (|Kernel| *4)) (|isDomain| *5 (|Boolean|))
+   (|ofCategory| *4
+                 (|Join| (|TranscendentalFunctionCategory|)
+                         (|AlgebraicallyClosedField|) (|FunctionSpace| *6)))
+   (|ofCategory| *6
+                 (|Join| (|GcdDomain|) (|Comparable|)
+                         (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))))
+   (|isDomain| *1 (|DefiniteIntegrationTools| *6 *4))))
+ (|ignore?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|String|))
+       (|ofCategory| *4
+                     (|Join| (|GcdDomain|) (|Comparable|)
+                             (|RetractableTo| (|Integer|))
+                             (|LinearlyExplicitOver| (|Integer|))))
+       (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|DefiniteIntegrationTools| *4 *5))
+       (|ofCategory| *5
+                     (|Join| (|TranscendentalFunctionCategory|)
+                             (|AlgebraicallyClosedField|)
+                             (|FunctionSpace| *4))))))
+((|ignore?| (((|Boolean|) (|String|)) 23))
+ (|computeInt|
+  (((|Union| (|OrderedCompletion| |#2|) "failed") (|Kernel| |#2|) |#2|
+    (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|) (|Boolean|))
+   33))
+ (|checkForZero|
+  (((|Union| (|Boolean|) "failed") (|SparseUnivariatePolynomial| |#2|)
+    (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|) (|Boolean|))
+   76)
+  (((|Union| (|Boolean|) "failed") (|Polynomial| |#1|) (|Symbol|)
+    (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|) (|Boolean|))
+   77)))
+DFINTTLS
+((|constructor|
+  (NIL
+   "\\spadtype{DefiniteIntegrationTools} provides common tools used by the definite integration of both rational and elementary functions."))
+ (|checkForZero|
+  (((|Union| (|Boolean|) "failed") (|SparseUnivariatePolynomial| |#2|)
+    (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|) (|Boolean|))
+   "\\spad{checkForZero(p,{} a,{} b,{} incl?)} is \\spad{true} if \\spad{p} has a zero between a and \\spad{b},{} \\spad{false} otherwise,{} \"failed\" if this cannot be determined. Check for a and \\spad{b} inclusive if incl? is \\spad{true},{} exclusive otherwise.")
+  (((|Union| (|Boolean|) "failed") (|Polynomial| |#1|) (|Symbol|)
+    (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|) (|Boolean|))
+   "\\spad{checkForZero(p,{} x,{} a,{} b,{} incl?)} is \\spad{true} if \\spad{p} has a zero for \\spad{x} between a and \\spad{b},{} \\spad{false} otherwise,{} \"failed\" if this cannot be determined. Check for a and \\spad{b} inclusive if incl? is \\spad{true},{} exclusive otherwise."))
+ (|computeInt|
+  (((|Union| (|OrderedCompletion| |#2|) "failed") (|Kernel| |#2|) |#2|
+    (|OrderedCompletion| |#2|) (|OrderedCompletion| |#2|) (|Boolean|))
+   "\\spad{computeInt(x,{} g,{} a,{} b,{} eval?)} returns the integral of \\spad{f} for \\spad{x} between a and \\spad{b},{} assuming that \\spad{g} is an indefinite integral of \\spad{f} and \\spad{f} has no pole between a and \\spad{b}. If \\spad{eval?} is \\spad{true},{} then \\spad{g} can be evaluated safely at \\spad{a} and \\spad{b},{} provided that they are finite values. Otherwise,{} limits must be computed."))
+ (|ignore?|
+  (((|Boolean|) (|String|))
+   "\\spad{ignore?(s)} is \\spad{true} if \\spad{s} is the string that tells the integrator to assume that the function has no pole in the integration interval.")))
+(("documentation" 0 4386) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 4377) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3857) ("modemaps" 0 1553) ("sourceFile" 0 1513)
+ ("constructorCategory" 0 948) ("constructorModemap" 0 63)
+ ("constructorKind" 0 53) ("constructorForm" 0 20))

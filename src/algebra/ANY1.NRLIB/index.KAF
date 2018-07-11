@@ -1,0 +1,50 @@
+2267                (|AnyFunctions1| S)
+|package|
+(((|AnyFunctions1| |#1|)
+  (CATEGORY |package| (SIGNATURE |coerce| ((|Any|) |#1|))
+   (SIGNATURE |retractIfCan| ((|Union| |#1| "failed") (|Any|)))
+   (SIGNATURE |retractable?| ((|Boolean|) (|Any|)))
+   (SIGNATURE |retract| (|#1| (|Any|))))
+  (|Type|))
+ (T |AnyFunctions1|))
+(CATEGORY |package| (SIGNATURE |coerce| ((|Any|) |#1|))
+ (SIGNATURE |retractIfCan| ((|Union| |#1| "failed") (|Any|)))
+ (SIGNATURE |retractable?| ((|Boolean|) (|Any|)))
+ (SIGNATURE |retract| (|#1| (|Any|))))
+"/git/fricas/src/algebra/ANY1.spad"
+((|retract| (*1 *2 *3)
+            (AND (|isDomain| *3 (|Any|)) (|isDomain| *1 (|AnyFunctions1| *2))
+                 (|ofCategory| *2 (|Type|))))
+ (|retractable?| (*1 *2 *3)
+  (AND (|isDomain| *3 (|Any|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|AnyFunctions1| *4)) (|ofCategory| *4 (|Type|))))
+ (|retractIfCan| (*1 *2 *3)
+  (|partial| AND (|isDomain| *3 (|Any|)) (|isDomain| *1 (|AnyFunctions1| *2))
+   (|ofCategory| *2 (|Type|))))
+ (|coerce| (*1 *2 *3)
+           (AND (|isDomain| *2 (|Any|)) (|isDomain| *1 (|AnyFunctions1| *3))
+                (|ofCategory| *3 (|Type|)))))
+((|retractable?| (((|Boolean|) (|Any|)) 13))
+ (|retractIfCan| (((|Union| |#1| "failed") (|Any|)) 21))
+ (|retract| ((|#1| (|Any|)) 22)) (|coerce| (((|Any|) |#1|) 18)))
+ANY1
+((|constructor|
+  (NIL
+   "\\spadtype{AnyFunctions1} implements several utility functions for working with \\spadtype{Any}. These functions are used to go back and forth between objects of \\spadtype{Any} and objects of other types."))
+ (|retract|
+  ((|#1| (|Any|))
+   "\\spad{retract(a)} tries to convert \\spad{a} into an object of type \\spad{S}. If possible,{} it returns the object. Error: if no such retraction is possible."))
+ (|retractable?|
+  (((|Boolean|) (|Any|))
+   "\\spad{retractable?(a)} tests if \\spad{a} can be converted into an object of type \\spad{S}."))
+ (|retractIfCan|
+  (((|Union| |#1| "failed") (|Any|))
+   "\\spad{retractIfCan(a)} tries change \\spad{a} into an object of type \\spad{S}. If it can,{} then such an object is returned. Otherwise,{} \"failed\" is returned."))
+ (|coerce|
+  (((|Any|) |#1|)
+   "\\spad{coerce(s)} creates an object of \\spadtype{Any} from the object \\spad{s} of type \\spad{S}.")))
+(("documentation" 0 1329) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1324) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1157) ("modemaps" 0 567) ("sourceFile" 0 531)
+ ("constructorCategory" 0 324) ("constructorModemap" 0 50)
+ ("constructorKind" 0 40) ("constructorForm" 0 20))

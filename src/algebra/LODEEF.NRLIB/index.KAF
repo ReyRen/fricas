@@ -1,0 +1,74 @@
+3985                (|ElementaryFunctionLODESolver| R F L)
+|package|
+(((|ElementaryFunctionLODESolver| |#1| |#2| |#3|)
+  (CATEGORY |package|
+   (SIGNATURE |solve|
+    ((|Union| (|Record| (|:| |particular| |#2|) (|:| |basis| (|List| |#2|)))
+              "failed")
+     |#3| |#2| (|Symbol|)))
+   (SIGNATURE |solve|
+    ((|Union| |#2| "failed") |#3| |#2| (|Symbol|) |#2| (|List| |#2|))))
+  (|Join| (|Comparable|) (|PolynomialFactorizationExplicit|)
+          (|RetractableTo| (|Integer|)) (|LinearlyExplicitOver| (|Integer|))
+          (|CharacteristicZero|))
+  (|Join| (|AlgebraicallyClosedFunctionSpace| |#1|)
+          (|TranscendentalFunctionCategory|) (|PrimitiveFunctionCategory|))
+  (|LinearOrdinaryDifferentialOperatorCategory| |#2|))
+ (T |ElementaryFunctionLODESolver|))
+(CATEGORY |package|
+ (SIGNATURE |solve|
+  ((|Union| (|Record| (|:| |particular| |#2|) (|:| |basis| (|List| |#2|)))
+            "failed")
+   |#3| |#2| (|Symbol|)))
+ (SIGNATURE |solve|
+  ((|Union| |#2| "failed") |#3| |#2| (|Symbol|) |#2| (|List| |#2|))))
+"/git/fricas/src/algebra/LODEEF.spad"
+((|solve| (*1 *2 *3 *2 *4 *2 *5)
+  (|partial| AND (|isDomain| *4 (|Symbol|)) (|isDomain| *5 (|List| *2))
+   (|ofCategory| *2
+                 (|Join| (|AlgebraicallyClosedFunctionSpace| *6)
+                         (|TranscendentalFunctionCategory|)
+                         (|PrimitiveFunctionCategory|)))
+   (|ofCategory| *6
+                 (|Join| (|Comparable|) (|PolynomialFactorizationExplicit|)
+                         (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))
+                         (|CharacteristicZero|)))
+   (|isDomain| *1 (|ElementaryFunctionLODESolver| *6 *2 *3))
+   (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *2))))
+ (|solve| (*1 *2 *3 *4 *5)
+  (|partial| AND (|isDomain| *5 (|Symbol|))
+   (|ofCategory| *6
+                 (|Join| (|Comparable|) (|PolynomialFactorizationExplicit|)
+                         (|RetractableTo| (|Integer|))
+                         (|LinearlyExplicitOver| (|Integer|))
+                         (|CharacteristicZero|)))
+   (|ofCategory| *4
+                 (|Join| (|AlgebraicallyClosedFunctionSpace| *6)
+                         (|TranscendentalFunctionCategory|)
+                         (|PrimitiveFunctionCategory|)))
+   (|isDomain| *2 (|Record| (|:| |particular| *4) (|:| |basis| (|List| *4))))
+   (|isDomain| *1 (|ElementaryFunctionLODESolver| *6 *4 *3))
+   (|ofCategory| *3 (|LinearOrdinaryDifferentialOperatorCategory| *4)))))
+((|solve|
+  (((|Union| |#2| "failed") |#3| |#2| (|Symbol|) |#2| (|List| |#2|)) 164)
+  (((|Union| (|Record| (|:| |particular| |#2|) (|:| |basis| (|List| |#2|)))
+             "failed")
+    |#3| |#2| (|Symbol|))
+   50)))
+LODEEF
+((|constructor|
+  (NIL
+   "\\spad{ElementaryFunctionLODESolver} provides the top-level functions for finding closed form solutions of linear ordinary differential equations and initial value problems."))
+ (|solve|
+  (((|Union| |#2| "failed") |#3| |#2| (|Symbol|) |#2| (|List| |#2|))
+   "\\spad{solve(op,{} g,{} x,{} a,{} [y0,{} ...,{} ym])} returns either the solution of the initial value problem \\spad{op y = g,{} y(a) = y0,{} y'(a) = y1,{} ...} or \"failed\" if the solution cannot be found; \\spad{x} is the dependent variable.")
+  (((|Union| (|Record| (|:| |particular| |#2|) (|:| |basis| (|List| |#2|)))
+             "failed")
+    |#3| |#2| (|Symbol|))
+   "\\spad{solve(op,{} g,{} x)} returns either a solution of the ordinary differential equation \\spad{op y = g} or \"failed\" if no non-trivial solution can be found; When found,{} the solution is returned in the form \\spad{[h,{} [b1,{} ...,{} bm]]} where \\spad{h} is a particular solution and and \\spad{[b1,{} ...bm]} are linearly independent solutions of the associated homogenuous equation \\spad{op y = 0}. A full basis for the solutions of the homogenuous equation is not always returned,{} only the solutions which were found; \\spad{x} is the dependent variable.")))
+(("documentation" 0 2747) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2740) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2522) ("modemaps" 0 1069) ("sourceFile" 0 1031)
+ ("constructorCategory" 0 778) ("constructorModemap" 0 69)
+ ("constructorKind" 0 59) ("constructorForm" 0 20))

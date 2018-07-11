@@ -1,0 +1,56 @@
+2808                (|PolynomialCommonDenominator| R Q E |VarSet| P)
+|package|
+(((|PolynomialCommonDenominator| |#1| |#2| |#3| |#4| |#5|)
+  (CATEGORY |package| (SIGNATURE |commonDenominator| (|#1| |#5|))
+   (SIGNATURE |clearDenominator| (|#5| |#5|))
+   (SIGNATURE |splitDenominator|
+    ((|Record| (|:| |num| |#5|) (|:| |den| |#1|)) |#5|)))
+  (|IntegralDomain|) (|QuotientFieldCategory| |#1|) (|OrderedAbelianMonoidSup|)
+  (|OrderedSet|) (|PolynomialCategory| |#2| |#3| |#4|))
+ (T |PolynomialCommonDenominator|))
+(CATEGORY |package| (SIGNATURE |commonDenominator| (|#1| |#5|))
+ (SIGNATURE |clearDenominator| (|#5| |#5|))
+ (SIGNATURE |splitDenominator|
+  ((|Record| (|:| |num| |#5|) (|:| |den| |#1|)) |#5|)))
+"/git/fricas/src/algebra/PCDEN.spad"
+((|splitDenominator| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|IntegralDomain|))
+       (|ofCategory| *5 (|QuotientFieldCategory| *4))
+       (|ofCategory| *6 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *7 (|OrderedSet|))
+       (|isDomain| *2 (|Record| (|:| |num| *3) (|:| |den| *4)))
+       (|isDomain| *1 (|PolynomialCommonDenominator| *4 *5 *6 *7 *3))
+       (|ofCategory| *3 (|PolynomialCategory| *5 *6 *7))))
+ (|clearDenominator| (*1 *2 *2)
+  (AND (|ofCategory| *3 (|IntegralDomain|))
+       (|ofCategory| *4 (|QuotientFieldCategory| *3))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|))
+       (|isDomain| *1 (|PolynomialCommonDenominator| *3 *4 *5 *6 *2))
+       (|ofCategory| *2 (|PolynomialCategory| *4 *5 *6))))
+ (|commonDenominator| (*1 *2 *3)
+  (AND (|ofCategory| *4 (|QuotientFieldCategory| *2))
+       (|ofCategory| *5 (|OrderedAbelianMonoidSup|))
+       (|ofCategory| *6 (|OrderedSet|)) (|ofCategory| *2 (|IntegralDomain|))
+       (|isDomain| *1 (|PolynomialCommonDenominator| *2 *4 *5 *6 *3))
+       (|ofCategory| *3 (|PolynomialCategory| *4 *5 *6)))))
+((|splitDenominator| (((|Record| (|:| |num| |#5|) (|:| |den| |#1|)) |#5|) 23))
+ (|commonDenominator| ((|#1| |#5|) 15)) (|clearDenominator| ((|#5| |#5|) 21)))
+PCDEN
+((|constructor|
+  (NIL
+   "PolynomialCommonDenominator provides \\indented{1}{functions to compute and clear the common denominator of the} \\indented{1}{coefficients of polynomials over the quotient field.}"))
+ (|splitDenominator|
+  (((|Record| (|:| |num| |#5|) (|:| |den| |#1|)) |#5|)
+   "\\spad{splitDenominator(q)} returns \\spad{[p,{} d]} such that \\spad{q = p/d} and \\spad{d} is a common denominator for the coefficients of \\spad{q}."))
+ (|clearDenominator|
+  ((|#5| |#5|)
+   "\\spad{clearDenominator(q)} returns \\spad{p} such that \\spad{q = p/d} where \\spad{d} is a common denominator for the coefficients of \\spad{q}."))
+ (|commonDenominator|
+  ((|#1| |#5|)
+   "\\spad{commonDenominator(q)} returns a common denominator \\spad{d} for the coefficients of \\spad{q}.")))
+(("documentation" 0 2024) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 2018) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1860) ("modemaps" 0 745) ("sourceFile" 0 708)
+ ("constructorCategory" 0 513) ("constructorModemap" 0 79)
+ ("constructorKind" 0 69) ("constructorForm" 0 20))

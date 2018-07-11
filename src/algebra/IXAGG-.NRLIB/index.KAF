@@ -1,0 +1,67 @@
+3484                (|IndexedAggregate&| S |Index| |Entry|)
+|domain|
+(((|IndexedAggregate&| |#1| |#2| |#3|)
+  (CATEGORY |domain| (SIGNATURE |swap!| ((|Void|) |#1| |#2| |#2|))
+   (SIGNATURE |fill!| (|#1| |#1| |#3|)) (SIGNATURE |first| (|#3| |#1|))
+   (SIGNATURE |minIndex| (|#2| |#1|)) (SIGNATURE |maxIndex| (|#2| |#1|))
+   (SIGNATURE |entry?| ((|Boolean|) |#3| |#1|))
+   (SIGNATURE |entries| ((|List| |#3|) |#1|))
+   (SIGNATURE |elt| (|#3| |#1| |#2|)) (SIGNATURE |elt| (|#3| |#1| |#2| |#3|))
+   (SIGNATURE |map!| (|#1| (|Mapping| |#3| |#3|) |#1|))
+   (SIGNATURE |map| (|#1| (|Mapping| |#3| |#3|) |#1|)))
+  (|IndexedAggregate| |#2| |#3|) (|Type|) (|Type|))
+ (T |IndexedAggregate&|))
+(CATEGORY |domain| (SIGNATURE |swap!| ((|Void|) |#1| |#2| |#2|))
+ (SIGNATURE |fill!| (|#1| |#1| |#3|)) (SIGNATURE |first| (|#3| |#1|))
+ (SIGNATURE |minIndex| (|#2| |#1|)) (SIGNATURE |maxIndex| (|#2| |#1|))
+ (SIGNATURE |entry?| ((|Boolean|) |#3| |#1|))
+ (SIGNATURE |entries| ((|List| |#3|) |#1|)) (SIGNATURE |elt| (|#3| |#1| |#2|))
+ (SIGNATURE |elt| (|#3| |#1| |#2| |#3|))
+ (SIGNATURE |map!| (|#1| (|Mapping| |#3| |#3|) |#1|))
+ (SIGNATURE |map| (|#1| (|Mapping| |#3| |#3|) |#1|)))
+"/git/fricas/src/algebra/IXAGG.spad"
+((|swap!| (((|Void|) $ |#2| |#2|) 35)) (|minIndex| ((|#2| $) 23))
+ (|maxIndex| ((|#2| $) 21)) (|map!| (($ (|Mapping| |#3| |#3|) $) 32))
+ (|map| (($ (|Mapping| |#3| |#3|) $) 30)) (|first| ((|#3| $) 26))
+ (|fill!| (($ $ |#3|) 33)) (|entry?| (((|Boolean|) |#3| $) 17))
+ (|entries| (((|List| |#3|) $) 15))
+ (|elt| ((|#3| $ |#2| |#3|) 12) ((|#3| $ |#2|) NIL)))
+((|HasCategory| |#1| '(|shallowlyMutable|))
+ (|HasCategory| |#2| '(|OrderedSet|)) (|HasCategory| |#1| '(|finiteAggregate|))
+ (|HasCategory| |#3| '(|BasicType|)))
+IXAGG-
+((|constructor|
+  (NIL
+   "An indexed aggregate is a many-to-one mapping of indices to entries. For example,{} a one-dimensional-array is an indexed aggregate where the index is an integer. Also,{} a table is an indexed aggregate where the indices and entries may have any type."))
+ (|swap!|
+  (((|Void|) $ |#2| |#2|)
+   "\\spad{swap!(u,{} i,{} j)} interchanges elements \\spad{i} and \\spad{j} of aggregate \\spad{u}. No meaningful value is returned."))
+ (|fill!|
+  (($ $ |#3|)
+   "\\spad{fill!(u,{} x)} replaces each entry in aggregate \\spad{u} by \\spad{x}. The modified \\spad{u} is returned as value."))
+ (|first|
+  ((|#3| $)
+   "\\spad{first(u)} returns the first element \\spad{x} of \\spad{u}. Note: for collections,{} \\spad{first([x,{} y,{} ...,{} z]) = x}. Error: if \\spad{u} is empty."))
+ (|minIndex|
+  ((|#2| $)
+   "\\spad{minIndex(u)} returns the minimum index \\spad{i} of aggregate \\spad{u}. Note: in general,{} \\spad{minIndex(a) = reduce(min,{} indices a)}; for List,{} \\spad{minIndex(a) = 1}."))
+ (|maxIndex|
+  ((|#2| $)
+   "\\spad{maxIndex(u)} returns the maximum index \\spad{i} of aggregate \\spad{u}. Note: in general,{} \\spad{maxIndex(u) = reduce(max,{} indices u)}; for List,{} \\spad{maxIndex(u) = \\#u}."))
+ (|entry?|
+  (((|Boolean|) |#3| $)
+   "\\spad{entry?(x,{} u)} tests if \\spad{x} equals \\spad{u . i} for some index \\spad{i}."))
+ (|indices|
+  (((|List| |#2|) $)
+   "\\spad{indices(u)} returns a list of indices of aggregate \\spad{u} in no particular order."))
+ (|index?|
+  (((|Boolean|) |#2| $)
+   "\\spad{index?(i,{} u)} tests if \\spad{i} is an index of aggregate \\spad{u}."))
+ (|entries|
+  (((|List| |#3|) $)
+   "\\spad{entries(u)} returns a list of all the entries of aggregate \\spad{u} in no assumed order.")))
+(("documentation" 0 1724) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 1717) ("predicates" 0 1555) ("superDomain" 0 NIL)
+ ("operationAlist" 0 1199) ("modemaps" 0 NIL) ("sourceFile" 0 1162)
+ ("constructorCategory" 0 682) ("constructorModemap" 0 69)
+ ("constructorKind" 0 60) ("constructorForm" 0 20))

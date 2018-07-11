@@ -1,0 +1,193 @@
+)abbrev category SPTCAT SPointCategory
+++ Author: Martin Baker
+++ Date Created: September 2010
+++ Basic Operations:
+++ convert
+++ Related Constructors:
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ References:
+++ http://www.euclideanspace.com/prog/scratchpad/mycode/graph/
+++ Description: PointCategory is the category of points and vectors in space.
+++ Points may be used to represent shapes in a scenegraph such as: the
+++ vertices of a cube or points along a line.
+++ Shapes such as these may be defined explicitly or may be plotted.
+++ We implement SetCategory to allow us to curry transforms from one
+++ point to another.
+
+SPointCategory() : Category == SetCategory with
+  spnt : (a : DoubleFloat, b : DoubleFloat) -> %
+    ++ spnt(a, b) constructs a 2D point defined by a and b
+    ++ of type R
+  sipnt : (a : Integer, b : Integer) -> %
+    ++ sipnt(a, b) constructs a 2D point defined by a and b
+    ++ of type Integer
+  spnt : (a : DoubleFloat, b : DoubleFloat, c : DoubleFloat) -> %
+    ++ spnt(a, b, c) constructs a 3D point defined by a, b and c
+    ++ of type R
+  sipnt : (a : Integer, b : Integer, c : Integer) -> %
+    ++ sipnt(a, b, c) constructs a 3D point defined by a, b and c
+    ++ of type Integer
+  svec : (a : DoubleFloat, b : DoubleFloat) -> %
+    ++ svec(a, b) constructs a 2D vector defined by a and b
+    ++ of type R
+  sivec : (a : Integer, b : Integer) -> %
+    ++ sivec(a, b) constructs a 2D vector defined by a and b
+    ++ of type Integer
+  svec : (a : DoubleFloat, b : DoubleFloat, c : DoubleFloat) -> %
+    ++ svec(a, b, c) constructs a 3D vector defined by a, b and c
+    ++ of type R
+  sivec : (a : Integer, b : Integer, c : Integer) -> %
+    ++ sivec(a, b, c) constructs a 3D vector defined by a, b and c
+    ++ of type Integer
+  min : (a : %, b : %) -> %
+    ++ min(a, b) returns a point whose value in each dimension is
+    ++ the minimum. So if a has the smallest x value and b has the
+    ++ smallest y value then the result will combine these. This is
+    ++ useful for constructing boundary boxes around sets of points.
+  max : (a : %, b : %) -> %
+    ++ max(a, b) returns a point whose value in each dimension is
+    ++ the maximum. So if a has the largest x value and b has the
+    ++ largest y value then the result will combine these. This is
+    ++ useful for constructing boundary boxes around sets of points.
+  dimension : (p : %) -> PositiveInteger
+    ++ dimension(p) returns the number of dimensions that make up the
+    ++ point category p.
+  Pnan? : (p : %) -> Boolean
+    ++ Pnan?(p) returns true if any of its elements are not valid
+    ++ DoubleFloat values.
+    ++ Examples of invalid floating point numbers are when we
+    ++ have divided a given element by zero or taken
+    ++ sqrt of negative number at some stage?
+    ++ Note: we can still represent a point at infinity and we can
+    ++ represent points using complex numbers, but we do this using
+    ++ projective or conformal space or by using the appropriate
+    ++ instance of SPointCategory, not by using invalid floating
+    ++ point numbers.
+  unitVector : (p : %) -> %
+    ++ unitVector(p) returns a vector with the same direction as p
+    ++ but with unit length. We scale until length is 1
+  distanceSquared : (p1 : %, p2 : %) -> DoubleFloat
+    ++ distanceSquared(p1, p2) returns the distance between the
+    ++ points p1 and p2.
+    ++ There are 2 metrics associated with any SPointCategory
+    ++ the underlying space and the space that it is embedded in
+    ++ this is the distance in the underlying space.
+  distance : (p1 : %, p2 : %) -> DoubleFloat
+    ++ distance(p1, p2) returns the distance between the points
+    ++ p1 is the first point.
+    ++ p2 is the second point.
+    ++ There are 2 metrics associated with any SPointCategory
+    ++ the underlying space and the space that it is embedded in
+    ++ this is the distance in the underlying space.
+  parallel : (x : %, y : %) -> DoubleFloat
+    ++ parallel(x, y) returns the length of the parallel component of
+    ++ two vectors.
+    ++ In the case of Euclidean space this is the dot product of two
+    ++ vectors. We use this function to test the colinearity
+  colinearity : (x : %, y : %) -> DoubleFloat
+    ++ colinearity(x, y) returns a measure of how parallel two vectors
+    ++ are independent of the length of the vectors:
+    ++ 1.0 is completely parallel
+    ++ 0.0 is completely perpendicular
+    ++ returned value will be between these
+  perpendicular : (x : %, y : %) -> %
+    ++ perpendicular(x, y) returns a vector perpendicular to the two
+    ++ vectors in the case of 3D Euclidean space this is the cross the
+    ++ product of two vectors. We use this function to compute orthogonal
+  _+: (x : %, y : %) -> %
+    ++ +(x, y) gives addition
+    ++ add the corresponding elements of the vector or point.
+    ++ The type (vector or point) depends on the following table:
+    ++ vector + vector = vector
+    ++ point + vector = point
+    ++ point + point = invalid (but interpret as vector)
+    ++ Although, adding two points is not strictly a valid operation,
+    ++ we allow it here by interpreting the point as a vector relative
+    ++ to the origin. We do that because there are some useful short
+    ++ cuts, for instance, to find the central point between two points
+    ++ we can add them together and scalar multiply by 0.5.
+  _-: (x : %, y : %) -> %
+    ++ -(x, y) gives subtraction
+    ++ subtract the corresponding elements of the vector or point.
+    ++ The type (vector or point) depends on the following table:
+    ++ vector - vector = vector
+    ++ point - vector = point
+    ++ vector - point = invalid (but interpret as point)
+    ++ point - point = invalid (but interpret as vector)
+    ++ Although, subtracting two points is not strictly a valid operation,
+    ++ we allow it here by interpreting the result as the vector distance
+    ++ between the two points.
+  _*: (s : DoubleFloat, x : %) -> %
+    ++ *(s, x) gives scalar multiplication
+    ++ Although, scalar multiplication is strictly only a valid operation
+    ++ for vectors and not points, we allow it here because there are some
+    ++ useful short cuts, for instance, to find the central point between
+    ++ two points we can add them together and scalar multiply by 0.5.
+  toPoint : (p : %) -> %
+    ++ toPoint(p) returns a Point with the same coordinates as p
+    ++ If p was originally a vector then that will be treated as the
+    ++ distance from the origin.
+  toVector : (p : %) -> %
+    ++ toVector returns a Vector with the same coordinates as p
+    ++ If p was originally a point then the vector will be the
+    ++ distance from the origin.
+  isPoint? : (p : %) -> Boolean
+    ++ isPoint?(p) returns true if this represents a point as
+    ++ opposed to a vector.
+  isVector? : (p : %) -> Boolean
+    ++ isVector? returns true if this represents a vector as
+    ++ opposed to a point.
+  inBounds? : (pt : %, mns : %, mxs : %) -> Boolean
+    ++ inBounds?(pt, mns, mxs) returns true if pt is inside bounding box
+    ++ where bounding box is specified by min and max.
+  screenCoordX : (pt : %) -> DoubleFloat
+    ++ screenCoordX(pt) returns the 'x'(left to right) screen coordinate.
+  screenCoordY : (pt : %) -> DoubleFloat
+    ++ screenCoordY(pt) returns the 'y'(bottom to top) screen coordinate.
+  screenCoordZ : (pt : %) -> DoubleFloat
+    ++ screenCoordZ(pt) returns the 'z'(out from screen) screen coordinate.
+  screenCoords : (pt : %) -> List DoubleFloat
+    ++ screenCoords(pt) returns screen coordinates as a list.
+  extendedCoords : (pt : %) -> List DoubleFloat
+    ++ extendedCoords(pt) returns extended coordinates as a list.
+  coerce : (pt : %) -> OutputForm
+    ++ output
+
+ add
+
+  -- Measure of how parallel two vectors are independent of the length
+  -- of the vectors:
+  -- 1.0 is completely parallel
+  -- 0.0 is completely perpendicular
+  -- returned value will be these or between these
+  colinearity(x : %, y : %) : DoubleFloat == parallel(x, y)^2/_
+            (parallel(x, x) * parallel(y, y))
+
+
+  -- convenience constructors which allow us to construct using
+  -- integer values
+  sipnt(a : Integer, b : Integer) : % == spnt(a::DoubleFloat, b::DoubleFloat)
+  sipnt(a : Integer, b : Integer, c : Integer) : % ==
+      spnt(a::DoubleFloat, b::DoubleFloat, c::DoubleFloat)
+  sivec(a : Integer, b : Integer) : % == svec(a::DoubleFloat, b::DoubleFloat)
+  sivec(a : Integer, b : Integer, c : Integer) : % ==
+      svec(a::DoubleFloat, b::DoubleFloat, c::DoubleFloat)
+
+  -- returns the distance between the points p1 and p2
+  -- there are 2 metrics associated with any SPointCategory
+  -- the underlying space and the space that it is embedded in
+  -- this is the distance in the underlying space.
+  distance(p1 : %, p2 : %) : DoubleFloat ==
+      sqrt(distanceSquared(p1, p2))
+
+)if false
+
+The first coding of points and vectors is Cartesian, that is n dimensions
+are represented by n floating point numbers. Each number represents the
+projection onto mutually perpendicular lines. An additional number is added
+distinguish between points and vectors.
+\section{SCartesian domain}
+)endif
+

@@ -1,0 +1,98 @@
+4330                (|PureAlgebraicLODE| F UP UPUP R)
+|package|
+(((|PureAlgebraicLODE| |#1| |#2| |#3| |#4|)
+  (CATEGORY |package|
+   (SIGNATURE |algDsolve|
+    ((|Record| (|:| |particular| (|Union| |#4| "failed"))
+               (|:| |basis| (|List| |#4|)))
+     (|LinearOrdinaryDifferentialOperator1| |#4|) |#4|))
+   (SIGNATURE |algDsolve|
+    ((|Record|
+      (|:| |particular|
+           (|List|
+            (|Record| (|:| |ratpart| |#4|) (|:| |coeffs| (|Vector| |#1|)))))
+      (|:| |basis| (|List| |#4|)))
+     (|LinearOrdinaryDifferentialOperator1| |#4|) (|List| |#4|))))
+  (|Join| (|Field|) (|CharacteristicZero|) (|RetractableTo| (|Integer|))
+          (|RetractableTo| (|Fraction| (|Integer|))))
+  (|UnivariatePolynomialCategory| |#1|)
+  (|UnivariatePolynomialCategory| (|Fraction| |#2|))
+  (|FunctionFieldCategory| |#1| |#2| |#3|))
+ (T |PureAlgebraicLODE|))
+(CATEGORY |package|
+ (SIGNATURE |algDsolve|
+  ((|Record| (|:| |particular| (|Union| |#4| "failed"))
+             (|:| |basis| (|List| |#4|)))
+   (|LinearOrdinaryDifferentialOperator1| |#4|) |#4|))
+ (SIGNATURE |algDsolve|
+  ((|Record|
+    (|:| |particular|
+         (|List|
+          (|Record| (|:| |ratpart| |#4|) (|:| |coeffs| (|Vector| |#1|)))))
+    (|:| |basis| (|List| |#4|)))
+   (|LinearOrdinaryDifferentialOperator1| |#4|) (|List| |#4|))))
+"/git/fricas/src/algebra/ODEPAL.spad"
+((|algDsolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| *8))
+       (|isDomain| *4 (|List| *8))
+       (|ofCategory| *8 (|FunctionFieldCategory| *5 *6 *7))
+       (|ofCategory| *5
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| (|Fraction| *6)))
+       (|isDomain| *2
+                   (|Record|
+                    (|:| |particular|
+                         (|List|
+                          (|Record| (|:| |ratpart| *8)
+                                    (|:| |coeffs| (|Vector| *5)))))
+                    (|:| |basis| (|List| *8))))
+       (|isDomain| *1 (|PureAlgebraicLODE| *5 *6 *7 *8))))
+ (|algDsolve| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|LinearOrdinaryDifferentialOperator1| *4))
+       (|ofCategory| *4 (|FunctionFieldCategory| *5 *6 *7))
+       (|ofCategory| *5
+                     (|Join| (|Field|) (|CharacteristicZero|)
+                             (|RetractableTo| (|Integer|))
+                             (|RetractableTo| (|Fraction| (|Integer|)))))
+       (|ofCategory| *6 (|UnivariatePolynomialCategory| *5))
+       (|ofCategory| *7 (|UnivariatePolynomialCategory| (|Fraction| *6)))
+       (|isDomain| *2
+                   (|Record| (|:| |particular| (|Union| *4 "failed"))
+                             (|:| |basis| (|List| *4))))
+       (|isDomain| *1 (|PureAlgebraicLODE| *5 *6 *7 *4)))))
+((|algDsolve|
+  (((|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| |#4|) (|:| |coeffs| (|Vector| |#1|)))))
+     (|:| |basis| (|List| |#4|)))
+    (|LinearOrdinaryDifferentialOperator1| |#4|) (|List| |#4|))
+   68)
+  (((|Record| (|:| |particular| (|Union| |#4| "failed"))
+              (|:| |basis| (|List| |#4|)))
+    (|LinearOrdinaryDifferentialOperator1| |#4|) |#4|)
+   74)))
+ODEPAL
+((|constructor|
+  (NIL
+   "In-field solution of an linear ordinary differential equation,{} pure algebraic case."))
+ (|algDsolve|
+  (((|Record|
+     (|:| |particular|
+          (|List|
+           (|Record| (|:| |ratpart| |#4|) (|:| |coeffs| (|Vector| |#1|)))))
+     (|:| |basis| (|List| |#4|)))
+    (|LinearOrdinaryDifferentialOperator1| |#4|) (|List| |#4|))
+   "\\spad{algDsolve(op,{} lg)} is a parametric version of algDsolve(\\spad{op},{} \\spad{g})")
+  (((|Record| (|:| |particular| (|Union| |#4| "failed"))
+              (|:| |basis| (|List| |#4|)))
+    (|LinearOrdinaryDifferentialOperator1| |#4|) |#4|)
+   "\\spad{algDsolve(op,{} g)} returns \\spad{[\"failed\",{} []]} if the equation \\spad{op y = g} has no solution in \\spad{R}. Otherwise,{} it returns \\spad{[f,{} [y1,{} ...,{} ym]]} where \\spad{f} is a particular rational solution and the \\spad{y_i's} form a basis for the solutions in \\spad{R} of the homogeneous equation.")))
+(("documentation" 0 3385) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 3378) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2964) ("modemaps" 0 1352) ("sourceFile" 0 1314)
+ ("constructorCategory" 0 868) ("constructorModemap" 0 64)
+ ("constructorKind" 0 54) ("constructorForm" 0 20))

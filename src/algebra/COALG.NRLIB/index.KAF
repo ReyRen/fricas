@@ -1,0 +1,66 @@
+2648                (|Coalgebra| R |MxM|)
+|category|
+(((|Coalgebra| |#1| |#2|) (|Category|) (|CommutativeRing|) (|Module| |t#1|))
+ (T |Coalgebra|))
+(|Join| (|Module| |t#1|)
+        (CATEGORY |domain| (SIGNATURE |coproduct| (|t#2| $))
+         (SIGNATURE |counit| (|t#1| $))))
+"/git/fricas/src/algebra/COALG.spad"
+((|coproduct| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|Coalgebra| *3 *2))
+       (|ofCategory| *3 (|CommutativeRing|)) (|ofCategory| *2 (|Module| *3))))
+ (|counit| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|Coalgebra| *2 *3)) (|ofCategory| *3 (|Module| *2))
+       (|ofCategory| *2 (|CommutativeRing|)))))
+((~= (((|Boolean|) $ $) 6))
+ (|zero?|
+  (((|Boolean|) $) 6
+   (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) 6
+   (OR (|has| |#1| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|)))))
+ (|sample|
+  (($) 6 (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))
+   CONST))
+ (|opposite?|
+  (((|Boolean|) $ $) 6
+   (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))))
+ (|latex| (((|String|) $) 6))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) 6))
+ (|hash| (((|SingleInteger|) $) 6)) (|counit| ((|#1| $) 6))
+ (|coproduct| ((|#2| $) 6)) (|coerce| (((|OutputForm|) $) 6))
+ (|Zero|
+  (($) 6 (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|)))
+   CONST))
+ (= (((|Boolean|) $ $) 6))
+ (- (($ $) 6 (OR (|has| |#1| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|))))
+    (($ $ $) 6
+     (OR (|has| |#1| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|)))))
+ (+ (($ $ $) 6))
+ (* (($ (|PositiveInteger|) $) 6) (($ |#1| $) 6)
+    (($ (|NonNegativeInteger|) $) 6
+     (OR (|has| |#1| (|AbelianMonoid|)) (|has| |#1| (|AbelianMonoid|))))
+    (($ (|Integer|) $) 6
+     (OR (|has| |#1| (|AbelianGroup|)) (|has| |#1| (|AbelianGroup|))))
+    (($ $ |#1|) 6)))
+COALG
+(((|Module| |#1|) . T))
+(((|AbelianGroup|) |has| |t#1| (|AbelianGroup|))
+ ((|AbelianMonoid|) |has| |t#1| (|AbelianMonoid|)) ((|AbelianSemiGroup|) . T)
+ ((|BasicType|) . T) ((|BiModule| |t#1| |t#1|) . T)
+ ((|CancellationAbelianMonoid|) |has| |t#1| (|AbelianGroup|))
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|LeftModule| |t#1|) . T)
+ ((|Module| |#1|) . T) ((|RightModule| |t#2|) . T) ((|SetCategory|) . T))
+((|constructor|
+  (NIL
+   "A coalgebra A over a ring is an \\spad{R}-module with a coassociative comultiplication from A to the tensor product of A with itself and which possesses a counit."))
+ (|counit|
+  ((|#1| $) "\\spad{counit(x)} evaluates the counit at an element \\spad{x}"))
+ (|coproduct|
+  ((|#2| $)
+   "\\spad{coproduct(x)} computes the coproduct of an element \\spad{x}")))
+(("documentation" 0 2263) ("ancestors" 0 1883) ("parents" 0 1859)
+ ("abbreviation" 0 1853) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 609) ("modemaps" 0 313) ("sourceFile" 0 276)
+ ("constructorCategory" 0 148) ("constructorModemap" 0 53)
+ ("constructorKind" 0 42) ("constructorForm" 0 20))

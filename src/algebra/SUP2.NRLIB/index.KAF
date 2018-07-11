@@ -1,0 +1,37 @@
+1557                (|SparseUnivariatePolynomialFunctions2| R S)
+|package|
+(((|SparseUnivariatePolynomialFunctions2| |#1| |#2|)
+  (CATEGORY |package|
+   (SIGNATURE |map|
+    ((|SparseUnivariatePolynomial| |#2|) (|Mapping| |#2| |#1|)
+     (|SparseUnivariatePolynomial| |#1|))))
+  (|Ring|) (|Ring|))
+ (T |SparseUnivariatePolynomialFunctions2|))
+(CATEGORY |package|
+ (SIGNATURE |map|
+  ((|SparseUnivariatePolynomial| |#2|) (|Mapping| |#2| |#1|)
+   (|SparseUnivariatePolynomial| |#1|))))
+"/git/fricas/src/algebra/SUP2.spad"
+((|map| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|Mapping| *6 *5))
+       (|isDomain| *4 (|SparseUnivariatePolynomial| *5))
+       (|ofCategory| *5 (|Ring|)) (|ofCategory| *6 (|Ring|))
+       (|isDomain| *2 (|SparseUnivariatePolynomial| *6))
+       (|isDomain| *1 (|SparseUnivariatePolynomialFunctions2| *5 *6)))))
+((|map|
+  (((|SparseUnivariatePolynomial| |#2|) (|Mapping| |#2| |#1|)
+    (|SparseUnivariatePolynomial| |#1|))
+   13)))
+SUP2
+((|constructor|
+  (NIL
+   "This package lifts a mapping from coefficient rings \\spad{R} to \\spad{S} to a mapping from sparse univariate polynomial over \\spad{R} to a sparse univariate polynomial over \\spad{S}. Note that the mapping is assumed to send zero to zero,{} since it will only be applied to the non-zero coefficients of the polynomial."))
+ (|map|
+  (((|SparseUnivariatePolynomial| |#2|) (|Mapping| |#2| |#1|)
+    (|SparseUnivariatePolynomial| |#1|))
+   "\\spad{map(func,{} poly)} creates a new polynomial by applying \\spad{func} to every non-zero coefficient of the polynomial poly.")))
+(("documentation" 0 956) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 951) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 831) ("modemaps" 0 520) ("sourceFile" 0 484)
+ ("constructorCategory" 0 343) ("constructorModemap" 0 75)
+ ("constructorKind" 0 65) ("constructorForm" 0 20))

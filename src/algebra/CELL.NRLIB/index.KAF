@@ -1,0 +1,110 @@
+5035                (|Cell| |TheField|)
+|domain|
+(((|Cell| |#1|)
+  (|Join| (|CoercibleTo| (|OutputForm|))
+          (CATEGORY |domain| (SIGNATURE |samplePoint| ((|List| |#1|) $))
+           (SIGNATURE |dimension| ((|NonNegativeInteger|) $))
+           (SIGNATURE |hasDimension?| ((|Boolean|) $ (|Symbol|)))
+           (SIGNATURE |makeCell|
+            ($
+             (|List| (|SimpleCell| |#1| (|SparseUnivariatePolynomial| |#1|)))))
+           (SIGNATURE |makeCell|
+            ($ (|SimpleCell| |#1| (|SparseUnivariatePolynomial| |#1|)) $))
+           (SIGNATURE |mainVariableOf| ((|Symbol|) $))
+           (SIGNATURE |variablesOf| ((|List| (|Symbol|)) $))
+           (SIGNATURE |projection| ((|Union| $ "failed") $))
+           (SIGNATURE |simpleCells|
+            ((|List| (|SimpleCell| |#1| (|SparseUnivariatePolynomial| |#1|)))
+             $))))
+  (|RealClosedField|))
+ (T |Cell|))
+(|Join| (|CoercibleTo| (|OutputForm|))
+        (CATEGORY |domain| (SIGNATURE |samplePoint| ((|List| |#1|) $))
+         (SIGNATURE |dimension| ((|NonNegativeInteger|) $))
+         (SIGNATURE |hasDimension?| ((|Boolean|) $ (|Symbol|)))
+         (SIGNATURE |makeCell|
+          ($ (|List| (|SimpleCell| |#1| (|SparseUnivariatePolynomial| |#1|)))))
+         (SIGNATURE |makeCell|
+          ($ (|SimpleCell| |#1| (|SparseUnivariatePolynomial| |#1|)) $))
+         (SIGNATURE |mainVariableOf| ((|Symbol|) $))
+         (SIGNATURE |variablesOf| ((|List| (|Symbol|)) $))
+         (SIGNATURE |projection| ((|Union| $ "failed") $))
+         (SIGNATURE |simpleCells|
+          ((|List| (|SimpleCell| |#1| (|SparseUnivariatePolynomial| |#1|)))
+           $))))
+"/git/fricas/src/algebra/CELL.spad"
+((|samplePoint| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| *3)) (|isDomain| *1 (|Cell| *3))
+       (|ofCategory| *3 (|RealClosedField|))))
+ (|dimension| (*1 *2 *1)
+  (AND (|isDomain| *2 (|NonNegativeInteger|)) (|isDomain| *1 (|Cell| *3))
+       (|ofCategory| *3 (|RealClosedField|))))
+ (|hasDimension?| (*1 *2 *1 *3)
+  (AND (|isDomain| *3 (|Symbol|)) (|isDomain| *2 (|Boolean|))
+       (|isDomain| *1 (|Cell| *4)) (|ofCategory| *4 (|RealClosedField|))))
+ (|makeCell| (*1 *1 *2)
+  (AND
+   (|isDomain| *2 (|List| (|SimpleCell| *3 (|SparseUnivariatePolynomial| *3))))
+   (|ofCategory| *3 (|RealClosedField|)) (|isDomain| *1 (|Cell| *3))))
+ (|makeCell| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|SimpleCell| *3 (|SparseUnivariatePolynomial| *3)))
+       (|ofCategory| *3 (|RealClosedField|)) (|isDomain| *1 (|Cell| *3))))
+ (|mainVariableOf| (*1 *2 *1)
+  (AND (|isDomain| *2 (|Symbol|)) (|isDomain| *1 (|Cell| *3))
+       (|ofCategory| *3 (|RealClosedField|))))
+ (|variablesOf| (*1 *2 *1)
+  (AND (|isDomain| *2 (|List| (|Symbol|))) (|isDomain| *1 (|Cell| *3))
+       (|ofCategory| *3 (|RealClosedField|))))
+ (|projection| (*1 *1 *1)
+  (|partial| AND (|isDomain| *1 (|Cell| *2))
+   (|ofCategory| *2 (|RealClosedField|))))
+ (|simpleCells| (*1 *2 *1)
+  (AND
+   (|isDomain| *2 (|List| (|SimpleCell| *3 (|SparseUnivariatePolynomial| *3))))
+   (|isDomain| *1 (|Cell| *3)) (|ofCategory| *3 (|RealClosedField|)))))
+((|variablesOf| (((|List| (|Symbol|)) $) 24))
+ (|simpleCells|
+  (((|List| (|SimpleCell| |#1| (|SparseUnivariatePolynomial| |#1|))) $) 8))
+ (|samplePoint| (((|List| |#1|) $) 34))
+ (|projection| (((|Union| $ "failed") $) 17))
+ (|makeCell|
+  (($ (|List| (|SimpleCell| |#1| (|SparseUnivariatePolynomial| |#1|)))) 18)
+  (($ (|SimpleCell| |#1| (|SparseUnivariatePolynomial| |#1|)) $) 19))
+ (|mainVariableOf| (((|Symbol|) $) 22))
+ (|hasDimension?| (((|Boolean|) $ (|Symbol|)) 31))
+ (|dimension| (((|NonNegativeInteger|) $) 29))
+ (|coerce| (((|OutputForm|) $) 15)))
+CELL
+(((|CoercibleTo| (|OutputForm|)) . T))
+(((|CoercibleTo| (|OutputForm|)) . T))
+((|simpleCells|
+  (((|List| (|SimpleCell| |#1| (|SparseUnivariatePolynomial| |#1|))) $)
+   "\\spad{simpleCells(c)} returns lists of simple cells determining \\spad{c}. That is \\spad{c} = makeCell(simpleCells(\\spad{c}))"))
+ (|projection|
+  (((|Union| $ "failed") $)
+   "\\spad{projection(c)} projects \\spad{c} with respect to main variable"))
+ (|variablesOf|
+  (((|List| (|Symbol|)) $)
+   "\\spad{variablesOf(c)} returns list of variables of \\spad{c}"))
+ (|mainVariableOf|
+  (((|Symbol|) $)
+   "\\spad{mainVariableOf(c)} returns main variable of \\spad{c}"))
+ (|makeCell|
+  (($ (|SimpleCell| |#1| (|SparseUnivariatePolynomial| |#1|)) $)
+   "\\spad{makeCell(c,{} sc)} creates a cell which consists of \\spad{sc} in main variable and which has projection \\spad{c}")
+  (($ (|List| (|SimpleCell| |#1| (|SparseUnivariatePolynomial| |#1|))))
+   "\\spad{makeCell(lc)} creates a cell from list of simple cells \\spad{lc}"))
+ (|hasDimension?|
+  (((|Boolean|) $ (|Symbol|))
+   "\\spad{hasDimension?(c)} returns \\spad{true} if \\spad{c} is of positive dimension. Otherwise hasDimension?(\\spad{c}) returns \\spad{false}."))
+ (|dimension|
+  (((|NonNegativeInteger|) $)
+   "\\spad{dimension(c)} returns dimension of \\spad{c}"))
+ (|samplePoint|
+  (((|List| |#1|) $)
+   "\\spad{samplePoint(c)} returns the sample point of \\spad{c}")))
+(("documentation" 0 3708) ("ancestors" 0 3669) ("parents" 0 3630)
+ ("abbreviation" 0 3625) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 3067) ("modemaps" 0 1672) ("sourceFile" 0 1636)
+ ("constructorCategory" 0 889) ("constructorModemap" 0 49)
+ ("constructorKind" 0 40) ("constructorForm" 0 20))

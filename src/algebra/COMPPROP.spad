@@ -1,0 +1,44 @@
+)abbrev domain COMPPROP SubSpaceComponentProperty
+++ Description:
+++ This domain implements some global properties of subspaces.
+
+SubSpaceComponentProperty() : Exports == Implementation where
+
+  O ==> OutputForm
+  I    ==> Integer
+  PI   ==> PositiveInteger
+  NNI  ==> NonNegativeInteger
+  L    ==> List
+  B    ==> Boolean
+
+  Exports ==> SetCategory with
+    new     : () -> %
+        ++ new() \undocumented
+    closed? : % -> B
+        ++ closed?(x) \undocumented
+    solid?  : % -> B
+        ++ solid?(x) \undocumented
+    close   : (%, B) -> B
+        ++ close(x, b) \undocumented
+    solid   : (%, B) -> B
+        ++ solid(x, b) \undocumented
+    copy    : % -> %
+        ++ copy(x) \undocumented
+
+  Implementation ==> add
+    Rep := Record(closed : B, solid : B)
+    closed? p == p.closed
+    solid? p == p.solid
+    close(p, b) == p.closed := b
+    solid(p, b) == p.solid := b
+    new() == [false, false]
+    copy p ==
+      annuderOne := new()
+      close(annuderOne, closed? p)
+      solid(annuderOne, solid? p)
+      annuderOne
+    coerce p ==
+      hconcat([message("Component is "),
+              message(closed? p => ""; "not "), message("closed, "), _
+              message(solid? p => ""; "not "), message("solid")])
+

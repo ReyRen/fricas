@@ -1,0 +1,223 @@
+11087               (|GeneralModulePolynomial| |vl| R IS E |ff| P)
+|domain|
+(((|GeneralModulePolynomial| |#1| |#2| |#3| |#4| |#5| |#6|)
+  (|Join| (|Module| |#6|) (|Module| |#2|)
+          (CATEGORY |domain| (SIGNATURE |leadingCoefficient| (|#2| $))
+           (SIGNATURE |leadingMonomial| ((|ModuleMonomial| |#3| |#4| |#5|) $))
+           (SIGNATURE |leadingExponent| (|#4| $))
+           (SIGNATURE |leadingIndex| (|#3| $)) (SIGNATURE |reductum| ($ $))
+           (SIGNATURE |monomial| ($ |#2| (|ModuleMonomial| |#3| |#4| |#5|)))
+           (SIGNATURE |unitVector| ($ |#3|))
+           (SIGNATURE |build| ($ |#2| |#3| |#4|))
+           (SIGNATURE |multMonom| ($ |#2| |#4| $)) (SIGNATURE * ($ |#6| $))))
+  (|List| (|Symbol|)) (|CommutativeRing|) (|OrderedSet|)
+  (|DirectProductCategory| (|#| |#1|) (|NonNegativeInteger|))
+  (|Mapping| (|Boolean|) (|Record| (|:| |index| |#3|) (|:| |exponent| |#4|))
+             (|Record| (|:| |index| |#3|) (|:| |exponent| |#4|)))
+  (|PolynomialCategory| |#2| |#4| (|OrderedVariableList| |#1|)))
+ (T |GeneralModulePolynomial|))
+(|Join| (|Module| |#6|) (|Module| |#2|)
+        (CATEGORY |domain| (SIGNATURE |leadingCoefficient| (|#2| $))
+         (SIGNATURE |leadingMonomial| ((|ModuleMonomial| |#3| |#4| |#5|) $))
+         (SIGNATURE |leadingExponent| (|#4| $))
+         (SIGNATURE |leadingIndex| (|#3| $)) (SIGNATURE |reductum| ($ $))
+         (SIGNATURE |monomial| ($ |#2| (|ModuleMonomial| |#3| |#4| |#5|)))
+         (SIGNATURE |unitVector| ($ |#3|))
+         (SIGNATURE |build| ($ |#2| |#3| |#4|))
+         (SIGNATURE |multMonom| ($ |#2| |#4| $)) (SIGNATURE * ($ |#6| $))))
+"/git/fricas/src/algebra/GMODPOL.spad"
+((* (*1 *1 *2 *1)
+    (AND (|ofType| *3 (|List| (|Symbol|)))
+         (|ofCategory| *4 (|CommutativeRing|))
+         (|ofCategory| *6
+                       (|DirectProductCategory| (|#| *3)
+                                                (|NonNegativeInteger|)))
+         (|ofType| *7
+          (|Mapping| (|Boolean|)
+                     (|Record| (|:| |index| *5) (|:| |exponent| *6))
+                     (|Record| (|:| |index| *5) (|:| |exponent| *6))))
+         (|isDomain| *1 (|GeneralModulePolynomial| *3 *4 *5 *6 *7 *2))
+         (|ofCategory| *5 (|OrderedSet|))
+         (|ofCategory| *2
+                       (|PolynomialCategory| *4 *6
+                                             (|OrderedVariableList| *3)))))
+ (|leadingCoefficient| (*1 *2 *1)
+  (AND (|ofType| *3 (|List| (|Symbol|)))
+       (|ofCategory| *5
+                     (|DirectProductCategory| (|#| *3) (|NonNegativeInteger|)))
+       (|ofType| *6
+        (|Mapping| (|Boolean|) (|Record| (|:| |index| *4) (|:| |exponent| *5))
+                   (|Record| (|:| |index| *4) (|:| |exponent| *5))))
+       (|ofCategory| *2 (|CommutativeRing|))
+       (|isDomain| *1 (|GeneralModulePolynomial| *3 *2 *4 *5 *6 *7))
+       (|ofCategory| *4 (|OrderedSet|))
+       (|ofCategory| *7
+                     (|PolynomialCategory| *2 *5 (|OrderedVariableList| *3)))))
+ (|leadingMonomial| (*1 *2 *1)
+  (AND (|ofType| *3 (|List| (|Symbol|))) (|ofCategory| *4 (|CommutativeRing|))
+       (|ofCategory| *6
+                     (|DirectProductCategory| (|#| *3) (|NonNegativeInteger|)))
+       (|ofType| *7
+        (|Mapping| (|Boolean|) (|Record| (|:| |index| *5) (|:| |exponent| *6))
+                   (|Record| (|:| |index| *5) (|:| |exponent| *6))))
+       (|isDomain| *2 (|ModuleMonomial| *5 *6 *7))
+       (|isDomain| *1 (|GeneralModulePolynomial| *3 *4 *5 *6 *7 *8))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|ofCategory| *8
+                     (|PolynomialCategory| *4 *6 (|OrderedVariableList| *3)))))
+ (|leadingExponent| (*1 *2 *1)
+  (AND (|ofType| *3 (|List| (|Symbol|))) (|ofCategory| *4 (|CommutativeRing|))
+       (|ofType| *6
+        (|Mapping| (|Boolean|) (|Record| (|:| |index| *5) (|:| |exponent| *2))
+                   (|Record| (|:| |index| *5) (|:| |exponent| *2))))
+       (|ofCategory| *2
+                     (|DirectProductCategory| (|#| *3) (|NonNegativeInteger|)))
+       (|isDomain| *1 (|GeneralModulePolynomial| *3 *4 *5 *2 *6 *7))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|ofCategory| *7
+                     (|PolynomialCategory| *4 *2 (|OrderedVariableList| *3)))))
+ (|leadingIndex| (*1 *2 *1)
+  (AND (|ofType| *3 (|List| (|Symbol|))) (|ofCategory| *4 (|CommutativeRing|))
+       (|ofCategory| *5
+                     (|DirectProductCategory| (|#| *3) (|NonNegativeInteger|)))
+       (|ofType| *6
+        (|Mapping| (|Boolean|) (|Record| (|:| |index| *2) (|:| |exponent| *5))
+                   (|Record| (|:| |index| *2) (|:| |exponent| *5))))
+       (|ofCategory| *2 (|OrderedSet|))
+       (|isDomain| *1 (|GeneralModulePolynomial| *3 *4 *2 *5 *6 *7))
+       (|ofCategory| *7
+                     (|PolynomialCategory| *4 *5 (|OrderedVariableList| *3)))))
+ (|reductum| (*1 *1 *1)
+  (AND (|ofType| *2 (|List| (|Symbol|))) (|ofCategory| *3 (|CommutativeRing|))
+       (|ofCategory| *5
+                     (|DirectProductCategory| (|#| *2) (|NonNegativeInteger|)))
+       (|ofType| *6
+        (|Mapping| (|Boolean|) (|Record| (|:| |index| *4) (|:| |exponent| *5))
+                   (|Record| (|:| |index| *4) (|:| |exponent| *5))))
+       (|isDomain| *1 (|GeneralModulePolynomial| *2 *3 *4 *5 *6 *7))
+       (|ofCategory| *4 (|OrderedSet|))
+       (|ofCategory| *7
+                     (|PolynomialCategory| *3 *5 (|OrderedVariableList| *2)))))
+ (|monomial| (*1 *1 *2 *3)
+  (AND (|isDomain| *3 (|ModuleMonomial| *5 *6 *7))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|ofCategory| *6
+                     (|DirectProductCategory| (|#| *4) (|NonNegativeInteger|)))
+       (|ofType| *7
+        (|Mapping| (|Boolean|) (|Record| (|:| |index| *5) (|:| |exponent| *6))
+                   (|Record| (|:| |index| *5) (|:| |exponent| *6))))
+       (|ofType| *4 (|List| (|Symbol|))) (|ofCategory| *2 (|CommutativeRing|))
+       (|isDomain| *1 (|GeneralModulePolynomial| *4 *2 *5 *6 *7 *8))
+       (|ofCategory| *8
+                     (|PolynomialCategory| *2 *6 (|OrderedVariableList| *4)))))
+ (|unitVector| (*1 *1 *2)
+  (AND (|ofType| *3 (|List| (|Symbol|))) (|ofCategory| *4 (|CommutativeRing|))
+       (|ofCategory| *5
+                     (|DirectProductCategory| (|#| *3) (|NonNegativeInteger|)))
+       (|ofType| *6
+        (|Mapping| (|Boolean|) (|Record| (|:| |index| *2) (|:| |exponent| *5))
+                   (|Record| (|:| |index| *2) (|:| |exponent| *5))))
+       (|isDomain| *1 (|GeneralModulePolynomial| *3 *4 *2 *5 *6 *7))
+       (|ofCategory| *2 (|OrderedSet|))
+       (|ofCategory| *7
+                     (|PolynomialCategory| *4 *5 (|OrderedVariableList| *3)))))
+ (|build| (*1 *1 *2 *3 *4)
+  (AND (|ofType| *5 (|List| (|Symbol|))) (|ofCategory| *2 (|CommutativeRing|))
+       (|ofCategory| *4
+                     (|DirectProductCategory| (|#| *5) (|NonNegativeInteger|)))
+       (|ofType| *6
+        (|Mapping| (|Boolean|) (|Record| (|:| |index| *3) (|:| |exponent| *4))
+                   (|Record| (|:| |index| *3) (|:| |exponent| *4))))
+       (|isDomain| *1 (|GeneralModulePolynomial| *5 *2 *3 *4 *6 *7))
+       (|ofCategory| *3 (|OrderedSet|))
+       (|ofCategory| *7
+                     (|PolynomialCategory| *2 *4 (|OrderedVariableList| *5)))))
+ (|multMonom| (*1 *1 *2 *3 *1)
+  (AND (|ofType| *4 (|List| (|Symbol|))) (|ofCategory| *2 (|CommutativeRing|))
+       (|ofCategory| *3
+                     (|DirectProductCategory| (|#| *4) (|NonNegativeInteger|)))
+       (|ofType| *6
+        (|Mapping| (|Boolean|) (|Record| (|:| |index| *5) (|:| |exponent| *3))
+                   (|Record| (|:| |index| *5) (|:| |exponent| *3))))
+       (|isDomain| *1 (|GeneralModulePolynomial| *4 *2 *5 *3 *6 *7))
+       (|ofCategory| *5 (|OrderedSet|))
+       (|ofCategory| *7
+                     (|PolynomialCategory| *2 *3 (|OrderedVariableList| *4))))))
+((~= (((|Boolean|) $ $) NIL))
+ (|zero?|
+  (((|Boolean|) $) 28
+   (OR (|has| |#6| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|)))))
+ (|unitVector| (($ |#3|) 25))
+ (|subtractIfCan|
+  (((|Union| $ "failed") $ $) NIL
+   (OR (|has| |#6| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|)))))
+ (|sample|
+  (($) NIL (OR (|has| |#6| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|)))
+   CONST))
+ (|reductum| (($ $) 32))
+ (|opposite?|
+  (((|Boolean|) $ $) NIL
+   (OR (|has| |#6| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|)))))
+ (|multMonom| (($ |#2| |#4| $) 33))
+ (|monomial| (($ |#2| (|ModuleMonomial| |#3| |#4| |#5|)) 24))
+ (|leadingMonomial| (((|ModuleMonomial| |#3| |#4| |#5|) $) 15))
+ (|leadingIndex| ((|#3| $) 19)) (|leadingExponent| ((|#4| $) 17))
+ (|leadingCoefficient| ((|#2| $) 29)) (|latex| (((|String|) $) NIL))
+ (|hashUpdate!| (((|HashState|) (|HashState|) $) NIL))
+ (|hash| (((|SingleInteger|) $) NIL)) (|coerce| (((|OutputForm|) $) NIL))
+ (|build| (($ |#2| |#3| |#4|) 26))
+ (|Zero|
+  (($) 36 (OR (|has| |#6| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|)))
+   CONST))
+ (= (((|Boolean|) $ $) NIL))
+ (-
+  (($ $ $) NIL
+   (OR (|has| |#6| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|))))
+  (($ $) NIL (OR (|has| |#6| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|)))))
+ (+ (($ $ $) 34))
+ (* (($ (|PositiveInteger|) $) NIL) (($ |#6| $) 40) (($ $ |#6|) NIL)
+    (($ $ |#2|) NIL)
+    (($ (|Integer|) $) NIL
+     (OR (|has| |#6| (|AbelianGroup|)) (|has| |#2| (|AbelianGroup|))))
+    (($ (|NonNegativeInteger|) $) NIL
+     (OR (|has| |#6| (|AbelianMonoid|)) (|has| |#2| (|AbelianMonoid|))))
+    (($ |#2| $) NIL)))
+((OR (|HasCategory| |#2| '(|AbelianGroup|))
+     (|HasCategory| |#6| '(|AbelianGroup|)))
+ (OR (|HasCategory| |#2| '(|AbelianGroup|))
+     (|HasCategory| |#2| '(|AbelianMonoid|))
+     (|HasCategory| |#6| '(|AbelianGroup|))
+     (|HasCategory| |#6| '(|AbelianMonoid|)))
+ (OR (|HasCategory| |#2| '(|AbelianMonoid|))
+     (|HasCategory| |#6| '(|AbelianMonoid|))))
+GMODPOL
+(((|Module| |#6|) . T) ((|Module| |#2|) . T))
+(((|AbelianGroup|) |has| |t#1| (|AbelianGroup|))
+ ((|AbelianMonoid|) |has| |t#1| (|AbelianMonoid|)) ((|AbelianSemiGroup|) . T)
+ ((|BasicType|) . T) ((|BiModule| |t#1| |t#1|) . T)
+ ((|CancellationAbelianMonoid|) |has| |t#1| (|AbelianGroup|))
+ ((|CoercibleTo| (|OutputForm|)) . T) ((|LeftModule| |t#1|) . T)
+ ((|Module| |#2|) . T) ((|Module| |#6|) . T) ((|RightModule| |t#2|) . T)
+ ((|SetCategory|) . T))
+((|constructor| (NIL "This package \\undocumented"))
+ (* (($ |#6| $) "\\spad{p*x} \\undocumented"))
+ (|multMonom|
+  (($ |#2| |#4| $) "\\spad{multMonom(r,{} e,{} x)} \\undocumented"))
+ (|build| (($ |#2| |#3| |#4|) "\\spad{build(r,{} i,{} e)} \\undocumented"))
+ (|unitVector| (($ |#3|) "\\spad{unitVector(x)} \\undocumented"))
+ (|monomial|
+  (($ |#2| (|ModuleMonomial| |#3| |#4| |#5|))
+   "\\spad{monomial(r,{} x)} \\undocumented"))
+ (|reductum| (($ $) "\\spad{reductum(x)} \\undocumented"))
+ (|leadingIndex| ((|#3| $) "\\spad{leadingIndex(x)} \\undocumented"))
+ (|leadingExponent| ((|#4| $) "\\spad{leadingExponent(x)} \\undocumented"))
+ (|leadingMonomial|
+  (((|ModuleMonomial| |#3| |#4| |#5|) $)
+   "\\spad{leadingMonomial(x)} \\undocumented"))
+ (|leadingCoefficient|
+  ((|#2| $) "\\spad{leadingCoefficient(x)} \\undocumented")))
+(("documentation" 0 10256) ("ancestors" 0 9853) ("parents" 0 9807)
+ ("abbreviation" 0 9799) ("predicates" 0 9439) ("superDomain" 0 NIL)
+ ("operationAlist" 0 7822) ("modemaps" 0 1652) ("sourceFile" 0 1613)
+ ("constructorCategory" 0 1063) ("constructorModemap" 0 76)
+ ("constructorKind" 0 67) ("constructorForm" 0 20))

@@ -1,0 +1,32 @@
+1573                (MAKEPROP '|ExportXml| 'NILADIC T)
+(|ExportXml|)
+|package|
+(((|ExportXml|)
+  (CATEGORY |package|
+   (SIGNATURE |writeXml| ((|Void|) (|XmlElement|) (|String|)))
+   (SIGNATURE |writeVRML| ((|Void|) (|XmlElement|) (|String|)))))
+ (T |ExportXml|))
+(CATEGORY |package| (SIGNATURE |writeXml| ((|Void|) (|XmlElement|) (|String|)))
+ (SIGNATURE |writeVRML| ((|Void|) (|XmlElement|) (|String|))))
+"/git/fricas/src/algebra/XML.spad"
+((|writeVRML| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|XmlElement|)) (|isDomain| *4 (|String|))
+       (|isDomain| *2 (|Void|)) (|isDomain| *1 (|ExportXml|))))
+ (|writeXml| (*1 *2 *3 *4)
+  (AND (|isDomain| *3 (|XmlElement|)) (|isDomain| *4 (|String|))
+       (|isDomain| *2 (|Void|)) (|isDomain| *1 (|ExportXml|)))))
+((|writeXml| (((|Void|) (|XmlElement|) (|String|)) 20))
+ (|writeVRML| (((|Void|) (|XmlElement|) (|String|)) 22)))
+XML
+((|constructor| (NIL "This package provides support for \\spad{XML} files"))
+ (|writeVRML|
+  (((|Void|) (|XmlElement|) (|String|))
+   "\\spad{writeVRML(content,{} filename)} writes the element as \\spad{VRML2}. \\spad{VRML2} is not \\spad{xml} but it has the same semantics and node names as \\spad{X3D} but a different syntax so it makes sense to create an \\spad{XML} structure and then format the output differently."))
+ (|writeXml|
+  (((|Void|) (|XmlElement|) (|String|))
+   "\\spad{writeXml(content,{} filename)} writes an \\spad{xml} element and all the elements below it to an \\spad{xml} file. This assumes that all elements,{} in a file,{} have a single root which is usually the case.")))
+(("documentation" 0 874) ("ancestors" 0 NIL) ("parents" 0 NIL)
+ ("abbreviation" 0 870) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 756) ("modemaps" 0 442) ("sourceFile" 0 407)
+ ("constructorCategory" 0 264) ("constructorModemap" 0 79)
+ ("constructorKind" 0 69) ("constructorForm" 0 55) ("NILADIC" 0 20))

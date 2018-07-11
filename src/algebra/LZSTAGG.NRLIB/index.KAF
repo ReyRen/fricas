@@ -1,0 +1,325 @@
+16402               (|LazyStreamAggregate| S)
+|category|
+(((|LazyStreamAggregate| |#1|) (|Category|) (|Type|)) (T |LazyStreamAggregate|))
+(|Join| (|StreamAggregate| |t#1|)
+        (CATEGORY |domain|
+         (SIGNATURE |remove| ($ (|Mapping| (|Boolean|) |t#1|) $))
+         (SIGNATURE |select| ($ (|Mapping| (|Boolean|) |t#1|) $))
+         (SIGNATURE |explicitEntries?| ((|Boolean|) $))
+         (SIGNATURE |explicitlyEmpty?| ((|Boolean|) $))
+         (SIGNATURE |lazy?| ((|Boolean|) $)) (SIGNATURE |lazyEvaluate| ($ $))
+         (SIGNATURE |frst| (|t#1| $)) (SIGNATURE |rst| ($ $))
+         (SIGNATURE |numberOfComputedEntries| ((|NonNegativeInteger|) $))
+         (SIGNATURE |extend| ($ $ (|Integer|))) (SIGNATURE |complete| ($ $))))
+"/git/fricas/src/algebra/LZSTAGG.spad"
+((|remove| (*1 *1 *2 *1)
+           (AND (|isDomain| *2 (|Mapping| (|Boolean|) *3))
+                (|ofCategory| *1 (|LazyStreamAggregate| *3))
+                (|ofCategory| *3 (|Type|))))
+ (|select| (*1 *1 *2 *1)
+  (AND (|isDomain| *2 (|Mapping| (|Boolean|) *3))
+       (|ofCategory| *1 (|LazyStreamAggregate| *3))
+       (|ofCategory| *3 (|Type|))))
+ (|explicitEntries?| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|LazyStreamAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|isDomain| *2 (|Boolean|))))
+ (|explicitlyEmpty?| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|LazyStreamAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|isDomain| *2 (|Boolean|))))
+ (|lazy?| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|LazyStreamAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|isDomain| *2 (|Boolean|))))
+ (|lazyEvaluate| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|LazyStreamAggregate| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|frst| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|LazyStreamAggregate| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|rst| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|LazyStreamAggregate| *2))
+       (|ofCategory| *2 (|Type|))))
+ (|numberOfComputedEntries| (*1 *2 *1)
+  (AND (|ofCategory| *1 (|LazyStreamAggregate| *3)) (|ofCategory| *3 (|Type|))
+       (|isDomain| *2 (|NonNegativeInteger|))))
+ (|extend| (*1 *1 *1 *2)
+  (AND (|isDomain| *2 (|Integer|)) (|ofCategory| *1 (|LazyStreamAggregate| *3))
+       (|ofCategory| *3 (|Type|))))
+ (|complete| (*1 *1 *1)
+  (AND (|ofCategory| *1 (|LazyStreamAggregate| *2))
+       (|ofCategory| *2 (|Type|)))))
+((~=
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (|value| ((|#1| $) 6))
+ (|trim|
+  (($ $ |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|third| ((|#1| $) 6)) (|tail| (($ $) 6))
+ (|swap!|
+  (((|Void|) $ (|Integer|) (|Integer|)) 6 (|has| $ (|shallowlyMutable|))))
+ (|split!| (($ $ (|NonNegativeInteger|)) 6 (|has| $ (|shallowlyMutable|))))
+ (|sorted?|
+  (((|Boolean|) $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1| |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|sort!|
+  (($ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|shallowlyMutable|))
+        (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $) 6
+   (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|)))))
+ (|sort|
+  (($ $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|smaller?|
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))))
+ (|size?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|setvalue!| ((|#1| $ |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|setrest!| (($ $ $) 6 (|has| $ (|shallowlyMutable|))))
+ (|setlast!| ((|#1| $ |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|setfirst!| ((|#1| $ |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|setelt!| ((|#1| $ #1="value" |#1|) 6 (|has| $ (|shallowlyMutable|)))
+  ((|#1| $ #2="first" |#1|) 6 (|has| $ (|shallowlyMutable|)))
+  (($ $ #3="rest" $) 6 (|has| $ (|shallowlyMutable|)))
+  ((|#1| $ #4="last" |#1|) 6 (|has| $ (|shallowlyMutable|)))
+  ((|#1| $ (|UniversalSegment| (|Integer|)) |#1|) 6
+   (|has| $ (|shallowlyMutable|)))
+  ((|#1| $ (|Integer|) |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|setchildren!| (($ $ (|List| $)) 6 (|has| $ (|shallowlyMutable|))))
+ (|select| (($ (|Mapping| (|Boolean|) |#1|) $) 6)) (|second| ((|#1| $) 6))
+ (|sample| (($) 6 T CONST)) (|rst| (($ $) 6))
+ (|rightTrim|
+  (($ $ |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|reverse!|
+  (($ $) 6 (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|)))))
+ (|reverse| (($ $) 6 (|has| $ (|finiteAggregate|))))
+ (|rest| (($ $) 6) (($ $ (|NonNegativeInteger|)) 6))
+ (|removeDuplicates|
+  (($ $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|remove|
+  (($ |#1| $) 6 (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) |#1|) $) 6))
+ (|reduce|
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1|) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| (|Mapping| |#1| |#1| |#1|) $ |#1| |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|qsetrest!| (($ $ $) 6 (|has| $ (|shallowlyMutable|))))
+ (|qsetfirst!| ((|#1| $ |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|qsetelt!| ((|#1| $ (|Integer|) |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|qelt| ((|#1| $ (|Integer|)) 6)) (|possiblyInfinite?| (((|Boolean|) $) 6))
+ (|position|
+  (((|Integer|) |#1| $ (|Integer|)) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (((|Integer|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))
+  (((|Integer|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|parts| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|numberOfComputedEntries| (((|NonNegativeInteger|) $) 6))
+ (|nodes| (((|List| $) $) 6))
+ (|node?| (((|Boolean|) $ $) 6 (|has| |#1| (|BasicType|))))
+ (|new| (($ (|NonNegativeInteger|) |#1|) 6))
+ (|more?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|minIndex| (((|Integer|) $) 6 (|has| (|Integer|) (|OrderedSet|))))
+ (|min|
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (($ $ $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|merge|
+  (($ $ $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (($ (|Mapping| (|Boolean|) |#1| |#1|) $ $) 6 (|has| $ (|finiteAggregate|))))
+ (|members| (((|List| |#1|) $) 6 (|has| $ (|finiteAggregate|))))
+ (|member?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|maxIndex| (((|Integer|) $) 6 (|has| (|Integer|) (|OrderedSet|))))
+ (|max|
+  ((|#1| (|Mapping| (|Boolean|) |#1| |#1|) $) 6 (|has| $ (|finiteAggregate|)))
+  ((|#1| $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|))))
+  (($ $ $) 6 (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|map!| (($ (|Mapping| |#1| |#1|) $) 6 (|has| $ (|shallowlyMutable|))))
+ (|map| (($ (|Mapping| |#1| |#1|) $) 6) (($ (|Mapping| |#1| |#1| |#1|) $ $) 6))
+ (|less?| (((|Boolean|) $ (|NonNegativeInteger|)) 6))
+ (|leftTrim|
+  (($ $ |#1|) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|leaves| (((|List| |#1|) $) 6)) (|leaf?| (((|Boolean|) $) 6))
+ (|lazyEvaluate| (($ $) 6)) (|lazy?| (((|Boolean|) $) 6))
+ (|latex|
+  (((|String|) $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|last| ((|#1| $) 6) (($ $ (|NonNegativeInteger|)) 6))
+ (|insert| (($ $ $ (|Integer|)) 6) (($ |#1| $ (|Integer|)) 6))
+ (|indices| (((|List| (|Integer|)) $) 6))
+ (|index?| (((|Boolean|) (|Integer|) $) 6))
+ (|hashUpdate!|
+  (((|HashState|) (|HashState|) $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|hash|
+  (((|SingleInteger|) $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|)))))
+ (|frst| ((|#1| $) 6)) (|first| ((|#1| $) 6) (($ $ (|NonNegativeInteger|)) 6))
+ (|find| (((|Union| |#1| "failed") (|Mapping| (|Boolean|) |#1|) $) 6))
+ (|fill!| (($ $ |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|extend| (($ $ (|Integer|)) 6)) (|explicitlyFinite?| (((|Boolean|) $) 6))
+ (|explicitlyEmpty?| (((|Boolean|) $) 6))
+ (|explicitEntries?| (((|Boolean|) $) 6))
+ (|every?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (|eval|
+  (($ $ (|List| (|Equation| |#1|))) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|Equation| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ |#1| |#1|) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|))))
+  (($ $ (|List| |#1|) (|List| |#1|)) 6
+   (AND (|has| |#1| (|Evalable| |#1|)) (|has| |#1| (|SetCategory|)))))
+ (|eq?| (((|Boolean|) $ $) 6))
+ (|entry?|
+  (((|Boolean|) |#1| $) 6
+   (AND (|has| $ (|finiteAggregate|)) (|has| |#1| (|BasicType|)))))
+ (|entries| (((|List| |#1|) $) 6)) (|empty?| (((|Boolean|) $) 6))
+ (|empty| (($) 6))
+ (|elt| ((|#1| $ #1#) 6) ((|#1| $ #2#) 6) (($ $ #3#) 6) ((|#1| $ #4#) 6)
+  (($ $ (|UniversalSegment| (|Integer|))) 6) ((|#1| $ (|Integer|)) 6)
+  ((|#1| $ (|Integer|) |#1|) 6))
+ (|distance| (((|Integer|) $ $) 6))
+ (|delete| (($ $ (|UniversalSegment| (|Integer|))) 6) (($ $ (|Integer|)) 6))
+ (|cyclic?| (((|Boolean|) $) 6)) (|cycleTail| (($ $) 6))
+ (|cycleSplit!| (($ $) 6 (|has| $ (|shallowlyMutable|))))
+ (|cycleLength| (((|NonNegativeInteger|) $) 6)) (|cycleEntry| (($ $) 6))
+ (|count|
+  (((|NonNegativeInteger|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|)))
+  (((|NonNegativeInteger|) |#1| $) 6
+   (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|)))))
+ (|copyInto!|
+  (($ $ $ (|Integer|)) 6
+   (AND (|has| $ (|shallowlyMutable|)) (|has| $ (|finiteAggregate|)))))
+ (|copy| (($ $) 6))
+ (|convert| (((|InputForm|) $) 6 (|has| |#1| (|ConvertibleTo| (|InputForm|)))))
+ (|construct| (($ (|List| |#1|)) 6))
+ (|concat!| (($ $ $) 6 (|has| $ (|shallowlyMutable|)))
+  (($ $ |#1|) 6 (|has| $ (|shallowlyMutable|))))
+ (|concat| (($ $ $) 6) (($ |#1| $) 6) (($ (|List| $)) 6) (($ $ |#1|) 6))
+ (|complete| (($ $) 6))
+ (|coerce|
+  (((|OutputForm|) $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|CoercibleTo| (|OutputForm|))))))
+ (|children| (((|List| $) $) 6))
+ (|child?| (((|Boolean|) $ $) 6 (|has| |#1| (|BasicType|))))
+ (|any?|
+  (((|Boolean|) (|Mapping| (|Boolean|) |#1|) $) 6
+   (|has| $ (|finiteAggregate|))))
+ (>=
+  (((|Boolean|) $ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (>
+  (((|Boolean|) $ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (=
+  (((|Boolean|) $ $) 6
+   (OR (AND (|has| |#1| (|Comparable|)) (|has| $ (|finiteAggregate|)))
+       (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))
+       (|has| |#1| (|SetCategory|))
+       (AND (|has| |#1| (|BasicType|)) (|has| $ (|finiteAggregate|))))))
+ (<=
+  (((|Boolean|) $ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (<
+  (((|Boolean|) $ $) 6
+   (AND (|has| |#1| (|OrderedSet|)) (|has| $ (|finiteAggregate|)))))
+ (|#| (((|NonNegativeInteger|) $) 6 (|has| $ (|finiteAggregate|)))))
+LZSTAGG
+(((|StreamAggregate| |#1|) . T))
+(((|Aggregate|) . T)
+ ((|BasicType|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|BasicType|))))
+ ((|CoercibleTo| (|OutputForm|)) OR
+  (|has| |t#1| (|CoercibleTo| (|OutputForm|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|))))
+ ((|Collection| |t#1|) . T)
+ ((|Comparable|) OR
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|))))
+ ((|ConvertibleTo| (|InputForm|)) |has| |t#1| (|ConvertibleTo| (|InputForm|)))
+ ((|Eltable| (|UniversalSegment| (|Integer|)) $) . T)
+ ((|Eltable| |t#1| |t#2|) . T) ((|EltableAggregate| |t#1| |t#2|) . T)
+ ((|Evalable| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|HomogeneousAggregate| |t#2|) . T) ((|HomogeneousAggregate| |t#1|) . T)
+ ((|IndexedAggregate| (|Integer|) |t#1|) . T)
+ ((|InnerEvalable| |t#1| |t#1|) AND (|has| |t#1| (|Evalable| |t#1|))
+  (|has| |t#1| (|SetCategory|)))
+ ((|LinearAggregate| |t#1|) . T)
+ ((|OrderedSet|) AND (|has| $ (|finiteAggregate|))
+  (|has| |t#1| (|OrderedSet|)))
+ ((|PartialOrder|) AND (|has| $ (|finiteAggregate|))
+  (|has| |t#1| (|OrderedSet|)))
+ ((|RecursiveAggregate| |t#1|) . T)
+ ((|SetCategory|) OR (|has| |t#1| (|SetCategory|))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|OrderedSet|)))
+  (AND (|has| $ (|finiteAggregate|)) (|has| |t#1| (|Comparable|))))
+ ((|StreamAggregate| |#1|) . T) ((|Type|) . T)
+ ((|UnaryRecursiveAggregate| |t#1|) . T))
+((|constructor|
+  (NIL
+   "LazyStreamAggregate is the category of streams with lazy evaluation. It is understood that the function 'empty?' will cause lazy evaluation if necessary to determine if there are entries. Functions which call 'empty?',{} \\spadignore{e.g.} 'first' and 'rest',{} will also cause lazy evaluation if necessary."))
+ (|complete|
+  (($ $)
+   "\\spad{complete(st)} causes all entries of 'st' to be computed. this function should only be called on streams which are known to be finite."))
+ (|extend|
+  (($ $ (|Integer|))
+   "\\spad{extend(st,{} n)} causes entries to be computed,{} if necessary,{} so that 'st' will have at least \\spad{'n'} explicit entries or so that all entries of 'st' will be computed if 'st' is finite with length \\spad{<=} \\spad{n}."))
+ (|numberOfComputedEntries|
+  (((|NonNegativeInteger|) $)
+   "\\spad{numberOfComputedEntries(st)} returns the number of explicitly computed entries of stream \\spad{st} which exist immediately prior to the time this function is called."))
+ (|rst|
+  (($ $)
+   "\\spad{rst(s)} returns a pointer to the next node of stream \\spad{s}. Caution: this function should only be called after a \\spad{empty?} test has been made since there is no error check."))
+ (|frst|
+  ((|#1| $)
+   "\\spad{frst(s)} returns the first element of stream \\spad{s}. Caution: this function should only be called after a \\spad{empty?} test has been made since there is no error check."))
+ (|lazyEvaluate|
+  (($ $)
+   "\\spad{lazyEvaluate(s)} causes one lazy evaluation of stream \\spad{s}. Caution: the first node must be a lazy evaluation mechanism (satisfies \\spad{lazy?(s) = true}) as there is no error check. Note: a call to this function may or may not produce an explicit first entry"))
+ (|lazy?|
+  (((|Boolean|) $)
+   "\\spad{lazy?(s)} returns \\spad{true} if the first node of the stream \\spad{s} is a lazy evaluation mechanism which could produce an additional entry to \\spad{s}."))
+ (|explicitlyEmpty?|
+  (((|Boolean|) $)
+   "\\spad{explicitlyEmpty?(s)} returns \\spad{true} if the stream is an (explicitly) empty stream. Note: this is a null test which will not cause lazy evaluation."))
+ (|explicitEntries?|
+  (((|Boolean|) $)
+   "\\spad{explicitEntries?(s)} returns \\spad{true} if the stream \\spad{s} has explicitly computed entries,{} and \\spad{false} otherwise."))
+ (|select|
+  (($ (|Mapping| (|Boolean|) |#1|) $)
+   "\\spad{select(f,{} st)} returns a stream consisting of those elements of stream st satisfying the predicate \\spad{f}. Note: \\spad{select(f,{} st) = [x for x in st | f(x)]}."))
+ (|remove|
+  (($ (|Mapping| (|Boolean|) |#1|) $)
+   "\\spad{remove(f,{} st)} returns a stream consisting of those elements of stream st which do not satisfy the predicate \\spad{f}. Note: \\spad{remove(f,{} st) = [x for x in st | not f(x)]}.")))
+(("documentation" 0 13585) ("ancestors" 0 11884) ("parents" 0 11851)
+ ("abbreviation" 0 11843) ("predicates" 0 NIL) ("superDomain" 0 NIL)
+ ("operationAlist" 0 2312) ("modemaps" 0 775) ("sourceFile" 0 736)
+ ("constructorCategory" 0 138) ("constructorModemap" 0 57)
+ ("constructorKind" 0 46) ("constructorForm" 0 20))
